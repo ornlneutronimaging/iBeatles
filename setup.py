@@ -5,7 +5,7 @@ import versioneer  # https://github.com/warner/python-versioneer
 
 if sys.argv[-1] == 'pyuic':
     indir = 'designer'
-    outdir = 'fastgr'
+    outdir = 'ibeatles/interfaces'
     files = os.listdir(indir)
     files = [os.path.join('designer', item) for item in files]
     files = [item for item in files if item.endswith('.ui')]
@@ -25,16 +25,16 @@ if sys.argv[-1] == 'pyuic':
         print("Did not convert any '.ui' files")
     sys.exit(0)
 
-setup(name="fastgr",
+setup(name="iBeatles",
       version=versioneer.get_version(),
       cmdclass=versioneer.get_cmdclass(),
-      description = "Need a description",
-      author = "Dan, Wenduo, Jean",
-      author_email = "notsure@ornl.gov, zhou@ornl.gov, j35@ornl.gov",
-      url = "http://github.com/neutrons/FastGR",
+      description = "Bragg Edge Fitting and Strain Calculator",
+      author = "Jean",
+      author_email = "j35@ornl.gov",
+      url = "http://github.com/ornlneutronimaging/iBeatles",
       long_description = """Should have a longer description""",
       license = "The MIT License (MIT)",
-      scripts=["scripts/fastgr"],
+      scripts=["scripts/ibeatles"],
       packages=find_packages(),
       package_dir={},
       install_requires=['numpy','matplotlib'],
