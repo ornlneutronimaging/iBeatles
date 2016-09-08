@@ -26,22 +26,22 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         # Initialize the UI widgets
         self.ui = ibeatles.interfaces.ui_mainWindow.Ui_MainWindow()
         self.ui.setupUi(self)
-#        self.ui.graphicsView_sq.set_main(self)
- 
-#        self.ui.dockWidget_ipython.setup()
 
-        # set widgets
-#        self._init_widgets()
-#        init_step1 = InitStep1(parent=self)
-#        init_step2 = InitStep2(parent=self)
 
-        # define the event handling methods
+    #TAB 1: Load Data Tab
+    
+    def sample_import_button_clicked(self):
+        print("clicked smaple_import_button")
+
+    def time_spectra_import_button_clicked(self):
+        print("time specrtra")
+        
+    def open_beam_import_button_clicked(self):
+        print("import open beam")
+
 
 def main():
     app = PyQt4.QtGui.QApplication(sys.argv)
-    #app.setOrganizationName("Qtrac Ltd.")
-    #app.setOrganizationDomain("qtrac.eu")
-    #app.setApplicationName("Image Changer")
     #app.setWindowIcon(PyQt4.QtGui.QIcon(":/icon.png"))
     application = MainWindow()
     application.show()

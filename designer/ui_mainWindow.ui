@@ -793,37 +793,59 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>sample_import_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>24</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>time_spectra_import_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>602</x>
+     <y>767</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>607</x>
+     <y>826</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_beam_import_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>604</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>910</x>
+     <y>23</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
-  <slot>diamond_edited()</slot>
-  <slot>diamond_background_edited()</slot>
-  <slot>vanadium_edited()</slot>
-  <slot>vanadium_background_edited()</slot>
-  <slot>sample_background_edited()</slot>
-  <slot>output_folder_radio_buttons()</slot>
-  <slot>manual_output_folder_field_edited()</slot>
-  <slot>run_autonom()</slot>
-  <slot>table_right_click()</slot>
-  <slot>run_ndabs_clicked()</slot>
-  <slot>populate_table_clicked()</slot>
-  <slot>check_plazcek_widgets()</slot>
-  <slot>hidrogen_clicked()</slot>
-  <slot>no_hidrogen_clicked()</slot>
-  <slot>check_fourier_filter_widgets()</slot>
-  <slot>create_sample_properties_files_clicked()</slot>
-  <slot>yes_background_clicked()</slot>
-  <slot>background_combobox_changed()</slot>
-  <slot>move_to_folder_clicked()</slot>
-  <slot>check_step2_gui()</slot>
-  <slot>reset_q_range()</slot>
-  <slot>check_q_range()</slot>
-  <slot>run_sum_scans_clicked()</slot>
-  <slot>browse_ascii_file_clicked()</slot>
-  <slot>select_current_folder_clicked()</slot>
-  <slot>manual_output_folder_button_clicked()</slot>
-  <slot>help_about_clicked()</slot>
-  <slot>action_preview_ascii_clicked()</slot>
-  <slot>output_file_name_changed()</slot>
-  <slot>create_new_autonom_folder_button_clicked()</slot>
+  <slot>sample_import_button_clicked()</slot>
+  <slot>time_spectra_import_button_clicked()</slot>
+  <slot>open_beam_import_button_clicked()</slot>
  </slots>
 </ui>
