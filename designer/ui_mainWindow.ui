@@ -842,10 +842,44 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>sample_list_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>24</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget_2</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>open_beam_list_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>269</x>
+     <y>306</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>258</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
   <slot>time_spectra_import_button_clicked()</slot>
   <slot>open_beam_import_button_clicked()</slot>
+  <slot>sample_list_selection_changed()</slot>
+  <slot>open_beam_list_selection_changed()</slot>
  </slots>
 </ui>

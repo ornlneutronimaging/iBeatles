@@ -33,11 +33,20 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
     def sample_import_button_clicked(self):
         print("clicked smaple_import_button")
 
-    def time_spectra_import_button_clicked(self):
-        print("time specrtra")
-        
+    def sample_list_selection_changed(self):
+        print("sample list selection changed")
+
     def open_beam_import_button_clicked(self):
         print("import open beam")
+
+    def open_beam_list_selection_changed(self):
+        print("open beam selection changed")
+
+    def time_spectra_import_button_clicked(self):
+        print("time specrtra")
+
+
+        
 
 
 def main():

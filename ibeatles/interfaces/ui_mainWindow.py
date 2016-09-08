@@ -419,6 +419,8 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.sample_import_button_clicked)
         QtCore.QObject.connect(self.pushButton_4, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.time_spectra_import_button_clicked)
         QtCore.QObject.connect(self.pushButton_3, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.open_beam_import_button_clicked)
+        QtCore.QObject.connect(self.listWidget, QtCore.SIGNAL(_fromUtf8("itemSelectionChanged()")), MainWindow.sample_list_selection_changed)
+        QtCore.QObject.connect(self.listWidget_2, QtCore.SIGNAL(_fromUtf8("itemSelectionChanged()")), MainWindow.open_beam_list_selection_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
