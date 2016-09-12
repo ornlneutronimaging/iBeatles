@@ -48,19 +48,19 @@
           <property name="childrenCollapsible">
            <bool>false</bool>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QToolBox" name="toolBox">
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="sample_toolbox">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>618</width>
+                 <width>523</width>
                  <height>570</height>
                 </rect>
                </property>
@@ -109,6 +109,14 @@
                </layout>
               </widget>
               <widget class="QWidget" name="open_beam_toolbox">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>523</width>
+                 <height>570</height>
+                </rect>
+               </property>
                <attribute name="label">
                 <string> Open Beam</string>
                </attribute>
@@ -197,7 +205,6 @@
                 </widget>
                </item>
               </layout>
-              <zorder>toolBox</zorder>
               <zorder>pushButton_4</zorder>
               <zorder>lineEdit</zorder>
              </widget>
@@ -518,7 +525,7 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
