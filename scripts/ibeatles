@@ -16,21 +16,7 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
     """ Main FastGR window
     """
 
-    current_folder = os.getcwd()
-    sample_folder = current_folder
-    ob_folder = current_folder
-    normalized_folder = current_folder
-    time_spectra_folder = current_folder
-
-    load_metadata = {'sample': {'title': "Select folder or list of files",
-                                  'folder': current_folder},
-        'ob': {'title': 'Select folder or list of files',
-               'folder': current_folder},
-        'normalized': {'title': 'Select folder or list of files',
-                       'folder': current_folder},
-        'time_spectra': {'title': 'Select file',
-                         'folder': current_folder}}
-
+    DEBUGGING = True
 
     def __init__(self):
         """ Initialization
@@ -43,6 +29,29 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         # Initialize the UI widgets
         self.ui = ibeatles.interfaces.ui_mainWindow.Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.setup()
+        
+    def setup(self):
+        if self.DEBUGGING:
+            current_folder = '/Volumes/My Book Thunderbolt Duo/iBeatles/'
+        else:
+            current_folder = os.getcwd()
+
+        self.sample_folder = current_folder
+        self.ob_folder = current_folder
+        self.normalized_folder = current_folder
+        self.time_spectra_folder = current_folder
+    
+        self.load_metadata = {'sample': {'title': "Select folder or list of files",
+                                         'folder': current_folder},
+                              'ob': {'title': 'Select folder or list of files',
+                                     'folder': current_folder},
+                              'normalized': {'title': 'Select folder or list of files',
+                                             'folder': current_folder},
+                              'time_spectra': {'title': 'Select file',
+                                               'folder': current_folder}}
+        
 
 
     #TAB 1: Load Data Tab
