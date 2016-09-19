@@ -95,7 +95,7 @@
                    </layout>
                   </item>
                   <item>
-                   <widget class="QListWidget" name="listWidget">
+                   <widget class="QListWidget" name="list_sample">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                       <horstretch>0</horstretch>
@@ -148,7 +148,7 @@
                    </layout>
                   </item>
                   <item>
-                   <widget class="QListWidget" name="listWidget_2">
+                   <widget class="QListWidget" name="list_open_beam">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                       <horstretch>0</horstretch>
@@ -188,7 +188,7 @@
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_6">
                <item>
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="time_spectra">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -206,7 +206,7 @@
                </item>
               </layout>
               <zorder>pushButton_4</zorder>
-              <zorder>lineEdit</zorder>
+              <zorder>time_spectra</zorder>
              </widget>
             </item>
            </layout>
@@ -850,7 +850,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>listWidget</sender>
+   <sender>list_sample</sender>
    <signal>itemSelectionChanged()</signal>
    <receiver>MainWindow</receiver>
    <slot>sample_list_selection_changed()</slot>
@@ -866,7 +866,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>listWidget_2</sender>
+   <sender>list_open_beam</sender>
    <signal>itemSelectionChanged()</signal>
    <receiver>MainWindow</receiver>
    <slot>open_beam_list_selection_changed()</slot>

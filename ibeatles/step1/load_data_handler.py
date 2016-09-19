@@ -15,6 +15,10 @@ class LoadDataHandler(object):
 
     def __init__(self, parent=None):
         self.parent = parent
+
+
+        self.list_ui = {'sample': self.parent.ui.list_sample,
+                        'ob': self.parent.ui.list_open_beam}
         
     
     def load(self, data_type='sample'):
@@ -43,7 +47,18 @@ class LoadDataHandler(object):
         list_files = glob.glob(folder + '/*.*')
         image_type = self.get_image_type(list_files)
         o_load_image = LoadImages(image_ext = image_type, folder = folder)
-        image_array = o_load_image.image_array
+        self.populate_list_widget(o_load_image)
+        self.parent.data_files[self.data_type] = o_load_image.list_of_files
+        
+        
+    def populate_list_widget(self, o_loader):
+        list_of_files = o_loader.list_of_files
+
+        _list_ui = self.list_ui[self.data_type]
+        _list_ui.clear()
+        for _row, _file in enumerate(list_of_files):
+            _item = QtGui.QListWidgetItem(_file)
+            _list_ui.insertItem(_row, _item)
     
     
     def load_files(self, files):
