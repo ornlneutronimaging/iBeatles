@@ -50,3 +50,19 @@ class LoadImages(object):
         print("loading fits")
         print(self.list_of_files)
         
+class LoadTimeSpectra(object):
+    
+    file_found = False
+    time_spectra_name_format = '*_Spectra.txt'
+    
+    def __init__(self, folder=None):
+        self.folder = folder
+        
+        self.retrieve_file_name()
+        
+    def retrieve_file_name(self):
+        time_spectra = glob.glob(self.folder + '/' + self.time_spectra_name_format)
+        if time_spectra:
+            self.file_found = True
+            self.time_spectra = time_spectra[0]
+        

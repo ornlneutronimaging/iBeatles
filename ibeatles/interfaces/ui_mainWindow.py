@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.list_sample.sizePolicy().hasHeightForWidth())
         self.list_sample.setSizePolicy(sizePolicy)
-        self.list_sample.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+        self.list_sample.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.list_sample.setObjectName(_fromUtf8("list_sample"))
         self.verticalLayout_5.addWidget(self.list_sample)
         self.verticalLayout_6.addLayout(self.verticalLayout_5)

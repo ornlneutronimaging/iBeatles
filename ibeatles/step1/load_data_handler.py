@@ -6,7 +6,7 @@ import pprint
 import PyQt4.QtGui as QtGui
 
 
-from ibeatles.load_images import LoadImages
+from ibeatles.load_images import LoadImages, LoadTimeSpectra
 
 
 
@@ -21,8 +21,8 @@ class LoadDataHandler(object):
         self.list_ui = {'sample': {'list': self.parent.ui.list_sample,
                                    'folder': self.parent.ui.sample_folder},
                         'ob': {'list': self.parent.ui.list_open_beam,
-                               'folder': self.parent.ui.open_beam_folder}}
-        
+                               'folder': self.parent.ui.open_beam_folder},
+                        'time_spectra': {'text': self.parent.ui.time_spectra}}
     
     def load(self, data_type='sample'):
         """
@@ -44,10 +44,23 @@ class LoadDataHandler(object):
                     self.load_files(selectedFiles[0])
             else:
                 self.load_files(selectedFiles)
+
+            if data_type == 'sample':
+                self.load_time_spectra()
+                
         else:
             self.user_canceled = True
 
-
+    def load_time_spectra(self):
+        folder = self.folder
+        o_time_spectra = LoadTimeSpectra(folder = folder)
+        if o_time_spectra.file_found:
+            time_spectra = o_time_spectra.time_spectra
+        else:
+            time_spectra = ''
+        self.list_ui['time_spectra']['text'].setText(time_spectra)
+            
+        
     def load_directory(self, folder):
         list_files = glob.glob(folder + '/*.*')
         image_type = self.get_image_type(list_files)
@@ -67,6 +80,7 @@ class LoadDataHandler(object):
             _list_ui.insertItem(_row, _item)
     
         _folder = o_loader.folder
+        self.folder = _folder
         self.list_ui[self.data_type]['folder'].setText(_folder)
     
     
