@@ -34,7 +34,7 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         
     def setup(self):
         if self.DEBUGGING:
-            current_folder = '/Volumes/My Book Thunderbolt Duo/iBeatles/'
+            current_folder = '/Volumes/My Book Thunderbolt Duo/iBeatles/test_data/'
         else:
             current_folder = os.getcwd()
 
@@ -52,13 +52,17 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
                               'time_spectra': {'title': 'Select file',
                                                'folder': current_folder}}
         
+        self.data_files = {'sample': [],
+                           'ob': [],
+                           'normalized': [],
+                           'time_spectra': []}
 
 
     #TAB 1: Load Data Tab
     
     def sample_import_button_clicked(self):
         o_load = LoadDataHandler(parent = self)
-        o_load.load(type = 'sample')
+        o_load.load(data_type = 'sample')
 
     def sample_list_selection_changed(self):
         print("sample list selection changed")
