@@ -1,4 +1,5 @@
 import glob
+import os
 import matplotlib.image as mpimg
 
 
@@ -18,7 +19,15 @@ class LoadImages(object):
         _folder = self.folder
         _image_ext = self.image_ext
         _list_of_files = glob.glob(_folder + '/*' + _image_ext)
-        self.list_of_files = _list_of_files
+        
+        short_list_of_files = []
+        self.folder = os.path.dirname(_list_of_files[0]) + '/'
+        for _file in _list_of_files:
+            _short_file = os.path.basename(_file)
+            short_list_of_files.append(_short_file)
+        
+        self.list_of_files = short_list_of_files
+
 
     def load(self):
         if (self.image_ext == '.tiff') or (self.image_ext == '.tif'):

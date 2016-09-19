@@ -73,6 +73,13 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
                     <item>
+                     <widget class="QLabel" name="sample_folder">
+                      <property name="text">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <spacer name="horizontalSpacer_2">
                       <property name="orientation">
                        <enum>Qt::Horizontal</enum>
@@ -102,6 +109,9 @@
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="selectionMode">
+                     <enum>QAbstractItemView::MultiSelection</enum>
+                    </property>
                    </widget>
                   </item>
                  </layout>
@@ -125,6 +135,13 @@
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                    <item>
+                     <widget class="QLabel" name="open_beam_folder">
+                      <property name="text">
+                       <string/>
+                      </property>
+                     </widget>
+                    </item>
                     <item>
                      <spacer name="horizontalSpacer_3">
                       <property name="orientation">
@@ -154,6 +171,9 @@
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="selectionMode">
+                     <enum>QAbstractItemView::ExtendedSelection</enum>
                     </property>
                    </widget>
                   </item>

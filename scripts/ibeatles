@@ -63,6 +63,14 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
     def sample_import_button_clicked(self):
         o_load = LoadDataHandler(parent = self)
         o_load.load(data_type = 'sample')
+        if not o_load.user_canceled:
+            self.list_widget_selection_changed(data_type = 'sample')
+                                               
+    def list_widget_selection_changed(self, data_type = 'sample'):
+        if data_type == 'sample':
+            self.sample_list_selection_changed()
+        elif data_type == 'ob':
+            self.open_beam_list_selection_changed()
 
     def sample_list_selection_changed(self):
         print("sample list selection changed")

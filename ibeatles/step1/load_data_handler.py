@@ -12,13 +12,16 @@ from ibeatles.load_images import LoadImages
 
 class LoadDataHandler(object):
     
+    user_canceled = False
 
     def __init__(self, parent=None):
         self.parent = parent
 
 
-        self.list_ui = {'sample': self.parent.ui.list_sample,
-                        'ob': self.parent.ui.list_open_beam}
+        self.list_ui = {'sample': {'list': self.parent.ui.list_sample,
+                                   'folder': self.parent.ui.sample_folder},
+                        'ob': {'list': self.parent.ui.list_open_beam,
+                               'folder': self.parent.ui.open_beam_folder}}
         
     
     def load(self, data_type='sample'):
@@ -41,24 +44,30 @@ class LoadDataHandler(object):
                     self.load_files(selectedFiles[0])
             else:
                 self.load_files(selectedFiles)
+        else:
+            self.user_canceled = True
 
 
     def load_directory(self, folder):
         list_files = glob.glob(folder + '/*.*')
         image_type = self.get_image_type(list_files)
-        o_load_image = LoadImages(image_ext = image_type, folder = folder)
+        o_load_image = LoadImages(image_ext = image_type, 
+                                  folder = folder)
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files
-        
+        self.parent.load_metadata[self.data_type] = o_load_image.folder
         
     def populate_list_widget(self, o_loader):
         list_of_files = o_loader.list_of_files
 
-        _list_ui = self.list_ui[self.data_type]
+        _list_ui = self.list_ui[self.data_type]['list']
         _list_ui.clear()
         for _row, _file in enumerate(list_of_files):
             _item = QtGui.QListWidgetItem(_file)
             _list_ui.insertItem(_row, _item)
+    
+        _folder = o_loader.folder
+        self.list_ui[self.data_type]['folder'].setText(_folder)
     
     
     def load_files(self, files):
