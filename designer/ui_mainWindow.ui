@@ -73,6 +73,13 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
                     <item>
+                     <widget class="QPushButton" name="import_sample_button">
+                      <property name="text">
+                       <string>Import ...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <widget class="QLabel" name="sample_folder">
                       <property name="text">
                        <string/>
@@ -92,13 +99,6 @@
                       </property>
                      </spacer>
                     </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_2">
-                      <property name="text">
-                       <string>Import ...</string>
-                      </property>
-                     </widget>
-                    </item>
                    </layout>
                   </item>
                   <item>
@@ -108,6 +108,12 @@
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>50</width>
+                      <height>0</height>
+                     </size>
                     </property>
                     <property name="selectionMode">
                      <enum>QAbstractItemView::ExtendedSelection</enum>
@@ -136,6 +142,13 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_5">
                     <item>
+                     <widget class="QPushButton" name="import_open_beam_button">
+                      <property name="text">
+                       <string>Import ...</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
                      <widget class="QLabel" name="open_beam_folder">
                       <property name="text">
                        <string/>
@@ -154,13 +167,6 @@
                        </size>
                       </property>
                      </spacer>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="pushButton_3">
-                      <property name="text">
-                       <string>Import ...</string>
-                      </property>
-                     </widget>
                     </item>
                    </layout>
                   </item>
@@ -208,6 +214,13 @@
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_6">
                <item>
+                <widget class="QPushButton" name="pushButton_4">
+                 <property name="text">
+                  <string>Import ...</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QLineEdit" name="time_spectra">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -217,16 +230,7 @@
                  </property>
                 </widget>
                </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_4">
-                 <property name="text">
-                  <string>Import ...</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
-              <zorder>pushButton_4</zorder>
-              <zorder>time_spectra</zorder>
              </widget>
             </item>
            </layout>
@@ -550,6 +554,13 @@
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
+               <widget class="QPushButton" name="import_normalized_data">
+                <property name="text">
+                 <string>Import ...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -561,13 +572,6 @@
                  </size>
                 </property>
                </spacer>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string>Import ...</string>
-                </property>
-               </widget>
               </item>
              </layout>
             </item>
@@ -822,7 +826,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>import_sample_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>sample_import_button_clicked()</slot>
@@ -854,7 +858,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>import_open_beam_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>open_beam_import_button_clicked()</slot>

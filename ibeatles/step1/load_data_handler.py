@@ -6,7 +6,7 @@ import pprint
 import PyQt4.QtGui as QtGui
 
 
-from ibeatles.load_images import LoadImages, LoadTimeSpectra
+from ibeatles.utilities.load_images import LoadImages, LoadTimeSpectra
 
 
 
