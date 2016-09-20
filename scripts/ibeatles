@@ -10,7 +10,7 @@ import PyQt4.QtGui as QtGui
 import ibeatles.interfaces.ui_mainWindow
 
 from ibeatles.step1.load_data_handler import LoadDataHandler
-from ibeatles.utilities.retrieve_display_file_infos import RetrieveDisplayFileInfos
+from ibeatles.utilities.retrieve_infos import RetrieveDisplayFileInfos, RetrieveGeneralFileInfos
 
 
 class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
@@ -44,14 +44,18 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         self.normalized_folder = current_folder
         self.time_spectra_folder = current_folder
     
-        self.load_metadata = {'sample': {'title': "Select folder or list of files",
-                                         'folder': current_folder},
+        self.data_metadata = {'sample': {'title': "Select folder or list of files",
+                                         'folder': current_folder,
+                                         'general_infos': None},
                               'ob': {'title': 'Select folder or list of files',
-                                     'folder': current_folder},
+                                     'folder': current_folder,
+                                     'general_infos': None},
                               'normalized': {'title': 'Select folder or list of files',
-                                             'folder': current_folder},
+                                             'folder': current_folder,
+                                             'general_infos': None},
                               'time_spectra': {'title': 'Select file',
-                                               'folder': current_folder}}
+                                               'folder': current_folder,
+                                               'general_infos': None}}
         
         self.data_files = {'sample': [],
                            'ob': [],
@@ -65,6 +69,7 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         o_load = LoadDataHandler(parent = self)
         o_load.load(data_type = 'sample')
         if not o_load.user_canceled:
+            self.retrieve_general_infos(data_type = 'sample')
             self.list_widget_selection_changed(data_type = 'sample')
                                                
     def list_widget_selection_changed(self, data_type = 'sample'):
@@ -88,6 +93,10 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
 
     def time_spectra_import_button_clicked(self):
         print("time specrtra")
+
+    def retrieve_general_infos(self, data_type = 'sample'):
+        o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)
+        o_general_infos.update()
 
 
         

@@ -68,7 +68,7 @@ class LoadDataHandler(object):
                                   folder = folder)
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files
-        self.parent.load_metadata[self.data_type] = o_load_image.folder
+        self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
         
     def populate_list_widget(self, o_loader):
         list_of_files = o_loader.list_of_files
@@ -90,7 +90,7 @@ class LoadDataHandler(object):
                                   list_of_files = list_of_files)
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files
-        self.parent.load_metadata[self.data_type] = o_load_image.folder
+        self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
 
 
     def get_image_type(self, list_of_files):
