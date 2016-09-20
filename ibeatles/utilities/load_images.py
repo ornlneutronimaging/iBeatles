@@ -8,17 +8,20 @@ class LoadImages(object):
     image_array = []
     list_of_files = []
 
-    def __init__(self, image_ext = '.tiff', folder = None):
+    def __init__(self, image_ext = '.tiff', folder = None, list_of_files=None):
         self.image_ext = image_ext
         self.folder = folder
-                
-        self.retrieve_list_of_files()
+        self.retrieve_list_of_files(list_of_files = list_of_files)
         
         
-    def retrieve_list_of_files(self):
+    def retrieve_list_of_files(self, list_of_files=None):
         _folder = self.folder
         _image_ext = self.image_ext
-        _list_of_files = glob.glob(_folder + '/*' + _image_ext)
+        
+        if list_of_files is None:
+            _list_of_files = glob.glob(_folder + '/*' + _image_ext)
+        else:
+            _list_of_files = list_of_files
         
         short_list_of_files = []
         self.folder = os.path.dirname(_list_of_files[0]) + '/'

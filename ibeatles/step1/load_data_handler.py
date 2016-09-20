@@ -84,8 +84,13 @@ class LoadDataHandler(object):
         self.list_ui[self.data_type]['folder'].setText(_folder)
     
     
-    def load_files(self, files):
-        print("I am a list of files")
+    def load_files(self, list_of_files):
+        image_type = self.get_image_type(list_of_files)
+        o_load_image = LoadImages(image_ext = image_type,
+                                  list_of_files = list_of_files)
+        self.populate_list_widget(o_load_image)
+        self.parent.data_files[self.data_type] = o_load_image.list_of_files
+        self.parent.load_metadata[self.data_type] = o_load_image.folder
 
 
     def get_image_type(self, list_of_files):
