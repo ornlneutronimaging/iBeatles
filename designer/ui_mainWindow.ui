@@ -254,7 +254,7 @@
               <property name="childrenCollapsible">
                <bool>false</bool>
               </property>
-              <widget class="QGroupBox" name="groupBox_2">
+              <widget class="QGroupBox" name="data_infos_box">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -265,6 +265,12 @@
                 <size>
                  <width>100</width>
                  <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>300</height>
                 </size>
                </property>
                <property name="baseSize">
@@ -311,7 +317,7 @@
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>20</height>
+                    <height>10</height>
                    </size>
                   </property>
                   <property name="baseSize">
@@ -339,11 +345,18 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextEdit" name="data_general_infos"/>
+                 <widget class="QTextEdit" name="data_general_infos">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
-              <widget class="QGroupBox" name="groupBox_3">
+              <widget class="QGroupBox" name="data_preview_box">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                  <horstretch>0</horstretch>
@@ -371,6 +384,9 @@
                 <string>preview</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_10">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetMaximumSize</enum>
+                </property>
                 <item>
                  <widget class="QWidget" name="widget_3" native="true">
                   <property name="sizePolicy">
@@ -401,7 +417,7 @@
                 </item>
                </layout>
               </widget>
-              <widget class="QGroupBox" name="groupBox_4">
+              <widget class="QGroupBox" name="data_instrument_box">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -594,6 +610,12 @@
                 <size>
                  <width>100</width>
                  <height>200</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>300</height>
                 </size>
                </property>
                <property name="font">
