@@ -11,7 +11,7 @@ from ibeatles.utilities.file_handler import FileHandler
 
 
 
-class LoadDataHandler(object):
+class DataHandler(object):
     
     user_canceled = False
 
@@ -26,7 +26,7 @@ class LoadDataHandler(object):
                         'time_spectra': {'text': self.parent.ui.time_spectra,
                                          'folder': self.parent.data_metadata['time_spectra']['folder']}}
     
-    def load(self, data_type='sample'):
+    def retrieve_files(self, data_type='sample'):
         """
         type = ['sample', 'ob', 'normalized', 'time_spectra']
         """
@@ -48,12 +48,12 @@ class LoadDataHandler(object):
                 self.load_files(selectedFiles)
 
             if data_type == 'sample':
-                self.load_time_spectra()
+                self.retrieve_time_spectra()
                 
         else:
             self.user_canceled = True
 
-    def load_time_spectra(self, auto_load=True):
+    def retrieve_time_spectra(self, auto_load=True):
         if auto_load:
             folder = self.parent.data_metadata['sample']['folder']
             o_time_spectra = LoadTimeSpectra(folder = folder, auto_load=auto_load)
@@ -64,9 +64,10 @@ class LoadDataHandler(object):
                         
         else:
             folder = self.parent.data_metadata['time_spectra']['folder']
+            time_spectra_name_format = '*_Spectra.txt'
             file_name = QtGui.QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
                                                           directory = folder,
-                                                          filter = "Txt ({});;All (*.*)".format(self.time_spectra_name_format))        
+                                                          filter = "Txt ({});;All (*.*)".format(time_spectra_name_format))        
             if file_name:
                 self.list_ui['time_spectra']['text'].setText(file_name)
                 

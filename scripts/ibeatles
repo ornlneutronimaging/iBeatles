@@ -9,7 +9,7 @@ import PyQt4.QtGui as QtGui
 
 import ibeatles.interfaces.ui_mainWindow
 
-from ibeatles.step1.load_data_handler import LoadDataHandler
+from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler
 
 from ibeatles.utilities.retrieve_infos import RetrieveDisplayFileInfos, RetrieveGeneralFileInfos
@@ -35,6 +35,11 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         self.ui.setupUi(self)
 
         self.setup()
+        self.init_interface()
+        
+    def init_interface(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.init_gui()
         
     def setup(self):
         if self.DEBUGGING:
@@ -69,11 +74,17 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
     #TAB 1: Load Data Tab
     
     def sample_import_button_clicked(self):
-        o_load = LoadDataHandler(parent = self)
-        o_load.load(data_type = 'sample')
+        o_load = DataHandler(parent = self)
+        o_load.retrieve_files(data_type = 'sample')
         if not o_load.user_canceled:
+            self.select_load_data_row(data_type = 'sample', row = 0)
             self.retrieve_general_infos(data_type = 'sample')
             self.list_widget_selection_changed(data_type = 'sample')
+
+    def select_load_data_row(self, data_type='sample', row=0):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.select_load_data_row(data_type=data_type,
+                                   row=row)
                                                
     def list_widget_selection_changed(self, data_type = 'sample'):
         if data_type == 'sample':
@@ -90,17 +101,18 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         o_list_handler.right_click(position = position)
 
     def open_beam_import_button_clicked(self):
-        o_load = LoadDataHandler(parent = self)
-        o_load.load(data_type = 'ob')
+        o_load = DataHandler(parent = self)
+        o_load.retrieve_files(data_type = 'ob')
         if not o_load.user_canceled:
+            self.select_load_data_row(data_type = 'ob', row = 0)
             self.list_widget_selection_changed(data_type = 'ob')
 
     def open_beam_list_selection_changed(self):
         print("open beam selection changed")
 
     def time_spectra_import_button_clicked(self):
-        o_load = LoadDataHandler(parent = self)
-        o_load.load_time_spectra(auto_load = False)
+        o_load = DataHandler(parent = self)
+        o_load.retrieve_time_spectra(auto_load = False)
 
     def time_spectra_preview_button_clicked(self):
         print("time spectra button clicked")

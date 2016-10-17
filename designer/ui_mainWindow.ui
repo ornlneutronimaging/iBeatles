@@ -61,7 +61,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>599</width>
-                 <height>570</height>
+                 <height>517</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -136,7 +136,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>599</width>
-                 <height>570</height>
+                 <height>517</height>
                 </rect>
                </property>
                <attribute name="label">
@@ -218,30 +218,68 @@
               <property name="title">
                <string>Time Spectra</string>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <layout class="QVBoxLayout" name="verticalLayout_14">
                <item>
-                <widget class="QPushButton" name="import_time_spectra_button">
-                 <property name="text">
-                  <string>Import ...</string>
-                 </property>
-                </widget>
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <item>
+                  <widget class="QPushButton" name="import_time_spectra_button">
+                   <property name="text">
+                    <string>Import ...</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="time_spectra_folder">
+                   <property name="text">
+                    <string> </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
                </item>
                <item>
-                <widget class="QLineEdit" name="time_spectra">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="preview_time_spectra_button">
-                 <property name="text">
-                  <string>Preview ...</string>
-                 </property>
-                </widget>
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QLabel" name="time_spectra">
+                   <property name="text">
+                    <string> </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_5">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="preview_time_spectra_button">
+                   <property name="text">
+                    <string>Preview ...</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
