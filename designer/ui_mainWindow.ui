@@ -60,7 +60,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>523</width>
+                 <width>599</width>
                  <height>570</height>
                 </rect>
                </property>
@@ -115,6 +115,12 @@
                       <height>0</height>
                      </size>
                     </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::CustomContextMenu</enum>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
                     <property name="selectionMode">
                      <enum>QAbstractItemView::ExtendedSelection</enum>
                     </property>
@@ -129,7 +135,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>523</width>
+                 <width>599</width>
                  <height>570</height>
                 </rect>
                </property>
@@ -214,7 +220,7 @@
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_6">
                <item>
-                <widget class="QPushButton" name="pushButton_4">
+                <widget class="QPushButton" name="import_time_spectra_button">
                  <property name="text">
                   <string>Import ...</string>
                  </property>
@@ -227,6 +233,13 @@
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="preview_time_spectra_button">
+                 <property name="text">
+                  <string>Preview ...</string>
                  </property>
                 </widget>
                </item>
@@ -340,7 +353,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string>General</string>
+                   <string>All Files</string>
                   </property>
                  </widget>
                 </item>
@@ -381,14 +394,14 @@
                 </font>
                </property>
                <property name="title">
-                <string>preview</string>
+                <string>Sample Image(s) Preview</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_10">
                 <property name="sizeConstraint">
                  <enum>QLayout::SetMaximumSize</enum>
                 </property>
                 <item>
-                 <widget class="QWidget" name="widget_3" native="true">
+                 <widget class="MPLWidget" name="preview_widget" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -661,7 +674,7 @@
                 <item>
                  <widget class="QLabel" name="label_10">
                   <property name="text">
-                   <string>General</string>
+                   <string>All Files</string>
                   </property>
                  </widget>
                 </item>
@@ -820,6 +833,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MPLWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">.mplwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -829,8 +850,8 @@
    <slot>sample_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>595</x>
-     <y>121</y>
+     <x>147</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>401</x>
@@ -839,14 +860,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_4</sender>
+   <sender>import_time_spectra_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>602</x>
-     <y>767</y>
+     <x>141</x>
+     <y>782</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -861,8 +882,8 @@
    <slot>open_beam_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>604</x>
-     <y>160</y>
+     <x>145</x>
+     <y>179</y>
     </hint>
     <hint type="destinationlabel">
      <x>910</x>
@@ -877,8 +898,8 @@
    <slot>sample_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>227</x>
-     <y>234</y>
+     <x>147</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>146</x>
@@ -902,6 +923,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>list_sample</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>sample_list_right_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>147</x>
+     <y>108</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>37</x>
+     <y>818</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolBox</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>load_data_tab_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>281</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>preview_time_spectra_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>time_spectra_preview_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>551</x>
+     <y>767</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>545</x>
+     <y>820</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -909,5 +978,9 @@
   <slot>open_beam_import_button_clicked()</slot>
   <slot>sample_list_selection_changed()</slot>
   <slot>open_beam_list_selection_changed()</slot>
+  <slot>sample_list_right_click()</slot>
+  <slot>time_spectra_selection_changed()</slot>
+  <slot>load_data_tab_changed()</slot>
+  <slot>time_spectra_preview_button_clicked()</slot>
  </slots>
 </ui>

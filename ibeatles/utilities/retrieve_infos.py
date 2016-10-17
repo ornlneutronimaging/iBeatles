@@ -21,7 +21,7 @@ class RetrieveGeneralFileInfos(RetrieveInfos):
                                          'value': -1 },
                      'time_stamp_files': {'name': 'Acquisition Time of Files',
                                                'value': -1},
-                     'size_mb': {'name': 'Size (MB)',
+                     'size_mb': {'name': 'Individual File Size (MB)',
                                    'value': ''},
                      'total_size_folder': {'name': 'Total Size of Folder (MB)',
                                            'value': ''},

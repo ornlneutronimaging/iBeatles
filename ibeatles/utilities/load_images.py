@@ -2,6 +2,9 @@ import glob
 import os
 import matplotlib.image as mpimg
 
+from PyQt4 import QtGui
+
+
 
 class LoadImages(object):
     
@@ -58,12 +61,24 @@ class LoadTimeSpectra(object):
     file_found = False
     time_spectra_name_format = '*_Spectra.txt'
     
-    def __init__(self, folder=None):
+    def __init__(self, folder=None, auto_load=True):
         self.folder = folder
+        if auto_load:
+            self.retrieve_file_name()
+        else:
+            self.browse_file_name()
+
+    def browse_file_name(self):
+        file_name = QtGui.QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
+                                                     directory = self.folder,
+                                                     filter = "Txt ({});;All (*.*)".format(self.time_spectra_name_format))
+        if file_name:
+            self.parent.ui.time_spectra.setText(file_name)
         
-        self.retrieve_file_name()
         
     def retrieve_file_name(self):
+        print(type(self.folder))
+        print(type(self.time_spectra_name_format))
         time_spectra = glob.glob(self.folder + '/' + self.time_spectra_name_format)
         if time_spectra:
             self.file_found = True

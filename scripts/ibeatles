@@ -10,7 +10,10 @@ import PyQt4.QtGui as QtGui
 import ibeatles.interfaces.ui_mainWindow
 
 from ibeatles.step1.load_data_handler import LoadDataHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
+
 from ibeatles.utilities.retrieve_infos import RetrieveDisplayFileInfos, RetrieveGeneralFileInfos
+from ibeatles.utilities.list_data_handler import ListDataHandler
 
 
 class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
@@ -77,10 +80,14 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
             self.sample_list_selection_changed()
         elif data_type == 'ob':
             self.open_beam_list_selection_changed()
-
+            
     def sample_list_selection_changed(self):
         o_retrieve_infos = RetrieveDisplayFileInfos(parent = self, data_type = 'sample')
         o_retrieve_infos.update()
+
+    def sample_list_right_click(self, position):
+        o_list_handler = ListDataHandler(parent = self)
+        o_list_handler.right_click(position = position)
 
     def open_beam_import_button_clicked(self):
         o_load = LoadDataHandler(parent = self)
@@ -92,14 +99,21 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         print("open beam selection changed")
 
     def time_spectra_import_button_clicked(self):
-        print("time specrtra")
+        o_load = LoadDataHandler(parent = self)
+        o_load.load_time_spectra(auto_load = False)
 
+    def time_spectra_preview_button_clicked(self):
+        print("time spectra button clicked")
+        
     def retrieve_general_infos(self, data_type = 'sample'):
         o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)
         o_general_infos.update()
-
-
         
+    def load_data_tab_changed(self, tab_index):
+        o_gui = Step1GuiHandler(parent = self)
+        o_gui.load_data_tab_changed(tab_index = tab_index)
+    
+    
 
 
 def main():

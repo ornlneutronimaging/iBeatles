@@ -7,6 +7,7 @@ import PyQt4.QtGui as QtGui
 
 
 from ibeatles.utilities.load_images import LoadImages, LoadTimeSpectra
+from ibeatles.utilities.file_handler import FileHandler
 
 
 
@@ -22,7 +23,8 @@ class LoadDataHandler(object):
                                    'folder': self.parent.ui.sample_folder},
                         'ob': {'list': self.parent.ui.list_open_beam,
                                'folder': self.parent.ui.open_beam_folder},
-                        'time_spectra': {'text': self.parent.ui.time_spectra}}
+                        'time_spectra': {'text': self.parent.ui.time_spectra,
+                                         'folder': self.parent.data_metadata['time_spectra']['folder']}}
     
     def load(self, data_type='sample'):
         """
@@ -51,15 +53,23 @@ class LoadDataHandler(object):
         else:
             self.user_canceled = True
 
-    def load_time_spectra(self):
-        folder = self.folder
-        o_time_spectra = LoadTimeSpectra(folder = folder)
-        if o_time_spectra.file_found:
-            time_spectra = o_time_spectra.time_spectra
+    def load_time_spectra(self, auto_load=True):
+        if auto_load:
+            folder = self.parent.data_metadata['sample']['folder']
+            o_time_spectra = LoadTimeSpectra(folder = folder, auto_load=auto_load)
+            if o_time_spectra.file_found:
+                time_spectra = o_time_spectra.time_spectra
+                # save path   #FIXME
+                self.list_ui['time_spectra']['text'].setText(time_spectra)
+                        
         else:
-            time_spectra = ''
-        self.list_ui['time_spectra']['text'].setText(time_spectra)
-            
+            folder = self.parent.data_metadata['time_spectra']['folder']
+            file_name = QtGui.QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
+                                                          directory = folder,
+                                                          filter = "Txt ({});;All (*.*)".format(self.time_spectra_name_format))        
+            if file_name:
+                self.list_ui['time_spectra']['text'].setText(file_name)
+                
         
     def load_directory(self, folder):
         list_files = glob.glob(folder + '/*.*')
@@ -81,7 +91,9 @@ class LoadDataHandler(object):
     
         _folder = o_loader.folder
         self.folder = _folder
-        self.list_ui[self.data_type]['folder'].setText(_folder)
+        
+        _parent_folder = FileHandler.get_parent_folder(_folder)
+        self.list_ui[self.data_type]['folder'].setText(_parent_folder)
     
     
     def load_files(self, list_of_files):
