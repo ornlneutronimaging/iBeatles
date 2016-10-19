@@ -24,7 +24,7 @@ class DataHandler(object):
                         'ob': {'list': self.parent.ui.list_open_beam,
                                'folder': self.parent.ui.open_beam_folder},
                         'time_spectra': {'text': self.parent.ui.time_spectra,
-                                         'folder': self.parent.data_metadata['time_spectra']['folder']}}
+                                         'folder': self.parent.ui.time_spectra_folder}}
     
     def retrieve_files(self, data_type='sample'):
         """
@@ -60,7 +60,10 @@ class DataHandler(object):
             if o_time_spectra.file_found:
                 time_spectra = o_time_spectra.time_spectra
                 # save path   #FIXME
-                self.list_ui['time_spectra']['text'].setText(time_spectra)
+                base_time_spectra = FileHandler.get_base_filename(time_spectra)
+                self.list_ui['time_spectra']['text'].setText(base_time_spectra)
+                folder_name = FileHandler.get_parent_folder(time_spectra)
+                self.list_ui['time_spectra']['folder'].setText(folder_name)
                         
         else:
             folder = self.parent.data_metadata['time_spectra']['folder']
@@ -69,7 +72,10 @@ class DataHandler(object):
                                                           directory = folder,
                                                           filter = "Txt ({});;All (*.*)".format(time_spectra_name_format))        
             if file_name:
-                self.list_ui['time_spectra']['text'].setText(file_name)
+                base_file_name = FileHandler.get_base_filename(file_name)
+                self.list_ui['time_spectra']['text'].setText(base_file_name)
+                folder_name = FileHandler.get_parent_folder(file_name)
+                self.list_ui['time_spectra']['folder'].setText(folder_name)
                 
         
     def load_directory(self, folder):

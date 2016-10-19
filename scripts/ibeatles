@@ -79,22 +79,31 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         if not o_load.user_canceled:
             self.select_load_data_row(data_type = 'sample', row = 0)
             self.retrieve_general_infos(data_type = 'sample')
-            self.list_widget_selection_changed(data_type = 'sample')
+            self.populate_infos_all_files(data_type = 'sample')
 
     def select_load_data_row(self, data_type='sample', row=0):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.select_load_data_row(data_type=data_type,
                                    row=row)
                                                
-    def list_widget_selection_changed(self, data_type = 'sample'):
+    def populate_infos_all_files(self, data_type = 'sample'):
         if data_type == 'sample':
-            self.sample_list_selection_changed()
+            self.sample_populate_infos_all_files()
+            #self.sample_list_selection_changed()
         elif data_type == 'ob':
-            self.open_beam_list_selection_changed()
+            self.open_beam_populate_infos_all_files()
+            #self.open_beam_list_selection_changed()
             
-    def sample_list_selection_changed(self):
+    def sample_populate_infos_all_files(self):
         o_retrieve_infos = RetrieveDisplayFileInfos(parent = self, data_type = 'sample')
         o_retrieve_infos.update()
+
+    def open_beam_populate_infos_all_files(self):
+        o_retrieve_infos = RetrieveDisplayFileInfos(parent = self, data_type = 'ob')
+        o_retrieve_infos.update()        
+
+    def sample_list_selection_changed(self):
+        pass
 
     def sample_list_right_click(self, position):
         o_list_handler = ListDataHandler(parent = self)
@@ -105,10 +114,11 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         o_load.retrieve_files(data_type = 'ob')
         if not o_load.user_canceled:
             self.select_load_data_row(data_type = 'ob', row = 0)
-            self.list_widget_selection_changed(data_type = 'ob')
+            self.retrieve_general_infos(data_type = 'ob')
+            self.populate_infos_all_files(data_type = 'ob')
 
     def open_beam_list_selection_changed(self):
-        print("open beam selection changed")
+        pass
 
     def time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent = self)

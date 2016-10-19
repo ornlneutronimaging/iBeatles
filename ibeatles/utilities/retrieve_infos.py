@@ -30,22 +30,26 @@ class RetrieveGeneralFileInfos(RetrieveInfos):
 
     def update(self):   
         data_files = self.parent.data_files[self.data_type]
-        folder = self.parent.data_metadata[self.data_type]['folder']
-        
-        _nbr_files = len(data_files)
-        self.general_infos['number_of_files']['value'] = _nbr_files
-        
-        _first_file = data_files[0]
-        _timestamp_first_file = self.get_formated_time(folder + _first_file)
-        self.general_infos['time_stamp_files']['value'] = _timestamp_first_file
-        
-        _size_of_one_file_kb = float(os.path.getsize(folder + _first_file))
-        _file_size_mb = "{:.2f}".format(_size_of_one_file_kb / 1000000.0)
-        self.general_infos['size_mb']['value'] = _file_size_mb
-        
-        _total_size_mb = _size_of_one_file_kb * _nbr_files / 1000000.0
-        _total_size_mb = "{:.2f}".format(_total_size_mb)
-        self.general_infos['total_size_folder']['value'] = _total_size_mb
+        if data_files == []:
+            self.general_infos = {} #no files so no infos to display
+
+        else:
+            folder = self.parent.data_metadata[self.data_type]['folder']
+            
+            _nbr_files = len(data_files)
+            self.general_infos['number_of_files']['value'] = _nbr_files
+            
+            _first_file = data_files[0]
+            _timestamp_first_file = self.get_formated_time(folder + _first_file)
+            self.general_infos['time_stamp_files']['value'] = _timestamp_first_file
+            
+            _size_of_one_file_kb = float(os.path.getsize(folder + _first_file))
+            _file_size_mb = "{:.2f}".format(_size_of_one_file_kb / 1000000.0)
+            self.general_infos['size_mb']['value'] = _file_size_mb
+            
+            _total_size_mb = _size_of_one_file_kb * _nbr_files / 1000000.0
+            _total_size_mb = "{:.2f}".format(_total_size_mb)
+            self.general_infos['total_size_folder']['value'] = _total_size_mb
         
         self.display()
         

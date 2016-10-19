@@ -74,6 +74,12 @@
                    <layout class="QHBoxLayout" name="horizontalLayout_4">
                     <item>
                      <widget class="QPushButton" name="import_sample_button">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
                       <property name="text">
                        <string>Import ...</string>
                       </property>
@@ -90,6 +96,9 @@
                      <spacer name="horizontalSpacer_2">
                       <property name="orientation">
                        <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeType">
+                       <enum>QSizePolicy::Expanding</enum>
                       </property>
                       <property name="sizeHint" stdset="0">
                        <size>
@@ -223,6 +232,12 @@
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <item>
                   <widget class="QPushButton" name="import_time_spectra_button">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="text">
                     <string>Import ...</string>
                    </property>
@@ -274,6 +289,12 @@
                  </item>
                  <item>
                   <widget class="QPushButton" name="preview_time_spectra_button">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
                    <property name="text">
                     <string>Preview ...</string>
                    </property>
@@ -597,6 +618,12 @@
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <widget class="QPushButton" name="import_normalized_data">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Import ...</string>
                 </property>
