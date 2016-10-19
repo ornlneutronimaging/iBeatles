@@ -7,12 +7,39 @@ class RetrieveInfos(object):
     def __init__(self, parent=None, data_type='sample'):
         self.parent = parent
         self.data_type = data_type
+        
+        self.table_ui = {'sample': self.parent.ui.list_sample,
+                         'ob': self.parent.ui.list_open_beam}
 
 
-class RetrieveDisplayFileInfos(RetrieveInfos):
+class RetrieveSelectedFileInfos(RetrieveInfos):
+    
+    selected_infos = {'acquisition_duration': {'name': "Acquisition Duration (s)",
+                                               'value': 0},
+                      'image_size': {'name': 'Image(s) Size',
+                                      'value': '512x512'},
+                      'image_type': {'name': 'Image Type',
+                                     'value': '16 bits'}}
     
     def update(self):
-        pass
+        list_row_selected = self.get_list_row_selected()
+
+        if list_row_selected == []:
+            self.selected_infos = {}
+        else:
+            
+        
+        
+        
+        
+        
+        
+    def get_list_row_selected(self):
+        selection = self.table_ui[self.data_type].selectedIndexes()
+        _list_row_selected = []
+        for _index in selection:
+            _list_row_selected.append(_index.row())
+        return _list_row_selected
         
         
 class RetrieveGeneralFileInfos(RetrieveInfos):

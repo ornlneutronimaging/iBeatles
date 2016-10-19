@@ -6,7 +6,7 @@ import pprint
 import PyQt4.QtGui as QtGui
 
 
-from ibeatles.utilities.load_images import LoadImages, LoadTimeSpectra
+from ibeatles.utilities.load_images import LoadFiles, LoadTimeSpectra
 from ibeatles.utilities.file_handler import FileHandler
 
 
@@ -81,7 +81,7 @@ class DataHandler(object):
     def load_directory(self, folder):
         list_files = glob.glob(folder + '/*.*')
         image_type = self.get_image_type(list_files)
-        o_load_image = LoadImages(image_ext = image_type, 
+        o_load_image = LoadFiles(image_ext = image_type, 
                                   folder = folder)
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files
@@ -105,7 +105,7 @@ class DataHandler(object):
     
     def load_files(self, list_of_files):
         image_type = self.get_image_type(list_of_files)
-        o_load_image = LoadImages(image_ext = image_type,
+        o_load_image = LoadFiles(image_ext = image_type,
                                   list_of_files = list_of_files)
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files

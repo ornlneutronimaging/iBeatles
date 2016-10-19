@@ -12,7 +12,7 @@ import ibeatles.interfaces.ui_mainWindow
 from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler
 
-from ibeatles.utilities.retrieve_infos import RetrieveDisplayFileInfos, RetrieveGeneralFileInfos
+from ibeatles.utilities.retrieve_infos import RetrieveSelectedFileInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 
 
@@ -79,31 +79,30 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         if not o_load.user_canceled:
             self.select_load_data_row(data_type = 'sample', row = 0)
             self.retrieve_general_infos(data_type = 'sample')
-            self.populate_infos_all_files(data_type = 'sample')
+            self.retrieve_selected_row_infos(data_type = 'sample')
 
     def select_load_data_row(self, data_type='sample', row=0):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.select_load_data_row(data_type=data_type,
                                    row=row)
                                                
-    def populate_infos_all_files(self, data_type = 'sample'):
+    def retrieve_selected_row_infos(self, data_type = 'sample'):
         if data_type == 'sample':
-            self.sample_populate_infos_all_files()
-            #self.sample_list_selection_changed()
+            self.sample_retrieve_selected_row_infos()
         elif data_type == 'ob':
-            self.open_beam_populate_infos_all_files()
-            #self.open_beam_list_selection_changed()
+            self.open_beam_retrieve_selected_row_infos()
             
-    def sample_populate_infos_all_files(self):
-        o_retrieve_infos = RetrieveDisplayFileInfos(parent = self, data_type = 'sample')
+    def sample_retrieve_selected_row_infos(self):
+        o_retrieve_infos = RetrieveSelectedFileInfos(parent = self, data_type = 'sample')
         o_retrieve_infos.update()
 
-    def open_beam_populate_infos_all_files(self):
-        o_retrieve_infos = RetrieveDisplayFileInfos(parent = self, data_type = 'ob')
-        o_retrieve_infos.update()        
+    def open_beam_retrieve_selected_row_infos(self):
+        o_retrieve_infos = RetrieveSelectedFileInfos(parent = self, data_type = 'ob')
+        o_retrieve_infos.update()
 
     def sample_list_selection_changed(self):
-        pass
+        o_retrieve_infos = RetrieveSelectedFileInfos(parent = self, data_type = 'sample')
+        o_retrieve_infos.update()
 
     def sample_list_right_click(self, position):
         o_list_handler = ListDataHandler(parent = self)
@@ -115,10 +114,11 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         if not o_load.user_canceled:
             self.select_load_data_row(data_type = 'ob', row = 0)
             self.retrieve_general_infos(data_type = 'ob')
-            self.populate_infos_all_files(data_type = 'ob')
+            self.retrieve_selected_row_infos(data_type = 'ob')
 
     def open_beam_list_selection_changed(self):
-        pass
+        o_retrieve_infos = RetrieveSelectedFileInfos(parent = self, data_type = 'ob')
+        o_retrieve_infos.update()
 
     def time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent = self)
@@ -134,8 +134,6 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
     def load_data_tab_changed(self, tab_index):
         o_gui = Step1GuiHandler(parent = self)
         o_gui.load_data_tab_changed(tab_index = tab_index)
-    
-    
 
 
 def main():

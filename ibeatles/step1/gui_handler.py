@@ -1,5 +1,5 @@
 from ibeatles.step1.plot import Step1Plot
-from ibeatles.utilities.retrieve_infos import RetrieveGeneralFileInfos, RetrieveDisplayFileInfos
+from ibeatles.utilities.retrieve_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileInfos
 
 
 class Step1GuiHandler(object):
@@ -12,13 +12,18 @@ class Step1GuiHandler(object):
             data_preview_box_label = "Sample Image(s) Preview"
             o_general_infos = RetrieveGeneralFileInfos(parent = self.parent, 
                                                        data_type = 'sample')
+            o_selected_infos = RetrieveSelectedFileInfos(parent = self.parent,
+                                                                  data_type = 'sample')
         else:
             data_preview_box_label = "Open Beam Image(s) Preview"
             o_general_infos = RetrieveGeneralFileInfos(parent = self.parent, 
                                                        data_type = 'ob')
+            o_selected_infos = RetrieveSelectedFileInfos(parent = self.parent,
+                                                                  data_type = 'ob')
         
         self.parent.ui.data_preview_box.setTitle(data_preview_box_label)
         o_general_infos.update()            
+        o_selected_infos.update()
         
         
     def init_gui(self):
