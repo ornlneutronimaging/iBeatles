@@ -27,7 +27,7 @@ class RetrieveSelectedFileInfos(RetrieveInfos):
         if list_row_selected == []:
             self.selected_infos = {}
         else:
-            
+            pass
         
         
         

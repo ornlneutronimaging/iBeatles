@@ -27,6 +27,11 @@ class Step1GuiHandler(object):
         
         
     def init_gui(self):
+        # define position and size
+        rect = self.parent.geometry()
+        self.parent.setGeometry(10, 10, rect.width(), rect.height())
+
+        # remove axis from image preview
         self.parent.ui.preview_widget.canvas.ax.axis('off')
         self.parent.ui.preview_widget.draw()
         
