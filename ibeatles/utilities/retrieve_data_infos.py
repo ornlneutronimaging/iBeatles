@@ -10,6 +10,8 @@ class RetrieveDataInfos(object):
         self.parent = parent
         self.data_type = data_type
         
+        self.path = self.parent.data_metadata[data_type]['folder']
+        
         self.table_ui = {'sample': self.parent.ui.list_sample,
                          'ob': self.parent.ui.list_open_beam}
 
@@ -35,12 +37,22 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
             self.data = []
         else:
             list_files_selected = self.get_list_files_selected()
+            full_filename = os.path.join(self.path, list_files_selected[0])
             image_handler = ImageHandler(parent=self.parent, 
-                                         list_files = list_files_selected)
+                                         filename = full_filename)
             self.selected_infos = image_handler.get_metadata(self.selected_infos)
             self.data = image_handler.get_data()
-            
         
+        self.display()
+        
+    def display(self):
+        text = ''
+        for key in self.selected_infos:
+            text += '<b>{}</b>: {}<br/>'.format(self.selected_infos[key]['name'], 
+                                      self.selected_infos[key]['value'])
+            
+        self.parent.ui.data_selected_infos.setHtml(text)
+            
     def get_list_files_selected(self):
         list_files = [str(x.text()) for x in self.table_ui[self.data_type].selectedItems()]
         return list_files
