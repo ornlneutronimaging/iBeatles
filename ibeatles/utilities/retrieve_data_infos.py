@@ -1,8 +1,10 @@
 import os
 import time
 
+from ibeatles.utilities.image_handler import ImageHandler
 
-class RetrieveInfos(object):
+
+class RetrieveDataInfos(object):
 
     def __init__(self, parent=None, data_type='sample'):
         self.parent = parent
@@ -12,27 +14,36 @@ class RetrieveInfos(object):
                          'ob': self.parent.ui.list_open_beam}
 
 
-class RetrieveSelectedFileInfos(RetrieveInfos):
+class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     
     selected_infos = {'acquisition_duration': {'name': "Acquisition Duration (s)",
                                                'value': 0},
+                      'acquisition_time': {'name': 'Acquisition Time',
+                                           'value': ''},
                       'image_size': {'name': 'Image(s) Size',
                                       'value': '512x512'},
                       'image_type': {'name': 'Image Type',
                                      'value': '16 bits'}}
+    
+    data = []
     
     def update(self):
         list_row_selected = self.get_list_row_selected()
 
         if list_row_selected == []:
             self.selected_infos = {}
+            self.data = []
         else:
-            pass
+            list_files_selected = self.get_list_files_selected()
+            image_handler = ImageHandler(parent=self.parent, 
+                                         list_files = list_files_selected)
+            self.selected_infos = image_handler.get_metadata(self.selected_infos)
+            self.data = image_handler.get_data()
+            
         
-        
-        
-        
-        
+    def get_list_files_selected(self):
+        list_files = [str(x.text()) for x in self.table_ui[self.data_type].selectedItems()]
+        return list_files
         
     def get_list_row_selected(self):
         selection = self.table_ui[self.data_type].selectedIndexes()
@@ -42,7 +53,7 @@ class RetrieveSelectedFileInfos(RetrieveInfos):
         return _list_row_selected
         
         
-class RetrieveGeneralFileInfos(RetrieveInfos):
+class RetrieveGeneralFileInfos(RetrieveDataInfos):
     
     general_infos = {'number_of_files': {'name': 'Number of Files',
                                          'value': -1 },

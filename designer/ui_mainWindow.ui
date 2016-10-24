@@ -131,7 +131,7 @@
                      <set>QAbstractItemView::NoEditTriggers</set>
                     </property>
                     <property name="selectionMode">
-                     <enum>QAbstractItemView::ExtendedSelection</enum>
+                     <enum>QAbstractItemView::SingleSelection</enum>
                     </property>
                    </widget>
                   </item>
@@ -453,7 +453,7 @@
                 </font>
                </property>
                <property name="title">
-                <string>Sample Image(s) Preview</string>
+                <string>Sample Image Preview</string>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_10">
                 <property name="sizeConstraint">
@@ -915,8 +915,8 @@
    <slot>sample_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>147</x>
-     <y>108</y>
+     <x>145</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>401</x>
@@ -931,8 +931,8 @@
    <slot>time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>141</x>
-     <y>782</y>
+     <x>147</x>
+     <y>733</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -963,8 +963,8 @@
    <slot>sample_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>147</x>
-     <y>108</y>
+     <x>148</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>146</x>
@@ -995,8 +995,8 @@
    <slot>sample_list_right_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>147</x>
-     <y>108</y>
+     <x>148</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>37</x>
