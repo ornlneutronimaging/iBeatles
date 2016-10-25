@@ -46,12 +46,23 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         self.display()
         
     def display(self):
+
+        #metadata
         text = ''
         for key in self.selected_infos:
             text += '<b>{}</b>: {}<br/>'.format(self.selected_infos[key]['name'], 
                                       self.selected_infos[key]['value'])
-            
         self.parent.ui.data_selected_infos.setHtml(text)
+        
+        #data
+        _data = self.data
+        if _data == []:
+            self.parent.ui.preview_widget.clear()
+        else:
+            self.parent.ui.preview_widget.imshow(_data)
+        self.parent.ui.preview_widget.draw()
+        
+        
             
     def get_list_files_selected(self):
         list_files = [str(x.text()) for x in self.table_ui[self.data_type].selectedItems()]

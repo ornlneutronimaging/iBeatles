@@ -32,8 +32,8 @@ class Step1GuiHandler(object):
         self.parent.setGeometry(10, 10, rect.width(), rect.height())
 
         # remove axis from image preview
-        self.parent.ui.preview_widget.canvas.ax.axis('off')
-        self.parent.ui.preview_widget.draw()
+#        self.parent.ui.preview_widget.canvas.ax.axis('off')
+#        self.parent.ui.preview_widget.draw()
         
     def select_load_data_row(self, data_type='sample', row=0):
         if data_type == 'sample':

@@ -44,6 +44,8 @@ class ImageHandler(object):
                 self.get_tiff_data()
             elif self.data_type == 'fits':
                 self.get_fits_data()
+                
+        return self.data
 
     def get_metadata(self, selected_infos_dict={}):
         if self.data == []:
