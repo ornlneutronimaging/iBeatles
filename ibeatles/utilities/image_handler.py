@@ -1,4 +1,5 @@
 from PIL import Image
+import pyfits
 import os
 import numpy as np
 import time
@@ -70,7 +71,17 @@ class ImageHandler(object):
     
     def get_fits_data(self):
         filename = self.filename
-        pass
+        
+        _hdu_list = pyfits.open(filename)
+        _hdu_0 = _hdu_list[0]
+        
+        #metadata dict
+        metadata = _hdu_0.header
+        self.metadata = metadata
+        
+        #image
+        data = np.array(_hdu_0.data)
+        self.data = data
 
     def get_tiff_metadata(self, selected_infos):
 
@@ -112,5 +123,34 @@ class ImageHandler(object):
 
         self.metadata = selected_infos
     
-    def get_fits_metadata(self, filename):
-        pass
+    def get_fits_metadata(self, selected_infos):
+
+        _metadata = self.metadata
+        _filename = self.filename
+        
+        # acquisition time
+        try: # new format
+            acquisition_time = _metadata['DATE']
+        except:
+            acquisition_time = time.ctime(os.path.getmtime(_filename))
+        selected_infos['acquisition_duration']['value'] = acquisition_time
+        
+        # acquisition duration
+        try:
+            acquisition_duration = _metadata['EXPOSURE']
+        except:
+            acquisition_duration = _metadata['TiMEBIN']
+        selected_infos['acquisition_time']['value'] = acquisition_duration
+        
+        # image size
+        valueX = _metadata['NAXIS1']
+        valueY = _metadata['NAXIS2']
+        image_size = "{}x{}".format(valueX, valueY)
+        selected_infos['image_size']['value'] = image_size
+        
+        # image type
+        bits = _metadata['BITPIX']
+        selected_infos['image_type']['value'] = "{} bits".format(bits)
+        
+        self.metadata = selected_infos
+             
