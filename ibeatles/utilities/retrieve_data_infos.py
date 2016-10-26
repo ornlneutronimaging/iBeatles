@@ -3,6 +3,11 @@ import time
 
 from ibeatles.utilities.image_handler import ImageHandler
 
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+
+
 
 class RetrieveDataInfos(object):
 
@@ -60,12 +65,13 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         
         #data
         _data = self.data
+        
         if _data == []:
             self.parent.ui.preview_widget.clear()
         else:
-            self.parent.ui.preview_widget.imshow(_data)
-        self.parent.ui.preview_widget.draw()
-        
+            img = self.parent.ui.preview_widget.imshow(_data)
+            
+        self.parent.ui.preview_widget.draw()        
         
             
     def get_list_files_selected(self):
