@@ -18,7 +18,7 @@ class RetrieveDataInfos(object):
 
 class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     
-    selected_infos = {'acquisition_duration': {'name': "Acquisition Duration (s)",
+    selected_infos = {'acquisition_duration': {'name': "Acquisition Duration",
                                                'value': 0},
                       'acquisition_time': {'name': 'Acquisition Time',
                                            'value': ''},
