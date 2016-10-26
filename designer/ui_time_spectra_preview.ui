@@ -47,9 +47,12 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>300</width>
+         <width>250</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
        </property>
       </widget>
       <widget class="MPLWidget" name="time_spectra_plot" native="true"/>
