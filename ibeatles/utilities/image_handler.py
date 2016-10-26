@@ -116,12 +116,20 @@ class ImageHandler(object):
             [nameY, valueY] = sizeY_raw.split(':')
         except:
             valueY = _metadata[257]
-        image_size = "{}x{}".format(valueX, valueY)
+        image_size = "{} x {}".format(valueX, valueY)
         selected_infos['image_size']['value'] = image_size
         
         # image type
         bits = _metadata[258][0]
         selected_infos['image_type']['value'] = "{} bits".format(bits)
+        
+        # min counts 
+        min_value = np.min(self.data)
+        selected_infos['min_counts']['value'] = "{}".format(min_value)
+
+        # max counts
+        max_value = np.max(self.data)
+        selected_infos['max_counts']['value'] = "{}".format(max_value)
 
         self.metadata = selected_infos
     
@@ -147,12 +155,20 @@ class ImageHandler(object):
         # image size
         valueX = _metadata['NAXIS1']
         valueY = _metadata['NAXIS2']
-        image_size = "{}x{}".format(valueX, valueY)
+        image_size = "{} x {}".format(valueX, valueY)
         selected_infos['image_size']['value'] = image_size
         
         # image type
         bits = _metadata['BITPIX']
         selected_infos['image_type']['value'] = "{} bits".format(bits)
         
+        # min counts 
+        min_value = np.min(self.data)
+        selected_infos['min_counts']['value'] = "{}".format(min_value)
+
+        # max counts
+        max_value = np.max(self.data)
+        selected_infos['max_counts']['value'] = "{}".format(max_value)
+
         self.metadata = selected_infos
              

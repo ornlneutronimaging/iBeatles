@@ -25,7 +25,11 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
                       'image_size': {'name': 'Image(s) Size',
                                       'value': '512x512'},
                       'image_type': {'name': 'Image Type',
-                                     'value': '16 bits'}}
+                                     'value': '16 bits'},
+                      'min_counts': {'name': 'min counts',
+                                    'value': 0},
+                      'max_counts': {'name': 'max counts',
+                                     'value': 0}}
     
     data = []
     
