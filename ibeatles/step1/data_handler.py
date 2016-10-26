@@ -68,9 +68,10 @@ class DataHandler(object):
         else:
             folder = self.parent.data_metadata['time_spectra']['folder']
             time_spectra_name_format = '*_Spectra.txt'
-            file_name = QtGui.QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
+            file_name = str(QtGui.QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
                                                           directory = folder,
-                                                          filter = "Txt ({});;All (*.*)".format(time_spectra_name_format))        
+                                                          filter = "Txt ({});;All (*.*)".format(time_spectra_name_format)))
+
             if file_name:
                 base_file_name = FileHandler.get_base_filename(file_name)
                 self.list_ui['time_spectra']['text'].setText(base_file_name)

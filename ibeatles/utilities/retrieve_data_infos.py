@@ -3,11 +3,6 @@ import time
 
 from ibeatles.utilities.image_handler import ImageHandler
 
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
-
-
 
 class RetrieveDataInfos(object):
 
