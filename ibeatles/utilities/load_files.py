@@ -8,7 +8,8 @@ try:
 except:
     from PyQt5 import QtGui
     from PyQt5.QtWidgets import QFileDialog
-
+    
+from ibeatles.utilities.file_handler import FileHandler
 
 
 class LoadFiles(object):
@@ -37,6 +38,8 @@ class LoadFiles(object):
             _short_file = os.path.basename(_file)
             short_list_of_files.append(_short_file)
         
+        
+        short_list_of_files = FileHandler.cleanup_list_of_files(short_list_of_files)
         self.list_of_files = short_list_of_files
 
 

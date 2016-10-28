@@ -11,14 +11,17 @@ except:
     from PyQt5.QtWidgets import QMainWindow
 
 from neutronbraggedge.experiment_handler.tof import TOF
+from neutronbraggedge.experiment_handler.experiment import Experiment
 
 from ibeatles.interfaces.ui_time_spectra_preview import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.file_handler import FileHandler
+import ibeatles.utilities.math_tools as math_tools
 
 
 class TimeSpectraHandler(object):
     
     tof_array = []
+    lambda_array = []
     counts_array  = []
     full_file_name = ''
     
@@ -36,15 +39,34 @@ class TimeSpectraHandler(object):
             _tof_handler = TOF(filename = self.full_file_name)
             self.tof_array = _tof_handler.tof_array
             self.counts_array = _tof_handler.counts_array
+            
+    def calculate_lambda_scale(self):
+        distance_source_detector = str(self.parent.ui.distance_source_detector.text())
+        detector_offset = str(self.parent.ui.detector_offset.text())
+        
+        if (math_tools.is_float(distance_source_detector)) and \
+           (math_tools.is_float(detector_offset)):
+            distance_source_detector = float(distance_source_detector)
+            detector_offset = float(detector_offset)
+
+            _exp = Experiment(tof=self.tof_array,
+                              distance_source_detector_m=distance_source_detector,
+                              detector_offset_micros=detector_offset)
+            self.lambda_array = _exp.lambda_array
+        else:
+            self.lambda_array = []
+        
     
     def display(self):
         self.load()
+        self.calculate_lambda_scale()
         if not self.tof_array == []:
             _time_spectra_window = TimeSpectraDisplay(parent = self.parent, 
                                                       short_filename = self.short_file_name,
                                                       full_filename = self.full_file_name,
                                                       x_axis = self.tof_array,
-                                                      y_axis = self.counts_array)
+                                                      y_axis = self.counts_array,
+                                                      x2_axis = self.lambda_array)
             _time_spectra_window.show()
         
     
@@ -52,10 +74,12 @@ class TimeSpectraHandler(object):
     
 class TimeSpectraDisplay(QMainWindow):
     
-    def __init__(self, parent=None, short_filename='', full_filename='', x_axis=[], y_axis=[]):
+    def __init__(self, parent=None, short_filename='', full_filename='', 
+                 x_axis=[], y_axis=[], x2_axis=[]):
         
         self.parent = parent
         self.x_axis = x_axis
+        self.x2_axis = x2_axis
         self.y_axis = y_axis
         self.full_filename = full_filename
         
@@ -74,8 +98,16 @@ class TimeSpectraDisplay(QMainWindow):
     
     def plot_data(self):
         self.ui.time_spectra_plot.plot(self.x_axis, self.y_axis)
-        self.ui.time_spectra_plot.set_xlabel("TOF (micros)")
+
+        if not self.x2_axis == []:
+            ax2 = self.ui.time_spectra_plot.canvas.ax.twiny()
+            ax2.plot(self.x2_axis, np.ones(len(self.x2_axis)))
+            ax2.cla()
+            ax2.set_xlabel(r"$Lambda  (\AA ^{-1} )$")
+        
+        self.ui.time_spectra_plot.set_xlabel(r"$TOF  (\mu m)$")
         self.ui.time_spectra_plot.set_ylabel("Counts")
+        self.ui.time_spectra_plot.canvas.figure.tight_layout()
         self.ui.time_spectra_plot.draw()
         
         
