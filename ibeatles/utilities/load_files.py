@@ -2,7 +2,12 @@ import glob
 import os
 import matplotlib.image as mpimg
 
-from PyQt4 import QtGui
+try:
+    from PyQt4 import QtGui
+    from PyQt4.QtGui import QFileDialog
+except:
+    from PyQt5 import QtGui
+    from PyQt5.QtWidgets import QFileDialog
 
 
 
@@ -48,7 +53,7 @@ class LoadTimeSpectra(object):
             self.browse_file_name()
 
     def browse_file_name(self):
-        file_name = QtGui.QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
+        file_name = QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
                                                      directory = self.folder,
                                                      filter = "Txt ({});;All (*.*)".format(self.time_spectra_name_format))
         if file_name:

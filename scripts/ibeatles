@@ -8,11 +8,14 @@ try:
     import PyQt4
     import PyQt4.QtCore as QtCore
     import PyQt4.QtGui as QtGui
+    from PyQt4.QtGui import QMainWindow as QMainWindow
+    from PyQt4.QtGui import QApplication 
 except:
     import PyQt5
     import PyQt5.QtCore as QtCore
     import PyQt5.QtGui as QtGui
-    
+    from PyQt5.QtWidgets import QMainWindow as QMainWindow
+    from PyQt5.QtWidgets import QApplication
 
 import ibeatles.interfaces.ui_mainWindow
 
@@ -26,7 +29,7 @@ from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 
 
-class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
+class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     """ Main FastGR window
     """
 
@@ -38,7 +41,7 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         ----------
         """
         # Base class
-        QtGui.QMainWindow.__init__(self)
+        QMainWindow.__init__(self)
 
         # Initialize the UI widgets
         self.ui = ibeatles.interfaces.ui_mainWindow.Ui_MainWindow()
@@ -181,7 +184,7 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
 
 
 def main():
-    app = PyQt4.QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     #app.setWindowIcon(PyQt4.QtGui.QIcon(":/icon.png"))
     application = MainWindow()
     application.show()

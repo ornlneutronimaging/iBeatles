@@ -1,8 +1,14 @@
 import os
 import numpy as np
 
-import PyQt4
-import PyQt4.QtGui as QtGui
+try:
+    import PyQt4
+    import PyQt4.QtGui as QtGui
+    from PyQt4.QtGui import QMainWindow
+except:
+    import PyQt5
+    import PyQt5.QtGui as QtGui
+    from PyQt5.QtWidgets import QMainWindow
 
 from neutronbraggedge.experiment_handler.tof import TOF
 
@@ -44,7 +50,7 @@ class TimeSpectraHandler(object):
     
     
     
-class TimeSpectraDisplay(QtGui.QMainWindow):
+class TimeSpectraDisplay(QMainWindow):
     
     def __init__(self, parent=None, short_filename='', full_filename='', x_axis=[], y_axis=[]):
         
@@ -53,7 +59,7 @@ class TimeSpectraDisplay(QtGui.QMainWindow):
         self.y_axis = y_axis
         self.full_filename = full_filename
         
-        QtGui.QMainWindow.__init__(self, parent=parent)
+        QMainWindow.__init__(self, parent=parent)
         self.ui = UiMainWindow()
         self.ui.setupUi(self)
         

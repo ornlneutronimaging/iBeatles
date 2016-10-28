@@ -454,7 +454,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         self.toolBox.setCurrentIndex(0)
         QtCore.QObject.connect(self.import_sample_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.sample_import_button_clicked)
         QtCore.QObject.connect(self.import_time_spectra_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.time_spectra_import_button_clicked)

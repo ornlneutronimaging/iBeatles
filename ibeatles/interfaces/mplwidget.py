@@ -3,8 +3,11 @@ import os
 import tempfile
 try:
     from PyQt4 import QtCore, QtGui
+    from PyQt4.QtGui import QWidget
 except:
-    from PyQt import QtCore, QtGui
+    from PyQt5 import QtCore, QtGui
+    from PyQt5.QtWidgets import QWidget
+
 from . import icons_rc #@UnusedImport
 import matplotlib.cm
 import matplotlib.colors
@@ -352,7 +355,7 @@ class MplCanvas(FigureCanvas):
         return 'png'
 
 
-class MPLWidget(QtGui.QWidget):
+class MPLWidget(QWidget):
     cplot=None
     cbar=None
 
@@ -361,7 +364,7 @@ class MPLWidget(QtGui.QWidget):
     leaveFigure = QtCore.pyqtSignal()
 
     def __init__(self, parent=None, with_toolbar=True, coordinates=False):
-        QtGui.QWidget.__init__(self, parent)
+        QWidget.__init__(self, parent)
         self.canvas=MplCanvas()
         self.canvas.ax2=None
         self.vbox=QtGui.QVBoxLayout()
@@ -396,7 +399,7 @@ class MPLWidget(QtGui.QWidget):
         if self.toolbar:
             QtGui.QApplication.restoreOverrideCursor()
             self.toolbar._lastCursor=None
-        return QtGui.QWidget.leaveEvent(self, event)
+        return QWidget.leaveEvent(self, event)
 
     def set_config(self, config):
         self.canvas.fig.subplots_adjust(**config)

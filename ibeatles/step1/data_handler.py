@@ -5,8 +5,10 @@ import pprint
 
 try:
     import PyQt4.QtGui as QtGui
+    from PyQt4.QtGui import QFileDialog
 except:
     import PyQt5.QtGui as QtGui
+    from PyQt5.QtWidgets import QFileDialog
 
 from ibeatles.utilities.load_files import LoadFiles, LoadTimeSpectra
 from ibeatles.utilities.file_handler import FileHandler
@@ -72,7 +74,7 @@ class DataHandler(object):
         else:
             folder = self.parent.data_metadata['time_spectra']['folder']
             time_spectra_name_format = '*_Spectra.txt'
-            file_name = str(QtGui.QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
+            file_name = str(QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
                                                           directory = folder,
                                                           filter = "Txt ({});;All (*.*)".format(time_spectra_name_format)))
 
@@ -123,7 +125,7 @@ class DataHandler(object):
         
 
         
-class FileDialog(QtGui.QFileDialog):
+class FileDialog(QFileDialog):
 
     selectedFiles = []
     
