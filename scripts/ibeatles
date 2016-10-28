@@ -4,9 +4,15 @@ import sys
 import os
 import time
 
-import PyQt4
-import PyQt4.QtCore as QtCore
-import PyQt4.QtGui as QtGui
+try:
+    import PyQt4
+    import PyQt4.QtCore as QtCore
+    import PyQt4.QtGui as QtGui
+except:
+    import PyQt5
+    import PyQt5.QtCore as QtCore
+    import PyQt5.QtGui as QtGui
+    
 
 import ibeatles.interfaces.ui_mainWindow
 

@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 import os
 import tempfile
-from PyQt4 import QtCore, QtGui
+try:
+    from PyQt4 import QtCore, QtGui
+except:
+    from PyQt import QtCore, QtGui
 from . import icons_rc #@UnusedImport
 import matplotlib.cm
 import matplotlib.colors

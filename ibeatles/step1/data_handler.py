@@ -3,8 +3,10 @@ import os
 import glob
 import pprint
 
-import PyQt4.QtGui as QtGui
-
+try:
+    import PyQt4.QtGui as QtGui
+except:
+    import PyQt5.QtGui as QtGui
 
 from ibeatles.utilities.load_files import LoadFiles, LoadTimeSpectra
 from ibeatles.utilities.file_handler import FileHandler
