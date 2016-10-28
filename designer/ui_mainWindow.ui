@@ -33,7 +33,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -60,7 +60,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>599</width>
+                 <width>523</width>
                  <height>517</height>
                 </rect>
                </property>
@@ -144,7 +144,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>599</width>
+                 <width>523</width>
                  <height>517</height>
                 </rect>
                </property>
@@ -246,7 +246,7 @@
                  <item>
                   <widget class="QLabel" name="time_spectra_folder">
                    <property name="text">
-                    <string> </string>
+                    <string/>
                    </property>
                   </widget>
                  </item>
@@ -270,7 +270,7 @@
                  <item>
                   <widget class="QLabel" name="time_spectra">
                    <property name="text">
-                    <string> </string>
+                    <string/>
                    </property>
                   </widget>
                  </item>
@@ -627,6 +627,13 @@
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="normalized_folder">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
                <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
@@ -642,7 +649,7 @@
              </layout>
             </item>
             <item>
-             <widget class="QListView" name="listView"/>
+             <widget class="QListWidget" name="list_normalized"/>
             </item>
            </layout>
           </widget>
@@ -712,7 +719,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit_3">
+                 <widget class="QTextEdit" name="normalized_selected_infos">
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
@@ -727,9 +734,6 @@
                     <width>0</width>
                     <height>50</height>
                    </size>
-                  </property>
-                  <property name="textInteractionFlags">
-                   <set>Qt::TextBrowserInteraction</set>
                   </property>
                  </widget>
                 </item>
@@ -741,7 +745,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPlainTextEdit" name="plainTextEdit_4">
+                 <widget class="QTextEdit" name="normalized_general_infos">
                   <property name="enabled">
                    <bool>true</bool>
                   </property>
@@ -756,9 +760,6 @@
                     <width>0</width>
                     <height>50</height>
                    </size>
-                  </property>
-                  <property name="textInteractionFlags">
-                   <set>Qt::TextBrowserInteraction</set>
                   </property>
                  </widget>
                 </item>
@@ -781,7 +782,7 @@
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_12">
                 <item>
-                 <widget class="QWidget" name="widget_4" native="true">
+                 <widget class="MPLWidget" name="normalized_preview_widget" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -1024,12 +1025,44 @@
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>551</x>
-     <y>767</y>
+     <x>543</x>
+     <y>775</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
      <y>820</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>import_normalized_data</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>normalized_import_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>-5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_normalized</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>normalized_list_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>435</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>959</x>
+     <y>-5</y>
     </hint>
    </hints>
   </connection>
@@ -1044,5 +1077,7 @@
   <slot>time_spectra_selection_changed()</slot>
   <slot>load_data_tab_changed()</slot>
   <slot>time_spectra_preview_button_clicked()</slot>
+  <slot>normalized_import_button_clicked()</slot>
+  <slot>normalized_list_selection_changed()</slot>
  </slots>
 </ui>

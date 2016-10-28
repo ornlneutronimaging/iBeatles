@@ -10,11 +10,23 @@ class RetrieveDataInfos(object):
         self.parent = parent
         self.data_type = data_type
         
+        self.general_infos_ui = {'sample': self.parent.ui.data_general_infos,
+                                 'ob':  self.parent.ui.data_general_infos,
+                                 'normalized': self.parent.ui.normalized_general_infos}
+        
+        self.selected_infos_ui = {'sample': self.parent.ui.data_selected_infos,
+                                 'ob': self.parent.ui.data_selected_infos,
+                                 'normalized': self.parent.ui.normalized_selected_infos}
+        
         self.path = self.parent.data_metadata[data_type]['folder']
         
         self.table_ui = {'sample': self.parent.ui.list_sample,
-                         'ob': self.parent.ui.list_open_beam}
+                         'ob': self.parent.ui.list_open_beam,
+                         'normalized': self.parent.ui.list_normalized}
 
+        self.preview_widget = {'sample': self.parent.ui.preview_widget,
+                               'ob': self.parent.ui.preview_widget,
+                               'normalized': self.parent.ui.normalized_preview_widget}
 
 class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     
@@ -56,17 +68,17 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         for key in self.selected_infos:
             text += '<b>{}</b>: {}<br/>'.format(self.selected_infos[key]['name'], 
                                       self.selected_infos[key]['value'])
-        self.parent.ui.data_selected_infos.setHtml(text)
+        self.selected_infos_ui[self.data_type].setHtml(text)
         
         #data
         _data = self.data
         
         if _data == []:
-            self.parent.ui.preview_widget.clear()
+            self.preview_widget[self.data_type].clear()
         else:
-            img = self.parent.ui.preview_widget.imshow(_data)
+            img = self.preview_widget[self.data_type].imshow(_data)
             
-        self.parent.ui.preview_widget.draw()        
+        self.preview_widget[self.data_type].draw()        
         
             
     def get_list_files_selected(self):
@@ -130,7 +142,7 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
             text += '<b>{}</b>: {}<br/>'.format(self.general_infos[key]['name'], 
                                       self.general_infos[key]['value'])
             
-        self.parent.ui.data_general_infos.setHtml(text)
+        self.general_infos_ui[self.data_type].setHtml(text)
         
         
         

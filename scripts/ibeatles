@@ -14,6 +14,8 @@ from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
+from ibeatles.step3.gui_handler import Step3GuiHandler
+
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 
@@ -72,6 +74,19 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
                            'normalized': [],
                            'time_spectra': []}
 
+    #TAB 1, 2 and 3
+    
+    def retrieve_general_infos(self, data_type = 'sample'):
+        o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)
+        o_general_infos.update()
+    
+    def retrieve_selected_row_infos(self, data_type = 'sample'):
+        if data_type == 'sample':
+            self.sample_retrieve_selected_row_infos()
+        elif data_type == 'ob':
+            self.open_beam_retrieve_selected_row_infos()
+        elif data_type == 'normalized':
+            self.normalized_retrieve_selected_row_infos()
 
     #TAB 1: Load Data Tab
     
@@ -88,13 +103,7 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
         o_gui = Step1GuiHandler(parent=self)
         o_gui.select_load_data_row(data_type=data_type,
                                    row=row)
-                                               
-    def retrieve_selected_row_infos(self, data_type = 'sample'):
-        if data_type == 'sample':
-            self.sample_retrieve_selected_row_infos()
-        elif data_type == 'ob':
-            self.open_beam_retrieve_selected_row_infos()
-            
+                                                           
     def sample_retrieve_selected_row_infos(self):
         o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'sample')
         o_retrieve_data_infos.update()
@@ -133,14 +142,36 @@ class MainWindow(PyQt4.QtGui.QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_M
     def time_spectra_preview_button_clicked(self):
         o_time_spectra = TimeSpectraHandler(parent = self)
         o_time_spectra.display()
-        
-    def retrieve_general_infos(self, data_type = 'sample'):
-        o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)
-        o_general_infos.update()
-        
+                
     def load_data_tab_changed(self, tab_index):
         o_gui = Step1GuiHandler(parent = self)
         o_gui.load_data_tab_changed(tab_index = tab_index)
+    
+    #TAB 3: Normalized Data Tab
+    
+    def normalized_import_button_clicked(self):
+        self.loading_flag = True
+        o_load = DataHandler(parent = self)
+        o_load.retrieve_files(data_type = 'normalized')
+        if not o_load.user_canceled:
+            self.select_normalized_row(row = 0)
+            self.retrieve_general_infos(data_type = 'normalized')
+            self.retrieve_selected_row_infos(data_type = 'normalized')
+    
+    def normalized_retrieve_selected_row_infos(self):
+        o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
+        o_retrieve_data_infos.update()
+
+    def select_normalized_row(self, row=0):
+        o_gui = Step3GuiHandler(parent=self)
+        o_gui.select_normalized_row(row=row)
+
+    def normalized_list_selection_changed(self):
+        if not self.loading_flag:
+            o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
+            o_retrieve_data_infos.update()   
+        else:
+            self.loading_flag = False
 
 
 def main():

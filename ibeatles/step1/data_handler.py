@@ -23,6 +23,8 @@ class DataHandler(object):
                                    'folder': self.parent.ui.sample_folder},
                         'ob': {'list': self.parent.ui.list_open_beam,
                                'folder': self.parent.ui.open_beam_folder},
+                        'normalized': {'list': self.parent.ui.list_normalized,
+                                       'folder': self.parent.ui.normalized_folder},
                         'time_spectra': {'text': self.parent.ui.time_spectra,
                                          'folder': self.parent.ui.time_spectra_folder}}
     
