@@ -1,6 +1,6 @@
 include versioneer.py
-include fastgr/_version.py
+include ibeatles/_version.py
 include README.md
-include fastgr/*
+include ibeatles/*
 recursive-include icons *.png *.svg *.ico
 
