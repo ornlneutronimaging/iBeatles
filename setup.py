@@ -25,6 +25,13 @@ if sys.argv[-1] == 'pyuic':
         print("Did not convert any '.ui' files")
     sys.exit(0)
 
+if sys.argv[-1] == 'pyrcc4':
+    infile = 'ibeatles/icons/icon.qrc'
+    outfile = 'ibeatles/interfaces/icons_rc.py'
+    print("Converting icons_rc file")
+    command = "pyrcc4 -o %s %s" % (outfile, infile)
+    os.system(command)
+
 setup(name="iBeatles",
       version=versioneer.get_version(),
       cmdclass=versioneer.get_cmdclass(),
