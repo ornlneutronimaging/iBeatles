@@ -77,20 +77,18 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         
         #data
         _data = self.data
-        
+        if self.parent.cbar:
+            self.parent.cbar.remove()
+
         if _data == []:
-            self.preview_widget[self.data_type].clear()
+            self.preview_widget[self.data_type].ax1.clear()
+            self.parent.cbar = None
         else:
             img = self.preview_widget[self.data_type].ax1.imshow(_data)
-            #img = self.parent.qmc.ax1.imshow(_data)
-            cbar = self.preview_widget[self.data_type].fig.colorbar(img)
-            #cbar = self.parent.qmc.fig.colorbar(img)
+            self.parent.cbar = self.preview_widget[self.data_type].fig.colorbar(img)
             self.preview_widget[self.data_type].fig.tight_layout()
-            #self.parent.qmc.fig.tight_layout()
 
         self.preview_widget[self.data_type].draw()
-        #self.parent.qmc.draw()
-        #self.preview_widget[self.data_type].draw()        
         
             
     def get_list_files_selected(self):
