@@ -107,7 +107,9 @@ class TimeSpectraDisplay(QMainWindow):
         
         self.ui.time_spectra_plot.set_xlabel(r"$TOF  (\mu m)$")
         self.ui.time_spectra_plot.set_ylabel("Counts")
-        self.ui.time_spectra_plot.canvas.figure.tight_layout()
+        self.ui.time_spectra_plot.canvas.figure.subplots_adjust(top=0.9,
+                                                                left=0.1)
+
         self.ui.time_spectra_plot.draw()
         
         
