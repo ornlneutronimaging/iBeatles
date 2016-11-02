@@ -29,6 +29,7 @@ from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 
 
+
 class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     """ Main FastGR window
     """
@@ -50,13 +51,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.setup()
         self.init_interface()
         
+        
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
+        o_gui.init_matplotlib()
         
     def setup(self):
         if self.DEBUGGING:
-            current_folder = '/Volumes/My Book Thunderbolt Duo/iBeatles/test_data/'
+            current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
         else:
             current_folder = os.getcwd()
 

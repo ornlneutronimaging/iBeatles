@@ -1,5 +1,19 @@
+try:
+    import PyQt4
+    import PyQt4.QtCore as QtCore
+    import PyQt4.QtGui as QtGui
+except:
+    import PyQt5
+    import PyQt5.QtCore as QtCore
+    import PyQt5.QtGui as QtGui
+
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+
+
 from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
+
+from ibeatles.interfaces.my_mplwidget import Qt4MplCanvas
 
 
 class Step1GuiHandler(object):
@@ -44,3 +58,14 @@ class Step1GuiHandler(object):
         o_step1_plot = Step1Plot(parent = self.parent)
         o_step1_plot.display_2d_preview()
     
+    def init_matplotlib(self):
+        
+        #sample and ob
+        
+        vbl = QtGui.QVBoxLayout(self.parent.ui.preview_widget)
+        self.parent.qmc = Qt4MplCanvas(self.parent.ui.preview_widget)
+        ntb = NavigationToolbar(self.parent.qmc, self.parent.ui.preview_widget)
+    
+        vbl.addWidget(self.parent.qmc)
+        vbl.addWidget(ntb)
+        

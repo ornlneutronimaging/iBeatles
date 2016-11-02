@@ -2,6 +2,7 @@ import os
 import time
 
 from ibeatles.utilities.image_handler import ImageHandler
+import matplotlib.pyplot as plt
 
 
 class RetrieveDataInfos(object):
@@ -24,8 +25,12 @@ class RetrieveDataInfos(object):
                          'ob': self.parent.ui.list_open_beam,
                          'normalized': self.parent.ui.list_normalized}
 
-        self.preview_widget = {'sample': self.parent.ui.preview_widget,
-                               'ob': self.parent.ui.preview_widget,
+        #self.preview_widget = {'sample': self.parent.ui.preview_widget,
+                               #'ob': self.parent.ui.preview_widget,
+                               #'normalized': self.parent.ui.normalized_preview_widget}
+
+        self.preview_widget = {'sample': self.parent.qmc,
+                               'ob': self.parent.qmc,
                                'normalized': self.parent.ui.normalized_preview_widget}
 
 class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
@@ -76,9 +81,16 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         if _data == []:
             self.preview_widget[self.data_type].clear()
         else:
-            img = self.preview_widget[self.data_type].imshow(_data)
-            
-        self.preview_widget[self.data_type].draw()        
+            img = self.preview_widget[self.data_type].ax1.imshow(_data)
+            #img = self.parent.qmc.ax1.imshow(_data)
+            cbar = self.preview_widget[self.data_type].fig.colorbar(img)
+            #cbar = self.parent.qmc.fig.colorbar(img)
+            self.preview_widget[self.data_type].fig.tight_layout()
+            #self.parent.qmc.fig.tight_layout()
+
+        self.preview_widget[self.data_type].draw()
+        #self.parent.qmc.draw()
+        #self.preview_widget[self.data_type].draw()        
         
             
     def get_list_files_selected(self):
