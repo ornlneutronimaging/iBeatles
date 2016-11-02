@@ -3,6 +3,7 @@ import time
 
 from ibeatles.utilities.image_handler import ImageHandler
 import matplotlib.pyplot as plt
+from matplotlib.widgets import RectangleSelector
 
 
 class RetrieveDataInfos(object):
@@ -25,13 +26,13 @@ class RetrieveDataInfos(object):
                          'ob': self.parent.ui.list_open_beam,
                          'normalized': self.parent.ui.list_normalized}
 
-        #self.preview_widget = {'sample': self.parent.ui.preview_widget,
-                               #'ob': self.parent.ui.preview_widget,
-                               #'normalized': self.parent.ui.normalized_preview_widget}
-
-        self.preview_widget = {'sample': self.parent.qmc,
-                               'ob': self.parent.qmc,
+        self.preview_widget = {'sample': self.parent.ui.preview_widget,
+                               'ob': self.parent.ui.preview_widget,
                                'normalized': self.parent.ui.normalized_preview_widget}
+
+        #self.preview_widget = {'sample': self.parent.qmc,
+                               #'ob': self.parent.qmc,
+                               #'normalized': self.parent.ui.normalized_preview_widget}
 
 class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     
@@ -77,19 +78,31 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         
         #data
         _data = self.data
-        if self.parent.cbar:
-            self.parent.cbar.remove()
+        #if self.parent.cbar:
+            #self.parent.cbar.remove()
 
-        if _data == []:
-            self.preview_widget[self.data_type].ax1.clear()
-            self.parent.cbar = None
-        else:
-            img = self.preview_widget[self.data_type].ax1.imshow(_data)
-            self.parent.cbar = self.preview_widget[self.data_type].fig.colorbar(img)
-            self.preview_widget[self.data_type].fig.tight_layout()
+        #if _data == []:
+            #self.preview_widget[self.data_type].ax1.clear()
+            #self.parent.cbar = None
+        #else:
+            #img = self.preview_widget[self.data_type].ax1.imshow(_data)
+            #self.parent.cbar = self.preview_widget[self.data_type].fig.colorbar(img)
+            #self.preview_widget[self.data_type].fig.tight_layout()
 
-        self.preview_widget[self.data_type].draw()
-        
+        #self.preview_widget[self.data_type].draw()
+
+        self.preview_widget[self.data_type].setImage(_data)
+
+
+
+
+
+
+
+
+
+
+
             
     def get_list_files_selected(self):
         list_files = [str(x.text()) for x in self.table_ui[self.data_type].selectedItems()]

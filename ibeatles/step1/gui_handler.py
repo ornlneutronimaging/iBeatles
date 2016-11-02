@@ -14,6 +14,7 @@ from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
 
 from ibeatles.interfaces.my_mplwidget import Qt4MplCanvas
+import pyqtgraph as pg
 
 
 class Step1GuiHandler(object):
@@ -45,10 +46,6 @@ class Step1GuiHandler(object):
         rect = self.parent.geometry()
         self.parent.setGeometry(10, 10, rect.width(), rect.height())
 
-        # remove axis from image preview
-#        self.parent.ui.preview_widget.canvas.ax.axis('off')
-#        self.parent.ui.preview_widget.draw()
-        
     def select_load_data_row(self, data_type='sample', row=0):
         if data_type == 'sample':
             self.parent.ui.list_sample.setCurrentRow(row)
@@ -61,11 +58,10 @@ class Step1GuiHandler(object):
     def init_matplotlib(self):
         
         #sample and ob
-        
-        vbl = QtGui.QVBoxLayout(self.parent.ui.preview_widget)
-        self.parent.qmc = Qt4MplCanvas(self.parent.ui.preview_widget)
-        ntb = NavigationToolbar(self.parent.qmc, self.parent.ui.preview_widget)
-    
-        vbl.addWidget(self.parent.qmc)
-        vbl.addWidget(ntb)
+        qmc = pg.ImageView()
+        vbl = QtGui.QVBoxLayout()
+        vbl.addWidget(qmc)
+
+        self.parent.ui.preview_widget = pg.ImageView(self.parent.ui.data_preview_box)
+
         

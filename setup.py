@@ -38,7 +38,6 @@ if 'pyrcc' in sys.argv[:]:
     infile = './icons/icons.qrc'
     assert os.path.isfile(infile)
     outfile = './ibeatles/interfaces/icons_rc.py'
-    assert os.path.isfile(outfile)
     print("Converting icons_rc file:")
     command = "pyrcc4  %s -o %s" % (infile, outfile)
     print("> %s" %command)
