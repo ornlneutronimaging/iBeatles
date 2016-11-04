@@ -3,6 +3,7 @@
 import sys
 import os
 import time
+import numpy as np
 
 try:
     import PyQt4
@@ -36,6 +37,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
     DEBUGGING = True
     cbar = None
+    live_data = []
 
     def __init__(self):
         """ Initialization
@@ -56,7 +58,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
-        o_gui.init_matplotlib()
+        o_gui.init_pyqtgraph()
         
     def setup(self):
         if self.DEBUGGING:
@@ -88,6 +90,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                            'time_spectra': []}
 
     #TAB 1, 2 and 3
+
+    def roi_image_view_changed(self):
+        roi = self.ui.image_view_roi
+        region = roi.getArraySlice(self.live_data, self.ui.image_view.imageItem)
+        x0 = region[0][0].start
+        x1 = region[0][0].stop
+        y0 = region[0][1].start
+        y1 = region[0][1].stop
+        
     
     def retrieve_general_infos(self, data_type = 'sample'):
         o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)

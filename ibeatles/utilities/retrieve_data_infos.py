@@ -26,9 +26,9 @@ class RetrieveDataInfos(object):
                          'ob': self.parent.ui.list_open_beam,
                          'normalized': self.parent.ui.list_normalized}
 
-        self.preview_widget = {'sample': self.parent.ui.preview_widget,
-                               'ob': self.parent.ui.preview_widget,
-                               'normalized': self.parent.ui.normalized_preview_widget}
+        self.preview_widget = {'sample': self.parent.ui.image_view,
+                               'ob': self.parent.ui.image_view}
+#                               'normalized': self.parent.ui.normalized_preview_widget}
 
         #self.preview_widget = {'sample': self.parent.qmc,
                                #'ob': self.parent.qmc,
@@ -78,6 +78,7 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         
         #data
         _data = self.data
+        self.parent.live_data = _data
         #if self.parent.cbar:
             #self.parent.cbar.remove()
 
@@ -91,7 +92,10 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
 
         #self.preview_widget[self.data_type].draw()
 
-        self.preview_widget[self.data_type].setImage(_data)
+
+        self.parent.ui.image_view.setImage(_data)
+
+#        self.preview_widget[self.data_type].setImage(_data)
 
 
 

@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(1331, 848)
+        MainWindow.resize(1535, 845)
         MainWindow.setMinimumSize(QtCore.QSize(300, 0))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setMinimumSize(QtCore.QSize(0, 0))
@@ -49,7 +49,7 @@ class Ui_MainWindow(object):
         self.toolBox = QtGui.QToolBox(self.layoutWidget)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.sample_toolbox = QtGui.QWidget()
-        self.sample_toolbox.setGeometry(QtCore.QRect(0, 0, 528, 246))
+        self.sample_toolbox.setGeometry(QtCore.QRect(0, 0, 614, 245))
         self.sample_toolbox.setObjectName(_fromUtf8("sample_toolbox"))
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.sample_toolbox)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
@@ -415,7 +415,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1331, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1535, 22))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

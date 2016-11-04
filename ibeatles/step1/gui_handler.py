@@ -55,13 +55,33 @@ class Step1GuiHandler(object):
         o_step1_plot = Step1Plot(parent = self.parent)
         o_step1_plot.display_2d_preview()
     
-    def init_matplotlib(self):
+    def init_pyqtgraph(self):
+
+        preview_widget = pg.GraphicsLayoutWidget()
+        pg.setConfigOptions(antialias=True) # improve display
+
+        vertical_layout = QtGui.QVBoxLayout()
+        preview_widget.setLayout(vertical_layout)
         
-        #sample and ob
-        qmc = pg.ImageView()
-        vbl = QtGui.QVBoxLayout()
-        vbl.addWidget(qmc)
+        # image view
+        image_view = pg.ImageView()
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+        vertical_layout.addWidget(image_view)
+        roi = pg.ROI([0,0],[1,1])
+        roi.addScaleHandle([1,1],[0,0])
+        image_view.addItem(roi)
+        roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)
+        
 
-        self.parent.ui.preview_widget = pg.ImageView(self.parent.ui.data_preview_box)
+        # bragg edge plot
+        bragg_edge_plot = pg.PlotWidget()
+        bragg_edge_plot.plot()
+        vertical_layout.addWidget(bragg_edge_plot)
 
+
+
+        self.parent.ui.preview_widget.setLayout(vertical_layout)
+        self.parent.ui.image_view = image_view
+        self.parent.ui.image_view_roi = roi
         
