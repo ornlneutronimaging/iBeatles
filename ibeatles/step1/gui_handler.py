@@ -40,6 +40,12 @@ class Step1GuiHandler(object):
         o_general_infos.update()            
         o_selected_infos.update()
         
+    def init_statusbar(self):
+        self.parent.eventProgress = QtGui.QProgressBar(self.parent.ui.statusbar)
+        self.parent.eventProgress.setMinimumSize(20, 14)
+        self.parent.eventProgress.setMaximumSize(540, 100)
+        self.parent.eventProgress.setVisible(False)
+        self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
         
     def init_gui(self):
         # define position and size
@@ -84,4 +90,5 @@ class Step1GuiHandler(object):
         self.parent.ui.preview_widget.setLayout(vertical_layout)
         self.parent.ui.image_view = image_view
         self.parent.ui.image_view_roi = roi
+        self.parent.ui.bragg_edge_plot = bragg_edge_plot
         

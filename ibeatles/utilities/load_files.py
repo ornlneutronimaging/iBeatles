@@ -10,6 +10,7 @@ except:
     from PyQt5.QtWidgets import QFileDialog
     
 from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.image_handler import ImageHandler
 
 
 class LoadFiles(object):
@@ -17,11 +18,12 @@ class LoadFiles(object):
     image_array = []
     list_of_files = []
 
-    def __init__(self, image_ext = '.tiff', folder = None, list_of_files=None):
+    def __init__(self, parent=None, image_ext = '.tiff', folder = None, list_of_files=None):
+        self.parent = parent
         self.image_ext = image_ext
         self.folder = folder
         self.retrieve_list_of_files(list_of_files = list_of_files)
-        
+        self.retrieve_data()
         
     def retrieve_list_of_files(self, list_of_files=None):
         _folder = self.folder
@@ -41,6 +43,24 @@ class LoadFiles(object):
         
         short_list_of_files = FileHandler.cleanup_list_of_files(short_list_of_files)
         self.list_of_files = short_list_of_files
+
+    def retrieve_data(self):
+        self.image_array = []
+        
+        self.parent.eventProgress.setMinimum(0)
+        self.parent.eventProgress.setMaximum(len(self.list_of_files))
+        self.parent.eventProgress.setValue(0)
+        self.parent.eventProgress.setVisible(True)
+        
+        for _index, _file in enumerate(self.list_of_files):
+            full_file_name = os.path.join(self.folder, _file)
+            o_handler = ImageHandler(parent=self.parent, filename= full_file_name)
+            _data = o_handler.get_data()
+            self.image_array.append(_data)
+            self.parent.eventProgress.setValue(_index+1)
+            QtGui.QApplication.processEvents()
+
+        self.parent.eventProgress.setVisible(False)
 
 
 class LoadTimeSpectra(object):

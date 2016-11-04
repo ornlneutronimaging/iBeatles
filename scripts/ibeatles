@@ -54,10 +54,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.setup()
         self.init_interface()
         
-        
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
+        o_gui.init_statusbar()
         o_gui.init_pyqtgraph()
         
     def setup(self):
@@ -73,16 +73,20 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
         self.data_metadata = {'sample': {'title': "Select folder or list of files",
                                          'folder': current_folder,
-                                         'general_infos': None},
+                                         'general_infos': None,
+                                         'data': []},
                               'ob': {'title': 'Select folder or list of files',
                                      'folder': current_folder,
-                                     'general_infos': None},
+                                     'general_infos': None,
+                                     'data': []},
                               'normalized': {'title': 'Select folder or list of files',
                                              'folder': current_folder,
-                                             'general_infos': None},
+                                             'general_infos': None,
+                                             'data': []},
                               'time_spectra': {'title': 'Select file',
                                                'folder': current_folder,
-                                               'general_infos': None}}
+                                               'general_infos': None,
+                                               'data': []}}
         
         self.data_files = {'sample': [],
                            'ob': [],
@@ -98,7 +102,17 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         x1 = region[0][0].stop
         y0 = region[0][1].start
         y1 = region[0][1].stop
+
+        data = self.data_metadata['sample']['data']
+        bragg_edge = []
+        for _data in data:
+            _sum_data = np.sum(_data[y0:y1, x0:x1])
+            bragg_edge.append(_sum_data)
+            
+        self.ui.bragg_edge_plot.clear()
+        self.ui.bragg_edge_plot.plot(bragg_edge)
         
+
     
     def retrieve_general_infos(self, data_type = 'sample'):
         o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)
