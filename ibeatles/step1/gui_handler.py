@@ -59,8 +59,8 @@ class Step1GuiHandler(object):
         else:
             self.parent.ui.list_open_beam.setCurrentRow(row)
             
-        o_step1_plot = Step1Plot(parent = self.parent)
-        o_step1_plot.display_2d_preview()
+#        o_step1_plot = Step1Plot(parent = self.parent)
+#        o_step1_plot.display_2d_preview()
     
 
     def init_pyqtgraph(self):

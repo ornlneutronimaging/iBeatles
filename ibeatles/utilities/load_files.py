@@ -1,6 +1,7 @@
 import glob
 import os
 import matplotlib.image as mpimg
+import pyfits
 
 try:
     from PyQt4 import QtGui
@@ -11,6 +12,7 @@ except:
     
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.image_handler import ImageHandler
+from concurrent.futures import ProcessPoolExecutor
 
 
 class LoadFiles(object):
@@ -34,17 +36,18 @@ class LoadFiles(object):
         else:
             _list_of_files = list_of_files
         
+        self.list_of_files_full_name = _list_of_files
         short_list_of_files = []
         self.folder = os.path.dirname(_list_of_files[0]) + '/'
         for _file in _list_of_files:
             _short_file = os.path.basename(_file)
             short_list_of_files.append(_short_file)
         
-        
         short_list_of_files = FileHandler.cleanup_list_of_files(short_list_of_files)
         self.list_of_files = short_list_of_files
-
+        
     def retrieve_data(self):
+
         self.image_array = []
         
         self.parent.eventProgress.setMinimum(0)
