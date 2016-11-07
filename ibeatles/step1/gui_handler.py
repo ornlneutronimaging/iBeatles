@@ -15,6 +15,7 @@ from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, Ret
 
 from ibeatles.interfaces.my_mplwidget import Qt4MplCanvas
 import pyqtgraph as pg
+from pyqtgraph.dockarea import *
 
 
 class Step1GuiHandler(object):
@@ -61,10 +62,19 @@ class Step1GuiHandler(object):
         o_step1_plot = Step1Plot(parent = self.parent)
         o_step1_plot.display_2d_preview()
     
+
     def init_pyqtgraph(self):
 
+        area = DockArea()
+        d1 = Dock("Image Preview", size=(200, 300))
+        d2 = Dock("Bragg Edge", size=(200, 100))
+        
+        area.addDock(d1, 'top')
+        area.addDock(d2, 'bottom')
+        
+
         preview_widget = pg.GraphicsLayoutWidget()
-        pg.setConfigOptions(antialias=True) # improve display
+        pg.setConfigOptions(antialias=True) # this improve display
 
         vertical_layout = QtGui.QVBoxLayout()
         preview_widget.setLayout(vertical_layout)
@@ -73,22 +83,23 @@ class Step1GuiHandler(object):
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
-        vertical_layout.addWidget(image_view)
         roi = pg.ROI([0,0],[1,1])
         roi.addScaleHandle([1,1],[0,0])
         image_view.addItem(roi)
-        roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)
-        
+        roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)        
+        d1.addWidget(image_view)
 
         # bragg edge plot
         bragg_edge_plot = pg.PlotWidget()
         bragg_edge_plot.plot()
-        vertical_layout.addWidget(bragg_edge_plot)
+        d2.addWidget(bragg_edge_plot)
 
-
-
+        vertical_layout.addWidget(area)
         self.parent.ui.preview_widget.setLayout(vertical_layout)
+
         self.parent.ui.image_view = image_view
         self.parent.ui.image_view_roi = roi
         self.parent.ui.bragg_edge_plot = bragg_edge_plot
-        
+
+
+
