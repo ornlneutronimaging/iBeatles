@@ -77,13 +77,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                                          'list_widget_ui': self.ui.list_sample,
                                          'folder': current_folder,
                                          'general_infos': None,
-                                         'roi': [],    #[x0, y0, x1, y1]
                                          'data': []},
                               'ob': {'title': 'Select folder or list of files',
                                      'list_widget_ui': self.ui.list_open_beam,
                                      'folder': current_folder,
                                      'general_infos': None,
-                                     'roi': [],    #[x0, y0, x1, y1]
                                      'data': []},
                               'normalized': {'title': 'Select folder or list of files',
                                              'folder': current_folder,
@@ -102,9 +100,13 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     #TAB 1, 2 and 3
 
     def roi_image_view_changed(self):
-        o_plot = Step1Plot(parent=self, data_type=self.current_data_type)
+        o_plot = Step1Plot(parent=self, data_type='sample')
         o_plot.display_bragg_edge()
     
+    def roi_ob_image_view_changed(self):
+        o_plot = Step1Plot(parent=self, data_type='ob')
+        o_plot.display_bragg_edge()
+
     def retrieve_general_infos(self, data_type = 'sample'):
         o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)
         o_general_infos.update()

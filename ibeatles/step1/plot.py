@@ -21,19 +21,36 @@ class Step1Plot(object):
         self.parent.live_data = _data
     
         if _data == []:
+            self.clear_plots(data_type = self.data_type)
+        else:
+            if self.data_type == 'sample':
+                self.parent.ui.image_view.setImage(_data)       
+            elif self.data_type == 'ob':
+                self.parent.ui.ob_image_view.setImage(_data)
+
+    def clear_plots(self, data_type = 'sample'):
+        if data_type == 'sample':
             self.parent.ui.image_view.clear()
             self.parent.ui.bragg_edge_plot.clear()
-        else:
-            self.parent.ui.image_view.setImage(_data)       
+        elif data_type == 'ob':
+            self.parent.ui.ob_image_view.clear()
+            self.parent.ui.ob_bragg_edge_plot.clear()
         
     def display_bragg_edge(self):
         _data = self.data
         if _data == []:
-            self.parent.ui.bragg_edge_plot.clear()
+            if self.data_type == 'sample':
+                self.parent.ui.bragg_edge_plot.clear()
+            elif self.data_type == 'ob':
+                self.parent.ui.ob_bragg_edge_plot.clear()
         else:
             roi = self.parent.ui.image_view_roi
+            if self.data_type == 'sample':
+                _image_view_item = self.parent.ui.image_view.imageItem
+            elif self.data_type == 'ob':
+                _image_view_item = self.parent.ui.ob_image_view.imageItem
             region = roi.getArraySlice(self.parent.live_data, 
-                                       self.parent.ui.image_view.imageItem)
+                                       _image_view_item)
             x0 = region[0][0].start
             x1 = region[0][0].stop
             y0 = region[0][1].start
@@ -45,6 +62,10 @@ class Step1Plot(object):
                 _sum_data = np.sum(_data[y0:y1, x0:x1])
                 bragg_edge.append(_sum_data)
                 
-            self.parent.ui.bragg_edge_plot.clear()
-            self.parent.ui.bragg_edge_plot.plot(bragg_edge)
-            self.parent.data_metadata[self.data_type]['roi'] = [x0, y0, x1, y1]
+            if self.data_type == 'sample':
+                self.parent.ui.bragg_edge_plot.clear()
+                self.parent.ui.bragg_edge_plot.plot(bragg_edge)
+            elif self.data_type == 'ob':
+                self.parent.ui.ob_bragg_edge_plot.clear()
+                self.parent.ui.ob_bragg_edge_plot.plot(bragg_edge)
+                

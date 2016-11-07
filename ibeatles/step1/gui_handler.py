@@ -144,7 +144,7 @@ class Step1GuiHandler(object):
         roi = pg.ROI([0,0],[1,1])
         roi.addScaleHandle([1,1],[0,0])
         image_view.addItem(roi)
-        roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)        
+        roi.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)        
         d1.addWidget(image_view)
 
         # bragg edge plot
