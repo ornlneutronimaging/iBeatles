@@ -77,11 +77,13 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                                          'list_widget_ui': self.ui.list_sample,
                                          'folder': current_folder,
                                          'general_infos': None,
+                                         'roi': [],
                                          'data': []},
                               'ob': {'title': 'Select folder or list of files',
                                      'list_widget_ui': self.ui.list_open_beam,
                                      'folder': current_folder,
                                      'general_infos': None,
+                                     'roi': [],
                                      'data': []},
                               'normalized': {'title': 'Select folder or list of files',
                                              'folder': current_folder,
@@ -118,6 +120,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def load_data_tab_changed(self, tab_index):
         o_gui = Step1GuiHandler(parent = self)
         o_gui.load_data_tab_changed(tab_index = tab_index)
+        if tab_index == 0:
+            self.current_data_type = 'sample'
+        else:
+            self.current_data_type = 'ob'
 
     #TAB 1: Load Data Tab
     

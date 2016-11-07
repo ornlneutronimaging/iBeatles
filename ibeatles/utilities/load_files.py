@@ -19,6 +19,7 @@ class LoadFiles(object):
     
     image_array = []
     list_of_files = []
+    data = []
 
     def __init__(self, parent=None, image_ext = '.tiff', folder = None, list_of_files=None):
         self.parent = parent

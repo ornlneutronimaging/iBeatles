@@ -3,6 +3,8 @@ import numpy as np
 
 class Step1Plot(object):
     
+    data = []
+    
     def __init__(self, parent=None, data_type='sample', data=[]):
         self.parent = parent
         self.data_type = data_type
@@ -37,7 +39,7 @@ class Step1Plot(object):
             y0 = region[0][1].start
             y1 = region[0][1].stop
     
-            data = self.parent.data_metadata['sample']['data']
+            data = self.parent.data_metadata[self.data_type]['data']
             bragg_edge = []
             for _data in data:
                 _sum_data = np.sum(_data[y0:y1, x0:x1])
