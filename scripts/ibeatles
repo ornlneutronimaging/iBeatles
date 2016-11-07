@@ -74,10 +74,12 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.time_spectra_folder = current_folder
     
         self.data_metadata = {'sample': {'title': "Select folder or list of files",
+                                         'list_widget_ui': self.ui.list_sample,
                                          'folder': current_folder,
                                          'general_infos': None,
                                          'data': []},
                               'ob': {'title': 'Select folder or list of files',
+                                     'list_widget_ui': self.ui.list_open_beam,
                                      'folder': current_folder,
                                      'general_infos': None,
                                      'data': []},
@@ -100,7 +102,6 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def roi_image_view_changed(self):
         o_plot = Step1Plot(parent=self, data_type=self.current_data_type)
         o_plot.display_bragg_edge()
-
     
     def retrieve_general_infos(self, data_type = 'sample'):
         o_general_infos = RetrieveGeneralFileInfos(parent = self, data_type = data_type)
@@ -113,6 +114,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.open_beam_retrieve_selected_row_infos()
         elif data_type == 'normalized':
             self.normalized_retrieve_selected_row_infos()
+
+    def load_data_tab_changed(self, tab_index):
+        o_gui = Step1GuiHandler(parent = self)
+        o_gui.load_data_tab_changed(tab_index = tab_index)
 
     #TAB 1: Load Data Tab
     
@@ -168,11 +173,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def time_spectra_preview_button_clicked(self):
         o_time_spectra = TimeSpectraHandler(parent = self)
         o_time_spectra.display()
-                
-    def load_data_tab_changed(self, tab_index):
-        o_gui = Step1GuiHandler(parent = self)
-        o_gui.load_data_tab_changed(tab_index = tab_index)
-        
+                        
     def update_delta_lambda(self):
         o_gui = Step1GuiHandler(parent = self)
         o_gui.update_delta_lambda()

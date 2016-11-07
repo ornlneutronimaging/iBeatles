@@ -26,6 +26,8 @@ class Step1GuiHandler(object):
         self.parent = parent
         
     def load_data_tab_changed(self, tab_index=0):
+        data_type = 'sample'
+        
         if tab_index == 0:
             data_preview_box_label = "Sample Image Preview"
             o_general_infos = RetrieveGeneralFileInfos(parent = self.parent, 
@@ -38,10 +40,24 @@ class Step1GuiHandler(object):
                                                        data_type = 'ob')
             o_selected_infos = RetrieveSelectedFileDataInfos(parent = self.parent,
                                                                   data_type = 'ob')
+            data_type = 'ob'
         
         self.parent.ui.data_preview_box.setTitle(data_preview_box_label)
         o_general_infos.update()            
         o_selected_infos.update()
+
+        row_selected = self.row_selected(data_type=data_type)
+        data = self.parent.data_metadata[data_type]['data']
+        if not data == []:
+            data = data[row_selected]
+        o_gui = Step1Plot(parent = self.parent, 
+                          data_type = data_type,
+                          data = data)
+        o_gui.all_plots()
+        
+        
+    def row_selected(self, data_type='sample'):
+        return self.parent.data_metadata[data_type]['list_widget_ui'].currentRow()
         
     def init_statusbar(self):
         self.parent.eventProgress = QtGui.QProgressBar(self.parent.ui.statusbar)

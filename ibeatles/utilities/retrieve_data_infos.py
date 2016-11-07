@@ -1,9 +1,11 @@
 import os
 import time
 
-from ibeatles.utilities.image_handler import ImageHandler
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RectangleSelector
+
+from ibeatles.utilities.image_handler import ImageHandler
+from ibeatles.step1.plot import Step1Plot
 
 
 class RetrieveDataInfos(object):
@@ -76,37 +78,11 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
                                       self.selected_infos[key]['value'])
         self.selected_infos_ui[self.data_type].setHtml(text)
         
-        #data
-        _data = self.data
-        self.parent.live_data = _data
-        #if self.parent.cbar:
-            #self.parent.cbar.remove()
-
-        #if _data == []:
-            #self.preview_widget[self.data_type].ax1.clear()
-            #self.parent.cbar = None
-        #else:
-            #img = self.preview_widget[self.data_type].ax1.imshow(_data)
-            #self.parent.cbar = self.preview_widget[self.data_type].fig.colorbar(img)
-            #self.preview_widget[self.data_type].fig.tight_layout()
-
-        #self.preview_widget[self.data_type].draw()
-
-
-        self.parent.ui.image_view.setImage(_data)
-
-#        self.preview_widget[self.data_type].setImage(_data)
-
-
-
-
-
-
-
-
-
-
-
+        o_plot = Step1Plot(parent=self.parent,
+                           data_type=self.data_type,
+                           data = self.data)
+        o_plot.display_image()
+        
             
     def get_list_files_selected(self):
         list_files = [str(x.text()) for x in self.table_ui[self.data_type].selectedItems()]
