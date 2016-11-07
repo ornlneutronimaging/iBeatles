@@ -44,10 +44,11 @@ class Step1Plot(object):
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
         else:
-            roi = self.parent.ui.image_view_roi
             if self.data_type == 'sample':
+                roi = self.parent.ui.image_view_roi
                 _image_view_item = self.parent.ui.image_view.imageItem
             elif self.data_type == 'ob':
+                roi = self.parent.ui.ob_image_view_roi
                 _image_view_item = self.parent.ui.ob_image_view.imageItem
             region = roi.getArraySlice(self.parent.live_data, 
                                        _image_view_item)
