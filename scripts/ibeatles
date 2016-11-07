@@ -57,8 +57,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
+        o_gui.init_labels()
         o_gui.init_statusbar()
         o_gui.init_pyqtgraph()
+        self.update_delta_lambda()        
         
     def setup(self):
         if self.DEBUGGING:
@@ -170,6 +172,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def load_data_tab_changed(self, tab_index):
         o_gui = Step1GuiHandler(parent = self)
         o_gui.load_data_tab_changed(tab_index = tab_index)
+        
+    def update_delta_lambda(self):
+        o_gui = Step1GuiHandler(parent = self)
+        o_gui.update_delta_lambda()
+
     
     #TAB 3: Normalized Data Tab
     

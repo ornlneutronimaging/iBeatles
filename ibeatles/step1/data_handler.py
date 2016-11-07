@@ -14,7 +14,6 @@ from ibeatles.utilities.load_files import LoadFiles, LoadTimeSpectra
 from ibeatles.utilities.file_handler import FileHandler
 
 
-
 class DataHandler(object):
     
     user_canceled = False

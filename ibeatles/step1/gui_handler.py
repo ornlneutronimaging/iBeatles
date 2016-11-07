@@ -12,6 +12,8 @@ from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as Navigatio
 
 from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
+import ibeatles.step1.math_utilities
+
 
 from ibeatles.interfaces.my_mplwidget import Qt4MplCanvas
 import pyqtgraph as pg
@@ -53,16 +55,20 @@ class Step1GuiHandler(object):
         rect = self.parent.geometry()
         self.parent.setGeometry(10, 10, rect.width(), rect.height())
 
+    def init_labels(self):
+        #micross
+        self.parent.ui.micro_s.setText(u"\u00B5s")
+        #distance source detector
+        self.parent.ui.distance_source_detector_label.setText("d<sub> source-detector</sub>")
+        #delta lambda
+        self.parent.ui.delta_lambda_label.setText(u"\u0394\u03BB:")
+
     def select_load_data_row(self, data_type='sample', row=0):
         if data_type == 'sample':
             self.parent.ui.list_sample.setCurrentRow(row)
         else:
             self.parent.ui.list_open_beam.setCurrentRow(row)
             
-#        o_step1_plot = Step1Plot(parent = self.parent)
-#        o_step1_plot.display_2d_preview()
-    
-
     def init_pyqtgraph(self):
 
         area = DockArea()
@@ -101,5 +107,12 @@ class Step1GuiHandler(object):
         self.parent.ui.image_view_roi = roi
         self.parent.ui.bragg_edge_plot = bragg_edge_plot
 
+    
+    def update_delta_lambda(self):
+        distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
+        frequency = float(str(self.parent.ui.beam_rate.currentText()))
+        
+        delta_lambda = ibeatles.step1.math_utilities.calculate_delta_lambda(distance_source_detector = distance_source_detector,
+                                                                            frequency = frequency)
 
-
+        self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
