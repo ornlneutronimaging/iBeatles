@@ -42,7 +42,6 @@ class Step1GuiHandler(object):
                                                                   data_type = 'ob')
             data_type = 'ob'
         
-        self.parent.ui.data_preview_box.setTitle(data_preview_box_label)
         o_general_infos.update()            
         o_selected_infos.update()
 
@@ -87,13 +86,13 @@ class Step1GuiHandler(object):
             
     def init_pyqtgraph(self):
 
+        # sample tab
         area = DockArea()
         d1 = Dock("Image Preview", size=(200, 300))
         d2 = Dock("Bragg Edge", size=(200, 100))
         
         area.addDock(d1, 'top')
         area.addDock(d2, 'bottom')
-        
 
         preview_widget = pg.GraphicsLayoutWidget()
         pg.setConfigOptions(antialias=True) # this improve display
@@ -123,7 +122,44 @@ class Step1GuiHandler(object):
         self.parent.ui.image_view_roi = roi
         self.parent.ui.bragg_edge_plot = bragg_edge_plot
 
-    
+        # =================
+        # ob tab
+        area = DockArea()
+        d1 = Dock("Image Preview", size=(200, 300))
+        d2 = Dock("Bragg Edge", size=(200, 100))
+        
+        area.addDock(d1, 'top')
+        area.addDock(d2, 'bottom')
+
+        preview_widget = pg.GraphicsLayoutWidget()
+        pg.setConfigOptions(antialias=True) # this improve display
+
+        vertical_layout = QtGui.QVBoxLayout()
+        preview_widget.setLayout(vertical_layout)
+        
+        # image view
+        image_view = pg.ImageView()
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+        roi = pg.ROI([0,0],[1,1])
+        roi.addScaleHandle([1,1],[0,0])
+        image_view.addItem(roi)
+        roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)        
+        d1.addWidget(image_view)
+
+        # bragg edge plot
+        bragg_edge_plot = pg.PlotWidget()
+        bragg_edge_plot.plot()
+        d2.addWidget(bragg_edge_plot)
+
+        vertical_layout.addWidget(area)
+        self.parent.ui.ob_preview_widget.setLayout(vertical_layout)
+
+        self.parent.ui.ob_image_view = image_view
+        self.parent.ui.ob_image_view_roi = roi
+        self.parent.ui.ob_bragg_edge_plot = bragg_edge_plot
+
+
     def update_delta_lambda(self):
         distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
         frequency = float(str(self.parent.ui.beam_rate.currentText()))

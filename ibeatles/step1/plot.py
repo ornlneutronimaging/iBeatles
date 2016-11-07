@@ -47,3 +47,4 @@ class Step1Plot(object):
                 
             self.parent.ui.bragg_edge_plot.clear()
             self.parent.ui.bragg_edge_plot.plot(bragg_edge)
+            self.parent.data_metadata[self.data_type]['roi'] = [x0, y0, x1, y1]
