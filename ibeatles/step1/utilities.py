@@ -3,7 +3,7 @@ def get_tab_selected(parent=None):
     return: 'sample', 'ob' or 'normalized'
     
     '''
-    main_tab_index = parent.ui.tab_widget.currentIndex()
+    main_tab_index = parent.ui.tabWidget.currentIndex()
     if main_tab_index == 2:
         return 'normalized'
     else:

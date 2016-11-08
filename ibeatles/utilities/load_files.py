@@ -12,7 +12,6 @@ except:
     
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.image_handler import ImageHandler
-from concurrent.futures import ProcessPoolExecutor
 
 
 class LoadFiles(object):
