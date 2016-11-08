@@ -102,7 +102,6 @@ class Step1GuiHandler(object):
         self.parent.ui.lattice_parameter_2.setText(_lattice)
         self.set_crystal_structure(_crystal_structure)
         
-
     def init_labels(self):
         #micross
         self.parent.ui.micro_s.setText(u"\u00B5s")

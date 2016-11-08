@@ -1,5 +1,14 @@
 import numpy as np
+import pyqtgraph as pg
 
+import ibeatles.step1.utilities as utilities
+from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
+
+
+class CustomAxis(pg.AxisItem):
+    def tickStrings(self, values, scale, spacing):
+        return ['{:.4f}'.format(1./i) for i in values]
+                
 
 class Step1Plot(object):
     
@@ -41,6 +50,13 @@ class Step1Plot(object):
             self.parent.ui.normalized_image_view.clear()
             self.parent.ui.normalized_bragg_edge_plot.clear()
         
+    def display_general_bragg_edge(self):
+        data_type = utilities.get_tab_selected(parent=self.parent)
+        self.data_type = data_type
+        data = self.parent.data_metadata[data_type]['data']
+        self.data = data
+        self.display_bragg_edge()
+        
     def display_bragg_edge(self):
         _data = self.data
         if _data == []:
@@ -73,14 +89,42 @@ class Step1Plot(object):
             for _data in data:
                 _sum_data = np.sum(_data[y0:y1, x0:x1])
                 bragg_edge.append(_sum_data)
+
+            #check if xaxis can be in lambda, or tof
+            o_time_handler = TimeSpectraHandler(parent = self.parent)
+            o_time_handler.load()
+            tof_array = o_time_handler.tof_array
+            lambda_array = o_time_handler.lambda_array
                 
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.clear()
-                self.parent.ui.bragg_edge_plot.plot(bragg_edge)
+                if tof_array == []:
+                    self.parent.ui.bragg_edge_plot.plot(bragg_edge)
+                    self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
+                else:
+                    self.parent.ui.bragg_edge_plot.plot(tof_array, bragg_edge)
+                    self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
+#                    self.parent.ui.bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
-                self.parent.ui.ob_bragg_edge_plot.plot(bragg_edge)
+                if tof_array == []:
+                    self.parent.ui.ob_bragg_edge_plot.plot(bragg_edge)
+                    self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', 'File Index')
+                else:
+                    self.parent.ui.ob_bragg_edge_plot.plot(tof_array, bragg_edge)
+                    self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
+                    #lambda array
+
+                    self.parent.ui.ob_bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
             elif self.data_type == 'normalized':
                 self.parent.ui.normalized_bragg_edge_plot.clear()
-                self.parent.ui.normalized_bragg_edge_plot.plot(bragg_edge)
+                if tof_array == []:
+                    self.parent.ui.normalized_bragg_edge_plot.plot(bragg_edge)
+                    self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', 'File Index')
+                else:
+                    self.parent.ui.normalized_bragg_edge_plot.plot(tof_array, bragg_edge)
+                    self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
+                    #lambda array
+
+                    self.parent.ui.normalized_bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
                 

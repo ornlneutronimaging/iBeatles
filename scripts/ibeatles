@@ -108,6 +108,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             _label_status = False
         self.ui.display_warning.setVisible(_label_status)
         self.ui.display_warning_2.setVisible(_label_status)
+        o_plot = Step1Plot(parent=self,)
+        o_plot.display_general_bragg_edge()
             
     def material_display_2_clicked(self, status):
         self.ui.material_display_checkbox.setChecked(status)
@@ -117,7 +119,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             _label_status = False
         self.ui.display_warning.setVisible(_label_status)
         self.ui.display_warning_2.setVisible(_label_status)
-
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     def roi_image_view_changed(self):
         o_plot = Step1Plot(parent=self, data_type='sample')
