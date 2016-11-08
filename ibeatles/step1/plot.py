@@ -27,6 +27,8 @@ class Step1Plot(object):
                 self.parent.ui.image_view.setImage(_data)       
             elif self.data_type == 'ob':
                 self.parent.ui.ob_image_view.setImage(_data)
+            elif self.data_type == 'normalized':
+                self.parent.ui.normalized_image_view.setImage(_data)
 
     def clear_plots(self, data_type = 'sample'):
         if data_type == 'sample':
@@ -35,6 +37,9 @@ class Step1Plot(object):
         elif data_type == 'ob':
             self.parent.ui.ob_image_view.clear()
             self.parent.ui.ob_bragg_edge_plot.clear()
+        elif data_type == 'normalized':
+            self.parent.ui.normalized_image_view.clear()
+            self.parent.ui.normalized_bragg_edge_plot.clear()
         
     def display_bragg_edge(self):
         _data = self.data
@@ -43,6 +48,8 @@ class Step1Plot(object):
                 self.parent.ui.bragg_edge_plot.clear()
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
+            elif self.data_type == 'normalized':
+                self.parent.ui.normalized_bragg_edge_plot.clear()
         else:
             if self.data_type == 'sample':
                 roi = self.parent.ui.image_view_roi
@@ -50,6 +57,10 @@ class Step1Plot(object):
             elif self.data_type == 'ob':
                 roi = self.parent.ui.ob_image_view_roi
                 _image_view_item = self.parent.ui.ob_image_view.imageItem
+            elif self.data_type == 'normalized':
+                roi = self.parent.ui.normalized_image_view_roi
+                _image_view_item = self.parent.ui.normalized_image_view.imageItem
+                
             region = roi.getArraySlice(self.parent.live_data, 
                                        _image_view_item)
             x0 = region[0][0].start
@@ -69,4 +80,7 @@ class Step1Plot(object):
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
                 self.parent.ui.ob_bragg_edge_plot.plot(bragg_edge)
+            elif self.data_type == 'normalized':
+                self.parent.ui.normalized_bragg_edge_plot.clear()
+                self.parent.ui.normalized_bragg_edge_plot.plot(bragg_edge)
                 
