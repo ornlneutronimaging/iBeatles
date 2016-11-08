@@ -69,6 +69,9 @@ class Step1GuiHandler(object):
         # define position and size
         rect = self.parent.geometry()
         self.parent.setGeometry(10, 10, rect.width(), rect.height())
+        self.parent.ui.sample_ob_splitter.setSizes([850, 20])
+        self.parent.ui.load_data_splitter.setSizes([200, 500])
+        self.parent.ui.normalized_splitter.setSizes([150, 600])
 
     def init_labels(self):
         #micross
@@ -84,7 +87,67 @@ class Step1GuiHandler(object):
         else:
             self.parent.ui.list_open_beam.setCurrentRow(row)
             
+    def general_init_pyqtgrpah(self, roi_function,
+                               base_widget):
+
+        area = DockArea()
+        d1 = Dock("Image Preview", size=(200, 300))
+        d2 = Dock("Bragg Edge", size=(200, 100))
+        
+        area.addDock(d1, 'top')
+        area.addDock(d2, 'bottom')
+    
+        preview_widget = pg.GraphicsLayoutWidget()
+        pg.setConfigOptions(antialias=True) # this improve display
+    
+        vertical_layout = QtGui.QVBoxLayout()
+        preview_widget.setLayout(vertical_layout)
+        
+        # image view
+        image_view = pg.ImageView()
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+        roi = pg.ROI([0,0],[1,1])
+        roi.addScaleHandle([1,1],[0,0])
+        image_view.addItem(roi)
+        roi.sigRegionChanged.connect(roi_function)
+        d1.addWidget(image_view)
+    
+        # bragg edge plot
+        bragg_edge_plot = pg.PlotWidget()
+        bragg_edge_plot.plot()
+        d2.addWidget(bragg_edge_plot)
+    
+        vertical_layout.addWidget(area)
+        base_widget.setLayout(vertical_layout)
+    
+        return [image_view, roi, bragg_edge_plot]
+                  
+
     def init_pyqtgraph(self):
+
+
+        #sample
+        [self.parent.ui.image_view, 
+         self.parent.ui.image_view_roi, 
+         self.parent.ui.bragg_edge_plot] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
+                                    self.parent.ui.preview_widget)
+
+        #ob
+        [self.parent.ui.ob_image_view,
+        self.parent.ui.ob_image_view_roi,
+        self.parent.ui.ob_bragg_edge_plot] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
+                                    self.parent.ui.ob_preview_widget)
+        
+        #normalized
+        [self.parent.ui.normalized_image_view,
+        self.parent.ui.normalized_image_view_roi,
+        self.parent.ui.normalized_bragg_edge_plot] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
+                                    self.parent.ui.normalized_preview_widget)
+
+
+
+        return
 
         # sample tab
         area = DockArea()
