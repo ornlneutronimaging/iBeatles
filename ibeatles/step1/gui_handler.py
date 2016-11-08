@@ -94,6 +94,14 @@ class Step1GuiHandler(object):
             if _item_of_row == new_crystal_structure:
                 self.parent.ui.crystal_structure.setCurrentIndex(_row)
                 self.parent.ui.crystal_structure_2.setCurrentIndex(_row)
+       
+    def update_lattice_and_crystal_when_index_selected(self):
+        _handler = BraggEdge(material= self.get_element_selected())
+        _crystal_structure = _handler.metadata['crystal_structure'][self.get_element_selected()]
+        _lattice = str(_handler.metadata['lattice'][self.get_element_selected()])
+        self.parent.ui.lattice_parameter.setText(_lattice)
+        self.parent.ui.lattice_parameter_2.setText(_lattice)
+        self.set_crystal_structure(_crystal_structure)
         
 
     def init_labels(self):

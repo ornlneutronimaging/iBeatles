@@ -130,6 +130,24 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.current_data_type = 'ob'
             self.ui.image_preview.setCurrentIndex(1)
 
+    # Material widgets
+
+    def list_of_element_index_changed(self, index):
+        self.ui.list_of_elements_2.setCurrentIndex(index)
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.update_lattice_and_crystal_when_index_selected()
+    
+    def list_of_element_2_index_changed(self, index):
+        self.ui.list_of_elements.setCurrentIndex(index)
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.update_lattice_and_crystal_when_index_selected()
+
+    def crystal_structure_index_changed(self, index):
+        self.ui.crystal_structure_2.setCurrentIndex(index)
+        
+    def crystal_structure_2_index_changed(self, index):
+        self.ui.crystal_structure.setCurrentIndex(index)
+
     #TAB 1: Load Data Tab
     
     def sample_import_button_clicked(self):
@@ -188,7 +206,6 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def update_delta_lambda(self):
         o_gui = Step1GuiHandler(parent = self)
         o_gui.update_delta_lambda()
-
     
     #TAB 3: Normalized Data Tab
     

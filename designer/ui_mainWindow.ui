@@ -54,7 +54,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -1020,7 +1020,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>300</height>
+                    <height>200</height>
                    </size>
                   </property>
                   <property name="currentIndex">
@@ -1679,8 +1679,8 @@
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>635</x>
-     <y>633</y>
+     <x>917</x>
+     <y>593</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -1727,8 +1727,8 @@
    <slot>update_delta_lambda()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>820</x>
-     <y>913</y>
+     <x>242</x>
+     <y>722</y>
     </hint>
     <hint type="destinationlabel">
      <x>820</x>
@@ -1743,12 +1743,76 @@
    <slot>update_delta_lambda()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1035</x>
-     <y>909</y>
+     <x>235</x>
+     <y>750</y>
     </hint>
     <hint type="destinationlabel">
      <x>1038</x>
      <y>976</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>crystal_structure</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>crystal_structure_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>678</x>
+     <y>791</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>730</x>
+     <y>971</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>crystal_structure_2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>crystal_structure_2_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>632</x>
+     <y>892</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>653</x>
+     <y>971</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_of_elements</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>list_of_element_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>772</x>
+     <y>718</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>622</x>
+     <y>972</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_of_elements_2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>list_of_element_2_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>753</x>
+     <y>829</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1528</x>
+     <y>903</y>
     </hint>
    </hints>
   </connection>
@@ -1766,5 +1830,9 @@
   <slot>normalized_import_button_clicked()</slot>
   <slot>normalized_list_selection_changed()</slot>
   <slot>update_delta_lambda()</slot>
+  <slot>crystal_structure_index_changed()</slot>
+  <slot>crystal_structure_2_index_changed()</slot>
+  <slot>list_of_element_index_changed()</slot>
+  <slot>list_of_element_2_index_changed()</slot>
  </slots>
 </ui>
