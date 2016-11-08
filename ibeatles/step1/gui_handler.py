@@ -52,7 +52,6 @@ class Step1GuiHandler(object):
                           data = data)
         o_gui.all_plots()
         
-        
     def row_selected(self, data_type='sample'):
         return self.parent.data_metadata[data_type]['list_widget_ui'].currentRow()
         
@@ -107,10 +106,13 @@ class Step1GuiHandler(object):
     def init_labels(self):
         #micross
         self.parent.ui.micro_s.setText(u"\u00B5s")
+        self.parent.ui.micro_s_2.setText(u"\u00B5s")
         #distance source detector
         self.parent.ui.distance_source_detector_label.setText("d<sub> source-detector</sub>")
+        self.parent.ui.distance_source_detector_label_2.setText("d<sub> source-detector</sub>")
         #delta lambda
         self.parent.ui.delta_lambda_label.setText(u"\u0394\u03BB:")
+        self.parent.ui.delta_lambda_label_2.setText(u"\u0394\u03BB:")
         #Angstroms
         self.parent.ui.angstroms_label.setText(u"\u212B")
         self.parent.ui.angstroms_label_2.setText(u"\u212B")

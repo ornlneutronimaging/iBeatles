@@ -85,7 +85,7 @@
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
-               <widget class="QWidget" name="">
+               <widget class="QWidget" name="layoutWidget">
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
                   <widget class="QToolBox" name="toolBox">
@@ -97,7 +97,7 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>883</width>
+                      <width>1378</width>
                       <height>369</height>
                      </rect>
                     </property>
@@ -181,7 +181,7 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>883</width>
+                      <width>1378</width>
                       <height>369</height>
                      </rect>
                     </property>
@@ -249,7 +249,7 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="time_spectra_2">
+                  <widget class="QGroupBox" name="time_spectra_groupbox_2">
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
@@ -629,6 +629,30 @@
                     </property>
                     <layout class="QVBoxLayout" name="verticalLayout_13">
                      <item>
+                      <layout class="QHBoxLayout" name="horizontalLayout_22">
+                       <item>
+                        <widget class="QCheckBox" name="material_display_checkbox">
+                         <property name="text">
+                          <string>Display ?</string>
+                         </property>
+                         <property name="checked">
+                          <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="display_warning">
+                         <property name="text">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#c1162d;&quot;&gt;Time Spectra Missing !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="alignment">
+                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_16">
                        <item>
                         <widget class="QLabel" name="label_12">
@@ -807,7 +831,7 @@
                <property name="currentIndex">
                 <number>0</number>
                </property>
-               <widget class="QWidget" name="sample_preview" native="true">
+               <widget class="QWidget" name="sample_preview">
                 <layout class="QVBoxLayout" name="verticalLayout_3">
                  <item>
                   <widget class="QWidget" name="preview_widget" native="true">
@@ -850,10 +874,6 @@
              </widget>
             </item>
            </layout>
-           <zorder>splitter</zorder>
-           <zorder>tabWidget_2</zorder>
-           <zorder>image_preview</zorder>
-           <zorder>ob_preview_widget</zorder>
           </widget>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
@@ -870,7 +890,7 @@
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <widget class="QWidget" name="">
+              <widget class="QWidget" name="layoutWidget">
                <layout class="QVBoxLayout" name="verticalLayout_12">
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -913,7 +933,7 @@
                  <widget class="QListWidget" name="list_normalized"/>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="time_spectra_3">
+                 <widget class="QGroupBox" name="time_spectra_groupbox">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -991,7 +1011,7 @@
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_12">
                      <item>
-                      <widget class="QLabel" name="time_spectra_4">
+                      <widget class="QLabel" name="time_spectra_2">
                        <property name="text">
                         <string/>
                        </property>
@@ -1020,7 +1040,7 @@
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
-                    <height>200</height>
+                    <height>220</height>
                    </size>
                   </property>
                   <property name="currentIndex">
@@ -1292,6 +1312,30 @@
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_16">
                        <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_23">
+                         <item>
+                          <widget class="QCheckBox" name="material_display_checkbox_2">
+                           <property name="text">
+                            <string>Display?</string>
+                           </property>
+                           <property name="checked">
+                            <bool>true</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="display_warning_2">
+                           <property name="text">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#c1162d;&quot;&gt;Time Spectra Missing!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <property name="alignment">
+                            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
                         <layout class="QHBoxLayout" name="horizontalLayout_19">
                          <item>
                           <widget class="QLabel" name="label_18">
@@ -1414,7 +1458,7 @@
                         </layout>
                        </item>
                        <item>
-                        <spacer name="verticalSpacer_5">
+                        <spacer name="verticalSpacer">
                          <property name="orientation">
                           <enum>Qt::Vertical</enum>
                          </property>
@@ -1760,7 +1804,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>678</x>
-     <y>791</y>
+     <y>814</y>
     </hint>
     <hint type="destinationlabel">
      <x>730</x>
@@ -1792,7 +1836,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>772</x>
-     <y>718</y>
+     <y>741</y>
     </hint>
     <hint type="destinationlabel">
      <x>622</x>
@@ -1840,11 +1884,75 @@
    <hints>
     <hint type="sourcelabel">
      <x>712</x>
-     <y>758</y>
+     <y>781</y>
     </hint>
     <hint type="destinationlabel">
      <x>1522</x>
      <y>808</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>material_display_checkbox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>material_display_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>547</x>
+     <y>717</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>material_display_checkbox_2</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>material_display_2_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>517</x>
+     <y>797</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>import_time_spectra_button_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>time_spectra_import_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>112</x>
+     <y>658</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>preview_time_spectra_button_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>time_spectra_preview_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1225</x>
+     <y>658</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
     </hint>
    </hints>
   </connection>
@@ -1868,5 +1976,7 @@
   <slot>list_of_element_2_index_changed()</slot>
   <slot>lattice_text_changed()</slot>
   <slot>lattice_2_text_changed()</slot>
+  <slot>material_display_clicked()</slot>
+  <slot>material_display_2_clicked()</slot>
  </slots>
 </ui>
