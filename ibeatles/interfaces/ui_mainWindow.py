@@ -657,7 +657,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         self.toolBox.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(1)
         self.image_preview.setCurrentIndex(0)
@@ -678,6 +678,8 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.crystal_structure_2, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.crystal_structure_2_index_changed)
         QtCore.QObject.connect(self.list_of_elements, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.list_of_element_index_changed)
         QtCore.QObject.connect(self.list_of_elements_2, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.list_of_element_2_index_changed)
+        QtCore.QObject.connect(self.lattice_parameter_2, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.lattice_2_text_changed)
+        QtCore.QObject.connect(self.lattice_parameter, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.lattice_text_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

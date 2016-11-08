@@ -147,6 +147,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         
     def crystal_structure_2_index_changed(self, index):
         self.ui.crystal_structure.setCurrentIndex(index)
+        
+    def lattice_text_changed(self):
+        _contain = str(self.ui.lattice_parameter.text())
+        self.ui.lattice_parameter_2.setText(_contain)
+    
+    def lattice_2_text_changed(self):
+        _contain = str(self.ui.lattice_parameter_2.text())
+        self.ui.lattice_parameter.setText(_contain)
+
 
     #TAB 1: Load Data Tab
     
