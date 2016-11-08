@@ -58,6 +58,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
         o_gui.init_labels()
+        o_gui.init_material_widgets()
         o_gui.init_statusbar()
         o_gui.init_pyqtgraph()
         self.update_delta_lambda()        

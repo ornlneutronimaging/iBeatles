@@ -7,17 +7,15 @@ except:
     import PyQt5.QtCore as QtCore
     import PyQt5.QtGui as QtGui
 
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
-
+import pyqtgraph as pg
+from pyqtgraph.dockarea import *
 
 from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
 import ibeatles.step1.math_utilities
 
-
-from ibeatles.interfaces.my_mplwidget import Qt4MplCanvas
-import pyqtgraph as pg
-from pyqtgraph.dockarea import *
+from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
+from neutronbraggedge.braggedge import BraggEdge
 
 
 class Step1GuiHandler(object):
@@ -73,6 +71,31 @@ class Step1GuiHandler(object):
         self.parent.ui.load_data_splitter.setSizes([200, 500])
         self.parent.ui.normalized_splitter.setSizes([150, 600])
 
+    def init_material_widgets(self):
+        retrieve_material = RetrieveMaterialMetadata(material = 'all')
+        list_returned = retrieve_material.full_list_material()
+        self.parent.ui.list_of_elements.addItems(list_returned)
+        self.parent.ui.list_of_elements_2.addItems(list_returned)
+        
+        _handler = BraggEdge(material= self.get_element_selected())
+        _crystal_structure = _handler.metadata['crystal_structure'][self.get_element_selected()]
+        _lattice = str(_handler.metadata['lattice'][self.get_element_selected()])
+        self.parent.ui.lattice_parameter.setText(_lattice)
+        self.parent.ui.lattice_parameter_2.setText(_lattice)
+        self.set_crystal_structure(_crystal_structure)
+        
+    def get_element_selected(self):
+        return str(self.parent.ui.list_of_elements.currentText())
+
+    def set_crystal_structure(self, new_crystal_structure):
+        nbr_item = self.parent.ui.crystal_structure.count()
+        for _row in range(nbr_item):
+            _item_of_row = self.parent.ui.crystal_structure.itemText(_row)
+            if _item_of_row == new_crystal_structure:
+                self.parent.ui.crystal_structure.setCurrentIndex(_row)
+                self.parent.ui.crystal_structure_2.setCurrentIndex(_row)
+        
+
     def init_labels(self):
         #micross
         self.parent.ui.micro_s.setText(u"\u00B5s")
@@ -80,6 +103,9 @@ class Step1GuiHandler(object):
         self.parent.ui.distance_source_detector_label.setText("d<sub> source-detector</sub>")
         #delta lambda
         self.parent.ui.delta_lambda_label.setText(u"\u0394\u03BB:")
+        #Angstroms
+        self.parent.ui.angstroms_label.setText(u"\u212B")
+        self.parent.ui.angstroms_label_2.setText(u"\u212B")
 
     def select_load_data_row(self, data_type='sample', row=0):
         if data_type == 'sample':
@@ -144,83 +170,6 @@ class Step1GuiHandler(object):
         self.parent.ui.normalized_image_view_roi,
         self.parent.ui.normalized_bragg_edge_plot] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
                                     self.parent.ui.normalized_preview_widget)
-
-
-
-        return
-
-        # sample tab
-        area = DockArea()
-        d1 = Dock("Image Preview", size=(200, 300))
-        d2 = Dock("Bragg Edge", size=(200, 100))
-        
-        area.addDock(d1, 'top')
-        area.addDock(d2, 'bottom')
-
-        preview_widget = pg.GraphicsLayoutWidget()
-        pg.setConfigOptions(antialias=True) # this improve display
-
-        vertical_layout = QtGui.QVBoxLayout()
-        preview_widget.setLayout(vertical_layout)
-        
-        # image view
-        image_view = pg.ImageView()
-        image_view.ui.roiBtn.hide()
-        image_view.ui.menuBtn.hide()
-        roi = pg.ROI([0,0],[1,1])
-        roi.addScaleHandle([1,1],[0,0])
-        image_view.addItem(roi)
-        roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)        
-        d1.addWidget(image_view)
-
-        # bragg edge plot
-        bragg_edge_plot = pg.PlotWidget()
-        bragg_edge_plot.plot()
-        d2.addWidget(bragg_edge_plot)
-
-        vertical_layout.addWidget(area)
-        self.parent.ui.preview_widget.setLayout(vertical_layout)
-
-        self.parent.ui.image_view = image_view
-        self.parent.ui.image_view_roi = roi
-        self.parent.ui.bragg_edge_plot = bragg_edge_plot
-
-        # =================
-        # ob tab
-        area = DockArea()
-        d1 = Dock("Image Preview", size=(200, 300))
-        d2 = Dock("Bragg Edge", size=(200, 100))
-        
-        area.addDock(d1, 'top')
-        area.addDock(d2, 'bottom')
-
-        preview_widget = pg.GraphicsLayoutWidget()
-        pg.setConfigOptions(antialias=True) # this improve display
-
-        vertical_layout = QtGui.QVBoxLayout()
-        preview_widget.setLayout(vertical_layout)
-        
-        # image view
-        image_view = pg.ImageView()
-        image_view.ui.roiBtn.hide()
-        image_view.ui.menuBtn.hide()
-        roi = pg.ROI([0,0],[1,1])
-        roi.addScaleHandle([1,1],[0,0])
-        image_view.addItem(roi)
-        roi.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)        
-        d1.addWidget(image_view)
-
-        # bragg edge plot
-        bragg_edge_plot = pg.PlotWidget()
-        bragg_edge_plot.plot()
-        d2.addWidget(bragg_edge_plot)
-
-        vertical_layout.addWidget(area)
-        self.parent.ui.ob_preview_widget.setLayout(vertical_layout)
-
-        self.parent.ui.ob_image_view = image_view
-        self.parent.ui.ob_image_view_roi = roi
-        self.parent.ui.ob_bragg_edge_plot = bragg_edge_plot
 
 
     def update_delta_lambda(self):
