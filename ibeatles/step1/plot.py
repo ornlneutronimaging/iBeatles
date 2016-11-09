@@ -3,11 +3,33 @@ import pyqtgraph as pg
 
 import ibeatles.step1.utilities as utilities
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
+from neutronbraggedge.experiment_handler.experiment import Experiment
 
 
 class CustomAxis(pg.AxisItem):
+    
+    def __init__(self, gui_parent, *args, **kwargs):
+        pg.AxisItem.__init__(self, *args, **kwargs)
+        self.parent = gui_parent
+        
     def tickStrings(self, values, scale, spacing):
-        return ['{:.4f}'.format(1./i) for i in values]
+        strings = []
+
+        _distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
+        _detector_offset_micros = float(str(self.parent.ui.detector_offset.text()))
+
+        tof_s = [float(time)*1e-6 for time in values]
+
+        _exp = Experiment(tof = tof_s,
+                          distance_source_detector_m = _distance_source_detector,
+                          detector_offset_micros = _detector_offset_micros)
+        lambda_array = _exp.lambda_array
+
+        for _lambda in lambda_array:
+            strings.append("{:.4f}".format(_lambda*1e10))
+
+        return strings
+
                 
 
 class Step1Plot(object):
@@ -94,7 +116,6 @@ class Step1Plot(object):
             o_time_handler = TimeSpectraHandler(parent = self.parent)
             o_time_handler.load()
             tof_array = o_time_handler.tof_array
-            lambda_array = o_time_handler.lambda_array
                 
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.clear()
@@ -104,7 +125,20 @@ class Step1Plot(object):
                 else:
                     self.parent.ui.bragg_edge_plot.plot(tof_array, bragg_edge)
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
-#                    self.parent.ui.bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
+
+                    #top axis
+                    p1 = self.parent.ui.bragg_edge_plot.plotItem
+#                    p1.layout.removeItem(p1.getAxis('top'))
+                    #self.parent.ui.bragg_edge_plot.removeItem(self.parent.ui.caxis)
+                    caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
+                    caxis.setLabel(u"\u03BB (\u212B)")
+                    caxis.linkToView(p1.vb)
+                    p1.layout.removeItem(self.parent.ui.caxis)
+                    p1.layout.addItem(caxis, 1, 1)
+                    self.parent.ui.caxis = caxis
+
+
+  #                  self.parent.ui.bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
                 if tof_array == []:

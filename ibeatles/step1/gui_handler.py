@@ -17,7 +17,11 @@ import ibeatles.step1.math_utilities
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
 
-
+class CustomAxis(pg.AxisItem):
+    def tickStrings(self, values, scale, spacing):
+        return ['{:.4f}'.format(1./i) for i in values]
+                
+                
 class Step1GuiHandler(object):
     
     def __init__(self, parent=None):
@@ -151,12 +155,21 @@ class Step1GuiHandler(object):
         # bragg edge plot
         bragg_edge_plot = pg.PlotWidget()
         bragg_edge_plot.plot()
+
+#        bragg_edge_plot.setLabel("top", "")
+        p1 = bragg_edge_plot.plotItem
+        p1.layout.removeItem(p1.getAxis('top'))
+        caxis = CustomAxis(orientation='top', parent=p1)
+        caxis.setLabel('')
+        caxis.linkToView(p1.vb)
+        p1.layout.addItem(caxis, 1, 1)
+        
         d2.addWidget(bragg_edge_plot)
     
         vertical_layout.addWidget(area)
         base_widget.setLayout(vertical_layout)
     
-        return [image_view, roi, bragg_edge_plot]
+        return [image_view, roi, bragg_edge_plot, caxis]
                   
 
     def init_pyqtgraph(self):
@@ -165,19 +178,22 @@ class Step1GuiHandler(object):
         #sample
         [self.parent.ui.image_view, 
          self.parent.ui.image_view_roi, 
-         self.parent.ui.bragg_edge_plot] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
+         self.parent.ui.bragg_edge_plot,
+         self.parent.ui.caxis] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
                                     self.parent.ui.preview_widget)
 
         #ob
         [self.parent.ui.ob_image_view,
         self.parent.ui.ob_image_view_roi,
-        self.parent.ui.ob_bragg_edge_plot] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
+        self.parent.ui.ob_bragg_edge_plot,
+        self.parent.ui.ob_caxis] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
                                     self.parent.ui.ob_preview_widget)
         
         #normalized
         [self.parent.ui.normalized_image_view,
         self.parent.ui.normalized_image_view_roi,
-        self.parent.ui.normalized_bragg_edge_plot] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
+        self.parent.ui.normalized_bragg_edge_plot,
+        self.parent.ui.normalized_caxis] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
                                     self.parent.ui.normalized_preview_widget)
 
 

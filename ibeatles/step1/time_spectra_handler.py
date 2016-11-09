@@ -33,11 +33,11 @@ class TimeSpectraHandler(object):
                                            str(self.parent.ui.time_spectra_folder.text()),
                                            str(self.parent.ui.time_spectra.text()))
         
-        
     def load(self):
         if os.path.isfile(self.full_file_name):
             _tof_handler = TOF(filename = self.full_file_name)
-            self.tof_array = _tof_handler.tof_array
+            _tof_array_s = _tof_handler.tof_array
+            self.tof_array = _tof_array_s * 1e6
             self.counts_array = _tof_handler.counts_array
             
     def calculate_lambda_scale(self):
@@ -103,9 +103,9 @@ class TimeSpectraDisplay(QMainWindow):
             ax2 = self.ui.time_spectra_plot.canvas.ax.twiny()
             ax2.plot(self.x2_axis, np.ones(len(self.x2_axis)))
             ax2.cla()
-            ax2.set_xlabel(r"$Lambda  (\AA ^{-1} )$")
+            ax2.set_xlabel(r"$Lambda  (\AA)$")
         
-        self.ui.time_spectra_plot.set_xlabel(r"$TOF  (\mu m)$")
+        self.ui.time_spectra_plot.set_xlabel(r"$TOF  (\mu s)$")
         self.ui.time_spectra_plot.set_ylabel("Counts")
         self.ui.time_spectra_plot.canvas.figure.subplots_adjust(top=0.9,
                                                                 left=0.1)
