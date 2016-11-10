@@ -128,8 +128,6 @@ class Step1Plot(object):
 
                     #top axis
                     p1 = self.parent.ui.bragg_edge_plot.plotItem
-#                    p1.layout.removeItem(p1.getAxis('top'))
-                    #self.parent.ui.bragg_edge_plot.removeItem(self.parent.ui.caxis)
                     caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
                     caxis.setLabel(u"\u03BB (\u212B)")
                     caxis.linkToView(p1.vb)
@@ -137,8 +135,6 @@ class Step1Plot(object):
                     p1.layout.addItem(caxis, 1, 1)
                     self.parent.ui.caxis = caxis
 
-
-  #                  self.parent.ui.bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
                 if tof_array == []:
@@ -147,9 +143,17 @@ class Step1Plot(object):
                 else:
                     self.parent.ui.ob_bragg_edge_plot.plot(tof_array, bragg_edge)
                     self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
-                    #lambda array
 
-                    self.parent.ui.ob_bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
+                    #lambda array
+                    p1 = self.parent.ui.ob_bragg_edge_plot.plotItem
+                    caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
+                    caxis.setLabel(u"\u03BB (\u212B)")
+                    caxis.linkToView(p1.vb)
+                    p1.layout.removeItem(self.parent.ui.ob_caxis)
+                    p1.layout.addItem(caxis, 1, 1)
+                    self.parent.ui.ob_caxis = caxis
+
+
             elif self.data_type == 'normalized':
                 self.parent.ui.normalized_bragg_edge_plot.clear()
                 if tof_array == []:
@@ -158,7 +162,15 @@ class Step1Plot(object):
                 else:
                     self.parent.ui.normalized_bragg_edge_plot.plot(tof_array, bragg_edge)
                     self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
+                    
                     #lambda array
 
-                    self.parent.ui.normalized_bragg_edge_plot.setLabel('top', u'\u03BB (\u212B)')
+                    p1 = self.parent.ui.normalized_bragg_edge_plot.plotItem
+                    caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
+                    caxis.setLabel(u"\u03BB (\u212B)")
+                    caxis.linkToView(p1.vb)
+                    p1.layout.removeItem(self.parent.ui.normalized_caxis)
+                    p1.layout.addItem(caxis, 1, 1)
+                    self.parent.ui.normalized_caxis = caxis
+
                 
