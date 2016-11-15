@@ -63,7 +63,56 @@
         <string>Height</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>Groups</string>
+       </property>
+      </column>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="add_roi_button">
+        <property name="font">
+         <font>
+          <pointsize>24</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>+</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="remove_roi_button">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>24</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>-</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -134,7 +183,40 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>add_roi_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_roi_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>49</x>
+     <y>364</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>108</x>
+     <y>389</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>remove_roi_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>remove_roi_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>305</x>
+     <y>379</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
   <slot>time_spectra_import_button_clicked()</slot>
@@ -156,5 +238,7 @@
   <slot>lattice_2_text_changed()</slot>
   <slot>material_display_clicked()</slot>
   <slot>material_display_2_clicked()</slot>
+  <slot>add_roi_button_clicked()</slot>
+  <slot>remove_roi_button_clicked()</slot>
  </slots>
 </ui>
