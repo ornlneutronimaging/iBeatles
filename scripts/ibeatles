@@ -27,7 +27,7 @@ from ibeatles.step3.gui_handler import Step3GuiHandler
 
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
-
+from ibeatles.utilities.roi_editor import RoiEditor
 
 
 class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
@@ -38,6 +38,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     current_data_type = 'sample'
     cbar = None
     live_data = []
+    roi_editor_ui = {'sample': None,
+                     'ob': None,
+                     'normalized': None}
 
     def __init__(self):
         """ Initialization
@@ -153,7 +156,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.ui.image_preview.setCurrentIndex(1)
 
     def roi_editor_button(self):
-        print("roi_editor_button")
+        o_roi_editor = RoiEditor(parent = self)
+        o_roi_editor.run()
 
     # Material widgets
 
@@ -180,7 +184,6 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def lattice_2_text_changed(self):
         _contain = str(self.ui.lattice_parameter_2.text())
         self.ui.lattice_parameter.setText(_contain)
-
 
     #TAB 1: Load Data Tab
     
