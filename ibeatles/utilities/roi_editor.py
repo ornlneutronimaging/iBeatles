@@ -60,9 +60,11 @@ class RoiEditorInterface(QtGui.QMainWindow):
     def fill_table(self):
         list_roi = self.parent.list_roi[self.title]
 
-        # no ROI selected yet
+        # no ROI already define
         if list_roi == []:
             return
+        
+        self.ui.remove_roi_button.setEnabled(True)
         
         nbr_groups = len(colors.roi_group_color)
         list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
@@ -130,8 +132,96 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.parent.roi_editor_ui[active_tab] = None
 
     def add_roi_button_clicked(self):
-        pass
-    
+        _row_selected = self.get_row_selected()
+        if _row_selected == -1:
+            _new_row_index = 0
+        else:
+            _new_row_index = _row_selected
+        
+        self.ui.tableWidget.insertRow(_new_row_index)
+        
+        list_roi = self.parent.list_roi[self.title]
+        _nbr_row = len(list_roi)
+
+        init_roi = ['label_name', '0', '0', '1', '1', '0']
+        [label, x0, y0, width, height, group] = init_roi
+
+
+        new_list_roi = []
+        _index_list_roi = 0
+        for _index in range(_nbr_row ):
+            if _index == _new_row_index:
+                new_list_roi.append(init_roi)
+
+            new_list_roi.append(list_roi[_index])
+        
+        self.parent.list_roi[self.title] = new_list_roi
+        nbr_groups = len(colors.roi_group_color)
+        
+        list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
+
+        _color = colors.roi_group_color[0]
+        _row = _new_row_index
+        
+        # label
+        _item = self.get_item(label, _color)
+        self.ui.tableWidget.setItem(_row, 0, _item)
+        
+        # x0
+        _item = self.get_item(x0, _color)
+        self.ui.tableWidget.setItem(_row, 1, _item)
+
+        # y0
+        _item = self.get_item(y0, _color)
+        self.ui.tableWidget.setItem(_row, 2, _item)
+
+        # width
+        _item = self.get_item(width, _color)
+        self.ui.tableWidget.setItem(_row, 3, _item)
+
+        # height
+        _item = self.get_item(height, _color)
+        self.ui.tableWidget.setItem(_row, 4, _item)
+        
+        # group
+        _widget = QtGui.QComboBox()
+        _widget.addItems(list_name_groups)
+        _widget.setCurrentIndex(0)
+        QtCore.QObject.connect(_widget, QtCore.SIGNAL("currentIndexChanged(int)"), self.changed_group)
+        self.ui.tableWidget.setCellWidget(_row, 5, _widget)
+        
+        
+        
+        
+        
 
     def remove_roi_button_clicked(self):
-        pass
+        _row_selected = self.get_row_selected()
+        if _row_selected == -1:
+            return
+        
+        self.ui.tableWidget.removeRow(_row_selected)
+        
+        list_roi = self.parent.list_roi[self.title]
+        new_list_roi = []
+        for _index, _array in enumerate(list_roi):
+            if _index == _row_selected:
+                continue
+            new_list_roi.append(_array)
+
+        if new_list_roi == []:
+            self.ui.remove_roi_button.setEnabled(False)
+            
+        self.parent.list_roi[self.title] = new_list_roi
+        
+        
+        
+
+    def get_row_selected(self):
+        try:
+            _row_selected = self.ui.tableWidget.selectedRanges()[0].bottomRow()
+        except IndexError:
+            _row_selected = -1
+
+        return _row_selected
+        
