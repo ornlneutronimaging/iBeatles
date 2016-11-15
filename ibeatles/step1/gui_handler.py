@@ -150,7 +150,15 @@ class Step1GuiHandler(object):
         roi.addScaleHandle([1,1],[0,0])
         image_view.addItem(roi)
         roi.sigRegionChanged.connect(roi_function)
-        d1.addWidget(image_view)
+
+        roi_editor_button = QtGui.QPushButton("ROI editor ...")
+        self.parent.connect(roi_editor_button, QtCore.SIGNAL("clicked()"), self.parent.roi_editor_button)
+        top_right_widget = QtGui.QWidget()
+        vertical = QtGui.QVBoxLayout()
+        vertical.addWidget(roi_editor_button)
+        vertical.addWidget(image_view)
+        top_right_widget.setLayout(vertical)
+        d1.addWidget(top_right_widget)
     
         # bragg edge plot
         bragg_edge_plot = pg.PlotWidget()
@@ -169,31 +177,32 @@ class Step1GuiHandler(object):
         vertical_layout.addWidget(area)
         base_widget.setLayout(vertical_layout)
     
-        return [image_view, roi, bragg_edge_plot, caxis]
+        return [image_view, roi, bragg_edge_plot, caxis, roi_editor_button]
                   
-
     def init_pyqtgraph(self):
-
 
         #sample
         [self.parent.ui.image_view, 
          self.parent.ui.image_view_roi, 
          self.parent.ui.bragg_edge_plot,
-         self.parent.ui.caxis] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
+         self.parent.ui.caxis,
+         self.parent.ui.roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
                                     self.parent.ui.preview_widget)
 
         #ob
         [self.parent.ui.ob_image_view,
         self.parent.ui.ob_image_view_roi,
         self.parent.ui.ob_bragg_edge_plot,
-        self.parent.ui.ob_caxis] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
+        self.parent.ui.ob_caxis,
+        self.parent.ui.ob_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
                                     self.parent.ui.ob_preview_widget)
         
         #normalized
         [self.parent.ui.normalized_image_view,
         self.parent.ui.normalized_image_view_roi,
         self.parent.ui.normalized_bragg_edge_plot,
-        self.parent.ui.normalized_caxis] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
+        self.parent.ui.normalized_caxis,
+        self.parent.ui.normalized_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
                                     self.parent.ui.normalized_preview_widget)
 
 

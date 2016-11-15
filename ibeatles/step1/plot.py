@@ -30,7 +30,6 @@ class CustomAxis(pg.AxisItem):
 
         return strings
 
-                
 
 class Step1Plot(object):
     

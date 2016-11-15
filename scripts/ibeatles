@@ -152,6 +152,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.current_data_type = 'ob'
             self.ui.image_preview.setCurrentIndex(1)
 
+    def roi_editor_button(self):
+        print("roi_editor_button")
+
     # Material widgets
 
     def list_of_element_index_changed(self, index):
