@@ -222,6 +222,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>tableWidget</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>roi_editor_table_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>171</x>
+     <y>201</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>347</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -246,5 +262,6 @@
   <slot>material_display_2_clicked()</slot>
   <slot>add_roi_button_clicked()</slot>
   <slot>remove_roi_button_clicked()</slot>
+  <slot>roi_editor_table_changed()</slot>
  </slots>
 </ui>

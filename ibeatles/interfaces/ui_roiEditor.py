@@ -108,6 +108,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.add_roi_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.add_roi_button_clicked)
         QtCore.QObject.connect(self.remove_roi_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.remove_roi_button_clicked)
+        QtCore.QObject.connect(self.tableWidget, QtCore.SIGNAL(_fromUtf8("cellChanged(int,int)")), MainWindow.roi_editor_table_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

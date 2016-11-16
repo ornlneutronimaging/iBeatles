@@ -107,6 +107,47 @@ class RoiEditorInterface(QtGui.QMainWindow):
         QtCore.QObject.connect(_widget, QtCore.SIGNAL("currentIndexChanged(int)"), self.changed_group)
         self.ui.tableWidget.setCellWidget(_row, 5, _widget)
 
+    def get_row(self, row=0):
+
+        # label
+        _item = self.ui.tableWidget.item(row, 0)
+        if _item is None:
+            return
+        label = str(_item.text())
+        
+        # x0
+        _item = self.ui.tableWidget.item(row, 1)
+        if _item is None:
+            return
+        x0 = str(_item.text())
+
+        # y0
+        _item = self.ui.tableWidget.item(row, 2)
+        if _item is None:
+            return
+        y0 = str(_item.text())
+
+        # width
+        _item = self.ui.tableWidget.item(row, 3)
+        if _item is None:
+            return
+        width = str(_item.text())
+
+        # height
+        _item = self.ui.tableWidget.item(row, 4)
+        if _item is None:
+            return
+        height = str(_item.text())
+        
+        # group
+        _group_widget = self.ui.tableWidget.cellWidget(row, 5)
+        if _group_widget is None:
+            return
+        _index_selected = _group_widget.currentIndex()
+        group = str(_index_selected)
+
+        
+        return [label, x0, y0, width, height, group]
 
     def changed_group(self, _ignore):
         _nbr_row = self.ui.tableWidget.rowCount()
@@ -150,7 +191,6 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
         init_roi = ['label_name', '0', '0', '1', '1', '0']
         [label, x0, y0, width, height, group] = init_roi
-
 
         new_list_roi = []
         _index_list_roi = 0
@@ -204,3 +244,11 @@ class RoiEditorInterface(QtGui.QMainWindow):
         [label, x0, y0, width, height, group] = self.parent.list_roi[self.title][row]
         self.set_row(row, label, x0, y0, width, height, group)
     
+    def roi_editor_table_changed(self, row, column):
+        _row = row
+        row_variables = self.get_row(row = _row)
+        
+        list_roi = self.parent.list_roi[self.title]
+        list_roi[_row] = row_variables
+        
+        self.parent.list_roi[self.title] = list_roi
