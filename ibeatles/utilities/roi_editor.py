@@ -112,40 +112,39 @@ class RoiEditorInterface(QtGui.QMainWindow):
         # label
         _item = self.ui.tableWidget.item(row, 0)
         if _item is None:
-            return
+            raise ValueError
         label = str(_item.text())
         
         # x0
         _item = self.ui.tableWidget.item(row, 1)
         if _item is None:
-            return
+            raise ValueError
         x0 = str(_item.text())
 
         # y0
         _item = self.ui.tableWidget.item(row, 2)
         if _item is None:
-            return
+            raise ValueError
         y0 = str(_item.text())
 
         # width
         _item = self.ui.tableWidget.item(row, 3)
         if _item is None:
-            return
+            raise ValueError
         width = str(_item.text())
 
         # height
         _item = self.ui.tableWidget.item(row, 4)
         if _item is None:
-            return
+            raise ValueError
         height = str(_item.text())
         
         # group
         _group_widget = self.ui.tableWidget.cellWidget(row, 5)
         if _group_widget is None:
-            return
+            raise ValueError
         _index_selected = _group_widget.currentIndex()
         group = str(_index_selected)
-
         
         return [label, x0, y0, width, height, group]
 
@@ -246,7 +245,10 @@ class RoiEditorInterface(QtGui.QMainWindow):
     
     def roi_editor_table_changed(self, row, column):
         _row = row
-        row_variables = self.get_row(row = _row)
+        try:
+            row_variables = self.get_row(row = _row)
+        except ValueError:
+            return
         
         list_roi = self.parent.list_roi[self.title]
         list_roi[_row] = row_variables

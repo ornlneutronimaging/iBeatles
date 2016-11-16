@@ -43,9 +43,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                      'normalized': None}
     
     # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
-    list_roi = {'sample': [],
-                'ob': [],
-                'normalized': []}
+    init_array = ['label_roi', '0', '0', '1', '1', '0']
+    list_roi = {'sample': [init_array],
+                'ob': [init_array],
+                'normalized': [init_array]}
                 
 
     def __init__(self):
@@ -71,9 +72,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 #['roi_4', '50', '60', '5', '6', '0'],
                 #['roi_5', '50', '60', '5', '6', '3']
             #]
-        
-        
-        
+
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()

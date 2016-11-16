@@ -81,7 +81,7 @@ class Step1Plot(object):
         self.data = data
         self.display_bragg_edge()
         
-    def save_roi(self, x0, y0, x1, y1, data_type):
+    def save_roi_update_editor(self, x0, y0, x1, y1, data_type):
         
         _width = x1-x0
         _height = np.abs(y1-y0)
@@ -134,7 +134,7 @@ class Step1Plot(object):
             y0 = region[0][1].start
             y1 = region[0][1].stop
     
-            self.save_roi(x0, y0, x1, y1, self.data_type)
+            self.save_roi_update_editor(x0, y0, x1, y1, self.data_type)
     
             data = self.parent.data_metadata[self.data_type]['data']
             bragg_edge = []
