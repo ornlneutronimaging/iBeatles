@@ -13,6 +13,8 @@ from pyqtgraph.dockarea import *
 from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
 import ibeatles.step1.math_utilities
+from ibeatles.utilities.colors import pen_color
+
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
@@ -149,7 +151,7 @@ class Step1GuiHandler(object):
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
-        roi = pg.ROI([0,0],[1,1])
+        roi = pg.ROI([0,0],[1,1], pen=pen_color['0'])
         roi.addScaleHandle([1,1],[0,0])
         image_view.addItem(roi)
         roi.sigRegionChanged.connect(roi_function)
@@ -177,7 +179,6 @@ class Step1GuiHandler(object):
 
         top_right_widget = QtGui.QWidget()
         vertical = QtGui.QVBoxLayout()
-        #vertical.addWidget(roi_editor_button)
         vertical.addWidget(top_widget)
 
         vertical.addWidget(image_view)
