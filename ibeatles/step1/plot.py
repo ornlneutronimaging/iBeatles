@@ -4,6 +4,7 @@ import pyqtgraph as pg
 import ibeatles.step1.utilities as utilities
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 from neutronbraggedge.experiment_handler.experiment import Experiment
+from ibeatles.utilities.colors import pen_color
 
 
 class CustomAxis(pg.AxisItem):
@@ -128,11 +129,11 @@ class Step1Plot(object):
                     for _roi in _list_roi:  
                         [x0, x1, y0, y1] = _roi
                         
-                        #_tmp_data.append(np.mean(_data[y0:y1, x0:x1]))
-                        _tmp_data.append(np.sum(_data[y0:y1, x0:x1]))
+                        _tmp_data.append(np.mean(_data[y0:y1, x0:x1]))
+                        #_tmp_data.append(np.sum(_data[y0:y1, x0:x1]))
 
-                    #list_data[_group].append(np.mean(_tmp_data, axis=0))        
-                    list_data[_group].append(np.sum(_tmp_data))
+                    list_data[_group].append(np.mean(_tmp_data, axis=0))        
+                    #list_data[_group].append(np.sum(_tmp_data))
                                      
         return list_data
 
@@ -191,13 +192,13 @@ class Step1Plot(object):
                 if tof_array == []:
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
-                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge)
+                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
                         
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
                 else:
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
-                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge)
+                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
 
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
