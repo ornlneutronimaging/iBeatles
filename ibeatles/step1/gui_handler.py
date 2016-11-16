@@ -130,6 +130,7 @@ class Step1GuiHandler(object):
                                base_widget):
 
         area = DockArea()
+        area.setVisible(False)
         d1 = Dock("Image Preview", size=(200, 300))
         d2 = Dock("Bragg Edge", size=(200, 100))
         
@@ -177,34 +178,37 @@ class Step1GuiHandler(object):
         vertical_layout.addWidget(area)
         base_widget.setLayout(vertical_layout)
     
-        return [image_view, roi, bragg_edge_plot, caxis, roi_editor_button]
+        return [area, image_view, roi, bragg_edge_plot, caxis, roi_editor_button]
                   
     def init_pyqtgraph(self):
 
         #sample
-        [self.parent.ui.image_view, 
+        [self.parent.ui.area,
+         self.parent.ui.image_view, 
          self.parent.ui.image_view_roi, 
          self.parent.ui.bragg_edge_plot,
          self.parent.ui.caxis,
          self.parent.ui.roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
-                                    self.parent.ui.preview_widget)
+                                                                         self.parent.ui.preview_widget)
 
         #ob
-        [self.parent.ui.ob_image_view,
-        self.parent.ui.ob_image_view_roi,
-        self.parent.ui.ob_bragg_edge_plot,
-        self.parent.ui.ob_caxis,
-        self.parent.ui.ob_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
-                                    self.parent.ui.ob_preview_widget)
+        [self.parent.ui.ob_area,
+         self.parent.ui.ob_image_view,
+         self.parent.ui.ob_image_view_roi,
+         self.parent.ui.ob_bragg_edge_plot,
+         self.parent.ui.ob_caxis,
+         self.parent.ui.ob_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
+                                                                            self.parent.ui.ob_preview_widget)
         
         #normalized
-        [self.parent.ui.normalized_image_view,
-        self.parent.ui.normalized_image_view_roi,
-        self.parent.ui.normalized_bragg_edge_plot,
-        self.parent.ui.normalized_caxis,
-        self.parent.ui.normalized_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
-                                    self.parent.ui.normalized_preview_widget)
-
+        [self.parent.ui.normalized_area,
+         self.parent.ui.normalized_image_view,
+         self.parent.ui.normalized_image_view_roi,
+         self.parent.ui.normalized_bragg_edge_plot,
+         self.parent.ui.normalized_caxis,
+         self.parent.ui.normalized_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
+                                                                                    self.parent.ui.normalized_preview_widget)
+        
 
     def update_delta_lambda(self):
         distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))

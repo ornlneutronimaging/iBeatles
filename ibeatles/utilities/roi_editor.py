@@ -28,7 +28,7 @@ class RoiEditor(object):
             _interface = list_roi_editor_ui[active_tab]
             _interface.activateWindow()
     
-    
+        
 class RoiEditorInterface(QtGui.QMainWindow):
     
     col_width = [150,40,40,40,40]
@@ -199,3 +199,8 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
         return _row_selected
         
+    def refresh(self, row=0):
+        
+        [label, x0, y0, width, height, group] = self.parent.list_roi[self.title][row]
+        self.set_row(row, label, x0, y0, width, height, group)
+    

@@ -54,10 +54,13 @@ class Step1Plot(object):
             self.clear_plots(data_type = self.data_type)
         else:
             if self.data_type == 'sample':
+                self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)       
             elif self.data_type == 'ob':
+                self.parent.ui.ob_area.setVisible(True)
                 self.parent.ui.ob_image_view.setImage(_data)
             elif self.data_type == 'normalized':
+                self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
 
     def clear_plots(self, data_type = 'sample'):
@@ -77,6 +80,32 @@ class Step1Plot(object):
         data = self.parent.data_metadata[data_type]['data']
         self.data = data
         self.display_bragg_edge()
+        
+    def save_roi(self, x0, y0, x1, y1, data_type):
+        
+        _width = x1-x0
+        _height = np.abs(y1-y0)
+
+        _list_roi = self.parent.list_roi[data_type]
+        if _list_roi == []:
+            _label = "roi_label"
+            _group = "0"
+            _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]
+            self.parent.list_roi[data_type] = [_list_roi]
+        else:
+            _label = _list_roi[0][0]
+            _group = _list_roi[0][-1]
+            _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]
+            self.parent.list_roi[data_type][0] = _list_roi
+
+        self.update_roi_editor()
+        
+    def update_roi_editor(self):
+        if self.parent.roi_editor_ui[self.data_type] is None:
+            return
+        
+        o_roi_editor = self.parent.roi_editor_ui[self.data_type]
+        o_roi_editor.refresh(row=0)
         
     def display_bragg_edge(self):
         _data = self.data
@@ -104,6 +133,8 @@ class Step1Plot(object):
             x1 = region[0][0].stop
             y0 = region[0][1].start
             y1 = region[0][1].stop
+    
+            self.save_roi(x0, y0, x1, y1, self.data_type)
     
             data = self.parent.data_metadata[self.data_type]['data']
             bragg_edge = []
