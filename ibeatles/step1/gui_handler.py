@@ -163,13 +163,13 @@ class Step1GuiHandler(object):
         add_button = QtGui.QRadioButton()
         add_button.setText("Add")
         add_button.setChecked(True)
-        self.parent.connect(add_button, QtCore.SIGNAL("pressed()"), add_function)
+        self.parent.connect(add_button, QtCore.SIGNAL("clicked()"), add_function)
         line_layout.addWidget(add_button)
         
         mean_button = QtGui.QRadioButton()
         mean_button.setText("Mean")
         mean_button.setChecked(False)
-        self.parent.connect(mean_button, QtCore.SIGNAL("pressed()"), mean_function)
+        self.parent.connect(mean_button, QtCore.SIGNAL("clicked()"), mean_function)
         line_layout.addWidget(mean_button)
 
         top_widget = QtGui.QWidget()
