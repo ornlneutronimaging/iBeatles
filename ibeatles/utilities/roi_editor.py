@@ -187,22 +187,39 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.ui.tableWidget.insertRow(_new_row_index)
         
         list_roi = self.parent.list_roi[self.title]
+        list_roi_id = self.parent.list_roi_id[self.title]
         _nbr_row = len(list_roi)
 
         init_roi = ['label_name', '0', '0', '1', '1', '0']
         [label, x0, y0, width, height, group] = init_roi
 
+        # roi region in image
+        roi = pg.ROI([0,0],[1,1])
+        roi.addScaleHandle([1,1],[0,0])
+        if self.title == 'sample':
+            self.parent.ui.image_view.addItem(roi)
+            roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)
+        elif self.title == 'ob':
+            self.parent.ui.ob_image_view.addItem(roi)
+            roi.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)
+        elif self.title == 'normalized':
+            self.parent.ui.normalized_image_view.addItem(roi)
+            roi.sigRegionChanged.connect(self.parent.roi_normalized_image_view_changed)
+
         new_list_roi = []
-        _index_list_roi = 0
+        new_list_roi_id = []
         for _index in range(_nbr_row ):
             if _index == _new_row_index:
                 new_list_roi.append(init_roi)
+                new_list_roi_id.append(roi)
 
             new_list_roi.append(list_roi[_index])
+            new_list_roi_id.append(list_roi_id[_index])
         
         self.parent.list_roi[self.title] = new_list_roi
-        nbr_groups = len(colors.roi_group_color)
+        self.parent.list_roi_id[self.title] = new_list_roi_id
         
+        nbr_groups = len(colors.roi_group_color)
         list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
 
         _color = colors.roi_group_color[0]
@@ -211,11 +228,6 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.set_row(_row, label, x0, y0, width, height, int(group))
         self.ui.remove_roi_button.setEnabled(True)
         
-        if self.title == 'sample':
-            roi = pg.ROI([0,0],[1,1])
-            roi.addScaleHandle([1,1],[0,0])
-            self.parent.ui.image_view.addItem(roi)
-            
         
     def remove_roi_button_clicked(self):
         _row_selected = self.get_row_selected()
@@ -225,16 +237,22 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.ui.tableWidget.removeRow(_row_selected)
         
         list_roi = self.parent.list_roi[self.title]
+        list_roi_id = self.parent.list_roi_id[self.title]
+
         new_list_roi = []
+        new_list_roi_id = []
         for _index, _array in enumerate(list_roi):
             if _index == _row_selected:
                 continue
             new_list_roi.append(_array)
+            new_list_roi_id.append(list_roi_id[_index])
 
         if new_list_roi == []:
             self.ui.remove_roi_button.setEnabled(False)
             
         self.parent.list_roi[self.title] = new_list_roi
+        self.parent.list_roi_id[self.title] = new_list_roi_id
+        
         self.parent.refresh_roi(self.title)
 
     def get_row_selected(self):
@@ -245,7 +263,7 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
         return _row_selected
         
-    def refresh(self, row=0):
+    def refresh(self, row):
         
         [label, x0, y0, width, height, group] = self.parent.list_roi[self.title][row]
         self.set_row(row, label, x0, y0, width, height, group)

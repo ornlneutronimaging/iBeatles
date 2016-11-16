@@ -85,7 +85,7 @@ class Step1Plot(object):
         self.data = data
         self.display_bragg_edge()
         
-    def save_roi_update_editor(self, x0, y0, x1, y1, data_type):
+    def save_roi_update_editor(self, x0, y0, x1, y1, data_type, index):
         
         _width = x1-x0
         _height = np.abs(y1-y0)
@@ -100,17 +100,42 @@ class Step1Plot(object):
             _label = _list_roi[0][0]
             _group = _list_roi[0][-1]
             _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]
-            self.parent.list_roi[data_type][0] = _list_roi
+            self.parent.list_roi[data_type][index] = _list_roi
 
-        self.update_roi_editor()
+        self.update_roi_editor(index)
         
-    def update_roi_editor(self):
+    def update_roi_editor(self, index):
         if self.parent.roi_editor_ui[self.data_type] is None:
             return
         
         o_roi_editor = self.parent.roi_editor_ui[self.data_type]
-        o_roi_editor.refresh(row=0)
+        o_roi_editor.refresh(row=index)
         
+    def extract_data(self, list_data_group, data):
+        list_data = {'0': [],
+                     '1': [],
+                     '2': [],
+                     '3': []}
+        
+        for _group in list_data_group.keys():
+            _list_roi = list_data_group[_group]
+            if _list_roi == []:
+                list_data[_group] = []
+            else:
+                for _data in data:
+                    nbr_roi = len(_list_roi)
+                    _tmp_data = []
+                    for _roi in _list_roi:  
+                        [x0, x1, y0, y1] = _roi
+                        
+                        #_tmp_data.append(np.mean(_data[y0:y1, x0:x1]))
+                        _tmp_data.append(np.sum(_data[y0:y1, x0:x1]))
+
+                    #list_data[_group].append(np.mean(_tmp_data, axis=0))        
+                    list_data[_group].append(np.sum(_tmp_data))
+                                     
+        return list_data
+
     def display_bragg_edge(self):
         _data = self.data
         if _data == []:
@@ -121,30 +146,40 @@ class Step1Plot(object):
             elif self.data_type == 'normalized':
                 self.parent.ui.normalized_bragg_edge_plot.clear()
         else:
+            list_roi_id = self.parent.list_roi_id[self.data_type]
+            list_roi = self.parent.list_roi[self.data_type]
             if self.data_type == 'sample':
-                roi = self.parent.ui.image_view_roi
+                #roi = self.parent.ui.image_view_roi
                 _image_view_item = self.parent.ui.image_view.imageItem
             elif self.data_type == 'ob':
-                roi = self.parent.ui.ob_image_view_roi
+                #roi = self.parent.ui.ob_image_view_roi
                 _image_view_item = self.parent.ui.ob_image_view.imageItem
             elif self.data_type == 'normalized':
-                roi = self.parent.ui.normalized_image_view_roi
+                #roi = self.parent.ui.normalized_image_view_roi
                 _image_view_item = self.parent.ui.normalized_image_view.imageItem
                 
-            region = roi.getArraySlice(self.parent.live_data, 
-                                       _image_view_item)
-            x0 = region[0][0].start
-            x1 = region[0][0].stop
-            y0 = region[0][1].start
-            y1 = region[0][1].stop
-    
-            self.save_roi_update_editor(x0, y0, x1, y1, self.data_type)
-    
+            list_data_group = {'0': [],
+                               '1': [],
+                               '2': [],
+                               '3': []}
+            
+            for _index, roi in enumerate(list_roi_id):
+
+                region = roi.getArraySlice(self.parent.live_data, 
+                                           _image_view_item)
+                x0 = region[0][0].start
+                x1 = region[0][0].stop
+                y0 = region[0][1].start
+                y1 = region[0][1].stop
+                group = list_roi[_index][-1]
+                
+                list_data_group[group].append([x0, x1, y0, y1])
+                self.save_roi_update_editor(x0, y0, x1, y1, self.data_type, _index)
+
+            # work over groups
             data = self.parent.data_metadata[self.data_type]['data']
-            bragg_edge = []
-            for _data in data:
-                _sum_data = np.sum(_data[y0:y1, x0:x1])
-                bragg_edge.append(_sum_data)
+            bragg_edges = self.extract_data(list_data_group,
+                                          data)
 
             #check if xaxis can be in lambda, or tof
             o_time_handler = TimeSpectraHandler(parent = self.parent)
@@ -154,10 +189,16 @@ class Step1Plot(object):
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.clear()
                 if tof_array == []:
-                    self.parent.ui.bragg_edge_plot.plot(bragg_edge)
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge)
+                        
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
                 else:
-                    self.parent.ui.bragg_edge_plot.plot(tof_array, bragg_edge)
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge)
+
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
                     #top axis
