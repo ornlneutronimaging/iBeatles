@@ -1,4 +1,5 @@
 from PyQt4 import QtGui, QtCore
+import pyqtgraph as pg
 
 from ibeatles.interfaces.ui_roiEditor import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler
@@ -208,8 +209,13 @@ class RoiEditorInterface(QtGui.QMainWindow):
         _row = _new_row_index
         
         self.set_row(_row, label, x0, y0, width, height, int(group))
-        
         self.ui.remove_roi_button.setEnabled(True)
+        
+        if self.title == 'sample':
+            roi = pg.ROI([0,0],[1,1])
+            roi.addScaleHandle([1,1],[0,0])
+            self.parent.ui.image_view.addItem(roi)
+            
         
     def remove_roi_button_clicked(self):
         _row_selected = self.get_row_selected()
@@ -229,6 +235,7 @@ class RoiEditorInterface(QtGui.QMainWindow):
             self.ui.remove_roi_button.setEnabled(False)
             
         self.parent.list_roi[self.title] = new_list_roi
+        self.parent.refresh_roi(self.title)
 
     def get_row_selected(self):
         try:

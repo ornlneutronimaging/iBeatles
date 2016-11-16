@@ -190,6 +190,7 @@ class Step1GuiHandler(object):
          self.parent.ui.caxis,
          self.parent.ui.roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
                                                                          self.parent.ui.preview_widget)
+        self.parent.list_roi_id['sample'].append(self.parent.ui.image_view_roi)
 
         #ob
         [self.parent.ui.ob_area,
@@ -199,6 +200,7 @@ class Step1GuiHandler(object):
          self.parent.ui.ob_caxis,
          self.parent.ui.ob_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
                                                                             self.parent.ui.ob_preview_widget)
+        self.parent.list_roi_id['ob'].append(self.parent.ui.ob_image_view_roi)
         
         #normalized
         [self.parent.ui.normalized_area,
@@ -208,7 +210,7 @@ class Step1GuiHandler(object):
          self.parent.ui.normalized_caxis,
          self.parent.ui.normalized_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
                                                                                     self.parent.ui.normalized_preview_widget)
-        
+        self.parent.list_roi_id['normalized'].append(self.parent.ui.normalized_image_view_roi)
 
     def update_delta_lambda(self):
         distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
