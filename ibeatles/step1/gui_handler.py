@@ -127,7 +127,9 @@ class Step1GuiHandler(object):
             self.parent.ui.list_open_beam.setCurrentRow(row)
             
     def general_init_pyqtgrpah(self, roi_function,
-                               base_widget):
+                               base_widget,
+                               add_function,
+                               mean_function):
 
         area = DockArea()
         area.setVisible(False)
@@ -153,10 +155,31 @@ class Step1GuiHandler(object):
         roi.sigRegionChanged.connect(roi_function)
 
         roi_editor_button = QtGui.QPushButton("ROI editor ...")
+        roi_editor_button.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.parent.connect(roi_editor_button, QtCore.SIGNAL("clicked()"), self.parent.roi_editor_button)
+        line_layout = QtGui.QHBoxLayout()
+        line_layout.addWidget(roi_editor_button)
+
+        add_button = QtGui.QRadioButton()
+        add_button.setText("Add")
+        add_button.setChecked(True)
+        self.parent.connect(add_button, QtCore.SIGNAL("pressed()"), add_function)
+        line_layout.addWidget(add_button)
+        
+        mean_button = QtGui.QRadioButton()
+        mean_button.setText("Mean")
+        mean_button.setChecked(False)
+        self.parent.connect(mean_button, QtCore.SIGNAL("pressed()"), mean_function)
+        line_layout.addWidget(mean_button)
+
+        top_widget = QtGui.QWidget()
+        top_widget.setLayout(line_layout)
+
         top_right_widget = QtGui.QWidget()
         vertical = QtGui.QVBoxLayout()
-        vertical.addWidget(roi_editor_button)
+        #vertical.addWidget(roi_editor_button)
+        vertical.addWidget(top_widget)
+
         vertical.addWidget(image_view)
         top_right_widget.setLayout(vertical)
         d1.addWidget(top_right_widget)
@@ -178,7 +201,7 @@ class Step1GuiHandler(object):
         vertical_layout.addWidget(area)
         base_widget.setLayout(vertical_layout)
     
-        return [area, image_view, roi, bragg_edge_plot, caxis, roi_editor_button]
+        return [area, image_view, roi, bragg_edge_plot, caxis, roi_editor_button, add_button, mean_button]
                   
     def init_pyqtgraph(self):
 
@@ -188,8 +211,12 @@ class Step1GuiHandler(object):
          self.parent.ui.image_view_roi, 
          self.parent.ui.bragg_edge_plot,
          self.parent.ui.caxis,
-         self.parent.ui.roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
-                                                                         self.parent.ui.preview_widget)
+         self.parent.ui.roi_editor_button,
+         self.parent.ui.roi_add_button,
+         self.parent.ui.roi_mean_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
+                                                                       self.parent.ui.preview_widget,
+                                                                       self.parent.roi_algorithm_is_add_clicked,
+                                                                       self.parent.roi_algorithm_is_mean_clicked)
         self.parent.list_roi_id['sample'].append(self.parent.ui.image_view_roi)
 
         #ob
@@ -198,8 +225,12 @@ class Step1GuiHandler(object):
          self.parent.ui.ob_image_view_roi,
          self.parent.ui.ob_bragg_edge_plot,
          self.parent.ui.ob_caxis,
-         self.parent.ui.ob_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
-                                                                            self.parent.ui.ob_preview_widget)
+         self.parent.ui.ob_roi_editor_button,
+         self.parent.ui.ob_roi_add_button,
+         self.parent.ui.ob_roi_mean_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
+                                                                          self.parent.ui.ob_preview_widget,
+                                                                          self.parent.ob_roi_algorithm_is_add_clicked,
+                                                                          self.parent.ob_roi_algorithm_is_mean_clicked)
         self.parent.list_roi_id['ob'].append(self.parent.ui.ob_image_view_roi)
         
         #normalized
@@ -208,8 +239,12 @@ class Step1GuiHandler(object):
          self.parent.ui.normalized_image_view_roi,
          self.parent.ui.normalized_bragg_edge_plot,
          self.parent.ui.normalized_caxis,
-         self.parent.ui.normalized_roi_editor_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
-                                                                                    self.parent.ui.normalized_preview_widget)
+         self.parent.ui.normalized_roi_editor_button,
+         self.parent.ui.normalized_roi_add_button,
+         self.parent.ui.normalized_roi_mean_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
+                                                                                  self.parent.ui.normalized_preview_widget,
+                                                                                  self.parent.normalized_roi_algorithm_is_add_clicked,
+                                                                                  self.parent.normalized_roi_algorithm_is_mean_clicked)
         self.parent.list_roi_id['normalized'].append(self.parent.ui.normalized_image_view_roi)
 
     def update_delta_lambda(self):
