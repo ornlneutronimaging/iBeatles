@@ -129,11 +129,15 @@ class Step1Plot(object):
                     for _roi in _list_roi:  
                         [x0, x1, y0, y1] = _roi
                         
-                        _tmp_data.append(np.mean(_data[y0:y1, x0:x1]))
-                        #_tmp_data.append(np.sum(_data[y0:y1, x0:x1]))
+                        if self.parent.ui.roi_add_button.isChecked():
+                            _tmp_data.append(np.sum(_data[y0:y1, x0:x1]))
+                        else:
+                            _tmp_data.append(np.mean(_data[y0:y1, x0:x1]))
 
-                    list_data[_group].append(np.mean(_tmp_data, axis=0))        
-                    #list_data[_group].append(np.sum(_tmp_data))
+                    if self.parent.ui.roi_add_button.isChecked():
+                        list_data[_group].append(np.sum(_tmp_data))
+                    else:
+                        list_data[_group].append(np.mean(_tmp_data, axis=0))        
                                      
         return list_data
 
