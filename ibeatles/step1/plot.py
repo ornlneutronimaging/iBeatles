@@ -206,6 +206,7 @@ class Step1Plot(object):
                                '2': [],
                                '3': []}
             
+            roi_editor = self.parent.roi_editor_ui[self.data_type]
             for _index, roi in enumerate(list_roi_id):
 
                 if save_roi:
@@ -218,10 +219,12 @@ class Step1Plot(object):
                     y1 = region[0][1].stop
                     group = list_roi[_index][-1]
                 else: 
-                    roi_editor = self.parent.roi_editor_ui[self.data_type]
                     if roi_editor is None:
                         return
-                    [x0, y0, w, h, group] = self.get_row_parameters(roi_editor.ui, _index)
+                    try:
+                        [x0, y0, w, h, group] = self.get_row_parameters(roi_editor.ui, _index)
+                    except ValueError:
+                        return
                     x1 = x0 + w
                     y1 = y0 + h
                     roi.setPos([x0, y0], update=False, finish=False)
@@ -232,7 +235,11 @@ class Step1Plot(object):
                 list_data_group[group].append([x0, x1, y0, y1])
                 
                 if save_roi:
+                    if roi_editor is None:
+                        return
+                    roi_editor.ui.tableWidget.blockSignals(True)
                     self.save_roi_update_editor(x0, y0, x1, y1, self.data_type, _index)
+                    roi_editor.ui.tableWidget.blockSignals(False)
 
             # work over groups
             data = self.parent.data_metadata[self.data_type]['data']

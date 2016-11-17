@@ -222,38 +222,6 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>tableWidget</sender>
-   <signal>cellChanged(int,int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>roi_editor_table_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>171</x>
-     <y>201</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>231</x>
-     <y>347</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tableWidget</sender>
-   <signal>currentCellChanged(int,int,int,int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>roi_editor_current_cell_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>284</x>
-     <y>229</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>419</x>
-     <y>336</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>

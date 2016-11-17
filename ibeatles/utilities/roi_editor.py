@@ -71,13 +71,14 @@ class RoiEditorInterface(QtGui.QMainWindow):
             return
         
         self.ui.remove_roi_button.setEnabled(True)
-        
 
         for _row, _roi in enumerate(list_roi):
             [label, x0, y0, width, height, group] = _roi
             self.ui.tableWidget.insertRow(_row)
             _color = colors.roi_group_color[int(group)]
             self.set_row(_row, label, x0, y0, width, height, int(group))
+
+        QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int)"), self.cell_changed)
 
     def set_row(self, _row, label, x0, y0, width, height, group):
 
@@ -173,8 +174,6 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
             _item = self.ui.tableWidget.item(_row, 4)
             _item.setForeground(_color)
-            
-            
         
     def closeEvent(self, event=None):
         o_gui = GuiHandler(parent = self.parent)
@@ -182,6 +181,9 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.parent.roi_editor_ui[active_tab] = None
 
     def add_roi_button_clicked(self):
+        
+        #self.ui.tableWidget.blockSignals(True)
+        
         _row_selected = self.get_row_selected()
         if _row_selected == -1:
             _new_row_index = 0
@@ -231,6 +233,8 @@ class RoiEditorInterface(QtGui.QMainWindow):
         
         self.set_row(_row, label, x0, y0, width, height, int(group))
         self.ui.remove_roi_button.setEnabled(True)
+
+        #self.ui.tableWidget.blockSignals(False)
         
         
     def remove_roi_button_clicked(self):
@@ -284,6 +288,7 @@ class RoiEditorInterface(QtGui.QMainWindow):
         
         self.parent.list_roi[self.title] = list_roi
 
-    def roi_editor_current_cell_changed(self, a, b, c, d):
+    def cell_changed(self, _i, _j):
         o_plot = Step1Plot(parent = self.parent, data_type=self.title)
         o_plot.display_bragg_edge(save_roi = False)
+    
