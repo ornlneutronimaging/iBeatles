@@ -4,6 +4,8 @@ import pyqtgraph as pg
 from ibeatles.interfaces.ui_roiEditor import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities import colors
+from ibeatles.step1.plot import Step1Plot
+
 
 class RoiEditor(object):
     
@@ -171,6 +173,8 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
             _item = self.ui.tableWidget.item(_row, 4)
             _item.setForeground(_color)
+            
+            
         
     def closeEvent(self, event=None):
         o_gui = GuiHandler(parent = self.parent)
@@ -279,3 +283,7 @@ class RoiEditorInterface(QtGui.QMainWindow):
         list_roi[_row] = row_variables
         
         self.parent.list_roi[self.title] = list_roi
+
+    def roi_editor_current_cell_changed(self, a, b, c, d):
+        o_plot = Step1Plot(parent = self.parent, data_type=self.title)
+        o_plot.display_bragg_edge(save_roi = False)

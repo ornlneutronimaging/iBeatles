@@ -98,8 +98,8 @@ class Step1Plot(object):
             _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]
             self.parent.list_roi[data_type] = [_list_roi]
         else:
-            _label = _list_roi[0][0]
-            _group = _list_roi[0][-1]
+            _label = _list_roi[index][0]
+            _group = _list_roi[index][-1]
             _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]
             self.parent.list_roi[data_type][index] = _list_roi
 
@@ -141,7 +141,48 @@ class Step1Plot(object):
                                      
         return list_data
 
-    def display_bragg_edge(self):
+    def get_row_parameters(self, roi_editor_ui, row):
+        
+        ## label
+        #_item = roi_editor_ui.tableWidget.item(row, 0)
+        #if _item is None:
+            #raise ValueError
+        #label = str(_item.text())
+        
+        # x0
+        _item = roi_editor_ui.tableWidget.item(row, 1)
+        if _item is None:
+            raise ValueError
+        x0 = int(str(_item.text()))
+
+        # y0
+        _item = roi_editor_ui.tableWidget.item(row, 2)
+        if _item is None:
+            raise ValueError
+        y0 = int(str(_item.text()))
+
+        # width
+        _item = roi_editor_ui.tableWidget.item(row, 3)
+        if _item is None:
+            raise ValueError
+        width = int(str(_item.text()))
+
+        # height
+        _item = roi_editor_ui.tableWidget.item(row, 4)
+        if _item is None:
+            raise ValueError
+        height = int(str(_item.text()))
+
+        # group
+        _group_widget = roi_editor_ui.tableWidget.cellWidget(row, 5)
+        if _group_widget is None:
+            raise ValueError
+        _index_selected = _group_widget.currentIndex()
+        group = str(_index_selected)
+        
+        return [x0, y0, width, height, group]        
+
+    def display_bragg_edge(self, save_roi=True):
         _data = self.data
         if _data == []:
             if self.data_type == 'sample':
@@ -154,13 +195,10 @@ class Step1Plot(object):
             list_roi_id = self.parent.list_roi_id[self.data_type]
             list_roi = self.parent.list_roi[self.data_type]
             if self.data_type == 'sample':
-                #roi = self.parent.ui.image_view_roi
                 _image_view_item = self.parent.ui.image_view.imageItem
             elif self.data_type == 'ob':
-                #roi = self.parent.ui.ob_image_view_roi
                 _image_view_item = self.parent.ui.ob_image_view.imageItem
             elif self.data_type == 'normalized':
-                #roi = self.parent.ui.normalized_image_view_roi
                 _image_view_item = self.parent.ui.normalized_image_view.imageItem
                 
             list_data_group = {'0': [],
@@ -170,16 +208,31 @@ class Step1Plot(object):
             
             for _index, roi in enumerate(list_roi_id):
 
-                region = roi.getArraySlice(self.parent.live_data, 
-                                           _image_view_item)
-                x0 = region[0][0].start
-                x1 = region[0][0].stop
-                y0 = region[0][1].start
-                y1 = region[0][1].stop
-                group = list_roi[_index][-1]
+                if save_roi:
+                    region = roi.getArraySlice(self.parent.live_data, 
+                                               _image_view_item)
+
+                    x0 = region[0][0].start
+                    x1 = region[0][0].stop
+                    y0 = region[0][1].start
+                    y1 = region[0][1].stop
+                    group = list_roi[_index][-1]
+                else: 
+                    roi_editor = self.parent.roi_editor_ui[self.data_type]
+                    if roi_editor is None:
+                        return
+                    [x0, y0, w, h, group] = self.get_row_parameters(roi_editor.ui, _index)
+                    x1 = x0 + w
+                    y1 = y0 + h
+                    roi.setPos([x0, y0], update=False, finish=False)
+                    roi.setSize([w, h], update=False, finish=False)
+
+                roi.setPen(pen_color[group])
                 
                 list_data_group[group].append([x0, x1, y0, y1])
-                self.save_roi_update_editor(x0, y0, x1, y1, self.data_type, _index)
+                
+                if save_roi:
+                    self.save_roi_update_editor(x0, y0, x1, y1, self.data_type, _index)
 
             # work over groups
             data = self.parent.data_metadata[self.data_type]['data']
@@ -193,6 +246,7 @@ class Step1Plot(object):
                 
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.clear()
+                
                 if tof_array == []:
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
