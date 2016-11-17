@@ -49,6 +49,8 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.initialize_table()
         self.fill_table()
         
+        QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int"), self.cell_changed)
+        
     def initialize_table(self):
         for _index, _width in enumerate(self.col_width):
             self.ui.tableWidget.setColumnWidth(_index, _width)
