@@ -239,11 +239,10 @@ class Step1Plot(object):
                 self.save_roi(label, x0, y0, x1, y1, group, self.data_type, _index)
                 
                 if mouse_selection:
-                    if roi_editor_ui is None:
-                        return
-                    roi_editor_ui.ui.tableWidget.blockSignals(True)
-                    self.update_roi_editor(_index)
-                    roi_editor_ui.ui.tableWidget.blockSignals(False)
+                    if not (roi_editor_ui is None):
+                        roi_editor_ui.ui.tableWidget.blockSignals(True)
+                        self.update_roi_editor(_index)
+                        roi_editor_ui.ui.tableWidget.blockSignals(False)
 
             # work over groups
             data = self.parent.data_metadata[self.data_type]['data']

@@ -34,7 +34,7 @@ class RoiEditor(object):
         
 class RoiEditorInterface(QtGui.QMainWindow):
     
-    col_width = [150,40,40,40,40]
+    col_width = [150,40,40,50,50]
     
     def __init__(self, parent=None, title='sample'):
         
