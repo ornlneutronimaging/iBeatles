@@ -292,5 +292,5 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
     def cell_changed(self, _i, _j):
         o_plot = Step1Plot(parent = self.parent, data_type=self.title)
-        o_plot.display_bragg_edge(save_roi = False)
+        o_plot.display_bragg_edge(mouse_selection = False)
     

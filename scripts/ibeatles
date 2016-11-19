@@ -89,7 +89,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         
     def setup(self):
         if self.DEBUGGING:
-            current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
+            import socket
+            if socket.gethostname() == 'mac95470':
+                current_folder = '/Users/j35/data/ibeatles_data/'
+            else:
+                current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
         else:
             current_folder = os.getcwd()
 
