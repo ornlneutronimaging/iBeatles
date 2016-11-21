@@ -257,17 +257,13 @@ class Step1Plot(object):
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.clear()
                 
+                for _key in bragg_edges.keys():
+                    _bragg_edge = bragg_edges[_key]
+                    self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+
                 if tof_array == []:
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-                        
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
                 else:
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
                     #top axis
@@ -281,11 +277,14 @@ class Step1Plot(object):
 
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
+                
+                for _key in bragg_edges.keys():
+                    _bragg_edge = bragg_edges[_key]
+                    self.parent.ui.ob_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+
                 if tof_array == []:
-                    self.parent.ui.ob_bragg_edge_plot.plot(bragg_edge)
                     self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', 'File Index')
                 else:
-                    self.parent.ui.ob_bragg_edge_plot.plot(tof_array, bragg_edge)
                     self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
                     #lambda array
@@ -300,11 +299,14 @@ class Step1Plot(object):
 
             elif self.data_type == 'normalized':
                 self.parent.ui.normalized_bragg_edge_plot.clear()
+
+                for _key in bragg_edges.keys():
+                    _bragg_edge = bragg_edges[_key]
+                    self.parent.ui.normalized_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+
                 if tof_array == []:
-                    self.parent.ui.normalized_bragg_edge_plot.plot(bragg_edge)
                     self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', 'File Index')
                 else:
-                    self.parent.ui.normalized_bragg_edge_plot.plot(tof_array, bragg_edge)
                     self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
                     
                     #lambda array
