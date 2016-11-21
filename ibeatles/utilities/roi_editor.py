@@ -238,7 +238,6 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
         #self.ui.tableWidget.blockSignals(False)
         
-        
     def remove_roi_button_clicked(self):
         _row_selected = self.get_row_selected()
         if _row_selected == -1:

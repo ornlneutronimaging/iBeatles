@@ -186,7 +186,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         
     def refresh_roi(self, data_type='sample'):
         o_step1_plot = Step1Plot(parent = self, data_type=data_type)
-        o_step1_plot.refresh_roi()
+        o_step1_plot.display_bragg_edge()
 
 
     # Material widgets
