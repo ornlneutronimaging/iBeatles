@@ -216,13 +216,17 @@ class RoiEditorInterface(QtGui.QMainWindow):
 
         new_list_roi = []
         new_list_roi_id = []
-        for _index in range(_nbr_row ):
-            if _index == _new_row_index:
-                new_list_roi.append(init_roi)
-                new_list_roi_id.append(roi)
-
-            new_list_roi.append(list_roi[_index])
-            new_list_roi_id.append(list_roi_id[_index])
+        if _nbr_row == 0:
+            new_list_roi.append(init_roi)
+            new_list_roi_id.append(roi)
+        else:
+            for _index in range(_nbr_row ):
+                if _index == _new_row_index:
+                    new_list_roi.append(init_roi)
+                    new_list_roi_id.append(roi)
+    
+                new_list_roi.append(list_roi[_index])
+                new_list_roi_id.append(list_roi_id[_index])
         
         self.parent.list_roi[self.title] = new_list_roi
         self.parent.list_roi_id[self.title] = new_list_roi_id
