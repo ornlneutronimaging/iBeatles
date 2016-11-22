@@ -55,7 +55,7 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     data = []
     
     def update(self):
-        list_row_selected = self.get_list_row_selected()
+        list_row_selected = np.sort(self.get_list_row_selected())
 
         if list_row_selected == []:
             self.selected_infos = {}
@@ -72,7 +72,8 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
             for index in list_row_selected:
                 _data.append(full_data[index])
             self.data = np.sum(_data, axis=0)
-        
+            
+        self.parent.list_file_selected[self.data_type] = list_row_selected
         self.display()
         
     def display(self):

@@ -254,19 +254,32 @@ class Step1Plot(object):
             o_time_handler.load()
             tof_array = o_time_handler.tof_array
                 
+            list_files_selected = self.parent.list_file_selected[self.data_type]
+            linear_region_left = list_files_selected[0]
+            linear_region_right = list_files_selected[-1]
+
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.clear()
                 
-                for _key in bragg_edges.keys():
-                    _bragg_edge = bragg_edges[_key]
-                    self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-
-                linear_region_left = 0
-                linear_region_right = 1
-
+                #FIXME
+                
                 if tof_array == []:
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
+
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
                 else:
+                    
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        if _bragg_edge == []:
+                            continue
+                        self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+
+                    linear_region_left = tof_array[linear_region_left]
+                    linear_region_right = tof_array[linear_region_right]
+
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
                     #top axis
@@ -278,13 +291,6 @@ class Step1Plot(object):
                     p1.layout.addItem(caxis, 1, 1)
                     self.parent.ui.caxis = caxis
                     
-                    linear_region_left = tof_array[linear_region_left]
-                    linear_region_right = tof_array[linear_region_right]
-                
-                #lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
-                #lr.setZValue(-10)
-                #self.parent.ui.bragg_edge_plot.addItem(lr)
-
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
                 
@@ -329,4 +335,7 @@ class Step1Plot(object):
                     p1.layout.addItem(caxis, 1, 1)
                     self.parent.ui.normalized_caxis = caxis
 
+            lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
+            lr.setZValue(-10)
+            self.parent.ui.bragg_edge_plot.addItem(lr)
                 

@@ -52,6 +52,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     list_roi = {'sample': [init_array],
                 'ob': [init_array],
                 'normalized': [init_array]}
+    
+    list_file_selected = {'sample': [],
+                      'ob': [],
+                      'normalized': []}
+    
                               
     def __init__(self):
         """ Initialization
@@ -241,7 +246,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def sample_list_selection_changed(self):
         if not self.loading_flag:
             o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'sample')
-            o_retrieve_data_infos.update()   
+            o_retrieve_data_infos.update() 
+            self.roi_image_view_changed()
         else:
             self.loading_flag = False
 
