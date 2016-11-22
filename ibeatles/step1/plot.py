@@ -261,6 +261,9 @@ class Step1Plot(object):
                     _bragg_edge = bragg_edges[_key]
                     self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
 
+                linear_region_left = 0
+                linear_region_right = 1
+
                 if tof_array == []:
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
                 else:
@@ -274,6 +277,13 @@ class Step1Plot(object):
                     p1.layout.removeItem(self.parent.ui.caxis)
                     p1.layout.addItem(caxis, 1, 1)
                     self.parent.ui.caxis = caxis
+                    
+                    linear_region_left = tof_array[linear_region_left]
+                    linear_region_right = tof_array[linear_region_right]
+                
+                #lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
+                #lr.setZValue(-10)
+                #self.parent.ui.bragg_edge_plot.addItem(lr)
 
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()

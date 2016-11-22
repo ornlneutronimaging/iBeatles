@@ -168,7 +168,7 @@
                           <set>QAbstractItemView::NoEditTriggers</set>
                          </property>
                          <property name="selectionMode">
-                          <enum>QAbstractItemView::SingleSelection</enum>
+                          <enum>QAbstractItemView::ExtendedSelection</enum>
                          </property>
                         </widget>
                        </item>
@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1378</width>
-                      <height>369</height>
+                      <width>147</width>
+                      <height>147</height>
                      </rect>
                     </property>
                     <attribute name="label">

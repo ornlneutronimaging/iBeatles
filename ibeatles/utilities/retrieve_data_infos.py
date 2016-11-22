@@ -1,5 +1,6 @@
 import os
 import time
+import numpy as np
 
 import matplotlib.pyplot as plt
 from matplotlib.widgets import RectangleSelector
@@ -65,7 +66,12 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
             image_handler = ImageHandler(parent=self.parent, 
                                          filename = full_filename)
             self.selected_infos = image_handler.get_metadata(self.selected_infos)
-            self.data = image_handler.get_data()
+#            self.data = image_handler.get_data() #remove_me
+            full_data = self.parent.data_metadata[self.data_type]['data']
+            _data = []
+            for index in list_row_selected:
+                _data.append(full_data[index])
+            self.data = np.sum(_data, axis=0)
         
         self.display()
         

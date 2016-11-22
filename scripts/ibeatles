@@ -52,8 +52,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     list_roi = {'sample': [init_array],
                 'ob': [init_array],
                 'normalized': [init_array]}
-                
-
+                              
     def __init__(self):
         """ Initialization
         Parameters
