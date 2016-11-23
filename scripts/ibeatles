@@ -256,6 +256,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.select_load_data_row(data_type = 'sample', row = 0)
             self.retrieve_general_infos(data_type = 'sample')
             self.retrieve_selected_row_infos(data_type = 'sample')
+            o_plot = Step1Plot(parent=self, data_type='sample')
+            o_plot.display_bragg_edge()
 
     def select_load_data_row(self, data_type='sample', row=0):
         o_gui = Step1GuiHandler(parent=self)
@@ -290,6 +292,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.select_load_data_row(data_type = 'ob', row = 0)
             self.retrieve_general_infos(data_type = 'ob')
             self.retrieve_selected_row_infos(data_type = 'ob')
+            o_plot = Step1Plot(parent=self, data_type='ob')
+            o_plot.display_bragg_edge()
 
     def open_beam_list_selection_changed(self):
         if not self.loading_flag:
@@ -341,6 +345,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.select_normalized_row(row = 0)
             self.retrieve_general_infos(data_type = 'normalized')
             self.retrieve_selected_row_infos(data_type = 'normalized')
+            o_plot = Step1Plot(parent=self, data_type='normalized')
+            o_plot.display_bragg_edge()
     
     def normalized_retrieve_selected_row_infos(self):
         o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
