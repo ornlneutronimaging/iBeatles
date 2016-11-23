@@ -678,7 +678,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
-        self.toolBox.setCurrentIndex(1)
+        self.toolBox.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(1)
         self.image_preview.setCurrentIndex(0)
         self.tabWidget_3.setCurrentIndex(1)

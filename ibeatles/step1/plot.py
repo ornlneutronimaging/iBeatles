@@ -266,7 +266,10 @@ class Step1Plot(object):
 
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
+                        if _bragg_edge == []:
+                            continue
                         self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        tof_array = np.arange(len(_bragg_edge))
                         
                 else:
                     
@@ -298,7 +301,10 @@ class Step1Plot(object):
 
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
+                        if _bragg_edge == []:
+                            continue
                         self.parent.ui.ob_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        tof_array = np.arange(len(_bragg_edge))
 
                 else:
 
@@ -331,7 +337,10 @@ class Step1Plot(object):
 
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
+                        if _bragg_edge == []:
+                            continue
                         self.parent.ui.normalized_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        tof_array = np.arange(len(_bragg_edge))
 
                 else:
                     for _key in bragg_edges.keys():
@@ -364,6 +373,6 @@ class Step1Plot(object):
             else:
                 self.parent.ui.normalized_bragg_edge_plot.addItem(lr)
                 
-            lr.sigRegionChanged.connect(self.parent.bragg_edge_selection_changed)
+            lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_selection_changed)
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
             self.parent.current_bragg_edge_x_axis[self.data_type] = tof_array

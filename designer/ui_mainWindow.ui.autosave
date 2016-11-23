@@ -54,7 +54,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -90,7 +90,7 @@
                  <item>
                   <widget class="QToolBox" name="toolBox">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="sample_toolbox">
                     <property name="geometry">
@@ -168,7 +168,7 @@
                           <set>QAbstractItemView::NoEditTriggers</set>
                          </property>
                          <property name="selectionMode">
-                          <enum>QAbstractItemView::SingleSelection</enum>
+                          <enum>QAbstractItemView::ExtendedSelection</enum>
                          </property>
                         </widget>
                        </item>
@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>147</width>
-                      <height>147</height>
+                      <width>1378</width>
+                      <height>369</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -930,7 +930,11 @@
                  </layout>
                 </item>
                 <item>
-                 <widget class="QListWidget" name="list_normalized"/>
+                 <widget class="QListWidget" name="list_normalized">
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::ExtendedSelection</enum>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QGroupBox" name="time_spectra_groupbox">
