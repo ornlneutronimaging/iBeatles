@@ -261,14 +261,13 @@ class Step1Plot(object):
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.clear()
                 
-                #FIXME
-                
                 if tof_array == []:
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
 
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
                         self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        
                 else:
                     
                     for _key in bragg_edges.keys():
@@ -282,7 +281,7 @@ class Step1Plot(object):
 
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
-                    #top axis
+                    #lambda axis
                     p1 = self.parent.ui.bragg_edge_plot.plotItem
                     caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
                     caxis.setLabel(u"\u03BB (\u212B)")
@@ -294,16 +293,27 @@ class Step1Plot(object):
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
                 
-                for _key in bragg_edges.keys():
-                    _bragg_edge = bragg_edges[_key]
-                    self.parent.ui.ob_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-
                 if tof_array == []:
                     self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', 'File Index')
+
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        self.parent.ui.ob_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+
                 else:
+
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        if _bragg_edge == []:
+                            continue
+                        self.parent.ui.ob_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+
+                    linear_region_left = tof_array[linear_region_left]
+                    Linear_region_right = tof_array[linear_region_right]
+
                     self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
-                    #lambda array
+                    #lambda axis
                     p1 = self.parent.ui.ob_bragg_edge_plot.plotItem
                     caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
                     caxis.setLabel(u"\u03BB (\u212B)")
@@ -316,17 +326,26 @@ class Step1Plot(object):
             elif self.data_type == 'normalized':
                 self.parent.ui.normalized_bragg_edge_plot.clear()
 
-                for _key in bragg_edges.keys():
-                    _bragg_edge = bragg_edges[_key]
-                    self.parent.ui.normalized_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-
                 if tof_array == []:
                     self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', 'File Index')
-                else:
-                    self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
-                    
-                    #lambda array
 
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        self.parent.ui.normalized_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+
+                else:
+                    for _key in bragg_edges.keys():
+                        _bragg_edge = bragg_edges[_key]
+                        if _bragg_edge == []:
+                            continue
+                        self.parent.ui.normalized_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                        
+                    linear_region_left = tof_array[linear_region_left]
+                    Linear_region_right = tof_array[linear_region_right]
+
+                    self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
+
+                    #lambda axis
                     p1 = self.parent.ui.normalized_bragg_edge_plot.plotItem
                     caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
                     caxis.setLabel(u"\u03BB (\u212B)")
@@ -337,5 +356,14 @@ class Step1Plot(object):
 
             lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
             lr.setZValue(-10)
-            self.parent.ui.bragg_edge_plot.addItem(lr)
+
+            if self.data_type == 'sample':
+                self.parent.ui.bragg_edge_plot.addItem(lr)
+            elif self.data_type == 'ob':
+                self.parent.ui.ob_bragg_edge_plot.addItem(lr)
+            else:
+                self.parent.ui.normalized_bragg_edge_plot.addItem(lr)
                 
+            lr.sigRegionChanged.connect(self.parent.bragg_edge_selection_changed)
+            self.parent.list_bragg_edge_selection_id[self.data_type] = lr
+            self.parent.current_bragg_edge_x_axis[self.data_type] = tof_array

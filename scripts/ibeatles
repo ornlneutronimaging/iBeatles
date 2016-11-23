@@ -28,6 +28,7 @@ from ibeatles.step3.gui_handler import Step3GuiHandler
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.roi_editor import RoiEditor
+from ibeatles.utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
 
 
 class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
@@ -49,6 +50,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     list_roi_id = {'sample': [],
                    'ob': [],
                    'normalized': []}
+    
+    list_bragg_edge_selection_id = {'sample': None,
+                                    'ob': None,
+                                    'normalized': None}
+    
     list_roi = {'sample': [init_array],
                 'ob': [init_array],
                 'normalized': [init_array]}
@@ -56,6 +62,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     list_file_selected = {'sample': [],
                       'ob': [],
                       'normalized': []}
+    
+    current_bragg_edge_x_axis = {'sample': [],
+                                 'ob': [],
+                                 'normalized': []}
     
                               
     def __init__(self):
@@ -192,6 +202,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_step1_plot = Step1Plot(parent = self, data_type=data_type)
         o_step1_plot.display_bragg_edge()
 
+    def bragg_edge_selection_changed(self):
+        o_bragg_selection = BraggEdgeSelectionHandler(parent=self)
+        o_bragg_selection.update_dropdown()
 
     # Material widgets
 
@@ -256,6 +269,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_list_handler.right_click(position = position)
 
     def open_beam_import_button_clicked(self):
+        self.loading_flag = True
         o_load = DataHandler(parent = self)
         o_load.retrieve_files(data_type = 'ob')
         if not o_load.user_canceled:
@@ -264,8 +278,12 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.retrieve_selected_row_infos(data_type = 'ob')
 
     def open_beam_list_selection_changed(self):
-        o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'ob')
-        o_retrieve_data_infos.update()
+        if not self.loading_flag:
+            o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'ob')
+            o_retrieve_data_infos.update()
+            self.roi_ob_image_view_changed()
+        else:
+            self.loading_flag = False
 
     def time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent = self)
@@ -321,7 +339,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def normalized_list_selection_changed(self):
         if not self.loading_flag:
             o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
-            o_retrieve_data_infos.update()   
+            o_retrieve_data_infos.update()  
+            self.roi_normalized_image_view_changed()
         else:
             self.loading_flag = False
     

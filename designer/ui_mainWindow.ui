@@ -90,7 +90,7 @@
                  <item>
                   <widget class="QToolBox" name="toolBox">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="sample_toolbox">
                     <property name="geometry">
@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>147</width>
-                      <height>147</height>
+                      <width>1378</width>
+                      <height>369</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -930,7 +930,11 @@
                  </layout>
                 </item>
                 <item>
-                 <widget class="QListWidget" name="list_normalized"/>
+                 <widget class="QListWidget" name="list_normalized">
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::ExtendedSelection</enum>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QGroupBox" name="time_spectra_groupbox">

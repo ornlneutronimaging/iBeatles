@@ -55,7 +55,8 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     data = []
     
     def update(self):
-        list_row_selected = np.sort(self.get_list_row_selected())
+        list_row_selected = list(np.sort(self.get_list_row_selected()))
+        print(list_row_selected)
 
         if list_row_selected == []:
             self.selected_infos = {}
