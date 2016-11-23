@@ -215,10 +215,11 @@ class Step1Plot(object):
 
                     label = list_roi[_index][0]
                     x0 = region[0][0].start
-                    x1 = region[0][0].stop
+                    x1 = region[0][0].stop-1
                     y0 = region[0][1].start
-                    y1 = region[0][1].stop
+                    y1 = region[0][1].stop-1
                     group = list_roi[_index][-1]
+               
                 else: 
                     if roi_editor_ui is None:
                         return
