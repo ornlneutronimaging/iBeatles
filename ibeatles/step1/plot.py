@@ -5,6 +5,7 @@ import ibeatles.step1.utilities as utilities
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.colors import pen_color
+from ibeatles.utilities.roi_handler import RoiHandler
 
 
 class CustomAxis(pg.AxisItem):
@@ -109,6 +110,10 @@ class Step1Plot(object):
         
         o_roi_editor = self.parent.roi_editor_ui[self.data_type]
         o_roi_editor.refresh(row=index)
+        
+        o_roi = RoiHandler(parent=self.parent, data_type=self.data_type)
+        row_to_activate = o_roi.get_roi_index_that_changed()
+        o_roi_editor.activate_row(row_to_activate)
         
     def extract_data(self, list_data_group, data):
         list_data = {'0': [],
