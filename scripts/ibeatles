@@ -60,6 +60,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 'ob': [init_array],
                 'normalized': [init_array]}
     
+    old_list_roi = {'sample': [init_array],
+                    'ob': [init_array],
+                    'normalized': [init_array]}
+    
     list_file_selected = {'sample': [],
                       'ob': [],
                       'normalized': []}
