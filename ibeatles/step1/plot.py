@@ -55,6 +55,7 @@ class Step1Plot(object):
         if _data == []:
             self.clear_plots(data_type = self.data_type)
         else:
+            _data = np.array(_data)
             if self.data_type == 'sample':
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)       
@@ -68,6 +69,15 @@ class Step1Plot(object):
     def refresh_roi(self):
         pass
 
+
+    def clear_image(self, data_type='sample'):
+        if data_type == 'sample':
+            self.parent.ui.image_view.clear()
+        elif data_type == 'ob':
+            self.parent.ui.ob_image_view.clear()
+        elif data_type == 'normalized':
+            self.parent.ui.normalized_image_view.clear()
+        
 
     def clear_plots(self, data_type = 'sample'):
         if data_type == 'sample':

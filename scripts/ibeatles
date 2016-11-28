@@ -217,6 +217,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         _ui_list.blockSignals(True)            
         o_bragg_selection = BraggEdgeSelectionHandler(parent=self, data_type=data_type)
         o_bragg_selection.update_dropdown()
+
+        o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = data_type)
+        o_retrieve_data_infos.update() 
+
         _ui_list.blockSignals(False)
 
     # Material widgets
