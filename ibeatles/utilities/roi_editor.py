@@ -218,7 +218,7 @@ class RoiEditorInterface(QtGui.QMainWindow):
             roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)
         elif self.title == 'ob':
             self.parent.ui.ob_image_view.addItem(roi)
-            self.aprent.ui.ob_image_view.addItem(label_roi)
+            self.parent.ui.ob_image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)
         elif self.title == 'normalized':
             self.parent.ui.normalized_image_view.addItem(roi)
