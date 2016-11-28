@@ -290,16 +290,18 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.set_row(row, label, x0, y0, width, height, group)
     
     def activate_row(self, row):
-        if row == -1:
-            return
+#        if row == -1:
+#            return
         
         nbr_column = self.ui.tableWidget.columnCount()
         nbr_row = self.ui.tableWidget.rowCount()
-        full_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row, nbr_column)
+        full_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row, nbr_column-1)
         self.ui.tableWidget.setRangeSelected(full_range, False)
         
-        range_selected = QtGui.QTableWidgetSelectionRange(row, 0, row, nbr_column)
+        range_selected = QtGui.QTableWidgetSelectionRange(row, 0, row, nbr_column-1)
         self.ui.tableWidget.setRangeSelected(range_selected, True)
+        print("row to select: {}".format(row))
+        QtGui.QApplication.processEvents()
 
     def roi_editor_table_changed(self, row, column):
         _row = row

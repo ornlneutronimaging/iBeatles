@@ -105,15 +105,13 @@ class Step1Plot(object):
             self.parent.list_roi[data_type][index] = _list_roi
         
     def update_roi_editor(self, index):
-        if self.parent.roi_editor_ui[self.data_type] is None:
-            return
         
         o_roi_editor = self.parent.roi_editor_ui[self.data_type]
         o_roi_editor.refresh(row=index)
         
-        o_roi = RoiHandler(parent=self.parent, data_type=self.data_type)
-        row_to_activate = o_roi.get_roi_index_that_changed()
-        o_roi_editor.activate_row(row_to_activate)
+        #o_roi = RoiHandler(parent=self.parent, data_type=self.data_type)
+        #row_to_activate = o_roi.get_roi_index_that_changed()
+        #o_roi_editor.activate_row(row_to_activate)
         
     def extract_data(self, list_data_group, data):
         list_data = {'0': [],

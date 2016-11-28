@@ -22,24 +22,21 @@ class RoiHandler(object):
         for _index, _roi in enumerate(new_list_roi):
             _previous_roi = old_list_roi[_index]
 
-            print("_index {}".format(_index))
-            print("old_list_roi:")
-            print(old_list_roi)
-            print("new_list_roi")
-            print(new_list_roi)
-
             if roi_index == -1:
-                #FIXME
-                if not(_roi == _previous_roi):
+                if self.are_array_not_equal(_roi, _previous_roi):
                     roi_index = _index
                     old_list_roi[_index] = [_roi[:]]
                     break
                 
         self.parent.old_list_roi[self.data_type] = old_list_roi
-
-        print("roi_index {}".format(roi_index))
-        print("")
-        QtGui.QApplication.processEvents()
+#        QtGui.QApplication.processEvents()
     
         return roi_index
         
+    def are_array_not_equal(self, array1, array2):
+        
+        for _index, _value in enumerate(array1):
+            if not (_value == array2[_index]):
+                return False
+        
+        return True
