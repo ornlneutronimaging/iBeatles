@@ -256,3 +256,16 @@ class Step1GuiHandler(object):
                                                                             frequency = frequency)
 
         self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
+        
+    def check_time_spectra_widgets(self):
+        time_spectra_data = self.parent.data_metadata['time_spectra']['data']
+        if self.parent.ui.material_display_checkbox.isChecked():
+            if time_spectra_data == []:
+                _display_error_label = True
+            else:
+                _display_error_label = False
+        else:
+            _display_error_label = False
+            
+        self.parent.ui.display_warning.setVisible(_display_error_label)
+        self.parent.ui.display_warning_2.setVisible(_display_error_label)

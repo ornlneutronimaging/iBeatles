@@ -12,6 +12,7 @@ except:
 
 from ibeatles.utilities.load_files import LoadFiles, LoadTimeSpectra
 from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
 
 class DataHandler(object):
@@ -56,9 +57,16 @@ class DataHandler(object):
 
             if data_type == 'sample':
                 self.retrieve_time_spectra()
+                self.load_time_spectra()
                 
         else:
             self.user_canceled = True
+
+    def load_time_spectra(self):
+        o_time_handler = TimeSpectraHandler(parent = self.parent)
+        o_time_handler.load()
+        tof_array = o_time_handler.tof_array
+        self.parent.data_metadata['time_spectra']['data'] = tof_array
 
     def retrieve_time_spectra(self, auto_load=True):
         if auto_load:

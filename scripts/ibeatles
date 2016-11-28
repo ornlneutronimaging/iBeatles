@@ -144,24 +144,16 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
-        if (self.data_files['time_spectra'] == []) and (status):
-            _label_status = True
-        else:
-            _label_status = False
-        self.ui.display_warning.setVisible(_label_status)
-        self.ui.display_warning_2.setVisible(_label_status)
+        o_gui = Step1GuiHandler(parent = self)
+        o_gui.check_time_spectra_widgets()
         o_plot = Step1Plot(parent=self,)
         o_plot.display_general_bragg_edge()
             
     def material_display_2_clicked(self, status):
         self.ui.material_display_checkbox.setChecked(status)
-        if (self.data_files['time_spectra'] == []) and (status):
-            _label_status = True
-        else:
-            _label_status = False
-        self.ui.display_warning.setVisible(_label_status)
-        self.ui.display_warning_2.setVisible(_label_status)
-        o_plot = Step1Plot(parent=self)
+        o_gui = Step1GuiHandler(parent = self)
+        o_gui.check_time_spectra_widgets()
+        o_plot = Step1Plot(parent=self,)
         o_plot.display_general_bragg_edge()
 
     def roi_image_view_changed(self):
@@ -261,6 +253,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.retrieve_selected_row_infos(data_type = 'sample')
             o_plot = Step1Plot(parent=self, data_type='sample')
             o_plot.display_bragg_edge()
+            o_gui = Step1GuiHandler(parent = self)
+            o_gui.check_time_spectra_widgets()
 
     def select_load_data_row(self, data_type='sample', row=0):
         o_gui = Step1GuiHandler(parent=self)
@@ -309,6 +303,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent = self)
         o_load.retrieve_time_spectra(auto_load = False)
+        o_gui = Step1GuiHandler(parent = self)
+        o_gui.check_time_spectra_widgets()
 
     def time_spectra_preview_button_clicked(self):
         o_time_spectra = TimeSpectraHandler(parent = self)

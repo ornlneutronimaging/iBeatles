@@ -2,7 +2,7 @@ import numpy as np
 import pyqtgraph as pg
 
 import ibeatles.step1.utilities as utilities
-from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
+#from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.roi_handler import RoiHandler
@@ -284,9 +284,10 @@ class Step1Plot(object):
                                           data)
 
             #check if xaxis can be in lambda, or tof
-            o_time_handler = TimeSpectraHandler(parent = self.parent)
-            o_time_handler.load()
-            tof_array = o_time_handler.tof_array
+            #o_time_handler = TimeSpectraHandler(parent = self.parent)
+            #o_time_handler.load()
+            #tof_array = o_time_handler.tof_array
+            tof_array = self.parent.data_metadata['time_spectra']['data']
                 
             list_files_selected = self.parent.list_file_selected[self.data_type]
             linear_region_left = list_files_selected[0]
