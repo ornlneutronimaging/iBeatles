@@ -137,38 +137,49 @@ class ImageHandler(object):
 
         _metadata = self.metadata
         _filename = self.filename
-        
-        # acquisition time
-        try: # new format
-            acquisition_time = _metadata['DATE']
-        except:
-            acquisition_time = time.ctime(os.path.getmtime(_filename))
-        selected_infos['acquisition_duration']['value'] = acquisition_time
-        
-        # acquisition duration
-        try:
-            acquisition_duration = _metadata['EXPOSURE']
-        except:
-            acquisition_duration = _metadata['TiMEBIN']
-        selected_infos['acquisition_time']['value'] = acquisition_duration
-        
-        # image size
-        valueX = _metadata['NAXIS1']
-        valueY = _metadata['NAXIS2']
-        image_size = "{} x {}".format(valueX, valueY)
-        selected_infos['image_size']['value'] = image_size
-        
-        # image type
-        bits = _metadata['BITPIX']
-        selected_infos['image_type']['value'] = "{} bits".format(bits)
-        
-        # min counts 
-        min_value = np.min(self.data)
-        selected_infos['min_counts']['value'] = "{}".format(min_value)
 
-        # max counts
-        max_value = np.max(self.data)
-        selected_infos['max_counts']['value'] = "{}".format(max_value)
+        try:
+        
+            # acquisition time
+            try: # new format
+                acquisition_time = _metadata['DATE']
+            except:
+                acquisition_time = time.ctime(os.path.getmtime(_filename))
+            selected_infos['acquisition_duration']['value'] = acquisition_time
+            
+            # acquisition duration
+            try:
+                acquisition_duration = _metadata['EXPOSURE']
+            except:
+                acquisition_duration = _metadata['TiMEBIN']
+            selected_infos['acquisition_time']['value'] = acquisition_duration
+            
+            # image size
+            valueX = _metadata['NAXIS1']
+            valueY = _metadata['NAXIS2']
+            image_size = "{} x {}".format(valueX, valueY)
+            selected_infos['image_size']['value'] = image_size
+            
+            # image type
+            bits = _metadata['BITPIX']
+            selected_infos['image_type']['value'] = "{} bits".format(bits)
+            
+            # min counts 
+            min_value = np.min(self.data)
+            selected_infos['min_counts']['value'] = "{}".format(min_value)
+    
+            # max counts
+            max_value = np.max(self.data)
+            selected_infos['max_counts']['value'] = "{}".format(max_value)
+
+        except:
+            
+            selected_infos['acquisition_duration']['value'] = 'N/A'
+            selected_infos['acquisition_time']['value'] = 'N/A'
+            selected_infos['image_size']['value'] = 'N/A'
+            selected_infos['image_type']['value'] = 'N/A'
+            selected_infos['min_counts']['value'] = 'N/A'
+            selected_infos['max_counts']['value'] = 'N/A'
 
         self.metadata = selected_infos
              
