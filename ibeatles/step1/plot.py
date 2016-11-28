@@ -285,7 +285,7 @@ class Step1Plot(object):
                 if tof_array == []:
                     self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
 
-                    for _key in bragg_edges.keys():
+                    for _index, _key in enumerate(bragg_edges.keys()):
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
@@ -298,7 +298,16 @@ class Step1Plot(object):
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
-                        self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                        curve = self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+
+                        curvePoint = pg.CurvePoint(curve)
+                        self.parent.ui.bragg_edge_plot.addItem(curvePoint)
+                        _text = pg.TextItem("Group {}".format(_index), anchor=(0.5,0))
+                        _text.setParentItem(curvePoint)
+                        arrow = pg.ArrowItem(angle=0)
+                        arrow.setParentItem(curvePoint)
+                        curvePoint.setPos(tof_array[-1])                        
+ 
 
                     linear_region_left = tof_array[linear_region_left]
                     linear_region_right = tof_array[linear_region_right]
