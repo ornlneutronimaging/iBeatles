@@ -236,7 +236,23 @@ class Step1Plot(object):
                     roi.setPos([x0, y0], update=False, finish=False)
                     roi.setSize([w, h], update=False, finish=False)
 
+                # display ROI boxes
                 roi.setPen(pen_color[group])
+                
+                _text_array = self.parent.list_label_roi_id[self.data_type]
+                if _text_array == []:
+                    text_id = pg.TextItem(html='<div style="text-align: center"><span style="color: #FFF;">' + label + '</span></div>',
+                                       anchor = (-0.3, 1.3),
+                                       border ='w',
+                                       fill = (0, 0, 255, 50))
+                    self.parent.ui.image_view.addItem(text_id)
+                    text_id.setPos(x0, y0)
+                    self.parent.list_label_roi_id[self.data_type].append(text_id)
+                else:
+                    text_id = self.parent.list_label_roi_id[self.data_type][_index]
+                    text_id.setPos(x0, y0)
+
+                    
                 
                 list_data_group[group].append([x0, x1, y0, y1])
                 

@@ -52,6 +52,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                    'ob': [],
                    'normalized': []}
     
+    list_label_roi_id = {'sample': [],
+                         'ob': [],
+                         'normalized' : []}
+    
     list_bragg_edge_selection_id = {'sample': None,
                                     'ob': None,
                                     'normalized': None}
