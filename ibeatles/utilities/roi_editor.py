@@ -196,40 +196,56 @@ class RoiEditorInterface(QtGui.QMainWindow):
         
         list_roi = self.parent.list_roi[self.title]
         list_roi_id = self.parent.list_roi_id[self.title]
+        list_label_roi_id = self.parent.list_label_roi_id[self.title]
         _nbr_row = len(list_roi)
 
         init_roi = ['label_name', '0', '0', '1', '1', '0']
         [label, x0, y0, width, height, group] = init_roi
+
+
+        # label roi
+        label_roi = pg.TextItem(html='<div style="text-align: center"><span style="color: #FFF;">' + label + '</span></div>',
+                                       anchor = (-0.3, 1.3),
+                                       border ='w',
+                                       fill = (0, 0, 255, 50))
 
         # roi region in image
         roi = pg.ROI([0,0],[1,1])
         roi.addScaleHandle([1,1],[0,0])
         if self.title == 'sample':
             self.parent.ui.image_view.addItem(roi)
+            self.parent.ui.image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)
         elif self.title == 'ob':
             self.parent.ui.ob_image_view.addItem(roi)
+            self.aprent.ui.ob_image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)
         elif self.title == 'normalized':
             self.parent.ui.normalized_image_view.addItem(roi)
+            self.parent.ui.normalized_image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_normalized_image_view_changed)
 
         new_list_roi = []
         new_list_roi_id = []
+        new_list_label_roi_id = []
         if _nbr_row == 0:
             new_list_roi.append(init_roi)
             new_list_roi_id.append(roi)
+            new_list_label_roi.append(label_roi)
         else:
             for _index in range(_nbr_row ):
                 if _index == _new_row_index:
                     new_list_roi.append(init_roi)
                     new_list_roi_id.append(roi)
+                    new_list_label_roi_id.append(label_roi)
     
                 new_list_roi.append(list_roi[_index])
                 new_list_roi_id.append(list_roi_id[_index])
+                new_list_label_roi_id.append(list_label_roi_id[_index])
         
         self.parent.list_roi[self.title] = new_list_roi
         self.parent.list_roi_id[self.title] = new_list_roi_id
+        self.parent.list_label_roi_id[self.title] = new_list_label_roi_id
         
         nbr_groups = len(colors.roi_group_color)
         list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
@@ -251,9 +267,11 @@ class RoiEditorInterface(QtGui.QMainWindow):
         
         list_roi = self.parent.list_roi[self.title]
         list_roi_id = self.parent.list_roi_id[self.title]
+        list_label_roi_id = self.parent.list_label_roi_id[self.title]
 
         new_list_roi = []
         new_list_roi_id = []
+        new_list_label_roi_id = []
         roi_to_remove = None
         for _index, _array in enumerate(list_roi):
             if _index == _row_selected:
@@ -261,12 +279,14 @@ class RoiEditorInterface(QtGui.QMainWindow):
                 continue
             new_list_roi.append(_array)
             new_list_roi_id.append(list_roi_id[_index])
+            new_list_label_roi_id.append(list_label_roi_id[_index])
 
         if new_list_roi == []:
             self.ui.remove_roi_button.setEnabled(False)
             
         self.parent.list_roi[self.title] = new_list_roi
         self.parent.list_roi_id[self.title] = new_list_roi_id
+        self.parent.list_label_roi_id[self.title] = new_list_label_roi_id
  
         if self.title == 'sample':
             self.parent.ui.image_view.removeItem(roi_to_remove)
