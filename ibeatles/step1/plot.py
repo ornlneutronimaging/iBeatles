@@ -198,10 +198,13 @@ class Step1Plot(object):
             list_roi = self.parent.list_roi[self.data_type]
             roi_editor_ui = self.parent.roi_editor_ui[self.data_type]
             if self.data_type == 'sample':
+                _image_view = self.parent.ui.image_view
                 _image_view_item = self.parent.ui.image_view.imageItem
             elif self.data_type == 'ob':
+                _image_view = self.parent.ui.ob_image_view
                 _image_view_item = self.parent.ui.ob_image_view.imageItem
             elif self.data_type == 'normalized':
+                _image_view = self.parent.ui.normalized_image_view
                 _image_view_item = self.parent.ui.normalized_image_view.imageItem
             
             # used here to group rois into their group for Bragg Edge plot    
@@ -245,7 +248,7 @@ class Step1Plot(object):
                                        anchor = (-0.3, 1.3),
                                        border ='w',
                                        fill = (0, 0, 255, 50))
-                    self.parent.ui.image_view.addItem(text_id)
+                    _image_view.addItem(text_id)
                     text_id.setPos(x0, y0)
                     self.parent.list_label_roi_id[self.data_type].append(text_id)
                 else:
@@ -287,8 +290,17 @@ class Step1Plot(object):
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
-                        self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        curve = self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
                         tof_array = np.arange(len(_bragg_edge))
+                        
+                        curvePoint = pg.CurvePoint(curve)
+                        self.parent.ui.bragg_edge_plot.addItem(curvePoint)
+                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
+                        _text.setParentItem(curvePoint)
+                        arrow = pg.ArrowItem(angle=0)
+                        arrow.setParentItem(curvePoint)
+                        x_range = np.arange(len(_bragg_edge))
+                        curvePoint.setPos(x_range[-1])                             
                         
                 else:
                     
@@ -331,16 +343,33 @@ class Step1Plot(object):
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
-                        self.parent.ui.ob_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        curve = self.parent.ui.ob_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
                         tof_array = np.arange(len(_bragg_edge))
 
+                        curvePoint = pg.CurvePoint(curve)
+                        self.parent.ui.ob_bragg_edge_plot.addItem(curvePoint)
+                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
+                        _text.setParentItem(curvePoint)
+                        arrow = pg.ArrowItem(angle=0)
+                        arrow.setParentItem(curvePoint)
+                        x_range = np.arange(len(_bragg_edge))
+                        curvePoint.setPos(x_range[-1])    
                 else:
 
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
-                        self.parent.ui.ob_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                        curve = self.parent.ui.ob_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+
+                        curvePoint = pg.CurvePoint(curve)
+                        self.parent.ui.ob_bragg_edge_plot.addItem(curvePoint)
+                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
+                        _text.setParentItem(curvePoint)
+                        arrow = pg.ArrowItem(angle=0)
+                        arrow.setParentItem(curvePoint)
+                        curvePoint.setPos(tof_array[-1])                        
+                        
 
                     linear_region_left = tof_array[linear_region_left]
                     Linear_region_right = tof_array[linear_region_right]
@@ -367,16 +396,33 @@ class Step1Plot(object):
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
-                        self.parent.ui.normalized_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        curve = self.parent.ui.normalized_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
                         tof_array = np.arange(len(_bragg_edge))
+                        
+                        curvePoint = pg.CurvePoint(curve)
+                        self.parent.ui.normalized_bragg_edge_plot.addItem(curvePoint)
+                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
+                        _text.setParentItem(curvePoint)
+                        arrow = pg.ArrowItem(angle=0)
+                        arrow.setParentItem(curvePoint)
+                        x_range = np.arange(len(_bragg_edge))
+                        curvePoint.setPos(x_range[-1])                            
 
                 else:
                     for _key in bragg_edges.keys():
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
-                        self.parent.ui.normalized_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
-                        
+                        curve = self.parent.ui.normalized_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+
+                        curvePoint = pg.CurvePoint(curve)
+                        self.parent.ui.normalized_bragg_edge_plot.addItem(curvePoint)
+                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
+                        _text.setParentItem(curvePoint)
+                        arrow = pg.ArrowItem(angle=0)
+                        arrow.setParentItem(curvePoint)
+                        curvePoint.setPos(tof_array[-1])                        
+                                                
                     linear_region_left = tof_array[linear_region_left]
                     Linear_region_right = tof_array[linear_region_right]
 
