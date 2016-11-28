@@ -91,16 +91,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
         self.setup()
         self.init_interface()
-        
-        #if self.DEBUGGING:
-            #self.list_roi['sample'] = [
-                #['roi_1', '10', '20', '100', '200', '1'],
-                #['roi_2', '50', '60', '5', '6', '2'],
-                #['roi_3', '50', '60', '5', '6', '1'],
-                #['roi_4', '50', '60', '5', '6', '0'],
-                #['roi_5', '50', '60', '5', '6', '3']
-            #]
-
+     
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
