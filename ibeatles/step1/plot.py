@@ -250,6 +250,7 @@ class Step1Plot(object):
                     self.parent.list_label_roi_id[self.data_type].append(text_id)
                 else:
                     text_id = self.parent.list_label_roi_id[self.data_type][_index]
+                    text_id.setText(label)
                     text_id.setPos(x0, y0)
 
                     
