@@ -23,6 +23,8 @@ from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 from ibeatles.step1.plot import Step1Plot
 
+from ibeatles.step2.gui_handler import Step2GuiHandler
+
 from ibeatles.step3.gui_handler import Step3GuiHandler
 
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
@@ -93,13 +95,17 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.init_interface()
      
     def init_interface(self):
-        o_gui = Step1GuiHandler(parent=self)
+        o_gui = Step1GuiHandler(parent = self)
         o_gui.init_gui()
         o_gui.init_labels()
         o_gui.init_material_widgets()
         o_gui.init_statusbar()
         o_gui.init_pyqtgraph()
-        self.update_delta_lambda()        
+        self.update_delta_lambda()   
+        
+        o_gui_2 = Step2GuiHandler(parent = self)
+        o_gui_2.init_pyqtgraph()
+        
         
     def setup(self):
         if self.DEBUGGING:
