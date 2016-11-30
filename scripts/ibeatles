@@ -340,6 +340,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.ui.normalized_roi_mean_button.setChecked(True)
         self.roi_ob_image_view_changed()
     
+    #TAB 2: 
+    
+    def normalization_remove_roi_button_clicked(self):
+        pass
+    
+    def normalization_add_roi_button_clicked(self):
+        pass
+
+
     #TAB 3: Normalized Data Tab
     
     def normalized_import_button_clicked(self):
