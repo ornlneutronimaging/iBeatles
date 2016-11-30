@@ -54,7 +54,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -926,7 +926,10 @@
                    <bool>true</bool>
                   </property>
                   <property name="selectionMode">
-                   <enum>QAbstractItemView::NoSelection</enum>
+                   <enum>QAbstractItemView::SingleSelection</enum>
+                  </property>
+                  <property name="selectionBehavior">
+                   <enum>QAbstractItemView::SelectRows</enum>
                   </property>
                   <attribute name="horizontalHeaderStretchLastSection">
                    <bool>true</bool>
@@ -937,11 +940,6 @@
                   <column>
                    <property name="text">
                     <string>Use ?</string>
-                   </property>
-                  </column>
-                  <column>
-                   <property name="text">
-                    <string>#</string>
                    </property>
                   </column>
                   <column>

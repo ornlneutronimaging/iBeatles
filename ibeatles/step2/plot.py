@@ -81,7 +81,7 @@ class Step2Plot(object):
         list_roi = self.parent.list_roi['normalization']
         final_array = []
         for _index, _roi in enumerate(list_roi):
-            [flag, label, x0, y0, width, height, value] = _roi
+            [flag, x0, y0, width, height, value] = _roi
             _mean = np.mean(data[:, x0:x0+width, y0:y0+height], axis=1)
             if _index == 0:
                 final_array = _mean
@@ -115,7 +115,7 @@ class Step2Plot(object):
         return _item
 
     def set_row(self, row_index, roi_array):
-        [status_row, roi_index, x0, y0, width, height, mean_counts] = roi_array
+        [status_row, x0, y0, width, height, mean_counts] = roi_array
         
         # button
         _widget = QtGui.QCheckBox()
@@ -123,51 +123,47 @@ class Step2Plot(object):
         QtCore.QObject.connect(_widget, QtCore.SIGNAL("stateChanged(int)"), self.parent.normalization_row_status_changed)
         self.parent.ui.normalization_tableWidget.setCellWidget(row_index, 0, _widget)
         
-        # label
-        _item = self.get_item(str(roi_index))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 1, _item)
-
         # x0
         _item = self.get_item(str(x0))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 2, _item)
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 1, _item)
         
         # y0
         _item = self.get_item(str(y0))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 3, _item)
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 2, _item)
         
         # width
         _item = self.get_item(str(width))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 4, _item)
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 3, _item)
         
         # height
         _item = self.get_item(str(height))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 5, _item)
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 4, _item)
         
-        # mean counts
-        _item = self.get_item(str(mean_counts))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 6, _item)
+        ## mean counts
+        #_item = self.get_item(str(mean_counts))
+        #self.parent.ui.normalization_tableWidget.setItem(row_index, 6, _item)
             
     def update_row(self, row_index, roi_array):
-        [status_row, roi_index, x0, y0, width, height, mean_counts] = roi_array
+        [status_row, x0, y0, width, height, mean_counts] = roi_array
 
         # button
         _widget = self.parent.ui.normalization_tableWidget.cellWidget(row_index, 0)
         _widget.setChecked(status_row)
         
         # x0
-        _item = self.parent.ui.normalization_tableWidget.item(row_index, 2)
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 1)
         _item.setText(str(x0))
         
         # y0
-        _item = self.parent.ui.normalization_tableWidget.item(row_index, 3)
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 2)
         _item.setText(str(y0))
         
         # width
-        _item = self.parent.ui.normalization_tableWidget.item(row_index, 4)
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 3)
         _item.setText(str(width))
         
         # height
-        _item = self.parent.ui.normalization_tableWidget.item(row_index, 5)
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 4)
         _item.setText(str(height))
         
     def clear_plots(self):

@@ -51,8 +51,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
     init_array = ['label_roi', '0', '0', '1', '1', '0']
 
-    # [[use?, #, x0, y0, width, height, mean_counts]]
-    init_array_normalization = [True, 0, 0, 0, 1, 1, -1]
+    # [[use?, x0, y0, width, height, mean_counts]]
+    init_array_normalization = [True, 0, 0, 1, 1, -1]
 
     # list roi ui id (when multiple roi in plots)
     list_roi_id = {'sample': [],
@@ -372,10 +372,12 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         print("status changed")
     
     def normalization_remove_roi_button_clicked(self):
-        pass
+        o_roi = Step2RoiHandler(parent = self)
+        o_roi.remove_roi()
     
     def normalization_add_roi_button_clicked(self):
-        pass
+        o_roi = Step2RoiHandler(parent = self)
+        o_roi.add_roi()
     
     def normalization_use_coefficient_checked(self, status):
         pass

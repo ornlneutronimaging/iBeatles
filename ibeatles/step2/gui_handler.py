@@ -22,7 +22,7 @@ class CustomAxis(pg.AxisItem):
                 
 class Step2GuiHandler(object):
     
-    col_width = [70, 45, 45, 45, 45, 45]
+    col_width = [70, 50, 50, 50, 50]
     
     def __init__(self, parent=None):
         self.parent = parent
@@ -87,3 +87,12 @@ class Step2GuiHandler(object):
         self.parent.list_roi_id['normalization'] = [roi]
         self.parent.step2_ui['bragg_edge_plot'] = bragg_edge_plot
         self.parent.step2_ui['caxis'] = caxis
+
+    def check_add_remove_roi_buttons(self):
+        nbr_row = self.parent.ui.normalization_tableWidget.rowCount()
+        if nbr_row == 0:
+            _status_remove = False
+        else:
+            _status_remove = True
+            
+        self.parent.ui.normalization_remove_roi_button.setEnabled(_status_remove)
