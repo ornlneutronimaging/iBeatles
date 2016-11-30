@@ -78,6 +78,12 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                                  'ob': [],
                                  'normalized': []}
     
+    step2_ui = {'area': None,
+                'image_view': None,
+                'roi': None,
+                'bragg_edge_plot': None,
+                'caxis': None}
+    
                               
     def __init__(self):
         """ Initialization
@@ -136,6 +142,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                                              'folder': current_folder,
                                              'general_infos': None,
                                              'data': []},
+                              'normalization': {'data': []},
                               'time_spectra': {'title': 'Select file',
                                                'folder': current_folder,
                                                'general_infos': None,
@@ -147,6 +154,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                            'time_spectra': []}
 
     #TAB 1, 2 and 3
+
+    def tab_widget_changed(self, tab_selected):
+        if tab_selected == 1: #normalization
+            o_gui = Step2GuiHandler(parent = self)
+            o_gui.update_widgets()
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
@@ -342,12 +354,23 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     #TAB 2: 
     
+    def normalization_manual_roi_changed(self):
+        pass
+    
     def normalization_remove_roi_button_clicked(self):
         pass
     
     def normalization_add_roi_button_clicked(self):
         pass
-
+    
+    def normalization_use_coefficient_checked(self, status):
+        pass
+    
+    def normalization_button_clicked(self):
+        pass
+    
+    def normalization_coefficient_value_changed(self):
+        pass
 
     #TAB 3: Normalized Data Tab
     

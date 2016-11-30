@@ -2,6 +2,7 @@ import sys
 import os
 import glob
 import pprint
+import numpy as np
 
 try:
     import PyQt4.QtGui as QtGui
@@ -61,6 +62,12 @@ class DataHandler(object):
                 
         else:
             self.user_canceled = True
+            
+        # calculate mean data array for normalization tab
+        if data_type == 'sample':
+            _data = self.parent.data_metadata['sample']['data']
+            normalization_mean_data = np.mean(_data, axis=0)
+            self.parent.data_metadata['normalization']['data'] = normalization_mean_data
 
     def load_time_spectra(self):
         o_time_handler = TimeSpectraHandler(parent = self.parent)
