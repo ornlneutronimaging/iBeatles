@@ -24,6 +24,8 @@ from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 from ibeatles.step1.plot import Step1Plot
 
 from ibeatles.step2.gui_handler import Step2GuiHandler
+from ibeatles.step2.roi_handler import Step2RoiHandler
+from ibeatles.step2.plot import Step2Plot
 
 from ibeatles.step3.gui_handler import Step3GuiHandler
 
@@ -49,9 +51,13 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
     init_array = ['label_roi', '0', '0', '1', '1', '0']
 
+    # [[use?, #, x0, y0, width, height, mean_counts]]
+    init_array_normalization = [True, 0, 0, 0, 1, 1, -1]
+
     # list roi ui id (when multiple roi in plots)
     list_roi_id = {'sample': [],
                    'ob': [],
+                   'normalization': [],
                    'normalized': []}
     
     list_label_roi_id = {'sample': [],
@@ -64,6 +70,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     list_roi = {'sample': [init_array],
                 'ob': [init_array],
+                'normalization': [init_array_normalization],
                 'normalized': [init_array]}
     
     old_list_roi = {'sample': [init_array],
@@ -111,7 +118,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         
         o_gui_2 = Step2GuiHandler(parent = self)
         o_gui_2.init_pyqtgraph()
-        
+        o_gui_2.init_table()
         
     def setup(self):
         if self.DEBUGGING:
@@ -355,7 +362,14 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     #TAB 2: 
     
     def normalization_manual_roi_changed(self):
-        pass
+        o_roi = Step2RoiHandler(parent = self)
+        o_roi.save_roi()
+        o_plot = Step2Plot(parent = self)
+        o_plot.update_roi_table()
+        
+    
+    def normalization_row_status_changed(self):
+        print("status changed")
     
     def normalization_remove_roi_button_clicked(self):
         pass

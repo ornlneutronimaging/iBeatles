@@ -22,13 +22,21 @@ class CustomAxis(pg.AxisItem):
                 
 class Step2GuiHandler(object):
     
+    col_width = [80, 50, 50, 50, 50, 50]
+    
     def __init__(self, parent=None):
         self.parent = parent
 
     def update_widgets(self):
         o_step2_plot = Step2Plot(parent = self.parent)
         o_step2_plot.display_image()
+        o_step2_plot.display_counts_vs_file()
+        o_step2_plot.init_roi_table()
         
+    def init_table(self):
+        for _index, _width in enumerate(self.col_width):
+            self.parent.ui.normalization_tableWidget.setColumnWidth(_index, _width)
+
     def init_pyqtgraph(self):
         area = DockArea()
         area.setVisible(False)
@@ -76,6 +84,6 @@ class Step2GuiHandler(object):
 
         self.parent.step2_ui['area'] = area
         self.parent.step2_ui['image_view'] = image_view
-        self.parent.step2_ui['roi'] = roi
+        self.parent.list_roi_id['normalization'] = [roi]
         self.parent.step2_ui['bragg_edge_plot'] = bragg_edge_plot
         self.parent.step2_ui['caxis'] = caxis

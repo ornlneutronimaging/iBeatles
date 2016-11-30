@@ -1,6 +1,8 @@
 import numpy as np
 import pyqtgraph as pg
 
+from PyQt4 import QtGui, QtCore
+
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.roi_handler import RoiHandler
@@ -30,25 +32,142 @@ class CustomAxis(pg.AxisItem):
 
         return strings
     
+    
 class Step2Plot(object):
     
-    data = []
+    sample = []
+    ob = []
 
-    def __init__(self, parent=None, data=[]):
+    def __init__(self, parent=None, sample=[], ob=[]):
         self.parent = parent
-        data = self.parent.data_metadata['normalization']['data']
-        self.data = data
+        sample = self.parent.data_metadata['sample']['data']
+        ob = self.parent.data_metadata['ob']['data']
+        self.sample = sample
+        self.ob = ob
         
     def display_image(self):
-        _data = self.data
+        _sample = self.sample
         
-        if _data == []:
+        if _sample == []:
             self.clear_plots()
             self.parent.step2_ui['area'].setVisible(False)
         else:
-            _data = np.array(_data)
+            _data = np.array(_sample)
             self.parent.step2_ui['area'].setVisible(True)
             self.parent.step2_ui['image_view'].setImage(_data)
+            
+    def display_counts_vs_file(self):
+        _sample = self.sample
+        if _sample == []: return
+        
+        list_roi = self.parent.list_roi['normalization']
+        
+        array_sample_vs_file_index = self.calculate_mean_counts(_sample)
+        array_ob_vs_file_index = self.calculate_mean_counts(self.ob)
+        
+        if array_ob_vs_file_index == []:
+            _array = array_sample_vs_file_index
+        else:
+            _array = array_sample_vs_file_index / array_ob_vs_file_index
+            
+        self.parent.step2_ui['bragg_edge_plot'].plot(_array)
+
+    def calculate_mean_counts(self, data):
+        if data == []:
+            return data
+        
+        data = np.array(data)
+        list_roi = self.parent.list_roi['normalization']
+        final_array = []
+        for _index, _roi in enumerate(list_roi):
+            [flag, label, x0, y0, width, height, value] = _roi
+            _mean = np.mean(data[:, x0:x0+width, y0:y0+height], axis=1)
+            if _index == 0:
+                final_array = _mean
+            else:
+                final_array += _mean
+                
+        return np.mean(final_array, axis=1)
+
+    def init_roi_table(self):
+        if self.sample == []: return
+
+        # clear table
+        for _row in np.arange(self.parent.ui.normalization_tableWidget.rowCount()):
+            self.parent.ui.normalization_tableWidget.removeRow(0)
+        
+        list_roi = self.parent.list_roi['normalization']
+        for _row, _roi in enumerate(list_roi):
+            self.parent.ui.normalization_tableWidget.insertRow(_row)
+            self.set_row(_row, _roi)
+
+    def update_roi_table(self):
+        if self.sample == []: return
+        
+        list_roi = self.parent.list_roi['normalization']
+        for _row, _roi in enumerate(list_roi):
+            self.update_row(_row, _roi)
+            
+    def get_item(self, text):
+        _item = QtGui.QTableWidgetItem(text)
+        #_item.setBackground(color)
+        return _item
+
+    def set_row(self, row_index, roi_array):
+        [status_row, roi_index, x0, y0, width, height, mean_counts] = roi_array
+        
+        # button
+        _widget = QtGui.QCheckBox()
+        _widget.setChecked(status_row)
+        QtCore.QObject.connect(_widget, QtCore.SIGNAL("stateChanged(int)"), self.parent.normalization_row_status_changed)
+        self.parent.ui.normalization_tableWidget.setCellWidget(row_index, 0, _widget)
+        
+        # label
+        _item = self.get_item(str(roi_index))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 1, _item)
+
+        # x0
+        _item = self.get_item(str(x0))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 2, _item)
+        
+        # y0
+        _item = self.get_item(str(y0))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 3, _item)
+        
+        # width
+        _item = self.get_item(str(width))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 4, _item)
+        
+        # height
+        _item = self.get_item(str(height))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 5, _item)
+        
+        # mean counts
+        _item = self.get_item(str(mean_counts))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 6, _item)
+            
+    def update_row(self, row_index, roi_array):
+        [status_row, roi_index, x0, y0, width, height, mean_counts] = roi_array
+
+        # button
+        _widget = self.parent.ui.normalization_tableWidget.cellWidget(row_index, 0)
+        _widget.setChecked(status_row)
+        
+        # x0
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 2)
+        _item.setText(str(x0))
+        
+        # y0
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 3)
+        _item.setText(str(y0))
+        
+        # width
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 4)
+        _item.setText(str(width))
+        
+        # height
+        _item = self.parent.ui.normalization_tableWidget.item(row_index, 5)
+        _item.setText(str(height))
         
     def clear_plots(self):
         self.parent.step2_ui['image_view'].clear()
