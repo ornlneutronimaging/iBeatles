@@ -22,7 +22,7 @@ class CustomAxis(pg.AxisItem):
                 
 class Step2GuiHandler(object):
     
-    col_width = [80, 50, 50, 50, 50, 50]
+    col_width = [70, 45, 45, 45, 45, 45]
     
     def __init__(self, parent=None):
         self.parent = parent

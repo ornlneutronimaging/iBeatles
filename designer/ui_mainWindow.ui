@@ -54,7 +54,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -912,13 +912,13 @@
                  <widget class="QTableWidget" name="normalization_tableWidget">
                   <property name="minimumSize">
                    <size>
-                    <width>400</width>
+                    <width>0</width>
                     <height>0</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>500</width>
+                    <width>350</width>
                     <height>16777215</height>
                    </size>
                   </property>
