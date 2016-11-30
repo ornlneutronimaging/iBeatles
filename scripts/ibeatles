@@ -366,7 +366,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_roi.save_roi()
         o_plot = Step2Plot(parent = self)
         o_plot.update_roi_table()
-       #o_plot.display_counts_vs_file()
+        o_plot.display_counts_vs_file()
     
     def normalization_row_status_changed(self):
         print("status changed")
