@@ -59,7 +59,7 @@ class Step2GuiHandler(object):
         roi = pg.ROI([0,0],[1,1], pen=pen_color['0'])
         roi.addScaleHandle([1,1],[0,0])
         image_view.addItem(roi)
-        roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
+        roi.sigRegionChangeFinished.connect(self.parent.normalization_manual_roi_changed)
 
         #vertical_layout.addWidget(image_view)
         #top_right_widget = QtGui.QWidget()

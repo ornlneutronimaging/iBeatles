@@ -19,13 +19,13 @@ class Step2RoiHandler(object):
             x1 = region[0][0].stop-1
             y0 = region[0][1].start
             y1 = region[0][1].stop-1
-            
+
             width = x1-x0
             height = y1-y0
             
             _roi = list_roi[_index]
             _roi[2] = x0
-            _roi[3] = x1
+            _roi[3] = y0
             _roi[4] = width
             _roi[5] = height
             

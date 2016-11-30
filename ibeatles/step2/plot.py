@@ -70,6 +70,7 @@ class Step2Plot(object):
         else:
             _array = array_sample_vs_file_index / array_ob_vs_file_index
             
+        self.parent.step2_ui['bragg_edge_plot'].clear()
         self.parent.step2_ui['bragg_edge_plot'].plot(_array)
 
     def calculate_mean_counts(self, data):
