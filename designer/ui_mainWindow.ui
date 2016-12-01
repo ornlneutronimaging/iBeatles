@@ -1033,16 +1033,6 @@
                     </property>
                    </spacer>
                   </item>
-                  <item>
-                   <widget class="QCheckBox" name="normalization_use_coefficient">
-                    <property name="text">
-                     <string>Use Coefficient</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLineEdit" name="normalization_coefficient_value"/>
-                  </item>
                  </layout>
                 </item>
                 <item>
@@ -2263,22 +2253,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>normalization_use_coefficient</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>normalization_use_coefficient_checked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1254</x>
-     <y>606</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1527</x>
-     <y>614</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>normalization_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -2291,22 +2265,6 @@
     <hint type="destinationlabel">
      <x>1527</x>
      <y>895</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>normalization_coefficient_value</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>normalization_coefficient_value_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1371</x>
-     <y>608</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1528</x>
-     <y>579</y>
     </hint>
    </hints>
   </connection>

@@ -39,7 +39,7 @@ class Step2Plot(object):
     ob = []
     normalization = []
 
-    def __init__(self, parent=None, sample=[], ob=[]):
+    def __init__(self, parent=None, sample=[], ob=[], normalization=[]):
         self.parent = parent
         sample = self.parent.data_metadata['sample']['data']
         ob = self.parent.data_metadata['ob']['data']

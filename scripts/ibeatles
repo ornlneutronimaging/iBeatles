@@ -90,6 +90,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 'image_view': None,
                 'roi': None,
                 'bragg_edge_plot': None,
+                'normalized_profile_plot': None,
                 'caxis': None}
     
                               
@@ -391,13 +392,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_roi.add_roi()
         self.ui.normalization_tableWidget.blockSignals(False)
     
-    def normalization_use_coefficient_checked(self, status):
-        pass
-    
     def normalization_button_clicked(self):
-        pass
-    
-    def normalization_coefficient_value_changed(self):
         pass
     
     def normalization_tableWidget_cell_changed(self, row, col):

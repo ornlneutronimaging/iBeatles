@@ -39,12 +39,15 @@ class Step2GuiHandler(object):
 
     def init_pyqtgraph(self):
         area = DockArea()
-        area.setVisible(False)
+        area.setVisible(True)
         d1 = Dock("Sample", size=(200, 300))
-        d2 = Dock("Profile", size=(200, 100))
+        d2 = Dock("Background Profile", size=(200, 100))
+        d3 = Dock("Normalized Profile", size=(200, 100))
         
         area.addDock(d1, 'top')
+        area.addDock(d3, 'bottom')
         area.addDock(d2, 'bottom')
+        area.moveDock(d2, 'above', d3)
         
         preview_widget = pg.GraphicsLayoutWidget()
         pg.setConfigOptions(antialias=True)
@@ -79,6 +82,19 @@ class Step2GuiHandler(object):
     
         d2.addWidget(bragg_edge_plot)
     
+        # normalization profile
+        normalized_profile_plot = pg.PlotWidget()
+        normalized_profile_plot.plot()
+
+        p1 = normalized_profile_plot.plotItem
+        p1.layout.removeItem(p1.getAxis('top'))
+        caxis = CustomAxis(orientation='top', parent=p1)
+        caxis.setLabel('')
+        caxis.linkToView(p1.vb)
+        p1.layout.addItem(caxis, 1, 1)
+    
+        d3.addWidget(normalized_profile_plot)        
+    
         vertical_layout.addWidget(area)
         self.parent.ui.normalization_left_widget.setLayout(vertical_layout)
 
@@ -86,6 +102,7 @@ class Step2GuiHandler(object):
         self.parent.step2_ui['image_view'] = image_view
         self.parent.list_roi_id['normalization'] = [roi]
         self.parent.step2_ui['bragg_edge_plot'] = bragg_edge_plot
+        self.parent.step2_ui['normalized_profile_plot'] = normalized_profile_plot
         self.parent.step2_ui['caxis'] = caxis
 
     def check_add_remove_roi_buttons(self):
