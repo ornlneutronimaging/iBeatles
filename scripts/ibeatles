@@ -377,15 +377,19 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_plot.display_counts_vs_file()
     
     def normalization_remove_roi_button_clicked(self):
+        self.ui.normalization_tableWidget.blockSignals(True)
         o_roi = Step2RoiHandler(parent = self)
         o_roi.remove_roi()    
         o_plot = Step2Plot(parent = self)
         o_plot.display_counts_vs_file()
         o_plot.display_roi()
+        self.ui.normalization_tableWidget.blockSignals(False)
 
     def normalization_add_roi_button_clicked(self):
+        self.ui.normalization_tableWidget.blockSignals(True)
         o_roi = Step2RoiHandler(parent = self)
         o_roi.add_roi()
+        self.ui.normalization_tableWidget.blockSignals(False)
     
     def normalization_use_coefficient_checked(self, status):
         pass

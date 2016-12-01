@@ -53,6 +53,9 @@ class Step2Plot(object):
         self.sample = sample
         self.ob = ob
         self.normalization = normalization
+
+    def clear_image(self):
+        self.parent.step2_ui['image_view'].clear()
         
     def display_image(self):
         _data = self.normalization
@@ -67,7 +70,7 @@ class Step2Plot(object):
     def display_roi(self):
         list_roi_id = self.parent.list_roi_id['normalization']
         roi = self.parent.list_roi['normalization']
-        
+
         if list_roi_id == []:
             return
         
