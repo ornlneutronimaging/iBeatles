@@ -37,22 +37,30 @@ class Step2Plot(object):
     
     sample = []
     ob = []
+    normalization = []
 
     def __init__(self, parent=None, sample=[], ob=[]):
         self.parent = parent
         sample = self.parent.data_metadata['sample']['data']
         ob = self.parent.data_metadata['ob']['data']
+        
+        if self.parent.data_metadata['normalization']['data'] == []:
+            normalizaton = np.mean(np.array(sample), axis=0)
+            self.parent.data_metadata['normalization']['axis'] = normalizaton
+        else:
+            normalization = self.parent.data_metadata['normalization']['data']
+            
         self.sample = sample
         self.ob = ob
+        self.normalization = normalization
         
     def display_image(self):
-        _sample = self.sample
+        _data = self.normalization
         
-        if _sample == []:
+        if _data == []:
             self.clear_plots()
             self.parent.step2_ui['area'].setVisible(False)
         else:
-            _data = np.array(_sample)
             self.parent.step2_ui['area'].setVisible(True)
             self.parent.step2_ui['image_view'].setImage(_data)
             
