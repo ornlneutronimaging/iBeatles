@@ -64,6 +64,23 @@ class Step2Plot(object):
             self.parent.step2_ui['area'].setVisible(True)
             self.parent.step2_ui['image_view'].setImage(_data)
             
+    def display_roi(self):
+        list_roi_id = self.parent.list_roi_id['normalization']
+        roi = self.parent.list_roi['normalization']
+        
+        if list_roi_id == []:
+            return
+        
+        for index, roi_id in enumerate(list_roi_id):
+            
+            [flag, x0, y0, width, height, not_used] = roi[index]
+            
+            x1 = x0 + width
+            y1 = y0 + height
+            
+            roi_id.setPos([x0, y0], update=False, finish=False)
+            roi_id.setSize([width, height], update=False, finish=False)
+
     def display_counts_vs_file(self):
         _sample = self.sample
         if _sample == []: return
@@ -88,15 +105,28 @@ class Step2Plot(object):
         data = np.array(data)
         list_roi = self.parent.list_roi['normalization']
         final_array = []
+        _first_array_added = True
         for _index, _roi in enumerate(list_roi):
+            
             [flag, x0, y0, width, height, value] = _roi
-            _mean = np.mean(data[:, x0:x0+width, y0:y0+height], axis=1)
-            if _index == 0:
+
+            if flag is False:
+                continue
+
+            _x_from = int(x0)
+            _x_to = _x_from + int(width) + 1
+            
+            _y_from = int(y0)
+            _y_to = _y_from + int(height) + 1
+            
+            _mean = np.mean(data[:, _x_from: _x_to, _y_from: _y_to], axis=(1,2))
+            if _first_array_added:
                 final_array = _mean
+                _first_array_added = False
             else:
                 final_array += _mean
                 
-        return np.mean(final_array, axis=1)
+        return final_array
 
     def init_roi_table(self):
         if self.sample == []: return

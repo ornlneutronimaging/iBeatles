@@ -2,6 +2,7 @@
 
 import sys
 import os
+from copy import deepcopy
 
 try:
     import PyQt4
@@ -70,7 +71,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     list_roi = {'sample': [init_array],
                 'ob': [init_array],
-                'normalization': [init_array_normalization],
+                'normalization': [deepcopy(init_array_normalization)],
                 'normalized': [init_array]}
     
     old_list_roi = {'sample': [init_array],
@@ -369,12 +370,19 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_plot.display_counts_vs_file()
     
     def normalization_row_status_changed(self):
-        print("status changed")
+        o_roi = Step2RoiHandler(parent = self)
+        o_roi.save_table()
+        o_roi.enable_selected_roi()
+        o_plot = Step2Plot(parent = self)
+        o_plot.display_counts_vs_file()
     
     def normalization_remove_roi_button_clicked(self):
         o_roi = Step2RoiHandler(parent = self)
-        o_roi.remove_roi()
-    
+        o_roi.remove_roi()    
+        o_plot = Step2Plot(parent = self)
+        o_plot.display_counts_vs_file()
+        o_plot.display_roi()
+
     def normalization_add_roi_button_clicked(self):
         o_roi = Step2RoiHandler(parent = self)
         o_roi.add_roi()
@@ -387,6 +395,13 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     def normalization_coefficient_value_changed(self):
         pass
+    
+    def normalization_tableWidget_cell_changed(self, row, col):
+        o_roi = Step2RoiHandler(parent = self)
+        o_roi.save_table()
+        o_plot = Step2Plot(parent = self)
+        o_plot.display_counts_vs_file()
+        o_plot.display_roi()
 
     #TAB 3: Normalized Data Tab
     

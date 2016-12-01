@@ -816,6 +816,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.normalization_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.normalization_button_clicked)
         QtCore.QObject.connect(self.normalization_coefficient_value, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.normalization_coefficient_value_changed)
         QtCore.QObject.connect(self.tabWidget, QtCore.SIGNAL(_fromUtf8("currentChanged(int)")), MainWindow.tab_widget_changed)
+        QtCore.QObject.connect(self.normalization_tableWidget, QtCore.SIGNAL(_fromUtf8("cellChanged(int,int)")), MainWindow.normalization_tableWidget_cell_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

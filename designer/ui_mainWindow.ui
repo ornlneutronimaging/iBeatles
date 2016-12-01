@@ -2237,7 +2237,7 @@
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>814</x>
+     <x>1196</x>
      <y>607</y>
     </hint>
     <hint type="destinationlabel">
@@ -2253,7 +2253,7 @@
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>849</x>
+     <x>1167</x>
      <y>613</y>
     </hint>
     <hint type="destinationlabel">
@@ -2269,7 +2269,7 @@
    <slot>normalization_use_coefficient_checked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1122</x>
+     <x>1254</x>
      <y>606</y>
     </hint>
     <hint type="destinationlabel">
@@ -2301,7 +2301,7 @@
    <slot>normalization_coefficient_value_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1239</x>
+     <x>1371</x>
      <y>608</y>
     </hint>
     <hint type="destinationlabel">
@@ -2323,6 +2323,22 @@
     <hint type="destinationlabel">
      <x>799</x>
      <y>31</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>normalization_tableWidget</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>normalization_tableWidget_cell_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1319</x>
+     <y>349</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1526</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>
@@ -2354,5 +2370,6 @@
   <slot>normalization_button_clicked()</slot>
   <slot>normalization_coefficient_value_changed()</slot>
   <slot>tab_widget_changed()</slot>
+  <slot>normalization_tableWidget_cell_changed()</slot>
  </slots>
 </ui>
