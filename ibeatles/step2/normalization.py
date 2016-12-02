@@ -6,6 +6,8 @@ from ibeatles.step2.plot import Step2Plot
 
 class Normalization(object):
     
+    coeff_array = 1
+    
     def __init__(self, parent=None):
         self.parent = parent
         
@@ -48,7 +50,10 @@ class Normalization(object):
         
     def normalization_only_sample_data_with_roi(self, data, list_roi):
         o_plot = Step2Plot(parent = self.parent, normalized=data)
-        o_plot.display_counts_vs_file(list_roi = list_roi)
+        self.calculate_coeff(sample=data, list_roi=list_roi)
+        sample_integrated = o_plot.calculate_mean_counts(data)
+        array_by_coeff = o_plot.multiply_array_by_coeff(data=sample_integrated, coeff=self.coeff_array)
+        o_plot.display_counts_vs_file(data = array_by_coeff)
 
 
 
@@ -63,3 +68,10 @@ class Normalization(object):
     def normalization_sample_and_ob_data_with_roi(self, data, ob, list_roi):
         pass
     
+    def calculate_coeff(self, sample=[], ob=[], list_roi=[]):
+        if ob == []:
+            o_plot = Step2Plot(parent=self.parent)
+            one_over_coeff = o_plot.calculate_mean_counts(sample, list_roi=list_roi)
+            self.coeff_array = 1 / one_over_coeff
+            #o_plot.display_counts_vs_file(self.coeff_array)
+            

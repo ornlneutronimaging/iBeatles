@@ -95,17 +95,22 @@ class Step2Plot(object):
             roi_id.setPos([x0, y0], update=False, finish=False)
             roi_id.setSize([width, height], update=False, finish=False)
 
-    def display_counts_vs_file(self, list_roi=[]):
-        _data = self.normalized
-        if _data == []: 
-            self.clear_counts_vs_file()
-            return
+    def display_counts_vs_file(self, data=[], list_roi=[]):
+        if data == []:
+            _data = self.normalized
+            if _data == []: 
+                self.clear_counts_vs_file()
+                return
         
-        if list_roi == []:
-            self.clear_counts_vs_file()
-            return
+            if list_roi == []:
+                self.clear_counts_vs_file()
+                return
         
-        _array_sample_vs_file_index = self.calculate_mean_counts(_data, list_roi=list_roi)
+            _array_sample_vs_file_index = self.calculate_mean_counts(_data, list_roi=list_roi)
+       
+        else:
+       
+            _array_sample_vs_file_index = data
             
         self.parent.step2_ui['bragg_edge_plot'].clear()
         self.parent.step2_ui['bragg_edge_plot'].plot(_array_sample_vs_file_index)
@@ -227,3 +232,8 @@ class Step2Plot(object):
     def clear_counts_vs_file(self):
         self.parent.step2_ui['bragg_edge_plot'].clear()
         
+    def multiply_array_by_coeff(self, data=[], coeff=[]):
+        if len(data) == len(coeff):
+            return data * coeff
+        else:
+            return []
