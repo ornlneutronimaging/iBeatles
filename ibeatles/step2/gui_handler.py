@@ -41,8 +41,8 @@ class Step2GuiHandler(object):
         area = DockArea()
         area.setVisible(True)
         d1 = Dock("Sample", size=(200, 300))
-        d2 = Dock("Background Profile", size=(200, 100))
-        d3 = Dock("Normalized Profile", size=(200, 100))
+        d2 = Dock("STEP1: Background normalization", size=(200, 100))
+        d3 = Dock("STEP2: Working Range Selection", size=(200, 100))
         
         area.addDock(d1, 'top')
         area.addDock(d3, 'bottom')
@@ -82,6 +82,20 @@ class Step2GuiHandler(object):
     
         d2.addWidget(bragg_edge_plot)
     
+        button = QtGui.QPushButton()
+        button.setText("Run OB Normalization")
+        self.parent.connect(button, QtCore.SIGNAL("clicked()"), self.parent.run_ob_normalization)
+        #space
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        
+        hori_layout = QtGui.QHBoxLayout()
+        hori_layout.addItem(spacerItem1)
+        hori_layout.addWidget(button)
+        
+        bottom_widget = QtGui.QWidget()
+        bottom_widget.setLayout(hori_layout)
+        d2.addWidget(bottom_widget)
+    
         # normalization profile
         normalized_profile_plot = pg.PlotWidget()
         normalized_profile_plot.plot()
@@ -94,6 +108,25 @@ class Step2GuiHandler(object):
         p1.layout.addItem(caxis, 1, 1)
     
         d3.addWidget(normalized_profile_plot)        
+
+        #space
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        
+        label = QtGui.QLabel()
+        label.setText("Scaling Coefficient:")
+        
+        text_field = QtGui.QLineEdit()
+        self.parent.connect(text_field, QtCore.SIGNAL("returnPressed()"), self.parent.scaling_coefficient_validated)
+        text_field.setMaximumSize(QtCore.QSize(50, 50))
+
+        hori_layout = QtGui.QHBoxLayout()
+        hori_layout.addItem(spacerItem1)
+        hori_layout.addWidget(label)
+        hori_layout.addWidget(text_field)
+        bottom_widget = QtGui.QWidget()
+        bottom_widget.setLayout(hori_layout)
+        
+        d3.addWidget(bottom_widget)
     
         vertical_layout.addWidget(area)
         self.parent.ui.normalization_left_widget.setLayout(vertical_layout)

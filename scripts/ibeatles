@@ -392,8 +392,17 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_roi.add_roi()
         self.ui.normalization_tableWidget.blockSignals(False)
     
+    def run_ob_normalization(self):
+        print("run ob normalization")
+
+    def scaling_coefficient_validated(self):
+        print("run scaling coefficient validated")
+
     def normalization_button_clicked(self):
         pass
+    
+
+    
     
     def normalization_tableWidget_cell_changed(self, row, col):
         o_roi = Step2RoiHandler(parent = self)
