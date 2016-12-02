@@ -39,10 +39,17 @@ class Step2Plot(object):
     ob = []
     normalization = []
 
-    def __init__(self, parent=None, sample=[], ob=[], normalization=[]):
+    def __init__(self, parent=None, sample=[], ob=[], normalized=[]):
         self.parent = parent
-        sample = self.parent.data_metadata['sample']['data']
-        ob = self.parent.data_metadata['ob']['data']
+
+        if sample == []:
+            sample = self.parent.data_metadata['sample']['data']
+            
+        if ob == []:
+            ob = self.parent.data_metadata['ob']['data']
+            
+        if normalized == []:
+            normalized = self.parent.data_metadata['normalized']['data']
         
         if self.parent.data_metadata['normalization']['data'] == []:
             normalizaton = np.mean(np.array(sample), axis=0)
@@ -53,6 +60,7 @@ class Step2Plot(object):
         self.sample = sample
         self.ob = ob
         self.normalization = normalization
+        self.normalized = normalized
 
     def clear_image(self):
         self.parent.step2_ui['image_view'].clear()
@@ -84,53 +92,44 @@ class Step2Plot(object):
             roi_id.setPos([x0, y0], update=False, finish=False)
             roi_id.setSize([width, height], update=False, finish=False)
 
-    def display_counts_vs_file(self):
-        _sample = self.sample
-        if _sample == []: return
+    def display_counts_vs_file(self, list_roi):
+        _data = self.normalized
+        if _data == []: return
         
-        list_roi = self.parent.list_roi['normalization']
-        
-        array_sample_vs_file_index = self.calculate_mean_counts(_sample)
-        array_ob_vs_file_index = self.calculate_mean_counts(self.ob)
-        
-        if array_ob_vs_file_index == []:
-            _array = array_sample_vs_file_index
-        else:
-            _array = array_sample_vs_file_index / array_ob_vs_file_index
+        _array_sample_vs_file_index = self.calculate_mean_counts(_data, list_roi=list_roi)
             
         self.parent.step2_ui['bragg_edge_plot'].clear()
-        self.parent.step2_ui['bragg_edge_plot'].plot(_array)
+        self.parent.step2_ui['bragg_edge_plot'].plot(_array_sample_vs_file_index)
 
-    def calculate_mean_counts(self, data):
+    def calculate_mean_counts(self, data, list_roi=[]):
         if data == []:
             return data
         
         data = np.array(data)
-        list_roi = self.parent.list_roi['normalization']
         final_array = []
         _first_array_added = True
-        nbr_roi = 1
-        for _index, _roi in enumerate(list_roi):
-            
-            [flag, x0, y0, width, height, value] = _roi
+        nbr_roi = len(list_roi)
 
-            if flag is False:
-                continue
-
-            _x_from = int(x0)
-            _x_to = _x_from + int(width) + 1
-            
-            _y_from = int(y0)
-            _y_to = _y_from + int(height) + 1
-            
-            _mean = np.mean(data[:, _x_from: _x_to, _y_from: _y_to], axis=(1,2))
-            if _first_array_added:
-                final_array = _mean
-                _first_array_added = False
-            else:
-                final_array += _mean
-                nbr_roi += 1
+        if list_roi == []:
+            final_array = np.mean(data, axis=(1,2))
+        
+        else:
+            for _index, _roi in enumerate(list_roi):
+                [x0, y0, width, height]= _roi
+    
+                _x_from = int(x0)
+                _x_to = _x_from + int(width) + 1
                 
+                _y_from = int(y0)
+                _y_to = _y_from + int(height) + 1
+                
+                _mean = np.mean(data[:, _x_from: _x_to, _y_from: _y_to], axis=(1,2))
+                if _first_array_added:
+                    final_array = _mean
+                    _first_array_added = False
+                else:
+                    final_array += _mean
+                    
             final_array /= nbr_roi
                 
         return final_array
@@ -215,4 +214,7 @@ class Step2Plot(object):
         self.parent.step2_ui['image_view'].clear()
         self.parent.step2_ui['bragg_edge_plot'].clear()
         #self.parent.step2_ui['normalized_profile_plot'].clear()
+        
+    def clear_counts_vs_file(self):
+        self.parent.step2_ui['bragg_edge_plot'].clear()
         

@@ -1,6 +1,7 @@
 from copy import deepcopy
 
 from ibeatles.step2.roi_handler import Step2RoiHandler
+from ibeatles.step2.plot import Step2Plot
 
 
 class Normalization(object):
@@ -9,8 +10,8 @@ class Normalization(object):
         self.parent = parent
         
     def run(self):
-        _data = self.parent.data_files['sample']
-        _ob = self.parent.data_files['ob']
+        _data = self.parent.data_metadata['sample']['data']
+        _ob = self.parent.data_metadata['ob']['data']
         
         # no data, nothing to do
         if _data == []:
@@ -43,13 +44,21 @@ class Normalization(object):
             
     def normalization_only_sample_data_without_roi(self, data):
         _normalized = [deepcopy(_data) for _data in data]
-        self.parent.data_files['normalized'] = _normalized
+        self.parent.data_metadata['normalized']['data'] = _normalized
         
     def normalization_only_sample_data_with_roi(self, data, list_roi):
-        pass
+        o_plot = Step2Plot(parent = self.parent, normalized=data)
+        o_plot.display_counts_vs_file(list_roi = list_roi)
+
+
+
+
+
+
     
     def normalization_sample_and_ob_data_without_roi(self, data, ob):
-        pass
+        o_plot = Step2Plot(parent = self.parent)
+        o_plot.clear_counts_vs_file()
     
     def normalization_sample_and_ob_data_with_roi(self, data, ob, list_roi):
         pass
