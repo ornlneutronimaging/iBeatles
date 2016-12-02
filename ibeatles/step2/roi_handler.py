@@ -1,5 +1,6 @@
 from PyQt4 import QtGui, QtCore
 import pyqtgraph as pg
+import numpy as np
 
 from ibeatles.step2.gui_handler import Step2GuiHandler
 
@@ -177,3 +178,14 @@ class Step2RoiHandler(object):
         _item = self.get_item(str(height))
         self.parent.ui.normalization_tableWidget.setItem(row, 4, _item)
     
+    def get_list_of_roi_to_use(self):
+        list_roi = []
+
+        nbr_row = self.parent.ui.normalization_tableWidget.rowCount()
+        for _row in np.arange(nbr_row):
+            _row_value = self.get_row(row=_row)
+            if _row_value[0]:
+                _roi = _row_value[1:5]
+                list_roi.append(_roi) 
+
+        return list_roi

@@ -27,6 +27,7 @@ from ibeatles.step1.plot import Step1Plot
 from ibeatles.step2.gui_handler import Step2GuiHandler
 from ibeatles.step2.roi_handler import Step2RoiHandler
 from ibeatles.step2.plot import Step2Plot
+from ibeatles.step2.normalization import Normalization
 
 from ibeatles.step3.gui_handler import Step3GuiHandler
 
@@ -53,7 +54,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     init_array = ['label_roi', '0', '0', '1', '1', '0']
 
     # [[use?, x0, y0, width, height, mean_counts]]
-    init_array_normalization = [True, 0, 0, 1, 1, -1]
+    init_array_normalization = [True, 0, 0, 20, 20, -1]
 
     # list roi ui id (when multiple roi in plots)
     list_roi_id = {'sample': [],
@@ -393,16 +394,17 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.ui.normalization_tableWidget.blockSignals(False)
     
     def run_ob_normalization(self):
-        print("run ob normalization")
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
+        
+        o_step2_plot = Step2Plot(parent=self)
+        o_step2_plot.plot_step2_working_range_selection()
 
     def scaling_coefficient_validated(self):
         print("run scaling coefficient validated")
 
     def normalization_button_clicked(self):
         pass
-    
-
-    
     
     def normalization_tableWidget_cell_changed(self, row, col):
         o_roi = Step2RoiHandler(parent = self)

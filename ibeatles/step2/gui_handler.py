@@ -59,7 +59,7 @@ class Step2GuiHandler(object):
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
-        roi = pg.ROI([0,0],[1,1], pen=pen_color['0'])
+        roi = pg.ROI([0,0],[20,20], pen=pen_color['0'])
         roi.addScaleHandle([1,1],[0,0])
         image_view.addItem(roi)
         roi.sigRegionChangeFinished.connect(self.parent.normalization_manual_roi_changed)
