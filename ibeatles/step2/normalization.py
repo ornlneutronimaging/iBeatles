@@ -18,7 +18,10 @@ class Normalization(object):
         
         # check if roi selected or not
         o_roi_handler = Step2RoiHandler(parent = self.parent)
-        list_roi_to_use = o_roi_handler.get_list_of_roi_to_use()
+        try: # to avoid valueError when row not fully filled
+            list_roi_to_use = o_roi_handler.get_list_of_roi_to_use()
+        except ValueError:
+            return
 
         # if just sample data
         if _ob == []:
@@ -40,7 +43,7 @@ class Normalization(object):
             
     def normalization_only_sample_data_without_roi(self, data):
         _normalized = [deepcopy(_data) for _data in data]
-        self.parent.data_files['normalized'] = Normalized
+        self.parent.data_files['normalized'] = _normalized
         
     def normalization_only_sample_data_with_roi(self, data, list_roi):
         pass

@@ -214,10 +214,5 @@ class Step2Plot(object):
     def clear_plots(self):
         self.parent.step2_ui['image_view'].clear()
         self.parent.step2_ui['bragg_edge_plot'].clear()
-        self.parent.step2_ui['normalized_profile_plot'].clear()
-        
-    def plot_step2_working_range_selection(self):
-        _normalized_data = self.parent.data_files['normalized']
-        _norm_mean_counts = self.calculate_mean_counts(_normalized_data)
-        
+        #self.parent.step2_ui['normalized_profile_plot'].clear()
         

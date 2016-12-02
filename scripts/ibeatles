@@ -369,37 +369,37 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_roi.save_roi()
         o_plot = Step2Plot(parent = self)
         o_plot.update_roi_table()
-        o_plot.display_counts_vs_file()
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
     
     def normalization_row_status_changed(self):
         o_roi = Step2RoiHandler(parent = self)
         o_roi.save_table()
         o_roi.enable_selected_roi()
         o_plot = Step2Plot(parent = self)
-        o_plot.display_counts_vs_file()
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
     
     def normalization_remove_roi_button_clicked(self):
         self.ui.normalization_tableWidget.blockSignals(True)
         o_roi = Step2RoiHandler(parent = self)
         o_roi.remove_roi()    
         o_plot = Step2Plot(parent = self)
-        o_plot.display_counts_vs_file()
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
         o_plot.display_roi()
+        o_gui = Step2GuiHandler(parent = self)
+        o_gui.check_run_normalization_button()
         self.ui.normalization_tableWidget.blockSignals(False)
 
     def normalization_add_roi_button_clicked(self):
         self.ui.normalization_tableWidget.blockSignals(True)
         o_roi = Step2RoiHandler(parent = self)
         o_roi.add_roi()
+        o_gui = Step2GuiHandler(parent = self)
+        o_gui.check_run_normalization_button()
         self.ui.normalization_tableWidget.blockSignals(False)
     
-    def run_ob_normalization(self):
-        o_normalization = Normalization(parent=self)
-        o_normalization.run()
-        
-        o_step2_plot = Step2Plot(parent=self)
-        o_step2_plot.plot_step2_working_range_selection()
-
     def scaling_coefficient_validated(self):
         print("run scaling coefficient validated")
 
@@ -410,7 +410,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_roi = Step2RoiHandler(parent = self)
         o_roi.save_table()
         o_plot = Step2Plot(parent = self)
-        o_plot.display_counts_vs_file()
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
         o_plot.display_roi()
 
     #TAB 3: Normalized Data Tab
