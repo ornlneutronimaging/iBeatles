@@ -43,8 +43,8 @@ class Normalization(object):
             self.normalization_sample_and_ob_data_with_roi(data, ob, list_roi)
             
     def normalization_only_sample_data_without_roi(self, data):
-        _normalized = [deepcopy(_data) for _data in data]
-        self.parent.data_metadata['normalized']['data'] = _normalized
+        o_plot = Step2Plot(parent = self.parent)
+        o_plot.clear_counts_vs_file()
         
     def normalization_only_sample_data_with_roi(self, data, list_roi):
         o_plot = Step2Plot(parent = self.parent, normalized=data)

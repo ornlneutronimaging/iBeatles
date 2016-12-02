@@ -44,6 +44,9 @@ class Step2Plot(object):
 
         if sample == []:
             sample = self.parent.data_metadata['sample']['data']
+
+        if sample == []:
+            return
             
         if ob == []:
             ob = self.parent.data_metadata['ob']['data']
@@ -52,8 +55,8 @@ class Step2Plot(object):
             normalized = self.parent.data_metadata['normalized']['data']
         
         if self.parent.data_metadata['normalization']['data'] == []:
-            normalizaton = np.mean(np.array(sample), axis=0)
-            self.parent.data_metadata['normalization']['axis'] = normalizaton
+            normalization = np.mean(np.array(sample), axis=0)
+            self.parent.data_metadata['normalization']['axis'] = normalization
         else:
             normalization = self.parent.data_metadata['normalization']['data']
             
@@ -92,9 +95,15 @@ class Step2Plot(object):
             roi_id.setPos([x0, y0], update=False, finish=False)
             roi_id.setSize([width, height], update=False, finish=False)
 
-    def display_counts_vs_file(self, list_roi):
+    def display_counts_vs_file(self, list_roi=[]):
         _data = self.normalized
-        if _data == []: return
+        if _data == []: 
+            self.clear_counts_vs_file()
+            return
+        
+        if list_roi == []:
+            self.clear_counts_vs_file()
+            return
         
         _array_sample_vs_file_index = self.calculate_mean_counts(_data, list_roi=list_roi)
             

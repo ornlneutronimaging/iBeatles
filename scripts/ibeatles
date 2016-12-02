@@ -376,7 +376,6 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_roi = Step2RoiHandler(parent = self)
         o_roi.save_table()
         o_roi.enable_selected_roi()
-        o_plot = Step2Plot(parent = self)
         o_normalization = Normalization(parent=self)
         o_normalization.run()
     
