@@ -109,6 +109,7 @@ class Step2Plot(object):
         list_roi = self.parent.list_roi['normalization']
         final_array = []
         _first_array_added = True
+        nbr_roi = 1
         for _index, _roi in enumerate(list_roi):
             
             [flag, x0, y0, width, height, value] = _roi
@@ -128,6 +129,9 @@ class Step2Plot(object):
                 _first_array_added = False
             else:
                 final_array += _mean
+                nbr_roi += 1
+                
+            final_array /= nbr_roi
                 
         return final_array
 
