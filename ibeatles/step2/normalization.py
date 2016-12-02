@@ -54,24 +54,29 @@ class Normalization(object):
         sample_integrated = o_plot.calculate_mean_counts(data)
         array_by_coeff = o_plot.multiply_array_by_coeff(data=sample_integrated, coeff=self.coeff_array)
         o_plot.display_counts_vs_file(data = array_by_coeff)
-
-
-
-
-
-
     
     def normalization_sample_and_ob_data_without_roi(self, data, ob):
         o_plot = Step2Plot(parent = self.parent)
         o_plot.clear_counts_vs_file()
     
     def normalization_sample_and_ob_data_with_roi(self, data, ob, list_roi):
-        pass
-    
+        o_plot = Step2Plot(parent = self.parent, normalized=data)
+        self.calculate_coeff(sample=data, ob=ob, list_roi=list_roi)
+        sample_integrated = o_plot.calculate_mean_counts(data)
+        ob_integrated = o_plot.calculate_mean_counts(ob)
+        ratio_array = sample_integrated / ob_integrated
+        array_by_coeff = o_plot.multiply_array_by_coeff(data=ratio_array, coeff=self.coeff_array)
+        o_plot.display_counts_vs_file(data = array_by_coeff)
+            
     def calculate_coeff(self, sample=[], ob=[], list_roi=[]):
         if ob == []:
             o_plot = Step2Plot(parent=self.parent)
             one_over_coeff = o_plot.calculate_mean_counts(sample, list_roi=list_roi)
             self.coeff_array = 1 / one_over_coeff
-            #o_plot.display_counts_vs_file(self.coeff_array)
+        else:
+            o_plot = Step2Plot(parent=self.parent)
+            ob_mean = o_plot.calculate_mean_counts(ob, list_roi=list_roi)
+            sample_mean = o_plot.calculate_mean_counts(sample, list_roi=list_roi)
+            coeff = ob_mean / sample_mean
+            self.coeff_array = coeff
             
