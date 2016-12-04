@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'designer/ui_roiEditor.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created: Sat Dec  3 10:20:26 2016
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 

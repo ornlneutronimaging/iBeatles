@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'designer/ui_mainWindow.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created: Sat Dec  3 10:26:24 2016
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -60,11 +61,12 @@ class Ui_MainWindow(object):
         self.layoutWidget = QtGui.QWidget(self.sample_ob_splitter)
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.layoutWidget)
+        self.verticalLayout_9.setMargin(0)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
         self.toolBox = QtGui.QToolBox(self.layoutWidget)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.sample_toolbox = QtGui.QWidget()
-        self.sample_toolbox.setGeometry(QtCore.QRect(0, 0, 1378, 369))
+        self.sample_toolbox.setGeometry(QtCore.QRect(0, 0, 1380, 369))
         self.sample_toolbox.setObjectName(_fromUtf8("sample_toolbox"))
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.sample_toolbox)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
@@ -102,7 +104,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addLayout(self.verticalLayout_5)
         self.toolBox.addItem(self.sample_toolbox, _fromUtf8(""))
         self.open_beam_toolbox = QtGui.QWidget()
-        self.open_beam_toolbox.setGeometry(QtCore.QRect(0, 0, 1378, 369))
+        self.open_beam_toolbox.setGeometry(QtCore.QRect(0, 0, 150, 147))
         self.open_beam_toolbox.setObjectName(_fromUtf8("open_beam_toolbox"))
         self.verticalLayout_8 = QtGui.QVBoxLayout(self.open_beam_toolbox)
         self.verticalLayout_8.setObjectName(_fromUtf8("verticalLayout_8"))
@@ -396,6 +398,7 @@ class Ui_MainWindow(object):
         self.widget_2.setMaximumSize(QtCore.QSize(350, 16777215))
         self.widget_2.setObjectName(_fromUtf8("widget_2"))
         self.verticalLayout_17 = QtGui.QVBoxLayout(self.widget_2)
+        self.verticalLayout_17.setMargin(0)
         self.verticalLayout_17.setObjectName(_fromUtf8("verticalLayout_17"))
         self.label_19 = QtGui.QLabel(self.widget_2)
         self.label_19.setObjectName(_fromUtf8("label_19"))
@@ -450,6 +453,25 @@ class Ui_MainWindow(object):
         self.verticalLayout_17.addLayout(self.horizontalLayout_25)
         spacerItem8 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         self.verticalLayout_17.addItem(spacerItem8)
+        self.groupBox = QtGui.QGroupBox(self.widget_2)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.groupBox.sizePolicy().hasHeightForWidth())
+        self.groupBox.setSizePolicy(sizePolicy)
+        self.groupBox.setMinimumSize(QtCore.QSize(0, 100))
+        self.groupBox.setMaximumSize(QtCore.QSize(16777215, 100))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Lucida Grande"))
+        font.setPointSize(14)
+        self.groupBox.setFont(font)
+        self.groupBox.setObjectName(_fromUtf8("groupBox"))
+        self.verticalLayout_19 = QtGui.QVBoxLayout(self.groupBox)
+        self.verticalLayout_19.setObjectName(_fromUtf8("verticalLayout_19"))
+        self.label_20 = QtGui.QLabel(self.groupBox)
+        self.label_20.setObjectName(_fromUtf8("label_20"))
+        self.verticalLayout_19.addWidget(self.label_20)
+        self.verticalLayout_17.addWidget(self.groupBox)
         self.frame = QtGui.QFrame(self.widget_2)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -491,6 +513,7 @@ class Ui_MainWindow(object):
         self.layoutWidget1 = QtGui.QWidget(self.normalized_splitter)
         self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
         self.verticalLayout_12 = QtGui.QVBoxLayout(self.layoutWidget1)
+        self.verticalLayout_12.setMargin(0)
         self.verticalLayout_12.setObjectName(_fromUtf8("verticalLayout_12"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
@@ -777,7 +800,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         self.toolBox.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(1)
         self.image_preview.setCurrentIndex(0)
@@ -860,6 +883,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Height", None))
         self.normalization_add_roi_button.setText(_translate("MainWindow", "+", None))
         self.normalization_remove_roi_button.setText(_translate("MainWindow", "-", None))
+        self.groupBox.setTitle(_translate("MainWindow", "Instructions", None))
+        self.label_20.setText(_translate("MainWindow", "Select ROI(s) away from sample. ", None))
         self.normalization_formula.setText(_translate("MainWindow", "TextLabel", None))
         self.normalization_button.setText(_translate("MainWindow", "Normalize ...", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "2 - Normalization", None))

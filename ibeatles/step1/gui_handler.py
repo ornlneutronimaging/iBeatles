@@ -21,8 +21,9 @@ from neutronbraggedge.braggedge import BraggEdge
 
 class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
+        if 0 in values:
+            return []
         return ['{:.4f}'.format(1./i) for i in values]
-                
                 
 class Step1GuiHandler(object):
     
@@ -189,7 +190,7 @@ class Step1GuiHandler(object):
         bragg_edge_plot = pg.PlotWidget()
         bragg_edge_plot.plot()
 
-#        bragg_edge_plot.setLabel("top", "")
+##        bragg_edge_plot.setLabel("top", "")
         p1 = bragg_edge_plot.plotItem
         p1.layout.removeItem(p1.getAxis('top'))
         caxis = CustomAxis(orientation='top', parent=p1)

@@ -366,7 +366,13 @@ class Step1Plot(object):
                         arrow = pg.ArrowItem(angle=0)
                         arrow.setParentItem(curvePoint)
                         x_range = np.arange(len(_bragg_edge))
-                        curvePoint.setPos(x_range[-1])    
+                        curvePoint.setPos(x_range[-1])  
+                        
+                    print("here")
+                    p1 = self.parent.ui.ob_bragg_edge_plot.plotItem
+                    p1.layout.removeItem(self.parent.ui.ob_caxis)
+                    self.parent.ui.ob_bragg_edge_plot.removeItem(p1)
+                        
                 else:
 
                     for _key in bragg_edges.keys():
@@ -382,7 +388,6 @@ class Step1Plot(object):
                         arrow = pg.ArrowItem(angle=0)
                         arrow.setParentItem(curvePoint)
                         curvePoint.setPos(tof_array[-1])                        
-                        
 
                     linear_region_left = tof_array[linear_region_left]
                     Linear_region_right = tof_array[linear_region_right]
@@ -403,6 +408,7 @@ class Step1Plot(object):
                 self.parent.ui.normalized_bragg_edge_plot.clear()
 
                 if tof_array == []:
+
                     self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', 'File Index')
 
                     for _key in bragg_edges.keys():
