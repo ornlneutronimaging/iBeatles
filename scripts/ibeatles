@@ -167,7 +167,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                               'time_spectra': {'title': 'Select file',
                                                'folder': current_folder,
                                                'general_infos': None,
-                                               'data': []}}
+                                               'data': [],
+                                               'lambda': []}}
         
         self.data_files = {'sample': [],
                            'ob': [],
@@ -374,22 +375,22 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.roi_ob_image_view_changed()
     
     def file_index_xaxis_button_clicked(self):
-            pass
+        self.sample_list_selection_changed()
     
     def tof_xaxis_button_clicked(self):
-        pass
+        self.sample_list_selection_changed()
     
     def lambda_xaxis_button_clicked(self):
-        pass
+        self.sample_list_selection_changed()
 
     def ob_file_index_xaxis_button_clicked(self):
-        pass
+        self.open_beam_list_selection_changed()
     
     def ob_tof_xaxis_button_clicked(self):
-        pass
+        self.open_beam_list_selection_changed()
     
     def ob_lambda_xaxis_button_clicked(self):
-        pass
+        self.open_beam_list_selection_changed()
 
     #TAB 2: 
     
@@ -484,17 +485,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.ui.roi_mean_button.setChecked(True)
         self.ui.ob_roi_mean_button.setChecked(True)
         self.roi_normalized_image_view_changed()
-
    
     def normalized_file_index_xaxis_button_clicked(self):
-        pass
+        self.normalized_list_selection_changed()
     
     def normalized_tof_xaxis_button_clicked(self):
-        pass
+        self.normalized_list_selection_changed()
     
     def normalized_lambda_xaxis_button_clicked(self):
-        pass
-
+        self.normalized_list_selection_changed()
 
 def main():
     app = QApplication(sys.argv)

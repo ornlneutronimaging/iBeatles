@@ -72,8 +72,11 @@ class DataHandler(object):
     def load_time_spectra(self):
         o_time_handler = TimeSpectraHandler(parent = self.parent)
         o_time_handler.load()
+        o_time_handler.calculate_lambda_scale()
         tof_array = o_time_handler.tof_array
+        lambda_array = o_time_handler.lambda_array
         self.parent.data_metadata['time_spectra']['data'] = tof_array
+        self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
 
     def retrieve_time_spectra(self, auto_load=True):
         if auto_load:

@@ -307,6 +307,7 @@ class Step1Plot(object):
             #o_time_handler.load()
             #tof_array = o_time_handler.tof_array
             tof_array = self.parent.data_metadata['time_spectra']['data']
+            lambda_array = self.parent.data_metadata['time_spectra']['lambda']
 
             # enable the right xaxis buttons 
             o_gui = GuiHandler(parent = self.parent)
@@ -324,7 +325,8 @@ class Step1Plot(object):
 
             # launch bragg edge plots
             dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
-                                                           bragg_edges = bragg_edges)
+                                                            lambda_array = lambda_array,
+                                                            bragg_edges = bragg_edges)
             tof_array = dictionary['tof_array']
             [linear_region_left, linear_region_right] = dictionary['linear_region']
                                                 
@@ -344,7 +346,7 @@ class Step1Plot(object):
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
             self.parent.current_bragg_edge_x_axis[self.data_type] = tof_array            
 
-    def display_images_and_bragg_edge(self, tof_array=[], bragg_edges=[]):
+    def display_images_and_bragg_edge(self, tof_array=[], lambda_array=[], bragg_edges=[]):
         
         data_type = self.data_type
         plot_ui = self.plot_ui[data_type]
@@ -392,7 +394,7 @@ class Step1Plot(object):
                     linear_region_left = tof_array[linear_region_left]
                     linear_region_right = tof_array[linear_region_right]
                 else:
-                    curve = plot_ui.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                    curve = plot_ui.plot(lambda_array, _bragg_edge, pen=pen_color[_key])
     
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
