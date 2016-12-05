@@ -56,6 +56,6 @@ class GuiHandler(object):
         elif data_type == 'ob':
             plot_ui = self.parent.ui.ob_bragg_edge_plot
         else:
-            plot_ui = self.parent.normalized_bragg_edge_plot
+            plot_ui = self.parent.ui.normalized_bragg_edge_plot
 
         plot_ui.setLabel('bottom', label)

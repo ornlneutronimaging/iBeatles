@@ -38,12 +38,20 @@ class Step1Plot(object):
     
     data = []
     
+    plot_ui = {'sample': None,
+               'ob': None,
+               'normalized': None}
+    
     def __init__(self, parent=None, data_type='sample', data=[]):
         self.parent = parent
         self.data_type = data_type
         if data == []:
             data = self.parent.data_metadata[data_type]['data']
         self.data = data
+        
+        self.plot_ui['sample'] = self.parent.ui.bragg_edge_plot
+        self.plot_ui['ob'] = self.parent.ui.ob_bragg_edge_plot
+        self.plot_ui['normalized'] = self.parent.ui.normalized_bragg_edge_plot
         
     def all_plots(self):
         self.display_image()
@@ -99,8 +107,7 @@ class Step1Plot(object):
         self.display_bragg_edge()
         
     def save_roi(self, label, x0, y0, x1, y1, group, data_type, index):
-        
-        _width = x1-x0
+        _width = np.abs(x1-x0)
         _height = np.abs(y1-y0)
 
         _list_roi = self.parent.list_roi[data_type]
@@ -112,7 +119,7 @@ class Step1Plot(object):
         else:
             _label = label
             _group = group
-            _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]
+            _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]            
             self.parent.list_roi[data_type][index] = _list_roi
         
     def update_roi_editor(self, index):
@@ -196,19 +203,24 @@ class Step1Plot(object):
         
         return [label, x0, y0, width, height, group]        
 
+    def clear_bragg_edge_plot(self):
+        if self.data_type == 'sample':
+            self.parent.ui.bragg_edge_plot.clear()
+        elif self.data_type == 'ob':
+            self.parent.ui.ob_bragg_edge_plot.clear()
+        elif self.data_type == 'normalized':
+            self.parent.ui.normalized_bragg_edge_plot.clear()
+
     def display_bragg_edge(self, mouse_selection=True):
 
         _data = self.data
         if _data == []: #clear data if no data
-            if self.data_type == 'sample':
-                self.parent.ui.bragg_edge_plot.clear()
-            elif self.data_type == 'ob':
-                self.parent.ui.ob_bragg_edge_plot.clear()
-            elif self.data_type == 'normalized':
-                self.parent.ui.normalized_bragg_edge_plot.clear()
+            self.clear_bragg_edge_plot()
+
         else: #retrieve dictionaries of roi_id and roi data (label, x, y, w, h, group)
             list_roi_id = self.parent.list_roi_id[self.data_type]
             list_roi = self.parent.list_roi[self.data_type]
+            
             roi_editor_ui = self.parent.roi_editor_ui[self.data_type]
             if self.data_type == 'sample':
                 _image_view = self.parent.ui.image_view
@@ -238,15 +250,21 @@ class Step1Plot(object):
                     y0 = region[0][1].start
                     y1 = region[0][1].stop-1
                     group = list_roi[_index][-1]
-               
+
                 else: 
                     if roi_editor_ui is None:
-                        return
-                    try:
-                        [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui, 
+                        [label, x0, y0, w, h, group] = list_roi[_index]
+                        x0 = int(x0)
+                        y0 = int(y0)
+                        w = int(w)
+                        h = int(h)
+#                        return
+                    else:
+                        try:
+                            [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui, 
                                                                         _index)
-                    except ValueError:
-                        return
+                        except ValueError:
+                            return
                     x1 = x0 + w
                     y1 = y0 + h
                     roi.setPos([x0, y0], update=False, finish=False)
@@ -272,7 +290,7 @@ class Step1Plot(object):
                 list_data_group[group].append([x0, x1, y0, y1])
                 
                 self.save_roi(label, x0, y0, x1, y1, group, self.data_type, _index)
-                
+
                 if mouse_selection:
                     if not (roi_editor_ui is None):
                         roi_editor_ui.ui.tableWidget.blockSignals(True)
@@ -302,173 +320,15 @@ class Step1Plot(object):
             linear_region_left = list_files_selected[0]
             linear_region_right = list_files_selected[-1]
 
-            if self.data_type == 'sample':
-                self.parent.ui.bragg_edge_plot.clear()
-                
-                if tof_array == []:
-                    self.parent.ui.bragg_edge_plot.setLabel('bottom', 'File Index')
+            xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
 
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        if _bragg_edge == []:
-                            continue
-                        curve = self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-                        tof_array = np.arange(len(_bragg_edge))
-                        
-                        curvePoint = pg.CurvePoint(curve)
-                        self.parent.ui.bragg_edge_plot.addItem(curvePoint)
-                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
-                        _text.setParentItem(curvePoint)
-                        arrow = pg.ArrowItem(angle=0)
-                        arrow.setParentItem(curvePoint)
-                        x_range = np.arange(len(_bragg_edge))
-                        curvePoint.setPos(x_range[-1])                             
-                        
-                else:
-                    
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        if _bragg_edge == []:
-                            continue
-
-                        xaxis_choice = o_gui.get_xaxis_checked(data_type='sample')
-                        if xaxis_choice == 'file_index':
-                            curve = self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-                        elif xaxis_choice == 'tof':
-                            curve = self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
-                            linear_region_left = tof_array[linear_region_left]
-                            linear_region_right = tof_array[linear_region_right]
-                        else:
-                            curve = self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
-                        
-                        curvePoint = pg.CurvePoint(curve)
-                        self.parent.ui.bragg_edge_plot.addItem(curvePoint)
-                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
-                        _text.setParentItem(curvePoint)
-                        arrow = pg.ArrowItem(angle=0)
-                        arrow.setParentItem(curvePoint)
-                        curvePoint.setPos(tof_array[-1])                        
- 
-
-                    #self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
-
-                    ##lambda axis
-                    #p1 = self.parent.ui.bragg_edge_plot.plotItem
-                    #caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
-                    #caxis.setLabel(u"\u03BB (\u212B)")
-                    #caxis.linkToView(p1.vb)
-                    #p1.layout.removeItem(self.parent.ui.caxis)
-                    #p1.layout.addItem(caxis, 1, 1)
-                    #self.parent.ui.caxis = caxis
-                    
-            elif self.data_type == 'ob':
-                self.parent.ui.ob_bragg_edge_plot.clear()
-                
-                if tof_array == []:
-                    self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', 'File Index')
-
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        if _bragg_edge == []:
-                            continue
-                        curve = self.parent.ui.ob_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-                        tof_array = np.arange(len(_bragg_edge))
-
-                        curvePoint = pg.CurvePoint(curve)
-                        self.parent.ui.ob_bragg_edge_plot.addItem(curvePoint)
-                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
-                        _text.setParentItem(curvePoint)
-                        arrow = pg.ArrowItem(angle=0)
-                        arrow.setParentItem(curvePoint)
-                        x_range = np.arange(len(_bragg_edge))
-                        curvePoint.setPos(x_range[-1])  
-                        
-                        
-                else:
-
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        if _bragg_edge == []:
-                            continue
-                        curve = self.parent.ui.ob_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
-
-                        curvePoint = pg.CurvePoint(curve)
-                        self.parent.ui.ob_bragg_edge_plot.addItem(curvePoint)
-                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
-                        _text.setParentItem(curvePoint)
-                        arrow = pg.ArrowItem(angle=0)
-                        arrow.setParentItem(curvePoint)
-                        curvePoint.setPos(tof_array[-1])                        
-
-                    linear_region_left = tof_array[linear_region_left]
-                    Linear_region_right = tof_array[linear_region_right]
-
-                    #self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
-
-                    ##lambda axis
-                    #p1 = self.parent.ui.ob_bragg_edge_plot.plotItem
-                    #caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
-                    #caxis.setLabel(u"\u03BB (\u212B)")
-                    #caxis.linkToView(p1.vb)
-                    #p1.layout.removeItem(self.parent.ui.ob_caxis)
-                    #p1.layout.addItem(caxis, 1, 1)
-                    #self.parent.ui.ob_caxis = caxis
-
-
-            elif self.data_type == 'normalized':
-                self.parent.ui.normalized_bragg_edge_plot.clear()
-
-                if tof_array == []:
-
-                    self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', 'File Index')
-
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        if _bragg_edge == []:
-                            continue
-                        curve = self.parent.ui.normalized_bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
-                        tof_array = np.arange(len(_bragg_edge))
-                        
-                        curvePoint = pg.CurvePoint(curve)
-                        self.parent.ui.normalized_bragg_edge_plot.addItem(curvePoint)
-                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
-                        _text.setParentItem(curvePoint)
-                        arrow = pg.ArrowItem(angle=0)
-                        arrow.setParentItem(curvePoint)
-                        x_range = np.arange(len(_bragg_edge))
-                        curvePoint.setPos(x_range[-1])                            
-
-                else:
-                    for _key in bragg_edges.keys():
-                        _bragg_edge = bragg_edges[_key]
-                        if _bragg_edge == []:
-                            continue
-                        curve = self.parent.ui.normalized_bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
-
-                        curvePoint = pg.CurvePoint(curve)
-                        self.parent.ui.normalized_bragg_edge_plot.addItem(curvePoint)
-                        _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
-                        _text.setParentItem(curvePoint)
-                        arrow = pg.ArrowItem(angle=0)
-                        arrow.setParentItem(curvePoint)
-                        curvePoint.setPos(tof_array[-1])                        
+            # launch bragg edge plots
+            dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
+                                                           bragg_edges = bragg_edges)
+            tof_array = dictionary['tof_array']
+            [linear_region_left, linear_region_right] = dictionary['linear_region']
                                                 
-                    linear_region_left = tof_array[linear_region_left]
-                    Linear_region_right = tof_array[linear_region_right]
-
-                    #self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
-
-                    ##lambda axis
-                    #p1 = self.parent.ui.normalized_bragg_edge_plot.plotItem
-                    #caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
-                    #caxis.setLabel(u"\u03BB (\u212B)")
-                    #caxis.linkToView(p1.vb)
-                    #p1.layout.removeItem(self.parent.ui.normalized_caxis)
-                    #p1.layout.addItem(caxis, 1, 1)
-                    #self.parent.ui.normalized_caxis = caxis
-
             o_gui.xaxis_label()
-
 
             lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
             lr.setZValue(-10)
@@ -482,4 +342,65 @@ class Step1Plot(object):
                 
             lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_selection_changed)
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
-            self.parent.current_bragg_edge_x_axis[self.data_type] = tof_array
+            self.parent.current_bragg_edge_x_axis[self.data_type] = tof_array            
+
+    def display_images_and_bragg_edge(self, tof_array=[], bragg_edges=[]):
+        
+        data_type = self.data_type
+        plot_ui = self.plot_ui[data_type]
+        plot_ui.clear()
+        
+        list_files_selected = self.parent.list_file_selected[self.data_type]
+        linear_region_left = list_files_selected[0]
+        linear_region_right = list_files_selected[-1]
+
+        if tof_array == []:
+            
+            plot_ui.setLabel('bottom', 'File Index')
+        
+            for _key in bragg_edges.keys():
+                _bragg_edge = bragg_edges[_key]
+                if _bragg_edge == []:
+                    continue
+                curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key])
+                tof_array = np.arange(len(_bragg_edge))
+        
+                curvePoint = pg.CurvePoint(curve)
+                plot_ui.addItem(curvePoint)
+                _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
+                _text.setParentItem(curvePoint)
+                arrow = pg.ArrowItem(angle=0)
+                arrow.setParentItem(curvePoint)
+                x_range = np.arange(len(_bragg_edge))
+                curvePoint.setPos(x_range[-1])         
+
+        else:
+            
+            o_gui = GuiHandler(parent = self.parent)
+            xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
+    
+    
+            for _key in bragg_edges.keys():
+                _bragg_edge = bragg_edges[_key]
+                if _bragg_edge == []:
+                    continue
+    
+                if xaxis_choice == 'file_index':
+                    curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key])
+                elif xaxis_choice == 'tof':
+                    curve = plot_ui.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                    linear_region_left = tof_array[linear_region_left]
+                    linear_region_right = tof_array[linear_region_right]
+                else:
+                    curve = plot_ui.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+    
+                curvePoint = pg.CurvePoint(curve)
+                plot_ui.addItem(curvePoint)
+                _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
+                _text.setParentItem(curvePoint)
+                arrow = pg.ArrowItem(angle=0)
+                arrow.setParentItem(curvePoint)
+                curvePoint.setPos(tof_array[-1])                 
+                
+        return {'tof_array': tof_array,
+                'linear_region': [linear_region_left, linear_region_right]}
