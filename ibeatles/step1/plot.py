@@ -327,7 +327,7 @@ class Step1Plot(object):
             dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
                                                             lambda_array = lambda_array,
                                                             bragg_edges = bragg_edges)
-            tof_array = dictionary['tof_array']
+            x_axis= dictionary['x_axis']
             [linear_region_left, linear_region_right] = dictionary['linear_region']
                                                 
             o_gui.xaxis_label()
@@ -344,7 +344,7 @@ class Step1Plot(object):
                 
             lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_selection_changed)
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
-            self.parent.current_bragg_edge_x_axis[self.data_type] = tof_array            
+            self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis            
 
     def display_images_and_bragg_edge(self, tof_array=[], lambda_array=[], bragg_edges=[]):
         
@@ -365,7 +365,7 @@ class Step1Plot(object):
                 if _bragg_edge == []:
                     continue
                 curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key])
-                tof_array = np.arange(len(_bragg_edge))
+                x_axis = np.arange(len(_bragg_edge))
         
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
@@ -373,15 +373,13 @@ class Step1Plot(object):
                 _text.setParentItem(curvePoint)
                 arrow = pg.ArrowItem(angle=0)
                 arrow.setParentItem(curvePoint)
-                x_range = np.arange(len(_bragg_edge))
-                curvePoint.setPos(x_range[-1])         
+                curvePoint.setPos(x_axis[-1])         
 
         else:
             
             o_gui = GuiHandler(parent = self.parent)
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
-    
-    
+        
             for _key in bragg_edges.keys():
                 _bragg_edge = bragg_edges[_key]
                 if _bragg_edge == []:
@@ -389,12 +387,19 @@ class Step1Plot(object):
     
                 if xaxis_choice == 'file_index':
                     curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key])
+                    x_axis = np.arange(len(_bragg_edge))
+                    
                 elif xaxis_choice == 'tof':
                     curve = plot_ui.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                    x_axis = tof_array
                     linear_region_left = tof_array[linear_region_left]
                     linear_region_right = tof_array[linear_region_right]
+
                 else:
                     curve = plot_ui.plot(lambda_array, _bragg_edge, pen=pen_color[_key])
+                    x_axis = lambda_array
+                    linear_region_left = lambda_array[linear_region_left]
+                    linear_region_right = lambda_array[linear_region_right]
     
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
@@ -402,7 +407,13 @@ class Step1Plot(object):
                 _text.setParentItem(curvePoint)
                 arrow = pg.ArrowItem(angle=0)
                 arrow.setParentItem(curvePoint)
-                curvePoint.setPos(tof_array[-1])                 
+
+                if xaxis_choice == 'lambda':
+                    last_position = x_axis[-1] * 1e6
+                else:
+                    last_position = x_axis[-1]
+
+                curvePoint.setPos(last_position)                 
                 
-        return {'tof_array': tof_array,
+        return {'x_axis': x_axis,
                 'linear_region': [linear_region_left, linear_region_right]}
