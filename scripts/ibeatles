@@ -94,6 +94,17 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 'normalized_profile_plot': None,
                 'caxis': None}
     
+    xaxis_button_ui = {'sample': {'file_index': None,
+                                  'tof': None,
+                                'lambda': None},
+                       'ob': {'file_index': None,
+                              'tof': None,
+                              'lambda': None},
+                       'normalized': {'file_index': None,
+                                      'tof': None,
+                                      'lambda': None},
+                       }
+    
                               
     def __init__(self):
         """ Initialization
@@ -362,6 +373,24 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.ui.normalized_roi_mean_button.setChecked(True)
         self.roi_ob_image_view_changed()
     
+    def file_index_xaxis_button_clicked(self):
+            pass
+    
+    def tof_xaxis_button_clicked(self):
+        pass
+    
+    def lambda_xaxis_button_clicked(self):
+        pass
+
+    def ob_file_index_xaxis_button_clicked(self):
+        pass
+    
+    def ob_tof_xaxis_button_clicked(self):
+        pass
+    
+    def ob_lambda_xaxis_button_clicked(self):
+        pass
+
     #TAB 2: 
     
     def normalization_manual_roi_changed(self):
@@ -455,6 +484,16 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.ui.roi_mean_button.setChecked(True)
         self.ui.ob_roi_mean_button.setChecked(True)
         self.roi_normalized_image_view_changed()
+
+   
+    def normalized_file_index_xaxis_button_clicked(self):
+        pass
+    
+    def normalized_tof_xaxis_button_clicked(self):
+        pass
+    
+    def normalized_lambda_xaxis_button_clicked(self):
+        pass
 
 
 def main():

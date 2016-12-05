@@ -14,7 +14,7 @@ from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
 import ibeatles.step1.math_utilities
 from ibeatles.utilities.colors import pen_color
-
+from ibeatles.utilities.gui_handler import GuiHandler
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
@@ -132,7 +132,10 @@ class Step1GuiHandler(object):
     def general_init_pyqtgrpah(self, roi_function,
                                base_widget,
                                add_function,
-                               mean_function):
+                               mean_function,
+                               file_index_function,
+                               tof_function,
+                               lambda_function):
 
         area = DockArea()
         area.setVisible(False)
@@ -187,23 +190,55 @@ class Step1GuiHandler(object):
         d1.addWidget(top_right_widget)
     
         # bragg edge plot
-        bragg_edge_plot = pg.PlotWidget()
+        bragg_edge_plot = pg.PlotWidget(title='')
         bragg_edge_plot.plot()
 
-##        bragg_edge_plot.setLabel("top", "")
-        p1 = bragg_edge_plot.plotItem
-        p1.layout.removeItem(p1.getAxis('top'))
-        caxis = CustomAxis(orientation='top', parent=p1)
-        caxis.setLabel('')
-        caxis.linkToView(p1.vb)
-        p1.layout.addItem(caxis, 1, 1)
+        #bragg_edge_plot.setLabel("top", "")
+        #p1 = bragg_edge_plot.plotItem
+        #p1.layout.removeItem(p1.getAxis('top'))
+        #caxis = CustomAxis(orientation='top', parent=p1)
+        #caxis.setLabel('')
+        #caxis.linkToView(p1.vb)
+        #p1.layout.addItem(caxis, 1, 1)
+        caxis = None
         
+        #add file_index, TOF, Lambda x-axis buttons
+        hori_layout = QtGui.QHBoxLayout()
+        button_widgets = QtGui.QWidget()
+        button_widgets.setLayout(hori_layout)
+        
+        #file index
+        file_index_button = QtGui.QRadioButton()
+        file_index_button.setText("File Index")
+        file_index_button.setChecked(True)
+        self.parent.connect(file_index_button, QtCore.SIGNAL("clicked()"), file_index_function)
+
+        #tof
+        tof_button = QtGui.QRadioButton()
+        tof_button.setText("TOF")
+        self.parent.connect(tof_button, QtCore.SIGNAL("clicked()"), tof_function)
+        
+        #lambda
+        lambda_button = QtGui.QRadioButton()
+        lambda_button.setText(u"\u03BB")
+        self.parent.connect(lambda_button, QtCore.SIGNAL("clicked()"), lambda_function)
+
+        spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        hori_layout.addItem(spacer)
+        hori_layout.addWidget(file_index_button)
+        hori_layout.addWidget(tof_button)
+        hori_layout.addWidget(lambda_button)
+        hori_layout.addItem(spacer)
+
         d2.addWidget(bragg_edge_plot)
+        d2.addWidget(button_widgets)
     
         vertical_layout.addWidget(area)
         base_widget.setLayout(vertical_layout)
     
-        return [area, image_view, roi, bragg_edge_plot, caxis, roi_editor_button, add_button, mean_button]
+        return [area, image_view, roi, bragg_edge_plot, 
+                caxis, roi_editor_button, add_button, mean_button, 
+                file_index_button, tof_button, lambda_button]
                   
     def init_pyqtgraph(self):
 
@@ -215,11 +250,20 @@ class Step1GuiHandler(object):
          self.parent.ui.caxis,
          self.parent.ui.roi_editor_button,
          self.parent.ui.roi_add_button,
-         self.parent.ui.roi_mean_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
+         self.parent.ui.roi_mean_button,
+         file_index_button,
+         tof_button,
+         lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
                                                                        self.parent.ui.preview_widget,
                                                                        self.parent.roi_algorithm_is_add_clicked,
-                                                                       self.parent.roi_algorithm_is_mean_clicked)
+                                                                       self.parent.roi_algorithm_is_mean_clicked,
+                                                                       self.parent.file_index_xaxis_button_clicked,
+                                                                       self.parent.tof_xaxis_button_clicked,
+                                                                       self.parent.lambda_xaxis_button_clicked)
         self.parent.list_roi_id['sample'].append(self.parent.ui.image_view_roi)
+        self.parent.xaxis_button_ui['sample']['tof'] = tof_button
+        self.parent.xaxis_button_ui['sample']['file_index'] = file_index_button
+        self.parent.xaxis_button_ui['sample']['lambda'] = lambda_button
 
         #ob
         [self.parent.ui.ob_area,
@@ -229,11 +273,20 @@ class Step1GuiHandler(object):
          self.parent.ui.ob_caxis,
          self.parent.ui.ob_roi_editor_button,
          self.parent.ui.ob_roi_add_button,
-         self.parent.ui.ob_roi_mean_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
+         self.parent.ui.ob_roi_mean_button,
+         file_index_button,
+         tof_button,
+         lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
                                                                           self.parent.ui.ob_preview_widget,
                                                                           self.parent.ob_roi_algorithm_is_add_clicked,
-                                                                          self.parent.ob_roi_algorithm_is_mean_clicked)
-        self.parent.list_roi_id['ob'].append(self.parent.ui.ob_image_view_roi)
+                                                                          self.parent.ob_roi_algorithm_is_mean_clicked,
+                                                                          self.parent.ob_file_index_xaxis_button_clicked,
+                                                                          self.parent.ob_tof_xaxis_button_clicked,
+                                                                          self.parent.ob_lambda_xaxis_button_clicked)        
+        self.parent.list_roi_id['ob'].append(self.parent.ui.ob_image_view_roi)  
+        self.parent.xaxis_button_ui['ob']['tof'] = tof_button
+        self.parent.xaxis_button_ui['ob']['file_index'] = file_index_button
+        self.parent.xaxis_button_ui['ob']['lambda'] = lambda_button
         
         #normalized
         [self.parent.ui.normalized_area,
@@ -243,11 +296,21 @@ class Step1GuiHandler(object):
          self.parent.ui.normalized_caxis,
          self.parent.ui.normalized_roi_editor_button,
          self.parent.ui.normalized_roi_add_button,
-         self.parent.ui.normalized_roi_mean_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
+         self.parent.ui.normalized_roi_mean_button,
+         file_index_button,
+         tof_button,
+         lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
                                                                                   self.parent.ui.normalized_preview_widget,
                                                                                   self.parent.normalized_roi_algorithm_is_add_clicked,
-                                                                                  self.parent.normalized_roi_algorithm_is_mean_clicked)
+                                                                                  self.parent.normalized_roi_algorithm_is_mean_clicked,
+                                                                                  self.parent.normalized_file_index_xaxis_button_clicked,
+                                                                                  self.parent.normalized_tof_xaxis_button_clicked,
+                                                                                  self.parent.normalized_lambda_xaxis_button_clicked)        
+                                                                                  
         self.parent.list_roi_id['normalized'].append(self.parent.ui.normalized_image_view_roi)
+        self.parent.xaxis_button_ui['normalized']['tof'] = tof_button
+        self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button
+        self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button
 
     def update_delta_lambda(self):
         distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
@@ -270,3 +333,4 @@ class Step1GuiHandler(object):
             
         self.parent.ui.display_warning.setVisible(_display_error_label)
         self.parent.ui.display_warning_2.setVisible(_display_error_label)
+        

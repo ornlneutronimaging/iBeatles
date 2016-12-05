@@ -6,6 +6,7 @@ import ibeatles.step1.utilities as utilities
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.roi_handler import RoiHandler
+from ibeatles.utilities.gui_handler import GuiHandler
 
 
 class CustomAxis(pg.AxisItem):
@@ -288,6 +289,14 @@ class Step1Plot(object):
             #o_time_handler.load()
             #tof_array = o_time_handler.tof_array
             tof_array = self.parent.data_metadata['time_spectra']['data']
+
+            # enable the right xaxis buttons 
+            o_gui = GuiHandler(parent = self.parent)
+            if tof_array == []:
+                tof_flag = False
+            else:
+                tof_flag = True
+            o_gui.enable_xaxis_button(tof_flag = tof_flag)
                 
             list_files_selected = self.parent.list_file_selected[self.data_type]
             linear_region_left = list_files_selected[0]
@@ -321,8 +330,17 @@ class Step1Plot(object):
                         _bragg_edge = bragg_edges[_key]
                         if _bragg_edge == []:
                             continue
-                        curve = self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
 
+                        xaxis_choice = o_gui.get_xaxis_checked(data_type='sample')
+                        if xaxis_choice == 'file_index':
+                            curve = self.parent.ui.bragg_edge_plot.plot(_bragg_edge, pen=pen_color[_key])
+                        elif xaxis_choice == 'tof':
+                            curve = self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                            linear_region_left = tof_array[linear_region_left]
+                            linear_region_right = tof_array[linear_region_right]
+                        else:
+                            curve = self.parent.ui.bragg_edge_plot.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                        
                         curvePoint = pg.CurvePoint(curve)
                         self.parent.ui.bragg_edge_plot.addItem(curvePoint)
                         _text = pg.TextItem("Group {}".format(_key), anchor=(0.5,0))
@@ -332,19 +350,16 @@ class Step1Plot(object):
                         curvePoint.setPos(tof_array[-1])                        
  
 
-                    linear_region_left = tof_array[linear_region_left]
-                    linear_region_right = tof_array[linear_region_right]
+                    #self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
-                    self.parent.ui.bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
-
-                    #lambda axis
-                    p1 = self.parent.ui.bragg_edge_plot.plotItem
-                    caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
-                    caxis.setLabel(u"\u03BB (\u212B)")
-                    caxis.linkToView(p1.vb)
-                    p1.layout.removeItem(self.parent.ui.caxis)
-                    p1.layout.addItem(caxis, 1, 1)
-                    self.parent.ui.caxis = caxis
+                    ##lambda axis
+                    #p1 = self.parent.ui.bragg_edge_plot.plotItem
+                    #caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
+                    #caxis.setLabel(u"\u03BB (\u212B)")
+                    #caxis.linkToView(p1.vb)
+                    #p1.layout.removeItem(self.parent.ui.caxis)
+                    #p1.layout.addItem(caxis, 1, 1)
+                    #self.parent.ui.caxis = caxis
                     
             elif self.data_type == 'ob':
                 self.parent.ui.ob_bragg_edge_plot.clear()
@@ -368,10 +383,6 @@ class Step1Plot(object):
                         x_range = np.arange(len(_bragg_edge))
                         curvePoint.setPos(x_range[-1])  
                         
-                    print("here")
-                    p1 = self.parent.ui.ob_bragg_edge_plot.plotItem
-                    p1.layout.removeItem(self.parent.ui.ob_caxis)
-                    self.parent.ui.ob_bragg_edge_plot.removeItem(p1)
                         
                 else:
 
@@ -392,16 +403,16 @@ class Step1Plot(object):
                     linear_region_left = tof_array[linear_region_left]
                     Linear_region_right = tof_array[linear_region_right]
 
-                    self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
+                    #self.parent.ui.ob_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
-                    #lambda axis
-                    p1 = self.parent.ui.ob_bragg_edge_plot.plotItem
-                    caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
-                    caxis.setLabel(u"\u03BB (\u212B)")
-                    caxis.linkToView(p1.vb)
-                    p1.layout.removeItem(self.parent.ui.ob_caxis)
-                    p1.layout.addItem(caxis, 1, 1)
-                    self.parent.ui.ob_caxis = caxis
+                    ##lambda axis
+                    #p1 = self.parent.ui.ob_bragg_edge_plot.plotItem
+                    #caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
+                    #caxis.setLabel(u"\u03BB (\u212B)")
+                    #caxis.linkToView(p1.vb)
+                    #p1.layout.removeItem(self.parent.ui.ob_caxis)
+                    #p1.layout.addItem(caxis, 1, 1)
+                    #self.parent.ui.ob_caxis = caxis
 
 
             elif self.data_type == 'normalized':
@@ -445,16 +456,19 @@ class Step1Plot(object):
                     linear_region_left = tof_array[linear_region_left]
                     Linear_region_right = tof_array[linear_region_right]
 
-                    self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
+                    #self.parent.ui.normalized_bragg_edge_plot.setLabel('bottom', u'TOF (\u00B5s)')
 
-                    #lambda axis
-                    p1 = self.parent.ui.normalized_bragg_edge_plot.plotItem
-                    caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
-                    caxis.setLabel(u"\u03BB (\u212B)")
-                    caxis.linkToView(p1.vb)
-                    p1.layout.removeItem(self.parent.ui.normalized_caxis)
-                    p1.layout.addItem(caxis, 1, 1)
-                    self.parent.ui.normalized_caxis = caxis
+                    ##lambda axis
+                    #p1 = self.parent.ui.normalized_bragg_edge_plot.plotItem
+                    #caxis = CustomAxis(gui_parent = self.parent, orientation = 'top', parent=p1)
+                    #caxis.setLabel(u"\u03BB (\u212B)")
+                    #caxis.linkToView(p1.vb)
+                    #p1.layout.removeItem(self.parent.ui.normalized_caxis)
+                    #p1.layout.addItem(caxis, 1, 1)
+                    #self.parent.ui.normalized_caxis = caxis
+
+            o_gui.xaxis_label()
+
 
             lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
             lr.setZValue(-10)
