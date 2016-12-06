@@ -276,6 +276,7 @@ class RoiEditorInterface(QtGui.QMainWindow):
         for _index, _array in enumerate(list_roi):
             if _index == _row_selected:
                 roi_to_remove = list_roi_id[_index]
+                roi_label_to_remove = list_label_roi_id[_index]
                 continue
             new_list_roi.append(_array)
             new_list_roi_id.append(list_roi_id[_index])
@@ -290,10 +291,13 @@ class RoiEditorInterface(QtGui.QMainWindow):
  
         if self.title == 'sample':
             self.parent.ui.image_view.removeItem(roi_to_remove)
+            self.parent.ui.image_view.removeItem(roi_label_to_remove)
         elif self.title == 'ob':
             self.parent.ui.ob_image_view.removeItem(roi_to_remove)
+            self.parent.ui.ob_image_view.removeItem(roi_label_to_remove)
         elif self.title == 'normalized':
             self.parent.ui.normalized_image_view.removeItem(roi_to_remove)
+            self.parent.ui.normalized_image_view.removeItem(roi_label_to_remove)
  
         self.cell_changed(0, 0)
 

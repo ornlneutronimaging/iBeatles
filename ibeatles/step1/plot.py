@@ -356,6 +356,8 @@ class Step1Plot(object):
         linear_region_left = list_files_selected[0]
         linear_region_right = list_files_selected[-1]
 
+        x_axis = []
+
         if tof_array == []:
             
             plot_ui.setLabel('bottom', 'File Index')
