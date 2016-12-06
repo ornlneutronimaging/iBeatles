@@ -59,3 +59,15 @@ class GuiHandler(object):
             plot_ui = self.parent.ui.normalized_bragg_edge_plot
 
         plot_ui.setLabel('bottom', label)
+        
+    def get_text(self, ui=None):
+        return ''
+    
+    def get_index_selected(self, ui=None):
+        return -1
+    
+    def set_texxt(self, value='', ui=None):
+        pass
+    
+    def set_index_selected(self, index=-1, ui=None):
+        pass

@@ -32,18 +32,25 @@ class Step1GuiHandler(object):
         
     def sync_instrument_widgets(self, source='load_data'):
         
-        # retrieve ui
-        if source == 'load_data':
-            distance_ui = self.parent.ui.distance_source_detector
-            beam_ui = self.parent.ui.beam_rate
-            detector_ui = self.parent.ui.detector_offset
-        else:
-            distance_ui = self.parent.ui.distance_source_detector_2
-            beam_ui = self.parent.ui.beam_rate_2
-            detector_ui = self.parent.ui.detector_offset_2
-            
+        target = 'normalized'
+        if source == 'normalized':
+            target = 'load_data'
         
+        list_ui = {'load_data' : {'distance': self.parent.ui.distance_source_detector,
+                                  'beam': self.parent.ui.beam_rate,
+                                  'detector': self.parent.ui.detector_offset},
+                   'normalized': {'distance': self.parent.ui.distance_source_detector_2,
+                                  'beam': self.parent.ui.beam_rate_2,
+                                  'detector': self.parent.ui.detector_offset_2}}
         
+        o_gui = GuiHandler(parent = self.parent)    
+        distance_value = o_gui.get_text(ui = list_ui[source]['distance'])
+        detector_value = o_gui.get_text(ui = list_ui[source]['detector'])
+        beam_index = o_gui.get_index_selected(ui = list_ui[source]['beam'])
+
+        o_gui.set_text(value = distance_value, ui = list_ui[target]['distance'])
+        o_gui.set_text(value = detector_value, ui = list_ui[target]['detector'])
+        o_gui.set_index_selected(index = beam_index, ui = list_ui[target]['beam'])
 
 
     def load_data_tab_changed(self, tab_index=0):
