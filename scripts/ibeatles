@@ -43,6 +43,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     """
 
     DEBUGGING = True
+    loading_flag = False
     current_data_type = 'sample'
     cbar = None
     live_data = []
@@ -257,33 +258,49 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
     # Instrument    
 
+    # global load data instruments widgets handler
+    def instruments_widgets(self, update_delta_lambda=True):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.sync_instrument_widgets(source='load_data')
+        if update_delta_lambda:
+            self.update_delta_lambda()
+        o_data = DataHandler(parent=self)
+        o_data.load_time_spectra()
+        o_plot = Step1Plot(parent=self, data_type='sample')
+        o_plot.display_bragg_edge(mouse_selection=False)
+
     def distance_source_detector_changed(self):
         o_gui = Step1GuiHandler(parent=self)
-        o_gui.sync_instrument_widgets(source='load_data')
+        o_gui.block_instrument_widgets(status=True)
+        self.instruments_widgets()
+        o_gui.block_instrument_widgets(status=False)
     
     def beam_rate_changed(self):
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.sync_instrument_widgets(source='load_data')
-        self.update_delta_lambda()
-    
+        self.instruments_widgets()
+
     def detector_offset_changed(self):
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.sync_instrument_widgets(source='load_data')
-        self.update_delta_lambda()
+        self.instruments_widgets()
         
-    def distance_source_detector_2_changed(self):
+    # global normalized instruments widgets handler
+    def instruments_2_widgets(self, update_delta_lambda=True):
         o_gui = Step1GuiHandler(parent=self)
+        o_gui.block_instrument_widgets(status=True)
         o_gui.sync_instrument_widgets(source='normalized')
+        if update_delta_lambda:
+            self.update_delta_lambda()
+        o_data = DataHandler(parent=self)
+        o_data.load_time_spectra()
+        self.sample_list_selection_changed()
+        o_gui.block_instrument_widgets(status=False)
+
+    def distance_source_detector_2_changed(self):
+        self.instruments_2_widgets()
     
     def beam_rate_2_changed(self):
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.sync_instrument_widgets(source='normalized')
-        self.update_delta_lambda()
+        self.instruments_2_widgets()
     
     def detector_offset_2_changed(self):
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.sync_instrument_widgets(source='normalized')
-        self.update_delta_lambda()
+        self.instruments_2_widgets(update_delta_lambda = False)
 
     # Material widgets
 

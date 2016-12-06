@@ -2326,7 +2326,7 @@
   </connection>
   <connection>
    <sender>distance_source_detector</sender>
-   <signal>editingFinished()</signal>
+   <signal>returnPressed()</signal>
    <receiver>MainWindow</receiver>
    <slot>distance_source_detector_changed()</slot>
    <hints>
@@ -2342,7 +2342,7 @@
   </connection>
   <connection>
    <sender>detector_offset</sender>
-   <signal>editingFinished()</signal>
+   <signal>returnPressed()</signal>
    <receiver>MainWindow</receiver>
    <slot>detector_offset_changed()</slot>
    <hints>
@@ -2358,7 +2358,7 @@
   </connection>
   <connection>
    <sender>distance_source_detector_2</sender>
-   <signal>editingFinished()</signal>
+   <signal>returnPressed()</signal>
    <receiver>MainWindow</receiver>
    <slot>distance_source_detector_2_changed()</slot>
    <hints>
@@ -2374,7 +2374,7 @@
   </connection>
   <connection>
    <sender>detector_offset_2</sender>
-   <signal>editingFinished()</signal>
+   <signal>returnPressed()</signal>
    <receiver>MainWindow</receiver>
    <slot>detector_offset_2_changed()</slot>
    <hints>

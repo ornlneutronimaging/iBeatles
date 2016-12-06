@@ -358,3 +358,11 @@ class Step1GuiHandler(object):
         self.parent.ui.display_warning.setVisible(_display_error_label)
         self.parent.ui.display_warning_2.setVisible(_display_error_label)
         
+    def block_instrument_widgets(self, status=True):
+        self.parent.ui.detector_offset.blockSignals(status)
+        self.parent.ui.detector_offset_2.blockSignals(status)
+        self.parent.ui.distance_source_detector.blockSignals(status)
+        self.parent.ui.distance_source_detector_2.blockSignals(status)
+        self.parent.ui.beam_rate.blockSignals(status)
+        self.parent.ui.beam_rate_2.blockSignals(status)
+        

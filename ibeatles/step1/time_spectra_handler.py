@@ -56,6 +56,8 @@ class TimeSpectraHandler(object):
         else:
             self.lambda_array = []
         
+        print("calculate_lambda_scale")
+        print(self.lambda_array)
     
     def display(self):
         self.load()
