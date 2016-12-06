@@ -79,3 +79,10 @@ class GuiHandler(object):
         if ui is None:
             return
         ui.setCurrentIndex(index)
+        
+    def get_text_selected(self, ui=None):
+        if ui is None:
+            return ''
+        return str(ui.currentText())
+        
+        

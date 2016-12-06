@@ -35,6 +35,7 @@ from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.roi_editor import RoiEditor
 from ibeatles.utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
 from ibeatles.utilities.gui_handler import GuiHandler
 
 
@@ -121,7 +122,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
         self.setup()
         self.init_interface()
-     
+        
     def init_interface(self):
         o_gui = Step1GuiHandler(parent = self)
         o_gui.init_gui()
@@ -130,6 +131,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_gui.init_statusbar()
         o_gui.init_pyqtgraph()
         self.update_delta_lambda()   
+        o_gui.connect_widgets()
         
         o_gui_2 = Step2GuiHandler(parent = self)
         o_gui_2.init_pyqtgraph()
@@ -305,14 +307,19 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     # Material widgets
 
     def list_of_element_index_changed(self, index):
+        self.ui.list_of_elements_2.blockSignals(True)
         self.ui.list_of_elements_2.setCurrentIndex(index)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected()
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        self.ui.list_of_elements_2.blockSignals(False)
     
     def list_of_element_2_index_changed(self, index):
+        self.ui.list_of_elements.blockSignals(True)
         self.ui.list_of_elements.setCurrentIndex(index)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected()
+        self.ui.list_of_elements.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)
@@ -323,10 +330,12 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def lattice_text_changed(self):
         _contain = str(self.ui.lattice_parameter.text())
         self.ui.lattice_parameter_2.setText(_contain)
-    
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+            
     def lattice_2_text_changed(self):
         _contain = str(self.ui.lattice_parameter_2.text())
         self.ui.lattice_parameter.setText(_contain)
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
 
     #TAB 1: Load Data Tab
     

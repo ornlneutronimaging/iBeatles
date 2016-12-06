@@ -366,3 +366,7 @@ class Step1GuiHandler(object):
         self.parent.ui.beam_rate.blockSignals(status)
         self.parent.ui.beam_rate_2.blockSignals(status)
         
+    def connect_widgets(self):
+        self.parent.connect(self.parent.ui.list_of_elements, QtCore.SIGNAL("currentIndexChanged(int)"), self.parent.list_of_element_index_changed)
+        self.parent.connect(self.parent.ui.list_of_elements_2, QtCore.SIGNAL("currentIndexChanged(int)"), self.parent.list_of_element_2_index_changed)
+        

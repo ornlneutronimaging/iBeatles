@@ -2101,40 +2101,8 @@
    </hints>
   </connection>
   <connection>
-   <sender>list_of_elements</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>list_of_element_index_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1390</x>
-     <y>768</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>622</x>
-     <y>972</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>list_of_elements_2</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>list_of_element_2_index_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1254</x>
-     <y>839</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1528</x>
-     <y>903</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>lattice_parameter_2</sender>
-   <signal>editingFinished()</signal>
+   <signal>returnPressed()</signal>
    <receiver>MainWindow</receiver>
    <slot>lattice_2_text_changed()</slot>
    <hints>
@@ -2150,7 +2118,7 @@
   </connection>
   <connection>
    <sender>lattice_parameter</sender>
-   <signal>editingFinished()</signal>
+   <signal>returnPressed()</signal>
    <receiver>MainWindow</receiver>
    <slot>lattice_text_changed()</slot>
    <hints>
