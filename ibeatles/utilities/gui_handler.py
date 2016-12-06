@@ -61,13 +61,21 @@ class GuiHandler(object):
         plot_ui.setLabel('bottom', label)
         
     def get_text(self, ui=None):
-        return ''
+        if ui is None:
+            return ''
+        return str(ui.text())
     
     def get_index_selected(self, ui=None):
-        return -1
+        if ui is None:
+            return -1
+        return ui.currentIndex()
     
-    def set_texxt(self, value='', ui=None):
-        pass
+    def set_text(self, value='', ui=None):
+        if ui is None:
+            return
+        ui.setText(value)
     
     def set_index_selected(self, index=-1, ui=None):
-        pass
+        if ui is None:
+            return
+        ui.setCurrentIndex(index)

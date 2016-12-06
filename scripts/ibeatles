@@ -263,8 +263,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     def beam_rate_changed(self):
         o_gui = Step1GuiHandler(parent=self)
-        o_gui.sync_instrument_widgets()
-        self.update_delta_lambda(source='load_data')
+        o_gui.sync_instrument_widgets(source='load_data')
+        self.update_delta_lambda()
     
     def detector_offset_changed(self):
         o_gui = Step1GuiHandler(parent=self)
@@ -277,8 +277,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     def beam_rate_2_changed(self):
         o_gui = Step1GuiHandler(parent=self)
-        o_gui.sync_instrument_widgets()
-        self.update_delta_lambda(source='normalized')
+        o_gui.sync_instrument_widgets(source='normalized')
+        self.update_delta_lambda()
     
     def detector_offset_2_changed(self):
         o_gui = Step1GuiHandler(parent=self)
