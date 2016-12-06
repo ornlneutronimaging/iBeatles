@@ -37,7 +37,8 @@ class TimeSpectraHandler(object):
         if os.path.isfile(self.full_file_name):
             _tof_handler = TOF(filename = self.full_file_name)
             _tof_array_s = _tof_handler.tof_array
-            self.tof_array = _tof_array_s * 1e6
+            #self.tof_array = _tof_array_s * 1e6
+            self.tof_array = _tof_array_s
             self.counts_array = _tof_handler.counts_array
             
     def calculate_lambda_scale(self):
@@ -53,11 +54,9 @@ class TimeSpectraHandler(object):
                               distance_source_detector_m=distance_source_detector,
                               detector_offset_micros=detector_offset)
             self.lambda_array = _exp.lambda_array
+            
         else:
             self.lambda_array = []
-        
-        print("calculate_lambda_scale")
-        print(self.lambda_array)
     
     def display(self):
         self.load()

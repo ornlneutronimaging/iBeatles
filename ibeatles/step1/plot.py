@@ -324,6 +324,7 @@ class Step1Plot(object):
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
 
             # launch bragg edge plots
+            tof_array = tof_array * 1e6
             dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
                                                             lambda_array = lambda_array,
                                                             bragg_edges = bragg_edges)
@@ -398,6 +399,7 @@ class Step1Plot(object):
                     linear_region_right = tof_array[linear_region_right]
 
                 else:
+                    lambda_array = lambda_array * 1e10
                     curve = plot_ui.plot(lambda_array, _bragg_edge, pen=pen_color[_key])
                     x_axis = lambda_array
                     linear_region_left = lambda_array[linear_region_left]
@@ -411,7 +413,7 @@ class Step1Plot(object):
                 arrow.setParentItem(curvePoint)
 
                 if xaxis_choice == 'lambda':
-                    last_position = x_axis[-1] * 1e6
+                    last_position = x_axis[-1]
                 else:
                     last_position = x_axis[-1]
 
