@@ -231,7 +231,7 @@ class RoiEditorInterface(QtGui.QMainWindow):
         if _nbr_row == 0:
             new_list_roi.append(init_roi)
             new_list_roi_id.append(roi)
-            new_list_label_roi.append(label_roi)
+            new_list_label_roi_id.append(label_roi)
         else:
             for _index in range(_nbr_row ):
                 if _index == _new_row_index:
