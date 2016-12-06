@@ -255,6 +255,36 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
         _ui_list.blockSignals(False)
 
+    # Instrument    
+
+    def distance_source_detector_changed(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.sync_instrument_widgets(source='load_data')
+    
+    def beam_rate_changed(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.sync_instrument_widgets()
+        self.update_delta_lambda(source='load_data')
+    
+    def detector_offset_changed(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.sync_instrument_widgets(source='load_data')
+        self.update_delta_lambda()
+        
+    def distance_source_detector_2_changed(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.sync_instrument_widgets(source='normalized')
+    
+    def beam_rate_2_changed(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.sync_instrument_widgets()
+        self.update_delta_lambda(source='normalized')
+    
+    def detector_offset_2_changed(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.sync_instrument_widgets(source='normalized')
+        self.update_delta_lambda()
+
     # Material widgets
 
     def list_of_element_index_changed(self, index):

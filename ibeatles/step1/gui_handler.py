@@ -30,6 +30,9 @@ class Step1GuiHandler(object):
     def __init__(self, parent=None):
         self.parent = parent
         
+    def sync_instrument_widgets(self, source='load_data'):
+        pass
+
     def load_data_tab_changed(self, tab_index=0):
         data_type = 'sample'
         
@@ -320,6 +323,7 @@ class Step1GuiHandler(object):
                                                                             frequency = frequency)
 
         self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
+        self.parent.ui.delta_lambda_value_2.setText("{:.2f}".format(delta_lambda))
         
     def check_time_spectra_widgets(self):
         time_spectra_data = self.parent.data_metadata['time_spectra']['data']

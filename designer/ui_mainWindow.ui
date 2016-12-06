@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>147</width>
-                      <height>147</height>
+                      <width>1378</width>
+                      <height>369</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -2069,38 +2069,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>distance_source_detector</sender>
-   <signal>editingFinished()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>update_delta_lambda()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>242</x>
-     <y>722</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>820</x>
-     <y>977</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>beam_rate</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>update_delta_lambda()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>235</x>
-     <y>750</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1038</x>
-     <y>976</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>crystal_structure</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>MainWindow</receiver>
@@ -2267,8 +2235,8 @@
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1196</x>
-     <y>607</y>
+     <x>1209</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2283,8 +2251,8 @@
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1167</x>
-     <y>613</y>
+     <x>1177</x>
+     <y>540</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2340,6 +2308,102 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>beam_rate</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>beam_rate_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>212</x>
+     <y>743</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>910</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>distance_source_detector</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>distance_source_detector_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>308</x>
+     <y>719</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>714</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>detector_offset</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>detector_offset_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>279</x>
+     <y>781</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>772</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>distance_source_detector_2</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>distance_source_detector_2_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>796</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>808</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>detector_offset_2</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>detector_offset_2_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>250</x>
+     <y>861</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>867</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>beam_rate_2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>beam_rate_2_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>821</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>906</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2369,5 +2433,11 @@
   <slot>normalization_coefficient_value_changed()</slot>
   <slot>tab_widget_changed()</slot>
   <slot>normalization_tableWidget_cell_changed()</slot>
+  <slot>beam_rate_changed()</slot>
+  <slot>distance_source_detector_changed()</slot>
+  <slot>detector_offset_changed()</slot>
+  <slot>distance_source_detector_2_changed()</slot>
+  <slot>detector_offset_2_changed()</slot>
+  <slot>beam_rate_2_changed()</slot>
  </slots>
 </ui>
