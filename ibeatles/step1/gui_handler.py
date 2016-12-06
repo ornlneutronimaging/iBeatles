@@ -31,7 +31,20 @@ class Step1GuiHandler(object):
         self.parent = parent
         
     def sync_instrument_widgets(self, source='load_data'):
-        pass
+        
+        # retrieve ui
+        if source == 'load_data':
+            distance_ui = self.parent.ui.distance_source_detector
+            beam_ui = self.parent.ui.beam_rate
+            detector_ui = self.parent.ui.detector_offset
+        else:
+            distance_ui = self.parent.ui.distance_source_detector_2
+            beam_ui = self.parent.ui.beam_rate_2
+            detector_ui = self.parent.ui.detector_offset_2
+            
+        
+        
+
 
     def load_data_tab_changed(self, tab_index=0):
         data_type = 'sample'
