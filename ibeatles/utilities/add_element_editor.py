@@ -85,8 +85,8 @@ class AddElementInterface(QtGui.QMainWindow):
 
     def add_clicked(self):
         self.retrieve_metadata()
-        self.add_element_to_list_of_elements_widgets()
         self.save_new_element_to_local_list()
+        self.add_element_to_list_of_elements_widgets()
         self.close()
 
     def cancel_clicked(self):
