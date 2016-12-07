@@ -124,10 +124,69 @@ class Step1GuiHandler(object):
                 self.parent.ui.crystal_structure.setCurrentIndex(_row)
                 self.parent.ui.crystal_structure_2.setCurrentIndex(_row)
        
+    def retrieve_handler_from_local_bragg_edge_list(self, material=None):
+        '''
+        Look if the material is in the local list of Bragg edge and if it is,
+        return the dictionary of that material
+        '''
+        if material is None:
+            return None
+        
+        _local_bragg_edge_list = self.parent.local_bragg_edge_list
+        if material in _local_bragg_edge_list.keys():
+            return _local_bragg_edge_list[material]
+
+    def add_element_to_local_bragg_edge_list(self, material=None):
+        '''
+        Add a new material into the local bragg edge list
+        new entry will be
+        'material': {'crystal_structure': '', 'lattice': -1}
+        '''
+        if material is None:
+            return None
+
+        o_gui = GuiHandler(parent = self.parent)
+        _crystal_structure = o_gui.get_text_selected(ui = self.parent.ui.crystal_structure)
+        _lattice = o_gui.get_text(ui = self.parent.ui.lattice_parameter)
+        
+        self.parent.local_bragg_edge_list[material] = {'crystal_structure': _crystal_structure,
+                                                       'lattice': _lattice}
+        
+    def update_list_of_elements(self, source='load_data', index=-1):
+        '''
+        This method will sync the target list of elements with the source list of elements
+        '''
+        if source == 'load_data':
+            _source_ui = self.parent.ui.list_of_elements
+            _target_ui = self.parent.ui.list_of_elements_2
+        else:
+            _source_ui = self.parent.ui.list_of_elements_2
+            _target_ui = self.parent.ui.list_of_elements
+
+        nbr_elements_list_target = _target_ui.count()
+        if index == nbr_elements_list_target: # we have a new element
+            _new_element = _source_ui.currentText()
+            _target_ui.addItem(_new_element)
+        _target_ui.setCurrentIndex(index)
+        
     def update_lattice_and_crystal_when_index_selected(self):
-        _handler = BraggEdge(material= self.get_element_selected())
-        _crystal_structure = _handler.metadata['crystal_structure'][self.get_element_selected()]
-        _lattice = str(_handler.metadata['lattice'][self.get_element_selected()])
+        _element = self.get_element_selected()
+        try:
+            _handler = BraggEdge(material = _element)
+            _crystal_structure = _handler.metadata['crystal_structure'][_element]
+            _lattice = str(_handler.metadata['lattice'][_element])
+
+        except KeyError:
+
+            # look for element in local list of element
+            _handler = self.retrieve_handler_from_local_bragg_edge_list(material = _element)
+            if _handler is None:
+                self.add_element_to_local_bragg_edge_list(material = _element)
+                _handler = self.retrieve_handler_from_local_bragg_edge_list(material = _element)
+            
+            _crystal_structure = _handler['crystal_structure']
+            _lattice = _handler['lattice']
+            
         self.parent.ui.lattice_parameter.setText(_lattice)
         self.parent.ui.lattice_parameter_2.setText(_lattice)
         self.set_crystal_structure(_crystal_structure)

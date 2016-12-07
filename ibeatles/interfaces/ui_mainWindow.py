@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'designer/ui_mainWindow.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created: Wed Dec  7 09:36:50 2016
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -60,11 +61,12 @@ class Ui_MainWindow(object):
         self.layoutWidget = QtGui.QWidget(self.sample_ob_splitter)
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.layoutWidget)
+        self.verticalLayout_9.setMargin(0)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
         self.toolBox = QtGui.QToolBox(self.layoutWidget)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.sample_toolbox = QtGui.QWidget()
-        self.sample_toolbox.setGeometry(QtCore.QRect(0, 0, 1378, 369))
+        self.sample_toolbox.setGeometry(QtCore.QRect(0, 0, 1380, 369))
         self.sample_toolbox.setObjectName(_fromUtf8("sample_toolbox"))
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.sample_toolbox)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
@@ -102,7 +104,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addLayout(self.verticalLayout_5)
         self.toolBox.addItem(self.sample_toolbox, _fromUtf8(""))
         self.open_beam_toolbox = QtGui.QWidget()
-        self.open_beam_toolbox.setGeometry(QtCore.QRect(0, 0, 1378, 369))
+        self.open_beam_toolbox.setGeometry(QtCore.QRect(0, 0, 1380, 369))
         self.open_beam_toolbox.setObjectName(_fromUtf8("open_beam_toolbox"))
         self.verticalLayout_8 = QtGui.QVBoxLayout(self.open_beam_toolbox)
         self.verticalLayout_8.setObjectName(_fromUtf8("verticalLayout_8"))
@@ -396,6 +398,7 @@ class Ui_MainWindow(object):
         self.widget_2.setMaximumSize(QtCore.QSize(350, 16777215))
         self.widget_2.setObjectName(_fromUtf8("widget_2"))
         self.verticalLayout_17 = QtGui.QVBoxLayout(self.widget_2)
+        self.verticalLayout_17.setMargin(0)
         self.verticalLayout_17.setObjectName(_fromUtf8("verticalLayout_17"))
         self.label_19 = QtGui.QLabel(self.widget_2)
         self.label_19.setObjectName(_fromUtf8("label_19"))
@@ -510,6 +513,7 @@ class Ui_MainWindow(object):
         self.layoutWidget1 = QtGui.QWidget(self.normalized_splitter)
         self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
         self.verticalLayout_12 = QtGui.QVBoxLayout(self.layoutWidget1)
+        self.verticalLayout_12.setMargin(0)
         self.verticalLayout_12.setObjectName(_fromUtf8("verticalLayout_12"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
@@ -695,6 +699,7 @@ class Ui_MainWindow(object):
         self.label_18.setObjectName(_fromUtf8("label_18"))
         self.horizontalLayout_19.addWidget(self.label_18)
         self.list_of_elements_2 = QtGui.QComboBox(self.groupBox_5)
+        self.list_of_elements_2.setEditable(True)
         self.list_of_elements_2.setObjectName(_fromUtf8("list_of_elements_2"))
         self.horizontalLayout_19.addWidget(self.list_of_elements_2)
         self.verticalLayout_16.addLayout(self.horizontalLayout_19)
@@ -811,10 +816,14 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.preview_time_spectra_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.time_spectra_preview_button_clicked)
         QtCore.QObject.connect(self.import_normalized_data, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.normalized_import_button_clicked)
         QtCore.QObject.connect(self.list_normalized, QtCore.SIGNAL(_fromUtf8("itemSelectionChanged()")), MainWindow.normalized_list_selection_changed)
+        QtCore.QObject.connect(self.distance_source_detector, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.update_delta_lambda)
+        QtCore.QObject.connect(self.beam_rate, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.update_delta_lambda)
         QtCore.QObject.connect(self.crystal_structure, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.crystal_structure_index_changed)
         QtCore.QObject.connect(self.crystal_structure_2, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.crystal_structure_2_index_changed)
-        QtCore.QObject.connect(self.lattice_parameter_2, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.lattice_2_text_changed)
-        QtCore.QObject.connect(self.lattice_parameter, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.lattice_text_changed)
+        QtCore.QObject.connect(self.list_of_elements, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.list_of_element_index_changed)
+        QtCore.QObject.connect(self.list_of_elements_2, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.list_of_element_2_index_changed)
+        QtCore.QObject.connect(self.lattice_parameter_2, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.lattice_2_text_changed)
+        QtCore.QObject.connect(self.lattice_parameter, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.lattice_text_changed)
         QtCore.QObject.connect(self.material_display_checkbox, QtCore.SIGNAL(_fromUtf8("clicked(bool)")), MainWindow.material_display_clicked)
         QtCore.QObject.connect(self.material_display_checkbox_2, QtCore.SIGNAL(_fromUtf8("clicked(bool)")), MainWindow.material_display_2_clicked)
         QtCore.QObject.connect(self.import_time_spectra_button_2, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.time_spectra_import_button_clicked)
@@ -824,12 +833,6 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.normalization_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.normalization_button_clicked)
         QtCore.QObject.connect(self.tabWidget, QtCore.SIGNAL(_fromUtf8("currentChanged(int)")), MainWindow.tab_widget_changed)
         QtCore.QObject.connect(self.normalization_tableWidget, QtCore.SIGNAL(_fromUtf8("cellChanged(int,int)")), MainWindow.normalization_tableWidget_cell_changed)
-        QtCore.QObject.connect(self.beam_rate, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.beam_rate_changed)
-        QtCore.QObject.connect(self.distance_source_detector, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.distance_source_detector_changed)
-        QtCore.QObject.connect(self.detector_offset, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.detector_offset_changed)
-        QtCore.QObject.connect(self.distance_source_detector_2, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.distance_source_detector_2_changed)
-        QtCore.QObject.connect(self.detector_offset_2, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.detector_offset_2_changed)
-        QtCore.QObject.connect(self.beam_rate_2, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.beam_rate_2_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
