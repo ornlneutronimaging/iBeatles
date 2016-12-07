@@ -113,8 +113,11 @@ class Step1GuiHandler(object):
         self.parent.ui.lattice_parameter_2.setText(_lattice)
         self.set_crystal_structure(_crystal_structure)
         
-    def get_element_selected(self):
-        return str(self.parent.ui.list_of_elements.currentText())
+    def get_element_selected(self, source='load_data'):
+        if source == 'load_data':
+            return str(self.parent.ui.list_of_elements.currentText())
+        else:
+            return str(self.parent.ui.list_of_elements_2.currentText())
 
     def set_crystal_structure(self, new_crystal_structure):
         nbr_item = self.parent.ui.crystal_structure.count()
@@ -152,41 +155,8 @@ class Step1GuiHandler(object):
         self.parent.local_bragg_edge_list[material] = {'crystal_structure': _crystal_structure,
                                                        'lattice': _lattice}
         
-    def update_list_of_elements(self, source='load_data', index=-1):
-        '''
-        This method will sync the target list of elements with the source list of elements
-        '''
-        if source == 'load_data':
-            _source_ui = self.parent.ui.list_of_elements
-            _target_ui = self.parent.ui.list_of_elements_2
-        else:
-            _source_ui = self.parent.ui.list_of_elements_2
-            _target_ui = self.parent.ui.list_of_elements
-
-        _target_ui.blockSignals(True)
-        _source_ui.blockSignals(True)
-
-        nbr_elements_list_source = _source_ui.count()
-        nbr_elements_list_target = _target_ui.count()
-    
-        print("source: {}".format(nbr_elements_list_source))
-        print("source index: {}".format(index))
-        print("source index value: {}".format(_source_ui.currentText()))
-        print("target: {}".format(nbr_elements_list_target))
-        
-        _source_ui.blockSignals(False)
-        _target_ui.blockSignals(False)
-
-        return
-    
-        if index == (nbr_elements_list_target): # we have a new element
-            _new_element = _source_ui.itemText(nbr_elements_list_target)
-            _target_ui.insertItem(index, _new_element)
-        _target_ui.setCurrentIndex(index)
-
-        
-    def update_lattice_and_crystal_when_index_selected(self):
-        _element = self.get_element_selected()
+    def update_lattice_and_crystal_when_index_selected(self, source='load_data'):
+        _element = self.get_element_selected(source=source)
         try:
             _handler = BraggEdge(material = _element)
             _crystal_structure = _handler.metadata['crystal_structure'][_element]
@@ -196,13 +166,16 @@ class Step1GuiHandler(object):
 
             # look for element in local list of element
             _handler = self.retrieve_handler_from_local_bragg_edge_list(material = _element)
-            if _handler is None:
-                self.add_element_to_local_bragg_edge_list(material = _element)
-                _handler = self.retrieve_handler_from_local_bragg_edge_list(material = _element)
-            
             _crystal_structure = _handler['crystal_structure']
             _lattice = _handler['lattice']
             
+        if source == 'load_data':
+            _index = self.parent.ui.list_of_elements.currentIndex()
+            self.parent.ui.list_of_elements_2.setCurrentIndex(_index)
+        else:
+            _index = self.parent.ui.list_of_elements_2.currentIndex()
+            self.parent.ui.list_of_elements.setCurrentIndex(_index)
+    
         self.parent.ui.lattice_parameter.setText(_lattice)
         self.parent.ui.lattice_parameter_2.setText(_lattice)
         self.set_crystal_structure(_crystal_structure)

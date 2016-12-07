@@ -318,17 +318,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def list_of_element_index_changed(self, index):
         self.ui.list_of_elements_2.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
-        #o_gui.update_list_of_elements(source='load_data', index=index) 
-        #o_gui.update_lattice_and_crystal_when_index_selected()
+        o_gui.update_lattice_and_crystal_when_index_selected(source='load_data')
         #o_bragg_edge = BraggEdgeElementHandler(parent=self)
         self.ui.list_of_elements_2.blockSignals(False)
     
     def list_of_element_2_index_changed(self, index):
         self.ui.list_of_elements.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
-        o_gui.update_list_of_elements(source='normalized', index=index) 
-        return
-        o_gui.update_lattice_and_crystal_when_index_selected()
+        o_gui.update_lattice_and_crystal_when_index_selected(source='normalized')
+        #o_bragg_edge = BraggEdgeElementHandler(parent=self)
         self.ui.list_of_elements.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
