@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>449</width>
+    <height>294</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>110</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Element Name:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="element_name"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="element_name_error">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#d91d35;&quot;&gt;Pick Another Name!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>110</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Lattice:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lattice">
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="angstroms_label">
+        <property name="text">
+         <string>A</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>110</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Crystal Structure:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="crystal_structure">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>1677215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <item>
+         <property name="text">
+          <string>FCC</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>BCC</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>80</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="cancel">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="add">
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>449</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action1_Data">
+   <property name="text">
+    <string>1. Data</string>
+   </property>
+  </action>
+  <action name="action2_Normalization">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>2. Normalization</string>
+   </property>
+  </action>
+  <action name="action3_Binning">
+   <property name="text">
+    <string>4. Binning</string>
+   </property>
+  </action>
+  <action name="action4_Fitting">
+   <property name="text">
+    <string>5. Fitting</string>
+   </property>
+  </action>
+  <action name="action5_Results">
+   <property name="text">
+    <string>6. Strain Mapping</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About ...</string>
+   </property>
+  </action>
+  <action name="action1_Raw_Data">
+   <property name="text">
+    <string>1. Raw Data</string>
+   </property>
+  </action>
+  <action name="action2_Normalization_2">
+   <property name="text">
+    <string>2. Normalization</string>
+   </property>
+  </action>
+  <action name="action3_Normalized_Data">
+   <property name="text">
+    <string>3. Normalized Data</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>cancel_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>234</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>add</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>234</x>
+     <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>element_name</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>element_name_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>46</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>94</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>sample_import_button_clicked()</slot>
+  <slot>time_spectra_import_button_clicked()</slot>
+  <slot>open_beam_import_button_clicked()</slot>
+  <slot>sample_list_selection_changed()</slot>
+  <slot>open_beam_list_selection_changed()</slot>
+  <slot>sample_list_right_click()</slot>
+  <slot>time_spectra_selection_changed()</slot>
+  <slot>load_data_tab_changed()</slot>
+  <slot>time_spectra_preview_button_clicked()</slot>
+  <slot>normalized_import_button_clicked()</slot>
+  <slot>normalized_list_selection_changed()</slot>
+  <slot>update_delta_lambda()</slot>
+  <slot>crystal_structure_index_changed()</slot>
+  <slot>crystal_structure_2_index_changed()</slot>
+  <slot>list_of_element_index_changed()</slot>
+  <slot>list_of_element_2_index_changed()</slot>
+  <slot>lattice_text_changed()</slot>
+  <slot>lattice_2_text_changed()</slot>
+  <slot>material_display_clicked()</slot>
+  <slot>material_display_2_clicked()</slot>
+  <slot>add_roi_button_clicked()</slot>
+  <slot>remove_roi_button_clicked()</slot>
+  <slot>roi_editor_table_changed()</slot>
+  <slot>roi_editor_current_cell_changed()</slot>
+  <slot>cancel_clicked()</slot>
+  <slot>add_clicked()</slot>
+  <slot>element_name_changed()</slot>
+ </slots>
+</ui>

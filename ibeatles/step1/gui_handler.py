@@ -163,11 +163,27 @@ class Step1GuiHandler(object):
             _source_ui = self.parent.ui.list_of_elements_2
             _target_ui = self.parent.ui.list_of_elements
 
+        _target_ui.blockSignals(True)
+        _source_ui.blockSignals(True)
+
+        nbr_elements_list_source = _source_ui.count()
         nbr_elements_list_target = _target_ui.count()
-        if index == nbr_elements_list_target: # we have a new element
-            _new_element = _source_ui.currentText()
-            _target_ui.addItem(_new_element)
+    
+        print("source: {}".format(nbr_elements_list_source))
+        print("source index: {}".format(index))
+        print("source index value: {}".format(_source_ui.currentText()))
+        print("target: {}".format(nbr_elements_list_target))
+        
+        _source_ui.blockSignals(False)
+        _target_ui.blockSignals(False)
+
+        return
+    
+        if index == (nbr_elements_list_target): # we have a new element
+            _new_element = _source_ui.itemText(nbr_elements_list_target)
+            _target_ui.insertItem(index, _new_element)
         _target_ui.setCurrentIndex(index)
+
         
     def update_lattice_and_crystal_when_index_selected(self):
         _element = self.get_element_selected()
