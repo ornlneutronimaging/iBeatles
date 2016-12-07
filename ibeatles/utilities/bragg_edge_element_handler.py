@@ -21,5 +21,5 @@ class BraggEdgeElementHandler(object):
                                'crystal_structure': crystal_structure}
         
         _handler = BraggEdge(new_material = [_element_dictionary])
-        self.bragg_edges_array = _handler.bragg_edges[element_name]
-        print(self.bragg_edges_array)
+        self.parent.selected_element_bragg_edges_array = _handler.bragg_edges[element_name]
+

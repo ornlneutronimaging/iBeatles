@@ -398,12 +398,15 @@ class Step1Plot(object):
                     linear_region_left = tof_array[linear_region_left]
                     linear_region_right = tof_array[linear_region_right]
 
-                else:
+                else: #lambda
                     lambda_array = lambda_array * 1e10
                     curve = plot_ui.plot(lambda_array, _bragg_edge, pen=pen_color[_key])
                     x_axis = lambda_array
                     linear_region_left = lambda_array[linear_region_left]
                     linear_region_right = lambda_array[linear_region_right]
+
+                    self.display_selected_element_bragg_edges(plot_ui = plot_ui, 
+                                                              lambda_range=[lambda_array[0], lambda_array[-1]])
     
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
@@ -421,3 +424,20 @@ class Step1Plot(object):
                 
         return {'x_axis': x_axis,
                 'linear_region': [linear_region_left, linear_region_right]}
+    
+    def display_selected_element_bragg_edges(self, plot_ui = plot_ui, lambda_range = []):
+
+        if self.data_type:
+            display_flag_ui = self.parent.ui.material_display_checkbox
+        else:
+            displaY_flag_ui = self.parent.ui.material_display_checkbox_2
+            
+        if not display_flag_ui.isChecked():
+            return
+
+        _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
+
+        for _x in _selected_element_bragg_edges_array:
+            if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
+                _item = pg.InfiniteLine(_x, pen=pg.mkPen("c"))
+                plot_ui.addItem(_item)
