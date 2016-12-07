@@ -75,9 +75,18 @@ class AddElementInterface(QtGui.QMainWindow):
         self.parent.ui.list_of_elements_2.addItem(_element['element_name'])
         self.parent.ui.list_of_elements_2.setCurrentIndex(nbr_element-1)
 
+    def save_new_element_to_local_list(self):
+        _new_element = self.new_element
+        
+        _new_entry = {'lattice': _new_element['lattice'],
+                       'crystal_structure': _new_element['crystal_structure']}
+        
+        self.parent.local_bragg_edge_list[_new_element['element_name']] = _new_entry
+
     def add_clicked(self):
         self.retrieve_metadata()
         self.add_element_to_list_of_elements_widgets()
+        self.save_new_element_to_local_list()
         self.close()
 
     def cancel_clicked(self):

@@ -706,7 +706,7 @@
                        <item>
                         <widget class="QPushButton" name="add_element">
                          <property name="text">
-                          <string>Add Element ...</string>
+                          <string>Add New Element ...</string>
                          </property>
                         </widget>
                        </item>
@@ -1719,7 +1719,7 @@
                          <item>
                           <widget class="QPushButton" name="add_element_3">
                            <property name="text">
-                            <string>Add Element ...</string>
+                            <string>Add New Element ...</string>
                            </property>
                           </widget>
                          </item>

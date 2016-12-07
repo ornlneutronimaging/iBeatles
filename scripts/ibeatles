@@ -54,6 +54,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                      'ob': None,
                      'normalized': None}
     
+    # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}
     
     # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
