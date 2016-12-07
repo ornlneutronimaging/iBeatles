@@ -250,6 +250,11 @@ class Step1Plot(object):
                     y0 = region[0][1].start
                     y1 = region[0][1].stop-1
                     group = list_roi[_index][-1]
+                    
+                    if x1 == x0:
+                        x1 += 1
+                    if y1 == y0:
+                        y1 += 1
 
                 else: 
                     if roi_editor_ui is None:
