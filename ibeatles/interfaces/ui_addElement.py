@@ -97,6 +97,7 @@ class Ui_MainWindow(object):
         spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
         self.add = QtGui.QPushButton(self.centralwidget)
+        self.add.setEnabled(False)
         self.add.setObjectName(_fromUtf8("add"))
         self.horizontalLayout.addWidget(self.add)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -137,12 +138,13 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.cancel, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.cancel_clicked)
         QtCore.QObject.connect(self.add, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.add_clicked)
         QtCore.QObject.connect(self.element_name, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), MainWindow.element_name_changed)
+        QtCore.QObject.connect(self.lattice, QtCore.SIGNAL(_fromUtf8("textChanged(QString)")), MainWindow.lattice_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.label.setText(_translate("MainWindow", "Element Name:", None))
-        self.element_name_error.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#d91d35;\">Pick Another Name!</span></p></body></html>", None))
+        self.element_name_error.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#d91d35;\">Pick Unique Name!</span></p></body></html>", None))
         self.label_2.setText(_translate("MainWindow", "Lattice:", None))
         self.angstroms_label.setText(_translate("MainWindow", "A", None))
         self.label_3.setText(_translate("MainWindow", "Crystal Structure:", None))

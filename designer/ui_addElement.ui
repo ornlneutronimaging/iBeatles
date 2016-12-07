@@ -60,7 +60,7 @@
       <item>
        <widget class="QLabel" name="element_name_error">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#d91d35;&quot;&gt;Pick Another Name!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#d91d35;&quot;&gt;Pick Unique Name!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -210,6 +210,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="add">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Add</string>
         </property>
@@ -310,8 +313,8 @@
    <slot>add_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>259</x>
-     <y>227</y>
+     <x>406</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
      <x>234</x>
@@ -332,6 +335,22 @@
     <hint type="destinationlabel">
      <x>94</x>
      <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lattice</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>lattice_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>327</x>
+     <y>141</y>
     </hint>
    </hints>
   </connection>
@@ -364,5 +383,6 @@
   <slot>cancel_clicked()</slot>
   <slot>add_clicked()</slot>
   <slot>element_name_changed()</slot>
+  <slot>lattice_changed()</slot>
  </slots>
 </ui>

@@ -2,7 +2,7 @@ from PyQt4 import QtGui, QtCore
 
 from ibeatles.interfaces.ui_addElement import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler
-
+from ibeatles.utilities.math_tools import is_float
 
 class AddElement(object):
     
@@ -43,20 +43,41 @@ class AddElementInterface(QtGui.QMainWindow):
         else:
             self.ui.element_name_error.setVisible(False)
             self.ui.add.setEnabled(True)
+
+    def lattice_changed(self, current_value):
+        if current_value == '':
+            self.ui.add.setEnabled(False)
+            return
+        
+        if not is_float(current_value):
+            self.ui.add.setEnabled(False)
+            return
+        
+        self.ui.add.setEnabled(True)
         
     def retrieve_metadata(self):
         o_gui = GuiHandler(parent = self)
         
         element_name = o_gui.get_text(ui = self.ui.element_name)
-        lattice = float(o_gui.get_text(ui = self.ui.lattice))
+        lattice = o_gui.get_text(ui = self.ui.lattice)
         crystal_structure = o_gui.get_text_selected(ui = self.ui.crystal_structure)
         
         self.new_element = {'element_name': element_name,
                             'lattice': lattice,
                             'crystal_structure': crystal_structure}
+        
+        
+    def add_element_to_list_of_elements_widgets(self):
+        _element = self.new_element
+        self.parent.ui.list_of_elements.addItem(_element['element_name'])
+        nbr_element = self.parent.ui.list_of_elements.count()
+        self.parent.ui.list_of_elements.setCurrentIndex(nbr_element-1)
+        self.parent.ui.list_of_elements_2.addItem(_element['element_name'])
+        self.parent.ui.list_of_elements_2.setCurrentIndex(nbr_element-1)
 
     def add_clicked(self):
         self.retrieve_metadata()
+        self.add_element_to_list_of_elements_widgets()
         self.close()
 
     def cancel_clicked(self):
