@@ -57,6 +57,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}
     selected_element_bragg_edges_array = []
+    selected_element_hkl_array = []
     
     # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
     init_array = ['label_roi', '0', '0', '1', '1', '0']

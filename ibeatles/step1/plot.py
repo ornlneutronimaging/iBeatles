@@ -411,7 +411,8 @@ class Step1Plot(object):
                     linear_region_right = lambda_array[linear_region_right]
 
                     self.display_selected_element_bragg_edges(plot_ui = plot_ui, 
-                                                              lambda_range=[lambda_array[0], lambda_array[-1]])
+                                                              lambda_range=[lambda_array[0], lambda_array[-1]],
+                                                              ymax = np.max(_bragg_edge))
     
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
@@ -430,7 +431,7 @@ class Step1Plot(object):
         return {'x_axis': x_axis,
                 'linear_region': [linear_region_left, linear_region_right]}
     
-    def display_selected_element_bragg_edges(self, plot_ui = plot_ui, lambda_range = []):
+    def display_selected_element_bragg_edges(self, plot_ui = plot_ui, lambda_range = [], ymax=0):
 
         if self.data_type:
             display_flag_ui = self.parent.ui.material_display_checkbox
@@ -441,8 +442,14 @@ class Step1Plot(object):
             return
 
         _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
+        _selected_element_hkl_array = self.parent.selected_element_hkl_array
 
-        for _x in _selected_element_bragg_edges_array:
+        for _index, _x in enumerate(_selected_element_bragg_edges_array):
             if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
                 _item = pg.InfiniteLine(_x, pen=pg.mkPen("c"))
                 plot_ui.addItem(_item)
+                _hkl = _selected_element_hkl_array[_index]
+                _hkl_formated = "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2])
+                _text = pg.TextItem(_hkl_formated, anchor=(0,1), angle=45, color=pg.mkColor("c"))
+                _text.setPos(_x, ymax)
+                plot_ui.addItem(_text)

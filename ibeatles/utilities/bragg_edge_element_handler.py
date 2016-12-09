@@ -22,4 +22,5 @@ class BraggEdgeElementHandler(object):
         
         _handler = BraggEdge(new_material = [_element_dictionary])
         self.parent.selected_element_bragg_edges_array = _handler.bragg_edges[element_name]
+        self.parent.selected_element_hkl_array = _handler.hkl[element_name]
 
