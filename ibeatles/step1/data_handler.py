@@ -56,7 +56,7 @@ class DataHandler(object):
             else:
                 self.load_files(selectedFiles)
 
-            if data_type == 'sample':
+            if (data_type == 'sample') or (data_type == 'normalized'):
                 self.retrieve_time_spectra()
                 self.load_time_spectra()
                 
@@ -80,7 +80,10 @@ class DataHandler(object):
 
     def retrieve_time_spectra(self, auto_load=True):
         if auto_load:
-            folder = self.parent.data_metadata['sample']['folder']
+            if self.data_type == 'sample':
+                folder = self.parent.data_metadata['sample']['folder']
+            else:
+                folder = self.parent.data_metadata['normalized']['folder']
             o_time_spectra = LoadTimeSpectra(folder = folder, auto_load=auto_load)
             if o_time_spectra.file_found:
                 time_spectra = o_time_spectra.time_spectra

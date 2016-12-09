@@ -357,6 +357,38 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         _contain = str(self.ui.lattice_parameter_2.text())
         self.ui.lattice_parameter.setText(_contain)
         o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        
+    def reset_lattice_button_clicked(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.update_lattice_and_crystal_when_index_selected(source = 'load_data', 
+                                                             fill_crystal_structure_flag = False)
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self, data_type='sample')
+        o_plot.display_general_bragg_edge()
+    
+    def reset_lattice_button_2_clicked(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.update_lattice_and_crystal_when_index_selected(source = 'normalized', 
+                                                             fill_crystal_structure_flag = False)
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot.display_general_bragg_edge()
+
+    def reset_crystal_structure_button_clicked(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.update_lattice_and_crystal_when_index_selected(source = 'load_data', 
+                                                             fill_lattice_flag = False)
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self, data_type='sample')
+        o_plot.display_general_bragg_edge()
+    
+    def reset_crystal_structure_button_2_clicked(self):
+        o_gui = Step1GuiHandler(parent=self)
+        o_gui.update_lattice_and_crystal_when_index_selected(source = 'normalized', 
+                                                             fill_lattice_flag = False)
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot.display_general_bragg_edge()
 
     #TAB 1: Load Data Tab
     

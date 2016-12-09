@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="MPL Toolbar">
+    <file>reset_icon.png</file>
     <file>go-home.png</file>
     <file>zoom-previous.png</file>
     <file>zoom-next.png</file>

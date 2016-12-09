@@ -99,6 +99,13 @@ class Step1GuiHandler(object):
         self.parent.ui.sample_ob_splitter.setSizes([850, 20])
         self.parent.ui.load_data_splitter.setSizes([200, 500])
         self.parent.ui.normalized_splitter.setSizes([150, 600])
+        
+        # reset buttons
+        icon = QtGui.QIcon(":/MPL Toolbar/reset_icon.png")
+        self.parent.ui.reset_lattice_button.setIcon(icon)
+        self.parent.ui.reset_lattice_button_2.setIcon(icon)
+        self.parent.ui.reset_crystal_structure_button.setIcon(icon)
+        self.parent.ui.reset_crystal_structure_button_2.setIcon(icon)
 
     def init_material_widgets(self):
         retrieve_material = RetrieveMaterialMetadata(material = 'all')
@@ -155,7 +162,9 @@ class Step1GuiHandler(object):
         self.parent.local_bragg_edge_list[material] = {'crystal_structure': _crystal_structure,
                                                        'lattice': _lattice}
         
-    def update_lattice_and_crystal_when_index_selected(self, source='load_data'):
+    def update_lattice_and_crystal_when_index_selected(self, source='load_data', 
+                                                       fill_lattice_flag=True, 
+                                                       fill_crystal_structure_flag=True):
         _element = self.get_element_selected(source=source)
         try:
             _handler = BraggEdge(material = _element)
@@ -176,9 +185,12 @@ class Step1GuiHandler(object):
             _index = self.parent.ui.list_of_elements_2.currentIndex()
             self.parent.ui.list_of_elements.setCurrentIndex(_index)
     
-        self.parent.ui.lattice_parameter.setText(_lattice)
-        self.parent.ui.lattice_parameter_2.setText(_lattice)
-        self.set_crystal_structure(_crystal_structure)
+        if fill_lattice_flag:
+            self.parent.ui.lattice_parameter.setText(_lattice)
+            self.parent.ui.lattice_parameter_2.setText(_lattice)
+        
+        if fill_crystal_structure_flag:
+            self.set_crystal_structure(_crystal_structure)
         
     def init_labels(self):
         #micross
