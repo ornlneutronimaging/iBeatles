@@ -54,7 +54,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -2429,22 +2429,6 @@
     <hint type="destinationlabel">
      <x>7</x>
      <y>906</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>list_of_elements</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>list_of_element_index_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1168</x>
-     <y>757</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1530</x>
-     <y>770</y>
     </hint>
    </hints>
   </connection>

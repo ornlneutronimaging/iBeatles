@@ -852,7 +852,6 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.distance_source_detector_2, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.distance_source_detector_2_changed)
         QtCore.QObject.connect(self.detector_offset_2, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.detector_offset_2_changed)
         QtCore.QObject.connect(self.beam_rate_2, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.beam_rate_2_changed)
-        QtCore.QObject.connect(self.list_of_elements, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(int)")), MainWindow.list_of_element_index_changed)
         QtCore.QObject.connect(self.add_element, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.add_element_clicked)
         QtCore.QObject.connect(self.add_element_3, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.add_element_clicked)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)

@@ -141,6 +141,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.update_delta_lambda()   
         o_gui.connect_widgets()
         
+        # init bragg edge element
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        
         o_gui_2 = Step2GuiHandler(parent = self)
         o_gui_2.init_pyqtgraph()
         o_gui_2.init_table()
@@ -197,14 +200,14 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.ui.material_display_checkbox_2.setChecked(status)
         o_gui = Step1GuiHandler(parent = self)
         o_gui.check_time_spectra_widgets()
-        o_plot = Step1Plot(parent=self,)
+        o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
             
     def material_display_2_clicked(self, status):
         self.ui.material_display_checkbox.setChecked(status)
         o_gui = Step1GuiHandler(parent = self)
         o_gui.check_time_spectra_widgets()
-        o_plot = Step1Plot(parent=self,)
+        o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
 
     def roi_image_view_changed(self, mouse_selection=True):
@@ -323,6 +326,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='load_data')
         o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self, data_type='sample')
+        o_plot.display_general_bragg_edge()
         self.ui.list_of_elements_2.blockSignals(False)
     
     def list_of_element_2_index_changed(self, index):
@@ -334,6 +339,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
         
     def crystal_structure_2_index_changed(self, index):
         self.ui.crystal_structure.setCurrentIndex(index)
@@ -342,6 +350,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         _contain = str(self.ui.lattice_parameter.text())
         self.ui.lattice_parameter_2.setText(_contain)
         o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
             
     def lattice_2_text_changed(self):
         _contain = str(self.ui.lattice_parameter_2.text())
