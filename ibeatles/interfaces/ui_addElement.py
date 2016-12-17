@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'designer/ui_addElement.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created: Sat Dec 17 10:10:34 2016
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 

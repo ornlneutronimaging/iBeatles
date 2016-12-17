@@ -37,7 +37,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1508</width>
+         <width>1493</width>
          <height>950</height>
         </rect>
        </property>
@@ -54,7 +54,7 @@
            <bool>true</bool>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -97,8 +97,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1378</width>
-                      <height>369</height>
+                      <width>1368</width>
+                      <height>375</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1378</width>
-                      <height>369</height>
+                      <width>143</width>
+                      <height>146</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -1281,7 +1281,7 @@
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
-               <widget class="QWidget" name="">
+               <widget class="QWidget" name="layoutWidget">
                 <layout class="QVBoxLayout" name="verticalLayout_12">
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_2">

@@ -67,13 +67,24 @@ class Step1Plot(object):
             _data = np.array(_data)
             if self.data_type == 'sample':
                 self.parent.ui.area.setVisible(True)
-                self.parent.ui.image_view.setImage(_data)       
+                self.parent.ui.image_view.setImage(_data)
+                self.add_origin_label(self.parent.ui.image_view)
             elif self.data_type == 'ob':
                 self.parent.ui.ob_area.setVisible(True)
                 self.parent.ui.ob_image_view.setImage(_data)
+                self.add_origin_label(self.parent.ui.ob_image_view)
             elif self.data_type == 'normalized':
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
+                self.add_origin_label(self.parent.ui.normalized_image_view)
+
+    def add_origin_label(self, image_ui):
+        text_id = pg.TextItem(html="<span style='color: #FFF;'>(0,0)",
+                              anchor = (1, 1))
+
+
+        image_ui.addItem(text_id)
+        text_id.setPos(0, 0)
 
     def refresh_roi(self):
         pass
@@ -86,7 +97,6 @@ class Step1Plot(object):
             self.parent.ui.ob_image_view.clear()
         elif data_type == 'normalized':
             self.parent.ui.normalized_image_view.clear()
-        
 
     def clear_plots(self, data_type = 'sample'):
         if data_type == 'sample':
