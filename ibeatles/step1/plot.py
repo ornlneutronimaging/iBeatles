@@ -356,18 +356,20 @@ class Step1Plot(object):
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
 
             # launch bragg edge plots
-            tof_array = tof_array * 1e6
+            if tof_flag:
+                tof_array = tof_array * 1e6
+            
             dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
-                                                            lambda_array = lambda_array,
-                                                            bragg_edges = bragg_edges)
+                                                                lambda_array = lambda_array,
+                                                                bragg_edges = bragg_edges)
             x_axis= dictionary['x_axis']
             [linear_region_left, linear_region_right] = dictionary['linear_region']
-                                                
+            
             o_gui.xaxis_label()
-
+            
             lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
             lr.setZValue(-10)
-
+            
             if self.data_type == 'sample':
                 self.parent.ui.bragg_edge_plot.addItem(lr)
             elif self.data_type == 'ob':
