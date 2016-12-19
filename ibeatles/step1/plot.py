@@ -80,13 +80,28 @@ class Step1Plot(object):
 
     def add_origin_label(self, image_ui):
         # origin label
-        text_id = pg.TextItem(html="<span style='color: #FFF;'>(0,0)",
+        text_id = pg.TextItem(html="<span style='color: yellow;'>(0,0)",
                               anchor = (1, 1))
         image_ui.addItem(text_id)
-        text_id.setPos(0, 0)
+        text_id.setPos(-5, -5)
         
         # x and y arrows directions
-        #FIXME
+        y_arrow = pg.ArrowItem(angle=-90, tipAngle=35, baseAngle=0, 
+                               headLen=20, tailLen=40, tailWidth=2, pen='y', brush=None)
+        image_ui.addItem(y_arrow)
+        y_arrow.setPos(0, 65)
+        y_text = pg.TextItem(html="<span style='color: yellow;'>Y")
+        image_ui.addItem(y_text)
+        y_text.setPos(-30, 20)
+        
+        x_arrow = pg.ArrowItem(angle=180, tipAngle=35, baseAngle=0, 
+                               headLen=20, tailLen=40, tailWidth=2, pen='y', brush=None)
+        image_ui.addItem(x_arrow)
+        x_arrow.setPos(65, 0)
+        x_text = pg.TextItem(html="<span style='color: yellow;'>X")
+        image_ui.addItem(x_text)
+        x_text.setPos(20, -30)
+
 
     def refresh_roi(self):
         pass
