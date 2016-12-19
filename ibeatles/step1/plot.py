@@ -79,12 +79,14 @@ class Step1Plot(object):
                 self.add_origin_label(self.parent.ui.normalized_image_view)
 
     def add_origin_label(self, image_ui):
+        # origin label
         text_id = pg.TextItem(html="<span style='color: #FFF;'>(0,0)",
                               anchor = (1, 1))
-
-
         image_ui.addItem(text_id)
         text_id.setPos(0, 0)
+        
+        # x and y arrows directions
+        #FIXME
 
     def refresh_roi(self):
         pass
