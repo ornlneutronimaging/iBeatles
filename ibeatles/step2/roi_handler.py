@@ -123,7 +123,7 @@ class Step2RoiHandler(object):
         self.parent.list_roi['normalization'] = new_list_roi
         self.parent.list_roi_id['normalization'] = new_list_roi_id
 
-        o_gui = gui_handler.Step2GuiHandler(parent = self.parent)
+        o_gui = ibeatles.step2.gui_handler.Step2GuiHandler(parent = self.parent)
         o_gui.check_add_remove_roi_buttons()
 
     def add_roi_in_image(self):
@@ -142,7 +142,7 @@ class Step2RoiHandler(object):
 
         self.insert_row(row=nbr_row_table)
         
-        o_gui = gui_handler.Step2GuiHandler(parent = self.parent)
+        o_gui = ibeatles.step2.gui_handler.Step2GuiHandler(parent = self.parent)
         o_gui.check_add_remove_roi_buttons()    
         
     def get_item(self, text):
