@@ -294,7 +294,7 @@ class Step1Plot(object):
                     else:
                         try:
                             [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui, 
-                                                                        _index)
+                                                                                   _index)
                         except ValueError:
                             return
                     x1 = x0 + w
@@ -356,13 +356,13 @@ class Step1Plot(object):
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
 
             # launch bragg edge plots
-            if tof_flag:
-                tof_array = tof_array * 1e6
-            
-            dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
+            if tof_flag:    
+                tof_array = tof_array * 1e6 
+                
+                dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
                                                                 lambda_array = lambda_array,
                                                                 bragg_edges = bragg_edges)
-            x_axis= dictionary['x_axis']
+            x_axis= dictionary['x_axis']    
             [linear_region_left, linear_region_right] = dictionary['linear_region']
             
             o_gui.xaxis_label()
@@ -417,6 +417,8 @@ class Step1Plot(object):
             o_gui = GuiHandler(parent = self.parent)
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
         
+            first_index = True
+        
             for _key in bragg_edges.keys():
                 _bragg_edge = bragg_edges[_key]
                 if _bragg_edge == []:
@@ -433,15 +435,20 @@ class Step1Plot(object):
                     linear_region_right = tof_array[linear_region_right]
 
                 else: #lambda
-                    lambda_array = lambda_array * 1e10
+                    
+                    if first_index:
+                        lambda_array = lambda_array * 1e10
+                        
                     curve = plot_ui.plot(lambda_array, _bragg_edge, pen=pen_color[_key])
                     x_axis = lambda_array
                     linear_region_left = lambda_array[linear_region_left]
                     linear_region_right = lambda_array[linear_region_right]
 
-                    self.display_selected_element_bragg_edges(plot_ui = plot_ui, 
-                                                              lambda_range=[lambda_array[0], lambda_array[-1]],
-                                                              ymax = np.max(_bragg_edge))
+                    if first_index:
+                        self.display_selected_element_bragg_edges(plot_ui = plot_ui, 
+                                                                  lambda_range=[lambda_array[0], lambda_array[-1]],
+                                                                  ymax = np.max(_bragg_edge))
+                        first_index = False
     
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
