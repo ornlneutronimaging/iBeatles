@@ -101,7 +101,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 'roi': None,
                 'bragg_edge_plot': None,
                 'normalized_profile_plot': None,
-                'caxis': None}
+                'caxis': None,
+                'xaxis_tof': None,
+                'xaxis_lambda': None,
+                'xaxis_file_index': None}
     
     xaxis_button_ui = {'sample': {'file_index': None,
                                   'tof': None,
@@ -557,14 +560,23 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         pass
     
     def step2_file_index_radio_button_clicked(self):
-        pass
-    
+        o_plot = Step2Plot(parent = self)
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
+        o_plot.display_roi()
+
     def step2_tof_radio_button_clicked(self):
-        pass
+        o_plot = Step2Plot(parent = self)
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
+        o_plot.display_roi()
     
     def step2_lambda_radio_button_clicked(self):
-        pass
-    
+        o_plot = Step2Plot(parent = self)
+        o_normalization = Normalization(parent=self)
+        o_normalization.run()
+        o_plot.display_roi()
+
     def normalization_tableWidget_cell_changed(self, row, col):
         o_roi = Step2RoiHandler(parent = self)
         o_roi.save_table()

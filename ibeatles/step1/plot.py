@@ -390,6 +390,7 @@ class Step1Plot(object):
         linear_region_right = list_files_selected[-1]
 
         x_axis = []
+        plot_ui.setLabel("left", "Total Counts")
 
         if tof_array == []:
             

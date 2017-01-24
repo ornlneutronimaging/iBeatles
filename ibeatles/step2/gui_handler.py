@@ -127,6 +127,9 @@ class Step2GuiHandler(object):
         self.parent.step2_ui['bragg_edge_plot'] = bragg_edge_plot
         #self.parent.step2_ui['normalized_profile_plot'] = normalized_profile_plot
         self.parent.step2_ui['caxis'] = caxis
+        self.parent.step2_ui['xaxis_file_index'] = file_index_button
+        self.parent.step2_ui['xaxis_lambda'] = lambda_button
+        self.parent.step2_ui['xaxis_tof'] = tof_button
 
     def check_add_remove_roi_buttons(self):
         nbr_row = self.parent.ui.normalization_tableWidget.rowCount()

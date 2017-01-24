@@ -85,4 +85,12 @@ class GuiHandler(object):
             return ''
         return str(ui.currentText())
         
-        
+    def get_step2_xaxis_checked(self):
+        step2_ui = self.parent.step2_ui
+        if step2_ui['xaxis_file_index'].isChecked():
+            return 'file_index'
+        elif step2_ui['xaxis_tof'].isChecked():
+            return 'tof'
+        else:
+            return 'lambda'
+             

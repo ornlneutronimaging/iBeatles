@@ -6,6 +6,7 @@ from PyQt4 import QtGui, QtCore
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.roi_handler import RoiHandler
+from ibeatles.utilities.gui_handler import GuiHandler
 
 
 class CustomAxis(pg.AxisItem):
@@ -112,8 +113,22 @@ class Step2Plot(object):
        
             _array_sample_vs_file_index = data
             
-        self.parent.step2_ui['bragg_edge_plot'].clear()
-        self.parent.step2_ui['bragg_edge_plot'].plot(_array_sample_vs_file_index)
+        _plot_ui = self.parent.step2_ui['bragg_edge_plot']
+        _plot_ui.clear()
+        
+        o_gui = GuiHandler(parent = self.parent)
+        xaxis_choice = o_gui.get_step2_xaxis_checked()
+        
+        if xaxis_choice == 'file_index':
+            _plot_ui.plot(_array_sample_vs_file_index)
+            _plot_ui.setLabel("bottom", "File Index")
+        elif xaxis_choice == 'tof':
+            _plot_ui.setLabel("bottom", u"TOF (\u00B5s)")
+        else:
+            _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
+
+        # labels
+        _plot_ui.setLabel("left", "ROI Mean Counts")
         
         # display range of file to keep
         lr = pg.LinearRegionItem(values=[0, len(_array_sample_vs_file_index)-1], orientation=None, brush=None, 
