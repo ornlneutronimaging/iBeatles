@@ -102,10 +102,8 @@ class Step1Plot(object):
         image_ui.addItem(x_text)
         x_text.setPos(20, -30)
 
-
     def refresh_roi(self):
         pass
-
 
     def clear_image(self, data_type='sample'):
         if data_type == 'sample':

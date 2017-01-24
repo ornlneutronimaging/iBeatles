@@ -37,7 +37,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1493</width>
+         <width>1508</width>
          <height>950</height>
         </rect>
        </property>
@@ -97,8 +97,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1368</width>
-                      <height>375</height>
+                      <width>1383</width>
+                      <height>369</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>143</width>
-                      <height>146</height>
+                      <width>147</width>
+                      <height>147</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -1179,46 +1179,6 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QFrame" name="frame">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>150</height>
-                   </size>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_18">
-                   <item>
-                    <widget class="QLabel" name="normalization_formula">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>100</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>TextLabel</string>
-                     </property>
-                     <property name="alignment">
-                      <set>Qt::AlignCenter</set>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
                  <spacer name="verticalSpacer_5">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
@@ -2120,8 +2080,8 @@
    <slot>open_beam_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>145</x>
-     <y>179</y>
+     <x>161</x>
+     <y>122</y>
     </hint>
     <hint type="destinationlabel">
      <x>910</x>
@@ -2152,8 +2112,8 @@
    <slot>open_beam_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>269</x>
-     <y>306</y>
+     <x>161</x>
+     <y>122</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2264,7 +2224,7 @@
    <slot>crystal_structure_2_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>911</x>
+     <x>898</x>
      <y>765</y>
     </hint>
     <hint type="destinationlabel">
@@ -2280,7 +2240,7 @@
    <slot>lattice_2_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>983</x>
+     <x>970</x>
      <y>719</y>
     </hint>
     <hint type="destinationlabel">
@@ -2328,7 +2288,7 @@
    <slot>material_display_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1010</x>
+     <x>991</x>
      <y>604</y>
     </hint>
     <hint type="destinationlabel">
@@ -2360,7 +2320,7 @@
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1318</x>
+     <x>1293</x>
      <y>469</y>
     </hint>
     <hint type="destinationlabel">
@@ -2568,7 +2528,7 @@
    <slot>add_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1296</x>
+     <x>1271</x>
      <y>684</y>
     </hint>
     <hint type="destinationlabel">
@@ -2616,8 +2576,8 @@
    <slot>reset_lattice_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1021</x>
-     <y>715</y>
+     <x>1017</x>
+     <y>720</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2632,8 +2592,8 @@
    <slot>reset_crystal_structure_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>926</x>
-     <y>753</y>
+     <x>923</x>
+     <y>763</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>

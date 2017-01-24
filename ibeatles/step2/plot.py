@@ -114,6 +114,13 @@ class Step2Plot(object):
             
         self.parent.step2_ui['bragg_edge_plot'].clear()
         self.parent.step2_ui['bragg_edge_plot'].plot(_array_sample_vs_file_index)
+        
+        # display range of file to keep
+        lr = pg.LinearRegionItem(values=[0, len(_array_sample_vs_file_index)-1], orientation=None, brush=None, 
+                                movable=True, 
+                                bounds=None)
+        lr.setZValue(-10)
+        self.parent.step2_ui['bragg_edge_plot'].addItem(lr)
 
     def calculate_mean_counts(self, data, list_roi=[]):
         if data == []:

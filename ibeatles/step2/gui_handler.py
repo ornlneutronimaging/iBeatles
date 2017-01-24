@@ -84,7 +84,39 @@ class Step2GuiHandler(object):
         caxis.linkToView(p1.vb)
         p1.layout.addItem(caxis, 1, 1)
     
+        #add file_index, TOF, Lambda x-axis buttons
+        hori_layout = QtGui.QHBoxLayout()
+        button_widgets = QtGui.QWidget()
+        button_widgets.setLayout(hori_layout)
+    
+        #file index
+        file_index_button = QtGui.QRadioButton()
+        file_index_button.setText("File Index")
+        file_index_button.setChecked(True)
+        self.parent.connect(file_index_button, QtCore.SIGNAL("clicked()"), 
+                            self.parent.step2_file_index_radio_button_clicked)
+    
+        #tof
+        tof_button = QtGui.QRadioButton()
+        tof_button.setText("TOF")
+        self.parent.connect(tof_button, QtCore.SIGNAL("clicked()"), 
+                            self.parent.step2_tof_radio_button_clicked)
+    
+        #lambda
+        lambda_button = QtGui.QRadioButton()
+        lambda_button.setText(u"\u03BB")
+        self.parent.connect(lambda_button, QtCore.SIGNAL("clicked()"), 
+                            self.parent.step2_lambda_radio_button_clicked)
+        
+        spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        hori_layout.addItem(spacer)
+        hori_layout.addWidget(file_index_button)
+        hori_layout.addWidget(tof_button)
+        hori_layout.addWidget(lambda_button)
+        hori_layout.addItem(spacer)
+    
         d2.addWidget(bragg_edge_plot)
+        d2.addWidget(button_widgets)
     
         vertical_layout.addWidget(area)
         self.parent.ui.normalization_left_widget.setLayout(vertical_layout)

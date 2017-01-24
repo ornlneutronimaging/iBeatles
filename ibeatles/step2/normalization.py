@@ -14,7 +14,7 @@ class Normalization(object):
     def run(self):
         _data = self.parent.data_metadata['sample']['data']
         _ob = self.parent.data_metadata['ob']['data']
-        
+                
         # no data, nothing to do
         if _data == []:
             return

@@ -97,9 +97,7 @@ class Step2RoiHandler(object):
             
             list_roi[_index] = _roi
             
-#        print("in Step2RoiHandler.save_roi")
         self.parent.list_roi['normalization'] = list_roi
-#        print(self.parent.list_roi['normalization'])
         
     def remove_roi(self):
         selection = self.parent.ui.normalization_tableWidget.selectedRanges()
