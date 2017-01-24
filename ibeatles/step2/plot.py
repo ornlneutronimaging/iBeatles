@@ -120,11 +120,20 @@ class Step2Plot(object):
         xaxis_choice = o_gui.get_step2_xaxis_checked()
         
         if xaxis_choice == 'file_index':
-            _plot_ui.plot(_array_sample_vs_file_index)
+            x_axis = np.arange(len(_array_sample_vs_file_index))
+            curve = _plot_ui.plot(_array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", "File Index")
+
         elif xaxis_choice == 'tof':
+            tof_array = self.parent.data_metadata['time_spectra']['data']
+            tof_array = tof_array * 1e6 
+            curve = _plot_ui.plot(tof_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u"TOF (\u00B5s)")
+
         else:
+            lambda_array = self.parent.data_metadata['time_spectra']['lambda']
+            lambda_array = lambda_array * 1e10   
+            curve = _plot_ui.plot(lambda_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
 
         # labels

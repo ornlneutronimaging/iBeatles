@@ -206,6 +206,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         if tab_selected == 1: #normalization
             o_gui = Step2GuiHandler(parent = self)
             o_gui.update_widgets()
+            time_spectra_data = self.data_metadata['time_spectra']['data']
+            if time_spectra_data == []:
+                o_gui.enable_xaxis_button(tof_flag=False)
+            else:
+                o_gui.enable_xaxis_button(tof_flag=True)
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
