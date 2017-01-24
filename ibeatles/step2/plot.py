@@ -64,7 +64,7 @@ class Step2Plot(object):
         self.ob = ob
         self.normalization = normalization
         self.normalized = normalized
-
+        
     def clear_image(self):
         self.parent.step2_ui['image_view'].clear()
         
@@ -203,7 +203,7 @@ class Step2Plot(object):
             
     def update_row(self, row_index, roi_array):
         [status_row, x0, y0, width, height, mean_counts] = roi_array
-
+        
         # button
         _widget = self.parent.ui.normalization_tableWidget.cellWidget(row_index, 0)
         _widget.setChecked(status_row)

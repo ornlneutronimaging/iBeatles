@@ -97,8 +97,10 @@ class Step2RoiHandler(object):
             
             list_roi[_index] = _roi
             
+#        print("in Step2RoiHandler.save_roi")
         self.parent.list_roi['normalization'] = list_roi
-
+#        print(self.parent.list_roi['normalization'])
+        
     def remove_roi(self):
         selection = self.parent.ui.normalization_tableWidget.selectedRanges()
         if selection == []:
@@ -127,7 +129,7 @@ class Step2RoiHandler(object):
         o_gui.check_add_remove_roi_buttons()
 
     def add_roi_in_image(self):
-        roi = pg.ROI([0,0],[1,1])
+        roi = pg.ROI([0,0],[20,20])
         roi.addScaleHandle([1,1],[0,0])
         roi.sigRegionChangeFinished.connect(self.parent.normalization_manual_roi_changed)
         self.parent.step2_ui['image_view'].addItem(roi)

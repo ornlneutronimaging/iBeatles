@@ -505,6 +505,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     def normalization_manual_roi_changed(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        QApplication.processEvents()
         o_roi = Step2RoiHandler(parent = self)
         o_roi.save_roi()
         o_plot = Step2Plot(parent = self)
