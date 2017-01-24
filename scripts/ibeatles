@@ -505,13 +505,14 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     def normalization_manual_roi_changed(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        QApplication.processEvents()
+        self.ui.normalization_tableWidget.blockSignals(True)
         o_roi = Step2RoiHandler(parent = self)
         o_roi.save_roi()
         o_plot = Step2Plot(parent = self)
         o_plot.update_roi_table()
         o_normalization = Normalization(parent=self)
         o_normalization.run()
+        self.ui.normalization_tableWidget.blockSignals(False)
         QApplication.restoreOverrideCursor()
     
     def normalization_row_status_changed(self):
@@ -548,6 +549,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         pass
     
     def normalization_tableWidget_cell_changed(self, row, col):
+        print("in noramlization tableWidget cell changed")
         o_roi = Step2RoiHandler(parent = self)
         o_roi.save_table()
         o_plot = Step2Plot(parent = self)
