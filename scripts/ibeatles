@@ -39,6 +39,8 @@ from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandle
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.add_element_editor import AddElement
 
+from ibeatles.utilities.array_utilities import find_nearest_index
+
 
 class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     """ Main FastGR window
@@ -94,7 +96,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     current_bragg_edge_x_axis = {'sample': [],
                                  'ob': [],
-                                 'normalized': []}
+                                 'normalized': [],
+                                 'normalization': []}
     
     step2_ui = {'area': None,
                 'image_view': None,
@@ -104,7 +107,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 'caxis': None,
                 'xaxis_tof': None,
                 'xaxis_lambda': None,
-                'xaxis_file_index': None}
+                'xaxis_file_index': None,
+                'bragg_edge_selection': None}
     
     xaxis_button_ui = {'sample': {'file_index': None,
                                   'tof': None,
@@ -589,6 +593,13 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_normalization = Normalization(parent=self)
         o_normalization.run()
         o_plot.display_roi()
+        
+    def step2_bragg_edge_selection_changed(self):
+        lr = self.parent.bragg_edge_selection
+        selection = list(lr.getRegion())
+        x_axis = self.parent.current_bragg_edge_x_axis['normalization']
+        left_index = find_nearest_index(array = x_axis, value=selection[0])
+        right_index = find_nearest_index(array = x_axis, value=selection[1])
 
     #TAB 3: Normalized Data Tab
     

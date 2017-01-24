@@ -143,8 +143,11 @@ class Step2Plot(object):
         lr = pg.LinearRegionItem(values=[0, len(_array_sample_vs_file_index)-1], orientation=None, brush=None, 
                                 movable=True, 
                                 bounds=None)
+        lr.sigRegionChangeFinished.connect(self.parent.step2_bragg_edge_selection_changed)
         lr.setZValue(-10)
         self.parent.step2_ui['bragg_edge_plot'].addItem(lr)
+        self.parent.bragg_edge_selection = lr
+        self.parent.current_bragg_edge_x_axis['normalization'] = x_axis
 
     def calculate_mean_counts(self, data, list_roi=[]):
         if data == []:
