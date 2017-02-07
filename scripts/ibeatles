@@ -595,11 +595,13 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_plot.display_roi()
         
     def step2_bragg_edge_selection_changed(self):
-        lr = self.parent.bragg_edge_selection
+        lr = self.bragg_edge_selection
         selection = list(lr.getRegion())
-        x_axis = self.parent.current_bragg_edge_x_axis['normalization']
+        x_axis = self.current_bragg_edge_x_axis['normalization']
         left_index = find_nearest_index(array = x_axis, value=selection[0])
         right_index = find_nearest_index(array = x_axis, value=selection[1])
+
+
 
     #TAB 3: Normalized Data Tab
     

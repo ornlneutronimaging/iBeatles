@@ -129,12 +129,13 @@ class Step2Plot(object):
             tof_array = tof_array * 1e6 
             curve = _plot_ui.plot(tof_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u"TOF (\u00B5s)")
-
+            x_axis = tof_array
         else:
             lambda_array = self.parent.data_metadata['time_spectra']['lambda']
             lambda_array = lambda_array * 1e10   
             curve = _plot_ui.plot(lambda_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
+            x_axis = lambda_array
 
         # labels
         _plot_ui.setLabel("left", "ROI Mean Counts")

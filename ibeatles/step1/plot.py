@@ -354,12 +354,12 @@ class Step1Plot(object):
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
 
             # launch bragg edge plots
-            if tof_flag:    
-                tof_array = tof_array * 1e6 
+            #if tof_flag:    
+            #    tof_array = tof_array * 1e6 
                 
-                dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
-                                                                lambda_array = lambda_array,
-                                                                bragg_edges = bragg_edges)
+            dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
+                                                            lambda_array = lambda_array,
+                                                            bragg_edges = bragg_edges)
             x_axis= dictionary['x_axis']    
             [linear_region_left, linear_region_right] = dictionary['linear_region']
             
@@ -377,7 +377,9 @@ class Step1Plot(object):
                 
             lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_selection_changed)
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
-            self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis            
+    
+            if tof_flag:
+                self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis            
 
     def display_images_and_bragg_edge(self, tof_array=[], lambda_array=[], bragg_edges=[]):
         
@@ -413,6 +415,8 @@ class Step1Plot(object):
 
         else:
             
+            tof_array = tof_array * 1e6 
+
             o_gui = GuiHandler(parent = self.parent)
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
         

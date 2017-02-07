@@ -45,7 +45,19 @@ class ImageHandler(object):
             elif self.data_type == 'fits':
                 self.get_fits_data()
                 
+            self.cleanup_data()
+                
         return self.data
+
+    def cleanup_data(self):
+        _data = self.data
+        
+        where_are_nan = np.isnan(_data)
+        _data[where_are_nan] = 0
+
+        where_are_inf = np.isinf(_data)
+        _data[where_are_inf] = 0
+        self.data = _data
 
     def get_metadata(self, selected_infos_dict={}):
         if self.data == []:
