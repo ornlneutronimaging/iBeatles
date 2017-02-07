@@ -203,6 +203,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                            'ob': [],
                            'normalized': [],
                            'time_spectra': []}
+        
+        self.range_files_to_normalized_step2 = {'file_index': [],
+                                                'tof': [],
+                                                'lambda': []}
 
     #TAB 1, 2 and 3
 
@@ -600,8 +604,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         x_axis = self.current_bragg_edge_x_axis['normalization']
         left_index = find_nearest_index(array = x_axis, value=selection[0])
         right_index = find_nearest_index(array = x_axis, value=selection[1])
-
-
+        
+        o_gui = GuiHandler(parent = self)
+        xaxis_choice = o_gui.get_step2_xaxis_checked()
+        if xaxis_choice == 'file_index':
+            self.range_files_to_normalized_step2['file_index'] = [left_index, right_index]
+        elif xaxis_choice == 'lambda':
+            self.range_files_to_normalized_step2['lambda'] = [left_index, right_index]
+        else:
+            self.range_files_to_normalized_step2['tof'] = [left_index, right_index]
 
     #TAB 3: Normalized Data Tab
     
