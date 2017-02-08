@@ -1,5 +1,6 @@
 import os
 import pyfits
+import numpy as np
 
 
 class FileHandler(object):
@@ -50,3 +51,22 @@ class FileHandler(object):
         hdulist = pyfits.HDUList([hdu])
         hdulist.writeto(filename)
         hdulist.close()    
+        
+    @classmethod
+    def make_ascii_file(cls, metadata=[], data=[], output_file_name=''):
+        f = open(output_file_name, 'w')
+        for _meta in metadata:
+            _line = _meta + "\n"
+            f.write(_line)
+            
+        if len(np.shape(data)) > 1:
+            for _data in data:
+                _str_data = [str(_value) for _value in _data]
+                _line = ",".join(_str_data) + "\n"
+                f.write(_line)
+        else:
+            _str_data = [str(_value) + "\n" for _value in data]
+            for _data in _str_data:
+                f.write(_data)
+           
+        f.close()    

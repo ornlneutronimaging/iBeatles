@@ -62,6 +62,13 @@ class Normalization(object):
         array_coeff = self.coeff_array
         array_coeff = array_coeff[range_to_normalize[0]: range_to_normalize[1]+1]
         
+        # tof array
+        tof_array = self.parent.data_metadata['time_spectra']['data']
+        tof_array = tof_array[range_to_normalize[0]: range_to_normalize[1]+1]
+        short_tof_file_name = '{}_Spectra.txt'.format(base_folder_name)
+        tof_file_name = os.path.join(output_folder, short_tof_file_name)
+        FileHandler.make_ascii_file(data=tof_array, output_file_name=tof_file_name)
+        
         # progress bar
         self.parent.eventProgress.setMinimum(0)
         self.parent.eventProgress.setMaximum(len(list_samples_names)-1)
