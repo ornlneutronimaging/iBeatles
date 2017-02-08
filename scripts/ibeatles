@@ -119,6 +119,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                        'normalized': {'file_index': None,
                                       'tof': None,
                                       'lambda': None},
+                       'normalization': {'file_index': None,
+                                         'tof': None,
+                                         'lambda': None},
                        }
     
     # use to display lable that illustrate normalization process in tab2
@@ -177,6 +180,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.ob_folder = current_folder
         self.normalized_folder = current_folder
         self.time_spectra_folder = current_folder
+        self.time_spectra_normalized_folder = current_folder
     
         self.data_metadata = {'sample': {'title': "Select folder or list of files",
                                          'list_widget_ui': self.ui.list_sample,
@@ -195,9 +199,12 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                               'normalization': {'data': []},
                               'time_spectra': {'title': 'Select file',
                                                'folder': current_folder,
+                                               'normalized_folder': current_folder,
                                                'general_infos': None,
                                                'data': [],
-                                               'lambda': []}}
+                                               'lambda': [],
+                                               'normalized_data': [],
+                                               'normalized_lambda': []}}
         
         self.data_files = {'sample': [],
                            'ob': [],
@@ -610,6 +617,16 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
    
     #TAB 3: Normalized Data Tab
     
+    def normalized_time_spectra_import_button_clicked(self):
+        o_load = DataHandler(parent = self, data_type='normalized')
+        o_load.retrieve_time_spectra(auto_load = False)
+#        o_gui = Step1GuiHandler(parent = self)
+#        o_gui.check_time_spectra_widgets()
+
+    def normalized_time_spectra_preview_button_clicked(self):
+        o_time_spectra = TimeSpectraHandler(parent = self, normalized_tab=True)
+        o_time_spectra.display()
+
     def normalized_import_button_clicked(self):
         self.loading_flag = True
         o_load = DataHandler(parent = self)

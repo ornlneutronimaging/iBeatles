@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>147</width>
-                      <height>147</height>
+                      <width>1383</width>
+                      <height>369</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -2080,8 +2080,8 @@
    <slot>open_beam_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>161</x>
-     <y>122</y>
+     <x>159</x>
+     <y>125</y>
     </hint>
     <hint type="destinationlabel">
      <x>910</x>
@@ -2112,8 +2112,8 @@
    <slot>open_beam_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>161</x>
-     <y>122</y>
+     <x>178</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2301,7 +2301,7 @@
    <sender>import_time_spectra_button_2</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>time_spectra_import_button_clicked()</slot>
+   <slot>normalized_time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>160</x>
@@ -2317,7 +2317,7 @@
    <sender>preview_time_spectra_button_2</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>time_spectra_preview_button_clicked()</slot>
+   <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1293</x>
@@ -2337,7 +2337,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1209</x>
-     <y>540</y>
+     <y>700</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2353,7 +2353,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1177</x>
-     <y>540</y>
+     <y>700</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2642,5 +2642,7 @@
   <slot>reset_crystal_structure_button_clicked()</slot>
   <slot>reset_lattice_button_2_clicked()</slot>
   <slot>reset_crystal_structure_button_2_clicked()</slot>
+  <slot>normalized_time_spectra_import_button_clicked()</slot>
+  <slot>normalized_time_spectra_preview_button_clicked()</slot>
  </slots>
 </ui>

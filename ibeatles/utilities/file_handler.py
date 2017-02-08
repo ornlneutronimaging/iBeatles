@@ -53,7 +53,7 @@ class FileHandler(object):
         hdulist.close()    
         
     @classmethod
-    def make_ascii_file(cls, metadata=[], data=[], output_file_name=''):
+    def make_ascii_file(cls, metadata=[], data=[], output_file_name='', sep=','):
         f = open(output_file_name, 'w')
         for _meta in metadata:
             _line = _meta + "\n"
@@ -62,7 +62,7 @@ class FileHandler(object):
         if len(np.shape(data)) > 1:
             for _data in data:
                 _str_data = [str(_value) for _value in _data]
-                _line = ",".join(_str_data) + "\n"
+                _line = sep.join(_str_data) + "\n"
                 f.write(_line)
         else:
             _str_data = [str(_value) + "\n" for _value in data]

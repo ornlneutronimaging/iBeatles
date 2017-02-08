@@ -20,9 +20,9 @@ class DataHandler(object):
     
     user_canceled = False
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, data_type='sample'):
         self.parent = parent
-
+        self.data_type = data_type
 
         self.list_ui = {'sample': {'list': self.parent.ui.list_sample,
                                    'folder': self.parent.ui.sample_folder},
@@ -100,7 +100,10 @@ class DataHandler(object):
                     self.list_ui['time_spectra']['folder2'].setText(folder_name)
                         
         else:
-            folder = self.parent.data_metadata['time_spectra']['folder']
+            if self.data_type == 'sample':
+                folder = self.parent.data_metadata['time_spectra']['folder']
+            else:
+                folder = self.parent.data_metadata['time_spectra']['normalized_folder']
             time_spectra_name_format = '*_Spectra.txt'
             file_name = str(QFileDialog.getOpenFileName(caption = "Select the Time Spectra File",
                                                           directory = folder,
@@ -113,10 +116,12 @@ class DataHandler(object):
                 if self.data_type == 'sample':
                     self.list_ui['time_spectra']['text'].setText(base_file_name)
                     self.list_ui['time_spectra']['folder'].setText(folder_name)
+                    self.parent.data_metadata['time_spectra']['folder'] = folder_name
                 elif self.data_type == 'normalized':
                     self.list_ui['time_spectra']['text2'].setText(base_file_name)
                     self.list_ui['time_spectra']['folder2'].setText(folder_name)
-                
+                    self.parent.data_metadata['time_spectra']['normalized_folder'] = folder_name
+                    self.parent.time_spectra_normalized_folder = os.path.dirname(file_name)
         
     def load_directory(self, folder):
         list_files = glob.glob(folder + '/*.*')

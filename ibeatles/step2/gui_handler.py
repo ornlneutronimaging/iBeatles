@@ -130,6 +130,11 @@ class Step2GuiHandler(object):
         self.parent.step2_ui['xaxis_file_index'] = file_index_button
         self.parent.step2_ui['xaxis_lambda'] = lambda_button
         self.parent.step2_ui['xaxis_tof'] = tof_button
+        
+        self.parent.xaxis_button_ui['normalized']['tof'] = tof_button
+        self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button
+        self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button
+        
 
     def check_add_remove_roi_buttons(self):
         nbr_row = self.parent.ui.normalization_tableWidget.rowCount()

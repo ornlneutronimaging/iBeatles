@@ -7,6 +7,7 @@ import numpy as np
 from ibeatles.step2.roi_handler import Step2RoiHandler
 from ibeatles.step2.plot import Step2Plot
 from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
 
 class Normalization(object):
@@ -39,6 +40,7 @@ class Normalization(object):
     def normalize_full_set(self, output_folder='', base_folder_name=''):
         
         output_folder = os.path.join(output_folder, base_folder_name + '_normalized')
+        self.parent.time_spectra_normalized_folder  = output_folder
         if os.path.exists(output_folder):
             # if folder does exist already, we first remove it
             shutil.rmtree(output_folder)
@@ -67,8 +69,19 @@ class Normalization(object):
         tof_array = tof_array[range_to_normalize[0]: range_to_normalize[1]+1]
         short_tof_file_name = '{}_Spectra.txt'.format(base_folder_name)
         tof_file_name = os.path.join(output_folder, short_tof_file_name)
-        FileHandler.make_ascii_file(data=tof_array, output_file_name=tof_file_name)
+        tof_array = list(zip(tof_array, np.arange(len(tof_array))))
+        FileHandler.make_ascii_file(data=tof_array, output_file_name=tof_file_name, sep='\t')
+        self.parent.ui.time_spectra_folder_2.setText(os.path.basename(output_folder))
+        self.parent.ui.time_spectra_2.setText(short_tof_file_name)
         
+        o_time_handler = TimeSpectraHandler(parent = self.parent, normalized_tab=True)
+        o_time_handler.load()
+        o_time_handler.calculate_lambda_scale()
+        tof_array = o_time_handler.tof_array
+        lambda_array = o_time_handler.lambda_array
+        self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
+        self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
+
         # progress bar
         self.parent.eventProgress.setMinimum(0)
         self.parent.eventProgress.setMaximum(len(list_samples_names)-1)

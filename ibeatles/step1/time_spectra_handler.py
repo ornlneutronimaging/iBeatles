@@ -25,13 +25,19 @@ class TimeSpectraHandler(object):
     counts_array  = []
     full_file_name = ''
     
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, normalized_tab=False):
         self.tof_array = []
         self.parent = parent
-        self.short_file_name = str(self.parent.ui.time_spectra.text())
-        self.full_file_name = os.path.join(self.parent.time_spectra_folder,
-                                           str(self.parent.ui.time_spectra_folder.text()),
-                                           str(self.parent.ui.time_spectra.text()))
+
+        if normalized_tab:
+            self.short_file_name = str(self.parent.ui.time_spectra_2.text())
+            self.full_file_name = os.path.join(self.parent.time_spectra_normalized_folder ,
+                                               self.short_file_name)
+        else:
+            self.short_file_name = str(self.parent.ui.time_spectra.text())
+            self.full_file_name = os.path.join(self.parent.time_spectra_folder,
+                                               str(self.parent.ui.time_spectra_folder.text()),
+                                               str(self.parent.ui.time_spectra.text()))
         
     def load(self):
         if os.path.isfile(self.full_file_name):
