@@ -123,11 +123,6 @@ class Step2Plot(object):
             x_axis = np.arange(len(_array_sample_vs_file_index))
             curve = _plot_ui.plot(_array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", "File Index")
-            #if self.parent.range_files_to_normalized_step2['file_index'] == []:
-                #_range_files_to_normalized_step2 = [0, x_axis[-1]]
-                #self.parent.range_files_to_normalized_step2['file_index'] = _range_files_to_normalized_step2
-            #else:
-                #_range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['file_index']
 
         elif xaxis_choice == 'tof':
             tof_array = self.parent.data_metadata['time_spectra']['data']
@@ -135,11 +130,6 @@ class Step2Plot(object):
             curve = _plot_ui.plot(tof_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u"TOF (\u00B5s)")
             x_axis = tof_array
-            #if self.parent.range_files_to_normalized_step2['tof'] == []:
-                #_range_files_to_normalized_step2 = [tof_array[0], tof_array[-1]]
-                #self.parent.range_files_to_normalized_step2['tof'] = _range_files_to_normalized_step2 
-            #else:
-                #_range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['tof']
 
         else:
             lambda_array = self.parent.data_metadata['time_spectra']['lambda']
@@ -148,12 +138,6 @@ class Step2Plot(object):
             _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
             x_axis = lambda_array
             
-            #if self.parent.range_files_to_normalized_step2['lambda'] == []:
-                #_range_files_to_normalized_step2 = [lambda_array[0], lambda_array[-1]]
-                #self.parent.range_files_to_normalized_step2['lambda'] = _range_files_to_normalized_step2 
-            #else:
-                #_range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['lambda']
-
         if self.parent.range_files_to_normalized_step2['file_index'] == []:
             _range_files_to_normalized_step2 = [0, x_axis[-1]]
             self.parent.range_files_to_normalized_step2['file_index'] = _range_files_to_normalized_step2
@@ -161,7 +145,7 @@ class Step2Plot(object):
             _range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['file_index']
             
         # labels
-        _plot_ui.setLabel("left", "ROI Mean Counts")
+        _plot_ui.setLabel("left", "OB/Sample of ROI")
         
         # display range of file to keep
         

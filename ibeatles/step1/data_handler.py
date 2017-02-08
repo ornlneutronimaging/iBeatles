@@ -85,15 +85,19 @@ class DataHandler(object):
             else:
                 folder = self.parent.data_metadata['normalized']['folder']
             o_time_spectra = LoadTimeSpectra(folder = folder, auto_load=auto_load)
+
             if o_time_spectra.file_found:
                 time_spectra = o_time_spectra.time_spectra
                 # save path   #FIXME
                 base_time_spectra = FileHandler.get_base_filename(time_spectra)
-                self.list_ui['time_spectra']['text'].setText(base_time_spectra)
-                self.list_ui['time_spectra']['text2'].setText(base_time_spectra)
                 folder_name = FileHandler.get_parent_folder(time_spectra)
-                self.list_ui['time_spectra']['folder'].setText(folder_name)
-                self.list_ui['time_spectra']['folder2'].setText(folder_name)
+                
+                if self.data_type == 'sample':
+                    self.list_ui['time_spectra']['text'].setText(base_time_spectra)
+                    self.list_ui['time_spectra']['folder'].setText(folder_name)
+                elif self.data_type == 'normalized':
+                    self.list_ui['time_spectra']['text2'].setText(base_time_spectra)
+                    self.list_ui['time_spectra']['folder2'].setText(folder_name)
                         
         else:
             folder = self.parent.data_metadata['time_spectra']['folder']
@@ -103,12 +107,15 @@ class DataHandler(object):
                                                           filter = "Txt ({});;All (*.*)".format(time_spectra_name_format)))
 
             if file_name:
-                base_file_name = FileHandler.get_base_filename(file_name)
-                self.list_ui['time_spectra']['text'].setText(base_file_name)
-                self.list_ui['time_spectra']['text2'].setText(base_file_name)
                 folder_name = FileHandler.get_parent_folder(file_name)
-                self.list_ui['time_spectra']['folder'].setText(folder_name)
-                self.list_ui['time_spectra']['folder2'].setText(folder_name)
+                base_file_name = FileHandler.get_base_filename(file_name)
+
+                if self.data_type == 'sample':
+                    self.list_ui['time_spectra']['text'].setText(base_file_name)
+                    self.list_ui['time_spectra']['folder'].setText(folder_name)
+                elif self.data_type == 'normalized':
+                    self.list_ui['time_spectra']['text2'].setText(base_file_name)
+                    self.list_ui['time_spectra']['folder2'].setText(folder_name)
                 
         
     def load_directory(self, folder):

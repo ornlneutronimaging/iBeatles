@@ -570,7 +570,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         print("run scaling coefficient validated")
 
     def normalization_button_clicked(self):
-        pass
+        o_norm = Normalization(parent=self)
+        o_norm.run_and_export()
     
     def step2_file_index_radio_button_clicked(self):
         o_plot = Step2Plot(parent = self)
@@ -606,16 +607,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         left_index = find_nearest_index(array = x_axis, value=selection[0])
         right_index = find_nearest_index(array = x_axis, value=selection[1])
         self.range_files_to_normalized_step2['file_index'] = [left_index, right_index]
-        
-        #o_gui = GuiHandler(parent = self)
-        #xaxis_choice = o_gui.get_step2_xaxis_checked()
-        #if xaxis_choice == 'file_index':
-            #self.range_files_to_normalized_step2['file_index'] = [left_index, right_index]
-        #elif xaxis_choice == 'lambda':
-            #self.range_files_to_normalized_step2['lambda'] = [left_index, right_index]
-        #else:
-            #self.range_files_to_normalized_step2['tof'] = [left_index, right_index]
-
+   
     #TAB 3: Normalized Data Tab
     
     def normalized_import_button_clicked(self):

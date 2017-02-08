@@ -151,7 +151,7 @@ class Step2GuiHandler(object):
                 _status = False
             else:
                 _status = True
-        self.parent.ui.normalization_button.setChecked(_status)
+        self.parent.ui.normalization_button.setEnabled(_status)
         
     def enable_xaxis_button(self, tof_flag=True):
         list_ui = [self.parent.step2_ui['xaxis_file_index'],
