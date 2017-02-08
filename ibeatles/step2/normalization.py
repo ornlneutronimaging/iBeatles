@@ -63,24 +63,6 @@ class Normalization(object):
 
         array_coeff = self.coeff_array
         array_coeff = array_coeff[range_to_normalize[0]: range_to_normalize[1]+1]
-        
-        # tof array
-        tof_array = self.parent.data_metadata['time_spectra']['data']
-        tof_array = tof_array[range_to_normalize[0]: range_to_normalize[1]+1]
-        short_tof_file_name = '{}_Spectra.txt'.format(base_folder_name)
-        tof_file_name = os.path.join(output_folder, short_tof_file_name)
-        tof_array = list(zip(tof_array, np.arange(len(tof_array))))
-        FileHandler.make_ascii_file(data=tof_array, output_file_name=tof_file_name, sep='\t')
-        self.parent.ui.time_spectra_folder_2.setText(os.path.basename(output_folder))
-        self.parent.ui.time_spectra_2.setText(short_tof_file_name)
-        
-        o_time_handler = TimeSpectraHandler(parent = self.parent, normalized_tab=True)
-        o_time_handler.load()
-        o_time_handler.calculate_lambda_scale()
-        tof_array = o_time_handler.tof_array
-        lambda_array = o_time_handler.lambda_array
-        self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
-        self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
 
         # progress bar
         self.parent.eventProgress.setMinimum(0)
@@ -91,6 +73,7 @@ class Normalization(object):
         # list of file name (short)
         normalized_array = []
         normalized_file_name = []
+        normalized_sum_counts = []
         for _index_file, _short_file in enumerate(list_samples_names):
             
             _long_file_name = os.path.join(output_folder, _short_file)
@@ -103,12 +86,32 @@ class Normalization(object):
                                                          coeff = _coeff,
                                                          output_file_name = _long_file_name)
             normalized_array.append(normalized_data)
+            _sum = np.nansum(normalized_data)
+            normalized_sum_counts.append(_sum)
             normalized_file_name.append(_short_file)
             
             self.parent.eventProgress.setValue(_index_file+1)
             
         self.parent.data_metadata['normalized']['data'] = normalized_array
         self.parent.data_files['normalized'] = normalized_file_name
+        
+        # tof array
+        tof_array = self.parent.data_metadata['time_spectra']['data']
+        tof_array = tof_array[range_to_normalize[0]: range_to_normalize[1]+1]
+        short_tof_file_name = '{}_Spectra.txt'.format(base_folder_name)
+        tof_file_name = os.path.join(output_folder, short_tof_file_name)
+        tof_array = list(zip(tof_array, normalized_sum_counts))
+        FileHandler.make_ascii_file(data=tof_array, output_file_name=tof_file_name, sep='\t')
+        self.parent.ui.time_spectra_folder_2.setText(os.path.basename(output_folder))
+        self.parent.ui.time_spectra_2.setText(short_tof_file_name)
+    
+        o_time_handler = TimeSpectraHandler(parent = self.parent, normalized_tab=True)
+        o_time_handler.load()
+        o_time_handler.calculate_lambda_scale()
+        tof_array = o_time_handler.tof_array
+        lambda_array = o_time_handler.lambda_array
+        self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
+        self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array        
         
         # populate normalized tab
         list_ui = self.parent.ui.list_normalized
