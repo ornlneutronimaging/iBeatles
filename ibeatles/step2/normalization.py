@@ -43,6 +43,8 @@ class Normalization(object):
             # if folder does exist already, we first remove it
             shutil.rmtree(output_folder)
         os.mkdir(output_folder)
+        self.parent.ui.normalized_folder.setText(base_folder_name + '_normalized')
+        self.parent.data_metadata['normalized']['folder'] = output_folder
         
         # get range we want to normalize 
         range_to_normalize = self.parent.range_files_to_normalized_step2['file_index']
@@ -67,6 +69,8 @@ class Normalization(object):
         self.parent.eventProgress.setVisible(True)
 
         # list of file name (short)
+        normalized_array = []
+        normalized_file_name = []
         for _index_file, _short_file in enumerate(list_samples_names):
             
             _long_file_name = os.path.join(output_folder, _short_file)
@@ -74,13 +78,25 @@ class Normalization(object):
             _ob = ob[_index_file]
             _coeff = array_coeff[_index_file]
             
-            self.perform_single_normalization_and_export(data = _data,
+            normalized_data = self.perform_single_normalization_and_export(data = _data,
                                                          ob = _ob,
                                                          coeff = _coeff,
                                                          output_file_name = _long_file_name)
+            normalized_array.append(normalized_data)
+            normalized_file_name.append(_short_file)
             
             self.parent.eventProgress.setValue(_index_file+1)
             
+        self.parent.data_metadata['normalized']['data'] = normalized_array
+        self.parent.data_files['normalized'] = normalized_file_name
+        
+        # populate normalized tab
+        list_ui = self.parent.ui.list_normalized
+        list_ui.clear()
+        for _row, _file in enumerate(normalized_file_name):
+            _item = QtGui.QListWidgetItem(_file)
+            list_ui.insertItem(_row, _item)
+        
         self.parent.eventProgress.setVisible(False)
 
     def perform_single_normalization_and_export(self, data=[], ob=[], coeff=[], output_file_name=''):
@@ -91,18 +107,16 @@ class Normalization(object):
         
         # sample / ob
         ob[ob == 0] = np.NAN
-        print(type(data))
         _step1 = np.divide(data, ob)
-        print(type(_step1))
         _step1[_step1 == np.NaN] = 0
-        
-        print(coeff)
-        print()
+        _step1[_step1 == np.inf] = 0
         
         # _term1 * coeff
         _data = _step1 * coeff
         
         FileHandler.make_fits(data=_data, filename=output_file_name)
+        
+        return _data
         
     def run(self, live_plot=True):
         _data = self.parent.data_metadata['sample']['data']
