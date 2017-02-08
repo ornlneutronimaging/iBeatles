@@ -1,4 +1,5 @@
 import os
+import pyfits
 
 
 class FileHandler(object):
@@ -43,3 +44,9 @@ class FileHandler(object):
                 
         return final_list
     
+    @classmethod
+    def make_fits(cls, data=[], filename=''):
+        hdu = pyfits.PrimaryHDU(data)
+        hdulist = pyfits.HDUList([hdu])
+        hdulist.writeto(filename)
+        hdulist.close()    

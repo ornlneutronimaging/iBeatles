@@ -1,15 +1,17 @@
 from PyQt4 import QtGui
 import os
+import shutil
 from copy import deepcopy
 import numpy as np
 
 from ibeatles.step2.roi_handler import Step2RoiHandler
 from ibeatles.step2.plot import Step2Plot
+from ibeatles.utilities.file_handler import FileHandler
 
 
 class Normalization(object):
     
-    coeff_array = 1
+    coeff_array = 1  # ob / sample of ROI selected
     
     def __init__(self, parent=None):
         self.parent = parent
@@ -18,10 +20,11 @@ class Normalization(object):
         
         # ask for output folder location
         sample_folder = self.parent.data_metadata['sample']['folder']
+        sample_name = os.path.basename(os.path.dirname(sample_folder))
         default_dir = os.path.dirname(os.path.dirname(sample_folder))
-        output_folder = QtGui.QFileDialog.getExistingDirectory(caption="Select Where the Normalized folder will be created...", 
+        output_folder = str(QtGui.QFileDialog.getExistingDirectory(caption="Select Where the Normalized folder will be created...", 
                                                               directory=default_dir, 
-                                                              options=QtGui.QFileDialog.ShowDirsOnly)
+                                                              options=QtGui.QFileDialog.ShowDirsOnly))
 
         if not output_folder:
             return
@@ -30,32 +33,76 @@ class Normalization(object):
         self.run(live_plot=False)
         
         # perform normalization on all images selected
-        self.normalize_full_set(output_folder = output_folder)
+        self.normalize_full_set(output_folder = output_folder, base_folder_name = sample_name)
 
 
-    def normalize_full_set(self, output_folder=''):
+    def normalize_full_set(self, output_folder='', base_folder_name=''):
         
-        # get short list of data file names
-        list_samples_names = self.parent.data_files['sample']
-    
+        output_folder = os.path.join(output_folder, base_folder_name + '_normalized')
+        if os.path.exists(output_folder):
+            # if folder does exist already, we first remove it
+            shutil.rmtree(output_folder)
+        os.mkdir(output_folder)
+        
         # get range we want to normalize 
         range_to_normalize = self.parent.range_files_to_normalized_step2['file_index']
 
-        _data = self.parent.data_metadata['sample']['data']
-        _data = _data[range_to_normalize[0]: range_to_normalize[1]+1]
+        # get short list of data file names
+        list_samples_names = self.parent.data_files['sample']
+        list_samples_names = list_samples_names[range_to_normalize[0]: range_to_normalize[1]+1]
+
+        data = self.parent.data_metadata['sample']['data']
+        data = data[range_to_normalize[0]: range_to_normalize[1]+1]
                       
-        _ob = self.parent.data_metadata['ob']['data']
-        _ob = _ob[range_to_normalize[0]: range_to_normalize[1]+1]
+        ob = self.parent.data_metadata['ob']['data']
+        ob = ob[range_to_normalize[0]: range_to_normalize[1]+1]
 
-        _array_coeff = self.coeff_array
-        _array_coeff = _array_coeff[range_to_normalize[0]: range_to_normalize[1]+1]
+        array_coeff = self.coeff_array
+        array_coeff = array_coeff[range_to_normalize[0]: range_to_normalize[1]+1]
+        
+        # progress bar
+        self.parent.eventProgress.setMinimum(0)
+        self.parent.eventProgress.setMaximum(len(list_samples_names)-1)
+        self.parent.eventProgress.setValue(0)
+        self.parent.eventProgress.setVisible(True)
 
-        print(np.shape(_data))
-        print(np.shape(_ob))
-        print(np.shape(_array_coeff))
+        # list of file name (short)
+        for _index_file, _short_file in enumerate(list_samples_names):
+            
+            _long_file_name = os.path.join(output_folder, _short_file)
+            _data = data[_index_file]
+            _ob = ob[_index_file]
+            _coeff = array_coeff[_index_file]
+            
+            self.perform_single_normalization_and_export(data = _data,
+                                                         ob = _ob,
+                                                         coeff = _coeff,
+                                                         output_file_name = _long_file_name)
+            
+            self.parent.eventProgress.setValue(_index_file+1)
+            
+        self.parent.eventProgress.setVisible(False)
 
-
-
+    def perform_single_normalization_and_export(self, data=[], ob=[], coeff=[], output_file_name=''):
+        
+        ob = ob.astype(float)
+        data = data.astype(float)
+        coeff = coeff.astype(float)
+        
+        # sample / ob
+        ob[ob == 0] = np.NAN
+        print(type(data))
+        _step1 = np.divide(data, ob)
+        print(type(_step1))
+        _step1[_step1 == np.NaN] = 0
+        
+        print(coeff)
+        print()
+        
+        # _term1 * coeff
+        _data = _step1 * coeff
+        
+        FileHandler.make_fits(data=_data, filename=output_file_name)
         
     def run(self, live_plot=True):
         _data = self.parent.data_metadata['sample']['data']
