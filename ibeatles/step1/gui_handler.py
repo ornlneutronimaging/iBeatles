@@ -416,7 +416,6 @@ class Step1GuiHandler(object):
             _display_error_label = False
             
         self.parent.ui.display_warning.setVisible(_display_error_label)
-        self.parent.ui.display_warning_2.setVisible(_display_error_label)
         
     def block_instrument_widgets(self, status=True):
         self.parent.ui.detector_offset.blockSignals(status)

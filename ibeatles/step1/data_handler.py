@@ -98,6 +98,8 @@ class DataHandler(object):
                 elif self.data_type == 'normalized':
                     self.list_ui['time_spectra']['text2'].setText(base_time_spectra)
                     self.list_ui['time_spectra']['folder2'].setText(folder_name)
+                    self.parent.data_metadata['time_spectra']['normalized_folder'] = folder_name
+                    self.parent.time_spectra_normalized_folder = os.path.dirname(time_spectra)
                         
         else:
             if self.data_type == 'sample':

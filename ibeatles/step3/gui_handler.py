@@ -32,3 +32,14 @@ class Step3GuiHandler(object):
 #        o_step1_plot = Step1Plot(parent = self.parent)
 #        o_step1_plot.display_2d_preview()
     
+    def check_time_spectra_widgets(self):
+        time_spectra_data = self.parent.data_metadata['time_spectra']['normalized_folder']
+        if self.parent.ui.material_display_checkbox_2.isChecked():
+            if time_spectra_data == []:
+                _display_error_label = True
+            else:
+                _display_error_label = False
+        else:
+            _display_error_label = False
+            
+        self.parent.ui.display_warning_2.setVisible(_display_error_label)

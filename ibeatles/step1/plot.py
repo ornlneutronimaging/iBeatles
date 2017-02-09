@@ -353,10 +353,7 @@ class Step1Plot(object):
 
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
 
-            # launch bragg edge plots
-            #if tof_flag:    
-            #    tof_array = tof_array * 1e6 
-                
+              
             dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
                                                             lambda_array = lambda_array,
                                                             bragg_edges = bragg_edges)
@@ -438,6 +435,8 @@ class Step1Plot(object):
                     linear_region_right = tof_array[linear_region_right]
 
                 else: #lambda
+                    
+                    print("in lambda")
                     
                     if first_index:
                         lambda_array = lambda_array * 1e10
