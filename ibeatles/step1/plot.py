@@ -336,8 +336,12 @@ class Step1Plot(object):
             #o_time_handler = TimeSpectraHandler(parent = self.parent)
             #o_time_handler.load()
             #tof_array = o_time_handler.tof_array
-            tof_array = self.parent.data_metadata['time_spectra']['data']
-            lambda_array = self.parent.data_metadata['time_spectra']['lambda']
+            if self.data_type == 'normalized':
+                tof_array = self.parent.data_metadata['time_spectra']['normalized_data']
+                lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda']
+            else:
+                tof_array = self.parent.data_metadata['time_spectra']['data']
+                lambda_array = self.parent.data_metadata['time_spectra']['lambda']
 
             # enable the right xaxis buttons 
             o_gui = GuiHandler(parent = self.parent)
@@ -353,7 +357,7 @@ class Step1Plot(object):
 
             xaxis_choice = o_gui.get_xaxis_checked(data_type = self.data_type)
 
-              
+            # display of bottom bragg edge plot
             dictionary = self.display_images_and_bragg_edge(tof_array = tof_array,
                                                             lambda_array = lambda_array,
                                                             bragg_edges = bragg_edges)
@@ -390,7 +394,7 @@ class Step1Plot(object):
 
         x_axis = []
         plot_ui.setLabel("left", "Total Counts")
-
+        
         if tof_array == []:
             
             plot_ui.setLabel('bottom', 'File Index')
@@ -435,8 +439,6 @@ class Step1Plot(object):
                     linear_region_right = tof_array[linear_region_right]
 
                 else: #lambda
-                    
-                    print("in lambda")
                     
                     if first_index:
                         lambda_array = lambda_array * 1e10

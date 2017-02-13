@@ -1983,6 +1983,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionTest_me"/>
    </widget>
    <addaction name="menuSteps"/>
    <addaction name="menuHelp"/>
@@ -2034,6 +2035,11 @@
   <action name="action3_Normalized_Data">
    <property name="text">
     <string>3. Normalized Data</string>
+   </property>
+  </action>
+  <action name="actionTest_me">
+   <property name="text">
+    <string>test_me</string>
    </property>
   </action>
  </widget>
@@ -2601,6 +2607,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionTest_me</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>test_me_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2644,5 +2666,6 @@
   <slot>reset_crystal_structure_button_2_clicked()</slot>
   <slot>normalized_time_spectra_import_button_clicked()</slot>
   <slot>normalized_time_spectra_preview_button_clicked()</slot>
+  <slot>test_me_clicked()</slot>
  </slots>
 </ui>

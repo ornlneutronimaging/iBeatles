@@ -28,7 +28,6 @@ class Step3GuiHandler(object):
         
     def select_normalized_row(self, row=0):
         self.parent.ui.list_normalized.setCurrentRow(row)
-
 #        o_step1_plot = Step1Plot(parent = self.parent)
 #        o_step1_plot.display_2d_preview()
     

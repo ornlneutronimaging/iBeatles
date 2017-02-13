@@ -43,7 +43,7 @@ class Step2GuiHandler(object):
 
     def init_pyqtgraph(self):
         area = DockArea()
-        area.setVisible(True)
+        area.setVisible(False)
         d1 = Dock("Sample", size=(200, 300))
         d2 = Dock("STEP1: Background normalization", size=(200, 100))
         #d3 = Dock("STEP2: Working Range Selection", size=(200, 100))
@@ -131,9 +131,9 @@ class Step2GuiHandler(object):
         self.parent.step2_ui['xaxis_lambda'] = lambda_button
         self.parent.step2_ui['xaxis_tof'] = tof_button
         
-        self.parent.xaxis_button_ui['normalized']['tof'] = tof_button
-        self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button
-        self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button
+        self.parent.xaxis_button_ui['normalization']['tof'] = tof_button
+        self.parent.xaxis_button_ui['normalization']['file_index'] = file_index_button
+        self.parent.xaxis_button_ui['normalization']['lambda'] = lambda_button
         
 
     def check_add_remove_roi_buttons(self):

@@ -820,6 +820,8 @@ class Ui_MainWindow(object):
         self.action2_Normalization_2.setObjectName(_fromUtf8("action2_Normalization_2"))
         self.action3_Normalized_Data = QtGui.QAction(MainWindow)
         self.action3_Normalized_Data.setObjectName(_fromUtf8("action3_Normalized_Data"))
+        self.actionTest_me = QtGui.QAction(MainWindow)
+        self.actionTest_me.setObjectName(_fromUtf8("actionTest_me"))
         self.menuSteps.addAction(self.action1_Raw_Data)
         self.menuSteps.addAction(self.action2_Normalization_2)
         self.menuSteps.addAction(self.action3_Normalized_Data)
@@ -827,6 +829,7 @@ class Ui_MainWindow(object):
         self.menuSteps.addAction(self.action4_Fitting)
         self.menuSteps.addAction(self.action5_Results)
         self.menuHelp.addAction(self.actionAbout)
+        self.menuHelp.addAction(self.actionTest_me)
         self.menubar.addAction(self.menuSteps.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
@@ -871,6 +874,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.reset_crystal_structure_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.reset_crystal_structure_button_clicked)
         QtCore.QObject.connect(self.reset_lattice_button_2, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.reset_lattice_button_2_clicked)
         QtCore.QObject.connect(self.reset_crystal_structure_button_2, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.reset_crystal_structure_button_2_clicked)
+        QtCore.QObject.connect(self.actionTest_me, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.test_me_clicked)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -972,5 +976,6 @@ class Ui_MainWindow(object):
         self.action1_Raw_Data.setText(_translate("MainWindow", "1. Raw Data", None))
         self.action2_Normalization_2.setText(_translate("MainWindow", "2. Normalization", None))
         self.action3_Normalized_Data.setText(_translate("MainWindow", "3. Normalized Data", None))
+        self.actionTest_me.setText(_translate("MainWindow", "test_me", None))
 
 import icons_rc

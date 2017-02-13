@@ -677,6 +677,15 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     def normalized_lambda_xaxis_button_clicked(self):
         self.normalized_list_selection_changed()
 
+    def test_me_clicked(self):
+        pass
+        #data_type = 'normalized'
+        #print("file_index: {}".format(self.xaxis_button_ui[data_type]['file_index'].isChecked()))
+        #print("tof: {}".format(self.xaxis_button_ui[data_type]['tof'].isChecked()))
+        #print("lambda: {}".format(self.xaxis_button_ui[data_type]['lambda'].isChecked()))
+        #print()
+
+
 def main():
     app = QApplication(sys.argv)
     #app.setWindowIcon(PyQt4.QtGui.QIcon(":/icon.png"))

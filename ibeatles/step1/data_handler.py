@@ -70,13 +70,20 @@ class DataHandler(object):
             self.parent.data_metadata['normalization']['data'] = normalization_mean_data
 
     def load_time_spectra(self):
-        o_time_handler = TimeSpectraHandler(parent = self.parent)
+        if self.data_type == 'normalized':
+            o_time_handler = TimeSpectraHandler(parent = self.parent, normalized_tab=True)
+        else:
+            o_time_handler = TimeSpectraHandler(parent = self.parent)
         o_time_handler.load()
         o_time_handler.calculate_lambda_scale()
         tof_array = o_time_handler.tof_array
         lambda_array = o_time_handler.lambda_array
-        self.parent.data_metadata['time_spectra']['data'] = tof_array
-        self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
+        if self.data_type == 'sample':
+            self.parent.data_metadata['time_spectra']['data'] = tof_array
+            self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
+        else: #normalized
+            self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
+            self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
 
     def retrieve_time_spectra(self, auto_load=True):
         if auto_load:

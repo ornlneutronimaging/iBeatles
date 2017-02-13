@@ -380,9 +380,9 @@ class Step1GuiHandler(object):
          self.parent.ui.normalized_roi_editor_button,
          self.parent.ui.normalized_roi_add_button,
          self.parent.ui.normalized_roi_mean_button,
-         file_index_button,
-         tof_button,
-         lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
+         file_index_button1,
+         tof_button1,
+         lambda_button1] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
                                                                                   self.parent.ui.normalized_preview_widget,
                                                                                   self.parent.normalized_roi_algorithm_is_add_clicked,
                                                                                   self.parent.normalized_roi_algorithm_is_mean_clicked,
@@ -391,9 +391,9 @@ class Step1GuiHandler(object):
                                                                                   self.parent.normalized_lambda_xaxis_button_clicked)        
                                                                                   
         self.parent.list_roi_id['normalized'].append(self.parent.ui.normalized_image_view_roi)
-        self.parent.xaxis_button_ui['normalized']['tof'] = tof_button
-        self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button
-        self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button
+        self.parent.xaxis_button_ui['normalized']['tof'] = tof_button1
+        self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button1
+        self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button1
 
     def update_delta_lambda(self):
         distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
