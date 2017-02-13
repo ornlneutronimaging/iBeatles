@@ -31,6 +31,8 @@ from ibeatles.step2.normalization import Normalization
 
 from ibeatles.step3.gui_handler import Step3GuiHandler
 
+from ibeatles.binning.launcher import BinningLauncher
+
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.roi_editor import RoiEditor
@@ -214,6 +216,26 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         self.range_files_to_normalized_step2 = {'file_index': [],
                                                 'tof': [],
                                                 'lambda': []}
+
+    # Menu
+    
+    def menu_view_load_data_clicked(self):
+        self.ui.tabWidget.setCurrentIndex(0)
+    
+    def menu_view_normalization_clicked(self):
+        self.ui.tabWidget.setCurrentIndex(1)
+
+    def menu_view_normalized_clicked(self):
+        self.ui.tabWidget.setCurrentIndex(2)
+    
+    def menu_view_binning_clicked(self):
+        o_binning = BinningLauncher(parent=self)
+    
+    def menu_view_fitting_clicked(self):
+        pass
+    
+    def menu_view_strain_mapping_clicked(self):
+        pass
 
     #TAB 1, 2 and 3
 

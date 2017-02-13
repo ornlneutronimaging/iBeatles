@@ -1969,9 +1969,9 @@
    </property>
    <widget class="QMenu" name="menuSteps">
     <property name="title">
-     <string>Steps</string>
+     <string>View</string>
     </property>
-    <addaction name="action1_Raw_Data"/>
+    <addaction name="action1_load_data"/>
     <addaction name="action2_Normalization_2"/>
     <addaction name="action3_Normalized_Data"/>
     <addaction name="action3_Binning"/>
@@ -2022,9 +2022,9 @@
     <string>About ...</string>
    </property>
   </action>
-  <action name="action1_Raw_Data">
+  <action name="action1_load_data">
    <property name="text">
-    <string>1. Raw Data</string>
+    <string>1. Load Data</string>
    </property>
   </action>
   <action name="action2_Normalization_2">
@@ -2623,6 +2623,102 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action1_load_data</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_load_data_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action2_Normalization_2</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_normalization_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action3_Normalized_Data</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_normalized_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action3_Binning</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_binning_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action4_Fitting</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_fitting_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action5_Results</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_strain_mapping_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2667,5 +2763,11 @@
   <slot>normalized_time_spectra_import_button_clicked()</slot>
   <slot>normalized_time_spectra_preview_button_clicked()</slot>
   <slot>test_me_clicked()</slot>
+  <slot>menu_view_load_data_clicked()</slot>
+  <slot>menu_view_normalization_clicked()</slot>
+  <slot>menu_view_normalized_clicked()</slot>
+  <slot>menu_view_binning_clicked()</slot>
+  <slot>menu_view_fitting_clicked()</slot>
+  <slot>menu_view_strain_mapping_clicked()</slot>
  </slots>
 </ui>
