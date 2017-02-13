@@ -19,9 +19,13 @@ class BinningLauncher(object):
     def __init__(self, parent=None):
         self.parent = parent
         
-        binning_window = BinningWindow(parent=parent)
-        binning_window.show()
-
+        if self.parent.binning_ui == None:
+            binning_window = BinningWindow(parent=parent)
+            binning_window.show()
+            self.parent.binning_ui = binning_window
+        else:
+            self.parent.binning_ui.setFocus()
+            self.parent.binning_ui.activateWindow()
 
 
 class BinningWindow(QMainWindow):        

@@ -57,6 +57,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     roi_editor_ui = {'sample': None,
                      'ob': None,
                      'normalized': None}
+    binning_ui = None
     
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}
