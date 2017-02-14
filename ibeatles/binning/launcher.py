@@ -9,6 +9,7 @@ except:
 
 from pyqtgraph.dockarea import *
 import pyqtgraph as pg
+import numpy as np
     
 from ibeatles.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
@@ -34,6 +35,11 @@ class BinningLauncher(object):
 class BinningWindow(QMainWindow):        
     
     image_view = None
+    data = []
+    widgets_ui = {'x_value': None,
+                  'y_value': None,
+                  'intensity_value': None,
+                  'roi': None}
 
     def __init__(self, parent=None):
         
@@ -41,19 +47,27 @@ class BinningWindow(QMainWindow):
         QMainWindow.__init__(self, parent=parent)
         self.ui = UiMainWindow()
         self.ui.setupUi(self)
+        self.setWindowTitle("4. Binning")
         
-        self.init_pyqtgraph()
-        
-        
-    def closeEvent(self, event=None):
-        self.parent.binning_ui = None
-        
-    def normalized_file_selection_updated(self):
-        print("normalized file selection changed")
-        
+        self.init_pyqtgraph()        
+                
     def roi_changed(self):
-        print("roi changed")
-    
+        roi = self.widgets_ui['roi']
+        region = roi.getArraySlice(self.data, self.image_view.imageItem)
+        
+        x0 = region[0][0].start
+        x1 = region[0][0].stop-1
+        y0 = region[0][1].start
+        y1 = region[0][1].stop-1
+        
+        width = np.abs(x0-x1)
+        height = np.abs(y0-y1)
+        
+        self.ui.selection_x0.setText("{}".format(x0))
+        self.ui.selection_y0.setText("{}".format(y0))
+        self.ui.selection_width.setText("{}".format(width))
+        self.ui.selection_height.setText("{}".format(height))
+        
     def init_pyqtgraph(self):
 
         pg.setConfigOptions(antialias=True)
@@ -66,6 +80,7 @@ class BinningWindow(QMainWindow):
         roi.addScaleHandle([1,1], [0,0])
         image_view.addItem(roi)
         roi.sigRegionChanged.connect(self.roi_changed)
+        self.widgets_ui['roi'] = roi
 
         # bottom x, y and counts labels
         hori_layout = QtGui.QHBoxLayout()
@@ -73,13 +88,16 @@ class BinningWindow(QMainWindow):
         x_label = QtGui.QLabel("X:")
         x_value = QtGui.QLabel("N/A")
         x_value.setFixedWidth(50)
+        self.widgets_ui['x_value'] = x_value
         spacer2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         y_label = QtGui.QLabel("Y:")
         y_value = QtGui.QLabel("N/A")
         y_value.setFixedWidth(50)
+        self.widgets_ui['y_value'] = y_value
         spacer3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         intensity_label = QtGui.QLabel("Counts:")
         intensity_value = QtGui.QLabel("N/A")
+        self.widgets_ui['intensity_value'] = intensity_value
         intensity_value.setFixedWidth(50)
 
         hori_layout.addItem(spacer1)
@@ -100,4 +118,22 @@ class BinningWindow(QMainWindow):
         vertical_layout.addWidget(hori_widget)
         
         self.ui.left_widget.setLayout(vertical_layout)
+        image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
+
         self.image_view = image_view
+        
+    def closeEvent(self, event=None):
+        self.parent.binning_ui = None
+
+    def mouse_moved_in_image(self, event):
+        pass
+    
+        if self.data == []:
+            return
+
+        x = np.int(event.x())
+        y = np.int(event.y())
+        
+        self.widgets_ui['x_value'].setText("{}".format(x))
+        self.widgets_ui['y_value'].setText("{}".format(y))
+        
