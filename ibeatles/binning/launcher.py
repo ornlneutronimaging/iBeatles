@@ -56,6 +56,11 @@ class BinningWindow(QMainWindow):
         self.roi_selection_widgets_modified()        
         
     def roi_changed(self):
+
+        if self.line_view:
+            self.image_view.removeItem(self.line_view)
+            self.line_view = None
+        
         roi = self.widgets_ui['roi']
         region = roi.getArraySlice(self.data, self.image_view.imageItem)
         
@@ -132,6 +137,11 @@ class BinningWindow(QMainWindow):
         self.image_view = image_view
 
     def roi_selection_widgets_modified(self):
+        
+        if self.line_view:
+            self.image_view.removeItem(self.line_view)
+            self.line_view = None
+        
         x0 = np.int(str(self.ui.selection_x0.text()))
         y0 = np.int(str(self.ui.selection_y0.text()))
         width = np.int(str(self.ui.selection_width.text()))
@@ -150,20 +160,22 @@ class BinningWindow(QMainWindow):
         pos = pos_adj_dict['pos']
         adj = pos_adj_dict['adj']
         
-        #pos = np.array([[20,20],[20,40],[40,40]])
-        #adj = np.array([[0,1],[1,2],[2,0]])
         line_color = (255,0,0,255,1)
         lines = np.array([line_color for n in np.arange(len(pos))],
                         dtype=[('red',np.ubyte),('green',np.ubyte),
                                ('blue',np.ubyte),('alpha',np.ubyte),
                                ('width',float)]) 
+
+        line_view = pg.GraphItem()
+        self.image_view.addItem(line_view)
+        self.line_view = line_view
+
         self.line_view.setData(pos=pos, 
                                adj=adj,
                                pen=lines,
                                symbol=None,
                                pxMode=False)
-        
-        
+                
     def  calculate_matrix_of_pixel_bins(self, bin_size=2,
                                             x0=0,
                                             y0=0,
