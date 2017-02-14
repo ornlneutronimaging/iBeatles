@@ -39,6 +39,9 @@ class BinningWindow(QMainWindow):
         
         self.init_pyqtgraph()
         
+    def closeEvent(self, event=None):
+        self.parent.binning_ui = None
+        
     def roi_changed(self):
         print("roi changed")
     
