@@ -29,6 +29,8 @@ class BinningLauncher(object):
 
 class BinningWindow(QMainWindow):        
     
+    image_view = None
+
     def __init__(self, parent=None):
         
         self.parent = parent
@@ -37,6 +39,7 @@ class BinningWindow(QMainWindow):
         self.ui.setupUi(self)
         
         self.init_pyqtgraph()
+        
         
     def closeEvent(self, event=None):
         self.parent.binning_ui = None
@@ -93,3 +96,4 @@ class BinningWindow(QMainWindow):
         vertical_layout.addWidget(hori_widget)
         
         self.ui.left_widget.setLayout(vertical_layout)
+        self.image_view = image_view

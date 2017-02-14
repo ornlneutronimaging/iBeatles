@@ -8,6 +8,8 @@ from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.roi_handler import RoiHandler
 from ibeatles.utilities.gui_handler import GuiHandler
 
+from ibeatles.binning.binning_handler import BinningHandler
+
 
 class CustomAxis(pg.AxisItem):
     
@@ -40,7 +42,8 @@ class Step1Plot(object):
     
     plot_ui = {'sample': None,
                'ob': None,
-               'normalized': None}
+               'normalized': None,
+               'binning': None}
     
     def __init__(self, parent=None, data_type='sample', data=[]):
         self.parent = parent
@@ -77,6 +80,9 @@ class Step1Plot(object):
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
+                if not (self.parent.binning_ui is None):
+                    o_binning = BinningHandler(parent=self.parent)
+                    o_binning.display_image(data=_data)
 
     def add_origin_label(self, image_ui):
         # origin label

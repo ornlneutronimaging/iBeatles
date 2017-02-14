@@ -2,10 +2,9 @@ class BinningHandler(object):
     
     def __init__(self, parent=None):
         self.parent = parent
+        self.binning_ui = self.parent.binning_ui
         
-    def update_plot(self):
-        binning_ui = self.parent.binning_ui
-        if binning_ui is None:
-            return
-        
-        print("updating binning plot")
+    def display_image(self, data=[]):
+        self.binning_ui.image_view.setImage(data)
+
+  
