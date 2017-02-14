@@ -27,7 +27,6 @@ class BinningLauncher(object):
             self.parent.binning_ui.setFocus()
             self.parent.binning_ui.activateWindow()
 
-
 class BinningWindow(QMainWindow):        
     
     def __init__(self, parent=None):
@@ -41,6 +40,9 @@ class BinningWindow(QMainWindow):
         
     def closeEvent(self, event=None):
         self.parent.binning_ui = None
+        
+    def normalized_file_selection_updated(self):
+        print("normalized file selection changed")
         
     def roi_changed(self):
         print("roi changed")

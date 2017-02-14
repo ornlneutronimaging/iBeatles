@@ -32,6 +32,7 @@ from ibeatles.step2.normalization import Normalization
 from ibeatles.step3.gui_handler import Step3GuiHandler
 
 from ibeatles.binning.launcher import BinningLauncher
+from ibeatles.binning.binning_handler import BinningHandler
 
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
@@ -320,6 +321,11 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
         o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = data_type)
         o_retrieve_data_infos.update() 
+
+        if data_type == 'normalized':
+            # binning window update
+            o_binning = BinningHandler(parent=self)
+            o_binning.update_plot()            
 
         _ui_list.blockSignals(False)
 
@@ -660,6 +666,10 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.retrieve_selected_row_infos(data_type = 'normalized')
             o_plot = Step1Plot(parent=self, data_type='normalized')
             o_plot.display_bragg_edge()
+            
+            # binning window update
+            o_binning = BinningHandler(parent=self)
+            o_binning.update_plot()            
     
     def normalized_retrieve_selected_row_infos(self):
         o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
@@ -674,12 +684,16 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
             o_retrieve_data_infos.update()  
             self.roi_normalized_image_view_changed(mouse_selection=False)
+            o_binning = BinningHandler(parent=self)
+            o_binning.update_plot()            
         else:
             self.loading_flag = False
     
     def roi_normalized_image_view_changed(self, mouse_selection=True):
         o_plot = Step1Plot(parent=self, data_type='normalized')
         o_plot.display_bragg_edge(mouse_selection=mouse_selection)
+        o_binning = BinningHandler(parent=self)
+        o_binning.update_plot()            
     
     def normalized_roi_algorithm_is_add_clicked(self):
         self.ui.roi_add_button.setChecked(True)

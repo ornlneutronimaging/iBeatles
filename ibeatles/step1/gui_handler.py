@@ -337,12 +337,12 @@ class Step1GuiHandler(object):
          file_index_button,
          tof_button,
          lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
-                                                                       self.parent.ui.preview_widget,
-                                                                       self.parent.roi_algorithm_is_add_clicked,
-                                                                       self.parent.roi_algorithm_is_mean_clicked,
-                                                                       self.parent.file_index_xaxis_button_clicked,
-                                                                       self.parent.tof_xaxis_button_clicked,
-                                                                       self.parent.lambda_xaxis_button_clicked)
+                                                      self.parent.ui.preview_widget,
+                                                      self.parent.roi_algorithm_is_add_clicked,
+                                                      self.parent.roi_algorithm_is_mean_clicked,
+                                                      self.parent.file_index_xaxis_button_clicked,
+                                                      self.parent.tof_xaxis_button_clicked,
+                                                      self.parent.lambda_xaxis_button_clicked)
         self.parent.list_roi_id['sample'].append(self.parent.ui.image_view_roi)
         self.parent.xaxis_button_ui['sample']['tof'] = tof_button
         self.parent.xaxis_button_ui['sample']['file_index'] = file_index_button
@@ -360,12 +360,12 @@ class Step1GuiHandler(object):
          file_index_button,
          tof_button,
          lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
-                                                                          self.parent.ui.ob_preview_widget,
-                                                                          self.parent.ob_roi_algorithm_is_add_clicked,
-                                                                          self.parent.ob_roi_algorithm_is_mean_clicked,
-                                                                          self.parent.ob_file_index_xaxis_button_clicked,
-                                                                          self.parent.ob_tof_xaxis_button_clicked,
-                                                                          self.parent.ob_lambda_xaxis_button_clicked)        
+                                                      self.parent.ui.ob_preview_widget,
+                                                      self.parent.ob_roi_algorithm_is_add_clicked,
+                                                      self.parent.ob_roi_algorithm_is_mean_clicked,
+                                                      self.parent.ob_file_index_xaxis_button_clicked,
+                                                      self.parent.ob_tof_xaxis_button_clicked,
+                                                      self.parent.ob_lambda_xaxis_button_clicked)        
         self.parent.list_roi_id['ob'].append(self.parent.ui.ob_image_view_roi)  
         self.parent.xaxis_button_ui['ob']['tof'] = tof_button
         self.parent.xaxis_button_ui['ob']['file_index'] = file_index_button
@@ -383,13 +383,13 @@ class Step1GuiHandler(object):
          file_index_button1,
          tof_button1,
          lambda_button1] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
-                                                                                  self.parent.ui.normalized_preview_widget,
-                                                                                  self.parent.normalized_roi_algorithm_is_add_clicked,
-                                                                                  self.parent.normalized_roi_algorithm_is_mean_clicked,
-                                                                                  self.parent.normalized_file_index_xaxis_button_clicked,
-                                                                                  self.parent.normalized_tof_xaxis_button_clicked,
-                                                                                  self.parent.normalized_lambda_xaxis_button_clicked)        
-                                                                                  
+                                                       self.parent.ui.normalized_preview_widget,
+                                                       self.parent.normalized_roi_algorithm_is_add_clicked,
+                                                       self.parent.normalized_roi_algorithm_is_mean_clicked,
+                                                       self.parent.normalized_file_index_xaxis_button_clicked,
+                                                       self.parent.normalized_tof_xaxis_button_clicked,
+                                                       self.parent.normalized_lambda_xaxis_button_clicked)        
+        
         self.parent.list_roi_id['normalized'].append(self.parent.ui.normalized_image_view_roi)
         self.parent.xaxis_button_ui['normalized']['tof'] = tof_button1
         self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button1
