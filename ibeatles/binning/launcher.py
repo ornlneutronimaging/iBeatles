@@ -35,6 +35,7 @@ class BinningLauncher(object):
 class BinningWindow(QMainWindow):        
     
     image_view = None
+    line_view = None
     data = []
     widgets_ui = {'x_value': None,
                   'y_value': None,
@@ -50,7 +51,10 @@ class BinningWindow(QMainWindow):
         self.setWindowTitle("4. Binning")
         
         self.init_pyqtgraph()        
-                
+
+    def roi_changed_finished(self):
+        self.roi_selection_widgets_modified()        
+        
     def roi_changed(self):
         roi = self.widgets_ui['roi']
         region = roi.getArraySlice(self.data, self.image_view.imageItem)
@@ -80,7 +84,12 @@ class BinningWindow(QMainWindow):
         roi.addScaleHandle([1,1], [0,0])
         image_view.addItem(roi)
         roi.sigRegionChanged.connect(self.roi_changed)
+        roi.sigRegionChangeFinished.connect(self.roi_changed_finished)
         self.widgets_ui['roi'] = roi
+        
+        line_view = pg.GraphItem()
+        image_view.addItem(line_view)
+        self.line_view = line_view
 
         # bottom x, y and counts labels
         hori_layout = QtGui.QHBoxLayout()
@@ -132,6 +141,75 @@ class BinningWindow(QMainWindow):
         self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
         self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
         
+        pos_adj_dict = self.calculate_matrix_of_pixel_bins(bin_size=bin_size,
+                                                           x0=x0,
+                                                           y0=y0,
+                                                           width=width,
+                                                           height=height)
+        
+        pos = pos_adj_dict['pos']
+        adj = pos_adj_dict['adj']
+        
+        #pos = np.array([[20,20],[20,40],[40,40]])
+        #adj = np.array([[0,1],[1,2],[2,0]])
+        line_color = (255,0,0,255,1)
+        lines = np.array([line_color for n in np.arange(len(pos))],
+                        dtype=[('red',np.ubyte),('green',np.ubyte),
+                               ('blue',np.ubyte),('alpha',np.ubyte),
+                               ('width',float)]) 
+        self.line_view.setData(pos=pos, 
+                               adj=adj,
+                               pen=lines,
+                               symbol=None,
+                               pxMode=False)
+        
+        
+    def  calculate_matrix_of_pixel_bins(self, bin_size=2,
+                                            x0=0,
+                                            y0=0,
+                                            width=20,
+                                            height=20):
+        
+        pos_adj_dict = {}
+
+        nbr_height_bins = np.float(height) / np.float(bin_size)
+        real_height = y0 + np.int(nbr_height_bins) * np.int(bin_size)
+        
+        nbr_width_bins = np.float(width) / np.float(bin_size)
+        read_width = x0 + np.int(nbr_width_bins) * np.int(bin_size)
+        
+        # pos (each matrix is one side of the lines)
+        pos = []
+        adj = []
+
+        # vertical lines
+        x = x0
+        index = 0
+        while (x <= x0 + width):
+            one_edge = [x, y0]
+            other_edge = [x, real_height]
+            pos.append(one_edge)
+            pos.append(other_edge)
+            adj.append([index, index+1])
+            x += bin_size
+            index += 2
+            
+        # horizontal lines
+        y = y0
+        while (y <= y0 + height):
+            one_edge = [x0, y]
+            other_edge = [read_width, y]
+            pos.append(one_edge)
+            pos.append(other_edge)
+            adj.append([index, index+1])
+            y += bin_size
+            index += 2
+
+        pos_adj_dict['pos'] = np.array(pos)
+        pos_adj_dict['adj'] = np.array(adj)
+        
+        return pos_adj_dict
+       
     def mouse_moved_in_image(self, event):
         pass
     
