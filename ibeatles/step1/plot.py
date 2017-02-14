@@ -80,6 +80,7 @@ class Step1Plot(object):
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
+                self.parent.data_metadata['normalized']['data_live_selection'] = _data
                 if not (self.parent.binning_ui is None):
                     o_binning = BinningHandler(parent=self.parent)
                     o_binning.display_image(data=_data)

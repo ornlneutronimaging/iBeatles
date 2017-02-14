@@ -13,6 +13,8 @@ import pyqtgraph as pg
 from ibeatles.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
 
+from ibeatles.binning.binning_handler import BinningHandler
+
 
 class BinningLauncher(object):
     
@@ -23,6 +25,8 @@ class BinningLauncher(object):
             binning_window = BinningWindow(parent=parent)
             binning_window.show()
             self.parent.binning_ui = binning_window
+            o_binning = BinningHandler(parent=self.parent)
+            o_binning.display_image()
         else:
             self.parent.binning_ui.setFocus()
             self.parent.binning_ui.activateWindow()

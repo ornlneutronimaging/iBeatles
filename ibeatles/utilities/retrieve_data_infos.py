@@ -60,6 +60,10 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
         if list_row_selected == []:
             self.selected_infos = {}
             self.data = []
+
+            if self.data_type == 'normalized':
+                self.parent.data_metadata['normalized']['data_live_selection'] = []
+
         else:
             list_files_selected = self.get_list_files_selected()
             full_filename = os.path.join(self.path, list_files_selected[0])
@@ -72,6 +76,9 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
             for index in list_row_selected:
                 _data.append(full_data[index])
             self.data = np.sum(_data, axis=0)
+            
+            if self.data_type == 'normalized':
+                self.parent.data_metadata['normalized']['data_live_selection'] = _data
             
         self.parent.list_file_selected[self.data_type] = list_row_selected
         self.display()
