@@ -120,6 +120,11 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+        QtCore.QObject.connect(self.selection_x0, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.roi_selection_widgets_modified)
+        QtCore.QObject.connect(self.selection_y0, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.roi_selection_widgets_modified)
+        QtCore.QObject.connect(self.selection_width, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.roi_selection_widgets_modified)
+        QtCore.QObject.connect(self.selection_height, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.roi_selection_widgets_modified)
+        QtCore.QObject.connect(self.pixel_bin_size, QtCore.SIGNAL(_fromUtf8("editingFinished()")), MainWindow.roi_selection_widgets_modified)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

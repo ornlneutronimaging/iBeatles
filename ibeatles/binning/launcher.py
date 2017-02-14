@@ -121,10 +121,17 @@ class BinningWindow(QMainWindow):
         image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
 
         self.image_view = image_view
-        
-    def closeEvent(self, event=None):
-        self.parent.binning_ui = None
 
+    def roi_selection_widgets_modified(self):
+        x0 = np.int(str(self.ui.selection_x0.text()))
+        y0 = np.int(str(self.ui.selection_y0.text()))
+        width = np.int(str(self.ui.selection_width.text()))
+        height = np.int(str(self.ui.selection_height.text()))
+        bin_size = np.int(str(self.ui.pixel_bin_size.text()))
+        
+        self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
+        self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
+        
     def mouse_moved_in_image(self, event):
         pass
     
@@ -137,3 +144,5 @@ class BinningWindow(QMainWindow):
         self.widgets_ui['x_value'].setText("{}".format(x))
         self.widgets_ui['y_value'].setText("{}".format(y))
         
+    def closeEvent(self, event=None):
+        self.parent.binning_ui = None

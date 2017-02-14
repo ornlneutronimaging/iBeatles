@@ -219,7 +219,88 @@
  <resources>
   <include location="../icons/icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>selection_x0</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>roi_selection_widgets_modified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>786</x>
+     <y>117</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selection_y0</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>roi_selection_widgets_modified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>596</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>797</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selection_width</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>roi_selection_widgets_modified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>552</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>788</x>
+     <y>207</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selection_height</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>roi_selection_widgets_modified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>580</x>
+     <y>154</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>783</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pixel_bin_size</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>roi_selection_widgets_modified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>513</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>756</x>
+     <y>350</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
   <slot>time_spectra_import_button_clicked()</slot>
@@ -269,5 +350,6 @@
   <slot>menu_view_binning_clicked()</slot>
   <slot>menu_view_fitting_clicked()</slot>
   <slot>menu_view_strain_mapping_clicked()</slot>
+  <slot>roi_selection_widgets_modified()</slot>
  </slots>
 </ui>
