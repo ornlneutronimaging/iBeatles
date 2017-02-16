@@ -56,11 +56,12 @@ class BinningWindow(QMainWindow):
         
     def init_widgets(self):
         if self.parent.binning_roi:
-            [x0, y0, width, height] = self.parent.binning_roi
+            [x0, y0, width, height, bin_size] = self.parent.binning_roi
             self.ui.selection_x0.setText(str(x0))
             self.ui.selection_y0.setText(str(y0))
             self.ui.selection_width.setText(str(width))
             self.ui.selection_height.setText(str(height))
+            self.ui.pixel_bin_size.setText(str(bin_size))
 
     def roi_changed_finished(self):
         self.roi_selection_widgets_modified()        
@@ -96,7 +97,7 @@ class BinningWindow(QMainWindow):
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         if self.parent.binning_roi:
-            [x0, y0, width, height] = self.parent.binning_roi
+            [x0, y0, width, height, bin_size] = self.parent.binning_roi
             roi = pg.ROI([x0,y0], [width,height], pen=pen_color['0'], scaleSnap=True)
         else:
             roi = pg.ROI([0,0], [20, 20], pen=pen_color['0'], scaleSnap=True)
@@ -285,10 +286,8 @@ class BinningWindow(QMainWindow):
             y0 = np.int(str(self.ui.selection_y0.text()))
             width = np.int(str(self.ui.selection_width.text()))
             height = np.int(str(self.ui.selection_height.text()))
-            
-            self.parent.binning_roi = [x0, y0, width, height]
-            print("leaving close event")
-            print(self.parent.binning_roi)
+            bin_size = np.int(str(self.ui.pixel_bin_size.text()))
+            self.parent.binning_roi = [x0, y0, width, height, bin_size]
             
             self.parent.binning_line_view['ui'] = self.line_view
     
