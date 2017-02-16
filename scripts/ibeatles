@@ -34,6 +34,8 @@ from ibeatles.step3.gui_handler import Step3GuiHandler
 from ibeatles.binning.launcher import BinningLauncher
 from ibeatles.binning.binning_handler import BinningHandler
 
+from ibeatles.fitting.fitting_launcher import FittingLauncher
+
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.roi_editor import RoiEditor
@@ -59,6 +61,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                      'ob': None,
                      'normalized': None}
     binning_ui = None
+    fitting_ui = None
     
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}
@@ -235,7 +238,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_binning = BinningLauncher(parent=self)
         
     def menu_view_fitting_clicked(self):
-        pass
+        o_fitting = FittingLauncher(parent=self)
     
     def menu_view_strain_mapping_clicked(self):
         pass
