@@ -106,6 +106,14 @@ class Step1GuiHandler(object):
         self.parent.ui.reset_lattice_button_2.setIcon(icon)
         self.parent.ui.reset_crystal_structure_button.setIcon(icon)
         self.parent.ui.reset_crystal_structure_button_2.setIcon(icon)
+        
+        # add shortcuts to menu button
+        self.parent.ui.action1_load_data.setShortcut('Ctrl+1')
+        self.parent.ui.action2_Normalization_2.setShortcut('Ctrl+2')
+        self.parent.ui.action3_Normalized_Data.setShortcut('Ctrl+3')
+        self.parent.ui.action3_Binning.setShortcut('Ctrl+4')
+        self.parent.ui.action4_Fitting.setShortcut('Ctrl+5')
+        self.parent.ui.action5_Results.setShortcut('Ctrl+6')
 
     def init_material_widgets(self):
         retrieve_material = RetrieveMaterialMetadata(material = 'all')

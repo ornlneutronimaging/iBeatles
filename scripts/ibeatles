@@ -31,7 +31,7 @@ from ibeatles.step2.normalization import Normalization
 
 from ibeatles.step3.gui_handler import Step3GuiHandler
 
-from ibeatles.binning.launcher import BinningLauncher
+from ibeatles.binning.binning_launcher import BinningLauncher
 from ibeatles.binning.binning_handler import BinningHandler
 
 from ibeatles.fitting.fitting_launcher import FittingLauncher

@@ -34,6 +34,12 @@ class BinningLauncher(object):
             self.parent.binning_ui.activateWindow()
 
 class BinningWindow(QMainWindow):        
+
+    default_bins_settings = {'x0': 0,
+                             'y0': 0,
+                             'width': 20,
+                             'height': 20,
+                             'bin_size': 10}
     
     image_view = None
     line_view = None
@@ -156,6 +162,13 @@ class BinningWindow(QMainWindow):
 
         self.image_view = image_view
 
+    def get_correct_widget_value(self, ui='', variable_name=''):
+        s_variable = str(ui.text())
+        if s_variable == '':
+            s_variable = str(self.default_bins_settings[variable_name])
+            ui.setText(s_variable)
+        return np.int(s_variable)
+
     def roi_selection_widgets_modified(self):
         
         if self.line_view:
@@ -167,11 +180,17 @@ class BinningWindow(QMainWindow):
                 self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
                 self.parent.fitting_ui.line_view = None
                     
-        x0 = np.int(str(self.ui.selection_x0.text()))
-        y0 = np.int(str(self.ui.selection_y0.text()))
-        width = np.int(str(self.ui.selection_width.text()))
-        height = np.int(str(self.ui.selection_height.text()))
-        bin_size = np.int(str(self.ui.pixel_bin_size.text()))
+        
+        x0 = self.get_correct_widget_value(ui = self.ui.selection_x0,
+                                             variable_name = 'x0')
+        y0 = self.get_correct_widget_value(ui = self.ui.selection_y0,
+                                               variable_name = 'y0')
+        width = self.get_correct_widget_value(ui = self.ui.selection_width,
+                                               variable_name = 'width')
+        height = self.get_correct_widget_value(ui = self.ui.selection_height,
+                                               variable_name = 'height')
+        bin_size = self.get_correct_widget_value(ui = self.ui.pixel_bin_size,
+                                                   variable_name = 'bin_size')
         
         self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
         self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
