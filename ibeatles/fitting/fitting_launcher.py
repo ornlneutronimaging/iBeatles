@@ -28,6 +28,7 @@ class FittingLauncher(object):
             self.parent.fitting_ui = fitting_window
             o_fitting = FittingHandler(parent=self.parent)
             o_fitting.display_image()
+            o_fitting.display_roi()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()

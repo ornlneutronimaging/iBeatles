@@ -308,7 +308,7 @@ class BinningWindow(QMainWindow):
             bin_size = np.int(str(self.ui.pixel_bin_size.text()))
             self.parent.binning_roi = [x0, y0, width, height, bin_size]
             
-            self.parent.binning_line_view['ui'] = self.line_view
+#            self.parent.binning_line_view['ui'] = self.line_view
     
             self.parent.binning_line_view['ui'] = self.line_view_binning
             self.parent.binning_line_view['pos'] = self.pos
