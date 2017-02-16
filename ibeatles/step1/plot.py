@@ -9,6 +9,7 @@ from ibeatles.utilities.roi_handler import RoiHandler
 from ibeatles.utilities.gui_handler import GuiHandler
 
 from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles.fitting.fitting_handler import FittingHandler
 
 
 class CustomAxis(pg.AxisItem):
@@ -84,6 +85,9 @@ class Step1Plot(object):
                 if not (self.parent.binning_ui is None):
                     o_binning = BinningHandler(parent=self.parent)
                     o_binning.display_image(data=_data)
+                if not (self.parent.fitting_ui is None):
+                    o_fitting = FittingHandler(parent=self.parent)
+                    o_fitting.display_image(data=_data)
 
     def add_origin_label(self, image_ui):
         # origin label

@@ -20,7 +20,7 @@ class FittingLauncher(object):
     def __init__(self, parent=None):
         self.parent = parent
         
-        if self.parent.binning_ui == None:
+        if self.parent.fitting_ui == None:
             fitting_window = FittingWindow(parent=parent)
             fitting_window.show()
             self.parent.fitting_ui = fitting_window
@@ -31,6 +31,9 @@ class FittingLauncher(object):
 class FittingWindow(QMainWindow):        
     
     data = []
+    
+    image_view = None
+    bragg_edge_plot = None
 
     def __init__(self, parent=None):
         
@@ -62,6 +65,7 @@ class FittingWindow(QMainWindow):
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
+        self.image_view = image_view
        
         top_widget = QtGui.QWidget()
         vertical = QtGui.QVBoxLayout()
@@ -72,6 +76,7 @@ class FittingWindow(QMainWindow):
         # bragg edge plot (bottom plot)
         bragg_edge_plot = pg.PlotWidget(title='')
         bragg_edge_plot.plot()
+        self.bragg_edge_plot = bragg_edge_plot
     
         d2.addWidget(bragg_edge_plot)
     
