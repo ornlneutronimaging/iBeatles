@@ -141,7 +141,12 @@ class BinningWindow(QMainWindow):
         if self.line_view:
             self.image_view.removeItem(self.line_view)
             self.line_view = None
-        
+            
+        if self.parent.fitting_ui:
+            if self.parent.fitting_ui.line_view:
+                self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
+                self.parent.fitting_ui.line_view = None
+                    
         x0 = np.int(str(self.ui.selection_x0.text()))
         y0 = np.int(str(self.ui.selection_y0.text()))
         width = np.int(str(self.ui.selection_width.text()))
@@ -166,15 +171,26 @@ class BinningWindow(QMainWindow):
                                ('blue',np.ubyte),('alpha',np.ubyte),
                                ('width',float)]) 
 
-        line_view = pg.GraphItem()
-        self.image_view.addItem(line_view)
-        self.line_view = line_view
-
+        line_view_binning = pg.GraphItem()
+        self.image_view.addItem(line_view_binning)
+        self.line_view = line_view_binning
         self.line_view.setData(pos=pos, 
                                adj=adj,
                                pen=lines,
                                symbol=None,
                                pxMode=False)
+        
+        if self.parent.fitting_ui:
+            
+            line_view_fitting = pg.GraphItem()
+            self.parent.fitting_ui.image_view.addItem(line_view_fitting)
+            self.parent.fitting_ui.line_view = line_view_fitting
+            self.parent.fitting_ui.line_view.setData(pos=pos, 
+                                                     adj=adj,
+                                                     pen=lines,
+                                                     symbol=None,
+                                                     pxMode=False)
+            
                 
     def  calculate_matrix_of_pixel_bins(self, bin_size=2,
                                             x0=0,

@@ -34,6 +34,7 @@ class FittingWindow(QMainWindow):
     
     image_view = None
     bragg_edge_plot = None
+    line_view = None
 
     def __init__(self, parent=None):
         
