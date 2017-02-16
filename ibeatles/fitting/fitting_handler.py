@@ -42,11 +42,4 @@ class FittingHandler(object):
                                                      symbol=None,
                                                      pxMode=False)
 
-            
-            
-            
-            
-        
-            
-
-  
+      
