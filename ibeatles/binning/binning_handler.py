@@ -17,7 +17,24 @@ class BinningHandler(object):
                 if not(data == np.array([])):
                     self.binning_ui.image_view.setImage(data)
                     self.binning_ui.data = data
-                
+                    
+    def display_selection(self):
+        if self.parent.binning_line_view['ui']:
+            
+            binning_line_view = self.parent.binning_line_view
+            line_view_binning = binning_line_view['ui']
+            self.parent.binning_ui.line_view = line_view_binning
+            
+            pos = binning_line_view['pos']
+            adj = binning_line_view['adj']
+            lines = binning_line_view['pen']
+            
+            self.parent.binning_ui.line_view.setData(pos=pos, 
+                                                     adj=adj,
+                                                     pen=lines,
+                                                     symbol=None,
+                                                     pxMode=False)                                  
+            
                 
             
 

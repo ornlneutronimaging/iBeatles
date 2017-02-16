@@ -28,6 +28,7 @@ class BinningLauncher(object):
             self.parent.binning_ui = binning_window
             o_binning = BinningHandler(parent=self.parent)
             o_binning.display_image()
+            o_binning.display_selection()
         else:
             self.parent.binning_ui.setFocus()
             self.parent.binning_ui.activateWindow()
@@ -50,7 +51,16 @@ class BinningWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("4. Binning")
         
-        self.init_pyqtgraph()        
+        self.init_pyqtgraph() 
+        self.init_widgets()
+        
+    def init_widgets(self):
+        if self.parent.binning_roi:
+            [x0, y0, width, height] = self.parent.binning_roi
+            self.ui.selection_x0.setText(str(x0))
+            self.ui.selection_y0.setText(str(y0))
+            self.ui.selection_width.setText(str(width))
+            self.ui.selection_height.setText(str(height))
 
     def roi_changed_finished(self):
         self.roi_selection_widgets_modified()        
@@ -76,7 +86,7 @@ class BinningWindow(QMainWindow):
         self.ui.selection_y0.setText("{}".format(y0))
         self.ui.selection_width.setText("{}".format(width))
         self.ui.selection_height.setText("{}".format(height))
-        
+                
     def init_pyqtgraph(self):
 
         pg.setConfigOptions(antialias=True)
@@ -85,14 +95,23 @@ class BinningWindow(QMainWindow):
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
-        roi = pg.ROI([0,0], [20, 20], pen=pen_color['0'], scaleSnap=True)
+        if self.parent.binning_roi:
+            [x0, y0, width, height] = self.parent.binning_roi
+            roi = pg.ROI([x0,y0], [width,height], pen=pen_color['0'], scaleSnap=True)
+        else:
+            roi = pg.ROI([0,0], [20, 20], pen=pen_color['0'], scaleSnap=True)
+
         roi.addScaleHandle([1,1], [0,0])
-        image_view.addItem(roi)
         roi.sigRegionChanged.connect(self.roi_changed)
         roi.sigRegionChangeFinished.connect(self.roi_changed_finished)
+
+        image_view.addItem(roi)
         self.widgets_ui['roi'] = roi
-        
-        line_view = pg.GraphItem()
+
+        if self.parent.binning_line_view['ui']:
+            line_view = self.parent.binning_line_view['ui']
+        else:
+            line_view = pg.GraphItem()
         image_view.addItem(line_view)
         self.line_view = line_view
 
@@ -180,6 +199,11 @@ class BinningWindow(QMainWindow):
                                symbol=None,
                                pxMode=False)
         
+        self.line_view_binning = line_view_binning
+        self.pos = pos
+        self.adj = adj
+        self.lines = lines
+        
         if self.parent.fitting_ui:
             
             line_view_fitting = pg.GraphItem()
@@ -241,6 +265,8 @@ class BinningWindow(QMainWindow):
     def mouse_moved_in_image(self, event):
         pass
     
+    # this is not working yet !!!!
+    
         if self.data == []:
             return
 
@@ -252,3 +278,21 @@ class BinningWindow(QMainWindow):
         
     def closeEvent(self, event=None):
         self.parent.binning_ui = None
+        
+        if not self.data == []:
+
+            x0 = np.int(str(self.ui.selection_x0.text()))
+            y0 = np.int(str(self.ui.selection_y0.text()))
+            width = np.int(str(self.ui.selection_width.text()))
+            height = np.int(str(self.ui.selection_height.text()))
+            
+            self.parent.binning_roi = [x0, y0, width, height]
+            print("leaving close event")
+            print(self.parent.binning_roi)
+            
+            self.parent.binning_line_view['ui'] = self.line_view
+    
+            self.parent.binning_line_view['ui'] = self.line_view_binning
+            self.parent.binning_line_view['pos'] = self.pos
+            self.parent.binning_line_view['adj'] = self.adj
+            self.parent.binning_line_view['pen'] = self.lines

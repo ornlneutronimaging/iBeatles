@@ -14,6 +14,8 @@ import numpy as np
 from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
 
+from ibeatles.fitting.fitting_handler import FittingHandler
+
 
 class FittingLauncher(object):
     
@@ -24,6 +26,8 @@ class FittingLauncher(object):
             fitting_window = FittingWindow(parent=parent)
             fitting_window.show()
             self.parent.fitting_ui = fitting_window
+            o_fitting = FittingHandler(parent=self.parent)
+            o_fitting.display_image()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -83,3 +87,7 @@ class FittingWindow(QMainWindow):
     
         vertical_layout.addWidget(area)
         self.ui.widget.setLayout(vertical_layout)        
+        
+    def closeEvent(self, event=None):
+        self.parent.fitting_ui = None
+    
