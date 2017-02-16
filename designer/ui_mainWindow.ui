@@ -181,8 +181,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1383</width>
-                      <height>369</height>
+                      <width>147</width>
+                      <height>147</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -1907,6 +1907,13 @@
                        </property>
                       </spacer>
                      </item>
+                     <item>
+                      <widget class="QLabel" name="label_22">
+                       <property name="text">
+                        <string>NB: those widgets are also used to define material in the Fitting (step 5) window.</string>
+                       </property>
+                      </widget>
+                     </item>
                     </layout>
                    </widget>
                   </item>
@@ -2182,8 +2189,8 @@
    <slot>normalized_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>111</y>
+     <x>79</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
      <x>299</x>
@@ -2198,8 +2205,8 @@
    <slot>normalized_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>435</x>
-     <y>298</y>
+     <x>99</x>
+     <y>82</y>
     </hint>
     <hint type="destinationlabel">
      <x>959</x>
@@ -2230,8 +2237,8 @@
    <slot>crystal_structure_2_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>898</x>
-     <y>765</y>
+     <x>119</x>
+     <y>103</y>
     </hint>
     <hint type="destinationlabel">
      <x>653</x>
@@ -2246,8 +2253,8 @@
    <slot>lattice_2_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>970</x>
-     <y>719</y>
+     <x>121</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2294,8 +2301,8 @@
    <slot>material_display_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>991</x>
-     <y>604</y>
+     <x>127</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2310,8 +2317,8 @@
    <slot>normalized_time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>160</x>
-     <y>469</y>
+     <x>72</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2326,8 +2333,8 @@
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1293</x>
-     <y>469</y>
+     <x>88</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2342,8 +2349,8 @@
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1209</x>
-     <y>700</y>
+     <x>110</x>
+     <y>118</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2358,8 +2365,8 @@
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1177</x>
-     <y>700</y>
+     <x>96</x>
+     <y>118</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2374,8 +2381,8 @@
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1399</x>
-     <y>923</y>
+     <x>95</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2406,8 +2413,8 @@
    <slot>normalization_tableWidget_cell_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1319</x>
-     <y>349</y>
+     <x>95</x>
+     <y>88</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2470,8 +2477,8 @@
    <slot>distance_source_detector_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>567</x>
-     <y>604</y>
+     <x>85</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -2486,8 +2493,8 @@
    <slot>detector_offset_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>537</x>
-     <y>665</y>
+     <x>85</x>
+     <y>105</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2502,8 +2509,8 @@
    <slot>beam_rate_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>262</x>
-     <y>638</y>
+     <x>152</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2534,8 +2541,8 @@
    <slot>add_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1271</x>
-     <y>684</y>
+     <x>127</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>-6</x>
@@ -2582,8 +2589,8 @@
    <slot>reset_lattice_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1017</x>
-     <y>720</y>
+     <x>143</x>
+     <y>124</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2598,8 +2605,8 @@
    <slot>reset_crystal_structure_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>923</x>
-     <y>763</y>
+     <x>142</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>

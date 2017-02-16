@@ -39,3 +39,41 @@ class FittingWindow(QMainWindow):
         self.ui = UiMainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle("5. Fitting")
+
+        self.init_pyqtgraph()
+        
+    def init_pyqtgraph(self):
+
+        area = DockArea()
+        area.setVisible(True)
+        d1 = Dock("Image Preview", size=(200, 300))
+        d2 = Dock("Bragg Edge", size=(200, 100))
+    
+        area.addDock(d1, 'top')
+        area.addDock(d2, 'bottom')
+    
+        preview_widget = pg.GraphicsLayoutWidget()
+        pg.setConfigOptions(antialias=True) # this improve display
+    
+        vertical_layout = QtGui.QVBoxLayout()
+        preview_widget.setLayout(vertical_layout)
+    
+        # image view (top plot)
+        image_view = pg.ImageView()
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+       
+        top_widget = QtGui.QWidget()
+        vertical = QtGui.QVBoxLayout()
+        vertical.addWidget(image_view)
+        top_widget.setLayout(vertical)
+        d1.addWidget(top_widget)
+    
+        # bragg edge plot (bottom plot)
+        bragg_edge_plot = pg.PlotWidget(title='')
+        bragg_edge_plot.plot()
+    
+        d2.addWidget(bragg_edge_plot)
+    
+        vertical_layout.addWidget(area)
+        self.ui.widget.setLayout(vertical_layout)        
