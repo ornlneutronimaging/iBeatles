@@ -424,6 +424,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         _contain = str(self.ui.lattice_parameter_2.text())
         self.ui.lattice_parameter.setText(_contain)
         o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
         
     def reset_lattice_button_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
