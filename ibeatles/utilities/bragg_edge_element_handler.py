@@ -23,6 +23,7 @@ class BraggEdgeElementHandler(object):
         _handler = BraggEdge(new_material = [_element_dictionary])
         self.parent.selected_element_bragg_edges_array = _handler.bragg_edges[element_name]
         self.parent.selected_element_hkl_array = _handler.hkl[element_name]
+        self.parent.selected_element_name = element_name
 
         # modified the fitting window list of h,k,l if window is alive
         if self.parent.fitting_ui:
@@ -30,5 +31,6 @@ class BraggEdgeElementHandler(object):
             str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
             self.parent.fitting_ui.ui.hkl_list_ui.clear()
             self.parent.fitting_ui.ui.hkl_list_ui.addItems(str_hkl_list)
+            self.parent.fitting_ui.ui.material_groupBox.setTitle(element_name)
             
 

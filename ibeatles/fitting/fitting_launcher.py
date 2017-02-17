@@ -73,6 +73,7 @@ class FittingWindow(QMainWindow):
         self.ui.lambda_min_units.setText(u"\u212B")
         self.ui.lambda_max_units.setText(u"\u212B")
         self.ui.bragg_edge_units.setText(u"\u212B")
+        self.ui.material_groupBox.setTitle(self.parent.selected_element_name)
         
     def init_pyqtgraph(self):
 
@@ -162,6 +163,20 @@ class FittingWindow(QMainWindow):
         
     def plots_bins_individual_pressed(self):
         print("indi pressed")
+        
+    def hkl_list_changed(self, hkl):
+        bragg_edges_array = self.parent.selected_element_bragg_edges_array
+        if bragg_edges_array:
+            if str(hkl) == '':
+                value = "N/A"
+            else:
+                hkl_array = self.parent.selected_element_hkl_array
+                str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_array]
+                hkl_bragg_edges = dict(zip(str_hkl_list, bragg_edges_array))
+                value = "{:04.3f}".format(hkl_bragg_edges[str(hkl)])
+        else:
+            value = "N/A"
+        self.ui.bragg_edge_calculated.setText(value)
         
     def slider_changed(self):
         o_fitting_handler = FittingHandler(parent=self.parent)

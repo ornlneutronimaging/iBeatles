@@ -73,7 +73,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QGroupBox" name="groupBox">
+            <widget class="QGroupBox" name="material_groupBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -157,7 +157,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_3">
+                 <widget class="QLabel" name="bragg_edge_calculated">
                   <property name="minimumSize">
                    <size>
                     <width>50</width>
@@ -287,7 +287,24 @@
  <resources>
   <include location="../icons/icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>hkl_list_ui</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>hkl_list_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>764</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>957</x>
+     <y>70</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
   <slot>time_spectra_import_button_clicked()</slot>
@@ -338,5 +355,6 @@
   <slot>menu_view_fitting_clicked()</slot>
   <slot>menu_view_strain_mapping_clicked()</slot>
   <slot>roi_selection_widgets_modified()</slot>
+  <slot>hkl_list_changed()</slot>
  </slots>
 </ui>

@@ -75,6 +75,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     local_bragg_edge_list = {}
     selected_element_bragg_edges_array = []
     selected_element_hkl_array = []
+    selected_element_name = ''
     
     # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
     init_array = ['label_roi', '0', '0', '1', '1', '0']
