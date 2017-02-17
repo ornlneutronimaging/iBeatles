@@ -246,7 +246,6 @@ class BinningWindow(QMainWindow):
                                                      pen=lines,
                                                      symbol=None,
                                                      pxMode=False)
-            
                 
     def  calculate_matrix_of_pixel_bins(self, bin_size=2,
                                             x0=0,

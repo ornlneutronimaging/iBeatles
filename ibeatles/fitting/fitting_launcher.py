@@ -44,6 +44,8 @@ class FittingWindow(QMainWindow):
     line_view = None
     
     line_view_fitting = None #roi selected in binning window
+    all_bins_button = None
+    indi_bins_button = None
 
     def __init__(self, parent=None):
         
@@ -123,10 +125,43 @@ class FittingWindow(QMainWindow):
         bragg_edge_plot.plot()
         self.bragg_edge_plot = bragg_edge_plot
     
+        # plot all or individual bins
+        buttons_layout = QtGui.QHBoxLayout()
+        spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        buttons_layout.addItem(spacer)
+        label = QtGui.QLabel("Plots Bins")
+        buttons_layout.addWidget(label)
+        
+        # all bins button
+        all_button = QtGui.QRadioButton()
+        all_button.setText("All")
+        all_button.setChecked(True)
+        all_button.pressed.connect(self.plots_bins_all_pressed)
+        self.all_bins_button = all_button
+        
+        # indi bin button
+        buttons_layout.addWidget(all_button)
+        indi_button = QtGui.QRadioButton()
+        indi_button.setText("Individual")
+        indi_button.setChecked(False)
+        indi_button.pressed.connect(self.plots_bins_individual_pressed)
+        self.indi_bins_button = indi_button
+
+        buttons_layout.addWidget(indi_button)
+        bottom_widget = QtGui.QWidget()
+        bottom_widget.setLayout(buttons_layout)
+    
         d2.addWidget(bragg_edge_plot)
+        d2.addWidget(bottom_widget)
     
         vertical_layout.addWidget(area)
         self.ui.widget.setLayout(vertical_layout)        
+        
+    def plots_bins_all_pressed(self):
+        print("all pressed")
+        
+    def plots_bins_individual_pressed(self):
+        print("indi pressed")
         
     def slider_changed(self):
         o_fitting_handler = FittingHandler(parent=self.parent)
