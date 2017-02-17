@@ -50,6 +50,21 @@ class FittingWindow(QMainWindow):
         self.setWindowTitle("5. Fitting")
 
         self.init_pyqtgraph()
+        self.init_labels()
+        self.init_widgets()
+        
+    def init_widgets(self):
+        '''
+        such as material h,k,l list according to material selected in normalized tab
+        '''
+        pass
+        
+    def init_labels(self):
+        self.ui.lambda_min_label.setText(u"\u03BB<sub>min</sub>")
+        self.ui.lambda_max_label.setText(u"\u03BB<sub>max</sub>")
+        self.ui.lambda_min_units.setText(u"\u212B")
+        self.ui.lambda_max_units.setText(u"\u212B")
+        self.ui.bragg_edge_units.setText(u"\u212B")
         
     def init_pyqtgraph(self):
 
