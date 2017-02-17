@@ -57,7 +57,9 @@ class FittingWindow(QMainWindow):
         '''
         such as material h,k,l list according to material selected in normalized tab
         '''
-        pass
+        hkl_list = self.parent.selected_element_hkl_array
+        str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
+        self.ui.hkl_list_ui.addItems(str_hkl_list)
         
     def init_labels(self):
         self.ui.lambda_min_label.setText(u"\u03BB<sub>min</sub>")

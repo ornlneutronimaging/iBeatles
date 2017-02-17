@@ -73,7 +73,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="comboBox">
+               <widget class="QComboBox" name="hkl_list_ui">
                 <property name="minimumSize">
                  <size>
                   <width>100</width>

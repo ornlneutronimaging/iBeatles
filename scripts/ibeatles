@@ -412,6 +412,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         
     def crystal_structure_2_index_changed(self, index):
         self.ui.crystal_structure.setCurrentIndex(index)
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
         
     def lattice_text_changed(self):
         _contain = str(self.ui.lattice_parameter.text())
