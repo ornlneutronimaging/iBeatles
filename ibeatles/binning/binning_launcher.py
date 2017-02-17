@@ -12,7 +12,7 @@ import pyqtgraph as pg
 import numpy as np
     
 from ibeatles.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
-from ibeatles.utilities.colors import pen_color
+from ibeatles.utilities import colors
 
 from ibeatles.binning.binning_handler import BinningHandler
 
@@ -104,9 +104,9 @@ class BinningWindow(QMainWindow):
         image_view.ui.menuBtn.hide()
         if self.parent.binning_roi:
             [x0, y0, width, height, bin_size] = self.parent.binning_roi
-            roi = pg.ROI([x0,y0], [width,height], pen=pen_color['0'], scaleSnap=True)
+            roi = pg.ROI([x0,y0], [width,height], pen=colors.pen_color['0'], scaleSnap=True)
         else:
-            roi = pg.ROI([0,0], [20, 20], pen=pen_color['0'], scaleSnap=True)
+            roi = pg.ROI([0,0], [20, 20], pen=colors.pen_color['0'], scaleSnap=True)
 
         roi.addScaleHandle([1,1], [0,0])
         roi.sigRegionChanged.connect(self.roi_changed)
@@ -204,7 +204,7 @@ class BinningWindow(QMainWindow):
         pos = pos_adj_dict['pos']
         adj = pos_adj_dict['adj']
         
-        line_color = (255,0,0,255,1)
+        line_color = (255,0,0,255,1)    
         lines = np.array([line_color for n in np.arange(len(pos))],
                         dtype=[('red',np.ubyte),('green',np.ubyte),
                                ('blue',np.ubyte),('alpha',np.ubyte),
@@ -226,7 +226,19 @@ class BinningWindow(QMainWindow):
         
         if self.parent.fitting_ui:
             
+            transparency = self.parent.fitting_ui.slider.value()
+            alpha = np.int((np.float(transparency)/100.)*255)
+            line_color = (255,0,0,alpha,1)
+            lines = np.array([line_color for n in np.arange(len(pos))],
+                                 dtype=[('red',np.ubyte),('green',np.ubyte),
+                                       ('blue',np.ubyte),('alpha',np.ubyte),
+                                       ('width',float)]) 
+
+            if self.parent.fitting_ui.line_view_fitting:
+                self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view_fitting)
+                        
             line_view_fitting = pg.GraphItem()
+            self.parent.fitting_ui.line_view_fitting = line_view_fitting
             self.parent.fitting_ui.image_view.addItem(line_view_fitting)
             self.parent.fitting_ui.line_view = line_view_fitting
             self.parent.fitting_ui.line_view.setData(pos=pos, 

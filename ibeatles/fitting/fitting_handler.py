@@ -1,6 +1,7 @@
 import numpy as np
 import pyqtgraph as pg
 
+from ibeatles.utilities import colors
 
 class FittingHandler(object):
     
@@ -33,7 +34,16 @@ class FittingHandler(object):
             plot_roi = True
             
         if plot_roi:
+
+            # define new transparency of roi
+            transparency = self.parent.fitting_ui.slider.value()
+            lines = colors.set_alpha_value(lines=lines, transparency=transparency)
+            
+            if self.parent.fitting_ui.line_view_fitting:
+                self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view_fitting)
+
             line_view_fitting = pg.GraphItem()
+            self.parent.fitting_ui.line_view_fitting = line_view_fitting
             self.parent.fitting_ui.image_view.addItem(line_view_fitting)
             self.parent.fitting_ui.line_view = line_view_fitting
             self.parent.fitting_ui.line_view.setData(pos=pos, 
@@ -42,4 +52,4 @@ class FittingHandler(object):
                                                      symbol=None,
                                                      pxMode=False)
 
-      
+    

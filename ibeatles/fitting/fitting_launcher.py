@@ -1,10 +1,12 @@
 try:
     import PyQt4
     import PyQt4.QtGui as QtGui
+    import PyQt4.QtCore as QtCore
     from PyQt4.QtGui import QMainWindow
 except:
     import PyQt5
     import PyQt5.QtGui as QtGui
+    import PyQt5.QtCore as QtCore
     from PyQt5.QtWidgets import QMainWindow
 
 from pyqtgraph.dockarea import *
@@ -40,6 +42,8 @@ class FittingWindow(QMainWindow):
     image_view = None
     bragg_edge_plot = None
     line_view = None
+    
+    line_view_fitting = None #roi selected in binning window
 
     def __init__(self, parent=None):
         
@@ -93,8 +97,26 @@ class FittingWindow(QMainWindow):
         top_widget = QtGui.QWidget()
         vertical = QtGui.QVBoxLayout()
         vertical.addWidget(image_view)
+
+        # bin transparency
+        transparency_layout = QtGui.QHBoxLayout()
+        spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        transparency_layout.addItem(spacer)        
+        label = QtGui.QLabel("Bin Transparency")
+        transparency_layout.addWidget(label)
+        slider = QtGui.QSlider(QtCore.Qt.Horizontal)
+        slider.setMaximum(100)
+        slider.setMinimum(0)
+        slider.setValue(50)
+        slider.valueChanged.connect(self.slider_changed)
+        self.slider = slider
+        transparency_layout.addWidget(slider)
+        bottom_widget = QtGui.QWidget()
+        bottom_widget.setLayout(transparency_layout)
+
         top_widget.setLayout(vertical)
         d1.addWidget(top_widget)
+        d1.addWidget(bottom_widget)
     
         # bragg edge plot (bottom plot)
         bragg_edge_plot = pg.PlotWidget(title='')
@@ -105,6 +127,10 @@ class FittingWindow(QMainWindow):
     
         vertical_layout.addWidget(area)
         self.ui.widget.setLayout(vertical_layout)        
+        
+    def slider_changed(self):
+        o_fitting_handler = FittingHandler(parent=self.parent)
+        o_fitting_handler.display_roi()
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
