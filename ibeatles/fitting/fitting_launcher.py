@@ -46,6 +46,37 @@ class FittingWindow(QMainWindow):
     line_view_fitting = None #roi selected in binning window
     all_bins_button = None
     indi_bins_button = None
+    
+    para_cell_width = 110
+    header_table_columns_width = [50,50,100,
+                                  para_cell_width, 
+                                  para_cell_width,
+                                  para_cell_width,
+                                  para_cell_width,
+                                  para_cell_width,
+                                  para_cell_width,
+                                  para_cell_width,
+                                  para_cell_width,
+                                  para_cell_width]
+    fitting_table_columns_width = [header_table_columns_width[0],
+                                   header_table_columns_width[1],
+                                   header_table_columns_width[2],
+                                   np.int(header_table_columns_width[3]/2),
+                                   np.int(header_table_columns_width[3]/2),
+                                   np.int(header_table_columns_width[4]/2),
+                                   np.int(header_table_columns_width[4]/2),
+                                   np.int(header_table_columns_width[5]/2),
+                                   np.int(header_table_columns_width[5]/2),
+                                   np.int(header_table_columns_width[6]/2),
+                                   np.int(header_table_columns_width[6]/2),
+                                   np.int(header_table_columns_width[7]/2),
+                                   np.int(header_table_columns_width[7]/2),
+                                   np.int(header_table_columns_width[8]/2),
+                                   np.int(header_table_columns_width[8]/2),
+                                   np.int(header_table_columns_width[9]/2),
+                                   np.int(header_table_columns_width[9]/2),
+                                   np.int(header_table_columns_width[10]/2),
+                                   np.int(header_table_columns_width[10]/2)]
 
     def __init__(self, parent=None):
         
@@ -58,6 +89,45 @@ class FittingWindow(QMainWindow):
         self.init_pyqtgraph()
         self.init_labels()
         self.init_widgets()
+        self.init_table()
+        
+    def init_table(self):
+        for _column, _width in enumerate(self.header_table_columns_width):
+            self.ui.header_table.setColumnWidth(_column, _width)
+            
+        for _column, _width in enumerate(self.fitting_table_columns_width):
+            self.ui.value_table.setColumnWidth(_column, _width)
+            
+        self.hori_header_table = self.ui.header_table.horizontalHeader()
+        self.hori_value_table = self.ui.value_table.horizontalHeader()
+        
+        self.hori_header_table.sectionResized.connect(self.resizing_header_table)
+        self.hori_value_table.sectionResized.connect(self.resizing_value_table)
+
+    def resizing_header_table(self, index_column, old_size, new_size):
+        if index_column < 3:
+            self.ui.value_table.setColumnWidth(index_column, new_size)
+        else:
+            new_half_size = np.int(new_size/2)
+            index1 = (index_column - 3) * 2 + 3
+            index2 = index1+1
+            self.ui.value_table.setColumnWidth(index1, new_half_size)
+            self.ui.value_table.setColumnWidth(index2, new_half_size)
+    
+    def resizing_value_table(self, index_column, old_size, new_size):
+        if index_column < 3:
+            self.ui.header_table.setColumnWidth(index_column, new_size)
+        else:
+            if (index_column % 2) == 1:
+                right_new_size = self.ui.value_table.columnWidth(index_column + 1)
+                index_header = np.int(index_column - 3) / 2 + 3
+                self.ui.header_table.setColumnWidth(index_header, new_size + right_new_size)
+                
+            else:
+                left_new_size = self.ui.value_table.columnWidth(index_column - 1)
+                index_header = np.int(index_column - 4) / 2 + 3
+                self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
+
         
     def init_widgets(self):
         '''
@@ -74,7 +144,7 @@ class FittingWindow(QMainWindow):
         self.ui.lambda_max_units.setText(u"\u212B")
         self.ui.bragg_edge_units.setText(u"\u212B")
         self.ui.material_groupBox.setTitle(self.parent.selected_element_name)
-        
+                
     def init_pyqtgraph(self):
 
         area = DockArea()
@@ -96,6 +166,7 @@ class FittingWindow(QMainWindow):
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         self.image_view = image_view
+        image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image_view)
        
         top_widget = QtGui.QWidget()
         vertical = QtGui.QVBoxLayout()
@@ -157,6 +228,9 @@ class FittingWindow(QMainWindow):
     
         vertical_layout.addWidget(area)
         self.ui.widget.setLayout(vertical_layout)        
+        
+    def mouse_moved_in_image_view(self):
+        self.image_view.setFocus(True)        
         
     def plots_bins_all_pressed(self):
         print("all pressed")

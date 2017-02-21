@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>963</width>
-    <height>746</height>
+    <width>1222</width>
+    <height>772</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -277,6 +277,235 @@
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
        </property>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QTableWidget" name="header_table">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>1180</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>1180</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="autoScroll">
+           <bool>true</bool>
+          </property>
+          <property name="cornerButtonEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderVisible">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="horizontalHeaderHighlightSections">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Lock</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Bin #</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Fitting Confidence</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>D-spacing</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Sigma</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Intensity</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Alpha</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>A1</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>A2</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>A5</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>A6</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="value_table">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>1180</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>1180</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Val.</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Err.</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -295,7 +524,7 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>764</x>
+     <x>1023</x>
      <y>73</y>
     </hint>
     <hint type="destinationlabel">
@@ -356,5 +585,6 @@
   <slot>menu_view_strain_mapping_clicked()</slot>
   <slot>roi_selection_widgets_modified()</slot>
   <slot>hkl_list_changed()</slot>
+  <slot>table_width_changed()</slot>
  </slots>
 </ui>
