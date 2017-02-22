@@ -201,6 +201,8 @@ class Ui_MainWindow(object):
         self.value_table.setFrameShadow(QtGui.QFrame.Sunken)
         self.value_table.setLineWidth(1)
         self.value_table.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.value_table.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
+        self.value_table.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.value_table.setObjectName(_fromUtf8("value_table"))
         self.value_table.setColumnCount(19)
         self.value_table.setRowCount(0)
