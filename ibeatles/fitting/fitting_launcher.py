@@ -17,6 +17,7 @@ from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
 
 from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 
 
 class FittingLauncher(object):
@@ -89,9 +90,16 @@ class FittingWindow(QMainWindow):
         self.init_pyqtgraph()
         self.init_labels()
         self.init_widgets()
-        self.init_table()
+        self.init_table_behavior()
+        self.fill_table()
         
-    def init_table(self):
+    def fill_table(self):
+        if self.parent.binning_ui:
+            o_fill_table = FillingTableHandler(parent=self.parent)
+            o_fill_table.create_table_dictionary()
+            o_fill_table.fill_table()
+        
+    def init_table_behavior(self):
         for _column, _width in enumerate(self.header_table_columns_width):
             self.ui.header_table.setColumnWidth(_column, _width)
             

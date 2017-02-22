@@ -278,6 +278,9 @@
         <enum>QFrame::Raised</enum>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QTableWidget" name="header_table">
           <property name="sizePolicy">
@@ -295,7 +298,7 @@
           <property name="maximumSize">
            <size>
             <width>1180</width>
-            <height>35</height>
+            <height>22</height>
            </size>
           </property>
           <property name="verticalScrollBarPolicy">
@@ -404,6 +407,12 @@
             <width>1180</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
           </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>

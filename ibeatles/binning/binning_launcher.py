@@ -191,6 +191,8 @@ class BinningWindow(QMainWindow):
                                                variable_name = 'height')
         bin_size = self.get_correct_widget_value(ui = self.ui.pixel_bin_size,
                                                    variable_name = 'bin_size')
+        self.parent.binning_bin_size = bin_size
+        
         
         self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
         self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
@@ -246,6 +248,10 @@ class BinningWindow(QMainWindow):
                                                      pen=lines,
                                                      symbol=None,
                                                      pxMode=False)
+            
+            self.parent.fitting_ui.fill_table()
+            
+            
                 
     def  calculate_matrix_of_pixel_bins(self, bin_size=2,
                                             x0=0,

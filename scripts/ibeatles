@@ -67,6 +67,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                          'adj': None,
                          'pen': None}
     binning_roi = [] #x0, x1, y0, y1
+    binning_bin_size = 20
 
     # fitting window stuff
     fitting_ui = None
