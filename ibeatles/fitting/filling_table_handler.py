@@ -75,7 +75,8 @@ class FillingTableHandler(object):
             _lock_button = QtGui.QCheckBox()
             _is_checked = _entry['lock']
             _lock_button.setChecked(_is_checked)
-            _lock_button.stateChanged.connect(self.parent.fitting_ui.lock_button_state_changed)
+            _lock_button.stateChanged.connect(lambda state=0, 
+                                              row=_index: self.parent.fitting_ui.lock_button_state_changed(state, row))
             
             value_table_ui.setCellWidget(_index, 0, _lock_button)
             

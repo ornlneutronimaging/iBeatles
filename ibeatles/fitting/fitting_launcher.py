@@ -262,12 +262,35 @@ class FittingWindow(QMainWindow):
         o_fitting_handler = FittingHandler(parent=self.parent)
         o_fitting_handler.display_roi()
 
-    def lock_button_state_changed(self, status):
+    def lock_button_state_changed(self, status, row_clicked):
         '''
         status: 0: off
                 2: on
         '''
-        pass
+        # retrieve selection
+        selection = self.ui.value_table.selectedRanges()
+        nbr_selection = len(selection)
+
+        # make sure the row is inside the selection
+        click_inside_selection = False
+        for _select in selection:
+            top_row = _select.topRow()
+            bottom_row = _select.bottomRow()
+            if (row_clicked <= bottom_row) and (row_clicked >= top_row):
+                click_inside_selection = True
+                break
+
+        if click_inside_selection:
+            for _select in selection:
+                top_row = _select.topRow()
+                bottom_row = _select.bottomRow()
+                
+                for _row in np.arange(top_row, bottom_row+1):
+                    _widget = self.ui.value_table.cellWidget(_row, 0)
+                    if status == 0:
+                        _widget.setChecked(False)
+                    else:
+                        _widget.setChecked(True)
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
