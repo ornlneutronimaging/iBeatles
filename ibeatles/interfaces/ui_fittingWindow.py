@@ -198,6 +198,7 @@ class Ui_MainWindow(object):
         self.value_table.setSizePolicy(sizePolicy)
         self.value_table.setMinimumSize(QtCore.QSize(1180, 0))
         self.value_table.setMaximumSize(QtCore.QSize(1180, 16777215))
+        self.value_table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.value_table.setFrameShadow(QtGui.QFrame.Sunken)
         self.value_table.setLineWidth(1)
         self.value_table.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
@@ -254,6 +255,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.hkl_list_ui, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), MainWindow.hkl_list_changed)
+        QtCore.QObject.connect(self.value_table, QtCore.SIGNAL(_fromUtf8("customContextMenuRequested(QPoint)")), MainWindow.value_table_right_click)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

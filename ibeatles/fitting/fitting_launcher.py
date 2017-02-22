@@ -17,6 +17,7 @@ from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
 
 from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.value_table_handler import ValueTableHandler
 
 
 class FittingLauncher(object):
@@ -291,6 +292,10 @@ class FittingWindow(QMainWindow):
                         _widget.setChecked(False)
                     else:
                         _widget.setChecked(True)
+        
+    def value_table_right_click(self, position):
+        o_table_handler = ValueTableHandler(parent=self.parent)
+        o_table_handler.right_click(position=position)
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
