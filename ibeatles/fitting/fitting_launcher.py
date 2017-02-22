@@ -261,6 +261,13 @@ class FittingWindow(QMainWindow):
     def slider_changed(self):
         o_fitting_handler = FittingHandler(parent=self.parent)
         o_fitting_handler.display_roi()
+
+    def lock_button_state_changed(self, status):
+        '''
+        status: 0: off
+                2: on
+        '''
+        pass
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
