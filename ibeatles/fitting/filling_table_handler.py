@@ -1,4 +1,5 @@
 import numpy as np
+from PyQt4 import QtGui
 
 
 class FillingTableHandler(object):
@@ -43,32 +44,48 @@ class FillingTableHandler(object):
         
         table_dictionary = {}
         _index = 0
-        for _x in np.arange(from_x, to_x):
-            for _y in np.arange(from_y, to_y):
+        for _x in np.arange(from_x, to_x, bin_size):
+            for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
                 table_dictionary[_str_index] = self.init_dict
                 table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
                 table_dictionary[_str_index]['bin_coordinates']['x1'] = _x+1
                 table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
                 table_dictionary[_str_index]['bin_coordinates']['y1'] = _y+1
-
+                _index += 1
         
         self.table_dictionary = table_dictionary
 
     def fill_table(self):
+        self.clear_table()
+
         table_dictionary = self.table_dictionary
         nbr_row = len(table_dictionary)
         
+        value_table_ui = self.parent.fitting_ui.ui.value_table
+                
         for _index in np.arange(nbr_row):
             _str_index = str(_index)
             _entry = table_dictionary[_str_index]
             
+            # add new row
+            value_table_ui.insertRow(_index)
             
-        
+            # add lock button in first cell (column: 0)
+            _lock_button = QtGui.QCheckBox()
+            _is_checked = _entry['lock']
+            _lock_button.setChecked(_is_checked)
+            value_table_ui.setCellWidget(_index, 0, _lock_button)
+            
+            # bin # (column: 1)
+            _bin_number = QtGui.QTableWidgetItem("{:02}".format(_index))
+            value_table_ui.setItem(_index, 1, _bin_number)
 
 
-
-
+    def clear_table(self):
+        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
+        for _row in np.arange(nbr_row):
+            self.parent.fitting_ui.ui.value_table.removeRow(0)
 
     def get_min_max_xy(self, pos_array):
         min_x = 10000

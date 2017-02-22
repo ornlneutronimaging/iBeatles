@@ -68,6 +68,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                          'pen': None}
     binning_roi = [] #x0, x1, y0, y1
     binning_bin_size = 20
+    binning_done = False
 
     # fitting window stuff
     fitting_ui = None
@@ -108,8 +109,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                     'normalized': [init_array]}
     
     list_file_selected = {'sample': [],
-                      'ob': [],
-                      'normalized': []}
+                          'ob': [],
+                          'normalized': []}
     
     current_bragg_edge_x_axis = {'sample': [],
                                  'ob': [],

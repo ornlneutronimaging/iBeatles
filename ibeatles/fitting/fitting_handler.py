@@ -2,6 +2,8 @@ import numpy as np
 import pyqtgraph as pg
 
 from ibeatles.utilities import colors
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+
 
 class FittingHandler(object):
     
@@ -51,5 +53,11 @@ class FittingHandler(object):
                                                      pen=lines,
                                                      symbol=None,
                                                      pxMode=False)
+            
+    def fill_table(self):
+        if self.parent.binning_done:
+            o_fill_table = FillingTableHandler(parent=self.parent)
+            o_fill_table.create_table_dictionary()
+            o_fill_table.fill_table()
 
     

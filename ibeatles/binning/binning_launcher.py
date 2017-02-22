@@ -192,7 +192,7 @@ class BinningWindow(QMainWindow):
         bin_size = self.get_correct_widget_value(ui = self.ui.pixel_bin_size,
                                                    variable_name = 'bin_size')
         self.parent.binning_bin_size = bin_size
-        
+        self.parent.binning_done = True        
         
         self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
         self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
@@ -249,7 +249,7 @@ class BinningWindow(QMainWindow):
                                                      symbol=None,
                                                      pxMode=False)
             
-            self.parent.fitting_ui.fill_table()
+            self.parent.fitting_ui.re_fill_table()
             
             
                 

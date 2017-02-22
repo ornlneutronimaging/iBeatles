@@ -17,14 +17,13 @@ from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
 
 from ibeatles.fitting.fitting_handler import FittingHandler
-from ibeatles.fitting.filling_table_handler import FillingTableHandler
 
 
 class FittingLauncher(object):
     
     def __init__(self, parent=None):
         self.parent = parent
-        
+
         if self.parent.fitting_ui == None:
             fitting_window = FittingWindow(parent=parent)
             fitting_window.show()
@@ -32,9 +31,11 @@ class FittingLauncher(object):
             o_fitting = FittingHandler(parent=self.parent)
             o_fitting.display_image()
             o_fitting.display_roi()
+            o_fitting.fill_table()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
+
             
 class FittingWindow(QMainWindow):        
     
@@ -91,13 +92,10 @@ class FittingWindow(QMainWindow):
         self.init_labels()
         self.init_widgets()
         self.init_table_behavior()
-        self.fill_table()
-        
-    def fill_table(self):
-        if self.parent.binning_ui:
-            o_fill_table = FillingTableHandler(parent=self.parent)
-            o_fill_table.create_table_dictionary()
-            o_fill_table.fill_table()
+
+    def re_fill_table(self):
+        o_fitting = FittingHandler(parent=self.parent)
+        o_fitting.fill_table()
         
     def init_table_behavior(self):
         for _column, _width in enumerate(self.header_table_columns_width):
