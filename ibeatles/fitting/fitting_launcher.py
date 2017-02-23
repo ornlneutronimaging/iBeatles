@@ -43,6 +43,9 @@ class FittingWindow(QMainWindow):
     
     data = []
     
+    list_bins_selected_item = []
+    list_bins_locked_item = []
+    
     image_view = None
     bragg_edge_plot = None
     line_view = None
@@ -293,6 +296,10 @@ class FittingWindow(QMainWindow):
                         _widget.setChecked(False)
                     else:
                         _widget.setChecked(True)
+                        
+        o_bin_handler = SelectedBinsHandler(parent = self.parent)
+        o_bin_handler.update_bins_selected()
+        o_bin_handler.update_bins_locked()
         
     def value_table_right_click(self, position):
         o_table_handler = ValueTableHandler(parent=self.parent)
