@@ -63,6 +63,7 @@ class FillingTableHandler(object):
         nbr_row = len(table_dictionary)
         
         value_table_ui = self.parent.fitting_ui.ui.value_table
+        nbr_column = value_table_ui.columnCount()
                 
         for _index in np.arange(nbr_row):
             _str_index = str(_index)
@@ -83,7 +84,11 @@ class FillingTableHandler(object):
             # bin # (column: 1)
             _bin_number = QtGui.QTableWidgetItem("{:02}".format(_index))
             value_table_ui.setItem(_index, 1, _bin_number)
-
+            
+            # from column 2 -> nbr_column
+            for _col in np.arange(2, nbr_column):
+                _item = QtGui.QTableWidgetItem("")
+                value_table_ui.setItem(_index, _col, _item)
 
     def clear_table(self):
         nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()

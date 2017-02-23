@@ -256,6 +256,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.hkl_list_ui, QtCore.SIGNAL(_fromUtf8("currentIndexChanged(QString)")), MainWindow.hkl_list_changed)
         QtCore.QObject.connect(self.value_table, QtCore.SIGNAL(_fromUtf8("customContextMenuRequested(QPoint)")), MainWindow.value_table_right_click)
+        QtCore.QObject.connect(self.value_table, QtCore.SIGNAL(_fromUtf8("cellClicked(int,int)")), MainWindow.selection_in_value_table_of_rows_cell_clicked)
+        QtCore.QObject.connect(self.value_table, QtCore.SIGNAL(_fromUtf8("itemSelectionChanged()")), MainWindow.selection_in_value_table_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

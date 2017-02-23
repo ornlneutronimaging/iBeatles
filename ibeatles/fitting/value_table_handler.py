@@ -28,12 +28,14 @@ class ValueTableHandler(object):
         nbr_column = self.parent.fitting_ui.ui.value_table.columnCount()
         _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
         self.parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, True)
+        self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         
     def unselect_all(self):
         nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
         nbr_column = self.parent.fitting_ui.ui.value_table.columnCount()
         _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
         self.parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, False)
+        self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         
     def reset(self):
         print("reset")

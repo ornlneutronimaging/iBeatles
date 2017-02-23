@@ -570,8 +570,41 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>value_table</sender>
+   <signal>cellClicked(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>614</x>
+     <y>589</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>610</x>
+     <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>value_table</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selection_in_value_table_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>765</x>
+     <y>574</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1216</x>
+     <y>598</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
+  <signal>signal1()</signal>
   <slot>sample_import_button_clicked()</slot>
   <slot>time_spectra_import_button_clicked()</slot>
   <slot>open_beam_import_button_clicked()</slot>
@@ -624,5 +657,7 @@
   <slot>hkl_list_changed()</slot>
   <slot>table_width_changed()</slot>
   <slot>value_table_right_click()</slot>
+  <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
+  <slot>selection_in_value_table_changed()</slot>
  </slots>
 </ui>

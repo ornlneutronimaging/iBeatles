@@ -18,6 +18,7 @@ from ibeatles.utilities.colors import pen_color
 
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.value_table_handler import ValueTableHandler
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 
 
 class FittingLauncher(object):
@@ -296,6 +297,14 @@ class FittingWindow(QMainWindow):
     def value_table_right_click(self, position):
         o_table_handler = ValueTableHandler(parent=self.parent)
         o_table_handler.right_click(position=position)
+        
+    def selection_in_value_table_of_rows_cell_clicked(self, row, column):
+        o_bin_handler = SelectedBinsHandler(parent = self.parent)
+        o_bin_handler.update_bins_selected()
+        o_bin_handler.update_bins_locked()
+        
+    def selection_in_value_table_changed(self):
+        self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
