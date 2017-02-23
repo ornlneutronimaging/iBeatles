@@ -14,7 +14,7 @@ class ValueTableHandler(object):
         _select_all = menu.addAction("Select All")
         _unselect_all = menu.addAction("Unselect All")
         menu.addSeparator()
-        _advanced_selection = menu.addAction("Advanced Selection ...")
+        _advanced_selection = menu.addAction("Graphical Selection ...")
         menu.addSeparator()
         _reset = menu.addAction("Full Reset")
         

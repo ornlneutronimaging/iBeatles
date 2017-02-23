@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>583</width>
-    <height>431</height>
+    <width>946</width>
+    <height>766</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,62 +26,27 @@
      <height>0</height>
     </size>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_4">
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QGroupBox" name="groupBox">
       <property name="title">
-       <string>Infos</string>
+       <string>Selection Type</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>16777215</height>
-          </size>
-         </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QCheckBox" name="checkBox">
          <property name="text">
-          <string>Total Columns:</string>
+          <string>Add Bin(s) to Counts vs Lambda Plot</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="total_columns_value">
+       <item>
+        <widget class="QCheckBox" name="checkBox_2">
          <property name="text">
-          <string>N/A</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_4">
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>100</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Total Rows:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="total_rows_value">
-         <property name="text">
-          <string>N/A</string>
+          <string>Lock Bin(s)</string>
          </property>
         </widget>
        </item>
@@ -89,141 +54,34 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="title">
-       <string>Selection</string>
+     <widget class="QTableWidget" name="selection_table">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::MultiSelection</enum>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QRadioButton" name="option_selected">
-           <property name="text">
-            <string>Selected (used in Counts vs TOF plot)</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="option_locked">
-           <property name="text">
-            <string>Locked (fitting can not be modified)</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>Row(s)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="rows_value"/>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>ex: 1,4-5</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QComboBox" name="and_or_selection">
-             <item>
-              <property name="text">
-               <string>OR</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>AND</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QLabel" name="label_8">
-             <property name="text">
-              <string>Column(s)</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="columns_value"/>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_7">
-             <property name="text">
-              <string>ex: 1,4-5</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-      </layout>
      </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <widget class="QPushButton" name="graphical_selection_button">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Graphical Selection ...</string>
+         <string>Cells Size</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="advanced_selection_cell_size_slider">
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
+         <number>50</number>
+        </property>
+        <property name="value">
+         <number>20</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -256,7 +114,24 @@
  <resources>
   <include location="../icons/icons.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>advanced_selection_cell_size_slider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selection_cell_size_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>714</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>566</x>
+     <y>710</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <signal>signal1()</signal>
   <slot>sample_import_button_clicked()</slot>
@@ -313,5 +188,6 @@
   <slot>value_table_right_click()</slot>
   <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
   <slot>selection_in_value_table_changed()</slot>
+  <slot>selection_cell_size_changed()</slot>
  </slots>
 </ui>

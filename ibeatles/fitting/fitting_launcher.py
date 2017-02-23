@@ -37,7 +37,6 @@ class FittingLauncher(object):
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
-
             
 class FittingWindow(QMainWindow):        
     

@@ -4,25 +4,7 @@ from PyQt4 import QtGui
 
 class FillingTableHandler(object):
     
-    val_err_dict = {'val': -1,
-                    'err': -1}
-    
     table_dictionary = {}
-    init_dict = {'bin_coordinates': {'x0': -1,
-                                     'x1': -1,
-                                     'y0': -1,
-                                     'y1': -1},
-                 'selected': False,
-                 'lock': False,
-                 'fitting_confidence': -1,
-                 'd_spacing': val_err_dict,
-                 'sigma': val_err_dict,
-                 'intensity': val_err_dict,
-                 'alpah': val_err_dict,
-                 'a1': val_err_dict,
-                 'a2': val_err_dict,
-                 'a5': val_err_dict,
-                 'a6': val_err_dict}
     
     def __init__(self, parent=None):
         self.parent = parent
@@ -45,32 +27,44 @@ class FillingTableHandler(object):
         
         table_dictionary = {}
         _index = 0
+        _index_col = 0
         for _x in np.arange(from_x, to_x, bin_size):
+            _index_row = 0
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
                 table_dictionary[_str_index] = {'bin_coordinates': {'x0': -1,
-                                     'x1': -1,
-                                     'y0': -1,
-                                     'y1': -1},
-                 'selected': False,
-                 'lock': False,
-                 'fitting_confidence': -1,
-                 'd_spacing': {'val': -1, 'err': -1},
-                 'sigma': {'val': -1, 'err': -1},
-                 'intensity': {'val': -1, 'err': -1},
-                 'alpah': {'val': -1, 'err': -1},
-                 'a1': {'val': -1, 'err': -1},
-                 'a2': {'val': -1, 'err': -1},
-                 'a5': {'val': -1, 'err': -1},
-                 'a6': {'val': -1, 'err': -1}}
+                                                                    'x1': -1,
+                                                                    'y0': -1,
+                                                                    'y1': -1},
+                                                'row_index': _index_row,
+                                                'column_index': _index_col,
+                                                'selected': False,
+                                                'lock': False,
+                                                'fitting_confidence': -1,
+                                                'd_spacing': {'val': -1, 'err': -1},
+                                                'sigma': {'val': -1, 'err': -1},
+                                                'intensity': {'val': -1, 'err': -1},
+                                                'alpah': {'val': -1, 'err': -1},
+                                                'a1': {'val': -1, 'err': -1},
+                                                'a2': {'val': -1, 'err': -1},
+                                                'a5': {'val': -1, 'err': -1},
+                                                'a6': {'val': -1, 'err': -1}}          
                 table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
-                table_dictionary[_str_index]['bin_coordinates']['x1'] = _x+1
+                table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
                 table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
-                table_dictionary[_str_index]['bin_coordinates']['y1'] = _y+1
+                table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
                 _index += 1
+                _index_row += 1
+                print("row index: {}".format(_index_row))
+
+            _index_col += 1
+                
         
         self.table_dictionary = table_dictionary
         self.parent.fitting_ui.table_dictionary = table_dictionary
+
+        self.parent.fitting_selection['nbr_row'] = _index_row
+        self.parent.fitting_selection['nbr_column'] = _index_col
 
     def fill_table(self):
         self.clear_table()
