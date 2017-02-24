@@ -93,8 +93,7 @@ class AdvancedSelectionWindow(QMainWindow):
             self.ui.selection_table.setColumnWidth(_col, value)
             self.ui.lock_table.setColumnWidth(_col, value)
 
-    def selection_table_selection_changed(self):
-        
+    def selection_table_selection_changed(self):        
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         
         selection = self.ui.selection_table.selectedRanges()
@@ -103,7 +102,7 @@ class AdvancedSelectionWindow(QMainWindow):
         nbr_row_fitting_table = self.parent.fitting_ui.ui.value_table.rowCount()
         nbr_col_fitting_table = self.parent.fitting_ui.ui.value_table.columnCount()
         
-        #clear fitting table
+        #clear fitting table selection
         reset_selection = QtGui.QTableWidgetSelectionRange(0, 0, 
                                                            nbr_row_fitting_table-1,
                                                            nbr_col_fitting_table-1)
@@ -129,7 +128,37 @@ class AdvancedSelectionWindow(QMainWindow):
 
     def lock_table_selection_changed(self):
         pass
-        
+
+        #self.parent.fitting_ui.ui.value_table.blockSignals(True)
+    
+        #selection = self.ui.lock_table.selectedRanges()
+        #nbr_row = self.ui.lock_table.rowCount()
+    
+        #nbr_row_fitting_table = self.parent.fitting_ui.ui.value_table.rowCount()
+    
+        ##clear fitting table lock
+        #for _row in np.arange(nbr_row):
+            #_widget = self.parent.fitting_ui.ui.value_table.cellWidget(_row,0)
+            #_widget.setChecked(False)
+    
+        #for _select in selection:
+            #top_row = _select.topRow()
+            #left_col = _select.leftColumn()
+            #bottom_row = _select.bottomRow()
+            #right_col = _select.rightColumn()
+            #for _row in np.arange(top_row, bottom_row+1):
+                #for _col in np.arange(left_col, right_col+1):
+                    #fitting_row = _col*nbr_row + _row
+                    #_widget = self.parent.fitting_ui.ui.value_table.cellWidget(_row,0)
+                    #_widget.blockSignals(True)
+                    #_widget.setChecked(True)
+                    #_widget.blockSignals(False)
+    
+        #fitting_ui = self.parent.fitting_ui
+        #fitting_ui.update_image_view_lock()
+    
+        #self.parent.fitting_ui.ui.value_table.blockSignals(False)
+
     def closeEvent(self, event=None):
         self.parent.advanced_selection_ui = None
 
