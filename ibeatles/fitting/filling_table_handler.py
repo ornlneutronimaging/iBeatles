@@ -124,6 +124,21 @@ class FillingTableHandler(object):
                 _item = QtGui.QTableWidgetItem("")
                 value_table_ui.setItem(_index, _col, _item)
 
+    def full_table_selection_tool(self, status=True):
+        table_dictionary = self.parent.fitting_ui.table_dictionary
+        for _index in table_dictionary:
+            _item = table_dictionary[_index]
+            _item['selected'] = False
+            table_dictionary[_index] = _item
+            
+        self.parent.fitting_ui.table_dictionary = table_dictionary
+
+    def unselect_full_table(self):
+        self.full_table_selection_tool(status = True)
+
+    def select_full_table(self):
+        self.full_table_selection_tool(status = False)
+
     def clear_table(self):
         nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
         for _row in np.arange(nbr_row):
