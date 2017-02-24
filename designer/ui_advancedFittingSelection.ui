@@ -19,6 +19,12 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
     <size>
@@ -26,38 +32,54 @@
      <height>0</height>
     </size>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="title">
-       <string>Selection Type</string>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QCheckBox" name="checkBox">
-         <property name="text">
-          <string>Add Bin(s) to Counts vs Lambda Plot</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="checkBox_2">
-         <property name="text">
-          <string>Lock Bin(s)</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QTableWidget" name="selection_table">
-      <property name="selectionMode">
-       <enum>QAbstractItemView::MultiSelection</enum>
-      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Counts vs Lambda</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>All Bins selected in this table will be used to display the Counts vs Lambda plot</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="selection_table">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Lock</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>All Bins selected in this table will be locked (their fitting parameters can not be modified).</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="lock_table">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item>
@@ -83,6 +105,9 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksAbove</enum>
+        </property>
        </widget>
       </item>
       <item>
@@ -97,13 +122,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="apply_button">
-        <property name="text">
-         <string>Apply</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </item>
@@ -128,6 +146,38 @@
     <hint type="destinationlabel">
      <x>566</x>
      <y>710</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selection_table</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selection_table_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>430</x>
+     <y>456</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>488</x>
+     <y>715</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lock_table</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>lock_table_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>526</x>
+     <y>305</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>874</x>
+     <y>704</y>
     </hint>
    </hints>
   </connection>
@@ -189,5 +239,7 @@
   <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
   <slot>selection_in_value_table_changed()</slot>
   <slot>selection_cell_size_changed()</slot>
+  <slot>selection_table_selection_changed()</slot>
+  <slot>lock_table_selection_changed()</slot>
  </slots>
 </ui>

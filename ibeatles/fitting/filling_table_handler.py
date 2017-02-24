@@ -1,10 +1,17 @@
 import numpy as np
 from PyQt4 import QtGui
+import pyqtgraph as pg
 
 
 class FillingTableHandler(object):
     
     table_dictionary = {}
+    
+    selected_color = {'pen': (0,0,0,30),
+                      'brush': (0,255,0,150)}
+
+    lock_color = {'pen': (0,0,0,30),
+                  'brush': (255,0,0,240)}
     
     def __init__(self, parent=None):
         self.parent = parent
@@ -36,6 +43,8 @@ class FillingTableHandler(object):
                                                                     'x1': -1,
                                                                     'y0': -1,
                                                                     'y1': -1},
+                                                'selected_item': None,
+                                                'locked_item': None,
                                                 'row_index': _index_row,
                                                 'column_index': _index_col,
                                                 'selected': False,
@@ -48,11 +57,28 @@ class FillingTableHandler(object):
                                                 'a1': {'val': -1, 'err': -1},
                                                 'a2': {'val': -1, 'err': -1},
                                                 'a5': {'val': -1, 'err': -1},
-                                                'a6': {'val': -1, 'err': -1}}          
+                                                'a6': {'val': -1, 'err': -1}}   
                 table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
                 table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
                 table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
                 table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
+
+                # create the box to show when bin is selected
+                selection_box = pg.QtGui.QGraphicsRectItem(_x, _y, 
+                                                           bin_size,
+                                                           bin_size)
+                selection_box.setPen(pg.mkPen(self.selected_color['pen']))
+                selection_box.setBrush(pg.mkBrush(self.selected_color['brush']))
+                table_dictionary[_str_index]['selected_item'] = selection_box
+
+                # create the box to show when bin is locked
+                lock_box = pg.QtGui.QGraphicsRectItem(_x, _y, 
+                                                           bin_size,
+                                                           bin_size)
+                lock_box.setPen(pg.mkPen(self.lock_color['pen']))
+                lock_box.setBrush(pg.mkBrush(self.lock_color['brush']))
+                table_dictionary[_str_index]['locked_item'] = lock_box
+
                 _index += 1
                 _index_row += 1
                 print("row index: {}".format(_index_row))

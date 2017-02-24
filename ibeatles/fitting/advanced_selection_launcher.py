@@ -43,21 +43,43 @@ class AdvancedSelectionWindow(QMainWindow):
         nbr_row = fitting_selection['nbr_row']
         nbr_column = fitting_selection['nbr_column']
         
+        #selection table
         self.ui.selection_table.setColumnCount(nbr_column)
         self.ui.selection_table.setRowCount(nbr_row)        
         
+        #lock table
+        self.ui.lock_table.setColumnCount(nbr_column)
+        self.ui.lock_table.setRowCount(nbr_row)        
+
+        #set size of cells
         value = np.int(self.ui.advanced_selection_cell_size_slider.value())
         self.selection_cell_size_changed(value)
-        
+
     def selection_cell_size_changed(self, value):
         nbr_row = self.ui.selection_table.rowCount()
         nbr_column = self.ui.selection_table.columnCount()
         
         for _row in np.arange(nbr_row):
             self.ui.selection_table.setRowHeight(_row, value)
+            self.ui.lock_table.setRowHeight(_row, value)
         
         for _col in np.arange(nbr_column):
             self.ui.selection_table.setColumnWidth(_col, value)
+            self.ui.lock_table.setColumnWidth(_col, value)
+
+    def selection_table_selection_changed(self):
+        pass
+        # retrieve state of selection buttons
+        
+        # retrieve selection
+        
+        # change table_dictionary
+        
+        # update fitting image view
+    
+    def lock_table_selection_changed(self):
+        pass
+
         
     def closeEvent(self, event=None):
         self.parent.advanced_selection_ui = None

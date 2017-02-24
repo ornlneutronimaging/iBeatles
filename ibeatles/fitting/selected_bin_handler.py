@@ -45,11 +45,12 @@ class SelectedBinsHandler(object):
             x1 = _coordinates['x1']
             y0 = _coordinates['y0']
             y1 = _coordinates['y1']
-            box = pg.QtGui.QGraphicsRectItem(x0, y0, 
-                                             bin_size,
-                                             bin_size)
-            box.setPen(pg.mkPen(self.selected_color['pen']))
-            box.setBrush(pg.mkBrush(self.selected_color['brush']))
+            #box = pg.QtGui.QGraphicsRectItem(x0, y0, 
+                                             #bin_size,
+                                             #bin_size)
+            #box.setPen(pg.mkPen(self.selected_color['pen']))
+            #box.setBrush(pg.mkBrush(self.selected_color['brush']))
+            box = table_dictionary[str(_bin)]['selected_item']
             self.parent.fitting_ui.image_view.addItem(box)
             list_bins_selected_rect_item.append(box)
         
@@ -72,11 +73,12 @@ class SelectedBinsHandler(object):
                 x1 = _coordinates['x1']
                 y0 = _coordinates['y0']
                 y1 = _coordinates['y1']
-                box = pg.QtGui.QGraphicsRectItem(x0, y0, 
-                                                 bin_size,
-                                                 bin_size)
-                box.setPen(pg.mkPen(self.lock_color['pen']))
-                box.setBrush(pg.mkBrush(self.lock_color['brush']))
+                #box = pg.QtGui.QGraphicsRectItem(x0, y0, 
+                                                 #bin_size,
+                                                 #bin_size)
+                #box.setPen(pg.mkPen(self.lock_color['pen']))
+                #box.setBrush(pg.mkBrush(self.lock_color['brush']))
+                box = table_dictionary[str(_row)]['locked_item']
                 self.parent.fitting_ui.image_view.addItem(box)
                 list_bins_locked_item.append(box)
             
