@@ -53,7 +53,7 @@ class FillingTableHandler(object):
                                                 'd_spacing': {'val': -1, 'err': -1},
                                                 'sigma': {'val': -1, 'err': -1},
                                                 'intensity': {'val': -1, 'err': -1},
-                                                'alpah': {'val': -1, 'err': -1},
+                                                'alpha': {'val': -1, 'err': -1},
                                                 'a1': {'val': -1, 'err': -1},
                                                 'a2': {'val': -1, 'err': -1},
                                                 'a5': {'val': -1, 'err': -1},
@@ -81,10 +81,8 @@ class FillingTableHandler(object):
 
                 _index += 1
                 _index_row += 1
-                print("row index: {}".format(_index_row))
 
             _index_col += 1
-                
         
         self.table_dictionary = table_dictionary
         self.parent.fitting_ui.table_dictionary = table_dictionary

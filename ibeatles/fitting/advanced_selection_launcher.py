@@ -24,7 +24,7 @@ class AdvancedSelectionLauncher(object):
             self.parent.advanced_selection_ui = advanced_window
         else:
             self.parent.advanced_selection_ui.setFocus()
-            self.parent.advanced_selection_ui.acivateWindow()
+            self.parent.advanced_selection_ui.activateWindow()
         
 class AdvancedSelectionWindow(QMainWindow):
     
@@ -46,14 +46,36 @@ class AdvancedSelectionWindow(QMainWindow):
         #selection table
         self.ui.selection_table.setColumnCount(nbr_column)
         self.ui.selection_table.setRowCount(nbr_row)        
+        self.update_selection_table()
         
         #lock table
         self.ui.lock_table.setColumnCount(nbr_column)
         self.ui.lock_table.setRowCount(nbr_row)        
+        self.update_lock_table()
 
         #set size of cells
         value = np.int(self.ui.advanced_selection_cell_size_slider.value())
         self.selection_cell_size_changed(value)
+
+    def update_selection_table(self):
+        self.update_table(state_field = 'selected',
+                              table_ui = self.ui.selection_table)
+
+    def update_lock_table(self):
+        self.update_table(state_field = 'lock',
+                          table_ui = self.ui.lock_table)
+
+    def update_table(self, state_field='', table_ui=None):
+        table_dictionary = self.parent.fitting_ui.table_dictionary
+        
+        for _index in table_dictionary:
+            _entry = table_dictionary[_index]
+            state = _entry[state_field]
+            row_index = _entry['row_index']
+            column_index = _entry['column_index']
+            _selection = QtGui.QTableWidgetSelectionRange(row_index, column_index, 
+                                                          row_index, column_index)
+            table_ui.setRangeSelected(_selection, state)
 
     def selection_cell_size_changed(self, value):
         nbr_row = self.ui.selection_table.rowCount()
