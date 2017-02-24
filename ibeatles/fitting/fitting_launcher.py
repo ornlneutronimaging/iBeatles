@@ -300,14 +300,24 @@ class FittingWindow(QMainWindow):
         o_bin_handler.update_bins_selected()
         o_bin_handler.update_bins_locked()
         
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.update_selection_table()
+            self.parent.advanced_selection_ui.update_lock_table()
+        
     def value_table_right_click(self, position):
         o_table_handler = ValueTableHandler(parent=self.parent)
         o_table_handler.right_click(position=position)
-        
-    def selection_in_value_table_of_rows_cell_clicked(self, row, column):
+    
+    def update_image_view_selection(self):
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bins_selected()
         o_bin_handler.update_bins_locked()
+        
+    def selection_in_value_table_of_rows_cell_clicked(self, row, column):
+        self.update_image_view_selection()
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.update_selection_table()
+            self.parent.advanced_selection_ui.update_lock_table()
         
     def selection_in_value_table_changed(self):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)

@@ -23,12 +23,6 @@ class SelectedBinsHandler(object):
         for _bin_ui in list_bins:
             self.parent.fitting_ui.image_view.removeItem(_bin_ui)
 
-        #table_dictionary = self.parent.fitting_ui.table_dictionary
-        #for _key, _value in table_dictionary.items():
-            #table_dictionary[_key]['selected'] = False
-            #table_dictionary[_key]['lock'] = False
-        #self.parent.fitting_ui.table_dictionary = table_dictionary
-
     def update_bins_selected(self):
         self.clear_all_selected_bins()
         selection = self.fitting_ui.ui.value_table.selectedRanges()
