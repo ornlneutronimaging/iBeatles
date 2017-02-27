@@ -183,10 +183,10 @@ class BinningWindow(QMainWindow):
             # remove pre-defined lock and selected item
             table_dictionary = self.parent.fitting_ui.table_dictionary
             for _entry in table_dictionary.keys():
-                #if table_dictionary[_entry]['selected_item'] in self.parent.fitting_ui.image_view.children():
-                self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['selected_item'])
-                #if table_dictionary[_entry]['locked_item'] in self.parent.fitting_ui.image_view.children():
-                self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['locked_item'])
+                if table_dictionary[_entry]['selected_item'] in self.parent.fitting_ui.image_view.children():
+                    self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['selected_item'])
+                if table_dictionary[_entry]['locked_item'] in self.parent.fitting_ui.image_view.children():
+                    self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['locked_item'])
         
         x0 = self.get_correct_widget_value(ui = self.ui.selection_x0,
                                              variable_name = 'x0')

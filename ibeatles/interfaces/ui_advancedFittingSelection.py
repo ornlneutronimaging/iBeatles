@@ -80,6 +80,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.advanced_selection_cell_size_slider)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem)
+        self.apply_button = QtGui.QPushButton(self.centralwidget)
+        self.apply_button.setObjectName(_fromUtf8("apply_button"))
+        self.horizontalLayout_4.addWidget(self.apply_button)
         self.verticalLayout_2.addLayout(self.horizontalLayout_4)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -89,8 +92,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.advanced_selection_cell_size_slider, QtCore.SIGNAL(_fromUtf8("sliderMoved(int)")), MainWindow.selection_cell_size_changed)
-        QtCore.QObject.connect(self.selection_table, QtCore.SIGNAL(_fromUtf8("itemSelectionChanged()")), MainWindow.selection_table_selection_changed)
-        QtCore.QObject.connect(self.lock_table, QtCore.SIGNAL(_fromUtf8("itemSelectionChanged()")), MainWindow.lock_table_selection_changed)
+        QtCore.QObject.connect(self.apply_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.apply_button_clicked)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -100,5 +102,6 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "All Bins selected in this table will be locked (their fitting parameters can not be modified).", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Lock", None))
         self.label.setText(_translate("MainWindow", "Cells Size", None))
+        self.apply_button.setText(_translate("MainWindow", "Apply", None))
 
 import icons_rc

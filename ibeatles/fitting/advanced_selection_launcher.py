@@ -94,7 +94,8 @@ class AdvancedSelectionWindow(QMainWindow):
             self.ui.selection_table.setColumnWidth(_col, value)
             self.ui.lock_table.setColumnWidth(_col, value)
 
-    def selection_table_selection_changed(self):        
+    def selection_table_selection_changed(self):      
+
         # update table and then update GUI
         selection = self.ui.selection_table.selectedRanges()
         nbr_row = self.ui.selection_table.rowCount()
@@ -124,39 +125,6 @@ class AdvancedSelectionWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
         self.parent.fitting_ui.update_image_view_selection()
         self.parent.fitting_ui.update_image_view_lock()
-        
-        #self.parent.fitting_ui.ui.value_table.blockSignals(True)
-        
-        #selection = self.ui.selection_table.selectedRanges()
-        #nbr_row = self.ui.selection_table.rowCount()
-
-        #nbr_row_fitting_table = self.parent.fitting_ui.ui.value_table.rowCount()
-        #nbr_col_fitting_table = self.parent.fitting_ui.ui.value_table.columnCount()
-        
-        ##clear fitting table selection
-        #reset_selection = QtGui.QTableWidgetSelectionRange(0, 0, 
-                                                           #nbr_row_fitting_table-1,
-                                                           #nbr_col_fitting_table-1)
-        #self.parent.fitting_ui.ui.value_table.setRangeSelected(reset_selection, False)
-
-        #for _select in selection:
-            #top_row = _select.topRow()
-            #left_col = _select.leftColumn()
-            #bottom_row = _select.bottomRow()
-            #right_col = _select.rightColumn()
-            #for _row in np.arange(top_row, bottom_row+1):
-                #for _col in np.arange(left_col, right_col+1):
-                    #fitting_row = _col*nbr_row + _row
-                    #local_selection = QtGui.QTableWidgetSelectionRange(fitting_row, 0, 
-                                                                       #fitting_row, 
-                                                                       #nbr_col_fitting_table-1)
-                    #self.parent.fitting_ui.ui.value_table.setRangeSelected(local_selection, True)
-
-        #fitting_ui = self.parent.fitting_ui
-        #fitting_ui.update_image_view_selection()
-        #fitting_ui.update_image_view_lock()
-    
-        #self.parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def lock_table_selection_changed(self):
         # update table and then update GUI
@@ -192,3 +160,8 @@ class AdvancedSelectionWindow(QMainWindow):
     def closeEvent(self, event=None):
         self.parent.advanced_selection_ui = None
 
+    def apply_button_clicked(self):
+        if self.ui.tabWidget.currentIndex() == 0:
+            self.selection_table_selection_changed()
+        else:
+            self.lock_table_selection_changed()
