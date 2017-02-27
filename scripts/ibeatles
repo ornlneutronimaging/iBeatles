@@ -35,6 +35,7 @@ from ibeatles.binning.binning_launcher import BinningLauncher
 from ibeatles.binning.binning_handler import BinningHandler
 
 from ibeatles.fitting.fitting_launcher import FittingLauncher
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
@@ -75,6 +76,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     advanced_selection_ui = None
     fitting_selection = {'nbr_column': -1,
                          'nbr_row': -1}
+    fitting_bragg_edge_x_axis = []
     
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}
@@ -698,6 +700,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
             o_retrieve_data_infos.update()  
             self.roi_normalized_image_view_changed(mouse_selection=False)
+            if self.fitting_ui:
+                o_selection = SelectedBinsHandler(parent=self)
+                o_selection.update_bragg_edge_plot()
         else:
             self.loading_flag = False
     

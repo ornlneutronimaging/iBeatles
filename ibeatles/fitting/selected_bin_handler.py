@@ -93,7 +93,9 @@ class SelectedBinsHandler(object):
         selection = self.fitting_ui.ui.value_table.selectedRanges()
         self.parent.fitting_ui.bragg_edge_plot.clear()
         
-        list_bin_selected = self.retrieve_list_bin_selected(selection)        
+        list_bin_selected = self.retrieve_list_bin_selected(selection)
+        if list_bin_selected == []:
+            return
         table_dictionary = self.parent.fitting_ui.table_dictionary
         
         # retrieve image
@@ -114,6 +116,13 @@ class SelectedBinsHandler(object):
                 bragg_edget_data = final
             else:
                 bragg_edget_data += final
-                
-        x_axis = self.parent.current_bragg_edge_x_axis['normalized']
+
+        x_axis = self.parent.fitting_bragg_edge_x_axis 
         self.parent.fitting_ui.bragg_edge_plot.plot(x_axis, bragg_edget_data)
+        if self.parent.xaxis_button_ui['normalized']['file_index'].isChecked():
+            self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", "File Index")
+        elif self.parent.xaxis_button_ui['normalized']['tof'].isChecked():
+            self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u"TOF (\u00B5s)")
+        else:
+            self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
+        self.parent.fitting_ui.bragg_edge_plot.setLabel("left", "Total Counts")

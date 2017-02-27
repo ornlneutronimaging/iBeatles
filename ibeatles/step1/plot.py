@@ -386,10 +386,11 @@ class Step1Plot(object):
                 self.parent.ui.ob_bragg_edge_plot.addItem(lr)
             else:
                 self.parent.ui.normalized_bragg_edge_plot.addItem(lr)
+                self.parent.fitting_bragg_edge_x_axis  = x_axis
                 
             lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_selection_changed)
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
-    
+            
             if tof_flag:
                 self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis            
 

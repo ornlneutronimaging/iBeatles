@@ -212,12 +212,14 @@ class FittingWindow(QMainWindow):
         spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         buttons_layout.addItem(spacer)
         label = QtGui.QLabel("Plots Bins")
+        label.setEnabled(False)
         buttons_layout.addWidget(label)
         
         # all bins button
         all_button = QtGui.QRadioButton()
         all_button.setText("All")
         all_button.setChecked(True)
+        all_button.setEnabled(False)
         all_button.pressed.connect(self.plots_bins_all_pressed)
         self.all_bins_button = all_button
         
@@ -226,6 +228,7 @@ class FittingWindow(QMainWindow):
         indi_button = QtGui.QRadioButton()
         indi_button.setText("Individual")
         indi_button.setChecked(False)
+        indi_button.setEnabled(False)
         indi_button.pressed.connect(self.plots_bins_individual_pressed)
         self.indi_bins_button = indi_button
 
