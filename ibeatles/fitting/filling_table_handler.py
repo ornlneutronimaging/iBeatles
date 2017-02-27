@@ -144,6 +144,12 @@ class FillingTableHandler(object):
                              row = _index, 
                              col = _local_index+2, 
                              value = _value)
+                
+            # if row is selected, select it
+            if _entry['selected']:
+                _selection = QtGui.QTableWidgetSelectionRange(_index, 0,
+                                                              _index, nbr_column-1)
+                value_table_ui.setRangeSelected(_selection, True)
             
     def set_item(self, table_ui=None, row=0, col=0, value=""):
         item = QtGui.QTableWidgetItem(value)
