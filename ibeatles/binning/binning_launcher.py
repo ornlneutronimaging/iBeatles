@@ -158,7 +158,7 @@ class BinningWindow(QMainWindow):
         vertical_layout.addWidget(hori_widget)
         
         self.ui.left_widget.setLayout(vertical_layout)
-        image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
+        #image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
 
         self.image_view = image_view
 
@@ -180,6 +180,13 @@ class BinningWindow(QMainWindow):
                 self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
                 self.parent.fitting_ui.line_view = None
                     
+            # remove pre-defined lock and selected item
+            table_dictionary = self.parent.fitting_ui.table_dictionary
+            for _entry in table_dictionary.keys():
+                #if table_dictionary[_entry]['selected_item'] in self.parent.fitting_ui.image_view.children():
+                self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['selected_item'])
+                #if table_dictionary[_entry]['locked_item'] in self.parent.fitting_ui.image_view.children():
+                self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['locked_item'])
         
         x0 = self.get_correct_widget_value(ui = self.ui.selection_x0,
                                              variable_name = 'x0')
@@ -299,20 +306,6 @@ class BinningWindow(QMainWindow):
         
         return pos_adj_dict
        
-    def mouse_moved_in_image(self, event):
-        pass
-    
-    # this is not working yet !!!!
-    
-        if self.data == []:
-            return
-
-        x = np.int(event.x())
-        y = np.int(event.y())
-        
-        self.widgets_ui['x_value'].setText("{}".format(x))
-        self.widgets_ui['y_value'].setText("{}".format(y))
-        
     def closeEvent(self, event=None):
         self.parent.binning_ui = None
         

@@ -333,7 +333,10 @@ class FittingWindow(QMainWindow):
         self.update_bragg_edge_plot()
         
     def selection_in_value_table_changed(self):
-        self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+        try:
+            self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+        except:
+            pass
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
