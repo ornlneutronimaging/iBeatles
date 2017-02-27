@@ -88,3 +88,32 @@ class SelectedBinsHandler(object):
                 list_bin_selected.append(_row)
                 
         return list_bin_selected
+    
+    def update_bragg_edge_plot(self):
+        selection = self.fitting_ui.ui.value_table.selectedRanges()
+        self.parent.fitting_ui.bragg_edge_plot.clear()
+        
+        list_bin_selected = self.retrieve_list_bin_selected(selection)        
+        table_dictionary = self.parent.fitting_ui.table_dictionary
+        
+        # retrieve image
+        data_2d = np.array(self.parent.data_metadata['normalized']['data'])
+
+        # isolate data selected    data[x0:x1, y0:y1] for each bin selected
+        bragg_edget_data = []
+        for _bin_selected in list_bin_selected:
+            _entry = table_dictionary[str(_bin_selected)]['bin_coordinates']
+            x0 = _entry['x0']
+            x1 = _entry['x1']
+            y0 = _entry['y0']
+            y1 = _entry['y1']
+            _data = data_2d[:, x0:x1, y0:y1]
+            inter1 = np.sum(_data, axis=1)
+            final = np.sum(inter1, axis=1)
+            if bragg_edget_data == []:
+                bragg_edget_data = final
+            else:
+                bragg_edget_data += final
+                
+        x_axis = self.parent.current_bragg_edge_x_axis['normalized']
+        self.parent.fitting_ui.bragg_edge_plot.plot(x_axis, bragg_edget_data)
