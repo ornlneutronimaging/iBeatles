@@ -77,6 +77,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     fitting_selection = {'nbr_column': -1,
                          'nbr_row': -1}
     fitting_bragg_edge_x_axis = []
+    fitting_bragg_edge_linear_selection = []
+    fitting_lr = None
     
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}

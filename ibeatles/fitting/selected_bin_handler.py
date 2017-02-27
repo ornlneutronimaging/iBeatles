@@ -126,3 +126,34 @@ class SelectedBinsHandler(object):
         else:
             self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
         self.parent.fitting_ui.bragg_edge_plot.setLabel("left", "Total Counts")
+
+        if self.parent.fitting_bragg_edge_linear_selection == []:
+            linear_region_left = 0
+            linear_region_right = len(x_axis)-1
+            self.parent.fitting_bragg_edge_linear_selection = [linear_region_left,
+                                                               linear_region_right]
+        else:
+            [linear_region_left, linear_region_right] = \
+                self.parent.fitting_bragg_edge_linear_selection
+        
+        lr_left = x_axis[linear_region_left]
+        lr_right = x_axis[linear_region_right]
+        
+        linear_region_range = [lr_left, lr_right]
+        if self.parent.fitting_lr is None:
+
+            lr = pg.LinearRegionItem(values=linear_region_range, 
+                                     orientation=None, 
+                                     brush=None, 
+                                     movable=True, 
+                                     bounds=None)
+            lr.setZValue(-10)            
+            lr.sigRegionChangeFinished.connect(self.fitting_ui.bragg_edge_linear_region_changed)
+            self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
+            self.parent.fitting_lr = lr
+
+        else:
+            lr = self.parent.fitting_lr
+            self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
+
+        

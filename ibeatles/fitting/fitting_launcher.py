@@ -15,6 +15,7 @@ import numpy as np
     
 from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
+from ibeatles.utilities.array_utilities import find_nearest_index
 
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.value_table_handler import ValueTableHandler
@@ -340,6 +341,19 @@ class FittingWindow(QMainWindow):
             self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         except:
             pass
+        
+    def bragg_edge_linear_region_changed(self):
+
+        #current xaxis is
+        x_axis = self.parent.fitting_bragg_edge_x_axis
+        _lr = self.parent.fitting_lr
+        selection = list(_lr.getRegion())
+    
+        left_index = find_nearest_index(array = x_axis, value=selection[0])
+        right_index = find_nearest_index(array = x_axis, value=selection[1])
+    
+        list_selected = range(left_index, right_index+1)
+        self.parent.fitting_bragg_edge_linear_selection = list_selected
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
