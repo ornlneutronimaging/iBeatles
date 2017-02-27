@@ -11,6 +11,7 @@ except:
 import numpy as np
 
 from ibeatles.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 
 
 class AdvancedSelectionLauncher(object):
@@ -123,41 +124,40 @@ class AdvancedSelectionWindow(QMainWindow):
 
         fitting_ui = self.parent.fitting_ui
         fitting_ui.update_image_view_selection()
+        fitting_ui.update_image_view_lock()
     
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def lock_table_selection_changed(self):
-        pass
+        # update table and then update GUI
+        selection = self.ui.lock_table.selectedRanges()
+        nbr_row = self.ui.lock_table.rowCount()
+        
+        table_dictionary = self.parent.fitting_ui.table_dictionary
 
-        #self.parent.fitting_ui.ui.value_table.blockSignals(True)
-    
-        #selection = self.ui.lock_table.selectedRanges()
-        #nbr_row = self.ui.lock_table.rowCount()
-    
-        #nbr_row_fitting_table = self.parent.fitting_ui.ui.value_table.rowCount()
-    
-        ##clear fitting table lock
-        #for _row in np.arange(nbr_row):
-            #_widget = self.parent.fitting_ui.ui.value_table.cellWidget(_row,0)
-            #_widget.setChecked(False)
-    
-        #for _select in selection:
-            #top_row = _select.topRow()
-            #left_col = _select.leftColumn()
-            #bottom_row = _select.bottomRow()
-            #right_col = _select.rightColumn()
-            #for _row in np.arange(top_row, bottom_row+1):
-                #for _col in np.arange(left_col, right_col+1):
-                    #fitting_row = _col*nbr_row + _row
-                    #_widget = self.parent.fitting_ui.ui.value_table.cellWidget(_row,0)
-                    #_widget.blockSignals(True)
-                    #_widget.setChecked(True)
-                    #_widget.blockSignals(False)
-    
-        #fitting_ui = self.parent.fitting_ui
-        #fitting_ui.update_image_view_lock()
-    
-        #self.parent.fitting_ui.ui.value_table.blockSignals(False)
+        for _entry in table_dictionary.keys():
+            table_dictionary[_entry]['lock'] = False
+
+        for _select in selection:
+            top_row = _select.topRow()
+            left_col = _select.leftColumn()
+            bottom_row = _select.bottomRow()
+            right_col = _select.rightColumn()
+            for _row in np.arange(top_row, bottom_row+1):
+                for _col in np.arange(left_col, right_col+1):
+                    fitting_row = _col*nbr_row + _row
+                    _entry = table_dictionary[str(fitting_row)]
+                    _entry['lock'] = True
+                    table_dictionary[str(fitting_row)] = _entry
+            
+        self.parent.fitting_ui.table_dictionary = table_dictionary
+        o_filling_table = FillingTableHandler(parent = self.parent)
+        
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        o_filling_table.fill_table(table_dictionary = table_dictionary)
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)
+        self.parent.fitting_ui.update_image_view_selection()
+        self.parent.fitting_ui.update_image_view_lock()
 
     def closeEvent(self, event=None):
         self.parent.advanced_selection_ui = None

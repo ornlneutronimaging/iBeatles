@@ -271,6 +271,9 @@ class FittingWindow(QMainWindow):
         status: 0: off
                 2: on
         '''
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.ui.lock_table.blockSignals(True)
+
         # retrieve selection
         selection = self.ui.value_table.selectedRanges()
         nbr_selection = len(selection)
@@ -303,6 +306,7 @@ class FittingWindow(QMainWindow):
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.update_selection_table()
             self.parent.advanced_selection_ui.update_lock_table()
+            self.parent.advanced_selection_ui.ui.lock_table.blockSignals(False)
         
     def value_table_right_click(self, position):
         o_table_handler = ValueTableHandler(parent=self.parent)

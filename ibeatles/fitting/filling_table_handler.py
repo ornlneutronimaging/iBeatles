@@ -90,10 +90,11 @@ class FillingTableHandler(object):
         self.parent.fitting_selection['nbr_row'] = _index_row
         self.parent.fitting_selection['nbr_column'] = _index_col
 
-    def fill_table(self):
+    def fill_table(self, table_dictionary=None):
         self.clear_table()
 
-        table_dictionary = self.table_dictionary
+        if table_dictionary is None:
+            table_dictionary = self.table_dictionary
         nbr_row = len(table_dictionary)
         
         value_table_ui = self.parent.fitting_ui.ui.value_table
@@ -120,9 +121,33 @@ class FillingTableHandler(object):
             value_table_ui.setItem(_index, 1, _bin_number)
             
             # from column 2 -> nbr_column
-            for _col in np.arange(2, nbr_column):
-                _item = QtGui.QTableWidgetItem("")
-                value_table_ui.setItem(_index, _col, _item)
+            list_value = [_entry['fitting_confidence'],
+                          _entry['d_spacing']['val'],
+                          _entry['d_spacing']['err'],
+                          _entry['sigma']['val'],
+                          _entry['sigma']['err'],
+                          _entry['intensity']['val'],
+                          _entry['intensity']['err'],
+                          _entry['alpha']['val'],
+                          _entry['alpha']['err'],
+                          _entry['a1']['val'],
+                          _entry['a1']['err'],
+                          _entry['a2']['val'],
+                          _entry['a2']['err'],
+                          _entry['a5']['val'],
+                          _entry['a5']['err'],
+                          _entry['a6']['val'],
+                          _entry['a6']['err']]
+
+            for _local_index, _value in enumerate(list_value):
+                self.set_item(table_ui = value_table_ui, 
+                             row = _index, 
+                             col = _local_index+2, 
+                             value = _value)
+            
+    def set_item(self, table_ui=None, row=0, col=0, value=""):
+        item = QtGui.QTableWidgetItem(value)
+        table_ui.setItem(row, col, item)
 
     def full_table_selection_tool(self, status=True):
         table_dictionary = self.parent.fitting_ui.table_dictionary
