@@ -3,11 +3,14 @@ try:
     import PyQt4.QtGui as QtGui
     import PyQt4.QtCore as QtCore
     from PyQt4.QtGui import QMainWindow
+    from PyQt4.QtGui import QApplication     
 except:
     import PyQt5
     import PyQt5.QtGui as QtGui
     import PyQt5.QtCore as QtCore
     from PyQt5.QtWidgets import QMainWindow
+    from PyQt5.QtWidgets import QApplication
+    
 import numpy as np
 
 from ibeatles.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
@@ -161,7 +164,10 @@ class AdvancedSelectionWindow(QMainWindow):
         self.parent.advanced_selection_ui = None
 
     def apply_button_clicked(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         if self.ui.tabWidget.currentIndex() == 0:
             self.selection_table_selection_changed()
         else:
             self.lock_table_selection_changed()
+        QApplication.restoreOverrideCursor()
+        

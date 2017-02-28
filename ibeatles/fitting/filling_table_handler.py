@@ -94,7 +94,7 @@ class FillingTableHandler(object):
         self.parent.fitting_selection['nbr_column'] = _index_col
 
     def fill_table(self, table_dictionary=None):
-        self.clear_table()
+        self.clear_table_ui()
 
         if table_dictionary is None:
             table_dictionary = self.table_dictionary
@@ -149,7 +149,7 @@ class FillingTableHandler(object):
                              row = _index, 
                              col = _local_index+2, 
                              value = _value)
-                
+            
             # if row is selected, select it
             if _entry['selected']:
                 _selection = QtGui.QTableWidgetSelectionRange(_index, 0,
@@ -177,6 +177,13 @@ class FillingTableHandler(object):
 
     def select_full_table(self):
         self.full_table_selection_tool(status = False)
+
+    def clear_table_ui(self):
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
+        for _row in np.arange(nbr_row):
+            self.parent.fitting_ui.ui.value_table.removeRow(0)
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def clear_table(self):
         self.unselect_full_table()

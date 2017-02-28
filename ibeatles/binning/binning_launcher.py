@@ -33,7 +33,7 @@ class BinningLauncher(object):
             self.parent.binning_ui = binning_window
             o_binning = BinningHandler(parent=self.parent)
             o_binning.display_image()
-            o_binning.display_selection()
+#            o_binning.display_selection()
         else:
             self.parent.binning_ui.setFocus()
             self.parent.binning_ui.activateWindow()
@@ -179,8 +179,7 @@ class BinningWindow(QMainWindow):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         
         if self.line_view:
-            if self.line_view in self.image_view.children():
-                self.image_view.removeItem(self.line_view)
+            self.image_view.removeItem(self.line_view)
             self.line_view = None
             
         if self.parent.fitting_ui:
