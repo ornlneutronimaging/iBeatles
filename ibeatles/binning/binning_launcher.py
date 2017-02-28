@@ -62,9 +62,13 @@ class BinningWindow(QMainWindow):
         self.ui = UiMainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle("4. Binning")
-        
+               
+        self.load_data()
         self.init_pyqtgraph() 
         self.init_widgets()
+        
+    def load_data(self):
+        self.data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
         
     def init_widgets(self):
         if self.parent.binning_roi:
@@ -88,6 +92,8 @@ class BinningWindow(QMainWindow):
             _image_view = self.parent.binning_line_view['image_view']
         
         roi = self.parent.binning_line_view['roi']
+        if len(self.data) == 0:
+            return
         region = roi.getArraySlice(self.data, _image_view.imageItem)
         
         x0 = region[0][0].start
@@ -105,6 +111,14 @@ class BinningWindow(QMainWindow):
                 
     def init_pyqtgraph(self):
 
+        if len(self.data) == 0:
+            status = False
+        else:
+            status = True
+        
+        self.ui.groupBox.setEnabled(status)
+        self.ui.groupBox_2.setEnabled(status)
+        
         pg.setConfigOptions(antialias=True)
         
         # image view that will display the image and the ROI on top of it + bin regions
@@ -131,7 +145,7 @@ class BinningWindow(QMainWindow):
 
         #if self.parent.binning_line_view['ui']:
             #line_view = self.parent.binning_line_view['ui']
-
+            
         # bottom x, y and counts labels
         hori_layout = QtGui.QHBoxLayout()
         spacer1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -168,6 +182,7 @@ class BinningWindow(QMainWindow):
         vertical_layout.addWidget(hori_widget)
         
         self.ui.left_widget.setLayout(vertical_layout)
+        self.ui.left_widget.setVisible(status)
         #image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
 
     def get_correct_widget_value(self, ui='', variable_name=''):
@@ -178,6 +193,9 @@ class BinningWindow(QMainWindow):
         return np.int(s_variable)
 
     def roi_selection_widgets_modified(self):
+                
+        if self.data == []:
+            return
         
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         
@@ -329,18 +347,24 @@ class BinningWindow(QMainWindow):
     def closeEvent(self, event=None):
         self.parent.binning_ui = None
         
-        if not self.data == []:
-
+        if len(self.data) > 0:
+            
             x0 = np.int(str(self.ui.selection_x0.text()))
             y0 = np.int(str(self.ui.selection_y0.text()))
             width = np.int(str(self.ui.selection_width.text()))
             height = np.int(str(self.ui.selection_height.text()))
             bin_size = np.int(str(self.ui.pixel_bin_size.text()))
             self.parent.binning_roi = [x0, y0, width, height, bin_size]
+
+        else:
             
-#            self.parent.binning_line_view['ui'] = self.line_view
-    
-            #self.parent.binning_line_view['ui'] = self.line_view_binning
-            #self.parent.binning_line_view['pos'] = self.pos
-            #self.parent.binning_line_view['adj'] = self.adj
-            #self.parent.binning_line_view['pen'] = self.lines
+            # reset everyting if we quit with no data plotted
+            binning_line_view = {'ui': None,
+                                 'pos': None,
+                                 'adj': None,
+                                 'pen': None,
+                                 'image_view': None,
+                                 'roi': None}
+            self.parent.binning_line_view = binning_line_view
+            self.parent.binning_ui = None
+            

@@ -124,7 +124,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_2">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -259,7 +262,6 @@
           </spacer>
          </item>
         </layout>
-        <zorder></zorder>
         <zorder></zorder>
         <zorder>verticalSpacer</zorder>
        </widget>

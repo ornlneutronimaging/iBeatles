@@ -12,11 +12,12 @@ class BinningHandler(object):
             self.binning_ui.data = data
             self.parent.binning_line_view['image_view'].setImage(data)
         else:
-            if not self.parent.data_metadata['normalized']['data_live_selection'] == []:
-                data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
-                if not(data == np.array([])):
-                    self.parent.binning_line_view['image_view'].setImage(data)
-                    self.binning_ui.data = data
+            data = self.parent.binning_ui.data
+            if len(data) == 0:
+                return
+            else:
+                self.parent.binning_line_view['image_view'].setImage(data)
+                self.binning_ui.data = data
                     
     def display_selection(self):
         if self.parent.binning_line_view['ui']:
