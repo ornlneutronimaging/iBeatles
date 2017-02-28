@@ -1,11 +1,15 @@
 try:
     import PyQt4
     import PyQt4.QtGui as QtGui
+    import PyQt4.QtCore as QtCore
     from PyQt4.QtGui import QMainWindow
+    from PyQt4.QtGui import QApplication 
 except:
     import PyQt5
     import PyQt5.QtGui as QtGui
+    import PyQt5.QtCore as QtCore
     from PyQt5.QtWidgets import QMainWindow
+    from PyQt5.QtWidgets import QApplication
 
 from pyqtgraph.dockarea import *
 import pyqtgraph as pg
@@ -13,6 +17,7 @@ import numpy as np
     
 from ibeatles.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities import colors
+from ibeatles.fitting.fitting_handler import FittingHandler
 
 from ibeatles.binning.binning_handler import BinningHandler
 
@@ -171,13 +176,17 @@ class BinningWindow(QMainWindow):
 
     def roi_selection_widgets_modified(self):
         
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        
         if self.line_view:
-            self.image_view.removeItem(self.line_view)
+            if self.line_view in self.image_view.children():
+                self.image_view.removeItem(self.line_view)
             self.line_view = None
             
         if self.parent.fitting_ui:
             if self.parent.fitting_ui.line_view:
-                self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
+                if self.parent.fitting_ui.line_view in self.parent.fitting_ui.image_view.children():
+                    self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
                 self.parent.fitting_ui.line_view = None
                     
             # remove pre-defined lock and selected item
@@ -235,30 +244,12 @@ class BinningWindow(QMainWindow):
         
         if self.parent.fitting_ui:
             
-            transparency = self.parent.fitting_ui.slider.value()
-            alpha = np.int((np.float(transparency)/100.)*255)
-            line_color = (255,0,0,alpha,1)
-            lines = np.array([line_color for n in np.arange(len(pos))],
-                                 dtype=[('red',np.ubyte),('green',np.ubyte),
-                                       ('blue',np.ubyte),('alpha',np.ubyte),
-                                       ('width',float)]) 
-
-            if self.parent.fitting_ui.line_view_fitting:
-                self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view_fitting)
-                        
-            line_view_fitting = pg.GraphItem()
-            self.parent.fitting_ui.line_view_fitting = line_view_fitting
-            self.parent.fitting_ui.image_view.addItem(line_view_fitting)
-            self.parent.fitting_ui.line_view = line_view_fitting
-            self.parent.fitting_ui.line_view.setData(pos=pos, 
-                                                     adj=adj,
-                                                     pen=lines,
-                                                     symbol=None,
-                                                     pxMode=False)
+            o_fitting_ui = FittingHandler(parent=self.parent)
+            o_fitting_ui.display_image()
+            o_fitting_ui.display_roi()
+            o_fitting_ui.fill_table()
             
-            self.parent.fitting_ui.re_fill_table()
-            
-            
+        QApplication.restoreOverrideCursor()
                 
     def  calculate_matrix_of_pixel_bins(self, bin_size=2,
                                             x0=0,

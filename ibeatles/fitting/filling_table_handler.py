@@ -179,9 +179,14 @@ class FillingTableHandler(object):
         self.full_table_selection_tool(status = False)
 
     def clear_table(self):
+        self.unselect_full_table()
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
         nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
         for _row in np.arange(nbr_row):
             self.parent.fitting_ui.ui.value_table.removeRow(0)
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)
+
+        self.parent.fitting_ui.selection_in_value_table_changed()
 
     def get_min_max_xy(self, pos_array):
         min_x = 10000
