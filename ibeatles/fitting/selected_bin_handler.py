@@ -142,6 +142,9 @@ class SelectedBinsHandler(object):
         linear_region_range = [lr_left, lr_right]
         if self.parent.fitting_lr is None:
 
+            print("first time selecting the range")
+            print(linear_region_range)
+            print("")
             lr = pg.LinearRegionItem(values=linear_region_range, 
                                      orientation=None, 
                                      brush=None, 
@@ -154,6 +157,8 @@ class SelectedBinsHandler(object):
 
         else:
             lr = self.parent.fitting_lr
+            lr.setRegion(linear_region_range)
             self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
+            
 
         

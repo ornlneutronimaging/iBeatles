@@ -352,7 +352,7 @@ class FittingWindow(QMainWindow):
         left_index = find_nearest_index(array = x_axis, value=selection[0])
         right_index = find_nearest_index(array = x_axis, value=selection[1])
     
-        list_selected = range(left_index, right_index+1)
+        list_selected = [left_index, right_index]
         self.parent.fitting_bragg_edge_linear_selection = list_selected
         
     def closeEvent(self, event=None):

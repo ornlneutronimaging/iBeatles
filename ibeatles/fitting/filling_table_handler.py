@@ -20,6 +20,9 @@ class FillingTableHandler(object):
         '''
         this will define the corner position and index of each cell
         '''
+        if self.parent.binning_ui is None:
+            return
+        
         bin_size = self.parent.binning_bin_size
         pos = self.parent.binning_ui.pos
         
