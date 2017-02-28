@@ -298,10 +298,12 @@ class FittingWindow(QMainWindow):
                 
                 for _row in np.arange(top_row, bottom_row+1):
                     _widget = self.ui.value_table.cellWidget(_row, 0)
+                    _widget.blockSignals(True)
                     if status == 0:
                         _widget.setChecked(False)
                     else:
                         _widget.setChecked(True)
+                    _widget.blockSignals(False)
                         
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bins_selected()

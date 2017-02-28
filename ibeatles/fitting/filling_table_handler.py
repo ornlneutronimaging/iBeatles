@@ -102,6 +102,8 @@ class FillingTableHandler(object):
         
         value_table_ui = self.parent.fitting_ui.ui.value_table
         nbr_column = value_table_ui.columnCount()
+
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
                 
         for _index in np.arange(nbr_row):
             _str_index = str(_index)
@@ -153,6 +155,9 @@ class FillingTableHandler(object):
                 _selection = QtGui.QTableWidgetSelectionRange(_index, 0,
                                                               _index, nbr_column-1)
                 value_table_ui.setRangeSelected(_selection, True)
+            
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)
+        
             
     def set_item(self, table_ui=None, row=0, col=0, value=""):
         item = QtGui.QTableWidgetItem(value)

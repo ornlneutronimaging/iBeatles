@@ -142,9 +142,6 @@ class SelectedBinsHandler(object):
         linear_region_range = [lr_left, lr_right]
         if self.parent.fitting_lr is None:
 
-            print("first time selecting the range")
-            print(linear_region_range)
-            print("")
             lr = pg.LinearRegionItem(values=linear_region_range, 
                                      orientation=None, 
                                      brush=None, 
