@@ -33,13 +33,15 @@ class ValueTableHandler(object):
     def select_all(self):
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
-        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
-        nbr_column = self.parent.fitting_ui.ui.value_table.columnCount()
-        _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
-        self.parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, True)
+        
+#        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
+#        nbr_column = self.parent.fitting_ui.ui.value_table.columnCount()
+#        _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
+#        self.parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, True)
         o_fitting = FillingTableHandler(parent=self.parent)
         o_fitting.select_full_table()
-        self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+
+#        self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
         

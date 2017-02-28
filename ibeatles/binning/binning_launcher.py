@@ -17,8 +17,9 @@ import numpy as np
     
 from ibeatles.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities import colors
-from ibeatles.fitting.fitting_handler import FittingHandler
 
+from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.binning.binning_handler import BinningHandler
 
 
@@ -79,12 +80,15 @@ class BinningWindow(QMainWindow):
         
     def roi_changed(self):
 
-        if self.line_view:
-            self.image_view.removeItem(self.line_view)
-            self.line_view = None
+        if self.parent.binning_line_view['ui']:
+            _image_view = self.parent.binning_line_view['image_view']
+            _image_view.removeItem(self.parent.binning_line_view['ui'])
+            self.parent.binning_line_view['ui'] = None
+        else:
+            _image_view = self.parent.binning_line_view['image_view']
         
-        roi = self.widgets_ui['roi']
-        region = roi.getArraySlice(self.data, self.image_view.imageItem)
+        roi = self.parent.binning_line_view['roi']
+        region = roi.getArraySlice(self.data, _image_view.imageItem)
         
         x0 = region[0][0].start
         x1 = region[0][0].stop-1
@@ -104,28 +108,29 @@ class BinningWindow(QMainWindow):
         pg.setConfigOptions(antialias=True)
         
         # image view that will display the image and the ROI on top of it + bin regions
-        image_view = pg.ImageView()
-        image_view.ui.roiBtn.hide()
-        image_view.ui.menuBtn.hide()
-        if self.parent.binning_roi:
-            [x0, y0, width, height, bin_size] = self.parent.binning_roi
-            roi = pg.ROI([x0,y0], [width,height], pen=colors.pen_color['0'], scaleSnap=True)
+        if self.parent.binning_line_view['image_view']:
+            image_view = self.parent.binning_line_view['image_view']
+            roi = self.parent.binning_line_view['roi']
         else:
+            image_view = pg.ImageView()
+            image_view.ui.roiBtn.hide()
+            image_view.ui.menuBtn.hide()
+            self.parent.binning_line_view['image_view'] = image_view
             roi = pg.ROI([0,0], [20, 20], pen=colors.pen_color['0'], scaleSnap=True)
-
-        roi.addScaleHandle([1,1], [0,0])
-        roi.sigRegionChanged.connect(self.roi_changed)
-        roi.sigRegionChangeFinished.connect(self.roi_changed_finished)
-
-        image_view.addItem(roi)
-        self.widgets_ui['roi'] = roi
-
-        if self.parent.binning_line_view['ui']:
-            line_view = self.parent.binning_line_view['ui']
-        else:
+            roi.addScaleHandle([1,1], [0,0])
+            roi.sigRegionChanged.connect(self.roi_changed)
+            roi.sigRegionChangeFinished.connect(self.roi_changed_finished)
+            self.parent.binning_line_view['roi'] = roi
+            image_view.addItem(roi)
             line_view = pg.GraphItem()
-        image_view.addItem(line_view)
-        self.line_view = line_view
+            image_view.addItem(line_view)
+            self.parent.binning_line_view['ui'] = line_view
+
+            #[x0, y0, width, height, bin_size] = self.parent.binning_roi
+            #roi = pg.ROI([x0,y0], [width,height], pen=colors.pen_color['0'], scaleSnap=True)
+
+        #if self.parent.binning_line_view['ui']:
+            #line_view = self.parent.binning_line_view['ui']
 
         # bottom x, y and counts labels
         hori_layout = QtGui.QHBoxLayout()
@@ -165,8 +170,6 @@ class BinningWindow(QMainWindow):
         self.ui.left_widget.setLayout(vertical_layout)
         #image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
 
-        self.image_view = image_view
-
     def get_correct_widget_value(self, ui='', variable_name=''):
         s_variable = str(ui.text())
         if s_variable == '':
@@ -178,77 +181,104 @@ class BinningWindow(QMainWindow):
         
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         
-        if self.line_view:
-            self.image_view.removeItem(self.line_view)
-            self.line_view = None
+        if self.parent.binning_line_view['ui']:
+            _image_view = self.parent.binning_line_view['image_view']
+            _image_view.removeItem(self.parent.binning_line_view['ui'])
+            self.parent.binning_line_view['ui'] = None
             
-        if self.parent.fitting_ui:
-            if self.parent.fitting_ui.line_view:
-                if self.parent.fitting_ui.line_view in self.parent.fitting_ui.image_view.children():
-                    self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
-                self.parent.fitting_ui.line_view = None
-                    
-            # remove pre-defined lock and selected item
-            table_dictionary = self.parent.fitting_ui.table_dictionary
-            for _entry in table_dictionary.keys():
-                if table_dictionary[_entry]['selected_item'] in self.parent.fitting_ui.image_view.children():
-                    self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['selected_item'])
-                if table_dictionary[_entry]['locked_item'] in self.parent.fitting_ui.image_view.children():
-                    self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['locked_item'])
-        
         x0 = self.get_correct_widget_value(ui = self.ui.selection_x0,
-                                             variable_name = 'x0')
+                                               variable_name = 'x0')
         y0 = self.get_correct_widget_value(ui = self.ui.selection_y0,
                                                variable_name = 'y0')
         width = self.get_correct_widget_value(ui = self.ui.selection_width,
-                                               variable_name = 'width')
+                                                  variable_name = 'width')
         height = self.get_correct_widget_value(ui = self.ui.selection_height,
-                                               variable_name = 'height')
+                                                   variable_name = 'height')
         bin_size = self.get_correct_widget_value(ui = self.ui.pixel_bin_size,
-                                                   variable_name = 'bin_size')
+                                                         variable_name = 'bin_size')        
+        
         self.parent.binning_bin_size = bin_size
         self.parent.binning_done = True        
-        
-        self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
-        self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
-        
+    
+        #self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
+        #self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
+    
+        self.parent.binning_line_view['roi'].setPos([x0, y0], update=False, finish=False)
+        self.parent.binning_line_view['roi'].setSize([width, height], update=False, finish=False)
+
         pos_adj_dict = self.calculate_matrix_of_pixel_bins(bin_size=bin_size,
-                                                           x0=x0,
-                                                           y0=y0,
-                                                           width=width,
-                                                           height=height)
-        
+                                                               x0=x0,
+                                                               y0=y0,
+                                                               width=width,
+                                                               height=height)
+    
         pos = pos_adj_dict['pos']
         adj = pos_adj_dict['adj']
-        
+
         line_color = (255,0,0,255,1)    
         lines = np.array([line_color for n in np.arange(len(pos))],
-                        dtype=[('red',np.ubyte),('green',np.ubyte),
-                               ('blue',np.ubyte),('alpha',np.ubyte),
-                               ('width',float)]) 
+                             dtype=[('red',np.ubyte),('green',np.ubyte),
+                                   ('blue',np.ubyte),('alpha',np.ubyte),
+                                   ('width',float)]) 
+    
 
-        line_view_binning = pg.GraphItem()
-        self.image_view.addItem(line_view_binning)
-        self.line_view = line_view_binning
-        self.line_view.setData(pos=pos, 
-                               adj=adj,
-                               pen=lines,
-                               symbol=None,
-                               pxMode=False)
-        
-        self.line_view_binning = line_view_binning
-        self.pos = pos
-        self.adj = adj
-        self.lines = lines
-        
-        if self.parent.fitting_ui:
-            
-            o_fitting_ui = FittingHandler(parent=self.parent)
-            o_fitting_ui.display_image()
-            o_fitting_ui.display_roi()
-            o_fitting_ui.fill_table()
-            
+        self.parent.binning_line_view['pos'] = pos
+        self.parent.binning_line_view['adj'] = adj
+        self.parent.binning_line_view['pen'] = lines
+
+        self.update_binning_bins()
+
         QApplication.restoreOverrideCursor()
+
+            
+        #if self.parent.fitting_ui:
+            #if self.parent.fitting_ui.line_view:
+                #if self.parent.fitting_ui.line_view in self.parent.fitting_ui.image_view.children():
+                    #self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
+                #self.parent.fitting_ui.line_view = None
+                    
+            ## remove pre-defined lock and selected item
+            #table_dictionary = self.parent.fitting_ui.table_dictionary
+            #for _entry in table_dictionary.keys():
+                #if table_dictionary[_entry]['selected_item'] in self.parent.fitting_ui.image_view.children():
+                    #self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['selected_item'])
+                #if table_dictionary[_entry]['locked_item'] in self.parent.fitting_ui.image_view.children():
+                    #self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['locked_item'])
+        
+        #self.line_view_binning = line_view_binning
+        #self.pos = pos
+        #self.adj = adj
+        #self.lines = lines
+        
+        #if self.parent.fitting_ui:
+            
+            #o_fitting_ui = FittingHandler(parent=self.parent)
+            #o_fitting_ui.display_image()
+            #o_fitting_ui.display_roi()
+            #o_fitting_ui.fill_table()
+            
+        #QApplication.restoreOverrideCursor()
+
+    def update_binning_bins(self):
+        '''
+        this method takes from the parent file the information necessary to display the selection with
+        bins in the binning window
+        '''
+        
+        pos = self.parent.binning_line_view['pos']
+        adj = self.parent.binning_line_view['adj']
+        lines = self.parent.binning_line_view['pen']
+        
+        line_view_binning = pg.GraphItem()
+        self.parent.binning_line_view['image_view'].addItem(line_view_binning)
+        line_view = line_view_binning
+        line_view.setData(pos=pos, 
+                          adj=adj,
+                          pen=lines,
+                          symbol=None,
+                          pxMode=False)
+
+        self.parent.binning_line_view['ui'] = line_view
                 
     def  calculate_matrix_of_pixel_bins(self, bin_size=2,
                                             x0=0,
@@ -310,7 +340,7 @@ class BinningWindow(QMainWindow):
             
 #            self.parent.binning_line_view['ui'] = self.line_view
     
-            self.parent.binning_line_view['ui'] = self.line_view_binning
-            self.parent.binning_line_view['pos'] = self.pos
-            self.parent.binning_line_view['adj'] = self.adj
-            self.parent.binning_line_view['pen'] = self.lines
+            #self.parent.binning_line_view['ui'] = self.line_view_binning
+            #self.parent.binning_line_view['pos'] = self.pos
+            #self.parent.binning_line_view['adj'] = self.adj
+            #self.parent.binning_line_view['pen'] = self.lines
