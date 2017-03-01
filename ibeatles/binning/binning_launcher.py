@@ -66,6 +66,7 @@ class BinningWindow(QMainWindow):
         self.load_data()
         self.init_pyqtgraph() 
         self.init_widgets()
+        self.roi_selection_widgets_modified()
         
     def load_data(self):
         self.data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
@@ -103,12 +104,12 @@ class BinningWindow(QMainWindow):
         
         width = np.abs(x0-x1)
         height = np.abs(y0-y1)
-        
+                            
         self.ui.selection_x0.setText("{}".format(x0))
         self.ui.selection_y0.setText("{}".format(y0))
         self.ui.selection_width.setText("{}".format(width))
         self.ui.selection_height.setText("{}".format(height))
-                
+
     def init_pyqtgraph(self):
 
         if len(self.data) == 0:
@@ -121,31 +122,20 @@ class BinningWindow(QMainWindow):
         
         pg.setConfigOptions(antialias=True)
         
-        # image view that will display the image and the ROI on top of it + bin regions
-        if self.parent.binning_line_view['image_view']:
-            image_view = self.parent.binning_line_view['image_view']
-            roi = self.parent.binning_line_view['roi']
-        else:
-            image_view = pg.ImageView()
-            image_view.ui.roiBtn.hide()
-            image_view.ui.menuBtn.hide()
-            self.parent.binning_line_view['image_view'] = image_view
-            roi = pg.ROI([0,0], [20, 20], pen=colors.pen_color['0'], scaleSnap=True)
-            roi.addScaleHandle([1,1], [0,0])
-            roi.sigRegionChanged.connect(self.roi_changed)
-            roi.sigRegionChangeFinished.connect(self.roi_changed_finished)
-            self.parent.binning_line_view['roi'] = roi
-            image_view.addItem(roi)
-            line_view = pg.GraphItem()
-            image_view.addItem(line_view)
-            self.parent.binning_line_view['ui'] = line_view
+        image_view = pg.ImageView()
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+        self.parent.binning_line_view['image_view'] = image_view
+        roi = pg.ROI([0,0], [20, 20], pen=colors.pen_color['0'], scaleSnap=True)
+        roi.addScaleHandle([1,1], [0,0])
+        roi.sigRegionChanged.connect(self.roi_changed)
+        roi.sigRegionChangeFinished.connect(self.roi_changed_finished)
+        self.parent.binning_line_view['roi'] = roi
+        image_view.addItem(roi)
+        line_view = pg.GraphItem()
+        image_view.addItem(line_view)
+        self.parent.binning_line_view['ui'] = line_view
 
-            #[x0, y0, width, height, bin_size] = self.parent.binning_roi
-            #roi = pg.ROI([x0,y0], [width,height], pen=colors.pen_color['0'], scaleSnap=True)
-
-        #if self.parent.binning_line_view['ui']:
-            #line_view = self.parent.binning_line_view['ui']
-            
         # bottom x, y and counts labels
         hori_layout = QtGui.QHBoxLayout()
         spacer1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
@@ -183,7 +173,7 @@ class BinningWindow(QMainWindow):
         
         self.ui.left_widget.setLayout(vertical_layout)
         self.ui.left_widget.setVisible(status)
-        #image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
+#        image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
 
     def get_correct_widget_value(self, ui='', variable_name=''):
         s_variable = str(ui.text())
@@ -366,5 +356,4 @@ class BinningWindow(QMainWindow):
                                  'image_view': None,
                                  'roi': None}
             self.parent.binning_line_view = binning_line_view
-            self.parent.binning_ui = None
             

@@ -85,6 +85,9 @@ class Step1Plot(object):
                 if not (self.parent.binning_ui is None):
                     o_binning = BinningHandler(parent=self.parent)
                     o_binning.display_image(data=_data)
+                    self.parent.binning_ui.ui.groupBox.setEnabled(True)
+                    self.parent.binning_ui.ui.groupBox_2.setEnabled(True)
+                    self.parent.binning_ui.ui.left_widget.setVisible(True)
                 if not (self.parent.fitting_ui is None):
                     o_fitting = FittingHandler(parent=self.parent)
                     o_fitting.display_image(data=_data)
