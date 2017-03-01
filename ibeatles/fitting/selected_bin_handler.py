@@ -28,7 +28,7 @@ class SelectedBinsHandler(object):
         selection = self.fitting_ui.ui.value_table.selectedRanges()
         list_bin_selected = self.retrieve_list_bin_selected(selection)        
     
-        table_dictionary = self.parent.fitting_ui.table_dictionary
+        table_dictionary = self.parent.table_dictionary
         nbr_row = len(table_dictionary)
         bin_size = self.parent.binning_bin_size
 
@@ -49,11 +49,11 @@ class SelectedBinsHandler(object):
                 table_entry['selected'] = False
             table_dictionary[str(_row)] = table_entry
         
-        self.parent.fitting_ui.table_dictionary = table_dictionary
+        self.parent.table_dictionary = table_dictionary
         self.parent.fitting_ui.list_bins_selected_item = list_bins_selected_rect_item
     
     def update_bins_locked(self):
-        table_dictionary = self.parent.fitting_ui.table_dictionary
+        table_dictionary = self.parent.table_dictionary
         nbr_row = len(table_dictionary)
         
         bin_size = self.parent.binning_bin_size
@@ -76,7 +76,7 @@ class SelectedBinsHandler(object):
                 table_entry['lock'] = False
             table_dictionary[str(_row)] = table_entry
             
-        self.parent.fitting_ui.table_dictionary = table_dictionary
+        self.parent.table_dictionary = table_dictionary
         self.parent.fitting_ui.list_bins_locked_item = list_bins_locked_item
     
     def retrieve_list_bin_selected(self, selection):
@@ -96,7 +96,7 @@ class SelectedBinsHandler(object):
         list_bin_selected = self.retrieve_list_bin_selected(selection)
         if list_bin_selected == []:
             return
-        table_dictionary = self.parent.fitting_ui.table_dictionary
+        table_dictionary = self.parent.table_dictionary
         
         # retrieve image
         data_2d = np.array(self.parent.data_metadata['normalized']['data'])

@@ -94,3 +94,18 @@ class TableDictionaryHandler(object):
 
         self.parent.fitting_selection['nbr_row'] = _index_row
         self.parent.fitting_selection['nbr_column'] = _index_col    
+        
+    def full_table_selection_tool(self, status=True):
+        table_dictionary = self.parent.table_dictionary
+        for _index in table_dictionary:
+            _item = table_dictionary[_index]
+            _item['selected'] = status
+            table_dictionary[_index] = _item
+            
+        self.parent.table_dictionary = table_dictionary
+
+    def unselect_full_table(self):
+        self.full_table_selection_tool(status = False)
+
+    def select_full_table(self):
+        self.full_table_selection_tool(status = True)

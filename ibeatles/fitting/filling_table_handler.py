@@ -33,6 +33,7 @@ class FillingTableHandler(object):
             # add lock button in first cell (column: 0)
             _lock_button = QtGui.QCheckBox()
             _is_checked = _entry['lock']
+            
             _lock_button.setChecked(_is_checked)
             _lock_button.stateChanged.connect(lambda state=0, 
                                               row=_index: self.parent.fitting_ui.lock_button_state_changed(state, row))
@@ -75,26 +76,10 @@ class FillingTableHandler(object):
                 value_table_ui.setRangeSelected(_selection, True)
             
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
-        
             
     def set_item(self, table_ui=None, row=0, col=0, value=""):
         item = QtGui.QTableWidgetItem(value)
         table_ui.setItem(row, col, item)
-
-    def full_table_selection_tool(self, status=True):
-        table_dictionary = self.parent.fitting_ui.table_dictionary
-        for _index in table_dictionary:
-            _item = table_dictionary[_index]
-            _item['selected'] = False
-            table_dictionary[_index] = _item
-            
-        self.parent.fitting_ui.table_dictionary = table_dictionary
-
-    def unselect_full_table(self):
-        self.full_table_selection_tool(status = True)
-
-    def select_full_table(self):
-        self.full_table_selection_tool(status = False)
 
     def clear_table_ui(self):
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
