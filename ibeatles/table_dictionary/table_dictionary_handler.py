@@ -1,5 +1,13 @@
 import numpy as np
-from PyQt4 import QtGui
+try:
+    import PyQt4.QtGui as QtGui
+    import PyQt4.QtCore as QtCore
+    from PyQt4.QtGui import QApplication 
+except:
+    import PyQt5.QtGui as QtGui
+    import PyQt5.QtCore as QtCore
+    from PyQt5.QtWidgets import QApplication
+
 import pyqtgraph as pg
 
 from ibeatles.utilities.array_utilities import get_min_max_xy
@@ -96,9 +104,7 @@ class TableDictionaryHandler(object):
         self.parent.fitting_selection['nbr_column'] = _index_col    
         
     def full_table_selection_tool(self, status=True):
-        
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        
+                
         table_dictionary = self.parent.table_dictionary
         for _index in table_dictionary:
             _item = table_dictionary[_index]
@@ -107,8 +113,6 @@ class TableDictionaryHandler(object):
             
         self.parent.table_dictionary = table_dictionary
                 
-        QApplication.restoreOverrideCursor()
-
     def unselect_full_table(self):
         self.full_table_selection_tool(status = False)
 

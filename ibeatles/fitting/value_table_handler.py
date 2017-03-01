@@ -1,4 +1,11 @@
-from PyQt4 import QtGui
+try:
+    import PyQt4.QtGui as QtGui
+    import PyQt4.QtCore as QtCore
+    from PyQt4.QtGui import QApplication 
+except:
+    import PyQt5.QtGui as QtGui
+    import PyQt5.QtCore as QtCore
+    from PyQt5.QtWidgets import QApplication
 
 from ibeatles.fitting.advanced_selection_launcher import AdvancedSelectionLauncher
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
@@ -41,6 +48,9 @@ class ValueTableHandler(object):
             self.reset()
             
     def select_all(self):
+        
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        
         o_table = TableDictionaryHandler(parent=self.parent)
         o_table.select_full_table()
         
@@ -63,7 +73,12 @@ class ValueTableHandler(object):
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
         
+        QApplication.restoreOverrideCursor()
+        
     def unselect_all(self):
+        
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)        
+        
         o_table = TableDictionaryHandler(parent=self.parent)
         o_table.unselect_full_table()
     
@@ -83,7 +98,9 @@ class ValueTableHandler(object):
         #self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         #if self.parent.advanced_selection_ui:
             #self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
-        
+
+        QApplication.restoreOverrideCursor()
+
     def advanced_selection(self):
         o_advanced = AdvancedSelectionLauncher(parent=self.parent)
         
