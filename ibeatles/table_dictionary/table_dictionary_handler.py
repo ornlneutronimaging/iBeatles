@@ -96,6 +96,9 @@ class TableDictionaryHandler(object):
         self.parent.fitting_selection['nbr_column'] = _index_col    
         
     def full_table_selection_tool(self, status=True):
+        
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        
         table_dictionary = self.parent.table_dictionary
         for _index in table_dictionary:
             _item = table_dictionary[_index]
@@ -103,6 +106,8 @@ class TableDictionaryHandler(object):
             table_dictionary[_index] = _item
             
         self.parent.table_dictionary = table_dictionary
+                
+        QApplication.restoreOverrideCursor()
 
     def unselect_full_table(self):
         self.full_table_selection_tool(status = False)

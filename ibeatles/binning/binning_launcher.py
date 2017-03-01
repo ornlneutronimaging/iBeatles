@@ -20,6 +20,7 @@ from ibeatles.utilities import colors
 
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.binning.binning_handler import BinningHandler
 
 
@@ -236,8 +237,19 @@ class BinningWindow(QMainWindow):
 
         self.update_binning_bins()
 
-        QApplication.restoreOverrideCursor()
+        if self.parent.fitting_ui:
+            
+            o_table = TableDictionaryHandler(parent=self.parent)
+            o_table.create_table_dictionary()
+            
+            o_fitting = FillingTableHandler(parent=self.parent)
+            o_fitting.fill_table()
+            
+            self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+            
+            o_hanlder = FittingHandler(parent=self.parent)
 
+            o_hanlder.display_roi()
             
         #if self.parent.fitting_ui:
             #if self.parent.fitting_ui.line_view:
@@ -264,8 +276,8 @@ class BinningWindow(QMainWindow):
             #o_fitting_ui.display_image()
             #o_fitting_ui.display_roi()
             #o_fitting_ui.fill_table()
-            
-        #QApplication.restoreOverrideCursor()
+
+        QApplication.restoreOverrideCursor()
 
     def update_binning_bins(self):
         '''
