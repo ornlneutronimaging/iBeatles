@@ -18,11 +18,16 @@ class FittingHandler(object):
         else:
             if not self.parent.data_metadata['normalized']['data_live_selection'] == []:
                 data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
-                if not(data == np.array([])):
+                if len(data) == 0:
+                    return
+                else:
                     self.fitting_ui.image_view.setImage(data)
                     self.fitting_ui.data = data
                 
     def display_roi(self):
+        if len(np.array(self.parent.data_metadata['normalized']['data_live_selection'])) == 0:
+            return
+        
         plot_roi = False
         if self.parent.binning_ui: #retrieve info from binning ui
             pos = self.parent.binning_ui.pos
@@ -55,6 +60,9 @@ class FittingHandler(object):
                                                      pxMode=False)
             
     def fill_table(self):
+        if len(np.array(self.parent.data_metadata['normalized']['data_live_selection'])) == 0:
+            return
+
         if self.parent.binning_done:
             o_fill_table = FillingTableHandler(parent=self.parent)
             o_fill_table.create_table_dictionary()

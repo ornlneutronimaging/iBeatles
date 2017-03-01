@@ -12,12 +12,21 @@ class ValueTableHandler(object):
     def right_click(self, position):
         menu = QtGui.QMenu(self.parent)
         
+        if len(self.parent.fitting_ui.data) == 0:
+            status = False
+        else:
+            status = True
+
         _select_all = menu.addAction("Select All")
+        _select_all.setEnabled(status)
         _unselect_all = menu.addAction("Unselect All")
+        _unselect_all.setEnabled(status)
         menu.addSeparator()
         _advanced_selection = menu.addAction("Graphical Selection ...")
+        _advanced_selection.setEnabled(status)
         menu.addSeparator()
         _reset = menu.addAction("Full Reset")
+        _reset.setEnabled(status)
         
         action = menu.exec_(QtGui.QCursor.pos())
         

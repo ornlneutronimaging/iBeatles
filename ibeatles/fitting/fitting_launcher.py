@@ -158,8 +158,14 @@ class FittingWindow(QMainWindow):
                 
     def init_pyqtgraph(self):
 
+        if len(self.parent.data_metadata['normalized']['data_live_selection']) > 0:
+            status = True
+        else:
+            status = False
+
         area = DockArea()
-        area.setVisible(True)
+        self.ui.area = area
+        area.setVisible(status)
         d1 = Dock("Image Preview", size=(200, 300))
         d2 = Dock("Bragg Edge", size=(200, 100))
     
