@@ -32,6 +32,9 @@ class TableDictionaryHandler(object):
         if len(np.array(self.parent.data_metadata['normalized']['data_live_selection'])) == 0:
             return
 
+        if not self.parent.table_dictionary == {}:
+            return
+
         bin_size = self.parent.binning_bin_size
         pos = self.parent.binning_line_view['pos']
         
