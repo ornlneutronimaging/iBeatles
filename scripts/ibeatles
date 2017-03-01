@@ -717,7 +717,6 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.loading_flag = False
 
         QApplication.restoreOverrideCursor()
-
     
     def roi_normalized_image_view_changed(self, mouse_selection=True):
         o_plot = Step1Plot(parent=self, data_type='normalized')
@@ -749,7 +748,6 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         #print("tof: {}".format(self.xaxis_button_ui[data_type]['tof'].isChecked()))
         #print("lambda: {}".format(self.xaxis_button_ui[data_type]['lambda'].isChecked()))
         #print()
-
 
 def main():
     app = QApplication(sys.argv)
