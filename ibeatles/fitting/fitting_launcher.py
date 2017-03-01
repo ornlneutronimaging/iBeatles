@@ -20,6 +20,8 @@ from ibeatles.utilities.array_utilities import find_nearest_index
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.value_table_handler import ValueTableHandler
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 
 
 class FittingLauncher(object):
@@ -139,7 +141,6 @@ class FittingWindow(QMainWindow):
                 left_new_size = self.ui.value_table.columnWidth(index_column - 1)
                 index_header = np.int(index_column - 4) / 2 + 3
                 self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
-
         
     def init_widgets(self):
         '''
@@ -148,6 +149,34 @@ class FittingWindow(QMainWindow):
         hkl_list = self.parent.selected_element_hkl_array
         str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
         self.ui.hkl_list_ui.addItems(str_hkl_list)
+        
+#        self.installEventFilter(self)
+        
+    #def eventFilter(self, obj, event):
+        #if event.type() == QtCore.QEvent.WindowActivate:
+            #self.update_ui()
+            #return True
+        #return False
+
+    #def update_ui(self):
+        
+        #if self.parent.binning_line_view['pos'] is None:
+            #return
+        
+        #o_table = TableDictionaryHandler(parent=self.parent)
+        #o_table.create_table_dictionary()
+        
+        #o_fitting = FillingTableHandler(parent=self.parent)
+        #o_fitting.fill_table()
+        
+        #self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)       
+        #o_hanlder = FittingHandler(parent=self.parent)
+        #o_hanlder.display_roi()
+
+        #self.show_all_widgets()
+        
+    #def show_all_widgets(self):
+        #self.ui.area.setVisible(True)
         
     def init_labels(self):
         self.ui.lambda_min_label.setText(u"\u03BB<sub>min</sub>")
@@ -159,7 +188,8 @@ class FittingWindow(QMainWindow):
                 
     def init_pyqtgraph(self):
 
-        if len(self.parent.data_metadata['normalized']['data_live_selection']) > 0:
+        if (len(self.parent.data_metadata['normalized']['data_live_selection']) > 0) and \
+           not (self.parent.binning_line_view['pos'] is None):
             status = True
         else:
             status = False

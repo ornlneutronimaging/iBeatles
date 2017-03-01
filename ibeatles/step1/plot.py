@@ -82,6 +82,12 @@ class Step1Plot(object):
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
                 self.parent.data_metadata['normalized']['data_live_selection'] = _data
+
+                # make sure that if we have the fitting window open, we have also at leat the binning
+                if not (self.parent.fitting_ui is None) and \
+                   (self.parent.binning_ui is None): 
+                    self.parent.menu_view_binning_clicked()
+
                 if not (self.parent.binning_ui is None):
                     o_binning = BinningHandler(parent=self.parent)
                     o_binning.display_image(data=_data)
@@ -94,7 +100,7 @@ class Step1Plot(object):
                     o_fitting.display_roi()
                     self.parent.fitting_ui.ui.area.setVisible(True)
                     o_fitting.fill_table()
-
+                        
     def add_origin_label(self, image_ui):
         # origin label
         text_id = pg.TextItem(html="<span style='color: yellow;'>(0,0)",

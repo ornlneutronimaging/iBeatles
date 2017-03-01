@@ -20,7 +20,8 @@ class ValueTableHandler(object):
     def right_click(self, position):
         menu = QtGui.QMenu(self.parent)
         
-        if len(self.parent.fitting_ui.data) == 0:
+        if (len(self.parent.fitting_ui.data) == 0) or \
+           (self.parent.binning_line_view['pos'] is None):
             status = False
         else:
             status = True

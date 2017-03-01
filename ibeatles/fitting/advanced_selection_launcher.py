@@ -74,7 +74,7 @@ class AdvancedSelectionWindow(QMainWindow):
                           table_ui = self.ui.lock_table)
 
     def update_table(self, state_field='', table_ui=None):
-        table_dictionary = self.parent.fitting_ui.table_dictionary
+        table_dictionary = self.parent.table_dictionary
         
         for _index in table_dictionary:
             _entry = table_dictionary[_index]
