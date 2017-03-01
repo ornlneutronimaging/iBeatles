@@ -91,7 +91,9 @@ class Step1Plot(object):
                 if not (self.parent.fitting_ui is None):
                     o_fitting = FittingHandler(parent=self.parent)
                     o_fitting.display_image(data=_data)
+                    o_fitting.display_roi()
                     self.parent.fitting_ui.ui.area.setVisible(True)
+                    o_fitting.fill_table()
 
     def add_origin_label(self, image_ui):
         # origin label
