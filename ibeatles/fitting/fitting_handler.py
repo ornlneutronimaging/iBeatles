@@ -3,6 +3,7 @@ import pyqtgraph as pg
 
 from ibeatles.utilities import colors
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 
 
 class FittingHandler(object):
@@ -29,16 +30,10 @@ class FittingHandler(object):
             return
         
         plot_roi = False
-        if self.parent.binning_ui: #retrieve info from binning ui
-            pos = self.parent.binning_ui.pos
-            adj = self.parent.binning_ui.adj
-            lines = self.parent.binning_ui.lines
-            plot_roi = True
-        elif self.parent.binning_line_view['ui']: #retrieve info from main ui
-            pos = self.parent.binning_line_view['pos']
-            adj = self.parent.binning_line_view['adj']
-            lines = self.parent.binning_line_view['pen']
-            plot_roi = True
+        pos = self.parent.binning_line_view['pos']
+        adj = self.parent.binning_line_view['adj']
+        lines = self.parent.binning_line_view['pen']
+        plot_roi = True
             
         if plot_roi:
 
@@ -63,9 +58,10 @@ class FittingHandler(object):
         if len(np.array(self.parent.data_metadata['normalized']['data_live_selection'])) == 0:
             return
 
-        if self.parent.binning_done:
-            o_fill_table = FillingTableHandler(parent=self.parent)
-            o_fill_table.create_table_dictionary()
-            o_fill_table.fill_table()
+        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table.create_table_dictionary()
+        
+        o_fill_table = FillingTableHandler(parent=self.parent)
+        o_fill_table.fill_table()
 
     
