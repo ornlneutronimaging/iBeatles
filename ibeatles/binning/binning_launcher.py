@@ -190,6 +190,8 @@ class BinningWindow(QMainWindow):
         
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         
+        self.parent.table_dictionary = {}
+        
         if self.parent.binning_line_view['ui']:
             _image_view = self.parent.binning_line_view['image_view']
             _image_view.removeItem(self.parent.binning_line_view['ui'])

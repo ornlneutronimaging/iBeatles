@@ -703,6 +703,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_gui.select_normalized_row(row=row)
 
     def normalized_list_selection_changed(self):
+
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+
         if not self.loading_flag:
             o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')
             o_retrieve_data_infos.update()  
@@ -712,6 +715,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 o_selection.update_bragg_edge_plot()
         else:
             self.loading_flag = False
+
+        QApplication.restoreOverrideCursor()
+
     
     def roi_normalized_image_view_changed(self, mouse_selection=True):
         o_plot = Step1Plot(parent=self, data_type='normalized')
