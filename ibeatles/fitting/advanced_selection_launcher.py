@@ -103,7 +103,7 @@ class AdvancedSelectionWindow(QMainWindow):
         selection = self.ui.selection_table.selectedRanges()
         nbr_row = self.ui.selection_table.rowCount()
         
-        table_dictionary = self.parent.fitting_ui.table_dictionary
+        table_dictionary = self.parent.table_dictionary
 
         for _entry in table_dictionary.keys():
             table_dictionary[_entry]['selected'] = False
@@ -120,11 +120,11 @@ class AdvancedSelectionWindow(QMainWindow):
                     _entry['selected'] = True
                     table_dictionary[str(fitting_row)] = _entry
             
-        self.parent.fitting_ui.table_dictionary = table_dictionary
+        self.parent.table_dictionary = table_dictionary
         o_filling_table = FillingTableHandler(parent = self.parent)
         
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
-        o_filling_table.fill_table(table_dictionary = table_dictionary)
+        o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
         self.parent.fitting_ui.update_image_view_selection()
         self.parent.fitting_ui.update_image_view_lock()
@@ -134,7 +134,7 @@ class AdvancedSelectionWindow(QMainWindow):
         selection = self.ui.lock_table.selectedRanges()
         nbr_row = self.ui.lock_table.rowCount()
         
-        table_dictionary = self.parent.fitting_ui.table_dictionary
+        table_dictionary = self.parent.table_dictionary
 
         for _entry in table_dictionary.keys():
             table_dictionary[_entry]['lock'] = False
@@ -151,11 +151,11 @@ class AdvancedSelectionWindow(QMainWindow):
                     _entry['lock'] = True
                     table_dictionary[str(fitting_row)] = _entry
             
-        self.parent.fitting_ui.table_dictionary = table_dictionary
+        self.parent.table_dictionary = table_dictionary
         o_filling_table = FillingTableHandler(parent = self.parent)
         
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
-        o_filling_table.fill_table(table_dictionary = table_dictionary)
+        o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
         self.parent.fitting_ui.update_image_view_selection()
         self.parent.fitting_ui.update_image_view_lock()
