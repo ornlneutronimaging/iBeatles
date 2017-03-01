@@ -42,6 +42,7 @@ class FittingLauncher(object):
 class FittingWindow(QMainWindow):        
     
     data = []
+    there_is_a_roi = False
     
     list_bins_selected_item = []
     list_bins_locked_item = []
