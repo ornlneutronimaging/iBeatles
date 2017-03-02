@@ -31,7 +31,7 @@ class ValueTableHandler(object):
         _unselect_all = menu.addAction("Unselect All")
         _unselect_all.setEnabled(status)
         menu.addSeparator()
-        _advanced_selection = menu.addAction("Graphical Selection ...")
+        _advanced_selection = menu.addAction("Bin Selection Tool ..")
         _advanced_selection.setEnabled(status)
         menu.addSeparator()
         _reset = menu.addAction("Full Reset")

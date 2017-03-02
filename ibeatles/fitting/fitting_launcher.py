@@ -370,12 +370,13 @@ class FittingWindow(QMainWindow):
         o_bin_handler.update_bragg_edge_plot()
 
     def selection_in_value_table_of_rows_cell_clicked(self, row, column):
-        self.update_image_view_selection()
-        self.update_image_view_lock()
-        if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.update_selection_table()
-            self.parent.advanced_selection_ui.update_lock_table()
-        self.update_bragg_edge_plot()
+        pass            
+        #self.update_image_view_selection()
+        #self.update_image_view_lock()
+        #if self.parent.advanced_selection_ui:
+            #self.parent.advanced_selection_ui.update_selection_table()
+            #self.parent.advanced_selection_ui.update_lock_table()
+        #self.update_bragg_edge_plot()
         
     def selection_in_value_table_changed(self):
         try:

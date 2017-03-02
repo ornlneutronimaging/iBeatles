@@ -90,11 +90,11 @@ class FillingTableHandler(object):
                              col = _local_index+2, 
                              value = _value)
             
-            # if row is selected, select it
-            if _entry['selected']:
-                _selection = QtGui.QTableWidgetSelectionRange(_index, 0,
-                                                              _index, nbr_column-1)
-                value_table_ui.setRangeSelected(_selection, True)
+            ## if row is selected, select it
+            #if _entry['selected']:
+                #_selection = QtGui.QTableWidgetSelectionRange(_index, 0,
+                                                              #_index, nbr_column-1)
+                #value_table_ui.setRangeSelected(_selection, True)
             
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
             
