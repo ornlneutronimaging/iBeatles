@@ -3,11 +3,13 @@ try:
     import PyQt4.QtGui as QtGui
     import PyQt4.QtCore as QtCore
     from PyQt4.QtGui import QMainWindow
+    from PyQt4.QtGui import QApplication         
 except:
     import PyQt5
     import PyQt5.QtGui as QtGui
     import PyQt5.QtCore as QtCore
     from PyQt5.QtWidgets import QMainWindow
+    from PyQt5.QtWidgets import QApplication
 
 from pyqtgraph.dockarea import *
 import pyqtgraph as pg
@@ -395,7 +397,10 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_bragg_edge_linear_selection = list_selected
         
     def advanced_table_clicked(self, status):
-        print(status)
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        o_table_handler = FillingTableHandler(parent=self.parent)
+        o_table_handler.set_mode(advanced_mode = status)
+        QApplication.restoreOverrideCursor()
         
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None

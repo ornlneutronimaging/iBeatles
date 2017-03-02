@@ -6,9 +6,30 @@ import pyqtgraph as pg
 class FillingTableHandler(object):
     
     table_dictionary = {}
+    advanced_mode_flag = True
     
     def __init__(self, parent=None):
         self.parent = parent
+      
+    def set_mode(self, advanced_mode=True):
+        self.advaanced_mode_flag = advanced_mode
+        list_header_table_advanced_columns = [8,9]
+        list_value_table_advanced_columns = [13,14,15,16]
+
+        self.parent.fitting_ui.ui.header_table.horizontalHeader().blockSignals(True)
+        self.parent.fitting_ui.ui.value_table.horizontalHeader().blockSignals(True)
+
+        # hide column a5 and a6
+        for _col_index in list_header_table_advanced_columns:
+            self.parent.fitting_ui.ui.header_table.setColumnHidden(_col_index, not advanced_mode)
+        for _col_index in list_value_table_advanced_columns:
+            self.parent.fitting_ui.ui.value_table.setColumnHidden(_col_index, not advanced_mode)
+
+        self.parent.fitting_ui.ui.header_table.horizontalHeader().blockSignals(False)
+        self.parent.fitting_ui.ui.value_table.horizontalHeader().blockSignals(False)
+    
+        #repopulate table
+        self.fill_table()
       
     def fill_table(self):
         self.clear_table_ui()
@@ -61,7 +82,7 @@ class FillingTableHandler(object):
                           _entry['a5']['val'],
                           _entry['a5']['err'],
                           _entry['a6']['val'],
-                          _entry['a6']['err']]
+                          _entry['a6']['err']]              
 
             for _local_index, _value in enumerate(list_value):
                 self.set_item(table_ui = value_table_ui, 
