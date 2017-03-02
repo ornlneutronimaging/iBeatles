@@ -287,7 +287,7 @@ class Ui_MainWindow(object):
         item = self.header_table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Lock", None))
         item = self.header_table.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Bin #", None))
+        item.setText(_translate("MainWindow", "Active", None))
         item = self.header_table.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Fitting Confidence", None))
         item = self.header_table.horizontalHeaderItem(3)

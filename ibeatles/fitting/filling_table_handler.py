@@ -61,9 +61,19 @@ class FillingTableHandler(object):
             
             value_table_ui.setCellWidget(_index, 0, _lock_button)
             
-            # bin # (column: 1)
-            _bin_number = QtGui.QTableWidgetItem("{:02}".format(_index))
-            value_table_ui.setItem(_index, 1, _bin_number)
+            # add active button in second cell (column: 1)
+            _active_button = QtGui.QCheckBox()
+            _is_checked = _entry['selected']
+        
+            _active_button.setChecked(_is_checked)
+            _active_button.stateChanged.connect(lambda state=0, 
+                                                      row=_index: self.parent.fitting_ui.active_button_state_changed(state, row))
+        
+            value_table_ui.setCellWidget(_index, 1, _active_button)
+
+            ## bin # (column: 1)
+            #_bin_number = QtGui.QTableWidgetItem("{:02}".format(_index))
+            #value_table_ui.setItem(_index, 1, _bin_number)
             
             # from column 2 -> nbr_column
             list_value = [_entry['fitting_confidence'],

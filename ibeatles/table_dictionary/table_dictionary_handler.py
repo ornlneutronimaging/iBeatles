@@ -64,6 +64,7 @@ class TableDictionaryHandler(object):
                                                 'column_index': _index_col,
                                                 'selected': False,
                                                 'lock': False,
+                                                'active': False,
                                                 'fitting_confidence': -1,
                                                 'd_spacing': {'val': -1, 'err': -1},
                                                 'sigma': {'val': -1, 'err': -1},

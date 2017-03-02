@@ -309,6 +309,9 @@ class FittingWindow(QMainWindow):
         o_fitting_handler = FittingHandler(parent=self.parent)
         o_fitting_handler.display_roi()
 
+    def active_button_state_changed(self, status, row_clicked):
+        print("aciive changed")
+
     def lock_button_state_changed(self, status, row_clicked):
         '''
         status: 0: off
