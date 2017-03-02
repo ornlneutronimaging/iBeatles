@@ -198,13 +198,13 @@ class Step1Plot(object):
                         
                         if self.parent.ui.roi_add_button.isChecked():
                             #_tmp_data.append(np.sum(_data[y0:y1, x0:x1]))
-                            _tmp_data.append(np.sum(_data[x0:x1, y0:y1]))                            
+                            _tmp_data.append(np.nansum(_data[x0:x1, y0:y1]))                            
                         else:
                             #_tmp_data.append(np.mean(_data[y0:y1, x0:x1]))
-                            _tmp_data.append(np.mean(_data[x0:x1, y0:y1]))    
+                            _tmp_data.append(np.nanmean(_data[x0:x1, y0:y1]))    
 
                     if self.parent.ui.roi_add_button.isChecked():
-                        list_data[_group].append(np.sum(_tmp_data))
+                        list_data[_group].append(np.nansum(_tmp_data))
                     else:
                         list_data[_group].append(np.mean(_tmp_data, axis=0))        
                                      

@@ -209,77 +209,8 @@ class Normalization(object):
             self.coeff_array = 1 / one_over_coeff
         else:
             o_plot = Step2Plot(parent=self.parent)
+            ob_mean = o_plot.calculate_mean_counts(ob, list_roi=list_roi)
+            sample_mean = o_plot.calculate_mean_counts(sample, list_roi=list_roi)
+            coeff = ob_mean / sample_mean
+            self.coeff_array = coeff
             
-            # retrieve list of arrays of only the ROI selected
-            ob_roi = self.get_arrays_of_roi_only(data=ob, list_roi=list_roi)
-            sample_roi = self.get_arrays_of_roi_only(data=sample, list_roi=list_roi)
-            
-            # divide for each ROI, the sample by the ob
-            sample_over_ob_roi = self.divide_arrays(num=sample_roi, den=ob_roi)
-            
-            # calculate the mean of each sample/ob and then mean of all coefficients
-            coeff_array = self.get_coefficient_array(ratio_dictionary = sample_over_ob_roi)
-            self.coeff_array = coeff_array
-
-    def get_coefficient_array(self, ratio_dictionary={}):
-        '''
-        takes the ratio_dicationary that looks like
-        {'0': [[image1/ob1], [image2/ob2], ...],
-        '1': [[image1/ob1], [image2/ob2], ...],
-        ...}
-        and will return 
-        [coeff1, coeff2, coeff3]
-        
-        where coeff1 is the mean of all the mean first image1/ob1 arrays, etc        
-        '''
-        coeff_array = []
-        nbr_images = len(ratio_dictionary['0'])
-        for _image_index in np.arange(nbr_images):
-            _array = []
-            for _index in ratio_dictionary.keys():
-                _data_over_ob_mean = np.nanmean(ratio_dictionary[_index][_image_index])
-                _array.append(_data_over_ob_mean)
-            coeff_array.append(np.nanmean(_array))
-
-        return coeff_array
-          
-    def divide_arrays(self, num={}, den={}):
-            '''
-            num and den are dicionaries
-            {'0': [[image1], [image2], ...],
-            '1': [[iamge1], [image2], ...]}
-            where keys are roi indexes
-            '''
-            num_over_den = {}
-            for _index in num.keys():
-                
-                _num = num[_index]
-                _den = den[_index]
-                _den[_den == 0] = np.NaN
-
-
-                num_den = list(zip(_num, _den))
-                num_over_den['_index'] = [np.divide(_data, _ob) for [_data, _ob] in num_den]
-
-            return num_over_den
-
-    def get_arrays_of_roi_only(self, data=[], list_roi=[]):
-        dict_result = {}
-
-        if list_roi == []:
-            dict_result['0': data]
-        else:
-            final_data_roi = []
-            for _index , _roi in enumerate(list_roi):
-                [x0, y0, width, height]= _roi
-            
-                _x_from = int(x0)
-                _x_to = _x_from + int(width) + 1
-            
-                _y_from = int(y0)
-                _y_to = _y_from + int(height) + 1
-            
-                _data = data[:, _x_from: _x_to, _y_from: _y_to]
-                dict_result[str(_index)] = _data
-                
-        return dict_result
