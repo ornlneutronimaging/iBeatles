@@ -310,50 +310,80 @@ class FittingWindow(QMainWindow):
         o_fitting_handler.display_roi()
 
     def active_button_state_changed(self, status, row_clicked):
-        print("aciive changed")
+        '''
+        status: 0: off
+                2: on
+        '''
+        update_lock_flag = False
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
+    
+        if status == 0:
+            status = False
+        else:
+            status = True
+    
+        table_dictionary = self.parent.table_dictionary
+        table_dictionary[str(row_clicked)]['selected'] = status
+        if status:
+            _widget = self.ui.value_table.cellWidget(row_clicked, 0)
+            if _widget.isChecked():
+                table_dictionary[str(row_clicked)]['lock'] = False
+                _widget.setChecked(False)
+                update_lock_flag = True
+        self.parent.table_dictionary = table_dictionary
+    
+        o_bin_handler = SelectedBinsHandler(parent = self.parent)
+        o_bin_handler.update_bins_selected()
+
+        if update_lock_flag:
+            o_bin_handler.update_bins_locked()
+        
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.update_selection_table()
+            if update_lock_flag:
+                self.parent.advanced_selection_ui.update_lock_table()
+            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
+                
 
     def lock_button_state_changed(self, status, row_clicked):
         '''
         status: 0: off
                 2: on
+                
+        we also need to make sure that if the button is lock, it can not be activated !
+                
         '''
+        update_selection_flag = False
+        
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.ui.lock_table.blockSignals(True)
 
-        # retrieve selection
-        selection = self.ui.value_table.selectedRanges()
-        nbr_selection = len(selection)
+        if status == 0:
+            status = False
+        else:
+            status = True
 
-        # make sure the row is inside the selection
-        click_inside_selection = False
-        for _select in selection:
-            top_row = _select.topRow()
-            bottom_row = _select.bottomRow()
-            if (row_clicked <= bottom_row) and (row_clicked >= top_row):
-                click_inside_selection = True
-                break
-
-        if click_inside_selection:
-            for _select in selection:
-                top_row = _select.topRow()
-                bottom_row = _select.bottomRow()
-                
-                for _row in np.arange(top_row, bottom_row+1):
-                    _widget = self.ui.value_table.cellWidget(_row, 0)
-                    _widget.blockSignals(True)
-                    if status == 0:
-                        _widget.setChecked(False)
-                    else:
-                        _widget.setChecked(True)
-                    _widget.blockSignals(False)
-                        
+        table_dictionary = self.parent.table_dictionary
+        table_dictionary[str(row_clicked)]['lock'] = status
+        if status:
+            _widget = self.ui.value_table.cellWidget(row_clicked, 1)
+            if _widget.isChecked():
+                table_dictionary[str(row_clicked)]['selected'] = False
+                _widget.setChecked(False)
+                update_selection_flag = True #we change the state so we need to update the selection
+        self.parent.table_dictionary = table_dictionary
+            
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
-        o_bin_handler.update_bins_selected()
         o_bin_handler.update_bins_locked()
         
+        if update_selection_flag:
+            o_bin_handler.update_bins_selected()
+        
         if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.update_selection_table()
             self.parent.advanced_selection_ui.update_lock_table()
+            if update_selection_flag:
+                self.parent.advanced_selection_ui.update_selection_table()
             self.parent.advanced_selection_ui.ui.lock_table.blockSignals(False)
         
     def value_table_right_click(self, position):

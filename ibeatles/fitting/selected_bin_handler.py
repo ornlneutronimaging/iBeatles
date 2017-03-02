@@ -63,7 +63,7 @@ class SelectedBinsHandler(object):
         #self.parent.table_dictionary = table_dictionary
         #self.parent.fitting_ui.list_bins_selected_item = list_bins_selected_rect_item
     
-    def update_bins_locked(self):
+    def update_bins_locked(self, all_flag=True):
         self.clear_all_locked_bins()
         table_dictionary = self.parent.table_dictionary
         list_bins_locked_item = []
@@ -73,6 +73,7 @@ class SelectedBinsHandler(object):
                 self.parent.fitting_ui.image_view.addItem(box)
                 list_bins_locked_item.append(box)
         self.parent.fitting_ui.list_bins_locked_item = list_bins_locked_item
+
 
         #table_dictionary = self.parent.table_dictionary
         #nbr_row = len(table_dictionary)

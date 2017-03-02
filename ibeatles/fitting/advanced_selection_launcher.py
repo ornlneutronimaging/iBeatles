@@ -127,7 +127,6 @@ class AdvancedSelectionWindow(QMainWindow):
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
         self.parent.fitting_ui.update_image_view_selection()
-#        self.parent.fitting_ui.update_image_view_lock()
 
     def lock_table_selection_changed(self):
         # update table and then update GUI
@@ -157,7 +156,6 @@ class AdvancedSelectionWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
-        #self.parent.fitting_ui.update_image_view_selection()
         self.parent.fitting_ui.update_image_view_lock()
 
     def closeEvent(self, event=None):
