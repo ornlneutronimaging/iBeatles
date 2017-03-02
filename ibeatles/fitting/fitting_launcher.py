@@ -394,6 +394,9 @@ class FittingWindow(QMainWindow):
         list_selected = [left_index, right_index]
         self.parent.fitting_bragg_edge_linear_selection = list_selected
         
+    def advanced_table_clicked(self, status):
+        print(status)
+        
     def closeEvent(self, event=None):
         self.parent.fitting_ui = None
     

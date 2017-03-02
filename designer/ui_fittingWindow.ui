@@ -284,6 +284,23 @@
          <number>0</number>
         </property>
         <item>
+         <widget class="QCheckBox" name="advanced_table_checkBox">
+          <property name="text">
+           <string>Advanced Table</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QTableWidget" name="header_table">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -360,11 +377,6 @@
           </column>
           <column>
            <property name="text">
-            <string>Intensity</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
             <string>Alpha</string>
            </property>
           </column>
@@ -386,6 +398,11 @@
           <column>
            <property name="text">
             <string>A6</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Intensity</string>
            </property>
           </column>
          </widget>
@@ -604,6 +621,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>advanced_table_checkBox</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>advanced_table_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>103</x>
+     <y>443</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>360</x>
+     <y>741</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -661,5 +694,6 @@
   <slot>value_table_right_click()</slot>
   <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
   <slot>selection_in_value_table_changed()</slot>
+  <slot>advanced_table_clicked()</slot>
  </slots>
 </ui>
