@@ -283,7 +283,7 @@ class Ui_MainWindow(object):
         self.lambda_min_units.setText(_translate("MainWindow", "A", None))
         self.lambda_max_label.setText(_translate("MainWindow", "Lambda min", None))
         self.lambda_max_units.setText(_translate("MainWindow", "A", None))
-        self.advanced_table_checkBox.setText(_translate("MainWindow", "Advanced Table", None))
+        self.advanced_table_checkBox.setText(_translate("MainWindow", "Advanced Fitting", None))
         item = self.header_table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Lock", None))
         item = self.header_table.horizontalHeaderItem(1)

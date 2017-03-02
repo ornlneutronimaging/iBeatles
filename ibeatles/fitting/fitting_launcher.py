@@ -343,8 +343,7 @@ class FittingWindow(QMainWindow):
             self.parent.advanced_selection_ui.update_selection_table()
             if update_lock_flag:
                 self.parent.advanced_selection_ui.update_lock_table()
-            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
-                
+            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)                
 
     def lock_button_state_changed(self, status, row_clicked):
         '''

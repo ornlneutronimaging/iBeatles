@@ -286,7 +286,7 @@
         <item>
          <widget class="QCheckBox" name="advanced_table_checkBox">
           <property name="text">
-           <string>Advanced Table</string>
+           <string>Advanced Fitting</string>
           </property>
           <property name="checked">
            <bool>true</bool>
