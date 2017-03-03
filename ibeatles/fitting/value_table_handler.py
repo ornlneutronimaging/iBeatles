@@ -10,6 +10,7 @@ except:
 from ibeatles.fitting.advanced_selection_launcher import AdvancedSelectionLauncher
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from ibeatles.fitting.set_fitting_variables_launcher import SetFittingVariablesLauncher
 
 
 class ValueTableHandler(object):
@@ -26,16 +27,22 @@ class ValueTableHandler(object):
         else:
             status = True
 
-        _select_all = menu.addAction("Select All")
-        _select_all.setEnabled(status)
-        _unselect_all = menu.addAction("Unselect All")
-        _unselect_all.setEnabled(status)
-        menu.addSeparator()
-        _advanced_selection = menu.addAction("Bin Selection Tool ..")
+        _select_all = None
+        _unselect_all = None
+
+        #_select_all = menu.addAction("Activate All")
+        #_select_all.setEnabled(status)
+        #_unselect_all = menu.addAction("Deactivate All")
+        #_unselect_all.setEnabled(status)
+        #menu.addSeparator()
+        _advanced_selection = menu.addAction("Bin Selection Tool ...")
         _advanced_selection.setEnabled(status)
+        _set_variables = menu.addAction("Set Variables Values ...")
+        _set_variables.setEnabled(status)
         menu.addSeparator()
         _reset = menu.addAction("Full Reset")
         _reset.setEnabled(status)
+        _reset.setEnabled(False) #remove once implemented
         
         action = menu.exec_(QtGui.QCursor.pos())
         
@@ -45,6 +52,8 @@ class ValueTableHandler(object):
             self.unselect_all()
         elif action == _advanced_selection:
             self.advanced_selection()
+        elif action == _set_variables:
+            self.set_variables()
         elif action == _reset:
             self.reset()
             
@@ -104,6 +113,9 @@ class ValueTableHandler(object):
 
     def advanced_selection(self):
         o_advanced = AdvancedSelectionLauncher(parent=self.parent)
+        
+    def set_variables(self):
+        o_set = SetFittingVariablesLauncher(parent=self.parent)
         
     def reset(self):
         print("reset")

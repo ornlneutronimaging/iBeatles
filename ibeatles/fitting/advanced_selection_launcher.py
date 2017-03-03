@@ -30,6 +30,7 @@ class AdvancedSelectionLauncher(object):
             self.parent.advanced_selection_ui.setFocus()
             self.parent.advanced_selection_ui.activateWindow()
         
+        
 class AdvancedSelectionWindow(QMainWindow):
     
     def __init__(self, parent=None):
@@ -167,6 +168,5 @@ class AdvancedSelectionWindow(QMainWindow):
             self.selection_table_selection_changed()
         else:
             self.lock_table_selection_changed()
-            
         QApplication.restoreOverrideCursor()
         

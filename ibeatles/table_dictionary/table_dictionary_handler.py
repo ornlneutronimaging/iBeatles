@@ -11,6 +11,7 @@ except:
 import pyqtgraph as pg
 
 from ibeatles.utilities.array_utilities import get_min_max_xy
+from ibeatles.utilities.math_tools import get_random_value
 
 
 class TableDictionaryHandler(object):
@@ -54,6 +55,10 @@ class TableDictionaryHandler(object):
             _index_row = 0
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
+                
+                #FOR DEBUGGING ONLY
+                random_value = get_random_value(max_value=10)
+                
                 table_dictionary[_str_index] = {'bin_coordinates': {'x0': -1,
                                                                     'x1': -1,
                                                                     'y0': -1,
@@ -66,7 +71,7 @@ class TableDictionaryHandler(object):
                                                 'lock': False,
                                                 'active': False,
                                                 'fitting_confidence': -1,
-                                                'd_spacing': {'val': -1, 'err': -1},
+                                                'd_spacing': {'val': random_value, 'err': -1},
                                                 'sigma': {'val': -1, 'err': -1},
                                                 'intensity': {'val': -1, 'err': -1},
                                                 'alpha': {'val': -1, 'err': -1},

@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1222</width>
+    <height>772</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Variables</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QRadioButton" name="d_spacing_button">
+         <property name="text">
+          <string>D-spacing</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="sigma_button">
+         <property name="text">
+          <string>Sigma</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="alpha_button">
+         <property name="text">
+          <string>Alpha</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="a1_button">
+         <property name="text">
+          <string>A1</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="a2_button">
+         <property name="text">
+          <string>A2</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="a5_button">
+         <property name="text">
+          <string>A5</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="a6_button">
+         <property name="text">
+          <string>A6</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QTableWidget" name="variable_table"/>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="colorscale_table">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>75</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>New Column</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Legend:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>20</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>No Values</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_2">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>20</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>*</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Bin Locked (unlock to change value!)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Cells Size</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="advanced_selection_cell_size_slider">
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
+         <number>50</number>
+        </property>
+        <property name="value">
+         <number>20</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksAbove</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>70</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>70</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>New Value</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="new_value_text_edit">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="apply_button">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Apply New Value</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+   <zorder>groupBox</zorder>
+   <zorder>variable_table</zorder>
+   <zorder>colorscale_table</zorder>
+   <zorder>label</zorder>
+   <zorder>new_value_text_edit</zorder>
+   <zorder>apply_button</zorder>
+   <zorder>horizontalSpacer</zorder>
+   <zorder>advanced_selection_cell_size_slider</zorder>
+   <zorder>label_2</zorder>
+   <zorder>horizontalSpacer_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>lineEdit</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
+   <zorder>lineEdit_2</zorder>
+   <zorder>label_5</zorder>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../icons/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>advanced_selection_cell_size_slider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selection_cell_size_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>948</x>
+     <y>687</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>927</x>
+     <y>722</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>d_spacing_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sigma_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>224</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>alpha_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>409</x>
+     <y>44</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>428</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>a1_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>556</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>580</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>a2_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>723</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>749</x>
+     <y>65</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>a5_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>900</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>906</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>a6_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1057</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1084</x>
+     <y>65</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>sample_import_button_clicked()</slot>
+  <slot>time_spectra_import_button_clicked()</slot>
+  <slot>open_beam_import_button_clicked()</slot>
+  <slot>sample_list_selection_changed()</slot>
+  <slot>open_beam_list_selection_changed()</slot>
+  <slot>sample_list_right_click()</slot>
+  <slot>time_spectra_selection_changed()</slot>
+  <slot>load_data_tab_changed()</slot>
+  <slot>time_spectra_preview_button_clicked()</slot>
+  <slot>normalized_import_button_clicked()</slot>
+  <slot>normalized_list_selection_changed()</slot>
+  <slot>update_delta_lambda()</slot>
+  <slot>crystal_structure_index_changed()</slot>
+  <slot>crystal_structure_2_index_changed()</slot>
+  <slot>list_of_element_index_changed()</slot>
+  <slot>list_of_element_2_index_changed()</slot>
+  <slot>lattice_text_changed()</slot>
+  <slot>lattice_2_text_changed()</slot>
+  <slot>material_display_clicked()</slot>
+  <slot>material_display_2_clicked()</slot>
+  <slot>normalization_add_roi_button_clicked()</slot>
+  <slot>normalization_remove_roi_button_clicked()</slot>
+  <slot>normalization_use_coefficient_checked()</slot>
+  <slot>normalization_button_clicked()</slot>
+  <slot>normalization_coefficient_value_changed()</slot>
+  <slot>tab_widget_changed()</slot>
+  <slot>normalization_tableWidget_cell_changed()</slot>
+  <slot>beam_rate_changed()</slot>
+  <slot>distance_source_detector_changed()</slot>
+  <slot>detector_offset_changed()</slot>
+  <slot>distance_source_detector_2_changed()</slot>
+  <slot>detector_offset_2_changed()</slot>
+  <slot>beam_rate_2_changed()</slot>
+  <slot>list_of_elements_current_text_changed()</slot>
+  <slot>add_element_clicked()</slot>
+  <slot>reset_lattice_button_clicked()</slot>
+  <slot>reset_crystal_structure_button_clicked()</slot>
+  <slot>reset_lattice_button_2_clicked()</slot>
+  <slot>reset_crystal_structure_button_2_clicked()</slot>
+  <slot>normalized_time_spectra_import_button_clicked()</slot>
+  <slot>normalized_time_spectra_preview_button_clicked()</slot>
+  <slot>test_me_clicked()</slot>
+  <slot>menu_view_load_data_clicked()</slot>
+  <slot>menu_view_normalization_clicked()</slot>
+  <slot>menu_view_normalized_clicked()</slot>
+  <slot>menu_view_binning_clicked()</slot>
+  <slot>menu_view_fitting_clicked()</slot>
+  <slot>menu_view_strain_mapping_clicked()</slot>
+  <slot>roi_selection_widgets_modified()</slot>
+  <slot>hkl_list_changed()</slot>
+  <slot>table_width_changed()</slot>
+  <slot>value_table_right_click()</slot>
+  <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
+  <slot>selection_in_value_table_changed()</slot>
+  <slot>advanced_table_clicked()</slot>
+  <slot>selection_cell_size_changed()</slot>
+  <slot>update_table()</slot>
+ </slots>
+</ui>
