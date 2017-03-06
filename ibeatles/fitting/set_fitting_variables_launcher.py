@@ -72,11 +72,11 @@ class SetFittingVariablesWindow(QMainWindow):
         
         for _row in np.arange(nbr_row):
             self.ui.variable_table.setRowHeight(_row, value)
-            self.ui.colorscale_table.setRowHeight(_row, value)
+            #self.ui.colorscale_table.setRowHeight(_row, value)
         
         for _col in np.arange(nbr_column):
             self.ui.variable_table.setColumnWidth(_col, value)
-            self.ui.colorscale_table.setColumnWidth(_col, value)
+            #self.ui.colorscale_table.setColumnWidth(_col, value)
         
     def update_table(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
