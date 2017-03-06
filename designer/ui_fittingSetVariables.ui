@@ -91,7 +91,14 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QTableWidget" name="variable_table"/>
+       <widget class="QTableWidget" name="variable_table">
+        <property name="contextMenuPolicy">
+         <enum>Qt::CustomContextMenu</enum>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QTableWidget" name="colorscale_table">
@@ -112,6 +119,9 @@
           <width>75</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::NoSelection</enum>
         </property>
         <attribute name="horizontalHeaderVisible">
          <bool>false</bool>
@@ -168,7 +178,7 @@
       <item>
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>No Values</string>
+         <string>No Values             </string>
         </property>
        </widget>
       </item>
@@ -468,6 +478,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>variable_table</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>variable_table_right_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>610</x>
+     <y>385</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -527,5 +553,6 @@
   <slot>advanced_table_clicked()</slot>
   <slot>selection_cell_size_changed()</slot>
   <slot>update_table()</slot>
+  <slot>variable_table_right_click()</slot>
  </slots>
 </ui>

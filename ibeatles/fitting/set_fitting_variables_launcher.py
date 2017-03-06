@@ -100,7 +100,37 @@ class SetFittingVariablesWindow(QMainWindow):
             return 'a5'
         elif self.ui.a6_button.isChecked():
             return 'a6'
+    
+    def variable_table_right_click(self, position):
+        o_variable = VariableTableHandler(parent = self.parent)
+        o_variable.right_click(position=position)
         
     def closeEvent(self, event=None):
         self.parent.fitting_set_variables_ui = None
     
+    
+class VariableTableHandler(object):
+    
+    def __init__(self, parent=None):
+        self.parent = parent
+        
+    def right_click(self, position=None):
+        menu = QtGui.QMenu(self.parent)
+        
+        _lock = menu.addAction("Lock Selection")
+        _unlock = menu.addAction("Unlock Selection")
+        
+        action = menu.exec_(QtGui.QCursor.pos())
+        
+        if action == _lock:
+            self.lock_selection()
+        elif action == _unlock:
+            self.unlock_selection()
+            
+    def lock_selection(self):
+        print("lock selection")
+        pass
+    
+    def unlock_selection(self):
+        print("unlock selection")
+        pass

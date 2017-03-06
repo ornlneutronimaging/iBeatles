@@ -62,6 +62,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtGui.QHBoxLayout()
         self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.variable_table = QtGui.QTableWidget(self.centralwidget)
+        self.variable_table.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.variable_table.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
         self.variable_table.setObjectName(_fromUtf8("variable_table"))
         self.variable_table.setColumnCount(0)
         self.variable_table.setRowCount(0)
@@ -74,6 +76,7 @@ class Ui_MainWindow(object):
         self.colorscale_table.setSizePolicy(sizePolicy)
         self.colorscale_table.setMinimumSize(QtCore.QSize(75, 0))
         self.colorscale_table.setMaximumSize(QtCore.QSize(75, 16777215))
+        self.colorscale_table.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
         self.colorscale_table.setObjectName(_fromUtf8("colorscale_table"))
         self.colorscale_table.setColumnCount(1)
         self.colorscale_table.setRowCount(0)
@@ -172,6 +175,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.a2_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
         QtCore.QObject.connect(self.a5_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
         QtCore.QObject.connect(self.a6_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
+        QtCore.QObject.connect(self.variable_table, QtCore.SIGNAL(_fromUtf8("customContextMenuRequested(QPoint)")), MainWindow.variable_table_right_click)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -187,7 +191,7 @@ class Ui_MainWindow(object):
         item = self.colorscale_table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "New Column", None))
         self.label_3.setText(_translate("MainWindow", "Legend:", None))
-        self.label_4.setText(_translate("MainWindow", "No Values", None))
+        self.label_4.setText(_translate("MainWindow", "No Values             ", None))
         self.lineEdit_2.setText(_translate("MainWindow", "*", None))
         self.label_5.setText(_translate("MainWindow", "Bin Locked (unlock to change value!)", None))
         self.label_2.setText(_translate("MainWindow", "Cells Size", None))
