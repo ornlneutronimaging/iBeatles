@@ -144,17 +144,18 @@ class VariableTableHandler(object):
             self.unlock_selection()
             
     def lock_selection(self):
-        selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
-        self.change_state_of_bins(selection=selection, lock=True)
-        self.parent.fitting_set_variables_ui.update_table()
+        self.change_state_of_bins(lock=True)
+        self.update_fitting_ui()
+        self.update_advanced_selection_ui()
     
     def unlock_selection(self):
-        selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
-        self.change_state_of_bins(selection=selection, lock=False)
-        self.parent.fitting_set_variables_ui.update_table()
+        self.change_state_of_bins(lock=False)
+        self.update_fitting_ui()
+        self.update_advanced_selection_ui()
 
-    def change_state_of_bins(self, selection=[], lock=True):
+    def change_state_of_bins(self, lock=True):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         table_dictionary = self.parent.table_dictionary
         nbr_row = self.parent.fitting_set_variables_ui.nbr_row
         
@@ -172,4 +173,12 @@ class VariableTableHandler(object):
             self.parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
         
         self.parent.table_dictionary = table_dictionary
+        self.parent.fitting_set_variables_ui.update_table()        
         QApplication.restoreOverrideCursor()        
+
+    def update_fitting_ui(self):
+        self.parent.fitting_ui.update_image_view_lock()
+    
+    def update_advanced_selection_ui(self):
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.update_lock_table()

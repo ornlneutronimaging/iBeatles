@@ -24,8 +24,8 @@ class AdvancedSelectionLauncher(object):
         
         if self.parent.advanced_selection_ui == None:
             advanced_window = AdvancedSelectionWindow(parent=parent)
-            advanced_window.show()
             self.parent.advanced_selection_ui = advanced_window
+            advanced_window.show()
         else:
             self.parent.advanced_selection_ui.setFocus()
             self.parent.advanced_selection_ui.activateWindow()
