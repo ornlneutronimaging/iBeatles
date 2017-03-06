@@ -158,9 +158,11 @@ class AdvancedSelectionWindow(QMainWindow):
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
         self.parent.fitting_ui.update_image_view_lock()
+        
+        if self.parent.fitting_set_variables_ui:
+            self.parent.fitting_set_variables_ui.update_table()
 
     def closeEvent(self, event=None):
-        print("yo")
         self.parent.advanced_selection_ui = None
 
     def apply_button_clicked(self):
