@@ -89,6 +89,10 @@ class SetFittingVariablesWindow(QMainWindow):
         variable_selected = self.get_variable_selected()
         o_handler = SetFittingVariablesHandler(parent=self.parent)
         o_handler.populate_table_with_variable(variable = variable_selected)
+        o_filling_table = FillingTableHandler(parent = self.parent)
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        o_filling_table.fill_table()
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)        
         QApplication.restoreOverrideCursor()        
         
     def get_variable_selected(self):
@@ -117,6 +121,10 @@ class SetFittingVariablesWindow(QMainWindow):
                                                 variable_value=new_variable,
                                                 table_nbr_row = self.nbr_row)
         self.parent.fitting_set_variables_ui.ui.new_value_text_edit.setText('')
+        o_filling_table = FillingTableHandler(parent = self.parent)
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        o_filling_table.fill_table()
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)        
     
     def variable_table_right_click(self, position):
         o_variable = VariableTableHandler(parent = self.parent)

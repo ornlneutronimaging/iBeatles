@@ -59,10 +59,10 @@ class TableDictionaryHandler(object):
                 #FOR DEBUGGING ONLY
                 random_value = get_random_value(max_value=10)
                 
-                table_dictionary[_str_index] = {'bin_coordinates': {'x0': -1,
-                                                                    'x1': -1,
-                                                                    'y0': -1,
-                                                                    'y1': -1},
+                table_dictionary[_str_index] = {'bin_coordinates': {'x0': np.NaN,
+                                                                    'x1': np.NaN,
+                                                                    'y0': np.NaN,
+                                                                    'y1': np.NaN},
                                                 'selected_item': None,
                                                 'locked_item': None,
                                                 'row_index': _index_row,
@@ -70,15 +70,15 @@ class TableDictionaryHandler(object):
                                                 'selected': False,
                                                 'lock': False,
                                                 'active': False,
-                                                'fitting_confidence': -1,
-                                                'd_spacing': {'val': random_value, 'err': -1},
-                                                'sigma': {'val': -1, 'err': -1},
-                                                'intensity': {'val': -1, 'err': -1},
-                                                'alpha': {'val': -1, 'err': -1},
-                                                'a1': {'val': -1, 'err': -1},
-                                                'a2': {'val': -1, 'err': -1},
-                                                'a5': {'val': -1, 'err': -1},
-                                                'a6': {'val': -1, 'err': -1}}   
+                                                'fitting_confidence': np.NaN,
+                                                'd_spacing': {'val': random_value, 'err': np.NaN},
+                                                'sigma': {'val': np.NaN, 'err': np.NaN},
+                                                'intensity': {'val': np.NaN, 'err': np.NaN},
+                                                'alpha': {'val': np.NaN, 'err': np.NaN},
+                                                'a1': {'val': np.NaN, 'err': np.NaN},
+                                                'a2': {'val': np.NaN, 'err': np.NaN},
+                                                'a5': {'val': np.NaN, 'err': np.NaN},
+                                                'a6': {'val': np.NaN, 'err': np.NaN}}   
                 table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
                 table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
                 table_dictionary[_str_index]['bin_coordinates']['y0'] = _y

@@ -109,7 +109,7 @@ class FillingTableHandler(object):
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
             
     def set_item(self, table_ui=None, row=0, col=0, value=""):
-        item = QtGui.QTableWidgetItem(value)
+        item = QtGui.QTableWidgetItem(str(value))
         table_ui.setItem(row, col, item)
 
     def clear_table_ui(self):
