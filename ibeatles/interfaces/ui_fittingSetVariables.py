@@ -142,8 +142,8 @@ class Ui_MainWindow(object):
         self.new_value_text_edit.setObjectName(_fromUtf8("new_value_text_edit"))
         self.horizontalLayout_2.addWidget(self.new_value_text_edit)
         self.apply_button = QtGui.QPushButton(self.centralwidget)
-        self.apply_button.setMinimumSize(QtCore.QSize(200, 0))
-        self.apply_button.setMaximumSize(QtCore.QSize(200, 16777215))
+        self.apply_button.setMinimumSize(QtCore.QSize(250, 0))
+        self.apply_button.setMaximumSize(QtCore.QSize(250, 16777215))
         self.apply_button.setObjectName(_fromUtf8("apply_button"))
         self.horizontalLayout_2.addWidget(self.apply_button)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
@@ -176,6 +176,8 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.a5_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
         QtCore.QObject.connect(self.a6_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
         QtCore.QObject.connect(self.variable_table, QtCore.SIGNAL(_fromUtf8("customContextMenuRequested(QPoint)")), MainWindow.variable_table_right_click)
+        QtCore.QObject.connect(self.apply_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.apply_new_value_to_selection)
+        QtCore.QObject.connect(self.new_value_text_edit, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.apply_new_value_to_selection)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -196,6 +198,6 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "Bin Locked (unlock to change value!)", None))
         self.label_2.setText(_translate("MainWindow", "Cells Size", None))
         self.label.setText(_translate("MainWindow", "New Value", None))
-        self.apply_button.setText(_translate("MainWindow", "Apply New Value", None))
+        self.apply_button.setText(_translate("MainWindow", "Apply New Value to Selection", None))
 
 import icons_rc

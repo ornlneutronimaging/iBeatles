@@ -309,18 +309,18 @@
        <widget class="QPushButton" name="apply_button">
         <property name="minimumSize">
          <size>
-          <width>200</width>
+          <width>250</width>
           <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>200</width>
+          <width>250</width>
           <height>16777215</height>
          </size>
         </property>
         <property name="text">
-         <string>Apply New Value</string>
+         <string>Apply New Value to Selection</string>
         </property>
        </widget>
       </item>
@@ -494,6 +494,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>apply_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>apply_new_value_to_selection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1051</x>
+     <y>718</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1052</x>
+     <y>748</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>new_value_text_edit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>apply_new_value_to_selection()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>938</x>
+     <y>723</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>956</x>
+     <y>746</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -554,5 +586,6 @@
   <slot>selection_cell_size_changed()</slot>
   <slot>update_table()</slot>
   <slot>variable_table_right_click()</slot>
+  <slot>apply_new_value_to_selection()</slot>
  </slots>
 </ui>

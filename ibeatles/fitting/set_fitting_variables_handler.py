@@ -37,19 +37,23 @@ class SetFittingVariablesHandler(object):
                                                        value = _value)
                 _item = QtGui.QTableWidgetItem(str(_value))
                 _item.setBackgroundColor(_color)
-                #_item.setBackground(QtGui.QBrush(_color, 
-                                                 #style = QtCore.Qt.Dense1Pattern))
-                #_item.setBackground(QtGui.QBrush(_color, 
-                                                 #style = QtCore.Qt.RadialGradientPattern))
-                if (_value > mid_point):
-                    _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
-                    _item.setTextColor(_foreground_color)
+                
+                bin_index = _row + nbr_row * _col
+                if self.is_bin_locked(bin_index = bin_index):
                     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
                     _gradient.setColorAt(1, _color)
                     _gradient.setColorAt(0, QtGui.QColor(255,0,0, alpha=255))
                     _item.setBackground(QtGui.QBrush(_gradient))
+
+                if (_value > mid_point):
+                    _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
+                    _item.setTextColor(_foreground_color)
                     
                 self.parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
+
+    def is_bin_locked(self, bin_index=0):
+        table_dictionary = self.parent.table_dictionary
+        return table_dictionary[str(bin_index)]['lock']
 
     def clear_colorscale_table(self):
         nbr_row = self.parent.fitting_set_variables_ui.ui.colorscale_table.rowCount()
@@ -60,7 +64,7 @@ class SetFittingVariablesHandler(object):
         self.clear_colorscale_table()
 
         nbr_row = self.colorscale_nbr_row
-        step = (float(max_value) - float(min_value))/(nbr_row)
+        step = (float(max_value) - float(min_value))/(nbr_row-1)
         mid_point = np.int(nbr_row / 2)
         _row = 0
         
@@ -114,3 +118,27 @@ class SetFittingVariablesHandler(object):
             _array[row_index, column_index] = value
             
         return _array
+    
+    def set_new_value_to_selected_bins(self, selection=[], 
+                                       variable_name='d_spacing',
+                                       variable_value=0,
+                                       table_nbr_row=0):
+
+        table_dictionary = self.parent.table_dictionary
+        nbr_row = table_nbr_row
+        
+        for _select in selection:
+            _left_column = _select.leftColumn()
+            _right_column = _select.rightColumn()
+            _top_row = _select.topRow()
+            _bottom_row = _select.bottomRow()
+            for _row in np.arange(_top_row, _bottom_row+1):
+                for _col in np.arange(_left_column, _right_column+1):
+                    _index = str(_row + _col * nbr_row)
+                    if not table_dictionary[_index]['lock']:
+                        table_dictionary[_index][variable_name]['val'] = float(variable_value)
+                        table_dictionary[_index][variable_name]['err'] = np.NaN
+            self.parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+                    
+        self.parent.table_dictionary = table_dictionary
+        self.populate_table_with_variable(variable=variable_name)

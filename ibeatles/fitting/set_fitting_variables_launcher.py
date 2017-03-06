@@ -35,6 +35,8 @@ class SetFittingVariablesLauncher(object):
 class SetFittingVariablesWindow(QMainWindow):
     
     advanced_mode = True
+    nbr_column = -1
+    nbr_row = -1
     
     def __init__(self, parent=None):
         
@@ -51,6 +53,9 @@ class SetFittingVariablesWindow(QMainWindow):
         fitting_selection = self.parent.fitting_selection
         nbr_row = fitting_selection['nbr_row']
         nbr_column = fitting_selection['nbr_column']
+    
+        self.nbr_column = nbr_column
+        self.nbr_row = nbr_row
     
         #selection table
         self.ui.variable_table.setColumnCount(nbr_column)
@@ -101,14 +106,25 @@ class SetFittingVariablesWindow(QMainWindow):
         elif self.ui.a6_button.isChecked():
             return 'a6'
     
+    def apply_new_value_to_selection(self):
+        variable_selected = self.get_variable_selected()
+        selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
+        o_handler = SetFittingVariablesHandler(parent=self.parent)
+        new_variable = np.float(str(self.parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
+        o_handler.set_new_value_to_selected_bins(selection=selection, 
+                                                variable_name=variable_selected,
+                                                variable_value=new_variable,
+                                                table_nbr_row = self.nbr_row)
+        self.parent.fitting_set_variables_ui.ui.new_value_text_edit.setText('')
+    
     def variable_table_right_click(self, position):
         o_variable = VariableTableHandler(parent = self.parent)
         o_variable.right_click(position=position)
         
     def closeEvent(self, event=None):
         self.parent.fitting_set_variables_ui = None
-    
-    
+        
+            
 class VariableTableHandler(object):
     
     def __init__(self, parent=None):
@@ -128,9 +144,32 @@ class VariableTableHandler(object):
             self.unlock_selection()
             
     def lock_selection(self):
-        print("lock selection")
-        pass
+        selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
+        self.change_state_of_bins(selection=selection, lock=True)
+        self.parent.fitting_set_variables_ui.update_table()
     
     def unlock_selection(self):
-        print("unlock selection")
-        pass
+        selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
+        self.change_state_of_bins(selection=selection, lock=False)
+        self.parent.fitting_set_variables_ui.update_table()
+
+    def change_state_of_bins(self, selection=[], lock=True):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        table_dictionary = self.parent.table_dictionary
+        nbr_row = self.parent.fitting_set_variables_ui.nbr_row
+        
+        for _select in selection:
+            _left_column = _select.leftColumn()
+            _right_column = _select.rightColumn()
+            _top_row = _select.topRow()
+            _bottom_row = _select.bottomRow()
+            for _row in np.arange(_top_row, _bottom_row+1):
+                for _col in np.arange(_left_column, _right_column+1):
+                    _index = _row + _col * nbr_row
+                    table_dictionary[str(_index)]['lock'] = lock
+            
+            #remove selection markers
+            self.parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+        
+        self.parent.table_dictionary = table_dictionary
+        QApplication.restoreOverrideCursor()        
