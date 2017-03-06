@@ -160,6 +160,7 @@ class AdvancedSelectionWindow(QMainWindow):
         self.parent.fitting_ui.update_image_view_lock()
 
     def closeEvent(self, event=None):
+        print("yo")
         self.parent.advanced_selection_ui = None
 
     def apply_button_clicked(self):

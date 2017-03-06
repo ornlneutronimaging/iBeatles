@@ -436,5 +436,9 @@ class FittingWindow(QMainWindow):
         QApplication.restoreOverrideCursor()
         
     def closeEvent(self, event=None):
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.close()
+        if self.parent.fitting_set_variables_ui:
+            self.parent.fitting_set_variables_ui.close()
         self.parent.fitting_ui = None
     
