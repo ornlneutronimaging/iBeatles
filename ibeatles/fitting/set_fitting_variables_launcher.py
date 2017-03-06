@@ -15,6 +15,7 @@ import numpy as np
 
 from ibeatles.interfaces.ui_fittingSetVariables import Ui_MainWindow as UiMainWindow
 from ibeatles.fitting.set_fitting_variables_handler import SetFittingVariablesHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 
 
 class SetFittingVariablesLauncher(object):
@@ -44,7 +45,7 @@ class SetFittingVariablesWindow(QMainWindow):
         QMainWindow.__init__(self, parent=parent)
         self.ui = UiMainWindow()
         self.ui.setupUi(self)
-        self.setWindowTitle("Set Variables Tool")
+        self.setWindowTitle("Check/Set Variables")
         
         self.init_widgets()
         self.init_table()
@@ -178,6 +179,10 @@ class VariableTableHandler(object):
 
     def update_fitting_ui(self):
         self.parent.fitting_ui.update_image_view_lock()
+        o_filling_table = FillingTableHandler(parent = self.parent)
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        o_filling_table.fill_table()
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)        
     
     def update_advanced_selection_ui(self):
         if self.parent.advanced_selection_ui:
