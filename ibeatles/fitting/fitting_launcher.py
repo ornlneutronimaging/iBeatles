@@ -60,7 +60,7 @@ class FittingWindow(QMainWindow):
     indi_bins_button = None
     
     para_cell_width = 110
-    header_table_columns_width = [50,50,100,
+    header_table_columns_width = [30, 30, 50,50,100,
                                   para_cell_width, 
                                   para_cell_width,
                                   para_cell_width,
@@ -73,10 +73,8 @@ class FittingWindow(QMainWindow):
     fitting_table_columns_width = [header_table_columns_width[0],
                                    header_table_columns_width[1],
                                    header_table_columns_width[2],
-                                   np.int(header_table_columns_width[3]/2),
-                                   np.int(header_table_columns_width[3]/2),
-                                   np.int(header_table_columns_width[4]/2),
-                                   np.int(header_table_columns_width[4]/2),
+                                   header_table_columns_width[3],
+                                   header_table_columns_width[4],
                                    np.int(header_table_columns_width[5]/2),
                                    np.int(header_table_columns_width[5]/2),
                                    np.int(header_table_columns_width[6]/2),
@@ -88,7 +86,11 @@ class FittingWindow(QMainWindow):
                                    np.int(header_table_columns_width[9]/2),
                                    np.int(header_table_columns_width[9]/2),
                                    np.int(header_table_columns_width[10]/2),
-                                   np.int(header_table_columns_width[10]/2)]
+                                   np.int(header_table_columns_width[10]/2),
+                                   np.int(header_table_columns_width[11]/2),
+                                   np.int(header_table_columns_width[11]/2),
+                                   np.int(header_table_columns_width[12]/2),
+                                   np.int(header_table_columns_width[12]/2)]
 
     def __init__(self, parent=None):
         
@@ -131,7 +133,7 @@ class FittingWindow(QMainWindow):
             self.ui.value_table.setColumnWidth(index2, new_half_size)
     
     def resizing_value_table(self, index_column, old_size, new_size):
-        if index_column < 3:
+        if index_column < 5:
             self.ui.header_table.setColumnWidth(index_column, new_size)
         else:
             if (index_column % 2) == 1:

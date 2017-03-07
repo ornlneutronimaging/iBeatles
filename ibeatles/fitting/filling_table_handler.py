@@ -13,8 +13,8 @@ class FillingTableHandler(object):
       
     def set_mode(self, advanced_mode=True):
         self.advaanced_mode_flag = advanced_mode
-        list_header_table_advanced_columns = [8,9]
-        list_value_table_advanced_columns = [13,14,15,16]
+        list_header_table_advanced_columns = [10,11]
+        list_value_table_advanced_columns = [15,16,17,18]
 
         self.parent.fitting_ui.ui.header_table.horizontalHeader().blockSignals(True)
         self.parent.fitting_ui.ui.value_table.horizontalHeader().blockSignals(True)
@@ -51,7 +51,18 @@ class FillingTableHandler(object):
             # add new row
             value_table_ui.insertRow(_index)
             
-            # add lock button in first cell (column: 0)
+            # row and column index (columns 0 and 1)
+            self.set_item(table_ui = value_table_ui, 
+                          row = _index, 
+                          col = 0,
+                          value = _entry['row_index'])
+            
+            self.set_item(table_ui = value_table_ui,
+                          row = _index,
+                          col = 1,
+                          value = _entry['column_index'])
+            
+            # add lock button in first cell (column: 2)
             _lock_button = QtGui.QCheckBox()
             _is_checked = _entry['lock']
             
@@ -59,9 +70,9 @@ class FillingTableHandler(object):
             _lock_button.stateChanged.connect(lambda state=0, 
                                               row=_index: self.parent.fitting_ui.lock_button_state_changed(state, row))
             
-            value_table_ui.setCellWidget(_index, 0, _lock_button)
+            value_table_ui.setCellWidget(_index, 2, _lock_button)
             
-            # add active button in second cell (column: 1)
+            # add active button in second cell (column: 3)
             _active_button = QtGui.QCheckBox()
             _is_checked = _entry['selected']
         
@@ -69,7 +80,7 @@ class FillingTableHandler(object):
             _active_button.stateChanged.connect(lambda state=0, 
                                                       row=_index: self.parent.fitting_ui.active_button_state_changed(state, row))
         
-            value_table_ui.setCellWidget(_index, 1, _active_button)
+            value_table_ui.setCellWidget(_index, 3, _active_button)
 
             ## bin # (column: 1)
             #_bin_number = QtGui.QTableWidgetItem("{:02}".format(_index))
@@ -97,7 +108,7 @@ class FillingTableHandler(object):
             for _local_index, _value in enumerate(list_value):
                 self.set_item(table_ui = value_table_ui, 
                              row = _index, 
-                             col = _local_index+2, 
+                             col = _local_index+4, 
                              value = _value)
             
             ## if row is selected, select it

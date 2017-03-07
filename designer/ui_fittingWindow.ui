@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1222</width>
-    <height>772</height>
+    <height>773</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -284,21 +284,71 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QCheckBox" name="advanced_table_checkBox">
-          <property name="text">
-           <string>Advanced Fitting</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QLabel" name="label_3">
           <property name="text">
            <string/>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Bins To Display</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QRadioButton" name="show_all_bins">
+               <property name="text">
+                <string>Show All</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="show_only_active_bins">
+               <property name="text">
+                <string>Show Only Active</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="show_only_lock_bins">
+               <property name="text">
+                <string>Show Only Lock</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="advanced_table_checkBox">
+            <property name="text">
+             <string>Advanced Fitting</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QTableWidget" name="header_table">
@@ -350,6 +400,16 @@
           <attribute name="verticalHeaderStretchLastSection">
            <bool>false</bool>
           </attribute>
+          <column>
+           <property name="text">
+            <string>Row</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Col</string>
+           </property>
+          </column>
           <column>
            <property name="text">
             <string>Lock</string>
@@ -448,6 +508,16 @@
           <attribute name="verticalHeaderVisible">
            <bool>false</bool>
           </attribute>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string/>
+           </property>
+          </column>
           <column>
            <property name="text">
             <string/>
@@ -628,12 +698,12 @@
    <slot>advanced_table_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>443</y>
+     <x>1147</x>
+     <y>484</y>
     </hint>
     <hint type="destinationlabel">
-     <x>360</x>
-     <y>741</y>
+     <x>1146</x>
+     <y>747</y>
     </hint>
    </hints>
   </connection>
