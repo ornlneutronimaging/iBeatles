@@ -31,9 +31,23 @@ class FillingTableHandler(object):
         #repopulate table
         self.fill_table()
       
+    def get_row_to_show_state(self):
+        '''
+        return 'all', 'active' or 'lock'
+        
+        '''
+        if self.parent.fitting_ui.ui.show_all_bins.isChecked():
+            return 'all'
+        elif self.parent.fitting_ui.ui.show_only_active_bins.isChecked():
+            return 'active'
+        else:
+            return 'lock'
+
     def fill_table(self):
         self.clear_table_ui()
         table_dictionary = self.parent.table_dictionary
+
+        row_to_show_state = self.get_row_to_show_state()
 
         if table_dictionary is None:
             table_dictionary = self.table_dictionary
@@ -64,9 +78,9 @@ class FillingTableHandler(object):
             
             # add lock button in first cell (column: 2)
             _lock_button = QtGui.QCheckBox()
-            _is_checked = _entry['lock']
+            _is_lock = _entry['lock']
             
-            _lock_button.setChecked(_is_checked)
+            _lock_button.setChecked(_is_lock)
             _lock_button.stateChanged.connect(lambda state=0, 
                                               row=_index: self.parent.fitting_ui.lock_button_state_changed(state, row))
             
@@ -74,9 +88,9 @@ class FillingTableHandler(object):
             
             # add active button in second cell (column: 3)
             _active_button = QtGui.QCheckBox()
-            _is_checked = _entry['selected']
+            _is_selected = _entry['selected']
         
-            _active_button.setChecked(_is_checked)
+            _active_button.setChecked(_is_selected)
             _active_button.stateChanged.connect(lambda state=0, 
                                                       row=_index: self.parent.fitting_ui.active_button_state_changed(state, row))
         
@@ -111,11 +125,12 @@ class FillingTableHandler(object):
                              col = _local_index+4, 
                              value = _value)
             
-            ## if row is selected, select it
-            #if _entry['selected']:
-                #_selection = QtGui.QTableWidgetSelectionRange(_index, 0,
-                                                              #_index, nbr_column-1)
-                #value_table_ui.setRangeSelected(_selection, True)
+            if row_to_show_state == 'active':
+                if not _is_selected:
+                    value_table_ui.hideRow(_index)
+            elif row_to_show_state == 'lock':
+                if not _is_lock:
+                    value_table_ui.hideRow(_index)
             
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
             

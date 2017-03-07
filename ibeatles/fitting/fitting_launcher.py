@@ -328,7 +328,7 @@ class FittingWindow(QMainWindow):
         table_dictionary = self.parent.table_dictionary
         table_dictionary[str(row_clicked)]['selected'] = status
         if status:
-            _widget = self.ui.value_table.cellWidget(row_clicked, 0)
+            _widget = self.ui.value_table.cellWidget(row_clicked, 2)
             if _widget.isChecked():
                 table_dictionary[str(row_clicked)]['lock'] = False
                 _widget.setChecked(False)
@@ -368,7 +368,7 @@ class FittingWindow(QMainWindow):
         table_dictionary = self.parent.table_dictionary
         table_dictionary[str(row_clicked)]['lock'] = status
         if status:
-            _widget = self.ui.value_table.cellWidget(row_clicked, 1)
+            _widget = self.ui.value_table.cellWidget(row_clicked, 3)
             if _widget.isChecked():
                 table_dictionary[str(row_clicked)]['selected'] = False
                 _widget.setChecked(False)
@@ -413,10 +413,7 @@ class FittingWindow(QMainWindow):
         #self.update_bragg_edge_plot()
         
     def selection_in_value_table_changed(self):
-        try:
-            self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-        except:
-            pass
+        self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         
     def bragg_edge_linear_region_changed(self):
 
@@ -436,6 +433,12 @@ class FittingWindow(QMainWindow):
         o_table_handler = FillingTableHandler(parent=self.parent)
         o_table_handler.set_mode(advanced_mode = status)
         QApplication.restoreOverrideCursor()
+
+    def update_table(self):
+        o_filling_table = FillingTableHandler(parent = self.parent)
+        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        o_filling_table.fill_table()
+        self.parent.fitting_ui.ui.value_table.blockSignals(False)        
         
     def closeEvent(self, event=None):
         if self.parent.advanced_selection_ui:

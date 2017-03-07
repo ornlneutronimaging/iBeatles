@@ -707,6 +707,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>show_all_bins</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>481</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>124</x>
+     <y>748</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>show_only_active_bins</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>40</x>
+     <y>748</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>show_only_lock_bins</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>311</x>
+     <y>489</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>403</x>
+     <y>746</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -765,5 +813,6 @@
   <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
   <slot>selection_in_value_table_changed()</slot>
   <slot>advanced_table_clicked()</slot>
+  <slot>update_table()</slot>
  </slots>
 </ui>

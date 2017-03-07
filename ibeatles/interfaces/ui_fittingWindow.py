@@ -296,6 +296,9 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.value_table, QtCore.SIGNAL(_fromUtf8("cellClicked(int,int)")), MainWindow.selection_in_value_table_of_rows_cell_clicked)
         QtCore.QObject.connect(self.value_table, QtCore.SIGNAL(_fromUtf8("itemSelectionChanged()")), MainWindow.selection_in_value_table_changed)
         QtCore.QObject.connect(self.advanced_table_checkBox, QtCore.SIGNAL(_fromUtf8("clicked(bool)")), MainWindow.advanced_table_clicked)
+        QtCore.QObject.connect(self.show_all_bins, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
+        QtCore.QObject.connect(self.show_only_active_bins, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
+        QtCore.QObject.connect(self.show_only_lock_bins, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.update_table)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
