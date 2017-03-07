@@ -142,6 +142,9 @@ class VariableTableHandler(object):
     def right_click(self, position=None):
         menu = QtGui.QMenu(self.parent)
         
+        _activate = menu.addAction("Activate Selection")
+        _deactivate = menu.addAction("Deactivate Selection")
+        menu.addSeparator()
         _lock = menu.addAction("Lock Selection")
         _unlock = menu.addAction("Unlock Selection")
         
@@ -151,18 +154,32 @@ class VariableTableHandler(object):
             self.lock_selection()
         elif action == _unlock:
             self.unlock_selection()
+        elif action == _activate:
+            self.activate_selection()
+        elif action == _deactivate():
+            self.deactivate_selection()
+            
+    def activate_selection(self):
+        self.change_state_of_bins(name='selected', state=True)
+        self.update_fitting_ui()
+        self.update_advanced_selection_ui()
+    
+    def deactivate_selection(self):
+        self.change_state_of_bins(name='selected', state=False)
+        self.update_fitting_ui()
+        self.update_advanced_selection_ui()
             
     def lock_selection(self):
-        self.change_state_of_bins(lock=True)
+        self.change_state_of_bins(name='lock', state=True)
         self.update_fitting_ui()
         self.update_advanced_selection_ui()
     
     def unlock_selection(self):
-        self.change_state_of_bins(lock=False)
+        self.change_state_of_bins(name='lock', state=False)
         self.update_fitting_ui()
         self.update_advanced_selection_ui()
 
-    def change_state_of_bins(self, lock=True):
+    def change_state_of_bins(self, name='lock', state=True):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         table_dictionary = self.parent.table_dictionary
@@ -176,7 +193,7 @@ class VariableTableHandler(object):
             for _row in np.arange(_top_row, _bottom_row+1):
                 for _col in np.arange(_left_column, _right_column+1):
                     _index = _row + _col * nbr_row
-                    table_dictionary[str(_index)]['lock'] = lock
+                    table_dictionary[str(_index)][name] = state
             
             #remove selection markers
             self.parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)

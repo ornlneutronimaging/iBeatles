@@ -49,7 +49,12 @@ class SetFittingVariablesHandler(object):
                     _gradient.setColorAt(1, _color)
                     _gradient.setColorAt(0, QtGui.QColor(255,0,0, alpha=255))
                     _item.setBackground(QtGui.QBrush(_gradient))
-
+                elif self.is_bin_activated(bin_index = bin_index):
+                    _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                    _gradient.setColorAt(1, _color)
+                    _gradient.setColorAt(0, QtGui.QColor(0, 0, 255, alpha=255))
+                    _item.setBackground(QtGui.QBrush(_gradient))
+                
                 if (_value > mid_point):
                     _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
                     _item.setTextColor(_foreground_color)
@@ -59,6 +64,10 @@ class SetFittingVariablesHandler(object):
     def is_bin_locked(self, bin_index=0):
         table_dictionary = self.parent.table_dictionary
         return table_dictionary[str(bin_index)]['lock']
+
+    def is_bin_activated(self, bin_index=0):
+        table_dictionary = self.parent.table_dictionary
+        return table_dictionary[str(bin_index)]['selected']
 
     def clear_colorscale_table(self):
         nbr_row = self.parent.fitting_set_variables_ui.ui.colorscale_table.rowCount()
