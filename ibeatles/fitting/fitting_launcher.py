@@ -59,6 +59,20 @@ class FittingWindow(QMainWindow):
     all_bins_button = None
     indi_bins_button = None
     
+    header_value_tables_match = {0: [0],
+                                 1: [1],
+                                 2: [2],
+                                 3: [3],
+                                 4: [4],
+                                 5: [5,6],
+                                 6: [7,8],
+                                 7: [9,10],
+                                 8: [11,12],
+                                 9: [13,14],
+                                 10: [15,16],
+                                 11: [17,18],
+                                 12: [19,20]}
+    
     para_cell_width = 110
     header_table_columns_width = [30, 30, 50,50,100,
                                   para_cell_width, 
@@ -121,6 +135,34 @@ class FittingWindow(QMainWindow):
         
         self.hori_header_table.sectionResized.connect(self.resizing_header_table)
         self.hori_value_table.sectionResized.connect(self.resizing_value_table)
+
+        self.hori_header_table.sectionClicked.connect(self.column_header_table_clicked)
+
+    def column_header_table_clicked(self, column):
+        _value_table_column = self.header_value_tables_match.get(column, -1)
+        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
+
+        # if both col already selected, unselect them
+        col_already_selected = False
+        _item1 = self.parent.fitting_ui.ui.value_table.item(0, _value_table_column[0])
+        _item2 = self.parent.fitting_ui.ui.value_table.item(0, _value_table_column[-1])
+        if self.parent.fitting_ui.ui.value_table.isItemSelected(_item1) and \
+           self.parent.fitting_ui.ui.value_table.isItemSelected(_item2): 
+                col_already_selected = True
+            
+        print("col_already_selected: {}".format(col_already_selected))
+            
+        from_col = _value_table_column[0]
+        to_col = _value_table_column[-1]
+
+        print(from_col)
+        print(to_col)
+        print("")
+
+        range_selected = QtGui.QTableWidgetSelectionRange(0, from_col,
+                                                          nbr_row-1, to_col)
+        self.parent.fitting_ui.ui.value_table.setRangeSelected(range_selected, 
+                                                               not col_already_selected)
 
     def resizing_header_table(self, index_column, old_size, new_size):
         if index_column < 3:

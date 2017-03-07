@@ -29,7 +29,9 @@ class ValueTableHandler(object):
 
         _select_all = None
         _unselect_all = None
-
+        _reset = None
+        _fixed_variable = None
+        
         #_select_all = menu.addAction("Activate All")
         #_select_all.setEnabled(status)
         #_unselect_all = menu.addAction("Deactivate All")
@@ -37,12 +39,15 @@ class ValueTableHandler(object):
         #menu.addSeparator()
         _advanced_selection = menu.addAction("Selection/Lock Tool ...")
         _advanced_selection.setEnabled(status)
-        _set_variables = menu.addAction("Check/Set Variables ...")
+        _set_variables = menu.addAction("Selection/Locak - Check/Set Variables ...")
         _set_variables.setEnabled(status)
         menu.addSeparator()
-        _reset = menu.addAction("Full Reset")
-        _reset.setEnabled(status)
-        _reset.setEnabled(False) #remove once implemented
+        _fixed = menu.addAction("Fixed Variables Selected")
+        _fixed.setEnabled(status)
+        
+        #_reset = menu.addAction("Full Reset")
+        #_reset.setEnabled(status)
+        #_reset.setEnabled(False) #remove once implemented
         
         action = menu.exec_(QtGui.QCursor.pos())
         
@@ -56,7 +61,13 @@ class ValueTableHandler(object):
             self.set_variables()
         elif action == _reset:
             self.reset()
+        elif action == _fixed:
+            self.fixed_variables()
             
+    def fixed_variables(self):
+        selection = self.parent.fitting_ui.ui.value_table.selectedRanges()
+        print(len(selection))
+        
     def select_all(self):
         
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
