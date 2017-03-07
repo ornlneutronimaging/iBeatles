@@ -137,6 +137,31 @@ class FittingWindow(QMainWindow):
         self.hori_value_table.sectionResized.connect(self.resizing_value_table)
 
         self.hori_header_table.sectionClicked.connect(self.column_header_table_clicked)
+        self.hori_value_table.sectionClicked.connect(self.column_value_table_clicked)
+
+    def column_value_table_clicked(self, column):
+        '''
+        to make sure that if the val or err column is selected, or unselected, the other
+        column behave the same
+        '''
+        if column < 5:
+            return
+        
+        _item0 = self.parent.fitting_ui.ui.value_table.item(0, column)
+        state_column_clicked = self.parent.fitting_ui.ui.value_table.isItemSelected(_item0)
+        
+        if column % 2 == 0:
+            col1 = column-1
+            col2 = column
+        else:
+            col1 = column
+            col2 = column+1
+            
+        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
+        range_selected = QtGui.QTableWidgetSelectionRange(0, col1, nbr_row-1, col2)
+        self.parent.fitting_ui.ui.value_table.setRangeSelected(range_selected, 
+                                                                   state_column_clicked)
+        
 
     def column_header_table_clicked(self, column):
         _value_table_column = self.header_value_tables_match.get(column, -1)
@@ -150,14 +175,8 @@ class FittingWindow(QMainWindow):
            self.parent.fitting_ui.ui.value_table.isItemSelected(_item2): 
                 col_already_selected = True
             
-        print("col_already_selected: {}".format(col_already_selected))
-            
         from_col = _value_table_column[0]
         to_col = _value_table_column[-1]
-
-        print(from_col)
-        print(to_col)
-        print("")
 
         range_selected = QtGui.QTableWidgetSelectionRange(0, from_col,
                                                           nbr_row-1, to_col)
