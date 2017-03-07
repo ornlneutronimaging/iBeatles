@@ -71,7 +71,7 @@ class SetFittingVariablesWindow(QMainWindow):
         if not self.advanced_mode:
             self.ui.a5_button.setVisible(False)
             self.ui.a6_button.setVisible(False)
-
+            
     def selection_cell_size_changed(self, value):
         nbr_row = self.ui.variable_table.rowCount()
         nbr_column = self.ui.variable_table.columnCount()

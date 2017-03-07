@@ -21,9 +21,14 @@ class SetFittingVariablesHandler(object):
         array_2d_values = self.create_array_of_variable(variable=variable)
         
         # retrieve min and max values
-        min_value = np.nanmin(array_2d_values)
-        max_value = np.nanmax(array_2d_values)
-        mid_point = np.mean([min_value, max_value])
+        if np.isnan(array_2d_values).any():
+            min_value = np.NaN
+            max_value = np.NaN
+            mid_point = np.NaN
+        else:
+            min_value = np.nanmin(array_2d_values)
+            max_value = np.nanmax(array_2d_values)
+            mid_point = np.mean([min_value, max_value])
         
         # define colorscale table
         self.initialize_colorscale_table(min_value=min_value, max_value=max_value)
@@ -68,7 +73,10 @@ class SetFittingVariablesHandler(object):
         mid_point = np.int(nbr_row / 2)
         _row = 0
         
-        if (min_value == max_value) and (min_value == -1):
+        if (min_value == max_value):
+            nbr_row = 1
+        
+        if np.isnan(step):
             nbr_row = 1
         
         for _index in np.arange(nbr_row-1, -1, -1):
@@ -77,11 +85,18 @@ class SetFittingVariablesHandler(object):
                                                                                      self.colorscale_cell_size['height'])
             self.parent.fitting_set_variables_ui.ui.colorscale_table.setColumnWidth(_row, 
                                                                                     self.colorscale_cell_size['width'])
-            _value = min_value + _index * step
+            if np.isnan(step):
+                _value = np.NaN
+            else:
+                _value = min_value + _index * step
             _color = self.get_color_for_this_value(min_value=min_value,
                                                    max_value=max_value,
                                                    value = _value)
-            _item = QtGui.QTableWidgetItem("{:04.2f}".format(_value))
+    
+            if np.isnan(_value):
+                _item = QtGui.QTableWidgetItem("nan")
+            else:
+                _item = QtGui.QTableWidgetItem("{:04.2f}".format(_value))
             _item.setBackgroundColor(_color)
             _item.setTextAlignment(QtCore.Qt.AlignRight)
             if (_row < mid_point) and (nbr_row != 1):
@@ -94,7 +109,7 @@ class SetFittingVariablesHandler(object):
             
         
     def get_color_for_this_value(self, min_value=0, max_value=1, value=0):
-        if value == -1:
+        if np.isnan(value):
             return QtGui.QColor(255,  255, 255, alpha=100) #white
         elif max_value == min_value:
             return QtGui.QColor(250, 0, 0, alpha=255) #red
