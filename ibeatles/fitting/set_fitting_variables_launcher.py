@@ -161,23 +161,23 @@ class VariableTableHandler(object):
             
     def activate_selection(self):
         self.change_state_of_bins(name='selected', state=True)
-        self.update_fitting_ui()
-        self.update_advanced_selection_ui()
+        self.update_fitting_ui(name='selected')
+        self.update_advanced_selection_ui(name='selected')
     
     def deactivate_selection(self):
         self.change_state_of_bins(name='selected', state=False)
-        self.update_fitting_ui()
-        self.update_advanced_selection_ui()
+        self.update_fitting_ui(name='selected')
+        self.update_advanced_selection_ui(name='selected')
             
     def lock_selection(self):
         self.change_state_of_bins(name='lock', state=True)
-        self.update_fitting_ui()
-        self.update_advanced_selection_ui()
+        self.update_fitting_ui(name='lock')
+        self.update_advanced_selection_ui(name='lock')
     
     def unlock_selection(self):
         self.change_state_of_bins(name='lock', state=False)
-        self.update_fitting_ui()
-        self.update_advanced_selection_ui()
+        self.update_fitting_ui(name='lock')
+        self.update_advanced_selection_ui(name='lock')
 
     def change_state_of_bins(self, name='lock', state=True):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
@@ -202,13 +202,20 @@ class VariableTableHandler(object):
         self.parent.fitting_set_variables_ui.update_table()        
         QApplication.restoreOverrideCursor()        
 
-    def update_fitting_ui(self):
-        self.parent.fitting_ui.update_image_view_lock()
+    def update_fitting_ui(self, name='selected'):
+        if name == 'lock':
+            self.parent.fitting_ui.update_image_view_lock()
+        elif name == 'selected':
+            self.parent.fitting_ui.update_image_view_selection()
+    
         o_filling_table = FillingTableHandler(parent = self.parent)
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)        
     
-    def update_advanced_selection_ui(self):
+    def update_advanced_selection_ui(self, name='selected'):
         if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.update_lock_table()
+            if name == 'lock':
+                self.parent.advanced_selection_ui.update_lock_table()
+            elif name == 'selected':
+                self.parent.advanced_selection_ui.update_selected_table()
