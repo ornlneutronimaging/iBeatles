@@ -69,12 +69,12 @@ class FillingTableHandler(object):
             self.set_item(table_ui = value_table_ui, 
                           row = _index, 
                           col = 0,
-                          value = _entry['row_index'])
+                          value = _entry['row_index']+1) # +1 because table starts indexing at 1
             
             self.set_item(table_ui = value_table_ui,
                           row = _index,
                           col = 1,
-                          value = _entry['column_index'])
+                          value = _entry['column_index']+1) # +1 because table starts indexing at 1
             
             # add lock button in first cell (column: 2)
             _lock_button = QtGui.QCheckBox()

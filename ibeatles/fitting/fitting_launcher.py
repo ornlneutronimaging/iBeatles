@@ -335,6 +335,11 @@ class FittingWindow(QMainWindow):
                 update_lock_flag = True
         self.parent.table_dictionary = table_dictionary
     
+        # hide this row if status is False and user only wants to see locked items
+        o_filling_handler = FillingTableHandler(parent = self.parent)
+        if (status == False) and (o_filling_handler.get_row_to_show_state() == 'active'):
+            self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
+    
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bins_selected()
 
@@ -375,6 +380,11 @@ class FittingWindow(QMainWindow):
                 update_selection_flag = True #we change the state so we need to update the selection
         self.parent.table_dictionary = table_dictionary
             
+        # hide this row if status is False and user only wants to see locked items
+        o_filling_handler = FillingTableHandler(parent = self.parent)
+        if (status == False) and (o_filling_handler.get_row_to_show_state() == 'lock'):
+            self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
+
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bins_locked()
         
