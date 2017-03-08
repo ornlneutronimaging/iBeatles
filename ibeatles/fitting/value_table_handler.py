@@ -96,6 +96,9 @@ class ValueTableHandler(object):
             col_range = np.arange(left_column, right_column+1)
             for _col in col_range:
                 
+                if _col < 5:
+                    continue
+                
                 # only work with even col number
                 if (_col % 2) == 0:
                     continue

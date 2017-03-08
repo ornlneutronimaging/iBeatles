@@ -27,11 +27,10 @@ class SetFittingVariablesLauncher(object):
             set_variables_window = SetFittingVariablesWindow(parent=parent)
             self.parent.fitting_set_variables_ui = set_variables_window
             set_variables_window.show()
-            set_variables_window.update_table()
+#            set_variables_window.update_table()
         else:
             self.parent.fitting_set_variables_ui.setFocus()
             self.parent.fitting_set_variables_ui.activateWindow()
-     
             
 class SetFittingVariablesWindow(QMainWindow):
     
@@ -46,9 +45,15 @@ class SetFittingVariablesWindow(QMainWindow):
         self.ui = UiMainWindow()
         self.ui.setupUi(self)
         self.setWindowTitle("Check/Set Variables")
+        self.installEventFilter(self)
         
         self.init_widgets()
         self.init_table()
+        
+    def eventFilter(self, object, event):
+        if event.type() == QtCore.QEvent.WindowActivate:
+            self.update_table()
+        return False
         
     def init_table(self):
         fitting_selection = self.parent.fitting_selection

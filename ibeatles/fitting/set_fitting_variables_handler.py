@@ -58,6 +58,12 @@ class SetFittingVariablesHandler(object):
                         _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
                     _gradient.setColorAt(0, QtGui.QColor(0, 0, 255, alpha=255))
                     _item.setBackground(QtGui.QBrush(_gradient))
+                else:
+                    if self.is_bin_fixed(bin_index = bin_index, variable_name=variable):
+                        _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                        _gradient.setColorAt(1, _color)
+                        _gradient.setColorAt(0, QtGui.QColor(255, 255, 255))
+                        _item.setBackground(QtGui.QBrush(_gradient))
                 
                 if (_value > mid_point):
                     _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
