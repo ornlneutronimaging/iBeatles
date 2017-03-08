@@ -144,3 +144,8 @@ class TableDictionaryHandler(object):
 
     def select_full_table(self):
         self.full_table_selection_tool(status = True)
+
+        
+        
+        
+        

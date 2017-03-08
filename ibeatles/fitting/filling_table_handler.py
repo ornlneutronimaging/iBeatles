@@ -117,13 +117,32 @@ class FillingTableHandler(object):
                           _entry['a5']['val'],
                           _entry['a5']['err'],
                           _entry['a6']['val'],
-                          _entry['a6']['err']]              
+                          _entry['a6']['err']]   
+            
+            list_fixed_flag = [False,
+                               _entry['d_spacing']['fixed'],
+                               _entry['d_spacing']['fixed'],
+                               _entry['sigma']['fixed'],
+                               _entry['sigma']['fixed'],
+                               _entry['intensity']['fixed'],
+                               _entry['intensity']['fixed'],
+                               _entry['alpha']['fixed'],
+                               _entry['alpha']['fixed'],
+                               _entry['a1']['fixed'],
+                               _entry['a1']['fixed'],
+                               _entry['a2']['fixed'],
+                               _entry['a2']['fixed'],
+                               _entry['a5']['fixed'],
+                               _entry['a5']['fixed'],
+                               _entry['a6']['fixed'],
+                               _entry['a6']['fixed']]              
 
             for _local_index, _value in enumerate(list_value):
                 self.set_item(table_ui = value_table_ui, 
                              row = _index, 
                              col = _local_index+4, 
-                             value = _value)
+                             value = _value,
+                             fixed_flag = list_fixed_flag[_local_index])
             
             if row_to_show_state == 'active':
                 if not _is_selected:
@@ -134,8 +153,11 @@ class FillingTableHandler(object):
             
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
             
-    def set_item(self, table_ui=None, row=0, col=0, value=""):
+    def set_item(self, table_ui=None, row=0, col=0, value="", fixed_flag=False):
         item = QtGui.QTableWidgetItem(str(value))
+        if fixed_flag:
+            item.setTextColor(QtGui.QColor(255,0,0, alpha=255))
+        
         table_ui.setItem(row, col, item)
 
     def clear_table_ui(self):
