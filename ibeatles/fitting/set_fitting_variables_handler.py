@@ -47,11 +47,15 @@ class SetFittingVariablesHandler(object):
                 if self.is_bin_locked(bin_index = bin_index):
                     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
                     _gradient.setColorAt(1, _color)
+                    if self.is_bin_fixed(bin_index = bin_index, variable_name=variable):
+                        _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
                     _gradient.setColorAt(0, QtGui.QColor(255,0,0, alpha=255))
                     _item.setBackground(QtGui.QBrush(_gradient))
                 elif self.is_bin_activated(bin_index = bin_index):
                     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
                     _gradient.setColorAt(1, _color)
+                    if self.is_bin_fixed(bin_index = bin_index, variable_name=variable):
+                        _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
                     _gradient.setColorAt(0, QtGui.QColor(0, 0, 255, alpha=255))
                     _item.setBackground(QtGui.QBrush(_gradient))
                 
@@ -60,6 +64,10 @@ class SetFittingVariablesHandler(object):
                     _item.setTextColor(_foreground_color)
                     
                 self.parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
+
+    def is_bin_fixed(self, bin_index=0, variable_name='d_spacing'):
+        table_dictionary = self.parent.table_dictionary
+        return table_dictionary[str(bin_index)][variable_name]['fixed']
 
     def is_bin_locked(self, bin_index=0):
         table_dictionary = self.parent.table_dictionary

@@ -54,6 +54,8 @@ class ValueTableHandler(object):
         #_reset.setEnabled(False) #remove once implemented
         
         action = menu.exec_(QtGui.QCursor.pos())
+        if action is None:
+            return
         
         if action == _select_all:
             self.select_all()

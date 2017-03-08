@@ -147,7 +147,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="active_label">
         <property name="palette">
          <palette>
           <active>
@@ -160,12 +160,39 @@
              </color>
             </brush>
            </colorrole>
+           <colorrole role="Light">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>13</red>
+              <green>142</green>
+              <blue>27</blue>
+             </color>
+            </brush>
+           </colorrole>
            <colorrole role="Text">
             <brush brushstyle="SolidPattern">
              <color alpha="255">
               <red>5</red>
               <green>28</green>
               <blue>209</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>146</green>
+              <blue>2</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
              </color>
             </brush>
            </colorrole>
@@ -180,12 +207,39 @@
              </color>
             </brush>
            </colorrole>
+           <colorrole role="Light">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>13</red>
+              <green>142</green>
+              <blue>27</blue>
+             </color>
+            </brush>
+           </colorrole>
            <colorrole role="Text">
             <brush brushstyle="SolidPattern">
              <color alpha="255">
               <red>5</red>
               <green>28</green>
               <blue>209</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>146</green>
+              <blue>2</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
              </color>
             </brush>
            </colorrole>
@@ -200,12 +254,39 @@
              </color>
             </brush>
            </colorrole>
+           <colorrole role="Light">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>13</red>
+              <green>142</green>
+              <blue>27</blue>
+             </color>
+            </brush>
+           </colorrole>
            <colorrole role="Text">
             <brush brushstyle="SolidPattern">
              <color alpha="255">
               <red>69</red>
               <green>69</green>
               <blue>69</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
              </color>
             </brush>
            </colorrole>
@@ -220,12 +301,12 @@
       <item>
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>/</string>
+         <string> </string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="locked_label">
         <property name="palette">
          <palette>
           <active>
@@ -265,6 +346,57 @@
         </property>
         <property name="text">
          <string>Bin Locked</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string> </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="fixed_label">
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>255</red>
+              <green>255</green>
+              <blue>255</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>69</red>
+              <green>69</green>
+              <blue>69</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="text">
+         <string>Fixed</string>
         </property>
        </widget>
       </item>

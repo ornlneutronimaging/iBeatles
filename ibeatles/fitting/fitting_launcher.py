@@ -475,6 +475,21 @@ class FittingWindow(QMainWindow):
         o_bin_handler.update_bragg_edge_plot()
 
     def selection_in_value_table_of_rows_cell_clicked(self, row, column):
+        # make sure the selection is right (val and err selected at the same time)
+        if column > 4:
+            _item0 = self.ui.value_table.item(0, column)
+            _is_selected = self.ui.value_table.isItemSelected(_item0)
+            if (column % 2) == 0:
+                left_column = column - 1
+                right_column = column
+            else:
+                left_column = column
+                right_column = column + 1
+            nbr_row = self.ui.value_table.rowCount()
+            _selection = QtGui.QTableWidgetSelectionRange(0, left_column,
+                                                          nbr_row-1, right_column)
+            self.ui.value_table.setRangeSelected(_selection, _is_selected)
+
         pass            
         #self.update_image_view_selection()
         #self.update_image_view_lock()

@@ -72,6 +72,10 @@ class SetFittingVariablesWindow(QMainWindow):
             self.ui.a5_button.setVisible(False)
             self.ui.a6_button.setVisible(False)
             
+        self.ui.fixed_label.setStyleSheet("background-color: green")
+        self.ui.locked_label.setStyleSheet("background-color: green")
+        self.ui.active_label.setStyleSheet("background-color: green")
+            
     def selection_cell_size_changed(self, value):
         nbr_row = self.ui.variable_table.rowCount()
         nbr_column = self.ui.variable_table.columnCount()
@@ -156,31 +160,38 @@ class VariableTableHandler(object):
             self.unlock_selection()
         elif action == _activate:
             self.activate_selection()
-        elif action == _deactivate():
+        elif action == _deactivate:
             self.deactivate_selection()
             
     def activate_selection(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         self.change_state_of_bins(name='active', state=True)
         self.update_fitting_ui(name='active')
         self.update_advanced_selection_ui(name='active')
+        QApplication.restoreOverrideCursor()        
     
     def deactivate_selection(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         self.change_state_of_bins(name='active', state=False)
         self.update_fitting_ui(name='active')
         self.update_advanced_selection_ui(name='active')
+        QApplication.restoreOverrideCursor()        
             
     def lock_selection(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         self.change_state_of_bins(name='lock', state=True)
         self.update_fitting_ui(name='lock')
         self.update_advanced_selection_ui(name='lock')
+        QApplication.restoreOverrideCursor()        
     
     def unlock_selection(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         self.change_state_of_bins(name='lock', state=False)
         self.update_fitting_ui(name='lock')
         self.update_advanced_selection_ui(name='lock')
+        QApplication.restoreOverrideCursor()        
 
     def change_state_of_bins(self, name='lock', state=True):
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         table_dictionary = self.parent.table_dictionary
         nbr_row = self.parent.fitting_set_variables_ui.nbr_row
@@ -200,7 +211,6 @@ class VariableTableHandler(object):
         
         self.parent.table_dictionary = table_dictionary
         self.parent.fitting_set_variables_ui.update_table()        
-        QApplication.restoreOverrideCursor()        
 
     def update_fitting_ui(self, name='active'):
         if name == 'lock':
