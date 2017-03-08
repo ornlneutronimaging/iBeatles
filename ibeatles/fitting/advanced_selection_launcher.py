@@ -67,7 +67,7 @@ class AdvancedSelectionWindow(QMainWindow):
         self.selection_cell_size_changed(value)
 
     def update_selection_table(self):
-        self.update_table(state_field = 'selected',
+        self.update_table(state_field = 'active',
                               table_ui = self.ui.selection_table)
 
     def update_lock_table(self):
@@ -107,7 +107,7 @@ class AdvancedSelectionWindow(QMainWindow):
         table_dictionary = self.parent.table_dictionary
 
         for _entry in table_dictionary.keys():
-            table_dictionary[_entry]['selected'] = False
+            table_dictionary[_entry]['active'] = False
 
         for _select in selection:
             top_row = _select.topRow()
@@ -118,7 +118,7 @@ class AdvancedSelectionWindow(QMainWindow):
                 for _col in np.arange(left_col, right_col+1):
                     fitting_row = _col*nbr_row + _row
                     _entry = table_dictionary[str(fitting_row)]
-                    _entry['selected'] = True
+                    _entry['active'] = True
                     table_dictionary[str(fitting_row)] = _entry
             
         self.parent.table_dictionary = table_dictionary

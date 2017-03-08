@@ -134,7 +134,7 @@ class TableDictionaryHandler(object):
         table_dictionary = self.parent.table_dictionary
         for _index in table_dictionary:
             _item = table_dictionary[_index]
-            _item['selected'] = status
+            _item['active'] = status
             table_dictionary[_index] = _item
             
         self.parent.table_dictionary = table_dictionary

@@ -387,7 +387,7 @@ class FittingWindow(QMainWindow):
             status = True
     
         table_dictionary = self.parent.table_dictionary
-        table_dictionary[str(row_clicked)]['selected'] = status
+        table_dictionary[str(row_clicked)]['active'] = status
         if status:
             _widget = self.ui.value_table.cellWidget(row_clicked, 2)
             if _widget.isChecked():
@@ -436,7 +436,7 @@ class FittingWindow(QMainWindow):
         if status:
             _widget = self.ui.value_table.cellWidget(row_clicked, 3)
             if _widget.isChecked():
-                table_dictionary[str(row_clicked)]['selected'] = False
+                table_dictionary[str(row_clicked)]['active'] = False
                 _widget.setChecked(False)
                 update_selection_flag = True #we change the state so we need to update the selection
         self.parent.table_dictionary = table_dictionary

@@ -160,14 +160,14 @@ class VariableTableHandler(object):
             self.deactivate_selection()
             
     def activate_selection(self):
-        self.change_state_of_bins(name='selected', state=True)
-        self.update_fitting_ui(name='selected')
-        self.update_advanced_selection_ui(name='selected')
+        self.change_state_of_bins(name='active', state=True)
+        self.update_fitting_ui(name='active')
+        self.update_advanced_selection_ui(name='active')
     
     def deactivate_selection(self):
-        self.change_state_of_bins(name='selected', state=False)
-        self.update_fitting_ui(name='selected')
-        self.update_advanced_selection_ui(name='selected')
+        self.change_state_of_bins(name='active', state=False)
+        self.update_fitting_ui(name='active')
+        self.update_advanced_selection_ui(name='active')
             
     def lock_selection(self):
         self.change_state_of_bins(name='lock', state=True)
@@ -202,10 +202,10 @@ class VariableTableHandler(object):
         self.parent.fitting_set_variables_ui.update_table()        
         QApplication.restoreOverrideCursor()        
 
-    def update_fitting_ui(self, name='selected'):
+    def update_fitting_ui(self, name='active'):
         if name == 'lock':
             self.parent.fitting_ui.update_image_view_lock()
-        elif name == 'selected':
+        elif name == 'active':
             self.parent.fitting_ui.update_image_view_selection()
     
         o_filling_table = FillingTableHandler(parent = self.parent)
@@ -213,9 +213,9 @@ class VariableTableHandler(object):
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)        
     
-    def update_advanced_selection_ui(self, name='selected'):
+    def update_advanced_selection_ui(self, name='active'):
         if self.parent.advanced_selection_ui:
             if name == 'lock':
                 self.parent.advanced_selection_ui.update_lock_table()
-            elif name == 'selected':
+            elif name == 'active':
                 self.parent.advanced_selection_ui.update_selected_table()

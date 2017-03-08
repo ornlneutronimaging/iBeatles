@@ -113,7 +113,7 @@ class ValueTableHandler(object):
                         
                     elif row_to_show_status == 'active':
                         
-                        if _entry['selected']:
+                        if _entry['active']:
                             _entry[name_variable]['fixed'] = status
                             table_dictionary[str(_index)] = _entry
                             

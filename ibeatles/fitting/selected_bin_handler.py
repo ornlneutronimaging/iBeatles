@@ -30,7 +30,7 @@ class SelectedBinsHandler(object):
         list_bins_selected_item = []
         for _index in table_dictionary.keys():
             box = table_dictionary[_index]['selected_item']
-            if table_dictionary[_index]['selected']:
+            if table_dictionary[_index]['active']:
                 self.parent.fitting_ui.image_view.addItem(box)
                 list_bins_selected_item.append(box)
         self.parent.fitting_ui.list_bins_selected_item = list_bins_selected_item

@@ -88,9 +88,9 @@ class FillingTableHandler(object):
             
             # add active button in second cell (column: 3)
             _active_button = QtGui.QCheckBox()
-            _is_selected = _entry['selected']
+            _is_active = _entry['active']
         
-            _active_button.setChecked(_is_selected)
+            _active_button.setChecked(_is_active)
             _active_button.stateChanged.connect(lambda state=0, 
                                                       row=_index: self.parent.fitting_ui.active_button_state_changed(state, row))
         
@@ -145,7 +145,7 @@ class FillingTableHandler(object):
                              fixed_flag = list_fixed_flag[_local_index])
             
             if row_to_show_state == 'active':
-                if not _is_selected:
+                if not _is_active:
                     value_table_ui.hideRow(_index)
             elif row_to_show_state == 'lock':
                 if not _is_lock:

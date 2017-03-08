@@ -67,7 +67,7 @@ class SetFittingVariablesHandler(object):
 
     def is_bin_activated(self, bin_index=0):
         table_dictionary = self.parent.table_dictionary
-        return table_dictionary[str(bin_index)]['selected']
+        return table_dictionary[str(bin_index)]['active']
 
     def clear_colorscale_table(self):
         nbr_row = self.parent.fitting_set_variables_ui.ui.colorscale_table.rowCount()
