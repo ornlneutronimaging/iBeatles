@@ -156,7 +156,10 @@ class VariableTableHandler(object):
         menu.addSeparator()
         _lock = menu.addAction("Lock Selection")
         _unlock = menu.addAction("Unlock Selection")
-        
+        menu.addSeparator()
+        _fixed = menu.addAction("Fixed Selection")
+        _unfixed = menu.addAction("Unfixed Selection")
+
         action = menu.exec_(QtGui.QCursor.pos())
         
         if action == _lock:
@@ -167,6 +170,40 @@ class VariableTableHandler(object):
             self.activate_selection()
         elif action == _deactivate:
             self.deactivate_selection()
+        elif action == _fixed:
+            self.fixed_selection()
+        elif action == _unfixed:
+            self.unfixed_selection()
+            
+    def set_fixed_status_of_selection(self, state=True):
+        selection = self.parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
+        table_dictionary = self.parent.table_dictionary
+        nbr_row = self.parent.fitting_set_variables_ui.nbr_row
+        o_handler = SetFittingVariablesHandler(parent=self.parent)
+        variable_selected = o_handler.get_variable_selected()
+        
+        for _select in selection:
+            _left_column = _select.leftColumn()
+            _right_column = _select.rightColumn()
+            _top_row = _select.topRow()
+            _bottom_row = _select.bottomRow()
+            for _row in np.arange(_top_row, _bottom_row+1):
+                for _col in np.arange(_left_column, _right_column+1):
+                    _index = _row + _col * nbr_row
+                    table_dictionary[str(_index)][variable_selected]['fixed'] = state
+            
+            #remove selection markers
+            self.parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+        
+        self.parent.table_dictionary = table_dictionary
+        self.parent.fitting_set_variables_ui.update_table()        
+            
+            
+    def fixed_selection(self):
+        self.set_fixed_status_of_selection(state=True)
+    
+    def unfixed_selection(self):
+        self.set_fixed_status_of_selection(state=False)
             
     def activate_selection(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)

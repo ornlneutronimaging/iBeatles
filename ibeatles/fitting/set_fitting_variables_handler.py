@@ -16,6 +16,22 @@ class SetFittingVariablesHandler(object):
     
     def __init__(self, parent=None):
         self.parent = parent
+   
+    def get_variable_selected(self):
+        if self.parent.fitting_set_variables_ui.ui.d_spacing_button.isChecked():
+            return 'd_spacing'
+        elif self.parent.fitting_set_variables_ui.ui.sigma_button.isChecked():
+            return 'sigma'
+        elif self.parent.fitting_set_variables_ui.ui.alpha_button.isChecked():
+            return 'alpha'
+        elif self.parent.fitting_set_variables_ui.ui.a1_button.isChecked():
+            return 'a1'
+        elif self.parent.fitting_set_variables_ui.ui.a2_button.isChecked():
+            return 'a2'
+        elif self.parent.fitting_set_variables_ui.ui.a5_button.isChecked():
+            return 'a5'
+        elif self.parent.fitting_set_variables_ui.ui.a6_button.isChecked():
+            return 'a6'
         
     def populate_table_with_variable(self, variable='d_spacing'):
         array_2d_values = self.create_array_of_variable(variable=variable)
