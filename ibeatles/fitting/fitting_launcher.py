@@ -119,6 +119,7 @@ class FittingWindow(QMainWindow):
         self.init_labels()
         self.init_widgets()
         self.init_table_behavior()
+        self.check_status_widgets()
 
     def re_fill_table(self):
         o_fitting = FittingHandler(parent=self.parent)
@@ -163,7 +164,6 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.setRangeSelected(range_selected, 
                                                                    state_column_clicked)
         
-
     def column_header_table_clicked(self, column):
         _value_table_column = self.header_value_tables_match.get(column, -1)
         nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
@@ -215,6 +215,15 @@ class FittingWindow(QMainWindow):
         hkl_list = self.parent.selected_element_hkl_array
         str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
         self.ui.hkl_list_ui.addItems(str_hkl_list)
+        
+    def check_status_widgets(self):
+        if (len(self.parent.data_metadata['normalized']['data_live_selection']) > 0) and \
+               not (self.parent.binning_line_view['pos'] is None):
+            status = True
+        else:
+            status = False
+
+        self.ui.instructions_step1_button.setEnabled(status)
         
 #        self.installEventFilter(self)
         
@@ -524,6 +533,9 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)        
+
+    def initialize_all_parameters_button_clicked(self):
+        print("here")
         
     def closeEvent(self, event=None):
         if self.parent.advanced_selection_ui:

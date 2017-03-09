@@ -241,6 +241,8 @@ class BinningWindow(QMainWindow):
 
         if self.parent.fitting_ui:
             
+            self.parent.fitting_ui.check_status_widgets()
+            
             o_table = TableDictionaryHandler(parent=self.parent)
             o_table.create_table_dictionary()
             
@@ -252,6 +254,7 @@ class BinningWindow(QMainWindow):
             o_hanlder = FittingHandler(parent=self.parent)
 
             o_hanlder.display_roi()
+            
             
         #if self.parent.fitting_ui:
             #if self.parent.fitting_ui.line_view:
