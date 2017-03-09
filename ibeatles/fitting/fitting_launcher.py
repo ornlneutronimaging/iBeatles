@@ -233,6 +233,7 @@ class FittingWindow(QMainWindow):
 
         self.ui.instructions_step1_button.setEnabled(status)
         
+         
 #        self.installEventFilter(self)
         
     #def eventFilter(self, obj, event):

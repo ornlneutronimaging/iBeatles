@@ -146,6 +146,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.page_2)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
         self.step1_step2_instructions_label = QtGui.QTextEdit(self.page_2)
+        self.step1_step2_instructions_label.setEnabled(False)
         self.step1_step2_instructions_label.setMinimumSize(QtCore.QSize(0, 50))
         self.step1_step2_instructions_label.setMaximumSize(QtCore.QSize(16777215, 50))
         self.step1_step2_instructions_label.setReadOnly(True)
