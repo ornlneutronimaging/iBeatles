@@ -40,7 +40,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Counts vs Lambda</string>
+        <string>Active</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>

@@ -98,7 +98,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.label_2.setText(_translate("MainWindow", "All Bins selected in this table will be used to display the Counts vs Lambda plot", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Counts vs Lambda", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Active", None))
         self.label_3.setText(_translate("MainWindow", "All Bins selected in this table will be locked (their fitting parameters can not be modified).", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Lock", None))
         self.label.setText(_translate("MainWindow", "Cells Size", None))

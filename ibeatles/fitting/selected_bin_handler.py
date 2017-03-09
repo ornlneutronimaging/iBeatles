@@ -101,21 +101,19 @@ class SelectedBinsHandler(object):
         #self.parent.table_dictionary = table_dictionary
         #self.parent.fitting_ui.list_bins_locked_item = list_bins_locked_item
     
-    def retrieve_list_bin_selected(self, selection):
+    def retrieve_list_bin_selected(self):
         list_bin_selected = []
-        for _select in selection:
-            top_row = _select.topRow()
-            bottom_row = _select.bottomRow()
-            for _row in np.arange(top_row, bottom_row + 1):
-                list_bin_selected.append(_row)
-                
+        table_dictionary = self.parent.table_dictionary
+        for _index in table_dictionary:
+            if table_dictionary[_index]['active']:
+                list_bin_selected.append(_index)
+
         return list_bin_selected
     
     def update_bragg_edge_plot(self):
-        selection = self.fitting_ui.ui.value_table.selectedRanges()
         self.parent.fitting_ui.bragg_edge_plot.clear()
         
-        list_bin_selected = self.retrieve_list_bin_selected(selection)
+        list_bin_selected = self.retrieve_list_bin_selected()
         if list_bin_selected == []:
             return
         table_dictionary = self.parent.table_dictionary

@@ -403,6 +403,7 @@ class FittingWindow(QMainWindow):
     
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bins_selected()
+        self.update_bragg_edge_plot()
 
         if update_lock_flag:
             o_bin_handler.update_bins_locked()
@@ -448,6 +449,7 @@ class FittingWindow(QMainWindow):
 
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bins_locked()
+        self.update_bragg_edge_plot()
         
         if update_selection_flag:
             o_bin_handler.update_bins_selected()
@@ -490,13 +492,12 @@ class FittingWindow(QMainWindow):
                                                           nbr_row-1, right_column)
             self.ui.value_table.setRangeSelected(_selection, _is_selected)
 
-        pass            
         #self.update_image_view_selection()
         #self.update_image_view_lock()
         #if self.parent.advanced_selection_ui:
             #self.parent.advanced_selection_ui.update_selection_table()
             #self.parent.advanced_selection_ui.update_lock_table()
-        #self.update_bragg_edge_plot()
+        self.update_bragg_edge_plot()
         
     def selection_in_value_table_changed(self):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)

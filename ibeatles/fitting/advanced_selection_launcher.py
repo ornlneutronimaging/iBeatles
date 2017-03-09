@@ -128,6 +128,7 @@ class AdvancedSelectionWindow(QMainWindow):
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
         self.parent.fitting_ui.update_image_view_selection()
+        self.parent.fitting_ui.update_bragg_edge_plot()
 
     def lock_table_selection_changed(self):
         # update table and then update GUI

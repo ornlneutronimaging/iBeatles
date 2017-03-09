@@ -41,7 +41,7 @@ class ValueTableHandler(object):
         #menu.addSeparator()
         _advanced_selection = menu.addAction("Selection/Lock Tool ...")
         _advanced_selection.setEnabled(status)
-        _set_variables = menu.addAction("Selection/Lock - Check/Set Variables ...")
+        _set_variables = menu.addAction("Variables Advanced Tool ...")
         _set_variables.setEnabled(status)
         menu.addSeparator()
         _fixed = menu.addAction("Fixed Variables Selected")
