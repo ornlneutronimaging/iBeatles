@@ -145,25 +145,18 @@ class Ui_MainWindow(object):
         self.page_2.setObjectName(_fromUtf8("page_2"))
         self.verticalLayout_6 = QtGui.QVBoxLayout(self.page_2)
         self.verticalLayout_6.setObjectName(_fromUtf8("verticalLayout_6"))
+        self.step1_step2_instructions_label = QtGui.QTextEdit(self.page_2)
+        self.step1_step2_instructions_label.setMinimumSize(QtCore.QSize(0, 50))
+        self.step1_step2_instructions_label.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.step1_step2_instructions_label.setReadOnly(True)
+        self.step1_step2_instructions_label.setObjectName(_fromUtf8("step1_step2_instructions_label"))
+        self.verticalLayout_6.addWidget(self.step1_step2_instructions_label)
         self.instructions_step1_button = QtGui.QPushButton(self.page_2)
         self.instructions_step1_button.setEnabled(False)
         self.instructions_step1_button.setObjectName(_fromUtf8("instructions_step1_button"))
         self.verticalLayout_6.addWidget(self.instructions_step1_button)
-        self.label_4 = QtGui.QLabel(self.page_2)
-        self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.verticalLayout_6.addWidget(self.label_4)
-        self.horizontalLayout_6 = QtGui.QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
-        spacerItem3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem3)
-        self.textEdit = QtGui.QTextEdit(self.page_2)
-        self.textEdit.setMaximumSize(QtCore.QSize(16777215, 110))
-        self.textEdit.setReadOnly(True)
-        self.textEdit.setObjectName(_fromUtf8("textEdit"))
-        self.horizontalLayout_6.addWidget(self.textEdit)
-        self.verticalLayout_6.addLayout(self.horizontalLayout_6)
-        spacerItem4 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_6.addItem(spacerItem4)
+        spacerItem3 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_6.addItem(spacerItem3)
         self.toolBox.addItem(self.page_2, _fromUtf8(""))
         self.verticalLayout_4.addWidget(self.toolBox)
         self.bottomFrame = QtGui.QFrame(self.splitter_2)
@@ -195,8 +188,8 @@ class Ui_MainWindow(object):
         self.show_only_lock_bins.setObjectName(_fromUtf8("show_only_lock_bins"))
         self.horizontalLayout_5.addWidget(self.show_only_lock_bins)
         self.horizontalLayout_4.addWidget(self.groupBox_2)
-        spacerItem5 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem5)
+        spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem4)
         self.advanced_table_checkBox = QtGui.QCheckBox(self.bottomFrame)
         self.advanced_table_checkBox.setEnabled(False)
         self.advanced_table_checkBox.setChecked(False)
@@ -361,17 +354,15 @@ class Ui_MainWindow(object):
         self.lambda_max_label.setText(_translate("MainWindow", "Lambda min", None))
         self.lambda_max_units.setText(_translate("MainWindow", "A", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page), _translate("MainWindow", "Bragg Edge Infos", None))
-        self.instructions_step1_button.setText(_translate("MainWindow", "Step1. Initialize All Parameters", None))
-        self.label_4.setText(_translate("MainWindow", "Explanations of step1", None))
-        self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.step1_step2_instructions_label.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'.SF NS Text\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- All Bins are automatically selected</p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">- USER selects Bragg Edge</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">- Program determines inital guess value of parameters and fits data using 1 global bin.</p></body></html>", None))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">step1 - makes all bins <span style=\" font-weight:600;\">active</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">step2 -<span style=\" font-weight:600;\"> </span>selects Bragg Edge peak</p></body></html>", None))
+        self.instructions_step1_button.setToolTip(_translate("MainWindow", "Program determines inital guess value of parameters and fits data using 1 global bin", None))
+        self.instructions_step1_button.setText(_translate("MainWindow", "Step3 - Initialize All Parameters", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_2), _translate("MainWindow", "Instructions", None))
         self.groupBox_2.setTitle(_translate("MainWindow", "Bins To Display", None))
         self.show_all_bins.setText(_translate("MainWindow", "Show All", None))
