@@ -103,9 +103,15 @@ class SelectedBinsHandler(object):
     
     def retrieve_list_bin_selected(self):
         list_bin_selected = []
+
+        if self.parent.fitting_ui.bragg_edge_active_button_status:
+            flag_name = 'active'
+        else:
+            flag_name = 'lock'
+
         table_dictionary = self.parent.table_dictionary
         for _index in table_dictionary:
-            if table_dictionary[_index]['active']:
+            if table_dictionary[_index][flag_name]:
                 list_bin_selected.append(_index)
 
         return list_bin_selected

@@ -198,7 +198,6 @@ class VariableTableHandler(object):
         self.parent.table_dictionary = table_dictionary
         self.parent.fitting_set_variables_ui.update_table()        
             
-            
     def fixed_selection(self):
         self.set_fixed_status_of_selection(state=True)
     
@@ -210,6 +209,7 @@ class VariableTableHandler(object):
         self.change_state_of_bins(name='active', state=True)
         self.update_fitting_ui(name='active')
         self.update_advanced_selection_ui(name='active')
+        self.parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()        
     
     def deactivate_selection(self):
@@ -217,6 +217,7 @@ class VariableTableHandler(object):
         self.change_state_of_bins(name='active', state=False)
         self.update_fitting_ui(name='active')
         self.update_advanced_selection_ui(name='active')
+        self.parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()        
             
     def lock_selection(self):
@@ -224,6 +225,7 @@ class VariableTableHandler(object):
         self.change_state_of_bins(name='lock', state=True)
         self.update_fitting_ui(name='lock')
         self.update_advanced_selection_ui(name='lock')
+        self.parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()        
     
     def unlock_selection(self):
@@ -231,6 +233,7 @@ class VariableTableHandler(object):
         self.change_state_of_bins(name='lock', state=False)
         self.update_fitting_ui(name='lock')
         self.update_advanced_selection_ui(name='lock')
+        self.parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()        
 
     def change_state_of_bins(self, name='lock', state=True):
@@ -263,6 +266,7 @@ class VariableTableHandler(object):
         o_filling_table = FillingTableHandler(parent = self.parent)
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
+        
         self.parent.fitting_ui.ui.value_table.blockSignals(False)        
     
     def update_advanced_selection_ui(self, name='active'):

@@ -47,6 +47,7 @@ class FittingWindow(QMainWindow):
     
     data = []
     there_is_a_roi = False
+    bragg_edge_active_button_status = True # to make sure active/lock button worked correctly
     
     list_bins_selected_item = []
     list_bins_locked_item = []
@@ -314,28 +315,28 @@ class FittingWindow(QMainWindow):
         buttons_layout = QtGui.QHBoxLayout()
         spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         buttons_layout.addItem(spacer)
-        label = QtGui.QLabel("Plots Bins")
+        label = QtGui.QLabel("Plot")
         label.setEnabled(False)
         buttons_layout.addWidget(label)
         
         # all bins button
-        all_button = QtGui.QRadioButton()
-        all_button.setText("All")
-        all_button.setChecked(True)
-        all_button.setEnabled(False)
-        all_button.pressed.connect(self.plots_bins_all_pressed)
-        self.all_bins_button = all_button
+        active_button = QtGui.QRadioButton()
+        active_button.setText("Active Bins")
+        active_button.setChecked(True)
+        #active_button.setEnabled(False)
+        active_button.pressed.connect(self.active_button_pressed)
+        self.ui.active_bins_button = active_button
         
         # indi bin button
-        buttons_layout.addWidget(all_button)
-        indi_button = QtGui.QRadioButton()
-        indi_button.setText("Individual")
-        indi_button.setChecked(False)
-        indi_button.setEnabled(False)
-        indi_button.pressed.connect(self.plots_bins_individual_pressed)
-        self.indi_bins_button = indi_button
+        buttons_layout.addWidget(active_button)
+        locked_button = QtGui.QRadioButton()
+        locked_button.setText("Locked Bins")
+        locked_button.setChecked(False)
+        #locked_button.setEnabled(False)
+        locked_button.pressed.connect(self.lock_button_pressed)
+        self.ui.locked_bins_button = locked_button
 
-        buttons_layout.addWidget(indi_button)
+        buttons_layout.addWidget(locked_button)
         bottom_widget = QtGui.QWidget()
         bottom_widget.setLayout(buttons_layout)
     
@@ -345,14 +346,16 @@ class FittingWindow(QMainWindow):
         vertical_layout.addWidget(area)
         self.ui.widget.setLayout(vertical_layout)        
         
+    def active_button_pressed(self):
+        self.bragg_edge_active_button_status = True
+        self.update_bragg_edge_plot()
+        
+    def lock_button_pressed(self):
+        self.bragg_edge_active_button_status = False
+        self.update_bragg_edge_plot()
+        
     def mouse_moved_in_image_view(self):
         self.image_view.setFocus(True)        
-        
-    def plots_bins_all_pressed(self):
-        print("all pressed")
-        
-    def plots_bins_individual_pressed(self):
-        print("indi pressed")
         
     def hkl_list_changed(self, hkl):
         bragg_edges_array = self.parent.selected_element_bragg_edges_array
@@ -492,11 +495,6 @@ class FittingWindow(QMainWindow):
                                                           nbr_row-1, right_column)
             self.ui.value_table.setRangeSelected(_selection, _is_selected)
 
-        #self.update_image_view_selection()
-        #self.update_image_view_lock()
-        #if self.parent.advanced_selection_ui:
-            #self.parent.advanced_selection_ui.update_selection_table()
-            #self.parent.advanced_selection_ui.update_lock_table()
         self.update_bragg_edge_plot()
         
     def selection_in_value_table_changed(self):

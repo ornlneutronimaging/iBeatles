@@ -159,6 +159,7 @@ class AdvancedSelectionWindow(QMainWindow):
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
         self.parent.fitting_ui.update_image_view_lock()
+        self.parent.fitting_ui.update_bragg_edge_plot()
         
         if self.parent.fitting_set_variables_ui:
             self.parent.fitting_set_variables_ui.update_table()
