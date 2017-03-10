@@ -40,6 +40,7 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
+            fitting_window.check_advanced_table_status()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -578,6 +579,10 @@ class FittingWindow(QMainWindow):
         list_selected = [left_index, right_index]
         self.parent.fitting_bragg_edge_linear_selection = list_selected
                 
+    def check_advanced_table_status(self):
+        button_status = self.ui.advanced_table_checkBox.isChecked()
+        self.advanced_table_clicked(button_status)
+        
     def advanced_table_clicked(self, status):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         o_table_handler = FillingTableHandler(parent=self.parent)
