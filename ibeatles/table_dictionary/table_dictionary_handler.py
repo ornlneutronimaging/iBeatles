@@ -26,6 +26,16 @@ class TableDictionaryHandler(object):
     def __init__(self, parent=None):
         self.parent = parent
         
+    def fill_table_with_variable(self, variable_name='d_spacing', value=np.NaN, list_keys=[], all_keys=False):
+        table_dictionary = self.parent.table_dictionary
+        if all_keys:
+            list_keys = table_dictionary.keys()
+            
+        for _key in list_keys:
+            table_dictionary[_key][variable_name]['val'] = value
+            
+        self.parent.table_dictionary = table_dictionary
+        
     def create_table_dictionary(self):
         '''
         this will define the corner position and index of each cell
