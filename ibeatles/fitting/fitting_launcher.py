@@ -24,6 +24,7 @@ from ibeatles.fitting.value_table_handler import ValueTableHandler
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting.fitting_initialization_handler import FittingInitializationHandler
 
 
 class FittingLauncher(object):
@@ -549,6 +550,7 @@ class FittingWindow(QMainWindow):
     def update_bragg_edge_plot(self):
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bragg_edge_plot()
+        self.bragg_edge_linear_region_changing()
 
     def selection_in_value_table_of_rows_cell_clicked(self, row, column):
         # make sure the selection is right (val and err selected at the same time)
@@ -571,11 +573,32 @@ class FittingWindow(QMainWindow):
     def selection_in_value_table_changed(self):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
         
+    def bragg_edge_linear_region_changing(self):
+        #current xaxis is
+        x_axis = self.parent.fitting_bragg_edge_x_axis
+        _lr = self.parent.fitting_lr
+        if _lr is None:
+            return
+        selection = list(_lr.getRegion())
+    
+        left_index = find_nearest_index(array = x_axis, value=selection[0])
+        right_index = find_nearest_index(array = x_axis, value=selection[1])
+    
+        # display lambda left and right
+        lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda'] * 1e10
+        _lambda_min = lambda_array[left_index]
+        _lambda_max = lambda_array[right_index]
+    
+        self.ui.lambda_min_lineEdit.setText("{:4.2f}".format(_lambda_min))
+        self.ui.lambda_max_lineEdit.setText("{:4.2f}".format(_lambda_max))
+
     def bragg_edge_linear_region_changed(self):
 
         #current xaxis is
         x_axis = self.parent.fitting_bragg_edge_x_axis
         _lr = self.parent.fitting_lr
+        if _lr is None:
+            return
         selection = list(_lr.getRegion())
     
         left_index = find_nearest_index(array = x_axis, value=selection[0])
@@ -583,7 +606,7 @@ class FittingWindow(QMainWindow):
     
         list_selected = [left_index, right_index]
         self.parent.fitting_bragg_edge_linear_selection = list_selected
-        
+                
     def advanced_table_clicked(self, status):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         o_table_handler = FillingTableHandler(parent=self.parent)
@@ -597,8 +620,23 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(False)        
 
     def initialize_all_parameters_button_clicked(self):
-        print("here")
+        o_initialization = FittingInitializationHandler(parent=self.parent)
+        o_initialization.run()
         
+    def min_or_max_lambda_manually_changed(self):
+        min_lambda = float(str(self.ui.lambda_min_lineEdit.text()))
+        max_lambda = float(str(self.ui.lambda_max_lineEdit.text()))
+        
+        lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda'] * 1e10
+        
+        left_index = find_nearest_index(array=lambda_array, value=min_lambda)
+        right_index = find_nearest_index(array=lambda_array, value=max_lambda)
+
+        self.parent.fitting_bragg_edge_linear_selection = [left_index, right_index]
+        
+        o_bin_handler = SelectedBinsHandler(parent = self.parent)
+        o_bin_handler.update_bragg_edge_plot()
+
     def closeEvent(self, event=None):
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.close()

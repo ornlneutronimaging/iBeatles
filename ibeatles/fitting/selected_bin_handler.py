@@ -175,6 +175,7 @@ class SelectedBinsHandler(object):
                                      bounds=None)
             lr.setZValue(-10)            
             lr.sigRegionChangeFinished.connect(self.fitting_ui.bragg_edge_linear_region_changed)
+            lr.sigRegionChanged.connect(self.fitting_ui.bragg_edge_linear_region_changing)
             self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
             self.parent.fitting_lr = lr
 
@@ -183,5 +184,3 @@ class SelectedBinsHandler(object):
             lr.setRegion(linear_region_range)
             self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
             
-
-        
