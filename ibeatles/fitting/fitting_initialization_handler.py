@@ -4,6 +4,8 @@ from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHa
 
 
 class FittingInitializationHandler(object):
+
+    all_variables_initialized = True
     
     def __init__(self, parent=None):
         self.parent = parent
@@ -12,31 +14,40 @@ class FittingInitializationHandler(object):
         self.retrieve_parameters_and_update_table()
         self.parent.fitting_ui.update_table()
         
-        
     def retrieve_parameters_and_update_table(self):
         table_handler = TableDictionaryHandler(parent=self.parent)
 
         d_spacing = self.get_d_spacing()
+        if np.isnan(d_spacing):
+            self.all_variables_initialized = False
         table_handler.fill_table_with_variable(variable_name = 'd_spacing',
                                                value = d_spacing,
                                                all_keys = True)
 
         sigma = self.get_sigma()
+        if np.isnan(sigma):
+            self.all_variables_initialized = False
         table_handler.fill_table_with_variable(variable_name = 'sigma',
                                                value = sigma,
                                                all_keys = True)
         
         alpha = self.get_alpha()
+        if np.isnan(alpha):
+            self.all_variables_initialized = False
         table_handler.fill_table_with_variable(variable_name = 'alpha',
                                                value = alpha,
                                                all_keys = True)
         
         a1 = self.get_a1()
+        if np.isnan(a1):
+            self.all_variables_initialized = False
         table_handler.fill_table_with_variable(variable_name = 'a1',
                                                value = a1,
                                                all_keys = True)
         
         a2 = self.get_a2()
+        if np.isnan(a2):
+            self.all_variables_initialized = False
         table_handler.fill_table_with_variable(variable_name = 'a2',
                                                value = a2,
                                                all_keys = True)

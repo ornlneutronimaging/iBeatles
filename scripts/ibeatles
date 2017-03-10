@@ -75,6 +75,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
     # fitting window stuff
     fitting_ui = None
+    fitting_story_ui = None
     advanced_selection_ui = None
     fitting_set_variables_ui = None
     fitting_selection = {'nbr_column': -1,
@@ -85,6 +86,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     # table dictionary used in fitting/binning/advanced_selection/review
     table_dictionary = {}    
+    table_fitting_story_dictionary = {}
     
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}

@@ -25,7 +25,7 @@ from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.fitting_initialization_handler import FittingInitializationHandler
-
+from ibeatles.fitting.create_fitting_story_launcher import CreateFittingStoryLauncher
 
 class FittingLauncher(object):
     
@@ -594,12 +594,6 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)        
-
-    def initialize_all_parameters_button_clicked(self):
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        o_initialization = FittingInitializationHandler(parent=self.parent)
-        o_initialization.run()
-        QApplication.restoreOverrideCursor()
         
     def min_or_max_lambda_manually_changed(self):
         min_lambda = float(str(self.ui.lambda_min_lineEdit.text()))
@@ -614,6 +608,23 @@ class FittingWindow(QMainWindow):
         
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bragg_edge_plot()
+
+    def initialize_all_parameters_button_clicked(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+
+        o_initialization = FittingInitializationHandler(parent=self.parent)
+        o_initialization.run()
+        
+        # activate or not step4 (yes if we were able to initialize correctly all variables)
+        self.ui.step4_groupBox.setEnabled(o_initialization.all_variables_initialized)
+            
+        QApplication.restoreOverrideCursor()
+        
+    def fit_table_active_cell_checked(self):
+        pass
+    
+    def create_fitting_story_checked(self):
+        o_story = CreateFittingStoryLauncher(parent=self.parent)
 
     def closeEvent(self, event=None):
         if self.parent.advanced_selection_ui:

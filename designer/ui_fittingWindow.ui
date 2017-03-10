@@ -73,7 +73,7 @@
          <item>
           <widget class="QToolBox" name="toolBox">
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page">
             <property name="geometry">
@@ -273,7 +273,7 @@
              </rect>
             </property>
             <attribute name="label">
-             <string>Instructions</string>
+             <string>Fitting Instructions</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_6">
              <item>
@@ -316,8 +316,47 @@ p, li { white-space: pre-wrap; }
                 <string>Program determines inital guess value of parameters and fits data using 1 global bin</string>
                </property>
                <property name="text">
-                <string>Step3 - Initialize All Parameters</string>
+                <string>step3 - Initialize All Parameters</string>
                </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="step4_groupBox">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="title">
+                <string>step4</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QPushButton" name="fit_table_active_cell_button">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="text">
+                   <string>Fit Table Active Cell</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>or</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="create_fitting_story_button">
+                  <property name="text">
+                   <string>Create Fitting Story ...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
@@ -923,6 +962,38 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>fit_table_active_cell_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fit_table_active_cell_checked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1112</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1210</x>
+     <y>350</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>create_fitting_story_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>create_fitting_story_checked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1087</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1210</x>
+     <y>410</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -984,5 +1055,7 @@ p, li { white-space: pre-wrap; }
   <slot>update_table()</slot>
   <slot>initialize_all_parameters_button_clicked()</slot>
   <slot>min_or_max_lambda_manually_changed()</slot>
+  <slot>fit_table_active_cell_checked()</slot>
+  <slot>create_fitting_story_checked()</slot>
  </slots>
 </ui>
