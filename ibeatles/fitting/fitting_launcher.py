@@ -596,8 +596,10 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(False)        
 
     def initialize_all_parameters_button_clicked(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         o_initialization = FittingInitializationHandler(parent=self.parent)
         o_initialization.run()
+        QApplication.restoreOverrideCursor()
         
     def min_or_max_lambda_manually_changed(self):
         min_lambda = float(str(self.ui.lambda_min_lineEdit.text()))
