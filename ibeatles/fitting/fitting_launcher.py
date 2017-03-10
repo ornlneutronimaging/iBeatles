@@ -232,37 +232,8 @@ class FittingWindow(QMainWindow):
         else:
             status = False
 
-        self.ui.instructions_step1_button.setEnabled(status)
-        
-         
-#        self.installEventFilter(self)
-        
-    #def eventFilter(self, obj, event):
-        #if event.type() == QtCore.QEvent.WindowActivate:
-            #self.update_ui()
-            #return True
-        #return False
-
-    #def update_ui(self):
-        
-        #if self.parent.binning_line_view['pos'] is None:
-            #return
-        
-        #o_table = TableDictionaryHandler(parent=self.parent)
-        #o_table.create_table_dictionary()
-        
-        #o_fitting = FillingTableHandler(parent=self.parent)
-        #o_fitting.fill_table()
-        
-        #self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)       
-        #o_hanlder = FittingHandler(parent=self.parent)
-        #o_hanlder.display_roi()
-
-        #self.show_all_widgets()
-        
-    #def show_all_widgets(self):
-        #self.ui.area.setVisible(True)
-        
+        self.ui.instructions_step1_button.setEnabled(status)      
+       
     def init_labels(self):
         self.ui.lambda_min_label.setText(u"\u03BB<sub>min</sub>")
         self.ui.lambda_max_label.setText(u"\u03BB<sub>max</sub>")
