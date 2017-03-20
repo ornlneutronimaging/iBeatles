@@ -14,7 +14,7 @@
    <string>Fitting Story</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
@@ -26,46 +26,108 @@
      </widget>
     </item>
     <item>
-     <widget class="QTableWidget" name="story_table">
-      <property name="selectionMode">
-       <enum>QAbstractItemView::NoSelection</enum>
-      </property>
-      <column>
-       <property name="text">
-        <string>D_spacing</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Sigma</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Alpha</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>A1</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>A2</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>A5</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>A6</string>
-       </property>
-      </column>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QTableWidget" name="story_table">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::SingleSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectRows</enum>
+        </property>
+        <column>
+         <property name="text">
+          <string>D_spacing</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Sigma</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Alpha</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>A1</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>A2</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>A5</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>A6</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="up_button">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="down_button">
+          <property name="minimumSize">
+           <size>
+            <width>20</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -175,5 +237,93 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>add_row_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>add_row_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>38</x>
+     <y>410</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>64</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>remove_row_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>remove_row_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>401</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>95</x>
+     <y>442</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>start_fits_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>start_fitting_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>815</x>
+     <y>408</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>818</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>up_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>move_row_up_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>830</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>830</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>down_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>move_row_down_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>851</x>
+     <y>267</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>852</x>
+     <y>326</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>add_row_button_clicked()</slot>
+  <slot>remove_row_button_clicked()</slot>
+  <slot>start_fitting_button_clicked()</slot>
+  <slot>move_row_up_clicked()</slot>
+  <slot>move_row_down_clicked()</slot>
+ </slots>
 </ui>

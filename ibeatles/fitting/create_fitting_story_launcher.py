@@ -49,7 +49,18 @@ class FittingStoryWindow(QMainWindow):
         QMainWindow.__init__(self, parent=parent)
         self.ui= UiMainWindow()
         self.ui.setupUi(self)
+        
+        self.init_widgets()
         self.fill_table()
+        
+    def init_widgets(self):
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/MPL Toolbar/up_arrow.png/"))
+        self.ui.up_button.setIcon(QtGui.QIcon(icon))
+
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/MPL Toolbar/down_arrow.png/"))
+        self.ui.down_button.setIcon(QtGui.QIcon(icon))
         
     def clear_table(self):
         nbr_row = self.ui.story_table.rowCount()
@@ -109,4 +120,10 @@ class FittingStoryWindow(QMainWindow):
         pass
     
     def start_fitting_button_clicked(self):
+        pass
+
+    def move_row_up_clicked(self):
+        pass
+    
+    def move_row_down_clicked(self):
         pass
