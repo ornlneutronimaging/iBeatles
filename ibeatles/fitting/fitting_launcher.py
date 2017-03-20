@@ -111,6 +111,16 @@ class FittingWindow(QMainWindow):
 
     # status of alpha and sigma initialization
     sigma_alpha_initialized = False
+    initialization_table = {'d_spacing': np.NaN,
+                            'alpha': np.NaN,
+                            'sigma': np.NaN,
+                            'a1': np.NaN,
+                            'a2': np.NaN,
+                            'a5': np.NaN,
+                            'a6': np.NaN}
+    
+    bragg_edge_data = {'x_axis': [],
+                       'y_axis': []}
 
     def __init__(self, parent=None):
         
@@ -198,11 +208,11 @@ class FittingWindow(QMainWindow):
                                                                not col_already_selected)
 
     def resizing_header_table(self, index_column, old_size, new_size):
-        if index_column < 3:
+        if index_column < 5:
             self.ui.value_table.setColumnWidth(index_column, new_size)
         else:
             new_half_size = np.int(new_size/2)
-            index1 = (index_column - 3) * 2 + 3
+            index1 = (index_column - 5) * 2 + 5
             index2 = index1+1
             self.ui.value_table.setColumnWidth(index1, new_half_size)
             self.ui.value_table.setColumnWidth(index2, new_half_size)
@@ -213,12 +223,12 @@ class FittingWindow(QMainWindow):
         else:
             if (index_column % 2) == 1:
                 right_new_size = self.ui.value_table.columnWidth(index_column + 1)
-                index_header = np.int(index_column - 3) / 2 + 3
+                index_header = np.int(index_column - 5) / 2 + 5
                 self.ui.header_table.setColumnWidth(index_header, new_size + right_new_size)
                 
             else:
                 left_new_size = self.ui.value_table.columnWidth(index_column - 1)
-                index_header = np.int(index_column - 4) / 2 + 3
+                index_header = np.int(index_column - 6) / 2 + 5
                 self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
         
     def init_widgets(self):

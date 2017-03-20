@@ -46,20 +46,27 @@ class InitializeWindow(QMainWindow):
         self.close()
 
     def variable_correctly_initialized(self):
-        _alpha = str(self.ui.sigma_lineEdit.text())
-        _sigma = str(self.ui.alpha_lineEdit.text())
+        _alpha = str(self.ui.alpha_lineEdit.text())
+        _sigma = str(self.ui.sigma_lineEdit.text())
         
         _sigma_status = True
         try:
-            _float_alpha = np.float(_alpha)
+            _sigma = np.float(_sigma)
         except:
+            _sigma = np.NaN
             _sigma_status = False
             
         _alpha_status = True
         try:
-            _float_sigma = np.float(_sigma)
+            _alpha = np.float(_alpha)
         except:
+            _alpha = np.NaN
             _alpha_status = False
+        
+        initialization_table = self.parent.fitting_ui.initialization_table
+        initialization_table['sigma'] = _sigma
+        initialization_table['alpha'] = _alpha
+        self.parent.fitting_ui.initialization_table = initialization_table
         
         self.ui.sigma_error.setVisible(not _sigma_status)
         self.ui.alpha_error.setVisible(not _alpha_status)

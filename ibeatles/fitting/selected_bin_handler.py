@@ -128,7 +128,7 @@ class SelectedBinsHandler(object):
         data_2d = np.array(self.parent.data_metadata['normalized']['data'])
 
         # isolate data selected    data[x0:x1, y0:y1] for each bin selected
-        bragg_edget_data = []
+        bragg_edge_data = []
         for _bin_selected in list_bin_selected:
             _entry = table_dictionary[str(_bin_selected)]['bin_coordinates']
             x0 = _entry['x0']
@@ -138,13 +138,18 @@ class SelectedBinsHandler(object):
             _data = data_2d[:, x0:x1, y0:y1]
             inter1 = np.sum(_data, axis=1)
             final = np.sum(inter1, axis=1)
-            if bragg_edget_data == []:
-                bragg_edget_data = final
+            if bragg_edge_data == []:
+                bragg_edge_data = final
             else:
-                bragg_edget_data += final
-
+                bragg_edge_data += final
+                
         x_axis = self.parent.fitting_bragg_edge_x_axis 
-        self.parent.fitting_ui.bragg_edge_plot.plot(x_axis, bragg_edget_data)
+        
+        # save x and y-axis of bragg edge plot for initialization of a1, a2, a5 and a6
+        self.parent.fitting_ui.bragg_edge_data['x_axis'] = x_axis
+        self.parent.fitting_ui.bragg_edge_data['y_axis'] = bragg_edge_data
+        
+        self.parent.fitting_ui.bragg_edge_plot.plot(x_axis, bragg_edge_data)
         if self.parent.xaxis_button_ui['normalized']['file_index'].isChecked():
             self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", "File Index")
         elif self.parent.xaxis_button_ui['normalized']['tof'].isChecked():
