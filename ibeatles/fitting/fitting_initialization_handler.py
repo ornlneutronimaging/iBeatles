@@ -22,7 +22,9 @@ class FittingInitializationHandler(object):
                                       },
                        'right_range': {'x_axis': [],
                                        'y_axis': [],
-                                       }
+                                       },
+                       'inflection': {'x': np.NaN,
+                                      'y': np.NaN},
                        }
     
     a1 = np.NaN   #only used when using basic mode to calculate a2
@@ -39,10 +41,10 @@ class FittingInitializationHandler(object):
         self.parent.fitting_ui.update_bragg_edge_plot()
         
     def run(self):
-        self.advanced_mode = self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
         o_init_sigma_alpha = InitializationSigmaAlpha(parent=self.parent)
         
     def finished_up_initialization(self):
+        self.advanced_mode = self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
         if self.parent.fitting_ui.sigma_alpha_initialized:
             QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
             self.retrieve_parameters_and_update_table()
@@ -77,24 +79,18 @@ class FittingInitializationHandler(object):
         
         # this function will allow to retrieve parameters that will be used by a1, a2, a5 and a6 
         self.isolate_left_and_right_part_of_inflection_point()
-        
-        a1 = self.get_a1()
-        if np.isnan(a1):
-            self.all_variables_initialized = False
-        initialization_table['a1'] = a1
-        table_handler.fill_table_with_variable(variable_name = 'a1',
-                                               value = a1,
-                                               all_keys = True)
-        
-        a2 = self.get_a2()
-        if np.isnan(a2):
-            self.all_variables_initialized = False
-        initialization_table['a2'] = a2
-        table_handler.fill_table_with_variable(variable_name = 'a2',
-                                               value = a2,
-                                               all_keys = True)
-        
+
         if self.advanced_mode:
+
+            print("in advanced_mode")
+
+            a2 = self.get_a2()
+            if np.isnan(a2):
+                self.all_variables_initialized = False
+            initialization_table['a2'] = a2
+            table_handler.fill_table_with_variable(variable_name = 'a2',
+                                                   value = a2,
+                                                   all_keys = True)
             
             a5 = self.get_a5()
             if np.isnan(a5):
@@ -111,6 +107,34 @@ class FittingInitializationHandler(object):
             table_handler.fill_table_with_variable(variable_name = 'a6',
                                                    value = a6,
                                                    all_keys = True)            
+
+
+            a1 = self.get_a1()
+            if np.isnan(a1):
+                self.all_variables_initialized = False
+            initialization_table['a1'] = a1
+            table_handler.fill_table_with_variable(variable_name = 'a1',
+                                                   value = a1,
+                                                   all_keys = True)
+
+        else: # basic mode
+            
+            a1 = self.get_a1()
+            if np.isnan(a1):
+                self.all_variables_initialized = False
+            initialization_table['a1'] = a1
+            table_handler.fill_table_with_variable(variable_name = 'a1',
+                                                   value = a1,
+                                                   all_keys = True)
+            
+            a2 = self.get_a2()
+            if np.isnan(a2):
+                self.all_variables_initialized = False
+            initialization_table['a2'] = a2
+            table_handler.fill_table_with_variable(variable_name = 'a2',
+                                                   value = a2,
+                                                   all_keys = True)
+        
         
         self.parent.fitting_ui.initialization_table = initialization_table
         
@@ -135,37 +159,76 @@ class FittingInitializationHandler(object):
         inflection_point_index = np.mean([left_index, right_index])
         self.selection_range['left_range']['y_axis'] = full_y_axis[left_index: inflection_point_index]
         self.selection_range['left_range']['x_axis'] = full_x_axis[left_index: inflection_point_index]
-        self.selection_range['right_range']['y_axis'] = full_y_axis[inflection_point_index: -1]
-        self.selection_range['right_range']['y_axis'] = full_y_axis[inflection_point_index: -1]
+        self.selection_range['right_range']['y_axis'] = full_y_axis[inflection_point_index: ]
+        self.selection_range['right_range']['x_axis'] = full_x_axis[inflection_point_index: ]
+        self.selection_range['inflection']['y'] = full_y_axis[inflection_point_index]
+        self.selection_range['inflection']['x'] = full_x_axis[inflection_point_index]
         
     def get_a1(self):
         if self.advanced_mode:
-            return np.NaN
+            intercept = self.a2_intercept
+            a2 = self.a2
+            a6 = self.a6
+            return intercept + a2 * a6
         else:
             left_range = self.selection_range['left_range']['y_axis']
             nbr_data = len(left_range)
-            nbr_data_to_remove = (self.percentage_of_data_to_remove_on_side/100.)*nbr_data
+            nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side/100.)*nbr_data)
             a1 = np.mean(left_range[0: -nbr_data_to_remove])
             self.a1 = a1
             return a1
     
     def get_a2(self):
         if self.advanced_mode:
-            return np.NaN
+            x_axis = self.selection_range['left_range']['x_axis']
+            y_axis = self.selection_range['left_range']['y_axis']
+            
+            nbr_data = len(x_axis)
+            nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side/100.)*nbr_data)
+            
+            x_axis_to_use = x_axis[0: nbr_data_to_remove]
+            y_axis_to_use = y_axis[0: nbr_data_to_remove]
+            
+            [slope, interception] = np.polyfit(x_axis_to_use, y_axis_to_use, 1)
+            self.a2 = slope # saving it to calculate a6
+            self.a2_intercept = interception # saving it to calculate a1
+            return slope
+
         else:
             _mean_left_side = self.a1
             right_range = self.selection_range['right_range']['y_axis']
             nbr_data = len(right_range)
-            nbr_data_to_remove = (self.percentage_of_data_to_remove_on_side/100.)*nbr_data
+            nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side/100.)*nbr_data)
             _mean_right_side = np.mean(right_range[nbr_data_to_remove:])
             a2 = np.abs(_mean_right_side - _mean_left_side)
             return a2
         
     def get_a5(self):
-        return np.NaN
+        x_axis = self.selection_range['right_range']['x_axis']
+        y_axis = self.selection_range['right_range']['y_axis']
+    
+        nbr_data = len(x_axis)
+        nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side/100.)*nbr_data)
+    
+        print("nbr_data_to_remove: {}".format(nbr_data_to_remove))
+        print("len(x_axis): {}".format(len(x_axis)))
+    
+        x_axis_to_use = x_axis[nbr_data_to_remove:]
+        y_axis_to_use = y_axis[nbr_data_to_remove:]
+    
+        [slope, interception] = np.polyfit(x_axis_to_use, y_axis_to_use, 1)
+        self.a5 = slope # saving it to calculate a6
+        return slope
     
     def get_a6(self):
-        return np.NaN
+        '''see docs folder for full description of formula used to get a6'''
+
+        intensity = self.selection_range['inflection']['y']
+        x_edge = self.selection_range['inflection']['x']
+        
+        a6 = x_edge - (2. * intensity) / (self.a5 - self.a2)
+        self.a6 = a6 # saving it to caculate a1
+        return a6
 
     def get_sigma(self):
         sigma = self.parent.fitting_ui.initialization_table['sigma']

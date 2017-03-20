@@ -202,7 +202,7 @@ class Ui_MainWindow(object):
         spacerItem4 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem4)
         self.advanced_table_checkBox = QtGui.QCheckBox(self.bottomFrame)
-        self.advanced_table_checkBox.setEnabled(False)
+        self.advanced_table_checkBox.setEnabled(True)
         self.advanced_table_checkBox.setChecked(False)
         self.advanced_table_checkBox.setObjectName(_fromUtf8("advanced_table_checkBox"))
         self.horizontalLayout_4.addWidget(self.advanced_table_checkBox)
