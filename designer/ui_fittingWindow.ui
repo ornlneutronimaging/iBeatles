@@ -323,7 +323,7 @@ p, li { white-space: pre-wrap; }
              <item>
               <widget class="QGroupBox" name="step4_groupBox">
                <property name="enabled">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
                <property name="title">
                 <string>step4</string>
@@ -332,7 +332,7 @@ p, li { white-space: pre-wrap; }
                 <item>
                  <widget class="QPushButton" name="fit_table_active_cell_button">
                   <property name="enabled">
-                   <bool>true</bool>
+                   <bool>false</bool>
                   </property>
                   <property name="text">
                    <string>Fit Table Active Cell</string>

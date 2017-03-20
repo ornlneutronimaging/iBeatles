@@ -109,6 +109,9 @@ class FittingWindow(QMainWindow):
                                    np.int(header_table_columns_width[12]/2),
                                    np.int(header_table_columns_width[12]/2)]
 
+    # status of alpha and sigma initialization
+    sigma_alpha_initialized = False
+
     def __init__(self, parent=None):
         
         self.parent = parent
@@ -610,15 +613,16 @@ class FittingWindow(QMainWindow):
         o_bin_handler.update_bragg_edge_plot()
 
     def initialize_all_parameters_button_clicked(self):
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
         o_initialization = FittingInitializationHandler(parent=self.parent)
+        o_initialization.make_all_active()
         o_initialization.run()
+
+    def initialize_all_parameters_step2(self):
+        o_initialization = FittingInitializationHandler(parent=self.parent)
+        o_initialization.finished_up_initialization()
         
         # activate or not step4 (yes if we were able to initialize correctly all variables)
         self.ui.step4_groupBox.setEnabled(o_initialization.all_variables_initialized)
-            
-        QApplication.restoreOverrideCursor()
         
     def fit_table_active_cell_checked(self):
         pass

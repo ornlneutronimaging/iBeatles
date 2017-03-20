@@ -1,6 +1,16 @@
+try:
+    import PyQt4
+    import PyQt4.QtCore as QtCore
+    from PyQt4.QtGui import QApplication         
+except:
+    import PyQt5
+    import PyQt5.QtCore as QtCore
+    from PyQt5.QtWidgets import QApplication
+
 import numpy as np
 
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from ibeatles.fitting.initialization_sigma_alpha import InitializationSigmaAlpha
 
 
 class FittingInitializationHandler(object):
@@ -10,9 +20,22 @@ class FittingInitializationHandler(object):
     def __init__(self, parent=None):
         self.parent = parent
         
-    def run(self):
-        self.retrieve_parameters_and_update_table()
+    def make_all_active(self):
+        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table.full_table_selection_tool(status=True)
         self.parent.fitting_ui.update_table()
+        self.parent.fitting_ui.update_bragg_edge_plot()
+        
+    def run(self):
+        self.advanced_mode = self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
+        o_init_sigma_alpha = InitializationSigmaAlpha(parent=self.parent)
+        
+    def finished_up_initialization(self):
+        if self.parent.fitting_ui.sigma_alpha_initialized:
+            QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+            self.retrieve_parameters_and_update_table()
+            self.parent.fitting_ui.update_table()
+            QApplication.restoreOverrideCursor()
         
     def retrieve_parameters_and_update_table(self):
         table_handler = TableDictionaryHandler(parent=self.parent)
