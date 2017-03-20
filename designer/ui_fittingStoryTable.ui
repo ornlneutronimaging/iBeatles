@@ -18,7 +18,7 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>Fix Status of Variables</string>
+       <string>Check Variables to Fit</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -30,11 +30,6 @@
       <property name="selectionMode">
        <enum>QAbstractItemView::NoSelection</enum>
       </property>
-      <column>
-       <property name="text">
-        <string>Iteration #</string>
-       </property>
-      </column>
       <column>
        <property name="text">
         <string>D_spacing</string>
@@ -78,7 +73,7 @@
        <enum>QLayout::SetMinimumSize</enum>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="add_row_button">
         <property name="minimumSize">
          <size>
           <width>40</width>
@@ -102,7 +97,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="remove_row_button">
         <property name="minimumSize">
          <size>
           <width>40</width>
@@ -139,7 +134,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="start_fits_button">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
           <horstretch>0</horstretch>
