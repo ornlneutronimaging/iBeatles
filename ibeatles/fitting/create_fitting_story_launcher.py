@@ -15,6 +15,7 @@ import numpy as np
 
 from ibeatles.interfaces.ui_fittingStoryTable import Ui_MainWindow as UiMainWindow
 from ibeatles.table_dictionary.table_fitting_story_dictionary_handler import TableFittingStoryDictionaryHandler
+from ibeatles.fitting.fitting_job_handler import FittingJobHandler
 from ibeatles.utilities.status import Status
 
 
@@ -43,7 +44,7 @@ class FittingStoryWindow(QMainWindow):
                        'a5',
                        'a6',
                        ]
-    
+
     def __init__(self, parent=None):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
@@ -51,10 +52,18 @@ class FittingStoryWindow(QMainWindow):
         self.ui.setupUi(self)
         
         self.init_widgets()
+        self.init_statusbar()
         self.initialize_table()
         self.fill_table()
         self.select_row(row=0)
         self.check_status_buttons(row=0)
+  
+    def init_statusbar(self):
+        self.eventProgress = QtGui.QProgressBar(self.ui.statusbar)
+        self.eventProgress.setMinimumSize(20, 14)
+        self.eventProgress.setMaximumSize(540, 100)
+        self.eventProgress.setVisible(True)
+        self.ui.statusbar.addPermanentWidget(self.eventProgress)
         
     def init_widgets(self):
         icon = QtGui.QIcon()
@@ -88,6 +97,13 @@ class FittingStoryWindow(QMainWindow):
         table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
         
         story_table = self.ui.story_table
+
+        if self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked():
+            story_table.showColumn(5)
+            story_table.showColumn(6)
+        else:        
+            story_table.hideColumn(5)
+            story_table.hideColumn(6)
         
         self.clear_table()
         for _index in table_fitting_story_dictionary.keys():
@@ -188,7 +204,8 @@ class FittingStoryWindow(QMainWindow):
         self.check_status_add_remove_buttons()
     
     def start_fitting_button_clicked(self):
-        pass
+        o_fitting = FittingJobHandler(parent=self.parent)
+        o_fitting.run_story()
 
     def _move_row_clicked(self, direction='up'):
         selection = self.ui.story_table.selectedRanges()[0]
