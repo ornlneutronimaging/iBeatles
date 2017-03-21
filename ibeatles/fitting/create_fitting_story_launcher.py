@@ -149,8 +149,12 @@ class FittingStoryWindow(QMainWindow):
         return _new_widget
         
     def add_row_button_clicked(self):
-        selection = self.ui.story_table.selectedRanges()[0]
-        row = selection.topRow()
+        list_selection = self.ui.story_table.selectedRanges()
+        if len(list_selection) > 0:
+            selection = self.ui.story_table.selectedRanges()[0]
+            row = selection.topRow()
+        else:
+            row = -1
 
         o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent)
         o_table_handler.add_entry(index_to_add=row+1)

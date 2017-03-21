@@ -92,15 +92,26 @@ class TableFittingStoryDictionaryHandler(object):
         nbr_entry = len(table_fitting_story_dictionary)
 
         new_table_fitting_story_dictionary = {}
-        new_index = 0
-        for _index in table_fitting_story_dictionary.keys():
-            
-            if _index == index_to_add:
-                new_table_fitting_story_dictionary[new_index] = self.init_entry
-                new_index += 1
-                
-            new_table_fitting_story_dictionary[new_index] = table_fitting_story_dictionary[_index]
-            new_index += 1
+        if table_fitting_story_dictionary == {}:
+            new_table_fitting_story_dictionary[0] = self.init_entry
         
+        else:
+
+            new_index = 0
+            if index_to_add == nbr_entry: #if new row is at the last row
+                new_table_fitting_story_dictionary = table_fitting_story_dictionary
+                new_table_fitting_story_dictionary[index_to_add] = self.init_entry
+                
+            else: #for all other rows
+                for _index in table_fitting_story_dictionary.keys():
+                    
+                    if _index == index_to_add:
+                        new_table_fitting_story_dictionary[new_index] = self.init_entry
+                        new_index += 1
+                        
+                    new_table_fitting_story_dictionary[new_index] = table_fitting_story_dictionary[_index]
+                    new_index += 1
+        
+        print(new_table_fitting_story_dictionary)
         self.parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary
         
