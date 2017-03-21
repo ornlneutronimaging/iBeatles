@@ -293,7 +293,7 @@
    <slot>move_row_up_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>830</x>
+     <x>863</x>
      <y>76</y>
     </hint>
     <hint type="destinationlabel">
@@ -318,6 +318,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>story_table</sender>
+   <signal>cellClicked(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>cell_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>140</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>407</x>
+     <y>364</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>add_row_button_clicked()</slot>
@@ -325,5 +341,6 @@
   <slot>start_fitting_button_clicked()</slot>
   <slot>move_row_up_clicked()</slot>
   <slot>move_row_down_clicked()</slot>
+  <slot>cell_clicked()</slot>
  </slots>
 </ui>

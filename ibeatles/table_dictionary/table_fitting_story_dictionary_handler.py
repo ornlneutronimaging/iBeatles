@@ -45,4 +45,7 @@ class TableFittingStoryDictionaryHandler(object):
         
         self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
+    def move_entry(self, direction='up'):
+
+        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
    

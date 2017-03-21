@@ -57,10 +57,12 @@ class FittingStoryWindow(QMainWindow):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/MPL Toolbar/up_arrow.png/"))
         self.ui.up_button.setIcon(QtGui.QIcon(icon))
+        self.ui.up_button.setEnabled(False)
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/MPL Toolbar/down_arrow.png/"))
         self.ui.down_button.setIcon(QtGui.QIcon(icon))
+        self.ui.down_button.setEnabled(False)
         
     def clear_table(self):
         nbr_row = self.ui.story_table.rowCount()
@@ -123,7 +125,30 @@ class FittingStoryWindow(QMainWindow):
         pass
 
     def move_row_up_clicked(self):
-        pass
+        selection = self.ui.story_table.selectedRanges()[0]
+        row = selection.topRow()
     
     def move_row_down_clicked(self):
-        pass
+        selection = self.ui.story_table.selectedRanges()[0]
+        row = selection.topRow()
+
+    def cell_clicked(self, row, column):
+        self.check_status_arrow_buttons(row=row)
+        
+    def check_status_arrow_buttons(self, row=0):
+        '''
+        check the enabled status of the arrow buttons according to row clicked
+        '''
+        nbr_row = self.ui.story_table.rowCount()
+
+        up_status = True
+        down_status = True
+
+        if row == (nbr_row-1): # we clicked the last row, disable move down
+            down_status = False
+            
+        elif row == 0 : # we can't move up this row
+            up_status = False
+            
+        self.ui.down_button.setEnabled(down_status)
+        self.ui.up_button.setEnabled(up_status)
