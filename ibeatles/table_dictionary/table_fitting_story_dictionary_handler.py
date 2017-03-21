@@ -45,7 +45,20 @@ class TableFittingStoryDictionaryHandler(object):
         
         self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
-    def move_entry(self, direction='up'):
+    def move_entry(self, current_index_row=0, direction='up'):
 
         table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
-   
+        
+        if direction == 'up':
+            new_index_row = current_index_row - 1
+        else:
+            new_index_row = current_index_row + 1
+            
+        tmp_entry = table_fitting_story_dictionary[new_index_row]
+        table_fitting_story_dictionary[new_index_row] = table_fitting_story_dictionary[current_index_row]
+        table_fitting_story_dictionary[current_index_row] = tmp_entry
+        
+        self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
+           
+       
+       

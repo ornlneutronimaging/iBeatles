@@ -124,13 +124,40 @@ class FittingStoryWindow(QMainWindow):
     def start_fitting_button_clicked(self):
         pass
 
-    def move_row_up_clicked(self):
+    def _move_row_clicked(self, direction='up'):
         selection = self.ui.story_table.selectedRanges()[0]
         row = selection.topRow()
     
+        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table_handler.move_entry(current_index_row=row, direction=direction)
+
+        self.fill_table()
+
+        # make selection follows new position of row
+        if direction == 'up':
+            new_row = row - 1
+        else:
+            new_row = row + 1
+        self.select_row(row=new_row)
+        
+        self.check_status_arrow_buttons(row=new_row)
+
+    def deselect_row(self, row=0):
+        self.select_row_status(row=row, status=False)
+
+    def select_row(self, row=0):
+        self.select_row_status(row=row, status=True)
+
+    def select_row_status(self, row=0, status=False):
+        nbr_column=self.ui.story_table.columnCount()
+        _selection = QtGui.QTableWidgetSelectionRange(row, 0, row, nbr_column-1)
+        self.ui.story_table.setRangeSelected(_selection, status)
+
+    def move_row_up_clicked(self):
+        self._move_row_clicked(direction='up')
+    
     def move_row_down_clicked(self):
-        selection = self.ui.story_table.selectedRanges()[0]
-        row = selection.topRow()
+        self._move_row_clicked(direction='down')
 
     def cell_clicked(self, row, column):
         self.check_status_arrow_buttons(row=row)
