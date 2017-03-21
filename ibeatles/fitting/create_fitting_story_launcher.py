@@ -51,7 +51,10 @@ class FittingStoryWindow(QMainWindow):
         self.ui.setupUi(self)
         
         self.init_widgets()
+        self.initialize_table()
         self.fill_table()
+        self.select_row(row=0)
+        self.check_status_buttons(row=0)
         
     def init_widgets(self):
         icon = QtGui.QIcon()
@@ -69,11 +72,19 @@ class FittingStoryWindow(QMainWindow):
         for _row in np.arange(nbr_row):
             self.ui.story_table.removeRow(0)
         
-    def fill_table(self):
+    def initialize_table(self):
         if self.parent.table_fitting_story_dictionary == {}:
             o_table = TableFittingStoryDictionaryHandler(parent=self.parent)
             o_table.initialize_table()
-            
+        
+    def reset_table(self):
+        o_table = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table.initialize_table()
+        self.fill_table()
+        self.select_row(row=0)
+        self.check_status_buttons(row=0)
+        
+    def fill_table(self):
         table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
         
         story_table = self.ui.story_table
@@ -119,7 +130,27 @@ class FittingStoryWindow(QMainWindow):
         pass
     
     def remove_row_button_clicked(self):
-        pass
+        selection = self.ui.story_table.selectedRanges()[0]
+        row = selection.topRow()
+    
+        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table_handler.remove_entry(index_to_remove=row)
+
+        self.fill_table()
+        
+        #select new row
+        nbr_row = self.ui.story_table.rowCount()
+        if nbr_row == 0:
+            self.check_status_buttons()
+            return
+            
+        elif row == nbr_row:
+            new_row_selected = row - 1
+        else:
+            new_row_selected = row
+            
+        self.select_row(row = new_row_selected)
+        self.check_status_add_remove_buttons()
     
     def start_fitting_button_clicked(self):
         pass
@@ -140,7 +171,7 @@ class FittingStoryWindow(QMainWindow):
             new_row = row + 1
         self.select_row(row=new_row)
         
-        self.check_status_arrow_buttons(row=new_row)
+        self.check_status_buttons(row=new_row)
 
     def deselect_row(self, row=0):
         self.select_row_status(row=row, status=False)
@@ -160,9 +191,9 @@ class FittingStoryWindow(QMainWindow):
         self._move_row_clicked(direction='down')
 
     def cell_clicked(self, row, column):
-        self.check_status_arrow_buttons(row=row)
+        self.check_status_buttons(row=row)
         
-    def check_status_arrow_buttons(self, row=0):
+    def check_status_buttons(self, row=np.NaN):
         '''
         check the enabled status of the arrow buttons according to row clicked
         '''
@@ -171,11 +202,42 @@ class FittingStoryWindow(QMainWindow):
         up_status = True
         down_status = True
 
-        if row == (nbr_row-1): # we clicked the last row, disable move down
+        print(row)
+
+        if nbr_row == 0:
+            down_status = False
+            up_status = False
+        
+        elif row == (nbr_row-1): # we clicked the last row, disable move down
             down_status = False
             
         elif row == 0 : # we can't move up this row
             up_status = False
+
+        elif np.isnan(row):
+            up_status = False
+            down_status = False
+            
+        if self.parent.table_fitting_story_dictionary == {}:
+            up_status= False
+            down_status = False
             
         self.ui.down_button.setEnabled(down_status)
         self.ui.up_button.setEnabled(up_status)
+        
+        self.check_status_add_remove_buttons()
+        
+    def check_status_add_remove_buttons(self):
+        nbr_row = self.ui.story_table.rowCount()
+
+        add_status = True
+        remove_status = True
+
+        if nbr_row == 0:
+            remove_status = False
+            
+        self.ui.add_row_button.setEnabled(add_status)
+        self.ui.remove_row_button.setEnabled(remove_status)
+        
+    def closeEvent(self, event=None):
+        self.parent.fitting_story_ui = None

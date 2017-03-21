@@ -136,6 +136,9 @@
       </property>
       <item>
        <widget class="QPushButton" name="add_row_button">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>40</width>
@@ -160,6 +163,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="remove_row_button">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>40</width>
@@ -233,8 +239,20 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuTable">
+    <property name="title">
+     <string>Table</string>
+    </property>
+    <addaction name="actionReset"/>
+   </widget>
+   <addaction name="menuTable"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionReset">
+   <property name="text">
+    <string>Reset</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -334,6 +352,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionReset</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>reset_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>444</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>add_row_button_clicked()</slot>
@@ -342,5 +376,6 @@
   <slot>move_row_up_clicked()</slot>
   <slot>move_row_down_clicked()</slot>
   <slot>cell_clicked()</slot>
+  <slot>reset_table()</slot>
  </slots>
 </ui>

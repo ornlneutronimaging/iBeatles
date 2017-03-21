@@ -79,6 +79,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setSizeConstraint(QtGui.QLayout.SetMinimumSize)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.add_row_button = QtGui.QPushButton(self.centralwidget)
+        self.add_row_button.setEnabled(True)
         self.add_row_button.setMinimumSize(QtCore.QSize(40, 30))
         self.add_row_button.setMaximumSize(QtCore.QSize(40, 30))
         font = QtGui.QFont()
@@ -87,6 +88,7 @@ class Ui_MainWindow(object):
         self.add_row_button.setObjectName(_fromUtf8("add_row_button"))
         self.horizontalLayout.addWidget(self.add_row_button)
         self.remove_row_button = QtGui.QPushButton(self.centralwidget)
+        self.remove_row_button.setEnabled(False)
         self.remove_row_button.setMinimumSize(QtCore.QSize(40, 30))
         self.remove_row_button.setMaximumSize(QtCore.QSize(40, 30))
         font = QtGui.QFont()
@@ -111,10 +113,16 @@ class Ui_MainWindow(object):
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 889, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
+        self.menuTable = QtGui.QMenu(self.menubar)
+        self.menuTable.setObjectName(_fromUtf8("menuTable"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
+        self.actionReset = QtGui.QAction(MainWindow)
+        self.actionReset.setObjectName(_fromUtf8("actionReset"))
+        self.menuTable.addAction(self.actionReset)
+        self.menubar.addAction(self.menuTable.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.add_row_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.add_row_button_clicked)
@@ -123,6 +131,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.up_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.move_row_up_clicked)
         QtCore.QObject.connect(self.down_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.move_row_down_clicked)
         QtCore.QObject.connect(self.story_table, QtCore.SIGNAL(_fromUtf8("cellClicked(int,int)")), MainWindow.cell_clicked)
+        QtCore.QObject.connect(self.actionReset, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.reset_table)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -145,4 +154,6 @@ class Ui_MainWindow(object):
         self.add_row_button.setText(_translate("MainWindow", "+", None))
         self.remove_row_button.setText(_translate("MainWindow", "-", None))
         self.start_fits_button.setText(_translate("MainWindow", "Start Fits", None))
+        self.menuTable.setTitle(_translate("MainWindow", "Table", None))
+        self.actionReset.setText(_translate("MainWindow", "Reset", None))
 

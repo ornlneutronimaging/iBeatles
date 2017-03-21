@@ -60,5 +60,19 @@ class TableFittingStoryDictionaryHandler(object):
         
         self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
            
-       
-       
+    def remove_entry(self, index_to_remove=0):
+        
+        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
+        nbr_entry = len(table_fitting_story_dictionary)
+        
+        new_table_fitting_story_dictionary = {}
+        new_index = 0
+        for _index in table_fitting_story_dictionary.keys():
+            
+            if _index == index_to_remove:
+                continue
+            
+            new_table_fitting_story_dictionary[new_index] = table_fitting_story_dictionary[_index]
+            new_index += 1
+            
+        self.parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary
