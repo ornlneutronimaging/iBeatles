@@ -108,17 +108,39 @@ class FittingStoryWindow(QMainWindow):
             #story_table.setItem(_index, 0, _item)
                         
             for _index_tag, _tag in enumerate(self.list_column_tag):
-                _widget = self.set_widget(status=_entry[_tag])
+                _widget = self.set_widget(status=_entry[_tag], row=_index, column=_index_tag)
                 story_table.setCellWidget(_index, _index_tag, _widget)
 
     def set_item(self, text=''):
         _item = QtGui.QTableWidgetItem(text)
         return _item
 
-    def set_widget(self, status=False):
+    def widget_state_changed(self, state=0, row=0, column=0):
+        
+        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
+        _entry = table_fitting_story_dictionary[row]
+        
+        _widget = self.ui.story_table.cellWidget(row, column)
+        list_children = _widget.children()
+
+        status = False
+        if state == 2:
+            status = True
+            
+        _entry[self.list_column_tag[column]] = status
+        table_fitting_story_dictionary[row] = _entry
+        self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
+
+    def set_widget(self, status=False, row=0, column=0):
         _layout = QtGui.QHBoxLayout()
         _widget = QtGui.QCheckBox()
+        _widget.stateChanged.connect(lambda state=0, row=row, column=column: 
+                                     self.widget_state_changed(state=state, 
+                                                               row=row, 
+                                                               column=column))
+        _widget.blockSignals(True)
         _widget.setChecked(status)
+        _widget.blockSignals(False)
         _layout.addStretch()
         _layout.addWidget(_widget)
         _layout.addStretch()
@@ -127,7 +149,16 @@ class FittingStoryWindow(QMainWindow):
         return _new_widget
         
     def add_row_button_clicked(self):
-        pass
+        selection = self.ui.story_table.selectedRanges()[0]
+        row = selection.topRow()
+
+        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table_handler.add_entry(index_to_add=row+1)
+    
+        self.fill_table()
+        
+        self.select_row(row = row+1) #new row is added below selection
+        self.check_status_add_remove_buttons()
     
     def remove_row_button_clicked(self):
         selection = self.ui.story_table.selectedRanges()[0]
@@ -201,12 +232,12 @@ class FittingStoryWindow(QMainWindow):
 
         up_status = True
         down_status = True
-
-        print(row)
+        start_fitting_status = True
 
         if nbr_row == 0:
             down_status = False
             up_status = False
+            start_fitting_status = False
         
         elif row == (nbr_row-1): # we clicked the last row, disable move down
             down_status = False
@@ -218,12 +249,14 @@ class FittingStoryWindow(QMainWindow):
             up_status = False
             down_status = False
             
-        if self.parent.table_fitting_story_dictionary == {}:
-            up_status= False
-            down_status = False
+        #if self.parent.table_fitting_story_dictionary == {}:
+            #up_status= False
+            #down_status = False
+            #start_fitting_status = False
             
         self.ui.down_button.setEnabled(down_status)
         self.ui.up_button.setEnabled(up_status)
+        self.ui.start_fits_button.setEnabled(start_fitting_status)
         
         self.check_status_add_remove_buttons()
         
