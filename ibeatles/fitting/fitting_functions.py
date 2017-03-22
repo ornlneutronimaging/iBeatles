@@ -21,3 +21,4 @@ def advanced_fit(t, d_spacing, alpha, sigma, a1, a2, a5, a6):
     term5 = math.erf(-((t-d_spacing)/(sigma * math.sqrt(2))) + sigma/alpha)
     
     y = a1 + term0
+    
