@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'designer/ui_binningWindow.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created: Wed Mar 22 11:10:18 2017
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 

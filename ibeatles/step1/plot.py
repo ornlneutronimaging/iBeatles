@@ -403,8 +403,12 @@ class Step1Plot(object):
             lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_selection_changed)
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
             
-            if tof_flag:
-                self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis            
+            #FIXME (seems to work this way)
+
+            #if tof_flag:
+                #self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis            
+
+            self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis            
 
     def display_images_and_bragg_edge(self, tof_array=[], lambda_array=[], bragg_edges=[]):
         

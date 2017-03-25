@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'designer/ui_mainWindow.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created: Wed Mar 22 11:11:54 2017
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -60,6 +61,7 @@ class Ui_MainWindow(object):
         self.layoutWidget = QtGui.QWidget(self.sample_ob_splitter)
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.layoutWidget)
+        self.verticalLayout_9.setMargin(0)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
         self.toolBox = QtGui.QToolBox(self.layoutWidget)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
@@ -422,6 +424,7 @@ class Ui_MainWindow(object):
         self.widget_2.setMaximumSize(QtCore.QSize(350, 16777215))
         self.widget_2.setObjectName(_fromUtf8("widget_2"))
         self.verticalLayout_17 = QtGui.QVBoxLayout(self.widget_2)
+        self.verticalLayout_17.setMargin(0)
         self.verticalLayout_17.setObjectName(_fromUtf8("verticalLayout_17"))
         self.label_19 = QtGui.QLabel(self.widget_2)
         self.label_19.setObjectName(_fromUtf8("label_19"))
@@ -521,6 +524,7 @@ class Ui_MainWindow(object):
         self.layoutWidget1 = QtGui.QWidget(self.splitter_2)
         self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
         self.verticalLayout_12 = QtGui.QVBoxLayout(self.layoutWidget1)
+        self.verticalLayout_12.setMargin(0)
         self.verticalLayout_12.setObjectName(_fromUtf8("verticalLayout_12"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))

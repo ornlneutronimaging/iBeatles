@@ -206,6 +206,8 @@ class Normalization(object):
             # we consider that no OB is like having a perfect OB -> intensity of 1
             o_plot = Step2Plot(parent=self.parent)
             one_over_coeff = o_plot.calculate_mean_counts(sample, list_roi=list_roi)
+            # replace 0 by NaN
+            one_over_coeff[one_over_coeff == 0] = np.NaN
             self.coeff_array = 1 / one_over_coeff
         else:
             o_plot = Step2Plot(parent=self.parent)
