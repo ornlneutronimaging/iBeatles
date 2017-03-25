@@ -46,23 +46,32 @@ class DataHandler(object):
         mydialog.setDirectory(self.parent.sample_folder)
         mydialog.exec_()
 
-        selectedFiles = mydialog.filesSelected()
-        if selectedFiles:
-            if len(selectedFiles) == 1:
-                if os.path.isdir(selectedFiles[0]):
-                    self.load_directory(selectedFiles[0])
+        try:
+            selectedFiles = mydialog.filesSelected()
+            if selectedFiles:
+                if len(selectedFiles) == 1:
+                    if os.path.isdir(selectedFiles[0]):
+                        self.load_directory(selectedFiles[0])
+                    else:
+                        self.load_files(selectedFiles[0])
                 else:
-                    self.load_files(selectedFiles[0])
+                    self.load_files(selectedFiles)
+    
+                if (data_type == 'sample') or (data_type == 'normalized'):
+                    self.retrieve_time_spectra()
+                    self.load_time_spectra()
+                    
             else:
-                self.load_files(selectedFiles)
+                self.user_canceled = True
 
-            if (data_type == 'sample') or (data_type == 'normalized'):
-                self.retrieve_time_spectra()
-                self.load_time_spectra()
-                
-        else:
+        except TypeError:
             self.user_canceled = True
+            # inform user here that the folder is empty !
+            # FIXME
             
+            
+            return
+        
         # calculate mean data array for normalization tab
         if data_type == 'sample':
             _data = self.parent.data_metadata['sample']['data']
@@ -134,6 +143,8 @@ class DataHandler(object):
         
     def load_directory(self, folder):
         list_files = glob.glob(folder + '/*.*')
+        if len(list_files) == 0:
+            raise TypeError
         image_type = self.get_image_type(list_files)
         o_load_image = LoadFiles(parent = self.parent,
                                  image_ext = image_type, 
@@ -174,7 +185,6 @@ class DataHandler(object):
     def get_image_type(self, list_of_files):
         raw_file, ext = os.path.splitext(list_of_files[0])
         return ext
-        
 
         
 class FileDialog(QFileDialog):
