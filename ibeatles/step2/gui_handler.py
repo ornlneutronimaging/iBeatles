@@ -18,6 +18,7 @@ from ibeatles.step2.normalization import Normalization
 
 class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
+        values[values == 0] = np.NaN #remove 0 before division
         return ['{:.4f}'.format(1./i) for i in values]
                 
                 
