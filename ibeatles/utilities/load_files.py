@@ -1,7 +1,5 @@
 import glob
 import os
-#import matplotlib.image as mpimg
-#import pyfits
 
 try:
     from PyQt4 import QtGui

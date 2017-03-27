@@ -156,7 +156,7 @@ class FittingInitializationHandler(object):
         #print(y_axis[inflection_point_index + left_index])
     
         # for now inflection is only calculated by using center of selection
-        inflection_point_index = np.mean([left_index, right_index])
+        inflection_point_index = np.int(np.mean([left_index, right_index]))
         self.selection_range['left_range']['y_axis'] = full_y_axis[left_index: inflection_point_index]
         self.selection_range['left_range']['x_axis'] = full_x_axis[left_index: inflection_point_index]
         self.selection_range['right_range']['y_axis'] = full_y_axis[inflection_point_index: ]
