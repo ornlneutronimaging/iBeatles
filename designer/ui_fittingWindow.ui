@@ -80,8 +80,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>274</width>
-              <height>312</height>
+              <width>254</width>
+              <height>227</height>
              </rect>
             </property>
             <attribute name="label">
@@ -728,50 +728,6 @@ p, li { white-space: pre-wrap; }
             <string>Err.</string>
            </property>
           </column>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="palette">
-           <palette>
-            <active>
-             <colorrole role="WindowText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>252</red>
-                <green>9</green>
-                <blue>20</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </active>
-            <inactive>
-             <colorrole role="WindowText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>252</red>
-                <green>9</green>
-                <blue>20</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </inactive>
-            <disabled>
-             <colorrole role="WindowText">
-              <brush brushstyle="SolidPattern">
-               <color alpha="255">
-                <red>69</red>
-                <green>69</green>
-                <blue>69</blue>
-               </color>
-              </brush>
-             </colorrole>
-            </disabled>
-           </palette>
-          </property>
-          <property name="text">
-           <string>Variable Fixed</string>
-          </property>
          </widget>
         </item>
        </layout>

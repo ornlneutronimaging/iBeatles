@@ -1,6 +1,9 @@
 import numpy as np
 import pyqtgraph as pg
 
+from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
+
 
 class SelectedBinsHandler(object):
     
@@ -188,4 +191,32 @@ class SelectedBinsHandler(object):
             lr = self.parent.fitting_lr
             lr.setRegion(linear_region_range)
             self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
+            
+        display_fitting = True
+        if display_fitting:
+            
+            o_table = TableDictionaryHandler(parent=self.parent)
+            parameters = o_table.get_average_parameters_activated()
+            
+            _advanced_fitting_mode = self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
+            
+            d_spacing = parameters['d_spacing']
+            alpha = parameters['alpha']
+            sigma = parameters['sigma']
+            a1 = parameters['a1']
+            a2 = parameters['a2']
+            if _advanced_fitting_mode:
+                a5 = parameters['a5']
+                a6 = parameters['a6']
+                
+            fit_x_axis = np.linspace(lr_left, lr_right, num=100)
+            if _advanced_fitting_mode:
+                fit_y_axis = [advanced_fit(x, d_spacing, alpha, sigma, a1, a2, 
+                                         a5, 
+                                         a6) for x in fit_x_axis]
+            else:
+                fit_y_axis = [basic_fit(x, d_spacing, alpha, sigma, a1, a2) for x in fit_x_axis]
+            
+            self.parent.fitting_ui.bragg_edge_plot.plot(fit_x_axis, fit_y_axis, pen='r' )
+            
             

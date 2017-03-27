@@ -155,7 +155,56 @@ class TableDictionaryHandler(object):
     def select_full_table(self):
         self.full_table_selection_tool(status = True)
 
+    def get_average_parameters_activated(self):
+        table_dictionary = self.parent.table_dictionary
         
+        d_spacing = []
+        alpha = []
+        sigma = []
+        a1 = []
+        a2 = []
+        a5 = []
+        a6 = []
         
-        
+        for _index in table_dictionary.keys():
+            _entry = table_dictionary[_index]
+            
+            if _entry['active']:
+                _d_spacing = _entry['d_spacing']['val']
+                _alpha = _entry['alpha']['val']
+                _sigma = _entry['sigma']['val']
+                _a1 = _entry['a1']['val']
+                _a2 = _entry['a2']['val']
+                _a5 = _entry['a5']['val']
+                _a6 = _entry['a6']['val']
+            
+                d_spacing.append(_d_spacing)
+                alpha.append(_alpha)
+                sigma.append(_sigma)
+                a1.append(_a1)
+                a2.append(_a2)
+                a5.append(_a5)
+                a6.append(_a6)
+
+        mean_d_spacing = self.get_mean_value(d_spacing)
+        mean_alpha = self.get_mean_value(alpha)
+        mean_sigma = self.get_mean_value(sigma)
+        mean_a1 = self.get_mean_value(a1)
+        mean_a2 = self.get_mean_value(a2)
+        mean_a5 = self.get_mean_value(a5)
+        mean_a6 = self.get_mean_value(a6)
+
+        return {'d_spacing': mean_d_spacing, 
+                'alpha': mean_alpha,
+                'sigma': mean_sigma,
+                'a1': mean_a1,
+                'a2': mean_a2,
+                'a5': mean_a5,
+                'a6': mean_a6}
+            
+    def get_mean_value(self, array=[]):
+        if array == []:
+            return np.NaN
+        else:
+            return np.nanmean(array)
         

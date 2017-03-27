@@ -10,9 +10,7 @@ def basic_fit(t, d_spacing, alpha, sigma, a1, a2):
     term1 = np.exp((t-d_spacing)/alpha + (sigma*sigma)/(2*alpha*alpha))
     term0 = erf(-((t-d_spacing)/(sigma*math.sqrt(2))))
     
-    y = a1 + a2 * (term0 - (term1 * term2))
-    
-    y = a1 + a2 - d_spacing * alpha + sigma
+    y = a1 + a2 * (term0 - (term1 * term2))   
     
     return y
     

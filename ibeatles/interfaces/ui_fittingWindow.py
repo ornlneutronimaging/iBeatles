@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/ui_fittingWindow.ui'
 #
-# Created: Wed Mar 22 11:10:18 2017
-#      by: PyQt4 UI code generator 4.11.3
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -62,7 +61,7 @@ class Ui_MainWindow(object):
         self.toolBox = QtGui.QToolBox(self.rightFrame)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.page = QtGui.QWidget()
-        self.page.setGeometry(QtCore.QRect(0, 0, 274, 312))
+        self.page.setGeometry(QtCore.QRect(0, 0, 254, 227))
         self.page.setObjectName(_fromUtf8("page"))
         self.verticalLayout_7 = QtGui.QVBoxLayout(self.page)
         self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
@@ -319,20 +318,6 @@ class Ui_MainWindow(object):
         self.value_table.setHorizontalHeaderItem(20, item)
         self.value_table.verticalHeader().setVisible(False)
         self.verticalLayout_5.addWidget(self.value_table)
-        self.label_3 = QtGui.QLabel(self.bottomFrame)
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(252, 9, 20))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(252, 9, 20))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(69, 69, 69))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
-        self.label_3.setPalette(palette)
-        self.label_3.setObjectName(_fromUtf8("label_3"))
-        self.verticalLayout_5.addWidget(self.label_3)
         self.verticalLayout.addWidget(self.splitter_2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -445,6 +430,5 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Val.", None))
         item = self.value_table.horizontalHeaderItem(20)
         item.setText(_translate("MainWindow", "Err.", None))
-        self.label_3.setText(_translate("MainWindow", "Variable Fixed", None))
 
 import icons_rc

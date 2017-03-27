@@ -59,8 +59,8 @@ class FittingJobHandler(object):
             a2_flag = _entry['a2']
             
             if _advanced_fitting_mode:
-                a5_flag = _entry['a5']['fixed']
-                a6_flag = _entry['a6']['fixed']
+                a5_flag = _entry['a5']
+                a6_flag = _entry['a6']
                 
             # loop over all the bins
             for _bin_index in table_dictionary:
@@ -157,6 +157,7 @@ class FittingJobHandler(object):
        
             self.parent.table_dictionary = table_dictionary
             self.parent.fitting_ui.re_fill_table()
+            self.parent.fitting_ui.update_bragg_edge_plot()
         
         self.parent.fitting_story_ui.eventProgress.setVisible(False)
        
