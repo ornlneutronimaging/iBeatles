@@ -70,6 +70,11 @@
           <string>A6</string>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string>STATUS</string>
+         </property>
+        </column>
        </widget>
       </item>
       <item>

@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/ui_fittingStoryTable.ui'
 #
-# Created: Wed Mar 22 11:10:18 2017
-#      by: PyQt4 UI code generator 4.11.3
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -41,7 +40,7 @@ class Ui_MainWindow(object):
         self.story_table.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.story_table.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.story_table.setObjectName(_fromUtf8("story_table"))
-        self.story_table.setColumnCount(7)
+        self.story_table.setColumnCount(8)
         self.story_table.setRowCount(0)
         item = QtGui.QTableWidgetItem()
         self.story_table.setHorizontalHeaderItem(0, item)
@@ -57,6 +56,8 @@ class Ui_MainWindow(object):
         self.story_table.setHorizontalHeaderItem(5, item)
         item = QtGui.QTableWidgetItem()
         self.story_table.setHorizontalHeaderItem(6, item)
+        item = QtGui.QTableWidgetItem()
+        self.story_table.setHorizontalHeaderItem(7, item)
         self.horizontalLayout_2.addWidget(self.story_table)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -152,6 +153,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "A5", None))
         item = self.story_table.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "A6", None))
+        item = self.story_table.horizontalHeaderItem(7)
+        item.setText(_translate("MainWindow", "STATUS", None))
         self.add_row_button.setText(_translate("MainWindow", "+", None))
         self.remove_row_button.setText(_translate("MainWindow", "-", None))
         self.start_fits_button.setText(_translate("MainWindow", "Start Fits", None))

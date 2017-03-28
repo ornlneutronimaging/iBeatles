@@ -132,6 +132,7 @@ class SelectedBinsHandler(object):
 
         # isolate data selected    data[x0:x1, y0:y1] for each bin selected
         bragg_edge_data = []
+        nbr_index_selected = len(list_bin_selected)
         for _bin_selected in list_bin_selected:
             _entry = table_dictionary[str(_bin_selected)]['bin_coordinates']
             x0 = _entry['x0']
@@ -146,6 +147,7 @@ class SelectedBinsHandler(object):
             else:
                 bragg_edge_data += final
                 
+#        bragg_edge_data /= nbr_index_selected  #FIXME
         x_axis = self.parent.fitting_bragg_edge_x_axis 
         
         # save x and y-axis of bragg edge plot for initialization of a1, a2, a5 and a6
@@ -209,6 +211,9 @@ class SelectedBinsHandler(object):
                 a5 = parameters['a5']
                 a6 = parameters['a6']
                 
+            if np.isnan(d_spacing) or np.isnan(alpha) or np.isnan(sigma) or np.isnan(a1) or np.isnan(a2):
+                return
+                
             fit_x_axis = np.linspace(lr_left, lr_right, num=100)
             if _advanced_fitting_mode:
                 fit_y_axis = [advanced_fit(x, d_spacing, alpha, sigma, a1, a2, 
@@ -216,6 +221,8 @@ class SelectedBinsHandler(object):
                                          a6) for x in fit_x_axis]
             else:
                 fit_y_axis = [basic_fit(x, d_spacing, alpha, sigma, a1, a2) for x in fit_x_axis]
+            
+            #fit_y_axis *= nbr_index_selected #FIXME
             
             self.parent.fitting_ui.bragg_edge_plot.plot(fit_x_axis, fit_y_axis, pen='r' )
             

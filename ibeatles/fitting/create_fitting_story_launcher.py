@@ -59,10 +59,16 @@ class FittingStoryWindow(QMainWindow):
         self.check_status_buttons(row=0)
   
     def init_statusbar(self):
+        self.eventProgress2 = QtGui.QProgressBar(self.ui.statusbar)
+        self.eventProgress2.setMinimumSize(20, 14)
+        self.eventProgress2.setMaximumSize(540, 100)
+        self.eventProgress2.setVisible(False)
+        self.ui.statusbar.addPermanentWidget(self.eventProgress2)
+
         self.eventProgress = QtGui.QProgressBar(self.ui.statusbar)
         self.eventProgress.setMinimumSize(20, 14)
         self.eventProgress.setMaximumSize(540, 100)
-        self.eventProgress.setVisible(True)
+        self.eventProgress.setVisible(False)
         self.ui.statusbar.addPermanentWidget(self.eventProgress)
         
     def init_widgets(self):

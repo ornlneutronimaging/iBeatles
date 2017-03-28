@@ -82,8 +82,6 @@ class FittingInitializationHandler(object):
 
         if self.advanced_mode:
 
-            print("in advanced_mode")
-
             a2 = self.get_a2()
             if np.isnan(a2):
                 self.all_variables_initialized = False

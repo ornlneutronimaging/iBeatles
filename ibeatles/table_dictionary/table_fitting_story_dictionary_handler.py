@@ -7,6 +7,7 @@ except:
     import PyQt5.QtCore as QtCore
     from PyQt5.QtWidgets import QApplication
 import numpy as np
+import collections
 
 from ibeatles.utilities.status import Status
 
@@ -36,7 +37,7 @@ class TableFittingStoryDictionaryHandler(object):
         
     def initialize_table(self):
       
-        table_fitting_story_dictionary = {}
+        table_fitting_story_dictionary = collections.OrderedDict()
         
         for row in np.arange(6):
             table_fitting_story_dictionary[row] = {'d_spacing': False,
@@ -74,7 +75,7 @@ class TableFittingStoryDictionaryHandler(object):
         table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
         nbr_entry = len(table_fitting_story_dictionary)
         
-        new_table_fitting_story_dictionary = {}
+        new_table_fitting_story_dictionary = collections.OrderedDict()
         new_index = 0
         for _index in table_fitting_story_dictionary.keys():
             
@@ -91,7 +92,7 @@ class TableFittingStoryDictionaryHandler(object):
         table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
         nbr_entry = len(table_fitting_story_dictionary)
 
-        new_table_fitting_story_dictionary = {}
+        new_table_fitting_story_dictionary = collections.OrderedDict()
         if table_fitting_story_dictionary == {}:
             new_table_fitting_story_dictionary[0] = self.init_entry
         

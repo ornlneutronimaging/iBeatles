@@ -49,8 +49,12 @@ class FittingJobHandler(object):
         self.parent.fitting_story_ui.eventProgress.setValue(0)
         self.parent.fitting_story_ui.eventProgress.setMaximum(nbr_entry)
         self.parent.fitting_story_ui.eventProgress.setVisible(True)
+        self.parent.fitting_story_ui.eventProgress2.setVisible(True)
+        
         for _entry_index in table_fitting_story_dictionary.keys():
             
+            self.status_of_row(row=_entry_index, status='IN PROGRESS')
+
             _entry = table_fitting_story_dictionary[_entry_index]
             d_spacing_flag = _entry['d_spacing']
             alpha_flag = _entry['alpha']
@@ -62,9 +66,14 @@ class FittingJobHandler(object):
                 a5_flag = _entry['a5']
                 a6_flag = _entry['a6']
                 
+            self.parent.fitting_story_ui.eventProgress2.setValue(0)
+            self.parent.fitting_story_ui.eventProgress2.setMaximum(len(table_dictionary))
+
             # loop over all the bins
+            progress_bar_index = 0
             for _bin_index in table_dictionary:
                 _bin_entry = table_dictionary[_bin_index]
+
                 
                 if _bin_entry['active']:
 
@@ -105,7 +114,14 @@ class FittingJobHandler(object):
                     y_axis = y_axis.sum(axis=1)
                     y_axis = np.array(y_axis.sum(axis=1), dtype=float)
                     
-                    result = gmodel.fit(y_axis, params, t=x_axis)
+                    try:
+                        result = gmodel.fit(y_axis, params, t=x_axis)
+                    except ValueError:
+                        self.parent.fitting_story_ui.eventProgress.setVisible(False)
+                        self.status_of_row(row=_entry_index, status='FAILED')
+                        #FIXME
+                        #show dialog message that informs that fitting did not converge
+                        #tell which step failed
                     
                     _o_result = ResultValueError(result=result)
                     if d_spacing_flag:
@@ -151,6 +167,12 @@ class FittingJobHandler(object):
                             _bin_entry[tag]['err'] = error
                         
                     table_dictionary[_bin_index] = _bin_entry
+                    
+                progress_bar_index += 1
+                self.parent.fitting_story_ui.eventProgress2.setValue(progress_bar_index)
+                QtGui.QApplication.processEvents()
+                
+            self.status_of_row(row=_entry_index, status='DONE')
             
             self.parent.fitting_story_ui.eventProgress.setValue(_entry_index+1)
             QtGui.QApplication.processEvents()
@@ -160,4 +182,20 @@ class FittingJobHandler(object):
             self.parent.fitting_ui.update_bragg_edge_plot()
         
         self.parent.fitting_story_ui.eventProgress.setVisible(False)
+        self.parent.fitting_story_ui.eventProgress2.setVisible(False)
        
+    def status_of_row(self, row=0, status='IN PROGRESS'):
+        if status == 'IN PROGRESS':
+            _color = QtGui.QColor(0,0,255) #blue
+        elif status == 'DONE': 
+            _color = QtGui.QColor(21,190,21) #green
+        elif status == 'FAILED':
+            status = 'INCOMPLETE FITTING!'
+            _color = QtGui.QColor(255,0,0) #red
+        else:
+            _color =QtGui.QColor(0,0,0) #black
+        _item = QtGui.QTableWidgetItem(status)
+        _item.setTextColor(_color)
+            
+        self.parent.fitting_story_ui.ui.story_table.setItem(row, 7, _item)
+        QtGui.QApplication.processEvents()
