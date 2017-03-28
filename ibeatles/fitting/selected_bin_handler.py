@@ -142,12 +142,13 @@ class SelectedBinsHandler(object):
             _data = data_2d[:, x0:x1, y0:y1]
             inter1 = np.sum(_data, axis=1)
             final = np.sum(inter1, axis=1)
-            if bragg_edge_data == []:
-                bragg_edge_data = final
-            else:
-                bragg_edge_data += final
+            bragg_edge_data.append(final)
+            #if bragg_edge_data == []:
+                #bragg_edge_data = final
+            #else:
+                #bragg_edge_data += final
                 
-#        bragg_edge_data /= nbr_index_selected  #FIXME
+        bragg_edge_data = np.nanmean(bragg_edge_data, axis=0)
         x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         
         # save x and y-axis of bragg edge plot for initialization of a1, a2, a5 and a6
@@ -176,6 +177,7 @@ class SelectedBinsHandler(object):
         lr_right = x_axis[linear_region_right]
         
         linear_region_range = [lr_left, lr_right]
+
         if self.parent.fitting_lr is None:
 
             lr = pg.LinearRegionItem(values=linear_region_range, 

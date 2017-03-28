@@ -117,7 +117,6 @@ class FittingJobHandler(object):
                     try:
                         result = gmodel.fit(y_axis, params, t=x_axis)
                     except ValueError:
-                        self.parent.fitting_story_ui.eventProgress.setVisible(False)
                         self.status_of_row(row=_entry_index, status='FAILED')
                         #FIXME
                         #show dialog message that informs that fitting did not converge
@@ -179,7 +178,7 @@ class FittingJobHandler(object):
        
             self.parent.table_dictionary = table_dictionary
             self.parent.fitting_ui.re_fill_table()
-            self.parent.fitting_ui.update_bragg_edge_plot()
+            self.parent.fitting_ui.update_bragg_edge_plot(update_selection=False)
         
         self.parent.fitting_story_ui.eventProgress.setVisible(False)
         self.parent.fitting_story_ui.eventProgress2.setVisible(False)
@@ -190,7 +189,7 @@ class FittingJobHandler(object):
         elif status == 'DONE': 
             _color = QtGui.QColor(21,190,21) #green
         elif status == 'FAILED':
-            status = 'INCOMPLETE FITTING!'
+            status = 'SOME ERRORS!'
             _color = QtGui.QColor(255,0,0) #red
         else:
             _color =QtGui.QColor(0,0,0) #black

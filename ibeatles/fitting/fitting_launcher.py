@@ -532,10 +532,11 @@ class FittingWindow(QMainWindow):
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bins_locked()
         
-    def update_bragg_edge_plot(self):
+    def update_bragg_edge_plot(self, update_selection=True):
         o_bin_handler = SelectedBinsHandler(parent = self.parent)
         o_bin_handler.update_bragg_edge_plot()
-        self.bragg_edge_linear_region_changing()
+        if update_selection:
+            self.bragg_edge_linear_region_changing()
 
     def selection_in_value_table_of_rows_cell_clicked(self, row, column):
         # make sure the selection is right (val and err selected at the same time)
@@ -580,7 +581,7 @@ class FittingWindow(QMainWindow):
     def bragg_edge_linear_region_changed(self):
 
         #current xaxis is
-        x_axis = self.parent.fitting_bragg_edge_x_axis
+        x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         _lr = self.parent.fitting_lr
         if _lr is None:
             return
@@ -633,6 +634,8 @@ class FittingWindow(QMainWindow):
         
         # activate or not step4 (yes if we were able to initialize correctly all variables)
         self.ui.step4_groupBox.setEnabled(o_initialization.all_variables_initialized)
+        
+        self.update_bragg_edge_plot()
         
     def fit_table_active_cell_checked(self):
         pass
