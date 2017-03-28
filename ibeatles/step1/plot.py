@@ -386,7 +386,7 @@ class Step1Plot(object):
                                                             bragg_edges = bragg_edges)
             x_axis= dictionary['x_axis']    
             [linear_region_left, linear_region_right] = dictionary['linear_region']
-            
+            self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
             o_gui.xaxis_label()
             
             lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
@@ -422,7 +422,7 @@ class Step1Plot(object):
 
         x_axis = []
         plot_ui.setLabel("left", "Total Counts")
-        
+                
         if tof_array == []:
             
             plot_ui.setLabel('bottom', 'File Index')

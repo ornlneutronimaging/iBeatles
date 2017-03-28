@@ -148,19 +148,19 @@ class SelectedBinsHandler(object):
                 bragg_edge_data += final
                 
 #        bragg_edge_data /= nbr_index_selected  #FIXME
-        x_axis = self.parent.fitting_bragg_edge_x_axis 
+        x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         
         # save x and y-axis of bragg edge plot for initialization of a1, a2, a5 and a6
         self.parent.fitting_ui.bragg_edge_data['x_axis'] = x_axis
         self.parent.fitting_ui.bragg_edge_data['y_axis'] = bragg_edge_data
         
         self.parent.fitting_ui.bragg_edge_plot.plot(x_axis, bragg_edge_data)
-        if self.parent.xaxis_button_ui['normalized']['file_index'].isChecked():
-            self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", "File Index")
-        elif self.parent.xaxis_button_ui['normalized']['tof'].isChecked():
-            self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u"TOF (\u00B5s)")
-        else:
-            self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
+        #if self.parent.xaxis_button_ui['normalized']['file_index'].isChecked():
+            #self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", "File Index")
+        #elif self.parent.xaxis_button_ui['normalized']['tof'].isChecked():
+            #self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u"TOF (\u00B5s)")
+        #else:
+        self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
         self.parent.fitting_ui.bragg_edge_plot.setLabel("left", "Total Counts")
 
         if self.parent.fitting_bragg_edge_linear_selection == []:
