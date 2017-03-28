@@ -92,6 +92,9 @@ class Step1GuiHandler(object):
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
         
+        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
+#        self.parent.ui.statusbar.showMessage("this is an error", 2000)
+        
     def init_gui(self):
         # define position and size
         rect = self.parent.geometry()

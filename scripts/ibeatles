@@ -208,6 +208,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                 current_folder = '/Users/j35/data/ibeatles_data/'
             else:
                 current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
+                current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/iBeatles_debugging/'
         else:
             current_folder = os.getcwd()
 
