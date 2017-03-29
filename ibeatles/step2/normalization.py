@@ -69,6 +69,7 @@ class Normalization(object):
         self.parent.eventProgress.setMaximum(len(list_samples_names)-1)
         self.parent.eventProgress.setValue(0)
         self.parent.eventProgress.setVisible(True)
+        QtGui.QApplication.processEvents()
 
         # list of file name (short)
         normalized_array = []
@@ -92,7 +93,8 @@ class Normalization(object):
             normalized_file_name.append(_short_file)
             
             self.parent.eventProgress.setValue(_index_file+1)
-            
+            QtGui.QApplication.processEvents()
+                        
         self.parent.data_metadata['normalized']['data'] = normalized_array
         self.parent.data_files['normalized'] = normalized_file_name
         
