@@ -27,6 +27,12 @@ class CheckError(object):
             self.save_and_report_message(step=step, 
                                          message=message,
                                          status=True)
+            return
+        
+        self.save_and_report_message(step=step, 
+                                     message='',
+                                     status=False)
+        
             
     def save_and_report_message(self, **kwargs):
         self.save_report(**kwargs)

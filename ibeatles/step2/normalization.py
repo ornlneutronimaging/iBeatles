@@ -85,6 +85,7 @@ class Normalization(object):
                                                          ob = _ob,
                                                          coeff = _coeff,
                                                          output_file_name = _long_file_name)
+            normalized_data[np.isnan(normalized_data)] = 0
             normalized_array.append(normalized_data)
             _sum = np.nansum(normalized_data)
             normalized_sum_counts.append(_sum)
@@ -213,6 +214,8 @@ class Normalization(object):
             o_plot = Step2Plot(parent=self.parent)
             ob_mean = o_plot.calculate_mean_counts(ob, list_roi=list_roi)
             sample_mean = o_plot.calculate_mean_counts(sample, list_roi=list_roi)
+            # replace 0 by NaN
+            sample_mean[sample_mean == 0] = np.NaN
             coeff = ob_mean / sample_mean
             self.coeff_array = coeff
             
