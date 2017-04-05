@@ -38,6 +38,8 @@ from ibeatles.binning.binning_handler import BinningHandler
 from ibeatles.fitting.fitting_launcher import FittingLauncher
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 
+from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
+
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.roi_editor import RoiEditor
@@ -90,6 +92,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 #    fitting_bragg_edge_x_axis = []
     fitting_bragg_edge_linear_selection = []
     fitting_lr = None
+    
+    # strain mapping ui (step6)
+    strain_mapping_ui = None
     
     # table dictionary used in fitting/binning/advanced_selection/review
     table_dictionary = {}    
@@ -276,7 +281,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_fitting = FittingLauncher(parent=self)
     
     def menu_view_strain_mapping_clicked(self):
-        pass
+        o_strain = StrainMappingLauncher(parent=self)
 
     #TAB 1, 2 and 3
 
