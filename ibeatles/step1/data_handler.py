@@ -208,7 +208,7 @@ class FileDialog(QFileDialog):
             if i.column() == 0:
                 files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
         self.selectedFiles = files
-        self.hide()
+        self.close()
 
     def filesSelected(self):
         return self.selectedFiles
