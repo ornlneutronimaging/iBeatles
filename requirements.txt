@@ -4,7 +4,6 @@ backports.shutil-get-terminal-size==1.0.0
 configparser==3.5.0
 cycler==0.10.0
 decorator==4.0.9
-dxfile==0.4
 edffile==1.6
 enum34==1.1.6
 fabulous==0.2.1
