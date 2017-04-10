@@ -24,7 +24,7 @@ before_install:
   - export PATH=/home/travis/mc/bin:$PATH
 
 after_success:
-  - codecov
+#  - codecov
 
 install:
   - export GIT_FULL_HASH=`git rev-parse HEAD`
