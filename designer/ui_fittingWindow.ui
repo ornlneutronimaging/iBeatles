@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1218</width>
-    <height>773</height>
+    <height>785</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -80,8 +80,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>254</width>
-              <height>227</height>
+              <width>274</width>
+              <height>312</height>
              </rect>
             </property>
             <attribute name="label">
@@ -730,6 +730,30 @@ p, li { white-space: pre-wrap; }
           </column>
          </widget>
         </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Export Table ...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -950,6 +974,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_table_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1112</x>
+     <y>724</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>997</x>
+     <y>760</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -1013,5 +1053,6 @@ p, li { white-space: pre-wrap; }
   <slot>min_or_max_lambda_manually_changed()</slot>
   <slot>fit_table_active_cell_checked()</slot>
   <slot>create_fitting_story_checked()</slot>
+  <slot>export_table_clicked()</slot>
  </slots>
 </ui>

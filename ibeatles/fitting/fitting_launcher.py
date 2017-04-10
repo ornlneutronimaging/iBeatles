@@ -643,6 +643,9 @@ class FittingWindow(QMainWindow):
     def create_fitting_story_checked(self):
         o_story = CreateFittingStoryLauncher(parent=self.parent)
 
+    def export_table_clicked(self):
+        pass
+
     def closeEvent(self, event=None):
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.close()

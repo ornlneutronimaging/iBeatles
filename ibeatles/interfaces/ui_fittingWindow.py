@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(1218, 773)
+        MainWindow.resize(1218, 785)
         MainWindow.setMinimumSize(QtCore.QSize(300, 0))
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setMinimumSize(QtCore.QSize(0, 0))
@@ -61,7 +61,7 @@ class Ui_MainWindow(object):
         self.toolBox = QtGui.QToolBox(self.rightFrame)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.page = QtGui.QWidget()
-        self.page.setGeometry(QtCore.QRect(0, 0, 254, 227))
+        self.page.setGeometry(QtCore.QRect(0, 0, 274, 312))
         self.page.setObjectName(_fromUtf8("page"))
         self.verticalLayout_7 = QtGui.QVBoxLayout(self.page)
         self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
@@ -318,6 +318,14 @@ class Ui_MainWindow(object):
         self.value_table.setHorizontalHeaderItem(20, item)
         self.value_table.verticalHeader().setVisible(False)
         self.verticalLayout_5.addWidget(self.value_table)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        spacerItem5 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem5)
+        self.pushButton = QtGui.QPushButton(self.bottomFrame)
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.horizontalLayout_3.addWidget(self.pushButton)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_3)
         self.verticalLayout.addWidget(self.splitter_2)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -339,6 +347,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.lambda_max_lineEdit, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.min_or_max_lambda_manually_changed)
         QtCore.QObject.connect(self.fit_table_active_cell_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.fit_table_active_cell_checked)
         QtCore.QObject.connect(self.create_fitting_story_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.create_fitting_story_checked)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.export_table_clicked)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -430,5 +439,6 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Val.", None))
         item = self.value_table.horizontalHeaderItem(20)
         item.setText(_translate("MainWindow", "Err.", None))
+        self.pushButton.setText(_translate("MainWindow", "Export Table ...", None))
 
 import icons_rc
