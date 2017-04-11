@@ -46,7 +46,52 @@ class StrainMappingWindow(QMainWindow):
         self.display_images_and_selection()
         
     def display_images_and_selection(self):
+        self.display_images()
+        self.display_selections()
         
+    def get_min_max(self, table=[], item='strain_mapping'):
+        if item == 'strain_mapping':
+            item = 'd_spacing'
+        
+        min_value = 0
+        max_value = 0
+        is_first_value = True
+        for _index in table:
+            _entry = table[_index]
+            
+            value = _entry[item]['value']
+            if is_first_value:
+                min_value = value
+                max_value = value
+            else:
+                if min_value > value:
+                    min_value = value
+                elif max_value < value:
+                    max_value = value
+                
+        return [min_value, max_value]
+
+    def display_selections(self, item='strain_mapping'):
+        table_dictionary = self.parent.table_dictionary
+
+        [min_value, max_value] = self.get_min_max(table=table_dictionary,
+                                                  item=item)
+        
+        for _index in table_dictionary:
+            _entry = table_dictionary[_index]
+            x0 = _entry['bin_coordinates']['x0']
+            x1 = _entry['bin_coordinates']['x1']
+            y0 = _entry['bin_coordinates']['y0']
+            y1 = _entry['bin_coordinates']['y1']
+            
+            rect = pg.QtGui.QGraphicsRectItem(x0, y0, x1-x0, y1-y0)
+            rect.setPen(pg.mkPen(None))
+            rect.setBrush(pg.mkBrush('r'))
+            self.ui.strain_mapping_image.addItem(rect)
+            return
+        
+        
+    def display_images(self):
         _data = self.parent.data_metadata['normalized']['data_live_selection']
         if not _data == []:
             self.ui.strain_mapping_image.setImage(_data)
@@ -57,13 +102,12 @@ class StrainMappingWindow(QMainWindow):
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
-        #self.parent.binning_line_view['image_view'] = image_view
-    
-        vertical_layout = QtGui.QVBoxLayout()
-        vertical_layout.addWidget(image_view)
-        
-        return {'layout': vertical_layout,
-                'image_view': image_view}
+        hori_layout = QtGui.QHBoxLayout()
+        hori_layout.addWidget(image_view)
+      
+        return {'layout': hori_layout,
+                'image_view': image_view,
+                }
 
     def init_pyqtgraph(self):
         
