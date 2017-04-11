@@ -191,7 +191,7 @@
         <widget class="QWidget" name="strain_mapping_colorbar_window">
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
-           <widget class="QTableWidget" name="tableWidget">
+           <widget class="QTableWidget" name="strain_mapping_colorbar">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -201,7 +201,7 @@
             <property name="maximumSize">
              <size>
               <width>50</width>
-              <height>300</height>
+              <height>450</height>
              </size>
             </property>
             <property name="verticalScrollBarPolicy">
@@ -219,6 +219,31 @@
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
             </attribute>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
             <row>
              <property name="text">
               <string>New Row</string>
@@ -281,7 +306,7 @@
         <widget class="QWidget" name="sigma_colorbar_window">
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <widget class="QTableWidget" name="tableWidget_3">
+           <widget class="QTableWidget" name="sigma_colorbar">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -291,7 +316,7 @@
             <property name="maximumSize">
              <size>
               <width>50</width>
-              <height>300</height>
+              <height>450</height>
              </size>
             </property>
             <property name="verticalScrollBarPolicy">
@@ -309,6 +334,31 @@
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
             </attribute>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
             <row>
              <property name="text">
               <string>New Row</string>
@@ -371,7 +421,7 @@
         <widget class="QWidget" name="alpha_colorbar_window">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QTableWidget" name="tableWidget_2">
+           <widget class="QTableWidget" name="alpha_colorbar">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -381,7 +431,7 @@
             <property name="maximumSize">
              <size>
               <width>50</width>
-              <height>300</height>
+              <height>450</height>
              </size>
             </property>
             <property name="verticalScrollBarPolicy">
@@ -399,6 +449,31 @@
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
             </attribute>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>New Row</string>
+             </property>
+            </row>
             <row>
              <property name="text">
               <string>New Row</string>

@@ -139,7 +139,7 @@ class SetFittingVariablesHandler(object):
             _item.setBackgroundColor(_color)
             _item.setTextAlignment(QtCore.Qt.AlignRight)
             if (_row < mid_point) and (nbr_row != 1):
-                #font should be changed from back to white
+                #font should be changed from black to white
                 _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
                 _item.setTextColor(_foreground_color)
             
