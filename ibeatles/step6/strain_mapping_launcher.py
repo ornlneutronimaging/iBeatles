@@ -40,9 +40,13 @@ class StrainMappingWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("6. Strain Mapping")
 
-#        self.init_pyqtgraph()
-#        self.init_labels()
-#        self.init_widgets()
+        #self.init_pyqtgraph()
+        self.init_labels()
+        #self.init_widgets()
+
+    def init_labels(self):
+        self.ui.d0_label.setText(u"d<sub>0</sub>")
+        self.ui.d0_units_label.setText(u"\u212B")
 
     def closeEvent(self, event=None):
         if self.parent.strain_mapping_ui:
