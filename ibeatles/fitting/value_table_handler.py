@@ -74,25 +74,6 @@ class ValueTableHandler(object):
         funct = self.select_action(action)
         if funct is not None:
             funct()
-        
-        #if action == _select_all:
-            #self.select_all()
-        #elif action == _unselect_all:
-            #self.unselect_all()
-        #elif action == _advanced_selection:
-            #self.advanced_selection()
-        #elif action == _set_variables:
-            #self.set_variables()
-        #elif action == _reset:
-            #self.reset()
-        #elif action == _fixed:
-            #self.fixed_variables()
-        #elif action == _unfixed:
-            #self.unfixed_variables()
-        #elif action == _export:
-            #self.export_table()
-        #elif action == _import:
-            #self.import_table()
             
     def select_action(self, action):
         '''function to replace the complext if/elif/else statement

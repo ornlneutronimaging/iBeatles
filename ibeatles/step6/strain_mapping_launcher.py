@@ -43,6 +43,15 @@ class StrainMappingWindow(QMainWindow):
         self.init_pyqtgraph()
         self.init_labels()
         #self.init_widgets()
+        self.display_images_and_selection()
+        
+    def display_images_and_selection(self):
+        
+        _data = self.parent.data_metadata['normalized']['data_live_selection']
+        if not _data == []:
+            self.ui.strain_mapping_image.setImage(_data)
+            self.ui.sigma_image.setImage(_data)
+            self.ui.alpha_image.setImage(_data)
 
     def set_tab_widgets(self):
         image_view = pg.ImageView()
@@ -62,14 +71,17 @@ class StrainMappingWindow(QMainWindow):
         
         #tab1
         _dict = self.set_tab_widgets()
+        self.ui.strain_mapping_image = _dict['image_view']
         self.ui.strain_mapping_tab.setLayout(_dict['layout'])
         
         #tab2
         _dict = self.set_tab_widgets()
+        self.ui.sigma_image = _dict['image_view']
         self.ui.sigma_tab.setLayout(_dict['layout'])
 
         #tab1
         _dict = self.set_tab_widgets()
+        self.ui.alpha_image = _dict['image_view']
         self.ui.alpha_tab.setLayout(_dict['layout'])
 
     def init_labels(self):
