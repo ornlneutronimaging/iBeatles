@@ -40,9 +40,37 @@ class StrainMappingWindow(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("6. Strain Mapping")
 
-        #self.init_pyqtgraph()
+        self.init_pyqtgraph()
         self.init_labels()
         #self.init_widgets()
+
+    def set_tab_widgets(self):
+        image_view = pg.ImageView()
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+        #self.parent.binning_line_view['image_view'] = image_view
+    
+        vertical_layout = QtGui.QVBoxLayout()
+        vertical_layout.addWidget(image_view)
+        
+        return {'layout': vertical_layout,
+                'image_view': image_view}
+
+    def init_pyqtgraph(self):
+        
+        pg.setConfigOptions(antialias=True)
+        
+        #tab1
+        _dict = self.set_tab_widgets()
+        self.ui.strain_mapping_tab.setLayout(_dict['layout'])
+        
+        #tab2
+        _dict = self.set_tab_widgets()
+        self.ui.sigma_tab.setLayout(_dict['layout'])
+
+        #tab1
+        _dict = self.set_tab_widgets()
+        self.ui.alpha_tab.setLayout(_dict['layout'])
 
     def init_labels(self):
         self.ui.d0_label.setText(u"d<sub>0</sub>")
