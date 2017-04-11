@@ -15,6 +15,16 @@ from ibeatles.fitting.set_fitting_variables_launcher import SetFittingVariablesL
 
 
 class ValueTableHandler(object):
+
+    __advanced_selection = None
+    __set_variables = None
+    __select_all = None
+    __unselect_all = None
+    __reset = None
+    __fixed = None
+    __unfixed = None
+    __export = None
+    __import = None
     
     def __init__(self, parent=None):
         self.parent = parent
@@ -28,26 +38,30 @@ class ValueTableHandler(object):
         else:
             status = True
 
-        _select_all = None
-        _unselect_all = None
-        _reset = None
-        _fixed = None
-        _unfixed = None
-        
         #_select_all = menu.addAction("Activate All")
         #_select_all.setEnabled(status)
         #_unselect_all = menu.addAction("Deactivate All")
         #_unselect_all.setEnabled(status)
         #menu.addSeparator()
-        _advanced_selection = menu.addAction("Selection/Lock Tool ...")
-        _advanced_selection.setEnabled(status)
-        _set_variables = menu.addAction("Variables Advanced Tool ...")
-        _set_variables.setEnabled(status)
+        
+        self.__advanced_selection = menu.addAction("Selection/Lock Tool ...")
+        self.__advanced_selection.setEnabled(status)
+        
+        self.__set_variables = menu.addAction("Variables Advanced Tool ...")
+        self.__set_variables.setEnabled(status)
+
         menu.addSeparator()
-        _fixed = menu.addAction("Fixed Variables Selected")
-        _fixed.setEnabled(status)
-        _unfixed = menu.addAction("Unfixed Variables Selected")
-        _unfixed.setEnabled(status)
+
+        self.__fixed = menu.addAction("Fixed Variables Selected")
+        self.__fixed.setEnabled(status)
+
+        self.__unfixed = menu.addAction("Unfixed Variables Selected")
+        self.__unfixed.setEnabled(status)
+
+        menu.addSeparator()
+
+        self.__export = menu.addAction("Export Table ...")
+        self.__import = menu.addAction("Import Table ...")
         
         #_reset = menu.addAction("Full Reset")
         #_reset.setEnabled(status)
@@ -57,20 +71,48 @@ class ValueTableHandler(object):
         if action is None:
             return
         
-        if action == _select_all:
-            self.select_all()
-        elif action == _unselect_all:
-            self.unselect_all()
-        elif action == _advanced_selection:
-            self.advanced_selection()
-        elif action == _set_variables:
-            self.set_variables()
-        elif action == _reset:
-            self.reset()
-        elif action == _fixed:
-            self.fixed_variables()
-        elif action == _unfixed:
-            self.unfixed_variables()
+        funct = self.select_action(action)
+        if funct is not None:
+            funct()
+        
+        #if action == _select_all:
+            #self.select_all()
+        #elif action == _unselect_all:
+            #self.unselect_all()
+        #elif action == _advanced_selection:
+            #self.advanced_selection()
+        #elif action == _set_variables:
+            #self.set_variables()
+        #elif action == _reset:
+            #self.reset()
+        #elif action == _fixed:
+            #self.fixed_variables()
+        #elif action == _unfixed:
+            #self.unfixed_variables()
+        #elif action == _export:
+            #self.export_table()
+        #elif action == _import:
+            #self.import_table()
+            
+    def select_action(self, action):
+        '''function to replace the complext if/elif/else statement
+        of right_click().'''
+        return {
+            self.__select_all: self.select_all,
+            self.__unselect_all: self.unselect_all,
+            self.__advanced_selection: self.advanced_selection,
+            self.__set_variables: self.set_variables,
+            self.__reset: self.reset,
+            self.__unfixed: self.unfixed_variables,
+            self.__export: self.export_table,
+            self.__import: self.import_table,
+        }.get(action, lambda: None)()
+            
+    def export_table(self):
+        pass
+    
+    def import_table(self):
+        pass
             
     def changed_fixed_variables_status(self, status=True):
         selection = self.parent.fitting_ui.ui.value_table.selectedRanges()
