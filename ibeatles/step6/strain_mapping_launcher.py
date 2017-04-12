@@ -49,6 +49,9 @@ class StrainMappingWindow(QMainWindow):
         #self.init_widgets()
         self.display_images_and_selection()
         
+    def tab_index_changed(self, index):
+        self.ui.stackedWidget.setCurrentIndex(index)
+        
     def display_images_and_selection(self):
         self.display_images()
         self.display_selections()
@@ -57,21 +60,17 @@ class StrainMappingWindow(QMainWindow):
         if item == 'strain_mapping':
             item = 'd_spacing'
         
-        min_value = 0
-        max_value = 0
+        min_value = 1e6
+        max_value = -1e6
         is_first_value = True
         for _index in table:
             _entry = table[_index]
             
-            value = _entry[item]['value']
-            if is_first_value:
+            value = _entry[item]['val']
+            if min_value > value:
                 min_value = value
+            elif max_value < value:
                 max_value = value
-            else:
-                if min_value > value:
-                    min_value = value
-                elif max_value < value:
-                    max_value = value
                 
         return [min_value, max_value]
 
@@ -146,6 +145,8 @@ class StrainMappingWindow(QMainWindow):
 
         [min_value, max_value] = self.get_min_max(table=table_dictionary,
                                                   item=item)
+        
+        print("min_value: {} and max_value: {}".format(min_value, max_value))
         
         self.initialize_colorscale_table(min_value=min_value,
                                          max_value=max_value,

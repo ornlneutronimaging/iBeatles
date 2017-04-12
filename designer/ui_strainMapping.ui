@@ -146,7 +146,7 @@
       <item>
        <widget class="QTabWidget" name="recap_tabs">
         <property name="currentIndex">
-         <number>2</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="strain_mapping_tab">
          <attribute name="title">
@@ -598,5 +598,25 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>recap_tabs</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>tab_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>139</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>447</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>tab_index_changed()</slot>
+ </slots>
 </ui>

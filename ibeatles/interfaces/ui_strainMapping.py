@@ -259,8 +259,9 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.recap_tabs.setCurrentIndex(2)
+        self.recap_tabs.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
+        QtCore.QObject.connect(self.recap_tabs, QtCore.SIGNAL(_fromUtf8("currentChanged(int)")), MainWindow.tab_index_changed)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
