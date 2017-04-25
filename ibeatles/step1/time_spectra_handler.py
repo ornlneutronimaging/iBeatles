@@ -50,7 +50,7 @@ class TimeSpectraHandler(object):
     def calculate_lambda_scale(self):
         distance_source_detector = str(self.parent.ui.distance_source_detector.text())
         detector_offset = str(self.parent.ui.detector_offset.text())
-        
+                             
         if (math_tools.is_float(distance_source_detector)) and \
            (math_tools.is_float(detector_offset)):
             distance_source_detector = float(distance_source_detector)

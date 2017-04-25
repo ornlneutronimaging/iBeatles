@@ -218,8 +218,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             if socket.gethostname() == 'mac95470':
                 current_folder = '/Users/j35/data/ibeatles_data/'
             else:
-                #current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
-                current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/iBeatles_debugging/'
+                current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
+                #current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/iBeatles_debugging/'
         else:
             current_folder = os.getcwd()
 
@@ -405,9 +405,12 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_gui.sync_instrument_widgets(source='normalized')
         if update_delta_lambda:
             self.update_delta_lambda()
-        o_data = DataHandler(parent=self)
+        o_data = DataHandler(parent=self, data_type='normalized')
         o_data.load_time_spectra()
+        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot.display_bragg_edge(mouse_selection=False)
         self.sample_list_selection_changed()
+        
         o_gui.block_instrument_widgets(status=False)
 
     def distance_source_detector_2_changed(self):
