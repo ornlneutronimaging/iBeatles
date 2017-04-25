@@ -27,9 +27,3 @@ def advanced_fit(t, d_spacing, alpha, sigma, a1, a2, a5, a6):
     y = a1 + term0 + term1 * ( term3 - term4 * term5)
     
     return y
- 
-    
- 
- 
-    
-≠
