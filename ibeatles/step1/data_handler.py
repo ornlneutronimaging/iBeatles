@@ -183,7 +183,7 @@ class DataHandler(object):
     
 
     def get_image_type(self, list_of_files):
-        raw_file, ext = os.path.splitext(list_of_files[0])
+        raw_file, ext = os.path.splitext(list_of_files[1])
         return ext
 
         

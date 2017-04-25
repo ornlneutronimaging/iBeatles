@@ -111,8 +111,10 @@ class FittingJobHandler(object):
                                      _bin_x0: _bin_x1,
                                      _bin_y0: _bin_y1]
                     
-                    y_axis = y_axis.sum(axis=1)
-                    y_axis = np.array(y_axis.sum(axis=1), dtype=float)
+                    #y_axis = y_axis.sum(axis=1)
+                    #y_axis = np.array(y_axis.sum(axis=1), dtype=float)
+                    y_axis = np.nanmean(y_axis, axis=1)
+                    y_axis = np.array(np.nanmean(y_axis, axis=1), dtype=float)
                     
                     try:
                         result = gmodel.fit(y_axis, params, t=x_axis)

@@ -140,8 +140,10 @@ class SelectedBinsHandler(object):
             y0 = _entry['y0']
             y1 = _entry['y1']
             _data = data_2d[:, x0:x1, y0:y1]
-            inter1 = np.sum(_data, axis=1)
-            final = np.sum(inter1, axis=1)
+            #inter1 = np.sum(_data, axis=1)
+            #final = np.sum(inter1, axis=1)
+            inter1 = np.nanmean(_data, axis=1)
+            final = np.nanmean(inter1, axis=1)
             bragg_edge_data.append(final)
             #if bragg_edge_data == []:
                 #bragg_edge_data = final
@@ -162,7 +164,7 @@ class SelectedBinsHandler(object):
             #self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u"TOF (\u00B5s)")
         #else:
         self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
-        self.parent.fitting_ui.bragg_edge_plot.setLabel("left", "Total Counts")
+        self.parent.fitting_ui.bragg_edge_plot.setLabel("left", "Average Counts")
 
         if self.parent.fitting_bragg_edge_linear_selection == []:
             linear_region_left = 0
