@@ -40,6 +40,8 @@ from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
+from ibeatles.tools.rotate_images import RotateImages
+
 from ibeatles.utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.roi_editor import RoiEditor
@@ -95,6 +97,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     # strain mapping ui (step6)
     strain_mapping_ui = None
+    
+    # rotate images ui
+    rotate_ui = None
     
     # table dictionary used in fitting/binning/advanced_selection/review
     table_dictionary = {}    
@@ -282,6 +287,9 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
     
     def menu_view_strain_mapping_clicked(self):
         o_strain = StrainMappingLauncher(parent=self)
+        
+    def rotate_normalized_images_clicked(self):
+        o_rotate = RotateImages(parent=self)
 
     #TAB 1, 2 and 3
 
@@ -724,6 +732,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             self.retrieve_selected_row_infos(data_type = 'normalized')
             o_plot = Step1Plot(parent=self, data_type='normalized')
             o_plot.display_bragg_edge()
+        o_gui = Step3GuiHandler(parent=self)
+        o_gui.check_widgets()
     
     def normalized_retrieve_selected_row_infos(self):
         o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent = self, data_type = 'normalized')

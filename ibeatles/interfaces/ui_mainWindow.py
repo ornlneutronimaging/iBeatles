@@ -891,6 +891,7 @@ class Ui_MainWindow(object):
         QtCore.QObject.connect(self.action3_Binning, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.menu_view_binning_clicked)
         QtCore.QObject.connect(self.action4_Fitting, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.menu_view_fitting_clicked)
         QtCore.QObject.connect(self.action5_Results, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.menu_view_strain_mapping_clicked)
+        QtCore.QObject.connect(self.actionRotate_Images, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.rotate_normalized_images_clicked)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
