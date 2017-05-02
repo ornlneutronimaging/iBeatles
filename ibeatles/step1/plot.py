@@ -100,6 +100,9 @@ class Step1Plot(object):
                     o_fitting.display_roi()
                     self.parent.fitting_ui.ui.area.setVisible(True)
                     o_fitting.fill_table()
+                if not (self.parent.rotate_ui is None):
+                    o_rotate = self.parent.rotate_ui
+                    o_rotate.display_rotated_images()
                         
     def add_origin_label(self, image_ui):
         # origin label
