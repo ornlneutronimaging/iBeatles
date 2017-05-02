@@ -14,6 +14,7 @@ except:
 from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
+import scipy
 
 from ibeatles.interfaces.ui_rotateImages import Ui_MainWindow as UiMainWindow
     
@@ -26,6 +27,7 @@ class RotateImages(object):
         if self.parent.rotate_ui == None:
             rotate_ui = RotateImagesWindow(parent=parent)
             rotate_ui.show()
+            rotate_ui.display_rotated_images()
             self.parent.rotate_ui = rotate_ui
         else:
             self.parent.rotate_ui.setFocus()
@@ -52,12 +54,15 @@ class RotateImagesWindow(QMainWindow):
         vertical_layout = QtGui.QVBoxLayout()
         vertical_layout.addWidget(self.ui.image_view)
         self.ui.widget.setLayout(vertical_layout)
+
+    def display_rotated_images(self):
+        data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
+        rotation_value = np.float(str(self.ui.rotation_value.text()))
         
-        
-        
-        
-        
-        
+        rotated_data = scipy.ndimage.interpolation.rotate(data, rotation_value)
+
+
+        self.ui.image_view.setImage(rotated_data)
         
         
     

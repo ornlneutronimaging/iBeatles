@@ -35,7 +35,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="rotation_value">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -47,6 +47,9 @@
           <width>100</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="text">
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -157,8 +160,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>rotation_value</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>display_rotated_images()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>477</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cancel_clicked()</slot>
+  <slot>display_rotated_images()</slot>
  </slots>
 </ui>
