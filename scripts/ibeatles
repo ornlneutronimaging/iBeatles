@@ -774,11 +774,6 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
 
     def test_me_clicked(self):
         pass
-        #data_type = 'normalized'
-        #print("file_index: {}".format(self.xaxis_button_ui[data_type]['file_index'].isChecked()))
-        #print("tof: {}".format(self.xaxis_button_ui[data_type]['tof'].isChecked()))
-        #print("lambda: {}".format(self.xaxis_button_ui[data_type]['lambda'].isChecked()))
-        #print()
 
 def main():
     app = QApplication(sys.argv)

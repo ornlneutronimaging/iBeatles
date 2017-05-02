@@ -1992,7 +1992,14 @@
     <addaction name="actionAbout"/>
     <addaction name="actionTest_me"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionRotate_Images"/>
+   </widget>
    <addaction name="menuSteps"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -2047,6 +2054,14 @@
   <action name="actionTest_me">
    <property name="text">
     <string>test_me</string>
+   </property>
+  </action>
+  <action name="actionRotate_Images">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Rotate Normalized Images ...</string>
    </property>
   </action>
  </widget>

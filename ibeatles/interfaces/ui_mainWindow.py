@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/ui_mainWindow.ui'
 #
-# Created: Wed Mar 22 11:11:54 2017
-#      by: PyQt4 UI code generator 4.11.3
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -61,7 +60,6 @@ class Ui_MainWindow(object):
         self.layoutWidget = QtGui.QWidget(self.sample_ob_splitter)
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_9 = QtGui.QVBoxLayout(self.layoutWidget)
-        self.verticalLayout_9.setMargin(0)
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
         self.toolBox = QtGui.QToolBox(self.layoutWidget)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
@@ -424,7 +422,6 @@ class Ui_MainWindow(object):
         self.widget_2.setMaximumSize(QtCore.QSize(350, 16777215))
         self.widget_2.setObjectName(_fromUtf8("widget_2"))
         self.verticalLayout_17 = QtGui.QVBoxLayout(self.widget_2)
-        self.verticalLayout_17.setMargin(0)
         self.verticalLayout_17.setObjectName(_fromUtf8("verticalLayout_17"))
         self.label_19 = QtGui.QLabel(self.widget_2)
         self.label_19.setObjectName(_fromUtf8("label_19"))
@@ -524,7 +521,6 @@ class Ui_MainWindow(object):
         self.layoutWidget1 = QtGui.QWidget(self.splitter_2)
         self.layoutWidget1.setObjectName(_fromUtf8("layoutWidget1"))
         self.verticalLayout_12 = QtGui.QVBoxLayout(self.layoutWidget1)
-        self.verticalLayout_12.setMargin(0)
         self.verticalLayout_12.setObjectName(_fromUtf8("verticalLayout_12"))
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
@@ -804,6 +800,8 @@ class Ui_MainWindow(object):
         self.menuSteps.setObjectName(_fromUtf8("menuSteps"))
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName(_fromUtf8("menuHelp"))
+        self.menuTools = QtGui.QMenu(self.menubar)
+        self.menuTools.setObjectName(_fromUtf8("menuTools"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
@@ -829,6 +827,9 @@ class Ui_MainWindow(object):
         self.action3_Normalized_Data.setObjectName(_fromUtf8("action3_Normalized_Data"))
         self.actionTest_me = QtGui.QAction(MainWindow)
         self.actionTest_me.setObjectName(_fromUtf8("actionTest_me"))
+        self.actionRotate_Images = QtGui.QAction(MainWindow)
+        self.actionRotate_Images.setEnabled(False)
+        self.actionRotate_Images.setObjectName(_fromUtf8("actionRotate_Images"))
         self.menuSteps.addAction(self.action1_load_data)
         self.menuSteps.addAction(self.action2_Normalization_2)
         self.menuSteps.addAction(self.action3_Normalized_Data)
@@ -837,7 +838,9 @@ class Ui_MainWindow(object):
         self.menuSteps.addAction(self.action5_Results)
         self.menuHelp.addAction(self.actionAbout)
         self.menuHelp.addAction(self.actionTest_me)
+        self.menuTools.addAction(self.actionRotate_Images)
         self.menubar.addAction(self.menuSteps.menuAction())
+        self.menubar.addAction(self.menuTools.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -981,6 +984,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "3 - Normalized Data", None))
         self.menuSteps.setTitle(_translate("MainWindow", "View", None))
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
+        self.menuTools.setTitle(_translate("MainWindow", "Tools", None))
         self.action1_Data.setText(_translate("MainWindow", "1. Data", None))
         self.action2_Normalization.setText(_translate("MainWindow", "2. Normalization", None))
         self.action3_Binning.setText(_translate("MainWindow", "4. Binning", None))
@@ -991,5 +995,6 @@ class Ui_MainWindow(object):
         self.action2_Normalization_2.setText(_translate("MainWindow", "2. Normalization", None))
         self.action3_Normalized_Data.setText(_translate("MainWindow", "3. Normalized Data", None))
         self.actionTest_me.setText(_translate("MainWindow", "test_me", None))
+        self.actionRotate_Images.setText(_translate("MainWindow", "Rotate Normalized Images ...", None))
 
 import icons_rc
