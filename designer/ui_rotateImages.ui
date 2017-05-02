@@ -114,7 +114,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="save_and_use_button">
         <property name="minimumSize">
          <size>
           <width>150</width>
@@ -176,9 +176,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>save_and_use_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save_and_use_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>667</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>559</x>
+     <y>545</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cancel_clicked()</slot>
   <slot>display_rotated_images()</slot>
+  <slot>save_and_use_clicked()</slot>
  </slots>
 </ui>

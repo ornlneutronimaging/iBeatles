@@ -63,10 +63,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addWidget(self.pushButton)
         spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
-        self.pushButton_2 = QtGui.QPushButton(self.centralwidget)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(150, 0))
-        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.save_and_use_button = QtGui.QPushButton(self.centralwidget)
+        self.save_and_use_button.setMinimumSize(QtCore.QSize(150, 0))
+        self.save_and_use_button.setObjectName(_fromUtf8("save_and_use_button"))
+        self.horizontalLayout.addWidget(self.save_and_use_button)
         self.verticalLayout.addLayout(self.horizontalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
@@ -80,6 +80,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.cancel_clicked)
         QtCore.QObject.connect(self.rotation_value, QtCore.SIGNAL(_fromUtf8("returnPressed()")), MainWindow.display_rotated_images)
+        QtCore.QObject.connect(self.save_and_use_button, QtCore.SIGNAL(_fromUtf8("clicked()")), MainWindow.save_and_use_clicked)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -88,5 +89,5 @@ class Ui_MainWindow(object):
         self.rotation_value.setText(_translate("MainWindow", "0", None))
         self.label_2.setText(_translate("MainWindow", "(ex: 45, -27)", None))
         self.pushButton.setText(_translate("MainWindow", "Cancel", None))
-        self.pushButton_2.setText(_translate("MainWindow", "Save and Use ...", None))
+        self.save_and_use_button.setText(_translate("MainWindow", "Save and Use ...", None))
 
