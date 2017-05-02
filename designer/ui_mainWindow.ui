@@ -2741,6 +2741,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionRotate_Images</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>rotate_normalized_images_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2791,5 +2807,6 @@
   <slot>menu_view_binning_clicked()</slot>
   <slot>menu_view_fitting_clicked()</slot>
   <slot>menu_view_strain_mapping_clicked()</slot>
+  <slot>rotate_normalized_images_clicked()</slot>
  </slots>
 </ui>
