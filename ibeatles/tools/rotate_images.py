@@ -44,7 +44,22 @@ class RotateImagesWindow(QMainWindow):
         self.init_pyqtgraph()
         
     def init_pyqtgraph(self):
-        pass
+
+        self.ui.image_view = pg.ImageView()
+        self.ui.image_view.ui.roiBtn.hide()
+        self.ui.image_view.ui.menuBtn.hide()
+        
+        vertical_layout = QtGui.QVBoxLayout()
+        vertical_layout.addWidget(self.ui.image_view)
+        self.ui.widget.setLayout(vertical_layout)
+        
+        
+        
+        
+        
+        
+        
+        
     
     def cancel_clicked(self):
         self.closeEvent(self)
