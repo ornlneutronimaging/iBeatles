@@ -256,6 +256,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
                                                'general_infos': None,
                                                'data': [],
                                                'lambda': [],
+                                               'full_file_name': '',
                                                'normalized_data': [],
                                                'normalized_lambda': []}}
         

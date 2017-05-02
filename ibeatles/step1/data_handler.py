@@ -104,7 +104,6 @@ class DataHandler(object):
 
             if o_time_spectra.file_found:
                 time_spectra = o_time_spectra.time_spectra
-                # save path   #FIXME
                 base_time_spectra = FileHandler.get_base_filename(time_spectra)
                 folder_name = FileHandler.get_parent_folder(time_spectra)
                 
@@ -112,6 +111,7 @@ class DataHandler(object):
                     self.list_ui['time_spectra']['text'].setText(base_time_spectra)
                     self.list_ui['time_spectra']['folder'].setText(folder_name)
                 elif self.data_type == 'normalized':
+                    self.parent.data_metadata['time_spectra']['full_file_name'] = time_spectra
                     self.list_ui['time_spectra']['text2'].setText(base_time_spectra)
                     self.list_ui['time_spectra']['folder2'].setText(folder_name)
                     self.parent.data_metadata['time_spectra']['normalized_folder'] = folder_name
@@ -136,6 +136,7 @@ class DataHandler(object):
                     self.list_ui['time_spectra']['folder'].setText(folder_name)
                     self.parent.data_metadata['time_spectra']['folder'] = folder_name
                 elif self.data_type == 'normalized':
+                    self.parent.data_metadata['time_spectra']['full_file_name'] = file_name
                     self.list_ui['time_spectra']['text2'].setText(base_file_name)
                     self.list_ui['time_spectra']['folder2'].setText(folder_name)
                     self.parent.data_metadata['time_spectra']['normalized_folder'] = folder_name
