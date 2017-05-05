@@ -19,6 +19,7 @@ import shutil
 import os
 
 from ibeatles.interfaces.ui_rotateImages import Ui_MainWindow as UiMainWindow
+from ibeatles.utilities.file_handler import FileHandler
     
     
 class RotateImages(object):
@@ -141,10 +142,12 @@ class RotateImagesWindow(QMainWindow):
             return
                     
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        self.rotate_all_images()
+        self.rotate_and_save_all_images(target_folder = output_folder)
         self.reload_rotated_images()
         self.copy_time_spectra(target_folder = output_folder)
         QApplication.restoreOverrideCursor()
+        
+        self.close()
         
     def copy_time_spectra(self, target_folder=None):
         time_spectra = self.parent.data_metadata['time_spectra']['full_file_name']
@@ -154,7 +157,10 @@ class RotateImagesWindow(QMainWindow):
     def reload_rotated_images(self):
         pass
         
-    def rotate_all_images(self):
+    def _save_image(self, filename='', data=[]):
+        FileHandler.make_fits(data=data, filename=filename)
+
+    def rotate_and_save_all_images(self, target_folder=''):
         rotation_value = np.float(str(self.ui.rotation_value.text()))
         
         normalized_array = self.parent.data_metadata['normalized']['data']
@@ -163,16 +169,24 @@ class RotateImagesWindow(QMainWindow):
         self.eventProgress.setVisible(True)
 
         rotated_normalized_array = []
+        normalized_filename = self.parent.data_files['normalized']
         
         for _index, _data in enumerate(normalized_array):
+            
+            # rotate image
             rotated_data = scipy.ndimage.interpolation.rotate(_data, rotation_value)
             rotated_normalized_array.append(rotated_data)
+            
+            # save image
+            new_filename = os.path.join(target_folder, normalized_filename[_index])
+            self._save_image(filename=new_filename, data=rotated_data)
+
             self.eventProgress.setValue(_index+1)
             QtGui.QApplication.processEvents()
             
         self.rotated_normalized_array = rotated_normalized_array
         self.eventProgress.setVisible(False)
-    
+
     def cancel_clicked(self):
         self.closeEvent(self)
         
