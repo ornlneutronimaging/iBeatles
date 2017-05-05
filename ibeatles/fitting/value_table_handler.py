@@ -2,11 +2,14 @@ try:
     import PyQt4.QtGui as QtGui
     import PyQt4.QtCore as QtCore
     from PyQt4.QtGui import QApplication 
+    from PyQt4.QtGui import QFileDialog
 except:
     import PyQt5.QtGui as QtGui
     import PyQt5.QtCore as QtCore
     from PyQt5.QtWidgets import QApplication
+    from PyQt5.QtWidgets import QFileDialog
 import numpy as np
+import os
     
 from ibeatles.fitting.advanced_selection_launcher import AdvancedSelectionLauncher
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
@@ -90,7 +93,14 @@ class ValueTableHandler(object):
         }.get(action, lambda: None)()
             
     def export_table(self):
-        pass
+        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        output_folder = str(QtGui.QFileDialog.getSaveFileName(self.parent, 
+                                                              'Define Location and File Name Where to Export the Table!',
+                                                              os.path.join(self.parent.normalized_folder, default_file_name)))
+                            
+                                                              
+        if output_folder:   
+            print(output_folder)
     
     def import_table(self):
         pass
