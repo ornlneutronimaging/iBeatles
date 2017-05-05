@@ -152,12 +152,19 @@ class RotateImagesWindow(QMainWindow):
     def copy_time_spectra(self, target_folder=None):
         time_spectra = self.parent.data_metadata['time_spectra']['full_file_name']
         target_filename = os.path.join(target_folder, os.path.basename(time_spectra))
+        if os.path.exists(target_filename):
+            os.remove(target_filename)
         shutil.copyfile(time_spectra, target_filename)
+        _folder_time_spectra = os.path.basename(os.path.abspath(target_folder))
+        self.parent.ui.time_spectra_folder_2.setText(_folder_time_spectra)
         
     def reload_rotated_images(self):
+        # update plot
         pass
         
     def _save_image(self, filename='', data=[]):
+        if os.path.exists(filename):
+            os.remove(filename)
         FileHandler.make_fits(data=data, filename=filename)
 
     def rotate_and_save_all_images(self, target_folder=''):
@@ -170,6 +177,8 @@ class RotateImagesWindow(QMainWindow):
 
         rotated_normalized_array = []
         normalized_filename = self.parent.data_files['normalized']
+        basefolder = os.path.basename(os.path.abspath(target_folder))
+        self.parent.ui.normalized_folder.setText(basefolder)
         
         for _index, _data in enumerate(normalized_array):
             
@@ -183,9 +192,11 @@ class RotateImagesWindow(QMainWindow):
 
             self.eventProgress.setValue(_index+1)
             QtGui.QApplication.processEvents()
-            
-        self.rotated_normalized_array = rotated_normalized_array
+           
+        self.parent.data_metadata['normalized']['data'] = rotated_normalized_array
         self.eventProgress.setVisible(False)
+
+        self.parent.normalized_list_selection_changed()
 
     def cancel_clicked(self):
         self.closeEvent(self)
