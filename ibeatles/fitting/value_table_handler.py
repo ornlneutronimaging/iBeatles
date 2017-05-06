@@ -103,7 +103,13 @@ class ValueTableHandler(object):
             print(output_folder)
     
     def import_table(self):
-        pass
+        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        table_file = str(QtGui.QFileDialog.getOpenFileName(self.parent, 
+                                                           'Select Table File to Import!'
+                                                           "CSV (*.csv)"))
+
+        if table_file:  
+            print(table_file)
             
     def changed_fixed_variables_status(self, status=True):
         selection = self.parent.fitting_ui.ui.value_table.selectedRanges()
