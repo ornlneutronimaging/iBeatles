@@ -93,23 +93,12 @@ class ValueTableHandler(object):
         }.get(action, lambda: None)()
             
     def export_table(self):
-        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
-        output_folder = str(QtGui.QFileDialog.getSaveFileName(self.parent, 
-                                                              'Define Location and File Name Where to Export the Table!',
-                                                              os.path.join(self.parent.normalized_folder, default_file_name)))
-                            
-                                                              
-        if output_folder:   
-            print(output_folder)
+        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table.export_table()
     
     def import_table(self):
-        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
-        table_file = str(QtGui.QFileDialog.getOpenFileName(self.parent, 
-                                                           'Select Table File to Import!'
-                                                           "CSV (*.csv)"))
-
-        if table_file:  
-            print(table_file)
+        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table.import_table()
             
     def changed_fixed_variables_status(self, status=True):
         selection = self.parent.fitting_ui.ui.value_table.selectedRanges()

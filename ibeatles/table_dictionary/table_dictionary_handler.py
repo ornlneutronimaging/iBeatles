@@ -66,9 +66,6 @@ class TableDictionaryHandler(object):
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
                 
-                #FOR DEBUGGING ONLY
-                random_value = get_random_value(max_value=10)
-                
                 table_dictionary[_str_index] = {'bin_coordinates': {'x0': np.NaN,
                                                                     'x1': np.NaN,
                                                                     'y0': np.NaN,
@@ -81,7 +78,7 @@ class TableDictionaryHandler(object):
                                                 'lock': False,
                                                 'active': False,
                                                 'fitting_confidence': np.NaN,
-                                                'd_spacing': {'val': random_value, 
+                                                'd_spacing': {'val': np.NaN, 
                                                               'err': np.NaN,
                                                               'fixed': False},
                                                 'sigma': {'val': np.NaN, 
@@ -208,3 +205,107 @@ class TableDictionaryHandler(object):
         else:
             return np.nanmean(array)
         
+        
+    def import_table(self):
+        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        output_folder = str(QtGui.QFileDialog.getOpenFileName(self.parent, 
+                                                              'Define Location and File Name Where to Export the Table!',
+                                                              os.path.join(self.parent.normalized_folder, default_file_name)))
+    
+    
+        if output_folder:   
+            pass
+            
+            
+        
+        
+    def export_table(self):
+        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        table_file = str(QtGui.QFileDialog.getSaveFileName(self.parent, 
+                                                               'Select or Define Name of File!',
+                                                               default_file_name,
+                                                               "CSV (*.csv)"))
+    
+        if table_file:  
+            table_dictionary = self.parent.table_dictionary
+            o_table_formated = FormatTableForExport(table=table_dictionary)
+#            table_formated = o_table_formated.pandas_table
+            
+            
+class FormatTableForExport(object):
+    
+    formated_table = []
+    
+    def __init__(self, table={}):
+        
+        pandas_table = []
+        
+        for _key in table:
+            
+            _entry = table[_key]
+            
+            x0 = _entry['bin_coordinates']['x0']
+            y0 = _entry['bin_coordinates']['y0']
+            x1 = _entry['bin_coordinates']['x1']
+            y1 = _entry['bin_coordinates']['y1']
+            
+            row_index = _entry['row_index']
+            column_index = _entry['column_index']
+            
+            lock = _entry['lock']
+            active = _entry['active']
+            
+            fitting_confidence = _entry['fitting_confidence']
+            
+            [d_spacing_val,
+             d_spacing_err,
+             d_spacing_fixed] = self.get_val_err_fixed(_entry['d_spacing'])
+        
+            [sigma_val,
+             sigma_err,
+             sigma_fixed] = self.get_val_err_fixed(_entry['sigma'])
+            
+            [intensity_val,
+             intensity_err,
+             intensity_fixed] = self.get_val_err_fixed(_entry['intensity'])
+            
+            [alpha_val,
+             alpha_err,
+             alpha_fixed] = self.get_val_err_fixed(_entry['alpha'])
+            
+            [a1_val,
+             a1_err,
+             a1_fixed] = self.get_val_err_fixed(_entry['a1'])
+            
+            [a2_val,
+             a2_err,
+             a2_fixed] = self.get_val_err_fixed(_entry['a2'])
+            
+            [a5_val,
+            a5_err,
+            a5_fixed] = self.get_val_err_fixed(_entry['a5'])
+        
+            [a6_val,
+             a6_err,
+             a6_fixed] = self.get_val_err_fixed(_entry['a6'])
+        
+            _row = [x0, x1, y0, y1, 
+                    row_index, column_index,
+                    lock, active,
+                    fitting_confidence,
+                    d_spacing_val, d_spacing_err, d_spacing_fixed,
+                    sigma_val, sigma_err, sigma_fixed,
+                    intensity_val, intensity_err, intensity_fixed,
+                    alpha_val, alpha_err, alpha_fixed,
+                    a1_val, a1_err, a1_fixed,
+                    a2_val, a2_err, a2_fixed,
+                    a5_val, a5_err, a5_fixed,
+                    a6_val, a6_err, a6_fixed,
+                    ]
+            
+            pandas_table.append(_row)
+            
+        self.pandas_table = pandas_table    
+        
+    def get_val_err_fixed(self, item):
+        return [item['val'], item['err'], item['fixed']]
