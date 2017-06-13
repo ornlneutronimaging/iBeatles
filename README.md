@@ -3,15 +3,16 @@ iBeatles
 
 GUI to automatically fit Bragg Edges, calculate and display strain mapping factors. 
 
-
 Building
 --------
+
+Install all the dependencies
+> pip install -r requirements.txt
 
 Before doing the normal `python setup.py ...` things you must convert the
 `designer/*.ui` files to `ibeatles/interfaces/*.py. 
 This is done with
-> python setup.py pyuic. 
-
+> python setup.py pyuic
 
 After that, all the normal
 [setuptools](https://pythonhosted.org/setuptools/setuptools.html) magic applies.
