@@ -12,6 +12,7 @@ import os
 import pyqtgraph as pg
 import pandas as pd
 
+import ibeatles.fitting.fitting_handler
 from ibeatles.utilities.array_utilities import get_min_max_xy
 from ibeatles.utilities.math_tools import get_random_value
 
@@ -259,7 +260,6 @@ class TableDictionaryHandler(object):
         else:
             return np.nanmean(array)
         
-        
     def import_table(self):
         default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
         table_file = str(QtGui.QFileDialog.getOpenFileName(self.parent, 
@@ -271,12 +271,16 @@ class TableDictionaryHandler(object):
             pandas_data_frame = pd.read_csv(table_file)
             o_table = TableDictionaryHandler(parent=self.parent)
 
-
             numpy_table = pandas_data_frame.values
             # loop over each row in the pandas data frame
             for _index, _row_values in enumerate(numpy_table):
                 o_table.populate_table_dictionary_entry(index=_index,
                                                         array=_row_values)
+            
+            o_fitting = ibeatles.fitting.fitting_handler.FittingHandler(parent=self.parent)
+            o_fitting.fill_table()
+        
+        
         
     def export_table(self):
         default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'

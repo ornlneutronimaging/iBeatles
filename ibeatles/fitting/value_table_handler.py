@@ -11,6 +11,7 @@ except:
 import numpy as np
 import os
     
+from ibeatles.fitting.export_fitting_handler import ExportFittingHandler
 from ibeatles.fitting.advanced_selection_launcher import AdvancedSelectionLauncher
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
@@ -64,7 +65,13 @@ class ValueTableHandler(object):
         menu.addSeparator()
 
         self.__export = menu.addAction("Export Table ...")
+        self.__export.setEnabled(False)
         self.__import = menu.addAction("Import Table ...")
+        self.__import.setEnabled(False)
+        
+        menu.addSeparator()
+        
+        self.__export_fitting = menu.addAction("Export Fitting ...")
         
         #_reset = menu.addAction("Full Reset")
         #_reset.setEnabled(status)
@@ -90,7 +97,12 @@ class ValueTableHandler(object):
             self.__unfixed: self.unfixed_variables,
             self.__export: self.export_table,
             self.__import: self.import_table,
+            self.__export_fitting: self.export_fitting,
         }.get(action, lambda: None)()
+            
+    def export_fitting(self):
+        o_export_fitting = ExportFittingHandler(parent=self.parent)
+        o_export_fitting.run()
             
     def export_table(self):
         o_table = TableDictionaryHandler(parent=self.parent)
