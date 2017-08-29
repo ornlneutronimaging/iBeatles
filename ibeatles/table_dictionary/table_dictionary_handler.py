@@ -8,8 +8,11 @@ except:
     import PyQt5.QtCore as QtCore
     from PyQt5.QtWidgets import QApplication
 
+import os
 import pyqtgraph as pg
+import pandas as pd
 
+import ibeatles.fitting.fitting_handler
 from ibeatles.utilities.array_utilities import get_min_max_xy
 from ibeatles.utilities.math_tools import get_random_value
 
@@ -22,6 +25,15 @@ class TableDictionaryHandler(object):
     lock_color = {'pen': (0,0,0,30),
                   'brush': (255,0,0,240)}
 
+    header = ['x0','y0','x1','y1','row_index','column_index','lock','active',
+                      'fitting_confidence','d_spacing_value','d_spacing_err','d_spacing_fixed',
+                      'sigma_value','sigma_err','sigma_fixed',
+                      'intensity_value','intensity_err','intensity_fixed',
+                      'alpha_value','alpha_err','alpha_fixed',
+                      'a1_value','a1_err','a1_fixed',
+                      'a2_value','a2_err','a2_fixed',
+                      'a5_value','a5_err','a5_fixed',
+                      'a6_value','a6_err','a6_fixed']    
     
     def __init__(self, parent=None):
         self.parent = parent
@@ -34,6 +46,49 @@ class TableDictionaryHandler(object):
         for _key in list_keys:
             table_dictionary[_key][variable_name]['val'] = value
             
+        self.parent.table_dictionary = table_dictionary
+        
+    def populate_table_dictionary_entry(self, index=0, array=[]):
+        table_dictionary = self.parent.table_dictionary
+        
+        table_dictionary[str(index)] = {'bin_coordinates': {'x0': array[0],
+                                                            'x1': array[2],
+                                                            'y0': array[1],
+                                                            'y1': array[3]},
+                                        'selected_item': None,
+                                        'locked_item': None,
+                                        'row_index': array[4],
+                                        'column_index': array[5],
+                                        'selected': False,
+                                        'lock': array[6],
+                                        'active': array[7],
+                                        'fitting_confidence': array[8],
+                                        'd_spacing': {'val': array[9], 
+                                                      'err': array[10],
+                                                      'fixed': array[11]},
+                                        'sigma': {'val': array[12], 
+                                                  'err': array[13],
+                                                  'fixed': array[14]},
+                                        'intensity': {'val': array[15], 
+                                                      'err': array[16],
+                                                      'fixed': array[17]},
+                                        'alpha': {'val': array[18], 
+                                                  'err': array[19],
+                                                  'fixed': array[20]},
+                                        'a1': {'val': array[21], 
+                                               'err': array[22],
+                                               'fixed': array[23]},
+                                        'a2': {'val': array[24], 
+                                               'err': array[25],
+                                               'fixed': array[26]},
+                                        'a5': {'val': array[27], 
+                                               'err': array[28],
+                                               'fixed': array[29]},
+                                        'a6': {'val': array[30], 
+                                               'err': array[31],
+                                               'fixed': array[32]},
+                                        }   
+
         self.parent.table_dictionary = table_dictionary
         
     def create_table_dictionary(self):
@@ -66,9 +121,6 @@ class TableDictionaryHandler(object):
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
                 
-                #FOR DEBUGGING ONLY
-                random_value = get_random_value(max_value=10)
-                
                 table_dictionary[_str_index] = {'bin_coordinates': {'x0': np.NaN,
                                                                     'x1': np.NaN,
                                                                     'y0': np.NaN,
@@ -81,7 +133,7 @@ class TableDictionaryHandler(object):
                                                 'lock': False,
                                                 'active': False,
                                                 'fitting_confidence': np.NaN,
-                                                'd_spacing': {'val': random_value, 
+                                                'd_spacing': {'val': np.NaN, 
                                                               'err': np.NaN,
                                                               'fixed': False},
                                                 'sigma': {'val': np.NaN, 
@@ -208,3 +260,117 @@ class TableDictionaryHandler(object):
         else:
             return np.nanmean(array)
         
+    def import_table(self):
+        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        table_file = str(QtGui.QFileDialog.getOpenFileName(self.parent, 
+                                                              'Define Location and File Name Where to Export the Table!',
+                                                              os.path.join(self.parent.normalized_folder, default_file_name)))
+    
+    
+        if table_file:
+            pandas_data_frame = pd.read_csv(table_file)
+            o_table = TableDictionaryHandler(parent=self.parent)
+
+            numpy_table = pandas_data_frame.values
+            # loop over each row in the pandas data frame
+            for _index, _row_values in enumerate(numpy_table):
+                o_table.populate_table_dictionary_entry(index=_index,
+                                                        array=_row_values)
+            
+            o_fitting = ibeatles.fitting.fitting_handler.FittingHandler(parent=self.parent)
+            o_fitting.fill_table()
+        
+        
+        
+    def export_table(self):
+        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        table_file = str(QtGui.QFileDialog.getSaveFileName(self.parent, 
+                                                               'Select or Define Name of File!',
+                                                               default_file_name,
+                                                               "CSV (*.csv)"))
+    
+        if table_file:  
+            table_dictionary = self.parent.table_dictionary
+            o_table_formated = FormatTableForExport(table=table_dictionary)
+            pandas_data_frame = o_table_formated.pandas_data_frame
+            header = self.header
+            pandas_data_frame.to_csv(table_file, header=header)
+            
+class FormatTableForExport(object):
+    
+    pandas_data_frame = []
+    
+    def __init__(self, table={}):
+        
+        pandas_table = []
+        
+        for _key in table:
+            
+            _entry = table[_key]
+            
+            x0 = _entry['bin_coordinates']['x0']
+            y0 = _entry['bin_coordinates']['y0']
+            x1 = _entry['bin_coordinates']['x1']
+            y1 = _entry['bin_coordinates']['y1']
+            
+            row_index = _entry['row_index']
+            column_index = _entry['column_index']
+            
+            lock = _entry['lock']
+            active = _entry['active']
+            
+            fitting_confidence = _entry['fitting_confidence']
+            
+            [d_spacing_val,
+             d_spacing_err,
+             d_spacing_fixed] = self.get_val_err_fixed(_entry['d_spacing'])
+        
+            [sigma_val,
+             sigma_err,
+             sigma_fixed] = self.get_val_err_fixed(_entry['sigma'])
+            
+            [intensity_val,
+             intensity_err,
+             intensity_fixed] = self.get_val_err_fixed(_entry['intensity'])
+            
+            [alpha_val,
+             alpha_err,
+             alpha_fixed] = self.get_val_err_fixed(_entry['alpha'])
+            
+            [a1_val,
+             a1_err,
+             a1_fixed] = self.get_val_err_fixed(_entry['a1'])
+            
+            [a2_val,
+             a2_err,
+             a2_fixed] = self.get_val_err_fixed(_entry['a2'])
+            
+            [a5_val,
+            a5_err,
+            a5_fixed] = self.get_val_err_fixed(_entry['a5'])
+        
+            [a6_val,
+             a6_err,
+             a6_fixed] = self.get_val_err_fixed(_entry['a6'])
+        
+            _row = [x0, x1, y0, y1, 
+                    row_index, column_index,
+                    lock, active,
+                    fitting_confidence,
+                    d_spacing_val, d_spacing_err, d_spacing_fixed,
+                    sigma_val, sigma_err, sigma_fixed,
+                    intensity_val, intensity_err, intensity_fixed,
+                    alpha_val, alpha_err, alpha_fixed,
+                    a1_val, a1_err, a1_fixed,
+                    a2_val, a2_err, a2_fixed,
+                    a5_val, a5_err, a5_fixed,
+                    a6_val, a6_err, a6_fixed,
+                    ]
+            
+            pandas_table.append(_row)
+            
+        pandas_data_frame = pd.DataFrame.from_dict(pandas_table)
+        self.pandas_data_frame = pandas_data_frame
+        
+    def get_val_err_fixed(self, item):
+        return [item['val'], item['err'], item['fixed']]

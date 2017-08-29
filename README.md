@@ -13,6 +13,16 @@ Before doing the normal `python setup.py ...` things you must convert the
 This is done with
 > python setup.py pyuic
 
+> python setup.py pyrcc
+
+add iBeatles to python path (as well as BraggEdge as right now the library do not seem to work correctly!)
+> export PYTHONPATH=/Users/j35/git/iBeatles;/Users/j35/git/BraggEdge/
+
+> python scripts/ibeatles.py
+
+After that, all the normal
+[setuptools](https://pythonhosted.org/setuptools/setuptools.html) magic applies.
+
 Because the current version is still under development, it can be a little bit struggle to get it up and running...do not hesitate to contact me to get help on the installation (j35 at ornl.gov)
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
