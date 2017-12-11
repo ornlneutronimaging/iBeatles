@@ -103,11 +103,11 @@ class TimeSpectraDisplay(QMainWindow):
         self.ui.time_spectra_text.setText(_file_contain)
     
     def plot_data(self):
-        self.ui.time_spectra_plot.plot(self.x_axis, self.y_axis)
+        self.ui.time_spectra_plot.plot(self.x_axis, self.y_axis, '.')
 
         if not self.x2_axis == []:
             ax2 = self.ui.time_spectra_plot.canvas.ax.twiny()
-            ax2.plot(self.x2_axis, np.ones(len(self.x2_axis)))
+            ax2.plot(self.x2_axis, np.ones(len(self.x2_axis)), '.')
             ax2.cla()
             ax2.set_xlabel(r"$Lambda  (\AA)$")
         

@@ -223,7 +223,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             if socket.gethostname() == 'mac95470':
                 current_folder = '/Users/j35/data/ibeatles_data/'
             else:
-                current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/IPTS_19626/'
+                current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/'
                 #current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
                 #current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/iBeatles_debugging/'
         else:
@@ -797,3 +797,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    sys.exit()
