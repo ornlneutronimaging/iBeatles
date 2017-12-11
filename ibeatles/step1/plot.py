@@ -425,7 +425,9 @@ class Step1Plot(object):
 
         x_axis = []
         plot_ui.setLabel("left", "Total Counts")
-                
+
+        _symbol = 't'
+
         if tof_array == []:
             
             plot_ui.setLabel('bottom', 'File Index')
@@ -434,7 +436,7 @@ class Step1Plot(object):
                 _bragg_edge = bragg_edges[_key]
                 if _bragg_edge == []:
                     continue
-                curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key])
+                curve = plot_ui.plot(_bragg_edge, symbolPen=None, pen=pen_color[_key], symbol=_symbol, symbolSize=5)
                 x_axis = np.arange(len(_bragg_edge))
         
                 curvePoint = pg.CurvePoint(curve)
@@ -460,11 +462,18 @@ class Step1Plot(object):
                     continue
     
                 if xaxis_choice == 'file_index':
-                    curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key])
+                    curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key],
+                                         symbolPen=None,
+                                         symbolSize=5,
+                                         symbol=_symbol)
                     x_axis = np.arange(len(_bragg_edge))
                     
                 elif xaxis_choice == 'tof':
-                    curve = plot_ui.plot(tof_array, _bragg_edge, pen=pen_color[_key])
+                    curve = plot_ui.plot(tof_array, _bragg_edge,
+                                         pen=pen_color[_key],
+                                         symbolPen=None,
+                                         symbolSize=5,
+                                         symbol=_symbol)
                     x_axis = tof_array
                     linear_region_left = tof_array[linear_region_left]
                     linear_region_right = tof_array[linear_region_right]
@@ -474,7 +483,11 @@ class Step1Plot(object):
                     if first_index:
                         lambda_array = lambda_array * 1e10
                         
-                    curve = plot_ui.plot(lambda_array, _bragg_edge, pen=pen_color[_key])
+                    curve = plot_ui.plot(lambda_array, _bragg_edge,
+                                         pen=pen_color[_key],
+                                         symbolPen=None,
+                                         symbolSize=5,
+                                         )
                     x_axis = lambda_array
                     linear_region_left = lambda_array[linear_region_left]
                     linear_region_right = lambda_array[linear_region_right]
@@ -524,3 +537,6 @@ class Step1Plot(object):
                 _text = pg.TextItem(_hkl_formated, anchor=(0,1), angle=45, color=pg.mkColor("c"))
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)
+
+
+

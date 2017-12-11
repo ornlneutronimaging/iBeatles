@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+    #!/usr/bin/env python
 
 import sys
 import os
@@ -223,7 +223,8 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
             if socket.gethostname() == 'mac95470':
                 current_folder = '/Users/j35/data/ibeatles_data/'
             else:
-                current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
+                current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/'
+                #current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
                 #current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/iBeatles_debugging/'
         else:
             current_folder = os.getcwd()
@@ -521,6 +522,7 @@ class MainWindow(QMainWindow, ibeatles.interfaces.ui_mainWindow.Ui_MainWindow):
         o_load = DataHandler(parent = self)
         o_load.retrieve_files(data_type = 'sample')
         if not o_load.user_canceled:
+
             self.select_load_data_row(data_type = 'sample', row = 0)
             self.retrieve_general_infos(data_type = 'sample')
             self.retrieve_selected_row_infos(data_type = 'sample')
@@ -795,3 +797,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    sys.exit()

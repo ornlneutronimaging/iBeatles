@@ -60,7 +60,7 @@ class DataHandler(object):
                 if (data_type == 'sample') or (data_type == 'normalized'):
                     self.retrieve_time_spectra()
                     self.load_time_spectra()
-                    
+
             else:
                 self.user_canceled = True
 
@@ -106,7 +106,8 @@ class DataHandler(object):
                 time_spectra = o_time_spectra.time_spectra
                 base_time_spectra = FileHandler.get_base_filename(time_spectra)
                 folder_name = FileHandler.get_parent_folder(time_spectra)
-                
+                self.parent.time_spectra_folder = os.path.dirname(time_spectra)
+
                 if self.data_type == 'sample':
                     self.list_ui['time_spectra']['text'].setText(base_time_spectra)
                     self.list_ui['time_spectra']['folder'].setText(folder_name)
@@ -130,6 +131,7 @@ class DataHandler(object):
             if file_name:
                 folder_name = FileHandler.get_parent_folder(file_name)
                 base_file_name = FileHandler.get_base_filename(file_name)
+                self.parent.time_spectra_folder = os.path.dirname(file_name)
 
                 if self.data_type == 'sample':
                     self.list_ui['time_spectra']['text'].setText(base_file_name)
@@ -153,6 +155,7 @@ class DataHandler(object):
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files
         self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
+        self.parent.sample_folder = os.path.dirname(os.path.dirname(o_load_image.folder))
         self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
         
     def populate_list_widget(self, o_loader):
