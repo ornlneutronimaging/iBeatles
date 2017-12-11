@@ -106,7 +106,8 @@ class DataHandler(object):
                 time_spectra = o_time_spectra.time_spectra
                 base_time_spectra = FileHandler.get_base_filename(time_spectra)
                 folder_name = FileHandler.get_parent_folder(time_spectra)
-                
+                self.parent.time_spectra_folder = os.path.dirname(time_spectra)
+
                 if self.data_type == 'sample':
                     self.list_ui['time_spectra']['text'].setText(base_time_spectra)
                     self.list_ui['time_spectra']['folder'].setText(folder_name)
@@ -130,6 +131,7 @@ class DataHandler(object):
             if file_name:
                 folder_name = FileHandler.get_parent_folder(file_name)
                 base_file_name = FileHandler.get_base_filename(file_name)
+                self.parent.time_spectra_folder = os.path.dirname(file_name)
 
                 if self.data_type == 'sample':
                     self.list_ui['time_spectra']['text'].setText(base_file_name)

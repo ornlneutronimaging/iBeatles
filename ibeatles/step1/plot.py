@@ -524,3 +524,6 @@ class Step1Plot(object):
                 _text = pg.TextItem(_hkl_formated, anchor=(0,1), angle=45, color=pg.mkColor("c"))
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)
+
+
+

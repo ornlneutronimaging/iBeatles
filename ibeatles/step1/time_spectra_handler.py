@@ -36,7 +36,6 @@ class TimeSpectraHandler(object):
         else:
             self.short_file_name = str(self.parent.ui.time_spectra.text())
             self.full_file_name = os.path.join(self.parent.time_spectra_folder,
-                                               str(self.parent.ui.time_spectra_folder.text()),
                                                str(self.parent.ui.time_spectra.text()))
         
     def load(self):
