@@ -35,10 +35,17 @@ class TimeSpectraHandler(object):
                                                self.short_file_name)
         else:
             self.short_file_name = str(self.parent.ui.time_spectra.text())
+
+            #debugging
+            print(self.parent.time_spectra_folder)
+            print(self.parent.ui.time_spectra_folder.text())
+            print(self.parent.ui.time_spectra.text())
+            folder = self.parent.data_metadata['sample']['folder']
+            #self.full_file_name = os.path.join(self.parent.time_spectra_folder,
             self.full_file_name = os.path.join(self.parent.time_spectra_folder,
                                                str(self.parent.ui.time_spectra_folder.text()),
                                                str(self.parent.ui.time_spectra.text()))
-        
+
     def load(self):
         if os.path.isfile(self.full_file_name):
             _tof_handler = TOF(filename = self.full_file_name)
