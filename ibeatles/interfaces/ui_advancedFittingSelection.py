@@ -93,4 +93,3 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Cells Size"))
         self.apply_button.setText(_translate("MainWindow", "Apply"))
 
-import icons_rc

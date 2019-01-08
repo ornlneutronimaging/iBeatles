@@ -128,6 +128,7 @@ class Ui_MainWindow(object):
         self.active_label.setObjectName("active_label")
         self.horizontalLayout_5.addWidget(self.active_label)
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4.setText("")
         self.label_4.setObjectName("label_4")
         self.horizontalLayout_5.addWidget(self.label_4)
         self.locked_label = QtWidgets.QLabel(self.centralwidget)
@@ -145,6 +146,7 @@ class Ui_MainWindow(object):
         self.locked_label.setObjectName("locked_label")
         self.horizontalLayout_5.addWidget(self.locked_label)
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6.setText("")
         self.label_6.setObjectName("label_6")
         self.horizontalLayout_5.addWidget(self.label_6)
         self.fixed_label = QtWidgets.QLabel(self.centralwidget)
@@ -228,12 +230,9 @@ class Ui_MainWindow(object):
         item = self.colorscale_table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "New Column"))
         self.active_label.setText(_translate("MainWindow", "Active Bin"))
-        self.label_4.setText(_translate("MainWindow", " "))
         self.locked_label.setText(_translate("MainWindow", "Bin Locked"))
-        self.label_6.setText(_translate("MainWindow", " "))
         self.fixed_label.setText(_translate("MainWindow", "Fixed"))
         self.label_2.setText(_translate("MainWindow", "Cells Size"))
         self.label.setText(_translate("MainWindow", "New Value"))
         self.apply_button.setText(_translate("MainWindow", "Apply New Value to Selection"))
 
-import icons_rc

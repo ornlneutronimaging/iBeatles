@@ -1,4 +1,7 @@
-from PyQt4 import QtGui
+try:
+    from PyQt4 import QtGui, QtCore
+except:
+    from PyQt5 import QtGui, QtCore
 from ibeatles.utilities.array_utilities import find_nearest_index
 
 

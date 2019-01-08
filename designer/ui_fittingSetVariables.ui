@@ -304,7 +304,7 @@
       <item>
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string> </string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -355,7 +355,7 @@
       <item>
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string> </string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -519,9 +519,7 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="../icons/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>advanced_selection_cell_size_slider</sender>

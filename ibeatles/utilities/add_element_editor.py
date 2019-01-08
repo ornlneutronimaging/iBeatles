@@ -1,4 +1,7 @@
-from PyQt4 import QtGui, QtCore
+try:
+    from PyQt4 import QtGui, QtCore
+except:
+    from PyQt5 import QtGui, QtCore
 
 from ibeatles.interfaces.ui_addElement import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler

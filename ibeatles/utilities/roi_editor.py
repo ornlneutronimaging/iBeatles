@@ -1,4 +1,7 @@
-from PyQt4 import QtGui, QtCore
+try:
+    from PyQt4 import QtGui, QtCore
+except:
+    from PyQt5 import QtGui, QtCore
 import pyqtgraph as pg
 
 from ibeatles.interfaces.ui_roiEditor import Ui_MainWindow as UiMainWindow
