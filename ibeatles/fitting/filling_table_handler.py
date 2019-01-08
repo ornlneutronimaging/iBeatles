@@ -1,5 +1,9 @@
 import numpy as np
-from PyQt4 import QtGui
+
+try:
+    from PyQt4 import QtGui
+except:
+    from PyQt5 import QtGui
 import pyqtgraph as pg
 
 

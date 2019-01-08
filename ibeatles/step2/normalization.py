@@ -1,5 +1,8 @@
-from PyQt4 import QtGui
-import os
+try:
+    from PyQt4 import QtGui, QtCore
+except:
+    from PyQt5 import QtGui, QtCore
+    import os
 import shutil
 from copy import deepcopy
 import numpy as np

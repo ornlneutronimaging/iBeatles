@@ -1,5 +1,5 @@
 import os
-import pyfits
+#import pyfits
 import numpy as np
 
 

@@ -1,11 +1,5 @@
 import sys
-
-try:
-    from PyQt4 import QtCore, QtGui
-    from PyQt4.QtGui import QWidget
-except:
-    from PyQt5 import QtCore, QtGui
-    from PyQt5.QtWidgets import QWidget
+from PyQt4 import QtGui, QtCore
 
 import numpy as np
 

@@ -1,4 +1,8 @@
-from PyQt4 import QtCore
+try:
+    from PyQt4 import QtCore
+except:
+    from PyQt5 import QtCore
+
 import numpy as np
 
 

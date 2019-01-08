@@ -27,7 +27,7 @@ if 'pyuic' in sys.argv[:]:
             if os.stat(inname).st_mtime < os.stat(outname).st_mtime:
                 continue
         print("Converting '%s' to '%s'" % (inname, outname))
-        command = "pyuic4 %s -o %s"  % (inname, outname)
+        command = "pyuic5 %s -o %s"  % (inname, outname)
         os.system(command)
         done += 1
     if not done:
@@ -39,7 +39,7 @@ if 'pyrcc' in sys.argv[:]:
     assert os.path.isfile(infile)
     outfile = './ibeatles/interfaces/icons_rc.py'
     print("Converting icons_rc file:")
-    command = "pyrcc4  %s -o %s" % (infile, outfile)
+    command = "pyrcc5  %s -o %s" % (infile, outfile)
     print("> %s" %command)
     os.system(command)
     sys.exit(0)

@@ -222,9 +222,7 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="../icons/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>selection_x0</sender>

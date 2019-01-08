@@ -1,5 +1,5 @@
 from PIL import Image
-import pyfits
+#import pyfits
 import os
 import numpy as np
 import time
