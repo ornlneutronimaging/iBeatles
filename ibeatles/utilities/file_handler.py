@@ -1,5 +1,5 @@
 import os
-#import pyfits
+from astropy.io import fits
 import numpy as np
 
 
@@ -47,11 +47,8 @@ class FileHandler(object):
     
     @classmethod
     def make_fits(cls, data=[], filename=''):
-        hdu = pyfits.PrimaryHDU(data)
-        hdulist = pyfits.HDUList([hdu])
-        hdulist.writeto(filename)
-        hdulist.close()    
-        
+        fits.writeto(filename, data, overwrite=True)
+
     @classmethod
     def make_ascii_file(cls, metadata=[], data=[], output_file_name='', sep=','):
         f = open(output_file_name, 'w')
