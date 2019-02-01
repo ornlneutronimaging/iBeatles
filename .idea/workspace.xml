@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="a89b6c6f-ddf1-4545-bf91-a5edb601f985" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/ibeatles/interfaces/icons_rc.py" afterPath="$PROJECT_DIR$/ibeatles/interfaces/icons_rc.py" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" afterPath="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" />
-=======
-    <list default="true" id="2b243dc7-3697-473d-85ba-09abee8f2639" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/plot.py" afterPath="$PROJECT_DIR$/ibeatles/step1/plot.py" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" afterPath="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step2/normalization.py" afterPath="$PROJECT_DIR$/ibeatles/step2/normalization.py" />
-      <change beforePath="$PROJECT_DIR$/scripts/ibeatles" afterPath="$PROJECT_DIR$/scripts/ibeatles" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
+    <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/other.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ibeatles" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ibeatles" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,281 +17,76 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-<<<<<<< HEAD
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="ibeatles" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="419">
-                  <caret line="230" column="26" lean-forward="false" selection-start-line="230" selection-start-column="13" selection-end-line="230" selection-end-column="26" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="time_spectra_handler.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="36" column="68" lean-forward="false" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
-                  <folding />
-=======
-  <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/iBeatles$ibeatles.coverage" NAME="ibeatles Coverage Results" MODIFIED="1513026744984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ibeatles" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2252">
+              <caret line="587" column="26" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
+              <folding>
+                <element signature="e#23#33#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data_handler.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="841">
+              <caret line="213" column="92" lean-forward="true" selection-start-line="213" selection-start-column="92" selection-end-line="213" selection-end-column="92" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="time_spectra_handler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gui_handler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1479">
+              <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gui_handler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2771">
+              <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
-  <component name="DatabaseView">
-    <option name="SHOW_INTERMEDIATE" value="true" />
-    <option name="GROUP_SCHEMA" value="true" />
-    <option name="GROUP_CONTENTS" value="false" />
-    <option name="SORT_POSITIONED" value="false" />
-    <option name="SHOW_TABLE_DETAILS" value="true" />
-    <option name="SHOW_EMPTY_GROUPS" value="false" />
-    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
-    <expand />
-    <select />
-  </component>
-  <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="ibeatles" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="525">
-                  <caret line="684" column="28" lean-forward="false" selection-start-line="684" selection-start-column="28" selection-end-line="684" selection-end-column="28" />
-                  <folding>
-                    <marker date="1513026744000" expanded="false" signature="27:73" ph="import ..." />
-                    <marker date="1513026744000" expanded="true" signature="79:258" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="267:454" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="2069:31262" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="2274:2362" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="2438:2507" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="2448:2506" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="2584:2791" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="3084:3140" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="4064:4182" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="4214:4305" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="4348:4466" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="4489:4662" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="4689:4799" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="4832:4924" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="4964:5124" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="5229:5588" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="5618:6245" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="5629:5742" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="5775:5882" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="5923:6046" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="6090:6219" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="6352:6598" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="6495:6568" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="6659:6988" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="6668:6745" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-                    <marker date="1513026744000" expanded="true" signature="7027:7520" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="7550:10403" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="7577:7995" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="7738:7995" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="8330:10027" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="8341:8646" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="8686:8978" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="9026:9335" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="9446:10026" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10065:10206" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10265:10402" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10463:10508" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10560:10605" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10650:10695" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10741:10790" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10840:10889" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="10942:10996" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="11053:11098" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="11168:11697" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="11198:11697" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="11746:11983" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="12046:12281" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="12342:12469" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="12537:12660" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="12721:12843" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="12913:13188" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="13237:13578" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="13370:13469" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="13483:13578" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="13612:13687" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="13743:13854" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="13899:14597" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="14603:14671" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="14732:15100" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="15149:15334" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="15372:15407" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="15447:15482" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="15606:16162" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="16213:16250" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="16290:16327" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="16373:16437" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="16497:16565" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="16622:17021" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="17080:17372" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="17427:17630" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="17695:17896" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="17941:18196" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="18247:18502" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="18555:18946" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="18997:19393" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="19448:19829" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="19890:20276" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="20310:20352" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="20428:21053" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="20595:21053" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="21117:21262" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="21372:21510" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="21564:21698" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="21744:22040" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="21778:21988" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="22090:22202" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="22250:22735" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="22412:22735" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="22784:23078" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="22818:23026" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="23129:23319" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="23371:23463" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="23523:23606" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="23651:23799" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="23849:23999" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24047:24195" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24252:24402" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24454:24499" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24544:24589" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24637:24682" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24733:24781" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24829:24877" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="24928:24976" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="25043:25503" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="25556:25749" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="25809:26258" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="26311:26599" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="26649:26700" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="26745:26866" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="26924:27078" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="27125:27279" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="27333:27487" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="27552:27780" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="27839:28233" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="28335:28549" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="28612:28725" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="28774:29312" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="28944:29237" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="29371:29513" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="29558:29648" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="29698:30267" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="29795:30169" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="30053:30169" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="30343:30474" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="30534:30682" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="30743:30893" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="30955:31004" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="31060:31109" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="31168:31217" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="31249:31262" ph="..." />
-                    <marker date="1513026744000" expanded="true" signature="31275:31434" ph="..." />
-                  </folding>
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-<<<<<<< HEAD
-          <file leaf-file-name="ibeatles" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="520" column="24" lean-forward="false" selection-start-line="520" selection-start-column="24" selection-end-line="520" selection-end-column="24" />
-=======
-          <file leaf-file-name="ibeatles" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="333">
-                  <caret line="684" column="28" lean-forward="true" selection-start-line="684" selection-start-column="28" selection-end-line="684" selection-end-column="28" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-<<<<<<< HEAD
-          <file leaf-file-name="data_handler.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="325">
-                  <caret line="158" column="46" lean-forward="true" selection-start-line="158" selection-start-column="46" selection-end-line="158" selection-end-column="46" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="load_files.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ibeatles/utilities/load_files.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="215">
-                  <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="19" />
-=======
-          <file leaf-file-name="normalization.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ibeatles/step2/normalization.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="32" column="38" lean-forward="false" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
-  </component>
-<<<<<<< HEAD
-=======
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>additem</find>
-      <find>filedialog</find>
-      <find>import</find>
+      <find>time_spectra_pre</find>
     </findStrings>
   </component>
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="286" />
-    <option name="y" value="61" />
-    <option name="width" value="1605" />
-    <option name="height" value="1134" />
-  </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-=======
-        <option value="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/utilities/load_files.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/plot.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step2/normalization.py" />
         <option value="$PROJECT_DIR$/scripts/ibeatles" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
       </list>
     </option>
   </component>
@@ -305,29 +96,20 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="917" />
-    <option name="y" value="31" />
-    <option name="width" value="2001" />
-    <option name="height" value="1354" />
+    <option name="x" value="431" />
+    <option name="y" value="56" />
+    <option name="width" value="2300" />
+    <option name="height" value="1211" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Project Files" proportions="" version="1">
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-<<<<<<< HEAD
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -344,48 +126,37 @@
               <item name="iBeatles" type="b2602c69:ProjectViewProjectNode" />
               <item name="iBeatles" type="47feb1d3:ProjectViewModuleNode" />
               <item name="iBeatles" type="462c0819:PsiDirectoryNode" />
+              <item name="ibeatles" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iBeatles" type="b2602c69:ProjectViewProjectNode" />
+              <item name="iBeatles" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="iBeatles" type="462c0819:PsiDirectoryNode" />
+              <item name="ibeatles" type="462c0819:PsiDirectoryNode" />
+              <item name="step1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iBeatles" type="b2602c69:ProjectViewProjectNode" />
+              <item name="iBeatles" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="iBeatles" type="462c0819:PsiDirectoryNode" />
+              <item name="ibeatles" type="462c0819:PsiDirectoryNode" />
+              <item name="step2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="iBeatles" type="b2602c69:ProjectViewProjectNode" />
+              <item name="iBeatles" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="iBeatles" type="462c0819:PsiDirectoryNode" />
               <item name="scripts" type="462c0819:PsiDirectoryNode" />
-=======
-      <pane id="ProjectPane" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="iBeatles" type="cbb8eebc:String" user="iBeatles" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="iBeatles" type="cbb8eebc:String" user="iBeatles" />
-              <item name="ibeatles" type="cbb8eebc:String" user="ibeatles" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="iBeatles" type="cbb8eebc:String" user="iBeatles" />
-              <item name="ibeatles" type="cbb8eebc:String" user="ibeatles" />
-              <item name="step1" type="cbb8eebc:String" user="step1" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-<<<<<<< HEAD
       <pane id="Scope" />
-=======
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-<<<<<<< HEAD
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
-=======
-    <property name="settings.editor.selected.configurable" value="http.certificates" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -399,562 +170,279 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="ibeatles" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-<<<<<<< HEAD
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda/envs/py27PyQt4/bin/python" />
-=======
-      <option name="SDK_HOME" value="$USER_HOME$/anaconda/envs/py27/bin/python" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="iBeatles" />
-<<<<<<< HEAD
-=======
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/ibeatles" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.ibeatles" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
   <component name="SvnConfiguration">
-<<<<<<< HEAD
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="a89b6c6f-ddf1-4545-bf91-a5edb601f985" name="Default" comment="" />
-      <created>1508942640552</created>
+      <changelist id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="" />
+      <created>1547750998021</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1508942640552</updated>
-=======
-    <configuration>$USER_HOME$/.subversion</configuration>
-  </component>
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="2b243dc7-3697-473d-85ba-09abee8f2639" name="Default" comment="" />
-      <created>1504811321635</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1504811321635</updated>
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
+      <updated>1547750998021</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-<<<<<<< HEAD
-    <frame x="286" y="61" width="1605" height="1134" extended-state="0" />
+    <frame x="431" y="56" width="2300" height="1211" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16161616" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36335722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20115496" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-=======
-    <frame x="917" y="31" width="2001" height="1354" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297604" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="0" y="0" width="357" height="1162" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32955465" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20418006" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3317152" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.255627" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16853513" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298484" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25255102" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-<<<<<<< HEAD
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout>
-  </component>
-=======
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30579215" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298484" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1744907" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="XDebuggerManager">
-<<<<<<< HEAD
-    <breakpoint-manager />
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="230" column="26" lean-forward="false" selection-start-line="230" selection-start-column="13" selection-end-line="230" selection-end-column="26" />
-=======
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py</url>
-          <line>72</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="2" />
-    </breakpoint-manager>
-    <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="9945">
+          <caret line="587" column="26" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
           <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3090">
-          <caret line="208" column="22" lean-forward="true" selection-start-line="208" selection-start-column="22" selection-end-line="208" selection-end-column="22" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-          <folding />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/ibeatles/utilities/load_files.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="38" column="19" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="19" />
-=======
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="127" column="37" lean-forward="false" selection-start-line="127" selection-start-column="37" selection-end-line="127" selection-end-column="37" />
-          <folding>
-            <marker date="1513019215000" expanded="true" signature="2245:2293" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4890">
-          <caret line="336" column="8" lean-forward="false" selection-start-line="336" selection-start-column="8" selection-end-line="336" selection-end-column="8" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-          <folding />
+        <state relative-caret-position="1479">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="158" column="46" lean-forward="true" selection-start-line="158" selection-start-column="46" selection-end-line="158" selection-end-column="46" />
-=======
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="88" column="59" lean-forward="false" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="127" column="37" lean-forward="false" selection-start-line="127" selection-start-column="37" selection-end-line="127" selection-end-column="37" />
-          <folding>
-            <marker date="1513019215000" expanded="true" signature="2245:2293" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4650">
-          <caret line="320" column="27" lean-forward="false" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="88" column="59" lean-forward="false" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7770">
-          <caret line="520" column="21" lean-forward="false" selection-start-line="520" selection-start-column="21" selection-end-line="520" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7770">
-          <caret line="520" column="21" lean-forward="true" selection-start-line="520" selection-start-column="21" selection-end-line="520" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4650">
-          <caret line="320" column="27" lean-forward="false" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="88" column="59" lean-forward="false" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1845">
-          <caret line="127" column="37" lean-forward="true" selection-start-line="127" selection-start-column="37" selection-end-line="127" selection-end-column="37" />
-          <folding>
-            <marker date="1513019215000" expanded="true" signature="2245:2293" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3090">
-          <caret line="208" column="24" lean-forward="false" selection-start-line="208" selection-start-column="24" selection-end-line="208" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4650">
-          <caret line="320" column="27" lean-forward="false" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="27" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-          <folding />
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="36" column="68" lean-forward="false" selection-start-line="36" selection-start-column="68" selection-end-line="36" selection-end-column="68" />
-=======
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1155">
-          <caret line="88" column="59" lean-forward="false" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4650">
-          <caret line="320" column="27" lean-forward="false" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3090">
-          <caret line="208" column="24" lean-forward="false" selection-start-line="208" selection-start-column="24" selection-end-line="208" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="51" column="22" lean-forward="false" selection-start-line="51" selection-start-column="22" selection-end-line="51" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3090">
-          <caret line="208" column="24" lean-forward="false" selection-start-line="208" selection-start-column="24" selection-end-line="208" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4650">
-          <caret line="320" column="27" lean-forward="false" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="51" column="22" lean-forward="false" selection-start-line="51" selection-start-column="22" selection-end-line="51" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3090">
-          <caret line="208" column="24" lean-forward="false" selection-start-line="208" selection-start-column="24" selection-end-line="208" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4650">
-          <caret line="320" column="27" lean-forward="false" selection-start-line="320" selection-start-column="20" selection-end-line="320" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="46" column="31" lean-forward="true" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="30" lean-forward="true" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#43#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="78" column="36" lean-forward="true" selection-start-line="78" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/lib/ibeatles/step1/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="757">
-          <caret line="88" column="59" lean-forward="false" selection-start-line="88" selection-start-column="59" selection-end-line="88" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/utilities/load_files.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="658">
-          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="124" column="49" lean-forward="true" selection-start-line="124" selection-start-column="49" selection-end-line="124" selection-end-column="49" />
-          <folding>
-            <marker date="1513019215000" expanded="true" signature="2245:2293" ph="..." />
-          </folding>
+        <state relative-caret-position="2771">
+          <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="109" column="66" lean-forward="true" selection-start-line="109" selection-start-column="66" selection-end-line="109" selection-end-column="66" />
-          <folding />
+        <state relative-caret-position="1071">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="458" column="10" lean-forward="true" selection-start-line="458" selection-start-column="10" selection-end-line="458" selection-end-column="10" />
+        <state relative-caret-position="9945">
+          <caret line="587" column="26" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
           <folding>
-            <element signature="e#0#18#0" expanded="false" />
+            <element signature="e#23#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step2/normalization.py">
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="32" column="38" lean-forward="false" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
-          <folding />
+        <state relative-caret-position="1479">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-=======
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="684" column="28" lean-forward="true" selection-start-line="684" selection-start-column="28" selection-end-line="684" selection-end-column="28" />
-          <folding />
+        <state relative-caret-position="9945">
+          <caret line="587" column="26" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ScopeChooserConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.20410156" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
->>>>>>> bed57caa76951b0d745e1cd2ccff0a8524156e4f
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9945">
+          <caret line="587" column="26" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9945">
+          <caret line="587" column="26" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9945">
+          <caret line="587" column="26" lean-forward="true" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="97" column="23" lean-forward="true" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="64" column="8" lean-forward="true" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="169" column="9" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2252">
+          <caret line="587" column="26" selection-start-line="587" selection-start-column="26" selection-end-line="587" selection-end-column="26" />
+          <folding>
+            <element signature="e#23#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="841">
+          <caret line="213" column="92" lean-forward="true" selection-start-line="213" selection-start-column="92" selection-end-line="213" selection-end-column="92" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>

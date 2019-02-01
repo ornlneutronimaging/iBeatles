@@ -94,21 +94,24 @@ class Step2GuiHandler(object):
         file_index_button = QtGui.QRadioButton()
         file_index_button.setText("File Index")
         file_index_button.setChecked(True)
-        self.parent.connect(file_index_button, QtCore.SIGNAL("clicked()"), 
-                            self.parent.step2_file_index_radio_button_clicked)
-    
+        #self.parent.connect(file_index_button, QtCore.SIGNAL("clicked()"),
+        #                    self.parent.step2_file_index_radio_button_clicked)
+        file_index_button.clicked.connect(self.parent.step2_file_index_radio_button_clicked)
+
         #tof
         tof_button = QtGui.QRadioButton()
         tof_button.setText("TOF")
-        self.parent.connect(tof_button, QtCore.SIGNAL("clicked()"), 
-                            self.parent.step2_tof_radio_button_clicked)
-    
+        #self.parent.connect(tof_button, QtCore.SIGNAL("clicked()"),
+        #                    self.parent.step2_tof_radio_button_clicked)
+        tof_button.clicked.connect(self.parent.step2_tof_radio_button_clicked)
+
         #lambda
         lambda_button = QtGui.QRadioButton()
         lambda_button.setText(u"\u03BB")
-        self.parent.connect(lambda_button, QtCore.SIGNAL("clicked()"), 
-                            self.parent.step2_lambda_radio_button_clicked)
-        
+        #self.parent.connect(lambda_button, QtCore.SIGNAL("clicked()"),
+        #                    self.parent.step2_lambda_radio_button_clicked)
+        lambda_button.clicked.connect(self.parent.step2_lambda_radio_button_clicked)
+
         spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         hori_layout.addItem(spacer)
         hori_layout.addWidget(file_index_button)

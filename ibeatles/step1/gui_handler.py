@@ -256,20 +256,23 @@ class Step1GuiHandler(object):
 
         roi_editor_button = QtGui.QPushButton("ROI editor ...")
         roi_editor_button.setSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.parent.connect(roi_editor_button, QtCore.SIGNAL("clicked()"), self.parent.roi_editor_button)
+        #self.parent.connect(roi_editor_button, QtCore.SIGNAL("clicked()"), self.parent.roi_editor_button)
+        roi_editor_button.clicked.connect(self.parent.roi_editor_button)
         line_layout = QtGui.QHBoxLayout()
         line_layout.addWidget(roi_editor_button)
 
         add_button = QtGui.QRadioButton()
         add_button.setText("Add")
         add_button.setChecked(True)
-        self.parent.connect(add_button, QtCore.SIGNAL("clicked()"), add_function)
+        #self.parent.connect(add_button, QtCore.SIGNAL("clicked()"), add_function)
+        add_button.clicked.connect(add_function)
         line_layout.addWidget(add_button)
         
         mean_button = QtGui.QRadioButton()
         mean_button.setText("Mean")
         mean_button.setChecked(False)
-        self.parent.connect(mean_button, QtCore.SIGNAL("clicked()"), mean_function)
+        #self.parent.connect(mean_button, QtCore.SIGNAL("clicked()"), mean_function)
+        mean_button.clicked.connect(mean_function)
         line_layout.addWidget(mean_button)
 
         top_widget = QtGui.QWidget()
@@ -305,17 +308,20 @@ class Step1GuiHandler(object):
         file_index_button = QtGui.QRadioButton()
         file_index_button.setText("File Index")
         file_index_button.setChecked(True)
-        self.parent.connect(file_index_button, QtCore.SIGNAL("clicked()"), file_index_function)
+        #self.parent.connect(file_index_button, QtCore.SIGNAL("clicked()"), file_index_function)
+        file_index_button.clicked.connect(file_index_function)
 
         #tof
         tof_button = QtGui.QRadioButton()
         tof_button.setText("TOF")
-        self.parent.connect(tof_button, QtCore.SIGNAL("clicked()"), tof_function)
-        
+        #self.parent.connect(tof_button, QtCore.SIGNAL("clicked()"), tof_function)
+        tof_button.clicked.connect(tof_function)
+
         #lambda
         lambda_button = QtGui.QRadioButton()
         lambda_button.setText(u"\u03BB")
-        self.parent.connect(lambda_button, QtCore.SIGNAL("clicked()"), lambda_function)
+        #self.parent.connect(lambda_button, QtCore.SIGNAL("clicked()"), lambda_function)
+        lambda_button.clicked.connect(lambda_function)
 
         spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         hori_layout.addItem(spacer)
@@ -437,6 +443,7 @@ class Step1GuiHandler(object):
         self.parent.ui.beam_rate_2.blockSignals(status)
         
     def connect_widgets(self):
-        self.parent.connect(self.parent.ui.list_of_elements, QtCore.SIGNAL("currentIndexChanged(int)"), self.parent.list_of_element_index_changed)
-        self.parent.connect(self.parent.ui.list_of_elements_2, QtCore.SIGNAL("currentIndexChanged(int)"), self.parent.list_of_element_2_index_changed)
-        
+        #self.parent.connect(self.parent.ui.list_of_elements, QtCore.SIGNAL("currentIndexChanged(int)"), self.parent.list_of_element_index_changed)
+        self.parent.ui.list_of_elements.currentIndexChanged.connect(self.parent.list_of_element_index_changed)
+        #self.parent.connect(self.parent.ui.list_of_elements_2, QtCore.SIGNAL("currentIndexChanged(int)"), self.parent.list_of_element_2_index_changed)
+        self.parent.ui.list_of_elements_2.currentIndexChanged.connect(self.parent.list_of_element_2_index_changed)
