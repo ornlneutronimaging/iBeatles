@@ -1,26 +1,15 @@
-try:
-    import PyQt4
-    import PyQt4.QtGui as QtGui
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtGui import QApplication         
-except:
-    import PyQt5
-    import PyQt5.QtGui as QtGui
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QMainWindow
-    from PyQt5.QtWidgets import QApplication
-
+from qtpy.QtWidgets import QTableWidgetItem, QHBoxLayout, QMainWindow
+from qtpy.QtGui import QColor
+from qtpy import QtCore
 from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
-    
-# from ibeatles.interfaces.ui_strainMapping import Ui_MainWindow as UiMainWindow
+
 from ibeatles.utilities import load_ui
 
 
 class StrainMappingLauncher(object):
-    
+
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -31,50 +20,50 @@ class StrainMappingLauncher(object):
         else:
             self.parent.strain_mapping_ui.setFocus()
             self.parent.strain_mapping_ui.activateWindow()
-            
-class StrainMappingWindow(QMainWindow):        
-    
+
+
+class StrainMappingWindow(QMainWindow):
     colorscale_nbr_row = 15
     colorscale_cell_size = {'width': 50,
                             'height': 30}
-    
+
     def __init__(self, parent=None):
-        
+
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_strainMapping', baseinstance=self)
+        self.ui = load_ui('ui_strainMapping.ui', baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
         self.setWindowTitle("6. Strain Mapping")
 
         self.init_pyqtgraph()
         self.init_labels()
-        #self.init_widgets()
+        # self.init_widgets()
         self.display_images_and_selection()
-        
+
     def tab_index_changed(self, index):
         self.ui.stackedWidget.setCurrentIndex(index)
-        
+
     def display_images_and_selection(self):
         self.display_images()
         self.display_selections()
-        
+
     def get_min_max(self, table=[], item='strain_mapping'):
         if item == 'strain_mapping':
             item = 'd_spacing'
-        
+
         min_value = 1e6
         max_value = -1e6
         is_first_value = True
         for _index in table:
             _entry = table[_index]
-            
+
             value = _entry[item]['val']
             if min_value > value:
                 min_value = value
             elif max_value < value:
                 max_value = value
-                
+
         return [min_value, max_value]
 
     def clear_colorscale_table(self, item='strain_mapping', table_ui=None):
@@ -96,17 +85,17 @@ class StrainMappingWindow(QMainWindow):
         self.clear_colorscale_table(item=item, table_ui=_table_ui)
 
         nbr_row = self.colorscale_nbr_row
-        step = (float(max_value) - float(min_value))/(nbr_row - 1)
+        step = (float(max_value) - float(min_value)) / (nbr_row - 1)
         mid_point = np.int(nbr_row / 2)
         _row = 0
 
         if min_value == max_value:
             nbr_row = 1
-            
+
         if np.isnan(step):
             nbr_row = 1
-            
-        for _index in np.arange(nbr_row-1, -1, -1): 
+
+        for _index in np.arange(nbr_row - 1, -1, -1):
             _table_ui.insertRow(_row)
             _table_ui.setRowHeight(_row, self.colorscale_cell_size['height'])
             _table_ui.setColumnWidth(_row, self.colorscale_cell_size['width'])
@@ -114,32 +103,32 @@ class StrainMappingWindow(QMainWindow):
                 _value = np.NaN
             else:
                 _value = min_value + _index * step
-            _color = self.get_color_for_this_value(min_value = min_value,
-                                                   max_value = max_value,
-                                                   value = _value)
-            
+            _color = self.get_color_for_this_value(min_value=min_value,
+                                                   max_value=max_value,
+                                                   value=_value)
+
             if np.isnan(_value):
-                _item = QtGui.QTableWidgetItem("nan")
+                _item = QTableWidgetItem("nan")
             else:
-                _item = QtGui.QTableWidgetItem("{:04.2f}".format(_value))
+                _item = QTableWidgetItem("{:04.2f}".format(_value))
             _item.setBackgroundColor(_color)
             _item.setTextAlignment(QtCore.Qt.AlignRight)
             if (_row < mid_point) and (nbr_row != 1):
                 # font should be changd from black to white
-                _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
+                _foreground_color = QColor(255, 255, 255, alpha=255)
                 _item.setTextColor(_foreground_color)
-                
+
             _table_ui.setItem(_row, 0, _item)
             _row += 1
 
     def get_color_for_this_value(self, min_value=0, max_value=1, value=0):
         if np.isnan(value):
-            return QtGui.QColor(255,  255, 255, alpha=100) #white
+            return QColor(255, 255, 255, alpha=100)  # white
         elif max_value == min_value:
-            return QtGui.QColor(250, 0, 0, alpha=255) #red
-        
-        _ratio = (1-(float(value) - float(min_value)) / (float(max_value) - float(min_value)))
-        return QtGui.QColor(0,  _ratio*255, 0, alpha=255)
+            return QColor(250, 0, 0, alpha=255)  # red
+
+        _ratio = (1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value)))
+        return QColor(0, _ratio * 255, 0, alpha=255)
 
     def display_selections(self, item='strain_mapping'):
 
@@ -148,27 +137,26 @@ class StrainMappingWindow(QMainWindow):
 
         [min_value, max_value] = self.get_min_max(table=table_dictionary,
                                                   item=item)
-        
+
         print("min_value: {} and max_value: {}".format(min_value, max_value))
-        
+
         self.initialize_colorscale_table(min_value=min_value,
                                          max_value=max_value,
                                          item=item)
-        
+
         for _index in table_dictionary:
             _entry = table_dictionary[_index]
             x0 = _entry['bin_coordinates']['x0']
             x1 = _entry['bin_coordinates']['x1']
             y0 = _entry['bin_coordinates']['y0']
             y1 = _entry['bin_coordinates']['y1']
-            
-            rect = pg.QtGui.QGraphicsRectItem(x0, y0, x1-x0, y1-y0)
+
+            rect = pg.QtGui.QGraphicsRectItem(x0, y0, x1 - x0, y1 - y0)
             rect.setPen(pg.mkPen(None))
             rect.setBrush(pg.mkBrush('r'))
             self.ui.strain_mapping_image.addItem(rect)
             return
-        
-        
+
     def display_images(self):
         _data = self.parent.data_metadata['normalized']['data_live_selection']
         if not _data == []:
@@ -180,28 +168,28 @@ class StrainMappingWindow(QMainWindow):
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
-        hori_layout = QtGui.QHBoxLayout()
+        hori_layout = QHBoxLayout()
         hori_layout.addWidget(image_view)
-      
+
         return {'layout': hori_layout,
                 'image_view': image_view,
                 }
 
     def init_pyqtgraph(self):
-        
+
         pg.setConfigOptions(antialias=True)
-        
-        #tab1
+
+        # tab1
         _dict = self.set_tab_widgets()
         self.ui.strain_mapping_image = _dict['image_view']
         self.ui.strain_mapping_tab.setLayout(_dict['layout'])
-        
-        #tab2
+
+        # tab2
         _dict = self.set_tab_widgets()
         self.ui.sigma_image = _dict['image_view']
         self.ui.sigma_tab.setLayout(_dict['layout'])
 
-        #tab1
+        # tab1
         _dict = self.set_tab_widgets()
         self.ui.alpha_image = _dict['image_view']
         self.ui.alpha_tab.setLayout(_dict['layout'])
@@ -214,4 +202,3 @@ class StrainMappingWindow(QMainWindow):
         if self.parent.strain_mapping_ui:
             self.parent.strain_mapping_ui.close()
         self.parent.strain_mapping_ui = None
-    
