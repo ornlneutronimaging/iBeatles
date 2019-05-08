@@ -81,7 +81,7 @@
               <x>0</x>
               <y>0</y>
               <width>274</width>
-              <height>312</height>
+              <height>320</height>
              </rect>
             </property>
             <attribute name="label">
@@ -269,7 +269,7 @@
               <x>0</x>
               <y>0</y>
               <width>274</width>
-              <height>312</height>
+              <height>320</height>
              </rect>
             </property>
             <attribute name="label">
@@ -738,9 +738,7 @@ p, li { white-space: pre-wrap; }
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="../icons/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>hkl_list_ui</sender>

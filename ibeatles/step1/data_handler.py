@@ -210,7 +210,8 @@ class FileDialog(QFileDialog):
         files = []
         for i in inds:
             if i.column() == 0:
-                files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
+        #        files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
+                files.append(os.path.join(str(self.directory().absolutePath()), str(i.data())))
         self.selectedFiles = files
         self.close()
 

@@ -1,7 +1,6 @@
 from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QMainWindow
 
-
 # from ibeatles.interfaces.ui_addElement import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.math_tools import is_float

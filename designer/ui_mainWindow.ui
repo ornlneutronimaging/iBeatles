@@ -2065,9 +2065,7 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="../icons/icons.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>import_sample_button</sender>

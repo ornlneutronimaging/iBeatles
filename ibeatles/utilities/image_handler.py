@@ -1,8 +1,9 @@
 from PIL import Image
-#import pyfits
+from astropy.io import fits
 import os
 import numpy as np
 import time
+import copy
 
 
 class ImageHandler(object):
@@ -69,8 +70,7 @@ class ImageHandler(object):
             self.get_fits_metadata(selected_infos_dict)
             
         return self.metadata
-            
-            
+
     def get_tiff_data(self):
         filename = self.filename
         _o_image = Image.open(filename)
@@ -82,20 +82,13 @@ class ImageHandler(object):
         #image
         data = np.array(_o_image)
         self.data = data
-    
-    # def get_fits_data(self):
-    #     filename = self.filename
-    #
-    #     _hdu_list = pyfits.open(filename)
-    #     _hdu_0 = _hdu_list[0]
-    #
-    #     #metadata dict
-    #     metadata = _hdu_0.header
-    #     self.metadata = metadata
-    #
-    #     #image
-    #     data = np.array(_hdu_0.data)
-    #     self.data = data
+
+        _o_image.close()
+
+    def get_fits_data(self):
+        filename = self.filename
+        self.data = copy.deepcopy(fits.getdata(filename))
+        self.metadata = {}
 
     def get_tiff_metadata(self, selected_infos):
 
