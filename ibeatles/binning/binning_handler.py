@@ -45,13 +45,9 @@ class BinningHandler(object):
                                                              #adj=adj,
                                                              #pen=lines,
                                                              #symbol=None,
-                                                             #pxMode=False)                                  
+                                                             #pxMode=False)
         
             #self.parent.binning_ui.line_view_binning = line_view_binning
             #self.parent.binning_ui.pos = pos
             #self.parent.binning_ui.adj = adj
             #self.parent.binning_ui.lines = lines
-
-            
-
-  

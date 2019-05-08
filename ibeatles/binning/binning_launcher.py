@@ -1,15 +1,6 @@
-try:
-    import PyQt4
-    import PyQt4.QtGui as QtGui
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtGui import QApplication 
-except:
-    import PyQt5
-    import PyQt5.QtGui as QtGui
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QMainWindow
-    from PyQt5.QtWidgets import QApplication
+from qtpy.QtWidgets import (QMainWindow, QWidget, QSpacerItem, QLabel, QHBoxLayout, QVBoxLayout, QApplication,
+                            QSizePolicy)
+from qtpy import QtGui, QtCore
 
 from pyqtgraph.dockarea import *
 import pyqtgraph as pg
@@ -61,7 +52,7 @@ class BinningWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_binningWindow', baseinstance=self)
+        self.ui = load_ui('ui_binningWindow.ui', baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
         self.setWindowTitle("4. Binning")
@@ -140,20 +131,20 @@ class BinningWindow(QMainWindow):
         self.parent.binning_line_view['ui'] = line_view
 
         # bottom x, y and counts labels
-        hori_layout = QtGui.QHBoxLayout()
-        spacer1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        x_label = QtGui.QLabel("X:")
-        x_value = QtGui.QLabel("N/A")
+        hori_layout = QHBoxLayout()
+        spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        x_label = QLabel("X:")
+        x_value = QLabel("N/A")
         x_value.setFixedWidth(50)
         self.widgets_ui['x_value'] = x_value
-        spacer2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
-        y_label = QtGui.QLabel("Y:")
-        y_value = QtGui.QLabel("N/A")
+        spacer2 = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Minimum)
+        y_label = QLabel("Y:")
+        y_value = QLabel("N/A")
         y_value.setFixedWidth(50)
         self.widgets_ui['y_value'] = y_value
-        spacer3 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
-        intensity_label = QtGui.QLabel("Counts:")
-        intensity_value = QtGui.QLabel("N/A")
+        spacer3 = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Minimum)
+        intensity_label = QLabel("Counts:")
+        intensity_value = QLabel("N/A")
         self.widgets_ui['intensity_value'] = intensity_value
         intensity_value.setFixedWidth(50)
 
@@ -166,11 +157,11 @@ class BinningWindow(QMainWindow):
         hori_layout.addItem(spacer3)
         hori_layout.addWidget(intensity_label)
         hori_layout.addWidget(intensity_value)
-        hori_widget = QtGui.QWidget()
+        hori_widget = QWidget()
         hori_widget.setLayout(hori_layout)
         
         # put everything back into the main GUI
-        vertical_layout = QtGui.QVBoxLayout()
+        vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(image_view)
         vertical_layout.addWidget(hori_widget)
         
