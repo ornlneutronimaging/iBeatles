@@ -8,22 +8,6 @@ from qtpy.QtGui import (QDesktopServices, QIcon)
 from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QApplication, QMainWindow
 
-
-# try:
-#     import PyQt4
-#     import PyQt4.QtCore as QtCore
-#     import PyQt4.QtGui as QtGui
-#     from PyQt4.QtGui import QMainWindow as QMainWindow
-#     from PyQt4.QtGui import QApplication
-# except:
-#     import PyQt5
-#     import PyQt5.QtCore as QtCore
-#     import PyQt5.QtGui as QtGui
-#     from PyQt5.QtWidgets import QMainWindow as QMainWindow
-#     from PyQt5.QtWidgets import QApplication
-
-#import ibeatles.interfaces.ui_mainWindow
-
 from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
