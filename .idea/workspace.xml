@@ -3,20 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/advanced_selection_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/advanced_selection_launcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/export_fitting_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/export_fitting_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_initialization_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_initialization_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_launcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/initialization_sigma_alpha.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/initialization_sigma_alpha.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/selected_bin_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/selected_bin_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_launcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/math_utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/math_utilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/utilities.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,25 +23,22 @@
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py">
+            <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1620">
-                  <caret line="108" column="59" lean-forward="true" selection-start-line="108" selection-start-column="59" selection-end-line="108" selection-end-column="59" />
+                <state relative-caret-position="536">
+                  <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
                   <folding>
-                    <element signature="e#0#188#0" expanded="true" />
+                    <element signature="e#0#10#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py">
+            <entry file="file://$PROJECT_DIR$/ibeatles/step1/utilities.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="290">
-                  <caret line="64" column="68" lean-forward="true" selection-start-line="64" selection-start-column="68" selection-end-line="64" selection-end-column="68" />
-                  <folding>
-                    <element signature="e#0#55#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="150">
+                  <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
                 </state>
               </provider>
             </entry>
@@ -89,12 +77,13 @@
       <find>QSizePolicy</find>
       <find>QtGui.QSizePolicy</find>
       <find>QIcon</find>
-      <find>QtCore</find>
-      <find>QtGui</find>
       <find>QApplication</find>
       <find>QColor</find>
       <find>QFileDialog</find>
       <find>QCursor</find>
+      <find>QtGui</find>
+      <find>QtCore</find>
+      <find>Q</find>
     </findStrings>
     <replaceStrings>
       <replace>QHBoxLayout</replace>
@@ -103,8 +92,9 @@
       <replace>QtGui.QIcon</replace>
       <replace>QTableWidgetItem</replace>
       <replace>QCursor</replace>
-      <replace>QSizePolicy</replace>
       <replace>QtGui.QCursor</replace>
+      <replace>QSizePolicy</replace>
+      <replace>QTreeView</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/ibeatles/fitting</dir>
@@ -116,11 +106,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" />
         <option value="$PROJECT_DIR$/.idea/iBeatles.iml" />
         <option value="$PROJECT_DIR$/ibeatles/icons/icons_rc.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/normalization.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/plot.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/roi_handler.py" />
@@ -131,7 +119,6 @@
         <option value="$PROJECT_DIR$/ibeatles/utilities/image_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/roi_editor.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/roi_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_launcher.py" />
         <option value="$PROJECT_DIR$/scripts/ibeatles" />
@@ -149,6 +136,12 @@
         <option value="$PROJECT_DIR$/ibeatles/fitting/selected_bin_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/math_utilities.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/plot.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/utilities.py" />
       </list>
     </option>
   </component>
@@ -189,7 +182,7 @@
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="fitting" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="step1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -271,16 +264,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="151" column="28" selection-start-line="151" selection-start-column="28" selection-end-line="151" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/utilities/load_files.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
@@ -365,16 +348,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1109">
-          <caret line="441" lean-forward="true" selection-start-line="441" selection-end-line="441" />
-          <folding>
-            <element signature="e#180#202#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -413,16 +386,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="675">
           <caret line="45" column="25" lean-forward="true" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="47" column="68" lean-forward="true" selection-start-line="47" selection-start-column="68" selection-end-line="47" selection-end-column="68" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -577,16 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="108" column="59" lean-forward="true" selection-start-line="108" selection-start-column="59" selection-end-line="108" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#188#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
@@ -594,6 +547,73 @@
           <folding>
             <element signature="e#0#55#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#188#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/check_error.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/math_utilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="1" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5159">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="e#0#157#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="10" selection-end-line="115" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/utilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
