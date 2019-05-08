@@ -18,8 +18,9 @@ import scipy
 import shutil
 import os
 
-from ibeatles.interfaces.ui_rotateImages import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_rotateImages import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities import load_ui
     
     
 class RotateImages(object):
@@ -46,8 +47,9 @@ class RotateImagesWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_rotateImages', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         
         self.init_pyqtgraph()
         self.init_widgets()

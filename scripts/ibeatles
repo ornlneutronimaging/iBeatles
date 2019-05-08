@@ -56,6 +56,7 @@ from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.add_element_editor import AddElement
 
 from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.utilities import load_ui
 
 
 class MainWindow(QMainWindow):
@@ -189,20 +190,19 @@ class MainWindow(QMainWindow):
                            }
     
                               
-    def __init__(self):
+    def __init__(self, parent=None):
         """ 
         Initialization
         Parameters
         ----------
         """
         # Base class
-        QMainWindow.__init__(self)
+        QMainWindow.__init__(self, parent=parent)
 
         # Initialize the UI widgets
         # self.ui = ibeatles.interfaces.ui_mainWindow.Ui_MainWindow()
         # self.ui.setupUi(self)
-        self.ui = load_ui('mainWindow.ui', baseinstance=self)
-
+        self.ui = load_ui('ui_mainWindow', baseinstance=self)
         self.setup()
         self.init_interface()
         

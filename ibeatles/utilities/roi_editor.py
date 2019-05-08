@@ -1,10 +1,13 @@
-from PyQt4 import QtGui, QtCore
+from qtpy import QtGui, QtCore
+from qtpy.QtWidgets import QMainWindow
+
 import pyqtgraph as pg
 
-from ibeatles.interfaces.ui_roiEditor import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_roiEditor import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities import colors
 from ibeatles.step1.plot import Step1Plot
+from ibeatles.utilities import load_ui
 
 
 class RoiEditor(object):
@@ -32,7 +35,7 @@ class RoiEditor(object):
             _interface.activateWindow()
     
         
-class RoiEditorInterface(QtGui.QMainWindow):
+class RoiEditorInterface(QMainWindow):
     
     col_width = [130,35,35,43,43]
     
@@ -42,8 +45,9 @@ class RoiEditorInterface(QtGui.QMainWindow):
         self.title = title
         
         QtGui.QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_roiEditor', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         self.setWindowTitle("{} ROI Editor".format(title))
 
         self.initialize_table()

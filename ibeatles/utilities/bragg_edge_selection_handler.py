@@ -1,4 +1,5 @@
-from PyQt4 import QtGui
+from qtpy import QtGui
+
 from ibeatles.utilities.array_utilities import find_nearest_index
 
 
@@ -40,5 +41,3 @@ class BraggEdgeSelectionHandler(object):
             else:
                 select_flag = False
             _ui_list.setItemSelected(item, select_flag)
-        
-        

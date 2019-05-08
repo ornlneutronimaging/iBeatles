@@ -1,8 +1,12 @@
-from PyQt4 import QtGui, QtCore
+from qtpy import QtGui, QtCore
+from qtpy.QtWidgets import QMainWindow
 
-from ibeatles.interfaces.ui_addElement import Ui_MainWindow as UiMainWindow
+
+# from ibeatles.interfaces.ui_addElement import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.math_tools import is_float
+from ibeatles.utilities import load_ui
+
 
 class AddElement(object):
     
@@ -21,7 +25,7 @@ class AddElement(object):
             _interface.activateWindow()
 
 
-class AddElementInterface(QtGui.QMainWindow):
+class AddElementInterface(QMainWindow):
     
     new_element = {}
     
@@ -29,8 +33,9 @@ class AddElementInterface(QtGui.QMainWindow):
         self.parent = parent
         
         QtGui.QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_addElement', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         self.setWindowTitle("Add Element Editor")
         self.ui.element_name_error.setVisible(False)
 
