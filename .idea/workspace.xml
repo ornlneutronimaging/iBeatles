@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/ibeatles/step3/gui_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step3/gui_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ibeatles" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ibeatles" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,46 +14,17 @@
     <favorites_list name="iBeatles" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="114">
-                  <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/ibeatles/step3/gui_handler.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="30" selection-end-line="52" />
-                  <folding>
-                    <element signature="e#0#41#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="8" selection-start-line="7" selection-end-line="8" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -77,9 +48,11 @@
       <find>QSizePolicy</find>
       <find>QtGui.QCheckBox</find>
       <find>connect</find>
-      <find>QtCore</find>
       <find>Q</find>
       <find>QtGui</find>
+      <find>QWaitCursor</find>
+      <find>QtCore</find>
+      <find>WaitCursor</find>
     </findStrings>
     <replaceStrings>
       <replace>QHBoxLayout</replace>
@@ -92,8 +65,8 @@
       <replace>QSizePolicy</replace>
       <replace>QListWidgetItem</replace>
       <replace>QWidget</replace>
-      <replace>QTreeView</replace>
       <replace>QCheckBox</replace>
+      <replace>QTreeView</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/ibeatles/fitting</dir>
@@ -117,7 +90,6 @@
         <option value="$PROJECT_DIR$/ibeatles/utilities/roi_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_launcher.py" />
-        <option value="$PROJECT_DIR$/scripts/ibeatles" />
         <option value="$PROJECT_DIR$/ibeatles/fitting/advanced_selection_launcher.py" />
         <option value="$PROJECT_DIR$/ibeatles/fitting/export_fitting_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py" />
@@ -143,6 +115,7 @@
         <option value="$PROJECT_DIR$/ibeatles/step2/plot.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/roi_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step3/gui_handler.py" />
+        <option value="$PROJECT_DIR$/scripts/ibeatles" />
       </list>
     </option>
   </component>
@@ -183,12 +156,6 @@
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="step3" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="utilities" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
@@ -199,6 +166,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="iBeatles" sdk-home="$USER_HOME$/anaconda3/envs/py36/bin/python">
+        <option name="mySdkHome" value="$USER_HOME$/anaconda3/envs/py36/bin/python" />
+        <option name="myModuleName" value="iBeatles" />
+      </console-settings>
+    </option>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -238,11 +214,11 @@
     <frame x="27" y="26" width="3269" height="1367" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49960724" visible="true" weight="0.16050524" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49960724" visible="true" weight="0.16050524" />
       <window_info id="Structure" order="1" sideWeight="0.5003928" side_tool="true" weight="0.16050524" />
       <window_info id="Favorites" order="2" sideWeight="0.5003928" side_tool="true" weight="0.16050524" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3299293" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3299293" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -253,7 +229,7 @@
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="12" visible="true" weight="0.3299293" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -377,13 +353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
           <caret line="48" column="8" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="7" selection-end-line="8" />
         </state>
       </provider>
     </entry>
@@ -612,13 +581,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step3/gui_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -626,6 +588,20 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
         </state>
       </provider>
     </entry>
