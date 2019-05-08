@@ -100,7 +100,7 @@ class TimeSpectraDisplay(QMainWindow):
 
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
-        self.ui = load_ui('ui_time_spectra_preview', baseinstance=self)
+        self.ui = load_ui('ui_time_spectra_preview.ui', baseinstance=self)
         
         self.setWindowTitle(short_filename)
         

@@ -202,7 +202,7 @@ class MainWindow(QMainWindow):
         # Initialize the UI widgets
         # self.ui = ibeatles.interfaces.ui_mainWindow.Ui_MainWindow()
         # self.ui.setupUi(self)
-        self.ui = load_ui('ui_mainWindow', baseinstance=self)
+        self.ui = load_ui('ui_mainWindow.ui', baseinstance=self)
         self.setup()
         self.init_interface()
         
@@ -360,7 +360,7 @@ class MainWindow(QMainWindow):
             self.current_data_type = 'ob'
             self.ui.image_preview.setCurrentIndex(1)
 
-    def roi_editor_button(self):
+    def roi_editor_button_clicked(self):
         o_roi_editor = RoiEditor(parent = self)
         o_roi_editor.run()
         
