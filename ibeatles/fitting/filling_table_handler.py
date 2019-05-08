@@ -1,4 +1,5 @@
 import numpy as np
+from qtpy.QtWidgets import QCheckBox, QTableWidgetItem
 from qtpy import QtGui
 import pyqtgraph as pg
 
@@ -77,7 +78,7 @@ class FillingTableHandler(object):
                           value = _entry['column_index']+1) # +1 because table starts indexing at 1
             
             # add lock button in first cell (column: 2)
-            _lock_button = QtGui.QCheckBox()
+            _lock_button = QCheckBox()
             _is_lock = _entry['lock']
             
             _lock_button.setChecked(_is_lock)
@@ -87,7 +88,7 @@ class FillingTableHandler(object):
             value_table_ui.setCellWidget(_index, 2, _lock_button)
             
             # add active button in second cell (column: 3)
-            _active_button = QtGui.QCheckBox()
+            _active_button = QCheckBox()
             _is_active = _entry['active']
         
             _active_button.setChecked(_is_active)
@@ -97,7 +98,7 @@ class FillingTableHandler(object):
             value_table_ui.setCellWidget(_index, 3, _active_button)
 
             ## bin # (column: 1)
-            #_bin_number = QtGui.QTableWidgetItem("{:02}".format(_index))
+            #_bin_number = QTableWidgetItem("{:02}".format(_index))
             #value_table_ui.setItem(_index, 1, _bin_number)
             
             # from column 2 -> nbr_column
@@ -150,7 +151,7 @@ class FillingTableHandler(object):
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
             
     def set_item(self, table_ui=None, row=0, col=0, value="", fixed_flag=False):
-        item = QtGui.QTableWidgetItem(str(value))
+        item = QTableWidgetItem(str(value))
         if fixed_flag:
             item.setTextColor(QtGui.QColor(255,0,0, alpha=255))
         

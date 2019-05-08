@@ -1,7 +1,5 @@
-try:
-    from PyQt4 import QtGui
-except:
-    from PyQt5 import QtGui
+from qtpy.QtWidgets import QApplication, QTableWidgetItem
+from qtpy import QtGui
 import numpy as np
 from lmfit import Model
 
@@ -171,12 +169,12 @@ class FittingJobHandler(object):
                     
                 progress_bar_index += 1
                 self.parent.fitting_story_ui.eventProgress2.setValue(progress_bar_index)
-                QtGui.QApplication.processEvents()
+                QApplication.processEvents()
                 
             self.status_of_row(row=_entry_index, status='DONE')
             
             self.parent.fitting_story_ui.eventProgress.setValue(_entry_index+1)
-            QtGui.QApplication.processEvents()
+            QApplication.processEvents()
        
             self.parent.table_dictionary = table_dictionary
             self.parent.fitting_ui.re_fill_table()
@@ -195,8 +193,8 @@ class FittingJobHandler(object):
             _color = QtGui.QColor(255,0,0) #red
         else:
             _color =QtGui.QColor(0,0,0) #black
-        _item = QtGui.QTableWidgetItem(status)
+        _item = QTableWidgetItem(status)
         _item.setTextColor(_color)
             
         self.parent.fitting_story_ui.ui.story_table.setItem(row, 7, _item)
-        QtGui.QApplication.processEvents()
+        QApplication.processEvents()

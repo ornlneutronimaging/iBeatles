@@ -1,22 +1,11 @@
-try:
-    import PyQt4
-    import PyQt4.QtGui as QtGui
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtGui import QApplication     
-except:
-    import PyQt5
-    import PyQt5.QtGui as QtGui
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QMainWindow
-    from PyQt5.QtWidgets import QApplication
-    
+from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
+from qtpy import QtGui, QtCore
 import numpy as np
 
-# from ibeatles.interfaces.ui_fittingSetVariables import Ui_MainWindow as UiMainWindow
 from ibeatles.fitting.set_fitting_variables_handler import SetFittingVariablesHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.utilities import load_ui
+
 
 class SetFittingVariablesLauncher(object):
     
@@ -31,7 +20,8 @@ class SetFittingVariablesLauncher(object):
         else:
             self.parent.fitting_set_variables_ui.setFocus()
             self.parent.fitting_set_variables_ui.activateWindow()
-            
+
+
 class SetFittingVariablesWindow(QMainWindow):
     
     advanced_mode = True
@@ -42,7 +32,7 @@ class SetFittingVariablesWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_fittingSetVariables', baseinstance=self)
+        self.ui = load_ui('ui_fittingSetVariables.ui', baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
         self.setWindowTitle("Check/Set Variables")
@@ -150,7 +140,7 @@ class VariableTableHandler(object):
         self.parent = parent
         
     def right_click(self, position=None):
-        menu = QtGui.QMenu(self.parent)
+        menu = QMenu(self.parent)
         
         _activate = menu.addAction("Activate Selection")
         _deactivate = menu.addAction("Deactivate Selection")

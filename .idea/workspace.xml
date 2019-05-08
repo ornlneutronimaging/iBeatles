@@ -2,7 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/scripts/ibeatles" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ibeatles" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/advanced_selection_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/advanced_selection_launcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/export_fitting_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/export_fitting_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_initialization_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_initialization_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/fitting_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/fitting_launcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/initialization_sigma_alpha.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/initialization_sigma_alpha.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/selected_bin_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/selected_bin_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_launcher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,17 +28,49 @@
     <favorites_list name="iBeatles" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1620">
+                  <caret line="108" column="59" lean-forward="true" selection-start-line="108" selection-start-column="59" selection-end-line="108" selection-end-column="59" />
+                  <folding>
+                    <element signature="e#0#188#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="290">
+                  <caret line="64" column="68" lean-forward="true" selection-start-line="64" selection-start-column="68" selection-end-line="64" selection-end-column="68" />
+                  <folding>
+                    <element signature="e#0#55#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="8" selection-start-line="7" selection-end-line="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -40,11 +86,29 @@
       <find>connect</find>
       <find>roi_edito_</find>
       <find>PyQt4</find>
-      <find>QApplication</find>
-      <find>QtGui</find>
       <find>QSizePolicy</find>
+      <find>QtGui.QSizePolicy</find>
+      <find>QIcon</find>
       <find>QtCore</find>
+      <find>QtGui</find>
+      <find>QApplication</find>
+      <find>QColor</find>
+      <find>QFileDialog</find>
+      <find>QCursor</find>
     </findStrings>
+    <replaceStrings>
+      <replace>QHBoxLayout</replace>
+      <replace>QtGui.QPixmap</replace>
+      <replace>QMenu</replace>
+      <replace>QtGui.QIcon</replace>
+      <replace>QTableWidgetItem</replace>
+      <replace>QCursor</replace>
+      <replace>QSizePolicy</replace>
+      <replace>QtGui.QCursor</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/ibeatles/fitting</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,7 +119,6 @@
         <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" />
         <option value="$PROJECT_DIR$/.idea/iBeatles.iml" />
-        <option value="$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/icons/icons_rc.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/normalization.py" />
@@ -72,6 +135,20 @@
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_launcher.py" />
         <option value="$PROJECT_DIR$/scripts/ibeatles" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/advanced_selection_launcher.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/export_fitting_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_launcher.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/fitting_functions.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/fitting_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/fitting_initialization_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/fitting_launcher.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/initialization_sigma_alpha.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/selected_bin_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py" />
       </list>
     </option>
   </component>
@@ -112,7 +189,7 @@
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="binning" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="fitting" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -220,16 +297,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/icons/icons.qrc">
       <provider selected="true" editor-type-id="text-editor" />
@@ -372,13 +439,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/binning/binning_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="8" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/binning/binning_launcher.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -386,10 +446,154 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/binning/binning_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="8" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="7" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_launcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="916">
+          <caret line="257" column="12" selection-start-line="257" selection-start-column="12" selection-end-line="257" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/fitting_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/fitting_initialization_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/initialization_sigma_alpha.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="e#0#4#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/selected_bin_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3465">
+          <caret line="231" column="12" selection-start-line="231" selection-start-column="12" selection-end-line="231" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/fitting_launcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/fitting_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/filling_table_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" column="40" lean-forward="true" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/set_fitting_variables_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2460">
+          <caret line="164" column="51" lean-forward="true" selection-start-line="164" selection-start-column="51" selection-end-line="164" selection-end-column="51" />
+          <folding>
+            <element signature="e#0#6#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/advanced_selection_launcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="54" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/export_fitting_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/create_fitting_story_launcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="108" column="59" lean-forward="true" selection-start-line="108" selection-start-column="59" selection-end-line="108" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#188#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/fitting/value_table_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="64" column="68" lean-forward="true" selection-start-line="64" selection-start-column="68" selection-end-line="64" selection-end-column="68" />
+          <folding>
+            <element signature="e#0#55#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

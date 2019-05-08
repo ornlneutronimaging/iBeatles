@@ -14,7 +14,8 @@ def basic_fit(t, d_spacing, alpha, sigma, a1, a2):
     y = a1 + a2 * (term0 - (term1 * term2))   
     
     return y
-    
+
+
 def advanced_fit(t, d_spacing, alpha, sigma, a1, a2, a5, a6):
         
     t0 = 2 * d_spacing

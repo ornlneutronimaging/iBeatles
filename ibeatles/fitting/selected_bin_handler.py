@@ -229,5 +229,3 @@ class SelectedBinsHandler(object):
             #fit_y_axis *= nbr_index_selected #FIXME
             
             self.parent.fitting_ui.bragg_edge_plot.plot(fit_x_axis, fit_y_axis, pen='r' )
-            
-            

@@ -1,12 +1,6 @@
 import numpy as np
-try:
-    import PyQt4.QtGui as QtGui
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QApplication 
-except:
-    import PyQt5.QtGui as QtGui
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QApplication
+from qtpy.QtWidgets import QFileDialog, QApplication
+from qtpy import QtCore
 import os
 import shutil
 
@@ -140,7 +134,7 @@ class ExportFittingHandler(object):
     def select_and_create_output_folder(self):     
         '''select where to create the output fitting folder'''
         output_folder = self.parent.normalized_folder
-        new_output_folder = str(QtGui.QFileDialog.getExistingDirectory(self.parent,
+        new_output_folder = str(QFileDialog.getExistingDirectory(self.parent,
                                                                        "Select Where to Create all the Fitted Bin Files....",
                                                                        output_folder))
         if new_output_folder:   

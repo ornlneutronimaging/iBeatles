@@ -1,16 +1,5 @@
-try:
-    import PyQt4
-    import PyQt4.QtGui as QtGui
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtGui import QApplication     
-except:
-    import PyQt5
-    import PyQt5.QtGui as QtGui
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QMainWindow
-    from PyQt5.QtWidgets import QApplication
-    
+from qtpy.QtWidgets import QTableWidgetSelectionRange, QMainWindow, QApplication
+from qtpy import QtCore
 import numpy as np
 
 # from ibeatles.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
@@ -84,7 +73,7 @@ class AdvancedSelectionWindow(QMainWindow):
             state = _entry[state_field]
             row_index = _entry['row_index']
             column_index = _entry['column_index']
-            _selection = QtGui.QTableWidgetSelectionRange(row_index, column_index, 
+            _selection = QTableWidgetSelectionRange(row_index, column_index,
                                                           row_index, column_index)
             table_ui.setRangeSelected(_selection, state)
 

@@ -1,17 +1,11 @@
-try:
-    import PyQt4
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QApplication         
-except:
-    import PyQt5
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QApplication
-
+from qtpy import QtCore
+from qtpy.QtWidgets import QApplication
 import numpy as np
 
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ibeatles.fitting.initialization_sigma_alpha import InitializationSigmaAlpha
 from ibeatles.utilities.math_tools import calculate_inflection_point
+
 
 class FittingInitializationHandler(object):
 

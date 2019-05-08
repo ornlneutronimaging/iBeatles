@@ -67,5 +67,3 @@ class FittingHandler(object):
         
         o_fill_table = FillingTableHandler(parent=self.parent)
         o_fill_table.fill_table()
-
-    

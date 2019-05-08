@@ -1,19 +1,8 @@
-try:
-    import PyQt4
-    import PyQt4.QtGui as QtGui
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtGui import QApplication         
-except:
-    import PyQt5
-    import PyQt5.QtGui as QtGui
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QMainWindow
-    from PyQt5.QtWidgets import QApplication
-
+from qtpy.QtWidgets import (QApplication, QMainWindow, QProgressBar, QTableWidgetItem,
+                            QHBoxLayout, QCheckBox, QWidget, QTableWidgetSelectionRange)
+from qtpy import QtGui, QtCore
 import numpy as np
 
-# from ibeatles.interfaces.ui_fittingStoryTable import Ui_MainWindow as UiMainWindow
 from ibeatles.table_dictionary.table_fitting_story_dictionary_handler import TableFittingStoryDictionaryHandler
 from ibeatles.fitting.fitting_job_handler import FittingJobHandler
 from ibeatles.utilities.status import Status
@@ -49,7 +38,7 @@ class FittingStoryWindow(QMainWindow):
     def __init__(self, parent=None):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_fittingStoryTable', baseinstance=self)
+        self.ui = load_ui('ui_fittingStoryTable.ui', baseinstance=self)
         # self.ui= UiMainWindow()
         # self.ui.setupUi(self)
         
@@ -61,13 +50,13 @@ class FittingStoryWindow(QMainWindow):
         self.check_status_buttons(row=0)
   
     def init_statusbar(self):
-        self.eventProgress2 = QtGui.QProgressBar(self.ui.statusbar)
+        self.eventProgress2 = QProgressBar(self.ui.statusbar)
         self.eventProgress2.setMinimumSize(20, 14)
         self.eventProgress2.setMaximumSize(540, 100)
         self.eventProgress2.setVisible(False)
         self.ui.statusbar.addPermanentWidget(self.eventProgress2)
 
-        self.eventProgress = QtGui.QProgressBar(self.ui.statusbar)
+        self.eventProgress = QProgressBar(self.ui.statusbar)
         self.eventProgress.setMinimumSize(20, 14)
         self.eventProgress.setMaximumSize(540, 100)
         self.eventProgress.setVisible(False)
@@ -136,7 +125,7 @@ class FittingStoryWindow(QMainWindow):
                 story_table.setCellWidget(_index, _index_tag, _widget)
 
     def set_item(self, text=''):
-        _item = QtGui.QTableWidgetItem(text)
+        _item = QTableWidgetItem(text)
         return _item
 
     def widget_state_changed(self, state=0, row=0, column=0):
@@ -156,8 +145,8 @@ class FittingStoryWindow(QMainWindow):
         self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
     def set_widget(self, status=False, row=0, column=0):
-        _layout = QtGui.QHBoxLayout()
-        _widget = QtGui.QCheckBox()
+        _layout = QHBoxLayout()
+        _widget = QCheckBox()
         _widget.stateChanged.connect(lambda state=0, row=row, column=column: 
                                      self.widget_state_changed(state=state, 
                                                                row=row, 
@@ -168,7 +157,7 @@ class FittingStoryWindow(QMainWindow):
         _layout.addStretch()
         _layout.addWidget(_widget)
         _layout.addStretch()
-        _new_widget = QtGui.QWidget()
+        _new_widget = QWidget()
         _new_widget.setLayout(_layout)
         return _new_widget
         
@@ -241,7 +230,7 @@ class FittingStoryWindow(QMainWindow):
 
     def select_row_status(self, row=0, status=False):
         nbr_column=self.ui.story_table.columnCount()
-        _selection = QtGui.QTableWidgetSelectionRange(row, 0, row, nbr_column-1)
+        _selection = QTableWidgetSelectionRange(row, 0, row, nbr_column-1)
         self.ui.story_table.setRangeSelected(_selection, status)
 
     def move_row_up_clicked(self):

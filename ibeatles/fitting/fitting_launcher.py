@@ -1,21 +1,10 @@
-try:
-    import PyQt4
-    import PyQt4.QtGui as QtGui
-    import PyQt4.QtCore as QtCore
-    from PyQt4.QtGui import QMainWindow
-    from PyQt4.QtGui import QApplication         
-except:
-    import PyQt5
-    import PyQt5.QtGui as QtGui
-    import PyQt5.QtCore as QtCore
-    from PyQt5.QtWidgets import QMainWindow
-    from PyQt5.QtWidgets import QApplication
-
+from qtpy.QtWidgets import (QMainWindow, QApplication, QTableWidgetSelectionRange, QVBoxLayout, QHBoxLayout, QWidget,
+                            QLabel, QSpacerItem, QSlider, QRadioButton, QSizePolicy)
+from qtpy import QtGui, QtCore
 from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
     
-# from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.array_utilities import find_nearest_index
 
@@ -27,6 +16,7 @@ from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.fitting_initialization_handler import FittingInitializationHandler
 from ibeatles.fitting.create_fitting_story_launcher import CreateFittingStoryLauncher
 from ibeatles.utilities import load_ui
+
 
 class FittingLauncher(object):
     
@@ -45,8 +35,9 @@ class FittingLauncher(object):
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
-            
-class FittingWindow(QMainWindow):        
+
+
+class FittingWindow(QMainWindow):
     
     data = []
     there_is_a_roi = False
@@ -128,7 +119,7 @@ class FittingWindow(QMainWindow):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
         # self.ui = UiMainWindow()
-        self.ui = load_ui('ui_fittingWindow', baseinstance=self)
+        self.ui = load_ui('ui_fittingWindow.ui', baseinstance=self)
         # self.ui.setupUi(self)
         self.setWindowTitle("5. Fitting")
 
@@ -177,7 +168,7 @@ class FittingWindow(QMainWindow):
             col2 = column+1
             
         nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
-        range_selected = QtGui.QTableWidgetSelectionRange(0, col1, nbr_row-1, col2)
+        range_selected = QTableWidgetSelectionRange(0, col1, nbr_row-1, col2)
         self.parent.fitting_ui.ui.value_table.setRangeSelected(range_selected, 
                                                                    state_column_clicked)
         
@@ -204,7 +195,7 @@ class FittingWindow(QMainWindow):
         from_col = _value_table_column[0]
         to_col = _value_table_column[-1]
 
-        range_selected = QtGui.QTableWidgetSelectionRange(0, from_col,
+        range_selected = QTableWidgetSelectionRange(0, from_col,
                                                           nbr_row-1, to_col)
         self.parent.fitting_ui.ui.value_table.setRangeSelected(range_selected, 
                                                                not col_already_selected)
@@ -278,7 +269,7 @@ class FittingWindow(QMainWindow):
         preview_widget = pg.GraphicsLayoutWidget()
         pg.setConfigOptions(antialias=True) # this improve display
     
-        vertical_layout = QtGui.QVBoxLayout()
+        vertical_layout = QVBoxLayout()
         preview_widget.setLayout(vertical_layout)
     
         # image view (top plot)
@@ -288,24 +279,24 @@ class FittingWindow(QMainWindow):
         self.image_view = image_view
         image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image_view)
        
-        top_widget = QtGui.QWidget()
-        vertical = QtGui.QVBoxLayout()
+        top_widget = QWidget()
+        vertical = QVBoxLayout()
         vertical.addWidget(image_view)
 
         # bin transparency
-        transparency_layout = QtGui.QHBoxLayout()
-        spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        transparency_layout = QHBoxLayout()
+        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         transparency_layout.addItem(spacer)        
-        label = QtGui.QLabel("Bin Transparency")
+        label = QLabel("Bin Transparency")
         transparency_layout.addWidget(label)
-        slider = QtGui.QSlider(QtCore.Qt.Horizontal)
+        slider = QSlider(QtCore.Qt.Horizontal)
         slider.setMaximum(100)
         slider.setMinimum(0)
         slider.setValue(50)
         slider.valueChanged.connect(self.slider_changed)
         self.slider = slider
         transparency_layout.addWidget(slider)
-        bottom_widget = QtGui.QWidget()
+        bottom_widget = QWidget()
         bottom_widget.setLayout(transparency_layout)
 
         top_widget.setLayout(vertical)
@@ -318,15 +309,15 @@ class FittingWindow(QMainWindow):
         self.bragg_edge_plot = bragg_edge_plot
     
         # plot all or individual bins
-        buttons_layout = QtGui.QHBoxLayout()
-        spacer = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        buttons_layout = QHBoxLayout()
+        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         buttons_layout.addItem(spacer)
-        label = QtGui.QLabel("Plot")
+        label = QLabel("Plot")
         label.setEnabled(False)
         buttons_layout.addWidget(label)
         
         # all bins button
-        active_button = QtGui.QRadioButton()
+        active_button = QRadioButton()
         active_button.setText("Active Bins")
         active_button.setChecked(True)
         #active_button.setEnabled(False)
@@ -335,7 +326,7 @@ class FittingWindow(QMainWindow):
         
         # indi bin button
         buttons_layout.addWidget(active_button)
-        locked_button = QtGui.QRadioButton()
+        locked_button = QRadioButton()
         locked_button.setText("Locked Bins")
         locked_button.setChecked(False)
         #locked_button.setEnabled(False)
@@ -343,7 +334,7 @@ class FittingWindow(QMainWindow):
         self.ui.locked_bins_button = locked_button
 
         buttons_layout.addWidget(locked_button)
-        bottom_widget = QtGui.QWidget()
+        bottom_widget = QWidget()
         bottom_widget.setLayout(buttons_layout)
     
         d2.addWidget(bragg_edge_plot)
@@ -552,7 +543,7 @@ class FittingWindow(QMainWindow):
                 left_column = column
                 right_column = column + 1
             nbr_row = self.ui.value_table.rowCount()
-            _selection = QtGui.QTableWidgetSelectionRange(0, left_column,
+            _selection = QTableWidgetSelectionRange(0, left_column,
                                                           nbr_row-1, right_column)
             self.ui.value_table.setRangeSelected(_selection, _is_selected)
 
