@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step6/strain_mapping_launcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step6/strain_mapping_launcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/table_dictionary/table_dictionary_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/table_dictionary/table_dictionary_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/table_dictionary/table_fitting_story_dictionary_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/table_dictionary/table_fitting_story_dictionary_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/tools/rotate_images.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/tools/rotate_images.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,25 +24,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ibeatles/table_dictionary/table_dictionary_handler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ibeatles/table_dictionary/table_fitting_story_dictionary_handler.py">
+        <entry file="file://$PROJECT_DIR$/ibeatles/tools/rotate_images.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+            <state relative-caret-position="440">
+              <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
               <folding>
-                <element signature="e#232#250#0" expanded="true" />
+                <element signature="e#0#92#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,11 +64,13 @@
       <find>QColor</find>
       <find>QtGui.QColor</find>
       <find>QMainWindow</find>
-      <find>Qt.WaitCursor</find>
       <find>QtCoreaaaa</find>
-      <find>QtGui</find>
       <find>QtCore</find>
       <find>QApplication</find>
+      <find>Qt.WaitCursor</find>
+      <find>fr</find>
+      <find>QtGui</find>
+      <find>QtGui.QApplication</find>
     </findStrings>
     <replaceStrings>
       <replace>QtGui.QPixmap</replace>
@@ -100,6 +87,7 @@
       <replace>QHBoxLayout</replace>
       <replace>QtCore.Qt.WaitCursor</replace>
       <replace>QFileDialog</replace>
+      <replace>QApplication</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/ibeatles/fitting</dir>
@@ -152,6 +140,7 @@
         <option value="$PROJECT_DIR$/ibeatles/step6/strain_mapping_launcher.py" />
         <option value="$PROJECT_DIR$/ibeatles/table_dictionary/table_dictionary_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/table_dictionary/table_fitting_story_dictionary_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/tools/rotate_images.py" />
       </list>
     </option>
   </component>
@@ -192,7 +181,7 @@
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="table_dictionary" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="tools" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -660,10 +649,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+    <entry file="file://$PROJECT_DIR$/ibeatles/table_dictionary/table_fitting_story_dictionary_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        <state relative-caret-position="-659">
+          <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+          <folding>
+            <element signature="e#232#250#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -677,12 +669,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/table_dictionary/table_fitting_story_dictionary_handler.py">
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
+        <state relative-caret-position="30">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/tools/rotate_images.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
           <folding>
-            <element signature="e#232#250#0" expanded="true" />
+            <element signature="e#0#92#0" expanded="true" />
           </folding>
         </state>
       </provider>
