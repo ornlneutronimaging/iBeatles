@@ -13,8 +13,9 @@ except:
     
 import numpy as np
 
-from ibeatles.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.utilities import load_ui
 
 
 class AdvancedSelectionLauncher(object):
@@ -37,8 +38,9 @@ class AdvancedSelectionWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_advancedFittingSelection', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         self.setWindowTitle("Graphical Selection Tool")
         
         self.ui.selection_table.blockSignals(True)

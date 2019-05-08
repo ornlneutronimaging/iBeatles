@@ -13,10 +13,10 @@ except:
 from neutronbraggedge.experiment_handler.tof import TOF
 from neutronbraggedge.experiment_handler.experiment import Experiment
 
-from ibeatles.interfaces.ui_time_spectra_preview import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_time_spectra_preview import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.file_handler import FileHandler
 import ibeatles.utilities.math_tools as math_tools
-
+from ibeatles.utilities import load_ui
 
 class TimeSpectraHandler(object):
     
@@ -97,8 +97,10 @@ class TimeSpectraDisplay(QMainWindow):
         self.full_filename = full_filename
         
         QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
+        self.ui = load_ui('ui_time_spectra_preview', baseinstance=self)
         
         self.setWindowTitle(short_filename)
         

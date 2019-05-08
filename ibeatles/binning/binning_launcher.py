@@ -15,13 +15,14 @@ from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
     
-from ibeatles.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities import colors
 
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles.utilities import load_ui
 
 
 class BinningLauncher(object):
@@ -60,8 +61,9 @@ class BinningWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_binningWindow', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         self.setWindowTitle("4. Binning")
                
         self.load_data()

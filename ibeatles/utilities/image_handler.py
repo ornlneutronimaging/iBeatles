@@ -1,5 +1,5 @@
 from PIL import Image
-import pyfits
+#import pyfits
 import os
 import numpy as np
 import time
@@ -83,19 +83,19 @@ class ImageHandler(object):
         data = np.array(_o_image)
         self.data = data
     
-    def get_fits_data(self):
-        filename = self.filename
-        
-        _hdu_list = pyfits.open(filename)
-        _hdu_0 = _hdu_list[0]
-        
-        #metadata dict
-        metadata = _hdu_0.header
-        self.metadata = metadata
-        
-        #image
-        data = np.array(_hdu_0.data)
-        self.data = data
+    # def get_fits_data(self):
+    #     filename = self.filename
+    #
+    #     _hdu_list = pyfits.open(filename)
+    #     _hdu_0 = _hdu_list[0]
+    #
+    #     #metadata dict
+    #     metadata = _hdu_0.header
+    #     self.metadata = metadata
+    #
+    #     #image
+    #     data = np.array(_hdu_0.data)
+    #     self.data = data
 
     def get_tiff_metadata(self, selected_infos):
 

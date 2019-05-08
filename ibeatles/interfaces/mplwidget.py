@@ -8,7 +8,7 @@ except:
     from PyQt5 import QtCore, QtGui
     from PyQt5.QtWidgets import QWidget
 
-from . import icons_rc #@UnusedImport
+from ibeatles.icons import icons_rc #@UnusedImport
 import matplotlib.cm
 import matplotlib.colors
 

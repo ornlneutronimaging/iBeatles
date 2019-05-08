@@ -1,4 +1,4 @@
-from PyQt4 import QtGui, QtCore
+from qtpy import QtGui, QtCore
 import pyqtgraph as pg
 import numpy as np
 

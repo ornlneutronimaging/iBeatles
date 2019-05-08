@@ -1,7 +1,7 @@
 import numpy as np
 import pyqtgraph as pg
 
-from PyQt4 import QtGui, QtCore
+from qtpy import QtGui, QtCore
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.colors import pen_color

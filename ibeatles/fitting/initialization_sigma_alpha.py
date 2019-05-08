@@ -10,8 +10,8 @@ except:
     from PyQt5.QtWidgets import QMainWindow
 import numpy as np
 
-from ibeatles.interfaces.ui_initSigmaAlpha import Ui_MainWindow as UiMainWindow
-
+# from ibeatles.interfaces.ui_initSigmaAlpha import Ui_MainWindow as UiMainWindow
+from ibeatles.utilities import load_ui
 
 class InitializationSigmaAlpha(object):
     
@@ -27,8 +27,9 @@ class InitializeWindow(QMainWindow):
 
         self.parent = parent
         QMainWindow.__init__(self, parent=parent.fitting_ui)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_initSigmaAlpha', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         self.init_widgets()
             
     def init_widgets(self):

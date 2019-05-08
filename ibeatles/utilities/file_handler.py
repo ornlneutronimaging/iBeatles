@@ -1,5 +1,5 @@
 import os
-import pyfits
+#import pyfits
 import numpy as np
 
 
@@ -45,12 +45,12 @@ class FileHandler(object):
                 
         return final_list
     
-    @classmethod
-    def make_fits(cls, data=[], filename=''):
-        hdu = pyfits.PrimaryHDU(data)
-        hdulist = pyfits.HDUList([hdu])
-        hdulist.writeto(filename)
-        hdulist.close()    
+    # @classmethod
+    # def make_fits(cls, data=[], filename=''):
+    #     hdu = pyfits.PrimaryHDU(data)
+    #     hdulist = pyfits.HDUList([hdu])
+    #     hdulist.writeto(filename)
+    #     hdulist.close()
         
     @classmethod
     def make_ascii_file(cls, metadata=[], data=[], output_file_name='', sep=','):

@@ -15,7 +15,7 @@ from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
     
-from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_fittingWindow import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.array_utilities import find_nearest_index
 
@@ -26,6 +26,7 @@ from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHa
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.fitting_initialization_handler import FittingInitializationHandler
 from ibeatles.fitting.create_fitting_story_launcher import CreateFittingStoryLauncher
+from ibeatles.utilities import load_ui
 
 class FittingLauncher(object):
     
@@ -126,8 +127,9 @@ class FittingWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        # self.ui = UiMainWindow()
+        self.ui = load_ui('ui_fittingWindow', baseinstance=self)
+        # self.ui.setupUi(self)
         self.setWindowTitle("5. Fitting")
 
         self.init_pyqtgraph()

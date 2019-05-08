@@ -13,10 +13,11 @@ except:
 
 import numpy as np
 
-from ibeatles.interfaces.ui_fittingStoryTable import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_fittingStoryTable import Ui_MainWindow as UiMainWindow
 from ibeatles.table_dictionary.table_fitting_story_dictionary_handler import TableFittingStoryDictionaryHandler
 from ibeatles.fitting.fitting_job_handler import FittingJobHandler
 from ibeatles.utilities.status import Status
+from ibeatles.utilities import load_ui
 
 
 class CreateFittingStoryLauncher(object):
@@ -48,8 +49,9 @@ class FittingStoryWindow(QMainWindow):
     def __init__(self, parent=None):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui= UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_fittingStoryTable', baseinstance=self)
+        # self.ui= UiMainWindow()
+        # self.ui.setupUi(self)
         
         self.init_widgets()
         self.init_statusbar()

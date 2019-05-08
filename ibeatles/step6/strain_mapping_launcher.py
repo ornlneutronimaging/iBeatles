@@ -15,7 +15,9 @@ from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
     
-from ibeatles.interfaces.ui_strainMapping import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_strainMapping import Ui_MainWindow as UiMainWindow
+from ibeatles.utilities import load_ui
+
 
 class StrainMappingLauncher(object):
     
@@ -40,8 +42,9 @@ class StrainMappingWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_strainMapping', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         self.setWindowTitle("6. Strain Mapping")
 
         self.init_pyqtgraph()

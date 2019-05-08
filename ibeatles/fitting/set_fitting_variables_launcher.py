@@ -13,10 +13,10 @@ except:
     
 import numpy as np
 
-from ibeatles.interfaces.ui_fittingSetVariables import Ui_MainWindow as UiMainWindow
+# from ibeatles.interfaces.ui_fittingSetVariables import Ui_MainWindow as UiMainWindow
 from ibeatles.fitting.set_fitting_variables_handler import SetFittingVariablesHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
-
+from ibeatles.utilities import load_ui
 
 class SetFittingVariablesLauncher(object):
     
@@ -42,8 +42,9 @@ class SetFittingVariablesWindow(QMainWindow):
         
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = UiMainWindow()
-        self.ui.setupUi(self)
+        self.ui = load_ui('ui_fittingSetVariables', baseinstance=self)
+        # self.ui = UiMainWindow()
+        # self.ui.setupUi(self)
         self.setWindowTitle("Check/Set Variables")
         self.installEventFilter(self)
         
