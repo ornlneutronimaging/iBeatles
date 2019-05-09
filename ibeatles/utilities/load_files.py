@@ -58,8 +58,7 @@ class LoadFiles(object):
 
 
 class LoadTimeSpectra(object):
-
-    __slots__ = [file_found, time_spectra, time_spectra_name_format, folder]
+    __slots__ = ['file_found', 'time_spectra', 'time_spectra_name_format', 'folder']
 
     def __init__(self, folder=None, auto_load=True):
         self.file_found = False

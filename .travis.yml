@@ -32,7 +32,7 @@ install:
   - export GIT_FULL_HASH=`git rev-parse HEAD`
   - conda config --set always_yes true
   - conda update conda
-  - conda create -n testenv pip python=$TRAVIS_PYTHON_VERSION 
+  - conda create -n testenv pip python=$TRAVIS_PYTHON_VERSION --file requirements.yml
   - source activate testenv
   - pip install -r requirements.txt
 

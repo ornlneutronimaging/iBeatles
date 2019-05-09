@@ -48,6 +48,15 @@ class TestDataHandler(TestCase):
         test_list_sample.sort()
         self.assertTrue(list_of_files == test_list_sample)
 
+        test_regular_expression_with_no_data = os.path.join(self.data_path, 'sample_without_fits/*.fits')
+        test_list_sample = glob.glob(test_regular_expression_with_no_data)
+        test_list_sample.sort()
+        o_data = DataHandler(parent=self.mock_parent)
+        sample_path = os.path.join(self.data_path, 'sample_without_fits')
+        list_of_files = o_data.get_list_of_files(folder=sample_path)
+        list_of_files.sort()
+        self.assertEqual(test_list_sample, list_of_files)
+
     def test_time_spectra_automatically_retrieved(self):
         """Checking that the timespectra from the folder is correctly located or return empty string when not found"""
         o_data_with = DataHandler(parent=self.mock_parent)
