@@ -43,8 +43,7 @@ class DataHandler:
         if not list_of_files:
             return
 
-
-
+        self.load_files(list_of_files)
 
         time_spectra_file = self.get_time_spectra_file(folder=folder)
 
@@ -54,6 +53,21 @@ class DataHandler:
         file_regular_expression = os.path.join(folder, '*' + file_ext)
         list_of_files = glob.glob(file_regular_expression)
         return list_of_files
+
+    def load_files(self, list_of_files):
+        image_type = self.get_image_type(list_of_files)
+        o_load_image = LoadFiles(parent=self.parent,
+                                 image_ext=image_type,
+                                 list_of_files=list_of_files)
+        self.populate_list_widget(o_load_image)
+        self.parent.data_files[self.data_type] = o_load_image.list_of_files
+        self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
+        # self.parent.data_metadata[self.data_type]['data'] = o_load_image.data
+        self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
+
+    def get_image_type(self, list_of_files):
+        image_type = FileHandler.get_file_extension(list_of_files[0])
+        return image_type
 
     def get_time_spectra_file(self, folder=''):
         o_time_spectra = LoadTimeSpectra(folder=folder)
@@ -213,20 +227,17 @@ class DataHandler:
         _parent_folder = FileHandler.get_parent_folder(_folder)
         self.list_ui[self.data_type]['folder'].setText(_parent_folder)
 
-    def load_files(self, list_of_files):
-        image_type = self.get_image_type(list_of_files)
-        o_load_image = LoadFiles(parent=self.parent,
-                                 image_ext=image_type,
-                                 list_of_files=list_of_files)
-        self.populate_list_widget(o_load_image)
-        self.parent.data_files[self.data_type] = o_load_image.list_of_files
-        self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
-        # self.parent.data_metadata[self.data_type]['data'] = o_load_image.data
-        self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
+    # def load_files(self, list_of_files):
+    #     image_type = self.get_image_type(list_of_files)
+    #     o_load_image = LoadFiles(parent=self.parent,
+    #                              image_ext=image_type,
+    #                              list_of_files=list_of_files)
+    #     self.populate_list_widget(o_load_image)
+    #     self.parent.data_files[self.data_type] = o_load_image.list_of_files
+    #     self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
+    #     # self.parent.data_metadata[self.data_type]['data'] = o_load_image.data
+    #     self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
 
-    def get_image_type(self, list_of_files):
-        raw_file, ext = os.path.splitext(list_of_files[1])
-        return ext
 
 
 class FileDialog(QFileDialog):

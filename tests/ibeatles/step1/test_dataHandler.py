@@ -70,3 +70,10 @@ class TestDataHandler(TestCase):
         time_spectra_file = o_data_without.get_time_spectra_file(folder=sample_path)
         test_spectra_file = ''
         self.assertEqual(time_spectra_file, test_spectra_file)
+
+    def test_image_type_is_correct(self):
+        """making sure the method correctly retrieve the extension of the file"""
+        list_image_test1 = ["name_not_important.tiff"]
+        o_data = DataHandler(parent=self.mock_parent)
+        ext_returned = o_data.get_image_type(list_image_test1)
+        self.assertEqual(ext_returned, '.tiff')

@@ -14,6 +14,11 @@ class FileHandler(object):
     def get_base_filename(cls, full_file_name):
         return os.path.basename(full_file_name)
 
+    @staticmethod
+    def get_file_extension(file_name):
+        raw_file, ext = os.path.splitext(file_name)
+        return ext
+
     @classmethod
     def retrieve_ascii_contain(cls, full_file_name):
         file_contain = []
