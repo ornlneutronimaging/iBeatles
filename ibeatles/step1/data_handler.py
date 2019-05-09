@@ -10,7 +10,7 @@ from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
 
-class DataHandler(object):
+class DataHandler:
     user_canceled = False
 
     def __init__(self, parent=None, data_type='sample'):
@@ -28,47 +28,67 @@ class DataHandler(object):
                                          'folder': self.parent.ui.time_spectra_folder,
                                          'folder2': self.parent.ui.time_spectra_folder_2}}
 
+    def select_folder(self):
+        _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
+                                                       directory=self.parent.sample_folder,
+                                                       options=QFileDialog.ShowDirsOnly))
+
+        return _folder
+
+    def import_files_from_folder(self, folder=''):
+        pass
+
+
+
     def retrieve_files(self, data_type='sample'):
         """
         type = ['sample', 'ob', 'normalized', 'time_spectra']
         """
-
         self.data_type = data_type
+
+        folder_selected = self._select_folder()
 
         mydialog = FileDialog()
         mydialog.setDirectory(self.parent.sample_folder)
         mydialog.exec_()
 
-        try:
-            selectedFiles = mydialog.filesSelected()
-            if selectedFiles:
-                if len(selectedFiles) == 1:
-                    if os.path.isdir(selectedFiles[0]):
-                        self.load_directory(selectedFiles[0])
-                    else:
-                        self.load_files(selectedFiles[0])
+        # try:
+        selected_files = mydialog.filesSelected()
+
+        print("selected_files:")
+        print(selected_files)
+        return
+
+
+        if selected_files:
+            if len(selected_files) == 1:
+                if os.path.isdir(selected_files[0]):
+                    self.load_directory(selected_files[0])
                 else:
-                    self.load_files(selectedFiles)
-
-                if (data_type == 'sample') or (data_type == 'normalized'):
-                    self.retrieve_time_spectra()
-                    self.load_time_spectra()
-
+                    self.load_files(selected_files[0])
             else:
-                self.user_canceled = True
+                self.load_files(selected_files)
 
-        except TypeError:
+            if (data_type == 'sample') or (data_type == 'normalized'):
+                self.retrieve_time_spectra()
+                self.load_time_spectra()
+
+        else:
             self.user_canceled = True
-            # inform user here that the folder is empty !
-            # FIXME
 
-            return
+        # except TypeError:
+        #     self.user_canceled = True
+        #     # inform user here that the folder is empty !
+        #     # FIXME
+        #
+        #     return
 
         # calculate mean data array for normalization tab
         if data_type == 'sample':
             _data = self.parent.data_metadata['sample']['data']
             normalization_mean_data = np.mean(_data, axis=0)
             self.parent.data_metadata['normalization']['data'] = normalization_mean_data
+
 
     def load_time_spectra(self):
         if self.data_type == 'normalized':
@@ -182,27 +202,32 @@ class DataHandler(object):
 
 
 class FileDialog(QFileDialog):
-    selectedFiles = []
+    selected_files = []
 
     def __init__(self, *args):
         QFileDialog.__init__(self, *args)
         self.setOption(self.DontUseNativeDialog, False)
         self.setFileMode(self.ExistingFiles)
-        btns = self.findChildren(QPushButton)
-        self.openBtn = [x for x in btns if 'open' in str(x.text()).lower()][0]
-        self.openBtn.clicked.disconnect()
-        self.openBtn.clicked.connect(self.openClicked)
-        self.tree = self.findChild(QTreeView)
+        buttons = self.findChildren(QPushButton)
+
+        print(buttons)
+
+        # self.openBtn = [x for x in buttons if 'open' in str(x.text()).lower()][0]
+        # self.openBtn.clicked.disconnect()
+        # self.openBtn.clicked.connect(self.openClicked)
+        # self.tree = self.findChild(QTreeView)
 
     def openClicked(self):
-        inds = self.tree.selectionModel().selectedIndexes()
+        indexes = self.tree.selectionModel().selectedIndexes()
         files = []
-        for i in inds:
+        for i in indexes:
             if i.column() == 0:
                 #        files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
                 files.append(os.path.join(str(self.directory().absolutePath()), str(i.data())))
-        self.selectedFiles = files
+        self.selected_files = files
         self.close()
 
     def filesSelected(self):
-        return self.selectedFiles
+        print("in FileDialog, filesSelected")
+        print("self.selected_files: {}".format(self.selected_files))
+        return self.selected_files

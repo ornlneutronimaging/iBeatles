@@ -6,6 +6,7 @@ import sys
 import os
 from copy import deepcopy
 
+from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
 from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
@@ -39,6 +40,7 @@ from ibeatles.utilities.add_element_editor import AddElement
 
 from ibeatles.utilities.array_utilities import find_nearest_index
 from ibeatles.utilities import load_ui
+from ibeatles.icons import icons_rc
 
 
 class MainWindow(QMainWindow):
@@ -505,18 +507,8 @@ class MainWindow(QMainWindow):
     # TAB 1: Load Data Tab
 
     def sample_import_button_clicked(self):
-        self.loading_flag = True
-        o_load = DataHandler(parent=self)
-        o_load.retrieve_files(data_type='sample')
-        if not o_load.user_canceled:
-            self.select_load_data_row(data_type='sample', row=0)
-            self.retrieve_general_infos(data_type='sample')
-            self.retrieve_selected_row_infos(data_type='sample')
-            o_plot = Step1Plot(parent=self, data_type='sample')
-            o_plot.display_bragg_edge(mouse_selection=False)
-            o_gui = Step1GuiHandler(parent=self)
-            o_gui.check_time_spectra_widgets()
-            self.check_files_error()
+        o_event = Step1EventHandler(parent=self, data_type='sample')
+        o_event.import_button_clicked()
 
     def select_load_data_row(self, data_type='sample', row=0):
         o_gui = Step1GuiHandler(parent=self)
@@ -544,16 +536,19 @@ class MainWindow(QMainWindow):
         o_list_handler.right_click(position=position)
 
     def open_beam_import_button_clicked(self):
-        self.loading_flag = True
-        o_load = DataHandler(parent=self)
-        o_load.retrieve_files(data_type='ob')
-        if not o_load.user_canceled:
-            self.select_load_data_row(data_type='ob', row=0)
-            self.retrieve_general_infos(data_type='ob')
-            self.retrieve_selected_row_infos(data_type='ob')
-            o_plot = Step1Plot(parent=self, data_type='ob')
-            o_plot.display_bragg_edge()
-            self.check_files_error()
+        o_event = Step1EventHandler(parent=self, data_type='ob')
+        o_event.import_button_clicked()
+
+        # self.loading_flag = True
+        # o_load = DataHandler(parent=self)
+        # o_load.retrieve_files(data_type='ob')
+        # if not o_load.user_canceled:
+        #     self.select_load_data_row(data_type='ob', row=0)
+        #     self.retrieve_general_infos(data_type='ob')
+        #     self.retrieve_selected_row_infos(data_type='ob')
+        #     o_plot = Step1Plot(parent=self, data_type='ob')
+        #     o_plot.display_bragg_edge()
+        #     self.check_files_error()
 
     def open_beam_list_selection_changed(self):
         if not self.loading_flag:

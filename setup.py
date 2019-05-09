@@ -35,7 +35,7 @@ if 'pyuic' in sys.argv[:]:
     sys.exit(0)
 
 if 'pyrcc' in sys.argv[:]:
-    infile = './ibeatles/icons/icons.qrc'
+    infile = './ibeatles/icons/icons_old.qrc'
     assert os.path.isfile(infile)
     outfile = './ibeatles/icons/icons_rc.py'
     print("Converting icons_rc file:")
