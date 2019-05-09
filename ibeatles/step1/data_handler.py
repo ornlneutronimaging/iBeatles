@@ -32,13 +32,19 @@ class DataHandler:
         _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
                                                        directory=self.parent.sample_folder,
                                                        options=QFileDialog.ShowDirsOnly))
-
         return _folder
 
     def import_files_from_folder(self, folder=''):
-        pass
+        if folder == '':
+            self.user_canceled = True
+            return ''
 
+        list_of_files = self.get_list_of_files(folder=folder)
 
+    def get_list_of_files(self, folder='', file_ext='.fits'):
+        file_regular_expression = os.path.join(folder, '*' + file_ext)
+        list_of_files = glob.glob(file_regular_expression)
+        return list_of_files
 
     def retrieve_files(self, data_type='sample'):
         """

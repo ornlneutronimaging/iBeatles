@@ -10,11 +10,8 @@ class EventHandler(TopEventHandler):
         self.parent.loading_flag = True
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)
         _folder = o_load.select_folder()
-        if not _folder:
-            # user canceled the selection
-            return
-
         o_load.import_files_from_folder(folder=_folder)
+
 
         # o_load.retrieve_files(data_type='sample')
         # if not o_load.user_canceled:
