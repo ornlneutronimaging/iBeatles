@@ -1,3 +1,7 @@
+from astropy.io import fits
+from PIL import Image
+
+
 class LoadData(object):
 
     __slots__ = ['image_array', 'parent', 'list_of_files', 'image_ext']
@@ -25,5 +29,22 @@ class LoadData(object):
         self.image_array = _data
 
     def load_fits(self):
-        print("loading fits")
-        print(self.list_of_files)
+        _list_of_files = self.list_of_files
+        _data = []
+        for _file in _list_of_files:
+            _image = self.load_fits_file(_file)
+            _data.append(_image)
+
+        self.image_array = _data
+
+    @staticmethod
+    def load_fits_file(fits_file_name):
+        tmp = fits.open(fits_file_name, ignore_missing_end=True)[0].data
+        try:
+            if len(tmp.shape) == 3:
+                tmp = tmp.reshape(tmp.shape[1:])
+            return tmp
+        except OSError:
+            raise OSError("Unable to read the FITS file provided!")
+
+

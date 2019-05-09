@@ -1,6 +1,7 @@
 from unittest import TestCase
 import glob
 import os
+import numpy as np
 
 from ibeatles.utilities.load_data import LoadData
 
@@ -16,8 +17,26 @@ class TestLoadData(TestCase):
         o_load = LoadData(list_of_files='*.txt', image_ext='.txt')
         self.assertRaises(TypeError, o_load.load)
 
-    def test_load_fits(self):
+    def test_load_single_fits_file(self):
+        """Assert loading single fits file works"""
         fits_file = glob.glob(os.path.join(self.data_path, '*.fits'))
-        o_load = LoadData(list_of_files=fits_file, image_ext='.fits')
+        image_array = LoadData.load_fits_file(fits_file[0])
+        self.assertEqual(image_array.shape, (512, 512))
+
+    def test_list_fits_files(self):
+        """Assert loading list of fits works"""
+        fits_file = glob.glob(os.path.join(self.data_path, '*.fits'))
+        o_load = LoadData(list_of_files=fits_file[:2], image_ext='.fits')
+        o_load.load_fits()
+        data_loaded = o_load.image_array
+        self.assertEqual(len(data_loaded), 2)
+        self.assertEqual(np.shape(data_loaded), (2, 512, 512))
+
+    def test_list_fits_files_from_main_caller(self):
+        """Assert loading list of fits works"""
+        fits_file = glob.glob(os.path.join(self.data_path, '*.fits'))
+        o_load = LoadData(list_of_files=fits_file[:2], image_ext='.fits')
         o_load.load()
         data_loaded = o_load.image_array
+        self.assertEqual(len(data_loaded), 2)
+        self.assertEqual(np.shape(data_loaded), (2, 512, 512))
