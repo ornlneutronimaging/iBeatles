@@ -17,6 +17,7 @@ class TestLoadData(TestCase):
         o_load = LoadData(list_of_files='*.txt', image_ext='.txt')
         self.assertRaises(TypeError, o_load.load)
 
+    # fits
     def test_load_single_fits_file(self):
         """Assert loading single fits file works"""
         fits_file = glob.glob(os.path.join(self.data_path, '*.fits'))
@@ -40,3 +41,6 @@ class TestLoadData(TestCase):
         data_loaded = o_load.image_array
         self.assertEqual(len(data_loaded), 2)
         self.assertEqual(np.shape(data_loaded), (2, 512, 512))
+
+    # tiff
+    # def test_load_
