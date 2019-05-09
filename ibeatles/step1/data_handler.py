@@ -40,7 +40,14 @@ class DataHandler:
             return ''
 
         list_of_files = self.get_list_of_files(folder=folder)
+        if not list_of_files:
+            return
+
+
+
+
         time_spectra_file = self.get_time_spectra_file(folder=folder)
+
 
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
