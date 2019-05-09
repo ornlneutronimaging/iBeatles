@@ -40,11 +40,18 @@ class DataHandler:
             return ''
 
         list_of_files = self.get_list_of_files(folder=folder)
+        time_spectra_file = self.get_time_spectra_file(folder=folder)
+
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
         file_regular_expression = os.path.join(folder, '*' + file_ext)
         list_of_files = glob.glob(file_regular_expression)
         return list_of_files
+
+    def get_time_spectra_file(self, folder=''):
+        o_time_spectra = LoadTimeSpectra(folder=folder)
+        o_time_spectra.retrieve_file_name()
+        return o_time_spectra.time_spectra
 
     def retrieve_files(self, data_type='sample'):
         """

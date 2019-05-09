@@ -38,16 +38,26 @@ class TestDataHandler(TestCase):
     def test_getting_list_of_sample_files_from_folder(self):
         """Checking that the correct list of files is retrieved from the folder"""
         o_data = DataHandler(parent=self.mock_parent)
-        sample_path = os.path.join(self.data_path, 'sample')
+        sample_path = os.path.join(self.data_path, 'sample_with_time_spectra')
         list_of_files = o_data.get_list_of_files(folder=sample_path)
         list_of_files.sort()
-
         self.assertEqual(len(list_of_files), 10)
 
-        test_regular_expression = os.path.join(self.data_path, 'sample/*.fits')
+        test_regular_expression = os.path.join(self.data_path, 'sample_with_time_spectra/*.fits')
         test_list_sample = glob.glob(test_regular_expression)
         test_list_sample.sort()
-
         self.assertTrue(list_of_files == test_list_sample)
 
+    def test_time_spectra_automatically_retrieved(self):
+        """Checking that the timespectra from the folder is correctly located or return empty string when not found"""
+        o_data_with = DataHandler(parent=self.mock_parent)
+        sample_path = os.path.join(self.data_path, 'sample_with_time_spectra')
+        time_spectra_file = o_data_with.get_time_spectra_file(folder=sample_path)
+        test_spectra_file = os.path.join(self.data_path, 'sample_with_time_spectra/Image019_Spectra.txt')
+        self.assertEqual(time_spectra_file, test_spectra_file)
 
+        o_data_without = DataHandler(parent=self.mock_parent)
+        sample_path = os.path.join(self.data_path, 'sample_without_time_spectra')
+        time_spectra_file = o_data_without.get_time_spectra_file(folder=sample_path)
+        test_spectra_file = ''
+        self.assertEqual(time_spectra_file, test_spectra_file)

@@ -58,11 +58,15 @@ class LoadFiles(object):
 
 
 class LoadTimeSpectra(object):
-    file_found = False
-    time_spectra_name_format = '*_Spectra.txt'
+
+    __slots__ = [file_found, time_spectra, time_spectra_name_format, folder]
 
     def __init__(self, folder=None, auto_load=True):
+        self.file_found = False
+        self.time_spectra = ''
+        self.time_spectra_name_format = '*_Spectra.txt'
         self.folder = folder
+
         if auto_load:
             self.retrieve_file_name()
         else:
@@ -80,3 +84,4 @@ class LoadTimeSpectra(object):
         if time_spectra:
             self.file_found = True
             self.time_spectra = time_spectra[0]
+
