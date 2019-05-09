@@ -35,6 +35,7 @@ install:
   - conda create -n testenv pip python=$TRAVIS_PYTHON_VERSION matplotlib
   - source activate testenv
   - pip install -r requirements.txt
+  - pip install qtpy
 
 script:
   - pytest tests/

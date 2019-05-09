@@ -1,8 +1,11 @@
 class LoadData(object):
 
-    def __init__(self, parent=None, list_of_files=[]):
+    __slots__ = ['image_array', 'parent', 'list_of_files', 'image_ext']
+
+    def __init__(self, parent=None, list_of_files=[], image_ext='.fits'):
         self.parent = parent
         self.list_of_files = list_of_files
+        self.image_ext = image_ext
 
     def load(self):
         if (self.image_ext == '.tiff') or (self.image_ext == '.tif'):
