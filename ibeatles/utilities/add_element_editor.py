@@ -1,4 +1,4 @@
-from qtpy import QtGui, QtCore
+from qtpy import QtCore
 from qtpy.QtWidgets import QMainWindow
 
 # from ibeatles.interfaces.ui_addElement import Ui_MainWindow as UiMainWindow
@@ -31,7 +31,7 @@ class AddElementInterface(QMainWindow):
     def __init__(self, parent=None):
         self.parent = parent
         
-        QtGui.QMainWindow.__init__(self, parent=parent)
+        QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_addElement', baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)

@@ -1,9 +1,6 @@
-from qtpy import QtGui, QtCore
-from qtpy.QtWidgets import QMainWindow
-
+from qtpy.QtWidgets import QMainWindow, QTableWidgetItem, QComboBox, QTableWidgetSelectionRange
 import pyqtgraph as pg
 
-# from ibeatles.interfaces.ui_roiEditor import Ui_MainWindow as UiMainWindow
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities import colors
 from ibeatles.step1.plot import Step1Plot
@@ -44,8 +41,8 @@ class RoiEditorInterface(QMainWindow):
         self.parent = parent
         self.title = title
         
-        QtGui.QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_roiEditor', baseinstance=self)
+        QMainWindow.__init__(self, parent=parent)
+        self.ui = load_ui('ui_roiEditor.ui', baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
         self.setWindowTitle("{} ROI Editor".format(title))
@@ -64,7 +61,7 @@ class RoiEditorInterface(QMainWindow):
                        
             
     def get_item(self, text, color):
-        _item = QtGui.QTableWidgetItem(text)
+        _item = QTableWidgetItem(text)
         _item.setForeground(color)
 
         return _item
@@ -111,7 +108,7 @@ class RoiEditorInterface(QMainWindow):
         self.ui.tableWidget.setItem(_row, 4, _item)
         
         # group
-        _widget = QtGui.QComboBox()
+        _widget = QComboBox()
         _widget.addItems(self.list_name_groups)
         _widget.setCurrentIndex(int(group))
         QtCore.QObject.connect(_widget, QtCore.SIGNAL("currentIndexChanged(int)"), self.changed_group)
@@ -323,13 +320,13 @@ class RoiEditorInterface(QMainWindow):
         
         nbr_column = self.ui.tableWidget.columnCount()
         nbr_row = self.ui.tableWidget.rowCount()
-        full_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row, nbr_column-1)
+        full_range = QTableWidgetSelectionRange(0, 0, nbr_row, nbr_column-1)
         self.ui.tableWidget.setRangeSelected(full_range, False)
         
-        range_selected = QtGui.QTableWidgetSelectionRange(row, 0, row, nbr_column-1)
+        range_selected = QTableWidgetSelectionRange(row, 0, row, nbr_column-1)
         self.ui.tableWidget.setRangeSelected(range_selected, True)
         print("row to select: {}".format(row))
-        QtGui.QApplication.processEvents()
+        QApplication.processEvents()
 
     def roi_editor_table_changed(self, row, column):
         _row = row
