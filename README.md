@@ -8,16 +8,8 @@ Building
 Install all the dependencies
 > pip install -r requirements.txt
 
-Before doing the normal `python setup.py ...` things you must convert the
-`designer/*.ui` files to `ibeatles/interfaces/*.py. 
-This is done with
-> python setup.py pyuic
-
-> python setup.py pyrcc
-
 add iBeatles to python path (as well as BraggEdge as right now the library do not seem to work correctly!)
 > export PYTHONPATH=/Users/j35/git/iBeatles;/Users/j35/git/BraggEdge/
-
 > python scripts/ibeatles.py
 
 After that, all the normal
