@@ -5,9 +5,12 @@ import pprint
 import numpy as np
 from qtpy.QtWidgets import QListWidgetItem, QFileDialog, QPushButton, QTreeView
 
-from ibeatles.utilities.load_files import LoadFiles, LoadTimeSpectra
+from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
+
+
+TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
 
 
 class DataHandler:
@@ -44,9 +47,7 @@ class DataHandler:
             return
 
         self.load_files(list_of_files)
-
-        #self.load_time_spectra()
-        #time_spectra_file = self.get_time_spectra_file(folder=folder)
+        # self.load_time_spectra()
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
         """list of files in that folder with that extension"""
@@ -71,26 +72,43 @@ class DataHandler:
         image_type = FileHandler.get_file_extension(list_of_files[0])
         return image_type
 
-    def get_time_spectra_file(self, folder=''):
-        o_time_spectra = LoadTimeSpectra(folder=folder)
-        o_time_spectra.retrieve_file_name()
-        return o_time_spectra.time_spectra
+    def get_time_spectra_file(self):
+        o_time_spectra = GetTimeSpectraFilename(parent=self.parent,
+                                                data_type=self.data_type)
+
+        print("time_specrtra_file_name is {}".format(o_time_spectra.retrieve_file_name()))
+        return o_time_spectra.retrieve_file_name()
+
+    def browse_file_name(self):
+        file_name = QFileDialog.getOpenFileName(caption="Select the Time Spectra File",
+                                                directory=self.parent.default_path[self.data_type],
+                                                filter="Txt ({});;All (*.*)".format(TIME_SPECTRA_NAME_FORMAT))
+        if file_name:
+            return file_name
 
     def load_time_spectra(self):
-        if self.data_type == 'normalized':
-            o_time_handler = TimeSpectraHandler(parent=self.parent, normalized_tab=True)
-        else:
-            o_time_handler = TimeSpectraHandler(parent=self.parent)
-        o_time_handler.load()
-        o_time_handler.calculate_lambda_scale()
-        tof_array = o_time_handler.tof_array
-        lambda_array = o_time_handler.lambda_array
-        if self.data_type == 'sample':
-            self.parent.data_metadata['time_spectra']['data'] = tof_array
-            self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
-        else:  # normalized
-            self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
-            self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
+        time_spectra_file = self.get_time_spectra_file()
+        print(time_spectra_file)
+
+
+
+
+
+
+        # if self.data_type == 'normalized':
+        #     o_time_handler = TimeSpectraHandler(parent=self.parent, normalized_tab=True)
+        # else:
+        #     o_time_handler = TimeSpectraHandler(parent=self.parent)
+        # o_time_handler.load()
+        # o_time_handler.calculate_lambda_scale()
+        # tof_array = o_time_handler.tof_array
+        # lambda_array = o_time_handler.lambda_array
+        # if self.data_type == 'sample':
+        #     self.parent.data_metadata['time_spectra']['data'] = tof_array
+        #     self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
+        # else:  # normalized
+        #     self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
+        #     self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
 
 
 
@@ -225,7 +243,7 @@ class DataHandler:
 
         _folder = o_loader.folder
         self.folder = _folder
-        self.parent.default_path[self.data_type] = os.path.dirname(_folder)
+        self.parent.default_path[self.data_type] = _folder
 
         _parent_folder = FileHandler.get_parent_folder(_folder)
         self.list_ui[self.data_type]['folder'].setText(_parent_folder)
@@ -270,3 +288,23 @@ class DataHandler:
 #         print("in FileDialog, filesSelected")
 #         print("self.selected_files: {}".format(self.selected_files))
 #         return self.selected_files
+
+
+class GetTimeSpectraFilename(object):
+    __slots__ = ['parent', 'file_found', 'time_spectra', 'time_spectra_name_format', 'folder']
+
+    def __init__(self, parent=None, data_type='sample'):
+        self.parent = parent
+        self.file_found = False
+        self.time_spectra = ''
+        self.time_spectra_name_format = '*_Spectra.txt'
+        self.folder = self.parent.default_path[data_type]
+
+    def retrieve_file_name(self):
+        time_spectra = glob.glob(self.folder + '/' + TIME_SPECTRA_NAME_FORMAT)
+        if time_spectra and os.path.exists(time_spectra[0]):
+            return time_spectra[0]
+
+        else:
+            return ''
+

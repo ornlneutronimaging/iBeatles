@@ -2,7 +2,7 @@ from unittest import TestCase
 import os
 import glob
 
-from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.data_handler import DataHandler, GetTimeSpectraFilename
 
 
 class MockWidget:
@@ -20,6 +20,7 @@ class MockWidget:
 
 class MockParent:
     ui = MockWidget()
+    default_path = {'sample': None}
 
 
 class TestDataHandler(TestCase):
@@ -28,6 +29,7 @@ class TestDataHandler(TestCase):
         self.mock_parent = MockParent()
         _file_path = os.path.dirname(__file__)
         self.data_path = os.path.abspath(os.path.join(_file_path, '../../data/'))
+        self.mock_parent.default_path['sample'] = self.data_path
 
     def test_canceled_sample_import_files_from_folder(self):
         """User clicked CANCEL button when trying to import sample data files in step1"""
@@ -59,15 +61,15 @@ class TestDataHandler(TestCase):
 
     def test_time_spectra_automatically_retrieved(self):
         """Checking that the timespectra from the folder is correctly located or return empty string when not found"""
+        self.mock_parent.default_path['sample'] = os.path.join(self.data_path, 'sample_with_time_spectra')
         o_data_with = DataHandler(parent=self.mock_parent)
-        sample_path = os.path.join(self.data_path, 'sample_with_time_spectra')
-        time_spectra_file = o_data_with.get_time_spectra_file(folder=sample_path)
+        time_spectra_file = o_data_with.get_time_spectra_file()
         test_spectra_file = os.path.join(self.data_path, 'sample_with_time_spectra/Image019_Spectra.txt')
         self.assertEqual(time_spectra_file, test_spectra_file)
 
         o_data_without = DataHandler(parent=self.mock_parent)
-        sample_path = os.path.join(self.data_path, 'sample_without_time_spectra')
-        time_spectra_file = o_data_without.get_time_spectra_file(folder=sample_path)
+        self.mock_parent.default_path['sample'] = os.path.join(self.data_path, 'sample_without_time_spectra')
+        time_spectra_file = o_data_without.get_time_spectra_file()
         test_spectra_file = ''
         self.assertEqual(time_spectra_file, test_spectra_file)
 
@@ -77,3 +79,21 @@ class TestDataHandler(TestCase):
         o_data = DataHandler(parent=self.mock_parent)
         ext_returned = o_data.get_image_type(list_image_test1)
         self.assertEqual(ext_returned, '.tiff')
+
+
+class TestGetTimeSpectraFilename(TestCase):
+
+    def setUp(self):
+        self.mock_parent = MockParent()
+        _file_path = os.path.dirname(__file__)
+        self.data_path = os.path.abspath(os.path.join(_file_path, '../../data/test_data_with_time_spectra/'))
+        self.mock_parent.default_path['sample'] = self.data_path
+
+    # def test_time_spectra_file_name_correctly_retrieved(self):
+    #     """assert the time spectra file is correctly defined"""
+    #
+    #     o_time_spectra = GetTimeSpectraFilename(parent=self.mock_parent,
+    #                                             data_type='sample')
+    #     time_spectra = o_time_spectra.retrieve_file_name()
+    #     print(time_spectra)
+

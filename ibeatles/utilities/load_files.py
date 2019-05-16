@@ -59,30 +59,3 @@ class LoadFiles(object):
         self.parent.eventProgress.setVisible(False)
 
 
-class LoadTimeSpectra(object):
-    __slots__ = ['file_found', 'time_spectra', 'time_spectra_name_format', 'folder']
-
-    def __init__(self, folder=None, auto_load=True):
-        self.file_found = False
-        self.time_spectra = ''
-        self.time_spectra_name_format = '*_Spectra.txt'
-        self.folder = folder
-
-        if auto_load:
-            self.retrieve_file_name()
-        else:
-            self.browse_file_name()
-
-    def browse_file_name(self):
-        file_name = QFileDialog.getOpenFileName(caption="Select the Time Spectra File",
-                                                directory=self.folder,
-                                                filter="Txt ({});;All (*.*)".format(self.time_spectra_name_format))
-        if file_name:
-            self.parent.ui.time_spectra.setText(file_name)
-
-    def retrieve_file_name(self):
-        time_spectra = glob.glob(self.folder + '/' + self.time_spectra_name_format)
-        if time_spectra:
-            self.file_found = True
-            self.time_spectra = time_spectra[0]
-
