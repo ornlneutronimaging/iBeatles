@@ -8,7 +8,8 @@ class EventHandler(TopEventHandler):
 
     def import_button_clicked(self):
         self.parent.loading_flag = True
-        o_load = DataHandler(parent=self.parent, data_type=self.data_type)
+        o_load = DataHandler(parent=self.parent,
+                             data_type=self.data_type)
         _folder = o_load.select_folder()
         o_load.import_files_from_folder(folder=_folder)
 

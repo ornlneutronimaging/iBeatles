@@ -30,7 +30,7 @@ class DataHandler:
 
     def select_folder(self):
         _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
-                                                       directory=self.parent.sample_folder,
+                                                       directory=self.parent.default_path[self.data_type],
                                                        options=QFileDialog.ShowDirsOnly))
         return _folder
 
@@ -45,11 +45,11 @@ class DataHandler:
 
         self.load_files(list_of_files)
 
-        time_spectra_file = self.get_time_spectra_file(folder=folder)
-
-
+        #self.load_time_spectra()
+        #time_spectra_file = self.get_time_spectra_file(folder=folder)
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
+        """list of files in that folder with that extension"""
         file_regular_expression = os.path.join(folder, '*' + file_ext)
         list_of_files = glob.glob(file_regular_expression)
         return list_of_files
@@ -60,9 +60,11 @@ class DataHandler:
                                  image_ext=image_type,
                                  list_of_files=list_of_files)
         self.populate_list_widget(o_load_image)
-        self.parent.data_files[self.data_type] = o_load_image.list_of_files
+        self.record_data(o_load_image)
+
+    def record_data(self, o_load_image):
+        self.parent.list_files[self.data_type] = o_load_image.list_of_files
         self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
-        # self.parent.data_metadata[self.data_type]['data'] = o_load_image.data
         self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
 
     def get_image_type(self, list_of_files):
@@ -74,6 +76,21 @@ class DataHandler:
         o_time_spectra.retrieve_file_name()
         return o_time_spectra.time_spectra
 
+    def load_time_spectra(self):
+        if self.data_type == 'normalized':
+            o_time_handler = TimeSpectraHandler(parent=self.parent, normalized_tab=True)
+        else:
+            o_time_handler = TimeSpectraHandler(parent=self.parent)
+        o_time_handler.load()
+        o_time_handler.calculate_lambda_scale()
+        tof_array = o_time_handler.tof_array
+        lambda_array = o_time_handler.lambda_array
+        if self.data_type == 'sample':
+            self.parent.data_metadata['time_spectra']['data'] = tof_array
+            self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
+        else:  # normalized
+            self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
+            self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
 
 
 
@@ -132,21 +149,6 @@ class DataHandler:
             self.parent.data_metadata['normalization']['data'] = normalization_mean_data
 
 
-    def load_time_spectra(self):
-        if self.data_type == 'normalized':
-            o_time_handler = TimeSpectraHandler(parent=self.parent, normalized_tab=True)
-        else:
-            o_time_handler = TimeSpectraHandler(parent=self.parent)
-        o_time_handler.load()
-        o_time_handler.calculate_lambda_scale()
-        tof_array = o_time_handler.tof_array
-        lambda_array = o_time_handler.lambda_array
-        if self.data_type == 'sample':
-            self.parent.data_metadata['time_spectra']['data'] = tof_array
-            self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
-        else:  # normalized
-            self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
-            self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
 
     def retrieve_time_spectra(self, auto_load=True):
         if auto_load:
@@ -223,6 +225,7 @@ class DataHandler:
 
         _folder = o_loader.folder
         self.folder = _folder
+        self.parent.default_path[self.data_type] = os.path.dirname(_folder)
 
         _parent_folder = FileHandler.get_parent_folder(_folder)
         self.list_ui[self.data_type]['folder'].setText(_parent_folder)
@@ -240,33 +243,30 @@ class DataHandler:
 
 
 
-class FileDialog(QFileDialog):
-    selected_files = []
-
-    def __init__(self, *args):
-        QFileDialog.__init__(self, *args)
-        self.setOption(self.DontUseNativeDialog, False)
-        self.setFileMode(self.ExistingFiles)
-        buttons = self.findChildren(QPushButton)
-
-        print(buttons)
-
-        # self.openBtn = [x for x in buttons if 'open' in str(x.text()).lower()][0]
-        # self.openBtn.clicked.disconnect()
-        # self.openBtn.clicked.connect(self.openClicked)
-        # self.tree = self.findChild(QTreeView)
-
-    def openClicked(self):
-        indexes = self.tree.selectionModel().selectedIndexes()
-        files = []
-        for i in indexes:
-            if i.column() == 0:
-                #        files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
-                files.append(os.path.join(str(self.directory().absolutePath()), str(i.data())))
-        self.selected_files = files
-        self.close()
-
-    def filesSelected(self):
-        print("in FileDialog, filesSelected")
-        print("self.selected_files: {}".format(self.selected_files))
-        return self.selected_files
+# class FileDialog(QFileDialog):
+#     selected_files = []
+#
+#     def __init__(self, *args):
+#         QFileDialog.__init__(self, *args)
+#         self.setOption(self.DontUseNativeDialog, False)
+#         self.setFileMode(self.ExistingFiles)
+#         buttons = self.findChildren(QPushButton)
+#         # self.openBtn = [x for x in buttons if 'open' in str(x.text()).lower()][0]
+#         # self.openBtn.clicked.disconnect()
+#         # self.openBtn.clicked.connect(self.openClicked)
+#         # self.tree = self.findChild(QTreeView)
+#
+#     def openClicked(self):
+#         indexes = self.tree.selectionModel().selectedIndexes()
+#         files = []
+#         for i in indexes:
+#             if i.column() == 0:
+#                 #        files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
+#                 files.append(os.path.join(str(self.directory().absolutePath()), str(i.data())))
+#         self.selected_files = files
+#         self.close()
+#
+#     def filesSelected(self):
+#         print("in FileDialog, filesSelected")
+#         print("self.selected_files: {}".format(self.selected_files))
+#         return self.selected_files

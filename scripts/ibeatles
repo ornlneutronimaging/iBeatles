@@ -47,6 +47,17 @@ class MainWindow(QMainWindow):
     """ Main FastGR window
     """
 
+    default_path = {'sample': '',
+                    'ob': '',
+                    'normalized': '',
+                    'time_spectra': '',
+                    'time_spectra_normalized': ''}
+
+    list_files = {'sample': [],    # ex data_files
+                  'ob': [],
+                  'normalized': [],
+                  'time_spectra': []}
+
     DEBUGGING = True
     loading_flag = False
     current_data_type = 'sample'
@@ -182,9 +193,6 @@ class MainWindow(QMainWindow):
         # Base class
         QMainWindow.__init__(self, parent=parent)
 
-        # Initialize the UI widgets
-        # self.ui = ibeatles.interfaces.ui_mainWindow.Ui_MainWindow()
-        # self.ui.setupUi(self)
         self.ui = load_ui('ui_mainWindow.ui', baseinstance=self)
         self.setup()
         self.init_interface()
@@ -218,11 +226,14 @@ class MainWindow(QMainWindow):
         else:
             current_folder = os.getcwd()
 
-        self.sample_folder = current_folder
-        self.ob_folder = current_folder
-        self.normalized_folder = current_folder
-        self.time_spectra_folder = current_folder
-        self.time_spectra_normalized_folder = current_folder
+        for _key in self.default_path.keys():
+            self.default_path[_key] = current_folder
+
+        # self.sample_path = current_folder
+        # self.ob_path = current_folder
+        # self.normalized_path = current_folder
+        # self.time_spectra_path = current_folder
+        # self.time_spectra_normalized_path = current_folder
 
         self.data_metadata = {'sample': {'title': "Select folder or list of files",
                                          'list_widget_ui': self.ui.list_sample,
@@ -250,10 +261,6 @@ class MainWindow(QMainWindow):
                                                'normalized_data': [],
                                                'normalized_lambda': []}}
 
-        self.data_files = {'sample': [],
-                           'ob': [],
-                           'normalized': [],
-                           'time_spectra': []}
 
         self.range_files_to_normalized_step2 = {'file_index': [],
                                                 'tof': [],

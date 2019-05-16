@@ -7,6 +7,8 @@ from ibeatles.utilities.image_handler import ImageHandler
 
 
 class LoadFiles(object):
+
+    # class variables
     image_array = []
     list_of_files = []
     data = []
