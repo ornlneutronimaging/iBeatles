@@ -6,6 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/utilities/load_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/utilities/load_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/ibeatles/utilities/test_load_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ibeatles/utilities/test_load_data.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,8 +64,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ibeatles/utilities/load_data.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+                <state relative-caret-position="687">
+                  <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
                   <folding>
                     <element signature="e#0#27#0" expanded="true" />
                   </folding>
@@ -87,13 +91,43 @@
                   </provider>
                 </entry>
               </file>
-              <file pinned="false" current-in-tab="true">
+              <file pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/tests/ibeatles/utilities/test_load_data.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="675">
-                      <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
+                    <state relative-caret-position="569">
+                      <caret line="45" column="35" lean-forward="true" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
                       <folding>
                         <element signature="e#0#29#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/.travis.yml">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="519">
+                      <caret line="42" column="27" lean-forward="true" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/requirements.txt">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="225">
+                      <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/setup.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="732">
+                      <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
+                      <folding>
+                        <element signature="e#0#43#0" expanded="true" />
                       </folding>
                     </state>
                   </provider>
@@ -118,7 +152,7 @@
               <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="450">
+                    <state relative-caret-position="209">
                       <caret line="30" selection-start-line="28" selection-end-line="30" />
                       <folding>
                         <element signature="e#0#29#0" expanded="true" />
@@ -170,8 +204,8 @@
       <find>Step1GuiHandler</find>
       <find>self</find>
       <find>selectedFiles</find>
-      <find>get_image_type</find>
       <find>DataHandler</find>
+      <find>get_image_type</find>
     </findStrings>
     <replaceStrings>
       <replace>QtGui.QPixmap</replace>
@@ -190,8 +224,8 @@
       <replace>QApplication</replace>
       <replace>QTableWidgetSelectionRange</replace>
       <replace>self.parent</replace>
-      <replace>selected_files</replace>
       <replace>QtCore.Qt.WaitCursor</replace>
+      <replace>selected_files</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/ibeatles/fitting</dir>
@@ -234,7 +268,6 @@
         <option value="$PROJECT_DIR$/ibeatles/utilities/roi_editor.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/roi_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/status.py" />
-        <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/setup.cfg" />
         <option value="$PROJECT_DIR$/ibeatles/__init__.py" />
         <option value="$PROJECT_DIR$/ibeatles/_version.py" />
@@ -247,15 +280,16 @@
         <option value="$PROJECT_DIR$/ibeatles/step1/test_dataHandler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/event_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/load_files.py" />
-        <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/file_handler.py" />
         <option value="$PROJECT_DIR$/tests/ibeatles/utilities/__init__.py" />
         <option value="$PROJECT_DIR$/tests/ibeatles/utilities/test_file_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
         <option value="$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/utilities/load_data.py" />
         <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/tests/ibeatles/utilities/test_load_data.py" />
+        <option value="$PROJECT_DIR$/ibeatles/utilities/load_data.py" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/requirements.txt" />
       </list>
     </option>
   </component>
@@ -356,7 +390,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in test_load_data.py">
+  <component name="RunManager" selected="Python tests.pytest for test_load_data.TestLoadData.test_load_tiff_files">
+    <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="iBeatles" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/py36/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests/ibeatles/utilities" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_load_data.TestLoadData.test_load_tiff_files&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest in test_dataHandler.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="iBeatles" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -419,6 +468,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.pytest for test_load_data.TestLoadData.test_load_tiff_files" />
         <item itemvalue="Python tests.pytest in test_load_data.py" />
         <item itemvalue="Python tests.pytest in test_dataHandler.py" />
         <item itemvalue="Python tests.pytest in test_file_handler.py" />
@@ -439,35 +489,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 15m 16s.xml">
+    <history-entry file="pytest_in_test_load_data_py - 2019.05.16 at 08h 47m 48s.xml">
       <configuration name="pytest in test_load_data.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 15m 37s.xml">
+    <history-entry file="pytest_in_test_load_data_py - 2019.05.16 at 08h 48m 18s.xml">
       <configuration name="pytest in test_load_data.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 21m 57s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 48m 40s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 22m 12s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 49m 07s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 22m 36s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 49m 19s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 22m 44s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 49m 35s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 23m 15s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 49m 56s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 23m 32s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 50m 07s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 23m 54s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 50m 23s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_test_load_data_py - 2019.05.09 at 16h 24m 25s.xml">
-      <configuration name="pytest in test_load_data.py" configurationId="tests" />
+    <history-entry file="pytest_for_test_load_data_TestLoadData_test_load_tiff_files - 2019.05.16 at 08h 51m 22s.xml">
+      <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -703,16 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="30" column="26" lean-forward="true" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/utilities/gui_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -828,13 +868,6 @@
     <entry file="file://$PROJECT_DIR$/tests/data/sample_without_fits/nothing_here.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/requirements.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -877,7 +910,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="209">
           <caret line="30" selection-start-line="28" selection-end-line="30" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
@@ -895,17 +928,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="27" lean-forward="true" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/utilities/load_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+        <state relative-caret-position="687">
+          <caret line="50" column="32" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
@@ -914,11 +940,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/ibeatles/utilities/test_load_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
+        <state relative-caret-position="569">
+          <caret line="45" column="35" lean-forward="true" selection-start-line="45" selection-start-column="35" selection-end-line="45" selection-end-column="35" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="732">
+          <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="519">
+          <caret line="42" column="27" lean-forward="true" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
