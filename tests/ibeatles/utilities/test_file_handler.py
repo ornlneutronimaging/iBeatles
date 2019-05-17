@@ -1,6 +1,5 @@
 from unittest import TestCase
 import os
-import glob
 
 from ibeatles.utilities.file_handler import FileHandler
 

@@ -27,7 +27,7 @@ if 'pyuic' in sys.argv[:]:
             if os.stat(inname).st_mtime < os.stat(outname).st_mtime:
                 continue
         print("Converting '%s' to '%s'" % (inname, outname))
-        command = "pyuic5 %s -o %s"  % (inname, outname)
+        command = "pyuic5 %s -o %s" % (inname, outname)
         os.system(command)
         done += 1
     if not done:
@@ -40,19 +40,19 @@ if 'pyrcc' in sys.argv[:]:
     outfile = './ibeatles/icons/icons_rc.py'
     print("Converting icons_rc file:")
     command = "pyrcc5  %s -o %s" % (infile, outfile)
-    print("> %s" %command)
+    print("> %s" % command)
     os.system(command)
     sys.exit(0)
 
 setup(name="iBeatles",
       version=versioneer.get_version(),
       cmdclass=versioneer.get_cmdclass(),
-      description = "Bragg Edge Fitting and Strain Calculator",
-      author = "Jean",
-      author_email = "j35@ornl.gov",
-      url = "http://github.com/ornlneutronimaging/iBeatles",
-      long_description = """Should have a longer description""",
-      license = "The MIT License (MIT)",
+      description="Bragg Edge Fitting and Strain Calculator",
+      author="Jean",
+      author_email="j35@ornl.gov",
+      url="http://github.com/ornlneutronimaging/iBeatles",
+      long_description="""Should have a longer description""",
+      license="The MIT License (MIT)",
       scripts=["scripts/ibeatles"],
       packages=find_packages(),
       package_dir={},
@@ -60,4 +60,4 @@ setup(name="iBeatles",
                         'matplotlib',
                         'QtPy==1.6.0'],
       setup_requires=[],
-)
+     )

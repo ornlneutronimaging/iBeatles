@@ -2,7 +2,7 @@ from unittest import TestCase
 import os
 import glob
 
-from ibeatles.step1.data_handler import DataHandler, GetTimeSpectraFilename
+from ibeatles.step1.data_handler import DataHandler
 
 
 class MockWidget:
@@ -96,4 +96,3 @@ class TestGetTimeSpectraFilename(TestCase):
     #                                             data_type='sample')
     #     time_spectra = o_time_spectra.retrieve_file_name()
     #     print(time_spectra)
-

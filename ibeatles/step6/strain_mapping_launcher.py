@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QTableWidgetItem, QHBoxLayout, QMainWindow
 from qtpy.QtGui import QColor
 from qtpy import QtCore
-from pyqtgraph.dockarea import *
+# from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
 
@@ -13,7 +13,7 @@ class StrainMappingLauncher(object):
     def __init__(self, parent=None):
         self.parent = parent
 
-        if self.parent.strain_mapping_ui == None:
+        if self.parent.strain_mapping_ui is None:
             strain_mapping_window = StrainMappingWindow(parent=parent)
             strain_mapping_window.show()
             self.parent.strain_mapping_ui = strain_mapping_window
@@ -54,7 +54,7 @@ class StrainMappingWindow(QMainWindow):
 
         min_value = 1e6
         max_value = -1e6
-        is_first_value = True
+        # is_first_value = True
         for _index in table:
             _entry = table[_index]
 
