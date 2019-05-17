@@ -12,6 +12,7 @@ class EventHandler(TopEventHandler):
                              data_type=self.data_type)
         _folder = o_load.select_folder()
         o_load.import_files_from_folder(folder=_folder)
+        o_load.import_time_spectra()
 
 
         # o_load.retrieve_files(data_type='sample')

@@ -47,7 +47,9 @@ class DataHandler:
             return
 
         self.load_files(list_of_files)
-        # self.load_time_spectra()
+
+    def import_time_spectra(self):
+        self.load_time_spectra()
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
         """list of files in that folder with that extension"""

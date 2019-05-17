@@ -6,10 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/utilities/load_files.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/utilities/load_files.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/event_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/event_handler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,11 +34,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ibeatles/step1/event_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="18" column="48" lean-forward="true" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+                <state relative-caret-position="210">
+                  <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
                   <folding>
                     <element signature="e#0#76#0" expanded="true" />
                   </folding>
@@ -48,10 +46,10 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="626">
+                <state relative-caret-position="980">
                   <caret line="71" column="66" lean-forward="true" selection-start-line="71" selection-start-column="66" selection-end-line="71" selection-end-column="66" />
                   <folding>
                     <element signature="e#0#29#0" expanded="true" />
@@ -69,8 +67,8 @@
               <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="701">
-                      <caret line="306" lean-forward="true" selection-start-line="306" selection-end-line="306" />
+                    <state relative-caret-position="426">
+                      <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
                       <folding>
                         <element signature="e#0#10#0" expanded="true" />
                       </folding>
@@ -229,11 +227,11 @@
         <option value="$PROJECT_DIR$/ibeatles/utilities/load_data.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/event_handler.py" />
         <option value="$PROJECT_DIR$/scripts/ibeatles" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/load_files.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
         <option value="$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/event_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
       </list>
     </option>
   </component>
@@ -835,16 +833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/event_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="48" lean-forward="true" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#76#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -882,22 +870,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+    <entry file="file://$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="306" lean-forward="true" selection-start-line="306" selection-end-line="306" />
+        <state relative-caret-position="980">
+          <caret line="71" column="66" lean-forward="true" selection-start-line="71" selection-start-column="66" selection-end-line="71" selection-end-column="66" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/ibeatles/step1/test_dataHandler.py">
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/event_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="626">
-          <caret line="71" column="66" lean-forward="true" selection-start-line="71" selection-start-column="66" selection-end-line="71" selection-end-column="66" />
+        <state relative-caret-position="210">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#0#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
