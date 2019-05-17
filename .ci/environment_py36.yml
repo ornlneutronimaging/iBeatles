@@ -1,13 +1,11 @@
 name: testenv
 channels:
   - plotly
-  - neutronimaging
   - conda-forge
   - defaults
 dependencies:
   - astropy
   - matplotlib
-  - neunorm
   - numpy
   - pandas
   - pillow

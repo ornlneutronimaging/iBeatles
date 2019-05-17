@@ -28,6 +28,7 @@ install:
   - conda env create --file $ENVIRONMENT
   - source activate testenv
   - pip install neutronbraggedge
+  - pip install NeuNorm
   - conda list
 
 script:
