@@ -24,7 +24,7 @@ install:
 #  - pip install -r requirements.txt
 #  - conda install -n testenv -c conda-forge qtpy
 #  - conda install -n testenv flake8
-  - conda create -n --file $ENVIRONMENT
+  - conda env create --file $ENVIRONMENT
   - source activate testenv
   - conda list
   - conda install flake8
