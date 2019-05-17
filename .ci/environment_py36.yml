@@ -19,3 +19,4 @@ dependencies:
   - qt=5.9.6
   - qtpy=1.7.0
   - scipy
+  - flake8
