@@ -1,13 +1,19 @@
-sudo: false
-# dist: trusty
-
 language: python
 
+
+matrix:
+  include:
+    - name: "Python 3.5 with newest dependency versions"
+      env: ENVIRONMENT=.ci/environment_py35.yml
+    - name: "Python 3.6 with newest dependency versions"
+      env: ENVIRONMENT=.ci/environment_py36.yml
+    - name: "Python 3.7 with newest dependency versions"
+      env: ENVIRONMENT=.ci/environment_py37.yml
+
 python:
-  - 2.7
-  - 3.4
   - 3.5
   - 3.6
+  - 3.7
 
 branches:
   only:
@@ -26,26 +32,31 @@ before_install:
   - ./miniconda.sh -b -p /home/travis/mc
   - export PATH=/home/travis/mc/bin:$PATH
 
-after_success:
-#  - codecov
-
 install:
-  - export GIT_FULL_HASH=`git rev-parse HEAD`
-  - conda config --set always_yes true
-  - conda update conda
-  - conda create -n testenv pip python=$TRAVIS_PYTHON_VERSION matplotlib
+#  - export GIT_FULL_HASH=`git rev-parse HEAD`
+#  - conda config --set always_yes true
+#  - conda update conda
+#  - conda create -n testenv pip python=$TRAVIS_PYTHON_VERSION matplotlib
+#  - source activate testenv
+#  - pip install -r requirements.txt
+#  - conda install -n testenv -c conda-forge qtpy
+#  - conda install -n testenv flake8
+  - conda create -n --file $ENVIRONMENT
   - source activate testenv
-  - pip install -r requirements.txt
-  - conda install -n testenv -c conda-forge qtpy
-  - conda install -n testenv flake8
+  - conda list
+  - conda install flake8
 
 script:
   - python -c "import qtpy"
   - pytest tests/
+  - flake8
 #  - nosetests -v --rednose --cover-package=neutronbraggedge --with-coverage
 #   - python tests/getdata.py
 #   - python tests/ivenus/signon.py
 #   - nosetests --exe
+
+after_success:
+ - codecov
 
 notifications:
   email:
