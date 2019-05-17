@@ -27,6 +27,7 @@ install:
 #  - conda install -n testenv flake8
   - conda env create --file $ENVIRONMENT
   - source activate testenv
+  - pip install neutronbraggedge
   - conda list
 
 script:
