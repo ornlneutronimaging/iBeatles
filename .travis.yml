@@ -1,31 +1,14 @@
 language: python
 
-
 matrix:
   include:
-    - name: "Python 3.5 with newest dependency versions"
-      env: ENVIRONMENT=.ci/environment_py35.yml
     - name: "Python 3.6 with newest dependency versions"
       env: ENVIRONMENT=.ci/environment_py36.yml
-    - name: "Python 3.7 with newest dependency versions"
-      env: ENVIRONMENT=.ci/environment_py37.yml
-
-python:
-  - 3.5
-  - 3.6
-  - 3.7
 
 branches:
   only:
   - master
 
-# services:
-#
-# matrix:
-#  include:
-#    - os: linux
-
-   
 before_install:
   - if [ ${TRAVIS_PYTHON_VERSION:0:1} == "2" ]; then wget http://repo.continuum.io/miniconda/Miniconda-3.5.5-Linux-x86_64.sh -O miniconda.sh; else wget http://repo.continuum.io/miniconda/Miniconda3-3.5.5-Linux-x86_64.sh -O miniconda.sh; fi
   - chmod +x miniconda.sh
