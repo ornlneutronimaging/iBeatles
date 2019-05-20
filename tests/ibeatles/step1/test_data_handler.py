@@ -1,7 +1,6 @@
 from unittest import TestCase
 import os
 import glob
-import pytest
 
 from ibeatles.step1.data_handler import DataHandler
 

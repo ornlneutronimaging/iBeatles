@@ -1,7 +1,6 @@
 from qtpy.QtWidgets import QMenu, QApplication
-from qtpy import QtCore
+from qtpy import QtCore, QtGui
 import numpy as np
-import os
 
 from ibeatles.fitting.export_fitting_handler import ExportFittingHandler
 from ibeatles.fitting.advanced_selection_launcher import AdvancedSelectionLauncher
@@ -219,10 +218,10 @@ class ValueTableHandler(object):
         QApplication.restoreOverrideCursor()
 
     def advanced_selection(self):
-        o_advanced = AdvancedSelectionLauncher(parent=self.parent)
+        AdvancedSelectionLauncher(parent=self.parent)
 
     def set_variables(self):
-        o_set = SetFittingVariablesLauncher(parent=self.parent)
+        SetFittingVariablesLauncher(parent=self.parent)
 
     def reset(self):
         print("reset")
