@@ -7,9 +7,6 @@
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/interfaces/mplwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/interfaces/mplwidget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/interfaces/mplwidgetcolorbar.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/interfaces/mplwidgetcolorbar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="66" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="499">
+              <caret line="82" column="38" lean-forward="true" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
               <folding>
                 <element signature="e#22#70#0" expanded="true" />
               </folding>
@@ -35,13 +32,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="256" column="49" selection-start-line="256" selection-start-column="38" selection-end-line="256" selection-end-column="49" />
-              <folding>
-                <element signature="e#13#22#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="472">
+              <caret line="36" column="50" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -168,11 +162,11 @@
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/plot.py" />
         <option value="$PROJECT_DIR$/ibeatles/tools/rotate_images.py" />
-        <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/interfaces/mplwidgetcolorbar.py" />
         <option value="$PROJECT_DIR$/ibeatles/interfaces/mplwidget.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
@@ -208,12 +202,6 @@
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="step1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -825,13 +813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="36" column="61" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
@@ -862,16 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
-          <folding>
-            <element signature="e#22#70#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
@@ -879,6 +850,23 @@
           <folding>
             <element signature="e#13#22#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="82" column="38" lean-forward="true" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
+          <folding>
+            <element signature="e#22#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="36" column="50" selection-start-line="36" selection-start-column="50" selection-end-line="36" selection-end-column="50" />
         </state>
       </provider>
     </entry>
