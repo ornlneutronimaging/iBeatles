@@ -7,7 +7,7 @@ from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 
 from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.file_handler import FileHandler
-# from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
+from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
 TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
 
@@ -20,11 +20,19 @@ class DataHandler:
         self.data_type = data_type
 
         self.list_ui = {'sample': {'list': self.parent.ui.list_sample,
-                                   'folder': self.parent.ui.sample_folder},
+                                   'folder': self.parent.ui.sample_folder,
+                                   'time_spectra': {'filename': self.parent.ui.time_spectra,
+                                                    'folder': self.parent.ui.time_spectra_folder,
+                                                   },
+                                   },
                         'ob': {'list': self.parent.ui.list_open_beam,
                                'folder': self.parent.ui.open_beam_folder},
                         'normalized': {'list': self.parent.ui.list_normalized,
-                                       'folder': self.parent.ui.normalized_folder},
+                                       'folder': self.parent.ui.normalized_folder,
+                                       'time_spectra': {'filename': self.parent.ui.time_spectra_2,
+                                                        'folder': self.parent.ui.time_spectra_folder_2,
+                                                        },
+                                       },
                         'time_spectra': {'text': self.parent.ui.time_spectra,
                                          'text2': self.parent.ui.time_spectra_2,
                                          'folder': self.parent.ui.time_spectra_folder,
@@ -79,35 +87,47 @@ class DataHandler:
     def get_time_spectra_file(self):
         o_time_spectra = GetTimeSpectraFilename(parent=self.parent,
                                                 data_type=self.data_type)
-
-        print("time_specrtra_file_name is {}".format(o_time_spectra.retrieve_file_name()))
         return o_time_spectra.retrieve_file_name()
 
     def browse_file_name(self):
-        file_name = QFileDialog.getOpenFileName(caption="Select the Time Spectra File",
-                                                directory=self.parent.default_path[self.data_type],
-                                                filter="Txt ({});;All (*.*)".format(TIME_SPECTRA_NAME_FORMAT))
+        [file_name, _] = QFileDialog.getOpenFileName(caption="Select the Time Spectra File",
+                                                     directory=self.parent.default_path[self.data_type],
+                                                     filter="Txt ({});;All (*.*)".format(TIME_SPECTRA_NAME_FORMAT))
         if file_name:
             return file_name
 
     def load_time_spectra(self):
         time_spectra_file = self.get_time_spectra_file()
-        print(time_spectra_file)
+        if not time_spectra_file:
+            time_spectra_file = self.browse_file_name()
 
-        # if self.data_type == 'normalized':
-        #     o_time_handler = TimeSpectraHandler(parent=self.parent, normalized_tab=True)
-        # else:
-        #     o_time_handler = TimeSpectraHandler(parent=self.parent)
-        # o_time_handler.load()
-        # o_time_handler.calculate_lambda_scale()
-        # tof_array = o_time_handler.tof_array
-        # lambda_array = o_time_handler.lambda_array
-        # if self.data_type == 'sample':
-        #     self.parent.data_metadata['time_spectra']['data'] = tof_array
-        #     self.parent.data_metadata['time_spectra']['lambda'] = lambda_array
-        # else:  # normalized
-        #     self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
-        #     self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
+        o_time_handler = TimeSpectraHandler(parent=self.parent,
+                                            filename=time_spectra_file,
+                                            data_type=self.data_type)
+        o_time_handler.load()
+        o_time_handler.calculate_lambda_scale()
+        self.save_tof_and_lambda_array(o_time_handler)
+        self.print_time_spectra_filename(time_spectra_file)
+
+    def save_tof_and_lambda_array(self, o_time_handler):
+        tof_array = o_time_handler.tof_array
+        lambda_array = o_time_handler.lambda_array
+        if self.data_type == 'sample':
+            tof_key = 'data'
+            lambda_key = 'lambda'
+        else:
+            tof_key = 'normalized_data'
+            lambda_key = 'normalized_lambda'
+
+        self.parent.data_metadata['time_spectra'][tof_key] = tof_array
+        self.parent.data_metadata['time_spectra'][lambda_key] = lambda_array
+
+    def print_time_spectra_filename(self, time_spectra_filename):
+        """display the folder and filename in the corresponding widgets"""
+        base_time_spectra = os.path.basename(time_spectra_filename)
+        folder_name = os.path.dirname(time_spectra_filename)
+        self.list_ui[self.data_type]['time_spectra']['filename'].setText(base_time_spectra)
+        self.list_ui[self.data_type]['time_spectra']['folder'].setText(folder_name)
 
     def retrieve_files(self, data_type='sample'):
         """
