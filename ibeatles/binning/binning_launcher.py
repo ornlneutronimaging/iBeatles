@@ -1,8 +1,8 @@
 from qtpy.QtWidgets import (QMainWindow, QWidget, QSpacerItem, QLabel, QHBoxLayout, QVBoxLayout, QApplication,
                             QSizePolicy)
-from qtpy import QtGui, QtCore
+from qtpy import QtCore
 
-from pyqtgraph.dockarea import *
+# from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
 
@@ -253,7 +253,7 @@ class BinningWindow(QMainWindow):
         # self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
         # self.parent.fitting_ui.line_view = None
 
-        ## remove pre-defined lock and selected item
+        # #remove pre-defined lock and selected item
         # table_dictionary = self.parent.fitting_ui.table_dictionary
         # for _entry in table_dictionary.keys():
         # if table_dictionary[_entry]['selected_item'] in self.parent.fitting_ui.image_view.children():

@@ -2,8 +2,8 @@ import os
 import time
 import numpy as np
 
-import matplotlib.pyplot as plt
-from matplotlib.widgets import RectangleSelector
+# import matplotlib.pyplot as plt
+# from matplotlib.widgets import RectangleSelector
 
 from ibeatles.utilities.image_handler import ImageHandler
 from ibeatles.step1.plot import Step1Plot

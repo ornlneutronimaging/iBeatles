@@ -2,7 +2,7 @@ from qtpy.QtWidgets import (QProgressBar, QVBoxLayout, QPushButton, QHBoxLayout,
                             QSizePolicy)
 from qtpy.QtGui import QIcon
 import pyqtgraph as pg
-from pyqtgraph.dockarea import *
+from pyqtgraph.dockarea import DockArea, Dock
 
 from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
@@ -51,13 +51,13 @@ class Step1GuiHandler(object):
         data_type = 'sample'
 
         if tab_index == 0:
-            data_preview_box_label = "Sample Image Preview"
+            # data_preview_box_label = "Sample Image Preview"
             o_general_infos = RetrieveGeneralFileInfos(parent=self.parent,
                                                        data_type='sample')
             o_selected_infos = RetrieveSelectedFileDataInfos(parent=self.parent,
                                                              data_type='sample')
         else:
-            data_preview_box_label = "Open Beam Image Preview"
+            # data_preview_box_label = "Open Beam Image Preview"
             o_general_infos = RetrieveGeneralFileInfos(parent=self.parent,
                                                        data_type='ob')
             o_selected_infos = RetrieveSelectedFileDataInfos(parent=self.parent,

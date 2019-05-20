@@ -1,13 +1,13 @@
-import sys
+# import sys
 import os
 import glob
-import pprint
+# import pprint
 import numpy as np
-from qtpy.QtWidgets import QListWidgetItem, QFileDialog, QPushButton, QTreeView
+from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 
 from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
+# from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
 TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
 
@@ -115,7 +115,7 @@ class DataHandler:
         """
         self.data_type = data_type
 
-        folder_selected = self._select_folder()
+        # folder_selected = self._select_folder()
 
         mydialog = FileDialog()
         mydialog.setDirectory(self.parent.sample_folder)
@@ -123,10 +123,6 @@ class DataHandler:
 
         # try:
         selected_files = mydialog.filesSelected()
-
-        print("selected_files:")
-        print(selected_files)
-        return
 
         if selected_files:
             if len(selected_files) == 1:
@@ -249,33 +245,33 @@ class DataHandler:
     #     self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
 
 
-# class FileDialog(QFileDialog):
-#     selected_files = []
-#
-#     def __init__(self, *args):
-#         QFileDialog.__init__(self, *args)
-#         self.setOption(self.DontUseNativeDialog, False)
-#         self.setFileMode(self.ExistingFiles)
-#         buttons = self.findChildren(QPushButton)
-#         # self.openBtn = [x for x in buttons if 'open' in str(x.text()).lower()][0]
-#         # self.openBtn.clicked.disconnect()
-#         # self.openBtn.clicked.connect(self.openClicked)
-#         # self.tree = self.findChild(QTreeView)
-#
-#     def openClicked(self):
-#         indexes = self.tree.selectionModel().selectedIndexes()
-#         files = []
-#         for i in indexes:
-#             if i.column() == 0:
-#                 #        files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
-#                 files.append(os.path.join(str(self.directory().absolutePath()), str(i.data())))
-#         self.selected_files = files
-#         self.close()
-#
-#     def filesSelected(self):
-#         print("in FileDialog, filesSelected")
-#         print("self.selected_files: {}".format(self.selected_files))
-#         return self.selected_files
+class FileDialog(QFileDialog):
+    selected_files = []
+
+    def __init__(self, *args):
+        QFileDialog.__init__(self, *args)
+        self.setOption(self.DontUseNativeDialog, False)
+        self.setFileMode(self.ExistingFiles)
+        buttons = self.findChildren(QPushButton)
+        # self.openBtn = [x for x in buttons if 'open' in str(x.text()).lower()][0]
+        # self.openBtn.clicked.disconnect()
+        # self.openBtn.clicked.connect(self.openClicked)
+        # self.tree = self.findChild(QTreeView)
+
+    def openClicked(self):
+        indexes = self.tree.selectionModel().selectedIndexes()
+        files = []
+        for i in indexes:
+            if i.column() == 0:
+                #        files.append(os.path.join(str(self.directory().absolutePath()),str(i.data().toString())))
+                files.append(os.path.join(str(self.directory().absolutePath()), str(i.data())))
+        self.selected_files = files
+        self.close()
+
+    def filesSelected(self):
+        print("in FileDialog, filesSelected")
+        print("self.selected_files: {}".format(self.selected_files))
+        return self.selected_files
 
 
 class GetTimeSpectraFilename(object):

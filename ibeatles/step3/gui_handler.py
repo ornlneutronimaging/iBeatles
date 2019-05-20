@@ -1,4 +1,4 @@
-from ibeatles.step1.plot import Step1Plot
+# from ibeatles.step1.plot import Step1Plot
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
 
 
@@ -44,9 +44,9 @@ class Step3GuiHandler(object):
         self.parent.ui.display_warning_2.setVisible(_display_error_label)
 
     def check_widgets(self):
-        if self.parent.data_files['normalized'] == []:
-            status = False
-        else:
-            status = True
+        # if self.parent.data_files['normalized'] == []:
+        #     status = False
+        # else:
+        #     status = True
 
         self.parent.ui.actionRotate_Images.setEnabled(True)

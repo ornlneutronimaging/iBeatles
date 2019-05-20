@@ -1,12 +1,12 @@
-import sys
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import cm
-import matplotlib.gridspec as gridspec
+# import sys
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from matplotlib import cm
+# import matplotlib.gridspec as gridspec
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from qtpy import QtGui, QtCore
-from qtpy.QtWidgets import QWidget
+from qtpy import QtGui
+# from qtpy.QtWidgets import QWidget
 
 
 class Qt4MplCanvas(FigureCanvas):

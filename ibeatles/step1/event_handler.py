@@ -1,7 +1,7 @@
 from ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
 from ibeatles.step1.data_handler import DataHandler
-from ibeatles.step1.plot import Step1Plot
-from ibeatles.step1.gui_handler import Step1GuiHandler
+# from ibeatles.step1.plot import Step1Plot
+# from ibeatles.step1.gui_handler import Step1GuiHandler
 
 
 class EventHandler(TopEventHandler):

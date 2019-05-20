@@ -132,7 +132,7 @@ class FittingStoryWindow(QMainWindow):
         table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
         _entry = table_fitting_story_dictionary[row]
 
-        _widget = self.ui.story_table.cellWidget(row, column)
+        # _widget = self.ui.story_table.cellWidget(row, column)
         # list_children = _widget.children()
 
         status = False

@@ -1,5 +1,6 @@
-from qtpy.QtWidgets import QMainWindow, QTableWidgetItem, QComboBox, QTableWidgetSelectionRange
+from qtpy.QtWidgets import QMainWindow, QTableWidgetItem, QComboBox, QTableWidgetSelectionRange, QApplication
 import pyqtgraph as pg
+from qtpy import QtCore
 
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities import colors
@@ -247,9 +248,9 @@ class RoiEditorInterface(QMainWindow):
         self.parent.list_label_roi_id[self.title] = new_list_label_roi_id
 
         nbr_groups = len(colors.roi_group_color)
-        list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
+        # list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
 
-        _color = colors.roi_group_color[0]
+        # _color = colors.roi_group_color[0]
         _row = _new_row_index
 
         self.set_row(_row, label, x0, y0, width, height, int(group))

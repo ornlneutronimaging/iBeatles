@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import QApplication, QFileDialog
+from qtpy.QtWidgets import QApplication
 import glob
 import os
 

@@ -6,11 +6,6 @@ from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QWidget
 import matplotlib.cm
 import matplotlib.colors
-cmap = matplotlib.colors.LinearSegmentedColormap.from_list('default',
-                                                           ['#0000ff', '#00ff00', '#ffff00', '#ff0000', '#bd7efc',
-                                                            '#000000'], N=256)
-matplotlib.cm.register_cmap('default', cmap=cmap)
-
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4 import NavigationToolbar2QT
 from matplotlib.cbook import Stack
@@ -22,7 +17,12 @@ try:
 except ImportError:
     figureoptions = None
 
-from ibeatles.icons import icons_rc  # @UnusedImport
+cmap = matplotlib.colors.LinearSegmentedColormap.from_list('default',
+                                                           ['#0000ff', '#00ff00', '#ffff00', '#ff0000', '#bd7efc',
+                                                            '#000000'], N=256)
+matplotlib.cm.register_cmap('default', cmap=cmap)
+
+# from ibeatles.icons import icons_rc  # @UnusedImport
 
 
 class NavigationToolbar(NavigationToolbar2QT):

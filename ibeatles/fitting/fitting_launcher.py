@@ -397,7 +397,7 @@ class FittingWindow(QMainWindow):
 
         table_dictionary = self.parent.table_dictionary
         if _this_column_is_selected:
-            update_selection_flag = True  # we change the state so we need to update the selection
+            # update_selection_flag = True  # we change the state so we need to update the selection
             for _index in table_dictionary:
                 table_dictionary[_index]['active'] = status
                 _widget_lock = self.ui.value_table.cellWidget(int(_index), 3)
@@ -425,7 +425,7 @@ class FittingWindow(QMainWindow):
 
         # hide this row if status is False and user only wants to see locked items
         o_filling_handler = FillingTableHandler(parent=self.parent)
-        if (status == False) and (o_filling_handler.get_row_to_show_state() == 'active'):
+        if (status is False) and (o_filling_handler.get_row_to_show_state() == 'active'):
             self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
         o_bin_handler = SelectedBinsHandler(parent=self.parent)
@@ -447,7 +447,6 @@ class FittingWindow(QMainWindow):
                 2: on
 
         we also need to make sure that if the button is lock, it can not be activated !
-                
         """
         update_selection_flag = False
 
@@ -498,7 +497,7 @@ class FittingWindow(QMainWindow):
 
         # hide this row if status is False and user only wants to see locked items
         o_filling_handler = FillingTableHandler(parent=self.parent)
-        if (status == False) and (o_filling_handler.get_row_to_show_state() == 'lock'):
+        if (status is False) and (o_filling_handler.get_row_to_show_state() == 'lock'):
             self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
         o_bin_handler = SelectedBinsHandler(parent=self.parent)

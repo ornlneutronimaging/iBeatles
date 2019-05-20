@@ -4,7 +4,7 @@ import pyqtgraph as pg
 import ibeatles.step1.utilities as utilities
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.colors import pen_color
-from ibeatles.utilities.roi_handler import RoiHandler
+# from ibeatles.utilities.roi_handler import RoiHandler
 from ibeatles.utilities.gui_handler import GuiHandler
 
 from ibeatles.binning.binning_handler import BinningHandler
@@ -192,7 +192,7 @@ class Step1Plot(object):
                 list_data[_group] = []
             else:
                 for _data in data:
-                    nbr_roi = len(_list_roi)
+                    # nbr_roi = len(_list_roi)
                     _tmp_data = []
                     for _roi in _list_roi:
                         [x0, x1, y0, y1] = _roi
@@ -213,7 +213,7 @@ class Step1Plot(object):
 
     def get_row_parameters(self, roi_editor_ui, row):
 
-        ## label
+        # # label
         _item = roi_editor_ui.tableWidget.item(row, 0)
         if _item is None:
             raise ValueError
@@ -281,7 +281,7 @@ class Step1Plot(object):
                 _image_view = self.parent.ui.normalized_image_view
                 _image_view_item = self.parent.ui.normalized_image_view.imageItem
 
-            # used here to group rois into their group for Bragg Edge plot    
+            # used here to group rois into their group for Bragg Edge plot
             list_data_group = {'0': [],
                                '1': [],
                                '2': [],
@@ -368,8 +368,8 @@ class Step1Plot(object):
                 tof_array = self.parent.data_metadata['time_spectra']['data']
                 lambda_array = self.parent.data_metadata['time_spectra']['lambda']
 
-            # enable the right xaxis buttons 
-            o_gui = GuiHandler(parent=self.parent)
+            # enable the right xaxis buttons
+            # o_gui = GuiHandler(parent=self.parent)
             if tof_array == []:
                 tof_flag = False
             else:
@@ -380,7 +380,7 @@ class Step1Plot(object):
             linear_region_left = list_files_selected[0]
             linear_region_right = list_files_selected[-1]
 
-            xaxis_choice = o_gui.get_xaxis_checked(data_type=self.data_type)
+            # xaxis_choice = o_gui.get_xaxis_checked(data_type=self.data_type)
 
             # display of bottom bragg edge plot
             dictionary = self.display_images_and_bragg_edge(tof_array=tof_array,
@@ -519,7 +519,7 @@ class Step1Plot(object):
         if self.data_type:
             display_flag_ui = self.parent.ui.material_display_checkbox
         else:
-            displaY_flag_ui = self.parent.ui.material_display_checkbox_2
+            display_flag_ui = self.parent.ui.material_display_checkbox_2
 
         if not display_flag_ui.isChecked():
             return
