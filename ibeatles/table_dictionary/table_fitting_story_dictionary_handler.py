@@ -64,7 +64,7 @@ class TableFittingStoryDictionaryHandler(object):
     def remove_entry(self, index_to_remove=0):
 
         table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
-        nbr_entry = len(table_fitting_story_dictionary)
+        # nbr_entry = len(table_fitting_story_dictionary)
 
         new_table_fitting_story_dictionary = collections.OrderedDict()
         new_index = 0

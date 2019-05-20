@@ -6,7 +6,7 @@ import pandas as pd
 
 import ibeatles.fitting.fitting_handler
 from ibeatles.utilities.array_utilities import get_min_max_xy
-from ibeatles.utilities.math_tools import get_random_value
+# from ibeatles.utilities.math_tools import get_random_value
 
 
 class TableDictionaryHandler(object):

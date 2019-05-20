@@ -34,7 +34,7 @@ install:
 script:
   - python -c "import qtpy"
   - pytest tests/
-  - flake8
+  - flake8 --exclude ibeatles/icons/icons_rc.py
 #  - nosetests -v --rednose --cover-package=neutronbraggedge --with-coverage
 #   - python tests/getdata.py
 #   - python tests/ivenus/signon.py

@@ -1,4 +1,5 @@
-from qtpy.QtWidgets import QAbstractItemView
+# from qtpy.QtWidgets import QAbstractItemView
+from qtpy import QtGui
 
 from ibeatles.utilities.array_utilities import find_nearest_index
 

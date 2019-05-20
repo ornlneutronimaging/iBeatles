@@ -1,5 +1,6 @@
 from qtpy.QtWidgets import QMainWindow, QProgressBar, QVBoxLayout, QFileDialog, QApplication
-from pyqtgraph.dockarea import *
+# from pyqtgraph.dockarea import *
+from qtpy import QtCore
 import pyqtgraph as pg
 import numpy as np
 import scipy
@@ -15,7 +16,7 @@ class RotateImages(object):
     def __init__(self, parent=None):
         self.parent = parent
 
-        if self.parent.rotate_ui == None:
+        if self.parent.rotate_ui is None:
             rotate_ui = RotateImagesWindow(parent=parent)
             rotate_ui.show()
             rotate_ui.display_rotated_images()

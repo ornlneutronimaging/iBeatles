@@ -77,7 +77,7 @@ class RoiEditorInterface(QMainWindow):
         for _row, _roi in enumerate(list_roi):
             [label, x0, y0, width, height, group] = _roi
             self.ui.tableWidget.insertRow(_row)
-            _color = colors.roi_group_color[int(group)]
+            # _color = colors.roi_group_color[int(group)]
             self.set_row(_row, label, x0, y0, width, height, int(group))
 
         QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int)"), self.cell_changed)
@@ -247,7 +247,7 @@ class RoiEditorInterface(QMainWindow):
         self.parent.list_roi_id[self.title] = new_list_roi_id
         self.parent.list_label_roi_id[self.title] = new_list_label_roi_id
 
-        nbr_groups = len(colors.roi_group_color)
+        # nbr_groups = len(colors.roi_group_color)
         # list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
 
         # _color = colors.roi_group_color[0]

@@ -369,7 +369,7 @@ class Step1Plot(object):
                 lambda_array = self.parent.data_metadata['time_spectra']['lambda']
 
             # enable the right xaxis buttons
-            # o_gui = GuiHandler(parent=self.parent)
+            o_gui = GuiHandler(parent=self.parent)
             if tof_array == []:
                 tof_flag = False
             else:

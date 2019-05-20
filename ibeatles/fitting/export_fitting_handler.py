@@ -44,7 +44,7 @@ class ExportFittingHandler(object):
             # retrieve exp y_axis
             exp_y_axis = self.retrieve_y_axis(_entry)
 
-            # retrieve fitted y_axis 
+            # retrieve fitted y_axis
             d_spacing = _entry['d_spacing']['val']
             sigma = _entry['sigma']['val']
             alpha = _entry['alpha']['val']

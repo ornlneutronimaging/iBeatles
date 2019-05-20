@@ -34,7 +34,6 @@ class FillingTableHandler(object):
     def get_row_to_show_state(self):
         """
         return 'all', 'active' or 'lock'
-        
         """
         if self.parent.fitting_ui.ui.show_all_bins.isChecked():
             return 'all'
@@ -54,7 +53,7 @@ class FillingTableHandler(object):
         nbr_row = len(table_dictionary)
 
         value_table_ui = self.parent.fitting_ui.ui.value_table
-        nbr_column = value_table_ui.columnCount()
+        # nbr_column = value_table_ui.columnCount()
 
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
 

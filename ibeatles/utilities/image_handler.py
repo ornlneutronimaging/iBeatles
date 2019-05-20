@@ -96,7 +96,7 @@ class ImageHandler(object):
         # acquisition time
         try:  # new format
             acquisition_time_raw = _metadata[65000][0]
-        except:
+        except KeyError:
             acquisition_time_raw = _metadata[279][0]
         acquisition_time = time.ctime(acquisition_time_raw)
         selected_infos['acquisition_time']['value'] = acquisition_time
@@ -128,7 +128,7 @@ class ImageHandler(object):
         bits = _metadata[258][0]
         selected_infos['image_type']['value'] = "{} bits".format(bits)
 
-        # min counts 
+        # min counts
         min_value = np.min(self.data)
         selected_infos['min_counts']['value'] = "{}".format(min_value)
 
@@ -169,7 +169,7 @@ class ImageHandler(object):
             bits = _metadata['BITPIX']
             selected_infos['image_type']['value'] = "{} bits".format(bits)
 
-            # min counts 
+            # min counts
             min_value = np.min(self.data)
             selected_infos['min_counts']['value'] = "{}".format(min_value)
 
