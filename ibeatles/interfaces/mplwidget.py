@@ -138,7 +138,7 @@ class NavigationToolbar(NavigationToolbar2QT):
 
     if matplotlib.__version__ < '1.2':
 
-        def pan(self, *args): # noqa: F811
+        def pan(self, *args):  # noqa: F811
             """Activate the pan/zoom tool. pan with left button, zoom with right"""
             # set the pointer icon and button press funcs to the
             # appropriate callbacks
@@ -176,7 +176,7 @@ class NavigationToolbar(NavigationToolbar2QT):
 
             self.set_message(self.mode)
 
-        def zoom(self, *args): # noqa: F811
+        def zoom(self, *args):  # noqa: F811
             """activate zoom to rect mode"""
             if self._auto_toggle:
                 return
