@@ -1,17 +1,17 @@
 from qtpy.QtWidgets import (QMainWindow, QApplication, QTableWidgetSelectionRange, QVBoxLayout, QHBoxLayout, QWidget,
                             QLabel, QSpacerItem, QSlider, QRadioButton, QSizePolicy)
-from qtpy import QtGui, QtCore
-from pyqtgraph.dockarea import *
+from qtpy import QtCore
+from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 import numpy as np
 
-from ibeatles.utilities.colors import pen_color
+# from ibeatles.utilities.colors import pen_color
 from ibeatles.utilities.array_utilities import find_nearest_index
 
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.value_table_handler import ValueTableHandler
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
-from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+# from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.fitting_initialization_handler import FittingInitializationHandler
 from ibeatles.fitting.create_fitting_story_launcher import CreateFittingStoryLauncher
@@ -442,13 +442,13 @@ class FittingWindow(QMainWindow):
         QApplication.restoreOverrideCursor()
 
     def lock_button_state_changed(self, status, row_clicked):
-        '''
+        """
         status: 0: off
                 2: on
-                
+
         we also need to make sure that if the button is lock, it can not be activated !
                 
-        '''
+        """
         update_selection_flag = False
 
         if self.parent.advanced_selection_ui:
@@ -633,7 +633,7 @@ class FittingWindow(QMainWindow):
         pass
 
     def create_fitting_story_checked(self):
-        o_story = CreateFittingStoryLauncher(parent=self.parent)
+        CreateFittingStoryLauncher(parent=self.parent)
 
     def closeEvent(self, event=None):
         if self.parent.advanced_selection_ui:

@@ -3,8 +3,8 @@ import numpy as np
 import pyqtgraph as pg
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
-from ibeatles.utilities.colors import pen_color
-from ibeatles.utilities.roi_handler import RoiHandler
+# from ibeatles.utilities.colors import pen_color
+# from ibeatles.utilities.roi_handler import RoiHandler
 from ibeatles.utilities.gui_handler import GuiHandler
 
 
@@ -85,10 +85,10 @@ class Step2Plot(object):
             return
 
         for index, roi_id in enumerate(list_roi_id):
-            [flag, x0, y0, width, height, not_used] = roi[index]
+            [_, x0, y0, width, height, _] = roi[index]
 
-            x1 = x0 + width
-            y1 = y0 + height
+            # x1 = x0 + width
+            # y1 = y0 + height
 
             roi_id.setPos([x0, y0], update=False, finish=False)
             roi_id.setSize([width, height], update=False, finish=False)
@@ -118,7 +118,7 @@ class Step2Plot(object):
 
         if xaxis_choice == 'file_index':
             x_axis = np.arange(len(_array_sample_vs_file_index))
-            curve = _plot_ui.plot(_array_sample_vs_file_index)
+            # curve = _plot_ui.plot(_array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", "File Index")
 
         elif xaxis_choice == 'tof':
@@ -131,7 +131,7 @@ class Step2Plot(object):
         else:
             lambda_array = self.parent.data_metadata['time_spectra']['lambda']
             lambda_array = lambda_array * 1e10
-            curve = _plot_ui.plot(lambda_array, _array_sample_vs_file_index)
+            # curve = _plot_ui.plot(lambda_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
             x_axis = lambda_array
 
@@ -195,7 +195,8 @@ class Step2Plot(object):
         return final_array
 
     def init_roi_table(self):
-        if self.sample == []: return
+        if self.sample == []:
+            return
 
         # clear table
         for _row in np.arange(self.parent.ui.normalization_tableWidget.rowCount()):
@@ -207,7 +208,8 @@ class Step2Plot(object):
             self.set_row(_row, _roi)
 
     def update_roi_table(self):
-        if self.sample == []: return
+        if self.sample == []:
+            return
 
         list_roi = self.parent.list_roi['normalization']
         for _row, _roi in enumerate(list_roi):
@@ -244,7 +246,7 @@ class Step2Plot(object):
         _item = self.get_item(str(height))
         self.parent.ui.normalization_tableWidget.setItem(row_index, 4, _item)
 
-        ## mean counts
+        # mean counts
         # _item = self.get_item(str(mean_counts))
         # self.parent.ui.normalization_tableWidget.setItem(row_index, 6, _item)
 

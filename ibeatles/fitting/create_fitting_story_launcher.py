@@ -5,7 +5,7 @@ import numpy as np
 
 from ibeatles.table_dictionary.table_fitting_story_dictionary_handler import TableFittingStoryDictionaryHandler
 from ibeatles.fitting.fitting_job_handler import FittingJobHandler
-from ibeatles.utilities.status import Status
+# from ibeatles.utilities.status import Status
 from ibeatles.utilities import load_ui
 
 
@@ -133,7 +133,7 @@ class FittingStoryWindow(QMainWindow):
         _entry = table_fitting_story_dictionary[row]
 
         _widget = self.ui.story_table.cellWidget(row, column)
-        list_children = _widget.children()
+        # list_children = _widget.children()
 
         status = False
         if state == 2:

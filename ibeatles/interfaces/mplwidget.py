@@ -2,20 +2,10 @@
 import os
 import tempfile
 
-try:
-    from PyQt4 import QtCore, QtGui
-    from PyQt4.QtGui import QWidget
-except:
-    from PyQt5 import QtCore, QtGui
-    from PyQt5.QtWidgets import QWidget
-
-from ibeatles.icons import icons_rc  # @UnusedImport
+from qtpy import QtGui, QtCore
+from qtpy.QtWidgets import QWidget
 import matplotlib.cm
 import matplotlib.colors
-
-# set the default backend to be compatible with Qt in case someone uses pylab from IPython console
-
-
 cmap = matplotlib.colors.LinearSegmentedColormap.from_list('default',
                                                            ['#0000ff', '#00ff00', '#ffff00', '#ff0000', '#bd7efc',
                                                             '#000000'], N=256)
@@ -31,6 +21,8 @@ try:
     import matplotlib.backends.qt4_editor.figureoptions as figureoptions
 except ImportError:
     figureoptions = None
+
+from ibeatles.icons import icons_rc  # @UnusedImport
 
 
 class NavigationToolbar(NavigationToolbar2QT):

@@ -105,8 +105,9 @@ class FittingJobHandler(object):
                     _bin_y1 = _bin_entry['bin_coordinates']['y1']
 
                     y_axis = data_2d[left_index: right_index,
-                             _bin_x0: _bin_x1,
-                             _bin_y0: _bin_y1]
+                                     _bin_x0: _bin_x1,
+                                     _bin_y0: _bin_y1,
+                                    ]
 
                     # y_axis = y_axis.sum(axis=1)
                     # y_axis = np.array(y_axis.sum(axis=1), dtype=float)

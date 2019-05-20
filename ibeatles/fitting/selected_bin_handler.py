@@ -130,7 +130,7 @@ class SelectedBinsHandler(object):
 
         # isolate data selected    data[x0:x1, y0:y1] for each bin selected
         bragg_edge_data = []
-        nbr_index_selected = len(list_bin_selected)
+        #nbr_index_selected = len(list_bin_selected)
         for _bin_selected in list_bin_selected:
             _entry = table_dictionary[str(_bin_selected)]['bin_coordinates']
             x0 = _entry['x0']

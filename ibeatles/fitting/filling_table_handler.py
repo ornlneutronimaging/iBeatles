@@ -1,7 +1,7 @@
 import numpy as np
 from qtpy.QtWidgets import QCheckBox, QTableWidgetItem
 from qtpy import QtGui
-import pyqtgraph as pg
+# import pyqtgraph as pg
 
 
 class FillingTableHandler(object):
@@ -32,10 +32,10 @@ class FillingTableHandler(object):
         self.fill_table()
 
     def get_row_to_show_state(self):
-        '''
+        """
         return 'all', 'active' or 'lock'
         
-        '''
+        """
         if self.parent.fitting_ui.ui.show_all_bins.isChecked():
             return 'all'
         elif self.parent.fitting_ui.ui.show_only_active_bins.isChecked():
@@ -82,8 +82,8 @@ class FillingTableHandler(object):
 
             _lock_button.setChecked(_is_lock)
             _lock_button.stateChanged.connect(lambda state=0,
-                                                     row=_index: self.parent.fitting_ui.lock_button_state_changed(state,
-                                                                                                                  row))
+                                              row=_index: self.parent.fitting_ui.lock_button_state_changed(state,
+                                                                                                           row))
 
             value_table_ui.setCellWidget(_index, 2, _lock_button)
 
@@ -93,12 +93,12 @@ class FillingTableHandler(object):
 
             _active_button.setChecked(_is_active)
             _active_button.stateChanged.connect(lambda state=0,
-                                                       row=_index: self.parent.fitting_ui.active_button_state_changed(
-                state, row))
+                                                row=_index: self.parent.fitting_ui.active_button_state_changed(state,
+                                                                                                               row))
 
             value_table_ui.setCellWidget(_index, 3, _active_button)
 
-            ## bin # (column: 1)
+            # bin # (column: 1)
             # _bin_number = QTableWidgetItem("{:02}".format(_index))
             # value_table_ui.setItem(_index, 1, _bin_number)
 

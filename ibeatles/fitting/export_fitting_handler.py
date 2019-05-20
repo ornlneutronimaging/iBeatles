@@ -116,12 +116,11 @@ class ExportFittingHandler(object):
         return bragg_edge[left_index: right_index]
 
     def retrieve_x_axis(self):
-
         # index of selection in bragg edge plot
         [left_index, right_index] = self.parent.fitting_bragg_edge_linear_selection
 
         # retrieve image
-        data_2d = np.array(self.parent.data_metadata['normalized']['data'])
+        # data_2d = np.array(self.parent.data_metadata['normalized']['data'])
         full_x_axis = self.parent.fitting_ui.bragg_edge_data['x_axis']
         x_axis = np.array(full_x_axis[left_index: right_index], dtype=float)
 

@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QVBoxLayout, QHBoxLayout, QRadioButton, QSpacerItem, QWidget, QSizePolicy
 import numpy as np
 import pyqtgraph as pg
-from pyqtgraph.dockarea import *
+from pyqtgraph.dockarea import DockArea, Dock
 
 from ibeatles.utilities.colors import pen_color
 from ibeatles.step2.plot import Step2Plot
@@ -45,7 +45,7 @@ class Step2GuiHandler(object):
         area.addDock(d2, 'bottom')
         # area.moveDock(d2, 'above', d3)
 
-        preview_widget = pg.GraphicsLayoutWidget()
+        # preview_widget = pg.GraphicsLayoutWidget()
         pg.setConfigOptions(antialias=True)
 
         vertical_layout = QVBoxLayout()

@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QFileDialog, QApplication, QListWidgetItem
 import os
 import shutil
-from copy import deepcopy
+# from copy import deepcopy
 import numpy as np
 
 from ibeatles.step2.roi_handler import Step2RoiHandler
@@ -47,7 +47,7 @@ class Normalization(object):
         self.parent.ui.normalized_folder.setText(base_folder_name + '_normalized')
         self.parent.data_metadata['normalized']['folder'] = output_folder
 
-        # get range we want to normalize 
+        # get range we want to normalize
         range_to_normalize = self.parent.range_files_to_normalized_step2['file_index']
 
         # get short list of data file names

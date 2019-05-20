@@ -23,7 +23,7 @@ class ImageHandler(object):
 
     def retrieve_image_type(self):
         _file_0 = self.filename
-        [filename, file_extension] = os.path.splitext(_file_0)
+        [_, file_extension] = os.path.splitext(_file_0)
         if (file_extension == '.tiff') or (file_extension == '.tif'):
             self.data_type = 'tiff'
         elif file_extension == '.fits':
@@ -39,7 +39,7 @@ class ImageHandler(object):
         if self.data == []:
 
             # only load first selected data
-            _file = self.filename
+            # _file = self.filename
             if self.data_type == 'tiff':
                 self.get_tiff_data()
             elif self.data_type == 'fits':
@@ -103,22 +103,23 @@ class ImageHandler(object):
 
         # acquisition duration
         try:
-            valueacquisition_duration_raw = _metadata[65021][0]
-            [name, value] = acquisition_duration_raw.split(':')
-        except:
+            acquisition_duration_raw = _metadata[65021][0]
+            [_, value] = acquisition_duration_raw.split(':')
+        except KeyError:
             value = 'N/A'
         selected_infos['acquisition_duration']['value'] = value
 
         # image size
         try:
             sizeX_raw = _metadata[65028][0]
-            [nameX, valueX] = sizeX_raw.split(':')
-        except:
+            [_, valueX] = sizeX_raw.split(':')
+        except KeyError:
             valueX = _metadata[256]
+
         try:
             sizeY_raw = _metadata[65029][0]
-            [nameY, valueY] = sizeY_raw.split(':')
-        except:
+            [_, valueY] = sizeY_raw.split(':')
+        except KeyError:
             valueY = _metadata[257]
         image_size = "{} x {}".format(valueX, valueY)
         selected_infos['image_size']['value'] = image_size
@@ -147,14 +148,14 @@ class ImageHandler(object):
             # acquisition time
             try:  # new format
                 acquisition_time = _metadata['DATE']
-            except:
+            except KeyError:
                 acquisition_time = time.ctime(os.path.getmtime(_filename))
             selected_infos['acquisition_duration']['value'] = acquisition_time
 
             # acquisition duration
             try:
                 acquisition_duration = _metadata['EXPOSURE']
-            except:
+            except KeyError:
                 acquisition_duration = _metadata['TiMEBIN']
             selected_infos['acquisition_time']['value'] = acquisition_duration
 
@@ -176,7 +177,7 @@ class ImageHandler(object):
             max_value = np.max(self.data)
             selected_infos['max_counts']['value'] = "{}".format(max_value)
 
-        except:
+        except KeyError:
 
             selected_infos['acquisition_duration']['value'] = 'N/A'
             selected_infos['acquisition_time']['value'] = 'N/A'

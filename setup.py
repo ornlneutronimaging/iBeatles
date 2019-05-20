@@ -60,4 +60,4 @@ setup(name="iBeatles",
                         'matplotlib',
                         'QtPy==1.6.0'],
       setup_requires=[],
-     )
+      )
