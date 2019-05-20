@@ -3,7 +3,7 @@ import os
 import glob
 # import pprint
 import numpy as np
-from qtpy.QtWidgets import QListWidgetItem, QFileDialog, QPushButton
+from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 
 from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.file_handler import FileHandler

@@ -7,7 +7,7 @@ from qtpy.QtWidgets import QWidget
 # set the default backend to be compatible with Qt in case someone uses pylab from IPython console
 import matplotlib.cm
 import matplotlib.colors
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4 import NavigationToolbar2QT
 from matplotlib.cbook import Stack
@@ -137,7 +137,7 @@ class NavigationToolbar(NavigationToolbar2QT):
         self.activate_widget('zoom', not self.isZoomActivated)
 
     if matplotlib.__version__ < '1.2':
-        def pan(self, *args):
+        def pan(self, *args): # noqa: F811
             'Activate the pan/zoom tool. pan with left button, zoom with right'
             # set the pointer icon and button press funcs to the
             # appropriate callbacks
@@ -175,7 +175,7 @@ class NavigationToolbar(NavigationToolbar2QT):
 
             self.set_message(self.mode)
 
-        def zoom(self, *args):
+        def zoom(self, *args): # noqa: F811
             'activate zoom to rect mode'
             if self._auto_toggle:
                 return
@@ -264,7 +264,7 @@ class NavigationToolbar(NavigationToolbar2QT):
         fname = QtGui.QFileDialog.getSaveFileName(self, u"Choose a filename to save to", start, filters)
         if fname:
             try:
-                self.canvas.print_figure(unicode(fname))
+                self.canvas.print_figure(str(fname))
             except Exception as e:
                 QtGui.QMessageBox.critical(
                     self, "Error saving file", str(e),
