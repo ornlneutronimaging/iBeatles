@@ -107,7 +107,7 @@ class FittingJobHandler(object):
                     y_axis = data_2d[left_index: right_index,
                                      _bin_x0: _bin_x1,
                                      _bin_y0: _bin_y1,
-                                    ] # noqa: E124
+                                    ]  # noqa: E124
 
                     # y_axis = y_axis.sum(axis=1)
                     # y_axis = np.array(y_axis.sum(axis=1), dtype=float)
