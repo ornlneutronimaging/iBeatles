@@ -26,7 +26,7 @@ class ImageHandler(object):
         [filename, file_extension] = os.path.splitext(_file_0)
         if (file_extension == '.tiff') or (file_extension == '.tif'):
             self.data_type = 'tiff'
-        elif (file_extension == '.fits'):
+        elif file_extension == '.fits':
             self.data_type = 'fits'
         else:
             raise ValueError("File Format not Supported!")

@@ -4,7 +4,6 @@ import numpy as np
 
 
 class LoadData(object):
-
     __slots__ = ['image_array', 'parent', 'list_of_files', 'image_ext']
 
     def __init__(self, parent=None, list_of_files=[], image_ext='.fits'):
@@ -50,5 +49,3 @@ class LoadData(object):
         except OSError:
             file_handler.close()
             raise OSError("Unable to read the FITS file provided!")
-
-

@@ -7,7 +7,6 @@ from ibeatles.utilities.image_handler import ImageHandler
 
 
 class LoadFiles(object):
-
     # class variables
     image_array = []
     list_of_files = []
@@ -57,5 +56,3 @@ class LoadFiles(object):
             QApplication.processEvents()
 
         self.parent.eventProgress.setVisible(False)
-
-

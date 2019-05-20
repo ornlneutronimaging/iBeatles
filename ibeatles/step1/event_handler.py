@@ -14,7 +14,6 @@ class EventHandler(TopEventHandler):
         o_load.import_files_from_folder(folder=_folder)
         o_load.import_time_spectra()
 
-
         # o_load.retrieve_files(data_type='sample')
         # if not o_load.user_canceled:
         #     self.parent.select_load_data_row(data_type='sample', row=0)
