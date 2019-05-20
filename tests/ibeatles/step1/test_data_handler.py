@@ -1,6 +1,7 @@
 from unittest import TestCase
 import os
 import glob
+import pytest
 
 from ibeatles.step1.data_handler import DataHandler
 
@@ -30,6 +31,12 @@ class TestDataHandler(TestCase):
         _file_path = os.path.dirname(__file__)
         self.data_path = os.path.abspath(os.path.join(_file_path, '../../data/'))
         self.mock_parent.default_path['sample'] = self.data_path
+
+    def test_raises_error(self):
+        o_data = DataHandler(parent=self.mock_parent)
+        # with pytest.raises(ValueError):
+        #     o_data.raises_error()
+        self.assertRaises(ValueError, o_data.raises_error)
 
     def test_canceled_sample_import_files_from_folder(self):
         """User clicked CANCEL button when trying to import sample data files in step1"""

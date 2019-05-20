@@ -9,7 +9,6 @@ from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
-
 TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
 
 
@@ -30,6 +29,9 @@ class DataHandler:
                                          'text2': self.parent.ui.time_spectra_2,
                                          'folder': self.parent.ui.time_spectra_folder,
                                          'folder2': self.parent.ui.time_spectra_folder_2}}
+
+    def raises_error(self):
+        raise ValueError
 
     def select_folder(self):
         _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
@@ -92,11 +94,6 @@ class DataHandler:
         time_spectra_file = self.get_time_spectra_file()
         print(time_spectra_file)
 
-
-
-
-
-
         # if self.data_type == 'normalized':
         #     o_time_handler = TimeSpectraHandler(parent=self.parent, normalized_tab=True)
         # else:
@@ -111,13 +108,6 @@ class DataHandler:
         # else:  # normalized
         #     self.parent.data_metadata['time_spectra']['normalized_data'] = tof_array
         #     self.parent.data_metadata['time_spectra']['normalized_lambda'] = lambda_array
-
-
-
-
-
-
-
 
     def retrieve_files(self, data_type='sample'):
         """
@@ -137,7 +127,6 @@ class DataHandler:
         print("selected_files:")
         print(selected_files)
         return
-
 
         if selected_files:
             if len(selected_files) == 1:
@@ -167,8 +156,6 @@ class DataHandler:
             _data = self.parent.data_metadata['sample']['data']
             normalization_mean_data = np.mean(_data, axis=0)
             self.parent.data_metadata['normalization']['data'] = normalization_mean_data
-
-
 
     def retrieve_time_spectra(self, auto_load=True):
         if auto_load:
@@ -262,7 +249,6 @@ class DataHandler:
     #     self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
 
 
-
 # class FileDialog(QFileDialog):
 #     selected_files = []
 #
@@ -309,4 +295,3 @@ class GetTimeSpectraFilename(object):
 
         else:
             return ''
-
