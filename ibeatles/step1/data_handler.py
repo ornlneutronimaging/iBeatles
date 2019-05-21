@@ -23,7 +23,7 @@ class DataHandler:
                                    'folder': self.parent.ui.sample_folder,
                                    'time_spectra': {'filename': self.parent.ui.time_spectra,
                                                     'folder': self.parent.ui.time_spectra_folder,
-                                                   },
+                                                    },
                                    },
                         'ob': {'list': self.parent.ui.list_open_beam,
                                'folder': self.parent.ui.open_beam_folder},

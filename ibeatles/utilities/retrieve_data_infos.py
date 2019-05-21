@@ -116,7 +116,6 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
                      }
 
     def update(self):
-        #data_files = self.parent.data_files[self.data_type]
         data_files = self.parent.list_files[self.data_type]
         if data_files == []:
             self.general_infos = {}  # no files so no infos to display
@@ -144,7 +143,7 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
 
     def get_formated_time(self, full_file_name):
         _time = time.strftime('%m/%d/%Y %H:%M:%S',
-                             time.gmtime(os.path.getmtime(full_file_name)))
+                              time.gmtime(os.path.getmtime(full_file_name)))
         return _time
 
     def display(self):

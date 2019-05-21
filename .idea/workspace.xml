@@ -6,10 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/check_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/check_error.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/event_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/event_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ibeatles/utilities/retrieve_data_infos.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/utilities/retrieve_data_infos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ibeatles" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ibeatles" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,11 +22,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.27779818">
       <split-first>
         <leaf>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="472">
-                  <caret line="511" column="14" lean-forward="true" selection-start-line="511" selection-start-column="14" selection-end-line="511" selection-end-column="14" />
+                <state relative-caret-position="299">
+                  <caret line="331" column="34" lean-forward="true" selection-start-line="331" selection-start-column="34" selection-end-line="331" selection-end-column="34" />
                   <folding>
                     <element signature="e#22#70#0" expanded="true" />
                   </folding>
@@ -36,7 +34,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ibeatles/step1/check_error.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="555">
@@ -48,8 +46,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ibeatles/step1/event_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="375">
-                  <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+                <state relative-caret-position="285">
+                  <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
                   <folding>
                     <element signature="e#0#76#0" expanded="true" />
                   </folding>
@@ -66,8 +64,8 @@
               <file pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="383">
-                      <caret line="75" column="38" lean-forward="true" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
+                    <state relative-caret-position="270">
+                      <caret line="26" column="37" selection-end-line="315" />
                       <folding>
                         <element signature="e#13#22#0" expanded="true" />
                       </folding>
@@ -217,11 +215,11 @@
         <option value="$PROJECT_DIR$/ibeatles/interfaces/mplwidgetcolorbar.py" />
         <option value="$PROJECT_DIR$/ibeatles/fitting/fitting_job_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/time_spectra_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/utilities/retrieve_data_infos.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/event_handler.py" />
         <option value="$PROJECT_DIR$/scripts/ibeatles" />
         <option value="$PROJECT_DIR$/ibeatles/step1/check_error.py" />
+        <option value="$PROJECT_DIR$/ibeatles/utilities/retrieve_data_infos.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
       </list>
     </option>
   </component>
@@ -257,6 +255,12 @@
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="utilities" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -404,9 +408,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_tests - 2019.05.16 at 12h 55m 52s.xml">
-      <configuration name="pytest in tests" configurationId="tests" />
-    </history-entry>
     <history-entry file="pytest_in_tests - 2019.05.17 at 10h 36m 10s.xml">
       <configuration name="pytest in tests" configurationId="tests" />
     </history-entry>
@@ -432,6 +433,9 @@
       <configuration name="pytest in tests" configurationId="tests" />
     </history-entry>
     <history-entry file="pytest_in_tests - 2019.05.20 at 16h 34m 46s.xml">
+      <configuration name="pytest in tests" configurationId="tests" />
+    </history-entry>
+    <history-entry file="pytest_in_tests - 2019.05.21 at 13h 11m 00s.xml">
       <configuration name="pytest in tests" configurationId="tests" />
     </history-entry>
   </component>
@@ -878,50 +882,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/check_error.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="75" column="38" lean-forward="true" selection-start-line="75" selection-start-column="38" selection-end-line="75" selection-end-column="38" />
-          <folding>
-            <element signature="e#13#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/utilities/retrieve_data_infos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="147" selection-start-line="147" selection-end-line="147" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="555">
+          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step1/event_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+        <state relative-caret-position="285">
+          <caret line="19" column="36" selection-start-line="19" selection-start-column="36" selection-end-line="19" selection-end-column="36" />
           <folding>
             <element signature="e#0#76#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/utilities/retrieve_data_infos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="689">
+          <caret line="146" column="1" selection-start-line="144" selection-start-column="1" selection-end-line="146" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="511" column="14" lean-forward="true" selection-start-line="511" selection-start-column="14" selection-end-line="511" selection-end-column="14" />
+        <state relative-caret-position="299">
+          <caret line="331" column="34" lean-forward="true" selection-start-line="331" selection-start-column="34" selection-end-line="331" selection-end-column="34" />
           <folding>
             <element signature="e#22#70#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/check_error.py">
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
+        <state relative-caret-position="270">
+          <caret line="26" column="37" selection-end-line="315" />
+          <folding>
+            <element signature="e#13#22#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
