@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from astropy.io import fits
 import numpy as np
 
@@ -7,16 +8,21 @@ class FileHandler(object):
 
     @classmethod
     def get_parent_folder(cls, full_folder):
-        folders_split = full_folder.split('/')
-        return folders_split[-2]
+        folder_parts = Path(full_folder).parts
+        return folder_parts[-2]
+
+    @classmethod
+    def get_parent_path(cls, full_path):
+        full_path = Path(full_path)
+        return full_path.parent
 
     @classmethod
     def get_base_filename(cls, full_file_name):
-        return os.path.basename(full_file_name)
+        return Path(full_file_name).name
 
     @staticmethod
     def get_file_extension(file_name):
-        raw_file, ext = os.path.splitext(file_name)
+        ext = Path(file_name).suffix
         return ext
 
     @classmethod

@@ -1,7 +1,6 @@
-# import sys
 import os
 import glob
-# import pprint
+from pathlib import Path, PurePath
 import numpy as np
 from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 
@@ -124,10 +123,12 @@ class DataHandler:
 
     def print_time_spectra_filename(self, time_spectra_filename):
         """display the folder and filename in the corresponding widgets"""
-        base_time_spectra = os.path.basename(time_spectra_filename)
-        folder_name = os.path.dirname(time_spectra_filename)
+        time_spectra_filename = PurePath(time_spectra_filename)
+        base_time_spectra = time_spectra_filename.name
+        folder_name = time_spectra_filename.parent
         self.list_ui[self.data_type]['time_spectra']['filename'].setText(base_time_spectra)
         self.list_ui[self.data_type]['time_spectra']['folder'].setText(folder_name)
+        self.parent.data_metadata[self.data_type]['time_spectra']['folder'] = folder_name
 
     def retrieve_files(self, data_type='sample'):
         """
@@ -173,8 +174,32 @@ class DataHandler:
             normalization_mean_data = np.mean(_data, axis=0)
             self.parent.data_metadata['normalization']['data'] = normalization_mean_data
 
-    def retrieve_time_spectra(self, auto_load=True):
-        pass
+    def retrieve_time_spectra(self):
+        folder = self.parent.default_path[self.data_type]
+        time_spectra_name_format = '*_Spectra.txt'
+        [file_name, _] = QFileDialog.getOpenFileName(caption="Select the Time Spectra File",
+                                                     directory=folder,
+                                                     filter="Txt ({});;All (*.*)".format(time_spectra_name_format))
+
+        if file_name:
+            folder_name = FileHandler.get_parent_path(file_name)
+            base_file_name = FileHandler.get_base_filename(file_name)
+            self.parent.time_spectra_folder = os.path.dirname(file_name)
+
+            if self.data_type == 'sample':
+                self.list_ui['time_spectra']['text'].setText(base_file_name)
+                self.list_ui['time_spectra']['folder'].setText(folder_name)
+                self.parent.data_metadata['time_spectra']['folder'] = folder_name
+            elif self.data_type == 'normalized':
+                self.parent.data_metadata['time_spectra']['full_file_name'] = file_name
+                self.list_ui['time_spectra']['text2'].setText(base_file_name)
+                self.list_ui['time_spectra']['folder2'].setText(folder_name)
+                self.parent.data_metadata['time_spectra']['normalized_folder'] = folder_name
+                self.parent.time_spectra_normalized_folder = os.path.dirname(file_name)
+
+            return True
+
+        return False
 
         # if auto_load:
         #     if self.data_type == 'sample':
