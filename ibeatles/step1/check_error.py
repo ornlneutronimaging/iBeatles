@@ -13,12 +13,12 @@ class CheckError(object):
         step = 'step1'
         message = 'Number of Data and OB files NOT compatible!'
 
-        nbr_data_file = len(self.parent.data_files['sample'])
+        nbr_data_file = len(self.parent.list_files['sample'])
 
         if nbr_data_file == 0:
             return
 
-        nbr_ob_file = len(self.parent.data_files['ob'])
+        nbr_ob_file = len(self.parent.list_files['ob'])
         if nbr_ob_file == 0:
             return
 

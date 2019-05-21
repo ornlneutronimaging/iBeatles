@@ -116,7 +116,8 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
                      }
 
     def update(self):
-        data_files = self.parent.data_files[self.data_type]
+        #data_files = self.parent.data_files[self.data_type]
+        data_files = self.parent.list_files[self.data_type]
         if data_files == []:
             self.general_infos = {}  # no files so no infos to display
 
@@ -127,6 +128,7 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
             self.general_infos['number_of_files']['value'] = _nbr_files
 
             _first_file = data_files[0]
+
             _timestamp_first_file = self.get_formated_time(folder + _first_file)
             self.general_infos['time_stamp_files']['value'] = _timestamp_first_file
 
@@ -141,8 +143,9 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
         self.display()
 
     def get_formated_time(self, full_file_name):
-        return time.strftime('%m/%d/%Y %H:%M:%S',
+        _time = time.strftime('%m/%d/%Y %H:%M:%S',
                              time.gmtime(os.path.getmtime(full_file_name)))
+        return _time
 
     def display(self):
         text = ''
