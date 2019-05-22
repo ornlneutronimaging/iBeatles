@@ -54,4 +54,3 @@ class TestDataHandler(TestCase):
                          'file_to_keep_3.txt',
                          ]
         self.assertListEqual(returned_list, expected_list)
-
