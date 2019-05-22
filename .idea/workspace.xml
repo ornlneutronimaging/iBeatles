@@ -9,8 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/utilities/file_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/utilities/file_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/ibeatles/utilities/test_file_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ibeatles/utilities/test_file_handler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,8 +65,11 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="30">
-                  <caret line="2" selection-start-line="2" selection-end-line="2" />
+                <state relative-caret-position="284">
+                  <caret line="125" column="40" selection-start-line="125" selection-start-column="32" selection-end-line="125" selection-end-column="40" />
+                  <folding>
+                    <element signature="e#13#22#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -938,8 +939,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step1/data_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="284">
+          <caret line="125" column="40" selection-start-line="125" selection-start-column="32" selection-end-line="125" selection-end-column="40" />
+          <folding>
+            <element signature="e#13#22#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

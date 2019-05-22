@@ -1,5 +1,6 @@
 import os
 import glob
+from pathlib import PurePath
 import numpy as np
 from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 
