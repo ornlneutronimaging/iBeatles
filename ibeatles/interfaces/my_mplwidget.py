@@ -6,7 +6,7 @@
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from qtpy import QtGui
-# from qtpy.QtWidgets import QWidget
+from qtpy.QtWidgets import QSizePolicy
 
 
 class Qt4MplCanvas(FigureCanvas):
@@ -28,6 +28,6 @@ class Qt4MplCanvas(FigureCanvas):
         self.setParent(parent)
 
         FigureCanvas.setSizePolicy(self,
-                                   QtGui.QSizePolicy.Expanding,
-                                   QtGui.QSizePolicy.Expanding)
+                                   QSizePolicy.Expanding,
+                                   QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)

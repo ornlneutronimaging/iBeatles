@@ -55,7 +55,7 @@
         <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
        </property>
       </widget>
-      <widget class="QFrame" name="time_spectra_plot"/>
+      <widget class="QFrame" name="time_spectra_view"/>
      </widget>
     </item>
    </layout>

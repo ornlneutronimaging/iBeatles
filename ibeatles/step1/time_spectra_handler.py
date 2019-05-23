@@ -1,13 +1,18 @@
 import os
 import numpy as np
 from pathlib import Path
-from qtpy.QtWidgets import QMainWindow
+from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
 
 from neutronbraggedge.experiment_handler.tof import TOF
 from neutronbraggedge.experiment_handler.experiment import Experiment
+
 from ibeatles.utilities.file_handler import FileHandler
 import ibeatles.utilities.math_tools as math_tools
 from ibeatles.utilities import load_ui
+#from ibeatles.interfaces.my_mplwidget import Qt4MplCanvas
+# from ibeatles.interfaces.mplgraphicsview import MplGraphicsView
 
 
 class TimeSpectraHandler(object):
@@ -80,26 +85,47 @@ class TimeSpectraDisplay(QMainWindow):
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_time_spectra_preview.ui', baseinstance=self)
 
-        # self.setWindowTitle(short_filename)
-        # self.populate_text()
-        # self.plot_data()
+        self.initialize_view()
+        self.setWindowTitle(short_filename)
+        self.populate_text()
+        self.plot_data()
+
+    def initialize_view(self):
+        graphics_view_layout = QVBoxLayout()
+        self.ui.time_spectra_view.setLayout(graphics_view_layout)
+        self.ui.time_spectra_plot = MatplotlibView(self.parent)
+        graphics_view_layout.addWidget(self.ui.time_spectra_plot)
 
     def populate_text(self):
         _file_contain = FileHandler.retrieve_ascii_contain(self.full_filename)
         self.ui.time_spectra_text.setText(_file_contain)
 
     def plot_data(self):
-        self.ui.time_spectra_plot.plot(self.x_axis, self.y_axis, '.')
+        self.ui.time_spectra_plot.ax1.plot(self.x_axis, self.y_axis, '.')
 
-        if not self.x2_axis == []:
-            ax2 = self.ui.time_spectra_plot.canvas.ax.twiny()
-            ax2.plot(self.x2_axis, np.ones(len(self.x2_axis)), '.')
-            ax2.cla()
-            ax2.set_xlabel(r"$Lambda  (\AA)$")
-
-        self.ui.time_spectra_plot.set_xlabel(r"$TOF  (\mu s)$")
-        self.ui.time_spectra_plot.set_ylabel("Counts")
-        self.ui.time_spectra_plot.canvas.figure.subplots_adjust(top=0.9,
-                                                                left=0.1)
+        # if not self.x2_axis == []:
+        #     ax2 = self.ui.time_spectra_plot.canvas.ax.twiny()
+        #     ax2.plot(self.x2_axis, np.ones(len(self.x2_axis)), '.')
+        #     ax2.cla()
+        #     ax2.set_xlabel(r"$Lambda  (\AA)$")
+        #
+        self.ui.time_spectra_plot.ax1.set_xlabel(r"$TOF  (\mu s)$")
+        self.ui.time_spectra_plot.ax1.set_ylabel("Counts")
+        self.ui.time_spectra_plot.figure.subplots_adjust(top=0.9,
+                                                         left=0.1)
 
         self.ui.time_spectra_plot.draw()
+
+
+class MatplotlibView(FigureCanvas):
+
+    def __init__(self, parent):
+        self.fig = Figure()
+        self.ax1 = self.fig.add_subplot(111)
+        FigureCanvas.__init__(self, self.fig)
+        self.setParent(parent)
+
+        FigureCanvas.setSizePolicy(self,
+                                   QSizePolicy.Expanding,
+                                   QSizePolicy.Expanding)
+        FigureCanvas.updateGeometry(self)
