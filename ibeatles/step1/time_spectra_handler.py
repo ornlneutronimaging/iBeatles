@@ -1,5 +1,3 @@
-import os
-import numpy as np
 from pathlib import Path
 from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
