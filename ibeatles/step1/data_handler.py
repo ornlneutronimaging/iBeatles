@@ -101,8 +101,8 @@ class DataHandler:
         if not time_spectra_file:
             time_spectra_file = self.browse_file_name()
 
+        self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = time_spectra_file
         o_time_handler = TimeSpectraHandler(parent=self.parent,
-                                            filename=time_spectra_file,
                                             data_type=self.data_type)
         o_time_handler.load()
         o_time_handler.calculate_lambda_scale()

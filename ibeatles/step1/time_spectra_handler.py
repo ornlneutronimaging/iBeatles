@@ -11,8 +11,6 @@ from neutronbraggedge.experiment_handler.experiment import Experiment
 from ibeatles.utilities.file_handler import FileHandler
 import ibeatles.utilities.math_tools as math_tools
 from ibeatles.utilities import load_ui
-#from ibeatles.interfaces.my_mplwidget import Qt4MplCanvas
-# from ibeatles.interfaces.mplgraphicsview import MplGraphicsView
 
 
 class TimeSpectraHandler(object):
