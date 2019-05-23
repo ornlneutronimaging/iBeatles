@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from pathlib import Path
 from qtpy.QtWidgets import QMainWindow
 
 from neutronbraggedge.experiment_handler.tof import TOF
@@ -15,17 +16,22 @@ class TimeSpectraHandler(object):
     counts_array = []
     full_file_name = ''
 
-    def __init__(self, parent=None, filename='', data_type='sample'):
+    def __init__(self, parent=None, data_type='sample'):
         self.tof_array = []
         self.parent = parent
         self.data_type = data_type
 
-        self.short_file_name = os.path.basename(filename)
-        self.full_file_name = filename
+        filename = self.get_time_spectra_filename()
+
+        self.short_file_name = Path(filename).name
+        self.full_file_name = Path(filename)
+
+    def get_time_spectra_filename(self):
+        return self.parent.data_metadata[self.data_type]['time_spectra']['filename']
 
     def load(self):
-        if os.path.isfile(self.full_file_name):
-            _tof_handler = TOF(filename=self.full_file_name)
+        if self.full_file_name.is_file():
+            _tof_handler = TOF(filename=str(self.full_file_name))
             _tof_array_s = _tof_handler.tof_array
             # self.tof_array = _tof_array_s * 1e6
             self.tof_array = _tof_array_s
@@ -53,7 +59,7 @@ class TimeSpectraHandler(object):
         self.calculate_lambda_scale()
         if not self.tof_array == []:
             _time_spectra_window = TimeSpectraDisplay(parent=self.parent,
-                                                      short_filename=self.short_file_name,
+                                                      short_filename=str(self.short_file_name),
                                                       full_filename=self.full_file_name,
                                                       x_axis=self.tof_array,
                                                       y_axis=self.counts_array,
@@ -72,15 +78,11 @@ class TimeSpectraDisplay(QMainWindow):
         self.full_filename = full_filename
 
         QMainWindow.__init__(self, parent=parent)
-
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
         self.ui = load_ui('ui_time_spectra_preview.ui', baseinstance=self)
 
-        self.setWindowTitle(short_filename)
-
-        self.populate_text()
-        self.plot_data()
+        # self.setWindowTitle(short_filename)
+        # self.populate_text()
+        # self.plot_data()
 
     def populate_text(self):
         _file_contain = FileHandler.retrieve_ascii_contain(self.full_filename)

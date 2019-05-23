@@ -58,7 +58,8 @@ class DataHandler:
         self.load_files(list_of_files)
 
     def import_time_spectra(self):
-        self.load_time_spectra()
+        if self.parent.data_metadata[self.data_type]['data']:
+            self.load_time_spectra()
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
         """list of files in that folder with that extension"""
@@ -189,6 +190,7 @@ class DataHandler:
             self.list_ui[self.data_type]['time_spectra']['filename'].setText(base_file_name)
             self.list_ui[self.data_type]['time_spectra']['folder'].setText(folder_name)
             self.parent.data_metadata[self.data_type]['time_spectra']['folder'] = folder_name
+            self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = file_name
             return True
 
         return False

@@ -241,6 +241,7 @@ class MainWindow(QMainWindow):
                                          'general_infos': None,
                                          'data': [],
                                          'time_spectra': {'folder': '',
+                                                          'filename': '',
                                                           },
                                          },
                               'ob': {'title': 'Select folder or list of files',
@@ -254,6 +255,7 @@ class MainWindow(QMainWindow):
                                              'data': [],
                                              'data_live_selection': [],
                                              'time_spectra': {'folder': '',
+                                                              'filename': '',
                                                               },
                                              },
                               'normalization': {'data': []},
@@ -717,7 +719,7 @@ class MainWindow(QMainWindow):
         o_gui.check_time_spectra_widgets()
 
     def normalized_time_spectra_preview_button_clicked(self):
-        o_time_spectra = TimeSpectraHandler(parent=self, normalized_tab=True)
+        o_time_spectra = TimeSpectraHandler(parent=self, data_type='normalized')
         o_time_spectra.display()
 
     def normalized_import_button_clicked(self):
