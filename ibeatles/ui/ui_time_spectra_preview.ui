@@ -55,7 +55,7 @@
         <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
        </property>
       </widget>
-      <widget class="MPLWidget" name="time_spectra_plot" native="true"/>
+      <widget class="QFrame" name="time_spectra_plot"/>
      </widget>
     </item>
    </layout>
@@ -126,14 +126,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>MPLWidget</class>
-   <extends>QWidget</extends>
-   <header location="global">.mplwidget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
  <slots>
