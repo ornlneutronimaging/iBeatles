@@ -40,17 +40,23 @@ class Step2Plot(object):
 
     def __init__(self, parent=None, sample=[], ob=[], normalized=[]):
         self.parent = parent
+        self.sample = sample
+        self.ob = ob
+        self.normalized = normalized
 
-        if sample == []:
+    def prepare_data(self):
+
+        if self.sample == []:
             sample = self.parent.data_metadata['sample']['data']
 
+        # still no sample data
         if sample == []:
             return
 
-        if ob == []:
+        if self.ob == []:
             ob = self.parent.data_metadata['ob']['data']
 
-        if normalized == []:
+        if self.normalized == []:
             normalized = self.parent.data_metadata['normalized']['data']
 
         if self.parent.data_metadata['normalization']['data'] == []:

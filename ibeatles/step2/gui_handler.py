@@ -22,12 +22,27 @@ class Step2GuiHandler(object):
 
     def update_widgets(self):
         o_step2_plot = Step2Plot(parent=self.parent)
+        o_step2_plot.prepare_data()
         o_step2_plot.display_image()
         # o_step2_plot.display_counts_vs_file()
         o_normalization = Normalization(parent=self.parent)
+
+        import time
+        st = time.time()
+
         o_normalization.run()
+        et = time.time()
+
+        st = time.time()
         o_step2_plot.init_roi_table()
+        et = time.time()
+        print("time to #4: {}".format(et-st))
+
+        st = time.time()
+        print("#5")
         self.check_run_normalization_button()
+        et = time.time()
+        print("time to #5: {}".format(et-st))
 
     def init_table(self):
         for _index, _width in enumerate(self.col_width):
@@ -141,8 +156,12 @@ class Step2GuiHandler(object):
 
     def check_run_normalization_button(self):
         nbr_row = self.parent.ui.normalization_tableWidget.rowCount()
-        ob = self.parent.data_files['ob']
-        data = self.parent.data_files['sample']
+        # ob = self.parent.data_files['ob']
+        # data = self.parent.data_files['sample']
+
+        data = self.parent.data_metadata['sample']['data']
+        ob = self.parent.data_metadata['ob']['data']
+
         if data == []:
             _status = False
         else:
