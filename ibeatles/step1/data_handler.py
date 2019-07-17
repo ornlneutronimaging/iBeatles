@@ -58,13 +58,15 @@ class DataHandler:
         self.load_files(list_of_files)
 
     def import_time_spectra(self):
-        if self.parent.data_metadata[self.data_type]['data']:
-            self.load_time_spectra()
+        if self.data_type == 'sample':
+            if self.parent.data_metadata[self.data_type]['data']:
+                self.load_time_spectra()
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
         """list of files in that folder with that extension"""
         file_regular_expression = os.path.join(folder, '*' + file_ext)
         list_of_files = glob.glob(file_regular_expression)
+        list_of_files.sort()
         return list_of_files
 
     def load_files(self, list_of_files):

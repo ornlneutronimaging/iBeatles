@@ -22,8 +22,9 @@ class CustomAxis(pg.AxisItem):
 
 class Step1GuiHandler(object):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, data_type='sample'):
         self.parent = parent
+        self.data_type = data_type
 
     def sync_instrument_widgets(self, source='load_data'):
 
@@ -97,6 +98,9 @@ class Step1GuiHandler(object):
         self.parent.ui.sample_ob_splitter.setSizes([850, 20])
         self.parent.ui.load_data_splitter.setSizes([200, 500])
         self.parent.ui.normalized_splitter.setSizes([150, 600])
+
+        # make sure user load data first (before OB)
+        self.parent.ui.import_open_beam_button.setEnabled(False)
 
         # reset buttons
         icon = QIcon(":/MPL Toolbar/reset_icon.png")
@@ -411,6 +415,10 @@ class Step1GuiHandler(object):
 
         self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
         self.parent.ui.delta_lambda_value_2.setText("{:.2f}".format(delta_lambda))
+
+    def check_ob_widgets(self):
+        if self.parent.data_metadata[self.data_type]['data']:
+            self.parent.ui.import_open_beam_button.setEnabled(True)
 
     def check_time_spectra_widgets(self):
         time_spectra_data = self.parent.data_metadata['time_spectra']['data']

@@ -21,6 +21,7 @@ class EventHandler(TopEventHandler):
             self.parent.retrieve_selected_row_infos(data_type='sample')
             o_plot = Step1Plot(parent=self.parent, data_type='sample')
             o_plot.display_bragg_edge(mouse_selection=False)
-            o_gui = Step1GuiHandler(parent=self.parent)
+            o_gui = Step1GuiHandler(parent=self.parent, data_type=self.data_type)
             o_gui.check_time_spectra_widgets()
+            o_gui.check_ob_widgets()
             self.parent.check_files_error()
