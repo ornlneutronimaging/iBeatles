@@ -79,9 +79,6 @@ class Step2RoiHandler(object):
         sample = self.parent.data_metadata['normalization']['data']
         image_item = self.parent.step2_ui['image_view'].imageItem
 
-        print("Shape is")
-        print(np.shape(sample))
-
         for _index, _roi_id in enumerate(list_roi_id):
             region = _roi_id.getArraySlice(sample, image_item)
             x0 = region[0][0].start

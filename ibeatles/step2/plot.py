@@ -62,6 +62,7 @@ class Step2Plot(object):
         if self.parent.data_metadata['normalization']['data'] == []:
             normalization = np.mean(np.array(sample), axis=0)
             self.parent.data_metadata['normalization']['axis'] = normalization
+            self.parent.data_metadata['normalization']['data'] = normalization
         else:
             normalization = self.parent.data_metadata['normalization']['data']
 

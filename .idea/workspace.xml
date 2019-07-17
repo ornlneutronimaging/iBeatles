@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ibeatles/step2/plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step2/plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ibeatles/step2/roi_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step2/roi_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ibeatles" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ibeatles" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,14 +17,14 @@
     <favorites_list name="iBeatles" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.40354937">
+    <splitter split-orientation="horizontal" split-proportion="0.5227448">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="197">
-                  <caret line="309" column="28" lean-forward="true" selection-start-line="309" selection-start-column="28" selection-end-line="309" selection-end-column="28" />
+                <state relative-caret-position="164">
+                  <caret line="635" column="24" lean-forward="true" selection-start-line="635" selection-start-column="24" selection-end-line="635" selection-end-column="24" />
                   <folding>
                     <element signature="e#22#70#0" expanded="true" />
                   </folding>
@@ -35,7 +35,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ibeatles/step2/roi_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="279">
+                <state relative-caret-position="90">
                   <caret line="81" selection-start-line="81" selection-end-line="81" />
                   <folding>
                     <element signature="e#0#54#0" expanded="true" />
@@ -47,7 +47,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2444">
+                <state relative-caret-position="3204">
                   <caret line="218" column="8" selection-start-line="218" selection-start-column="8" selection-end-line="218" selection-end-column="8" />
                   <folding>
                     <element signature="e#0#157#0" expanded="true" />
@@ -60,13 +60,25 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="387">
-                  <caret line="38" selection-start-line="38" selection-end-line="38" />
+                <state relative-caret-position="219">
+                  <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
                   <folding>
                     <element signature="e#0#100#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/ibeatles/step2/plot.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="389">
+                  <caret line="64" column="60" selection-start-line="64" selection-start-column="60" selection-end-line="64" selection-end-column="60" />
+                  <folding>
+                    <element signature="e#0#54#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -75,22 +87,10 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ibeatles/step2/normalization.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="189">
-                  <caret line="189" column="8" selection-start-line="189" selection-start-column="8" selection-end-line="189" selection-end-column="8" />
+                <state relative-caret-position="2574">
+                  <caret line="193" column="8" selection-start-line="193" selection-start-column="8" selection-end-line="193" selection-end-column="8" />
                   <folding>
                     <element signature="e#0#69#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ibeatles/step2/plot.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="151">
-                  <caret line="48" selection-start-line="48" selection-end-line="48" />
-                  <folding>
-                    <element signature="e#0#54#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -221,10 +221,10 @@
         <option value="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/event_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/step2/roi_handler.py" />
         <option value="$PROJECT_DIR$/scripts/ibeatles" />
-        <option value="$PROJECT_DIR$/ibeatles/step2/plot.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step2/roi_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step2/gui_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/step2/plot.py" />
       </list>
     </option>
   </component>
@@ -320,7 +320,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in tests">
+  <component name="RunManager" selected="Python.ibeatles">
+    <configuration name="ibeatles" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="iBeatles" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda/envs/py36/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/scripts" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/ibeatles" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest for test_load_data.TestLoadData.test_load_tiff_files" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="iBeatles" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -398,6 +419,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ibeatles" />
         <item itemvalue="Python tests.pytest for test_load_data.TestLoadData.test_load_tiff_files" />
         <item itemvalue="Python tests.pytest in test_load_data.py" />
         <item itemvalue="Python tests.pytest in test_data_handler.py" />
@@ -454,22 +476,22 @@
     <frame x="1" y="23" width="1544" height="986" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49960724" visible="true" weight="0.14904793" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49960724" weight="0.14839134" />
       <window_info id="Structure" order="1" sideWeight="0.5003928" side_tool="true" weight="0.16050524" />
       <window_info id="Favorites" order="2" sideWeight="0.5003928" side_tool="true" weight="0.16050524" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3299293" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.25058916" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.24944071" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.3299293" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32885906" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="Python Console" order="12" visible="true" weight="0.28299776" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.28299776" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -874,19 +896,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2444">
-          <caret line="218" column="8" selection-start-line="218" selection-start-column="8" selection-end-line="218" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#157#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step2/roi_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
+        <state relative-caret-position="90">
           <caret line="81" selection-start-line="81" selection-end-line="81" />
           <folding>
             <element signature="e#0#54#0" expanded="true" />
@@ -894,30 +906,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step1/gui_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3204">
+          <caret line="218" column="8" selection-start-line="218" selection-start-column="8" selection-end-line="218" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#157#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/ibeatles">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="309" column="28" lean-forward="true" selection-start-line="309" selection-start-column="28" selection-end-line="309" selection-end-column="28" />
+        <state relative-caret-position="164">
+          <caret line="635" column="24" lean-forward="true" selection-start-line="635" selection-start-column="24" selection-end-line="635" selection-end-column="24" />
           <folding>
             <element signature="e#22#70#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/step2/plot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step2/normalization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="189" column="8" selection-start-line="189" selection-start-column="8" selection-end-line="189" selection-end-column="8" />
+        <state relative-caret-position="2574">
+          <caret line="193" column="8" selection-start-line="193" selection-start-column="8" selection-end-line="193" selection-end-column="8" />
           <folding>
             <element signature="e#0#69#0" expanded="true" />
           </folding>
@@ -926,10 +938,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step2/gui_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="219">
+          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
           <folding>
             <element signature="e#0#100#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/step2/plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="64" column="60" selection-start-line="64" selection-start-column="60" selection-end-line="64" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
           </folding>
         </state>
       </provider>

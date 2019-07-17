@@ -26,7 +26,6 @@ class Step2GuiHandler(object):
         o_step2_plot.display_image()
         # o_step2_plot.display_counts_vs_file()
         o_normalization = Normalization(parent=self.parent)
-
         o_normalization.run()
         o_step2_plot.init_roi_table()
         self.check_run_normalization_button()
