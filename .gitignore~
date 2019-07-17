@@ -4,4 +4,4 @@ build
 dist
 designer/*.autosave
 .DS_Store
-.idea
+
