@@ -1,4 +1,4 @@
-# from qtpy.QtWidgets import QAbstractItemView
+from qtpy.QtWidgets import QAbstractItemView
 from qtpy import QtGui
 
 from ibeatles.utilities.array_utilities import find_nearest_index
@@ -37,8 +37,9 @@ class BraggEdgeSelectionHandler(object):
             if _row in list_selected:
                 if first_item:
                     first_item = False
-                    _ui_list.scrollToItem(item, QtGui.QAbstractItemView.PositionAtTop)
+                    _ui_list.scrollToItem(item, QAbstractItemView.PositionAtTop)
                 select_flag = True
             else:
                 select_flag = False
-            _ui_list.setItemSelected(item, select_flag)
+            item.setSelected(select_flag)
+

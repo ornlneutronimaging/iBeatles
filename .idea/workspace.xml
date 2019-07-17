@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65592283-440e-4c10-be47-14f50aa99d3a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/data_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/event_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/event_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,13 +27,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ibeatles/step1/event_handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
+            <state relative-caret-position="270">
               <caret line="18" column="63" lean-forward="true" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
               <folding>
                 <element signature="e#0#76#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="499">
+              <caret line="43" column="29" lean-forward="true" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+              <folding>
+                <element signature="e#0#44#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -173,7 +182,6 @@
         <option value="$PROJECT_DIR$/ibeatles/table_dictionary/table_dictionary_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/table_dictionary/table_fitting_story_dictionary_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/image_handler.py" />
-        <option value="$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/utilities/roi_editor.py" />
         <option value="$PROJECT_DIR$/ibeatles/binning/binning_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/plot.py" />
@@ -193,6 +201,7 @@
         <option value="$PROJECT_DIR$/ibeatles/step1/data_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/event_handler.py" />
         <option value="$PROJECT_DIR$/ibeatles/step1/gui_handler.py" />
+        <option value="$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py" />
       </list>
     </option>
   </component>
@@ -206,10 +215,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="121" />
-    <option name="y" value="80" />
-    <option name="width" value="1440" />
-    <option name="height" value="840" />
+    <option name="x" value="1" />
+    <option name="y" value="23" />
+    <option name="width" value="1544" />
+    <option name="height" value="986" />
   </component>
   <component name="ProjectView">
     <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
@@ -233,7 +242,7 @@
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="ibeatles" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="step1" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="utilities" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="iBeatles" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -413,10 +422,10 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="121" y="80" width="1440" height="840" extended-state="0" />
+    <frame x="1" y="23" width="1544" height="986" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49960724" visible="true" weight="0.15997182" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49960724" visible="true" weight="0.14904793" />
       <window_info id="Structure" order="1" sideWeight="0.5003928" side_tool="true" weight="0.16050524" />
       <window_info id="Favorites" order="2" sideWeight="0.5003928" side_tool="true" weight="0.16050524" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -431,7 +440,7 @@
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.3299293" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.328877" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.2751678" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -709,13 +718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/binning/binning_handler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -885,10 +887,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ibeatles/step1/event_handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
+        <state relative-caret-position="270">
           <caret line="18" column="63" lean-forward="true" selection-start-line="18" selection-start-column="63" selection-end-line="18" selection-end-column="63" />
           <folding>
             <element signature="e#0#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ibeatles/utilities/bragg_edge_selection_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="43" column="29" lean-forward="true" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
           </folding>
         </state>
       </provider>
