@@ -27,22 +27,9 @@ class Step2GuiHandler(object):
         # o_step2_plot.display_counts_vs_file()
         o_normalization = Normalization(parent=self.parent)
 
-        import time
-        st = time.time()
-
         o_normalization.run()
-        et = time.time()
-
-        st = time.time()
         o_step2_plot.init_roi_table()
-        et = time.time()
-        print("time to #4: {}".format(et-st))
-
-        st = time.time()
-        print("#5")
         self.check_run_normalization_button()
-        et = time.time()
-        print("time to #5: {}".format(et-st))
 
     def init_table(self):
         for _index, _width in enumerate(self.col_width):

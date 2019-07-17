@@ -227,30 +227,34 @@ class Step2Plot(object):
         return _item
 
     def set_row(self, row_index, roi_array):
+
         [status_row, x0, y0, width, height, mean_counts] = roi_array
 
         # button
         _widget = QCheckBox()
         _widget.setChecked(status_row)
         # QtCore.QObject.connect(_widget, QtCore.SIGNAL("stateChanged(int)"), self.parent.normalization_row_status_changed)
-        _widget.stateChanged.connect(self.parent.normalization_row_status_changed)
         self.parent.ui.normalization_tableWidget.setCellWidget(row_index, 0, _widget)
+        self.parent.ui.normalization_tableWidget.blockSignals(True)
 
         # x0
-        _item = self.get_item(str(x0))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 1, _item)
+        _item1 = self.get_item(str(x0))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 1, _item1)
 
         # y0
-        _item = self.get_item(str(y0))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 2, _item)
+        _item2 = self.get_item(str(y0))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 2, _item2)
 
         # width
-        _item = self.get_item(str(width))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 3, _item)
+        _item3 = self.get_item(str(width))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 3, _item3)
 
         # height
-        _item = self.get_item(str(height))
-        self.parent.ui.normalization_tableWidget.setItem(row_index, 4, _item)
+        _item4 = self.get_item(str(height))
+        self.parent.ui.normalization_tableWidget.setItem(row_index, 4, _item4)
+
+        _widget.stateChanged.connect(self.parent.normalization_row_status_changed)
+        self.parent.ui.normalization_tableWidget.blockSignals(False)
 
         # mean counts
         # _item = self.get_item(str(mean_counts))
