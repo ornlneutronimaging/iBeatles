@@ -51,7 +51,8 @@ class Normalization(object):
         range_to_normalize = self.parent.range_files_to_normalized_step2['file_index']
 
         # get short list of data file names
-        list_samples_names = self.parent.data_files['sample']
+        # list_samples_names = self.parent.data_files['sample']
+        list_samples_names = [os.path.basename(_file) for _file in self.parent.list_files['sample']]
         list_samples_names = list_samples_names[range_to_normalize[0]: range_to_normalize[1] + 1]
 
         data = self.parent.data_metadata['sample']['data']
@@ -94,7 +95,8 @@ class Normalization(object):
             QApplication.processEvents()
 
         self.parent.data_metadata['normalized']['data'] = normalized_array
-        self.parent.data_files['normalized'] = normalized_file_name
+        # self.parent.data_files['normalized'] = normalized_file_name
+        self.parent.list_files['normalized'] = normalized_file_name
 
         # tof array
         tof_array = self.parent.data_metadata['time_spectra']['data']
