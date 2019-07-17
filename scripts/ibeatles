@@ -337,8 +337,9 @@ class MainWindow(QMainWindow):
         o_plot.display_bragg_edge(mouse_selection=mouse_selection)
 
     def retrieve_general_infos(self, data_type='sample'):
-        o_general_infos = RetrieveGeneralFileInfos(parent=self, data_type=data_type)
-        o_general_infos.update()
+        if data_type == 'sample':
+            o_general_infos = RetrieveGeneralFileInfos(parent=self, data_type=data_type)
+            o_general_infos.update()
 
     def retrieve_selected_row_infos(self, data_type='sample'):
         if data_type == 'sample':

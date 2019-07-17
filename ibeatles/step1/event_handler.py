@@ -16,10 +16,10 @@ class EventHandler(TopEventHandler):
 
         if self.parent.data_metadata[self.data_type]['data']:
 
-            self.parent.select_load_data_row(data_type='sample', row=0)
-            self.parent.retrieve_general_infos(data_type='sample')
-            self.parent.retrieve_selected_row_infos(data_type='sample')
-            o_plot = Step1Plot(parent=self.parent, data_type='sample')
+            self.parent.select_load_data_row(data_type=self.data_type, row=0)
+            self.parent.retrieve_general_infos(data_type=self.data_type)
+            self.parent.retrieve_selected_row_infos(data_type=self.data_type)
+            o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
             o_plot.display_bragg_edge(mouse_selection=False)
             o_gui = Step1GuiHandler(parent=self.parent, data_type=self.data_type)
             o_gui.check_time_spectra_widgets()
