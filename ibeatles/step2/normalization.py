@@ -53,16 +53,19 @@ class Normalization(object):
         # get short list of data file names
         # list_samples_names = self.parent.data_files['sample']
         list_samples_names = [os.path.basename(_file) for _file in self.parent.list_files['sample']]
-        list_samples_names = list_samples_names[range_to_normalize[0]: range_to_normalize[1] + 1]
 
         data = self.parent.data_metadata['sample']['data']
-        data = data[range_to_normalize[0]: range_to_normalize[1] + 1]
-
-        ob = self.parent.data_metadata['ob']['data']
-        ob = ob[range_to_normalize[0]: range_to_normalize[1] + 1]
-
         array_coeff = self.coeff_array
-        array_coeff = array_coeff[range_to_normalize[0]: range_to_normalize[1] + 1]
+        ob = self.parent.data_metadata['ob']['data']
+
+        if range_to_normalize != []:
+            from_index = range_to_normalize[0]
+            to_index = range_to_normalize[1]+1
+
+            list_samples_names = list_samples_names[from_index: to_index]
+            data = data[from_index: to_index]
+            array_coeff = array_coeff[from_index: to_index]
+            ob = ob[from_index: to_index]
 
         # progress bar
         self.parent.eventProgress.setMinimum(0)
@@ -100,7 +103,12 @@ class Normalization(object):
 
         # tof array
         tof_array = self.parent.data_metadata['time_spectra']['data']
-        tof_array = tof_array[range_to_normalize[0]: range_to_normalize[1] + 1]
+
+        if range_to_normalize != []:
+            from_index = range_to_normalize[0]
+            to_index = range_to_normalize[1] + 1
+            tof_array = tof_array[from_index: to_index]
+
         short_tof_file_name = '{}_Spectra.txt'.format(base_folder_name)
         tof_file_name = os.path.join(output_folder, short_tof_file_name)
         tof_array = list(zip(tof_array, normalized_sum_counts))
@@ -108,7 +116,7 @@ class Normalization(object):
         self.parent.ui.time_spectra_folder_2.setText(os.path.basename(output_folder))
         self.parent.ui.time_spectra_2.setText(short_tof_file_name)
 
-        o_time_handler = TimeSpectraHandler(parent=self.parent, normalized_tab=True)
+        o_time_handler = TimeSpectraHandler(parent=self.parent)
         o_time_handler.load()
         o_time_handler.calculate_lambda_scale()
         tof_array = o_time_handler.tof_array
