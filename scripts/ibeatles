@@ -724,17 +724,20 @@ class MainWindow(QMainWindow):
         o_time_spectra.display()
 
     def normalized_import_button_clicked(self):
-        self.loading_flag = True
-        o_load = DataHandler(parent=self)
-        o_load.retrieve_files(data_type='normalized')
-        if not o_load.user_canceled:
-            self.select_normalized_row(row=0)
-            self.retrieve_general_infos(data_type='normalized')
-            self.retrieve_selected_row_infos(data_type='normalized')
-            o_plot = Step1Plot(parent=self, data_type='normalized')
-            o_plot.display_bragg_edge()
-        o_gui = Step3GuiHandler(parent=self)
-        o_gui.check_widgets()
+        o_event = Step1EventHandler(parent=self, data_type='normalized')
+        o_event.import_button_clicked()
+
+        # self.loading_flag = True
+        # o_load = DataHandler(parent=self)
+        # o_load.retrieve_files(data_type='normalized')
+        # if not o_load.user_canceled:
+        #     self.select_normalized_row(row=0)
+        #     self.retrieve_general_infos(data_type='normalized')
+        #     self.retrieve_selected_row_infos(data_type='normalized')
+        #     o_plot = Step1Plot(parent=self, data_type='normalized')
+        #     o_plot.display_bragg_edge()
+        # o_gui = Step3GuiHandler(parent=self)
+        # o_gui.check_widgets()
 
     def normalized_retrieve_selected_row_infos(self):
         o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='normalized')

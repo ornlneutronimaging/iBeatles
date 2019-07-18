@@ -58,9 +58,10 @@ class DataHandler:
         self.load_files(list_of_files)
 
     def import_time_spectra(self):
-        if self.data_type == 'sample':
-            if self.parent.data_metadata[self.data_type]['data']:
-                self.load_time_spectra()
+        if self.data_type == 'sample' and self.parent.data_metadata[self.data_type]['data']:
+            self.load_time_spectra()
+        elif self.data_type == 'normalized' and self.parent.data_metadata[self.data_type]['data']:
+            self.load_time_spectra()
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
         """list of files in that folder with that extension"""
@@ -117,7 +118,7 @@ class DataHandler:
         if self.data_type == 'sample':
             tof_key = 'data'
             lambda_key = 'lambda'
-        else:
+        elif self.data_type == 'normalized':
             tof_key = 'normalized_data'
             lambda_key = 'normalized_lambda'
 
@@ -142,7 +143,7 @@ class DataHandler:
         # folder_selected = self._select_folder()
 
         mydialog = FileDialog()
-        mydialog.setDirectory(self.parent.sample_folder)
+        mydialog.setDirectory(self.parent.default_path[data_type])
         mydialog.exec_()
 
         # try:

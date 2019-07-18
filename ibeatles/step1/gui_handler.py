@@ -219,8 +219,10 @@ class Step1GuiHandler(object):
     def select_load_data_row(self, data_type='sample', row=0):
         if data_type == 'sample':
             self.parent.ui.list_sample.setCurrentRow(row)
-        else:
+        elif data_type == 'ob':
             self.parent.ui.list_open_beam.setCurrentRow(row)
+        elif data_type == 'normalized':
+            self.parent.ui.list_normalized.setCurrentRow(row)
 
     def general_init_pyqtgrpah(self, roi_function,
                                base_widget,
