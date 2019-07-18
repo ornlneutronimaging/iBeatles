@@ -179,8 +179,11 @@ class FittingWindow(QMainWindow):
         col_already_selected = False
         _item1 = self.parent.fitting_ui.ui.value_table.item(0, _value_table_column[0])
         _item2 = self.parent.fitting_ui.ui.value_table.item(0, _value_table_column[-1])
-        if self.parent.fitting_ui.ui.value_table.isItemSelected(_item1) and \
-                self.parent.fitting_ui.ui.value_table.isItemSelected(_item2):
+
+        if _item1.isSelected() and _item2.isSelected():
+
+        # if self.parent.fitting_ui.ui.value_table.isItemSelected(_item1) and \
+        #         self.parent.fitting_ui.ui.value_table.isItemSelected(_item2):
             col_already_selected = True
 
         if column in [2, 3]:
