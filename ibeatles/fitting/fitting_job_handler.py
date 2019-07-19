@@ -195,7 +195,8 @@ class FittingJobHandler(object):
             _color = QtGui.QColor(0, 0, 0)  # black
         _item = QTableWidgetItem(status)
         # _item.setTextColor(_color)
-        _item.setForegroundColor(_color)
+        _brush = QtGui.QBrush(_color)
+        _item.setForeground(_brush)
 
         self.parent.fitting_story_ui.ui.story_table.setItem(row, 7, _item)
         QApplication.processEvents()
