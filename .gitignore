@@ -5,3 +5,5 @@ dist
 designer/*.autosave
 .DS_Store
 .idea
+
+*.egg-info/
