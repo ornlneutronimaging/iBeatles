@@ -16,6 +16,8 @@ from .step1.time_spectra_handler import TimeSpectraHandler
 from .step1.plot import Step1Plot
 from .step1.check_error import CheckError
 from .utilities.get import Get
+from .session.load_previous_session_launcher import LoadPreviousSessionLauncher
+from .session.session_handler import SessionHandler
 
 from .step2.gui_handler import Step2GuiHandler
 from .step2.roi_handler import Step2RoiHandler
@@ -50,6 +52,8 @@ from . import load_ui
 class MainWindow(QMainWindow):
     """ Main FastGR window
     """
+
+    session_dict = {}  # all the parameters to save to be able to recover the full session
 
     # log ui
     log_id = None
@@ -216,6 +220,8 @@ class MainWindow(QMainWindow):
         logging.info("*** Starting a new session ***")
         logging.info(f" Version: {versioneer.get_version()}")
 
+        self.automatic_load_of_previous_session()
+
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
@@ -296,6 +302,13 @@ class MainWindow(QMainWindow):
         self.range_files_to_normalized_step2 = {'file_index': [],
                                                 'tof': [],
                                                 'lambda': []}
+
+    def automatic_load_of_previous_session(self):
+        o_get = Get(parent=self)
+        full_config_file_name = o_get.get_automatic_config_file_name()
+        if os.path.exists(full_config_file_name):
+            load_session_ui = LoadPreviousSessionLauncher(parent=self)
+            load_session_ui.show()
 
     # Menu
     def menu_view_load_data_clicked(self):
@@ -811,7 +824,10 @@ class MainWindow(QMainWindow):
         self.normalized_list_selection_changed()
 
     def closeEvent(self, event):
-        logging.info(" #### Leaving pyMBIR_UI ####")
+        o_session = SessionHandler(parent=self)
+        o_session.save_from_ui()
+        o_session.automatic_save()
+        logging.info(" #### Leaving iBeatles ####")
         self.close()
 
 
