@@ -223,15 +223,15 @@ class MainWindow(QMainWindow):
         o_gui.init_material_widgets()
         o_gui.init_statusbar()
         o_gui.init_pyqtgraph()
-        # self.update_delta_lambda()
-        # o_gui.connect_widgets()
-        #
-        # # init bragg edge element
-        # o_bragg_edge = BraggEdgeElementHandler(parent=self)
-        #
-        # o_gui_2 = Step2GuiHandler(parent=self)
-        # o_gui_2.init_pyqtgraph()
-        # o_gui_2.init_table()
+        self.update_delta_lambda()
+        o_gui.connect_widgets()
+
+        # init bragg edge element
+        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+
+        o_gui_2 = Step2GuiHandler(parent=self)
+        o_gui_2.init_pyqtgraph()
+        o_gui_2.init_table()
 
     def setup(self):
 

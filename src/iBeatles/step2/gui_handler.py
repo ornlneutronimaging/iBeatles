@@ -104,12 +104,13 @@ class Step2GuiHandler(object):
         #                     self.parent.step2_lambda_radio_button_clicked)
         lambda_button.pressed.connect(self.parent.step2_lambda_radio_button_clicked)
 
-        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        hori_layout.addItem(spacer)
+        spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        hori_layout.addItem(spacer1)
         hori_layout.addWidget(file_index_button)
         hori_layout.addWidget(tof_button)
         hori_layout.addWidget(lambda_button)
-        hori_layout.addItem(spacer)
+        spacer2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        hori_layout.addItem(spacer2)
 
         d2.addWidget(bragg_edge_plot)
         d2.addWidget(button_widgets)
