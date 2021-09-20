@@ -318,12 +318,13 @@ class Step1GuiHandler(object):
         lambda_button.setText(u"\u03BB")
         lambda_button.pressed.connect(lambda_function)
 
-        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        hori_layout.addItem(spacer)
+        spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        hori_layout.addItem(spacer1)
         hori_layout.addWidget(file_index_button)
         hori_layout.addWidget(tof_button)
         hori_layout.addWidget(lambda_button)
-        hori_layout.addItem(spacer)
+        spacer2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        hori_layout.addItem(spacer2)
 
         d2.addWidget(bragg_edge_plot)
         d2.addWidget(button_widgets)
