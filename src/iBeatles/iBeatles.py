@@ -238,16 +238,16 @@ class MainWindow(QMainWindow):
         o_config = ConfigHandler(parent=self)
         o_config.load()
 
-        if self.DEBUGGING:
-            import socket
-            if socket.gethostname() == 'mac95470':
-                current_folder = '/Users/j35/data/iBeatles_data/'
-            else:
-                current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/'
-                # current_folder = '/Volumes/my_book_thunderbolt_duo/iBeatles/test_data/'
-                # current_folder = '/Volumes/my_book_thunderbolt_duo/IPTS/iBeatles_debugging/'
+        current_folder = None
+        if self.config['debugging']:
+            list_homepath = self.config['homepath']
+            for _path in list_homepath:
+                if os.path.exists(_path):
+                    current_folder = _path
+            if current_folder is None:
+                current_folder = os.path.expanduser('~')
         else:
-            current_folder = os.getcwd()
+            current_folder = os.path.expanduser('~')
 
         for _key in self.default_path.keys():
             self.default_path[_key] = current_folder
