@@ -1976,7 +1976,7 @@
    </property>
    <widget class="QMenu" name="menuSteps">
     <property name="title">
-     <string>View</string>
+     <string>Steps</string>
     </property>
     <addaction name="action1_load_data"/>
     <addaction name="action2_Normalization_2"/>
@@ -1984,6 +1984,7 @@
     <addaction name="action3_Binning"/>
     <addaction name="action4_Fitting"/>
     <addaction name="action5_Results"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -2069,10 +2070,18 @@
    <property name="text">
     <string>Log ...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
+   </property>
   </action>
  </widget>
  <resources>
-  <include location="../icons/icons.qrc"/>
+  <include location="../../../ibeatles/icons/icons.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -2815,5 +2824,6 @@
   <slot>menu_view_strain_mapping_clicked()</slot>
   <slot>rotate_normalized_images_clicked()</slot>
   <slot>log_clicked()</slot>
+  <slot>close_clicked()</slot>
  </slots>
 </ui>

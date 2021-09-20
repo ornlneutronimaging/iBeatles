@@ -1,4 +1,4 @@
-from PyQt5 import QtCore
+from qtpy import QtCore
 import numpy as np
 
 roi_group_color = [QtCore.Qt.blue,

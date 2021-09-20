@@ -4,6 +4,8 @@ from qtpy.QtWidgets import QApplication, QMainWindow
 import sys
 import os
 from copy import deepcopy
+import logging
+import versioneer
 
 from .config_handler import ConfigHandler
 from .all_steps.log_launcher import LogLauncher
@@ -13,6 +15,7 @@ from .step1.gui_handler import Step1GuiHandler
 from .step1.time_spectra_handler import TimeSpectraHandler
 from .step1.plot import Step1Plot
 from .step1.check_error import CheckError
+from .utilities.get import Get
 
 from .step2.gui_handler import Step2GuiHandler
 from .step2.roi_handler import Step2RoiHandler
@@ -41,7 +44,7 @@ from .utilities.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
-from .icons import icons_rc
+# from .icons import icons_rc
 
 
 class MainWindow(QMainWindow):
@@ -203,6 +206,16 @@ class MainWindow(QMainWindow):
         self.setup()
         self.init_interface()
 
+        # configuration of config
+        o_get = Get(parent=self)
+        log_file_name = o_get.get_log_file_name()
+        logging.basicConfig(filename=log_file_name,
+                            filemode='a',
+                            format='[%(levelname)s] - %(asctime)s - %(message)s',
+                            level=logging.INFO)
+        logging.info("*** Starting a new session ***")
+        logging.info(f" Version: {versioneer.get_version()}")
+
     def init_interface(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.init_gui()
@@ -285,7 +298,6 @@ class MainWindow(QMainWindow):
                                                 'lambda': []}
 
     # Menu
-
     def menu_view_load_data_clicked(self):
         self.ui.tabWidget.setCurrentIndex(0)
 
@@ -311,7 +323,6 @@ class MainWindow(QMainWindow):
         LogLauncher(parent=self)
 
     # TAB 1, 2 and 3
-
     def tab_widget_changed(self, tab_selected):
         if tab_selected == 1:  # normalization
 
@@ -800,7 +811,7 @@ class MainWindow(QMainWindow):
         self.normalized_list_selection_changed()
 
     def closeEvent(self, event):
-        print("I'm about to close")
+        logging.info(" #### Leaving pyMBIR_UI ####")
         self.close()
 
 
