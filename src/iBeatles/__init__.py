@@ -10,6 +10,12 @@ root = os.path.dirname(os.path.realpath(__file__))
 refresh_image = os.path.join(root, "icons/refresh.png")
 
 
+class DataType:
+    sample = 'sample'
+    ob = 'ob'
+    df = 'df'
+
+
 def load_ui(ui_filename, baseinstance):
     ui_filename = os.path.split(ui_filename)[-1]
     ui_path = os.path.dirname(ui.__file__)

@@ -5,6 +5,7 @@ import numpy as np
 
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 from ..utilities.get import Get
+from .save_load_data_tab import SaveLoadDataTab
 
 
 class SessionHandler:
@@ -16,9 +17,15 @@ class SessionHandler:
         self.parent = parent
 
     def save_from_ui(self):
-        pass
-        # session_dict = {'config version': self.parent.config["config version"]}
-        #
+
+        session_dict = {'config version': self.parent.config["config version"]}
+
+        # Load data tab
+        o_save_load_data_tab = SaveLoadDataTab(parent=self.parent,
+                                               session_dict=session_dict)
+        o_save_load_data_tab.sample()
+
+
         # # import input tab data
         # list_ui = self.parent.list_ui
         #
