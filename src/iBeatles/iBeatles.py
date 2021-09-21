@@ -840,6 +840,9 @@ class MainWindow(QMainWindow):
         logging.info(" #### Leaving iBeatles ####")
         self.close()
 
+    def test_button_clicked(self):
+        print(self.ui.list_sample.selectedItems())
+
 
 def main(args):
     app = QApplication(args)

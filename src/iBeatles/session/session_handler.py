@@ -160,6 +160,10 @@ class SessionHandler:
             o_data_handler.load_files(list_of_files=list_sample_files_fullname)
             time_spectra_file = session_dict[DataType.sample]['time spectra filename']
             o_data_handler.load_time_spectra(time_spectra_file=time_spectra_file)
+            list_files_selected = session_dict[DataType.sample]['list files selected']
+            for _row_selected in list_files_selected:
+                _item = self.parent.ui.list_sample.item(_row_selected)
+                _item.setSelected(True)
 
         # list_ui = self.parent.list_ui
         #
