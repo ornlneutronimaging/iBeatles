@@ -105,14 +105,15 @@ class DataHandler:
         if file_name:
             return file_name
 
-    def load_time_spectra(self):
-        time_spectra_file = self.get_time_spectra_file()
-        if not time_spectra_file:
-            time_spectra_file = self.browse_file_name()
-
+    def load_time_spectra(self, time_spectra_file=None):
         if time_spectra_file is None:
-            logging.info("User cancel browsing for time_spectra_file manually but time spectra is Mandatory!")
-            time_spectra_file = self.browse_file_name()
+            time_spectra_file = self.get_time_spectra_file()
+            if not time_spectra_file:
+                time_spectra_file = self.browse_file_name()
+
+            if time_spectra_file is None:
+                logging.info("User cancel browsing for time_spectra_file manually but time spectra is Mandatory!")
+                time_spectra_file = self.browse_file_name()
 
         logging.info(f"User manually selected time spectra file {time_spectra_file}")
 

@@ -2,10 +2,13 @@ from qtpy.QtWidgets import QFileDialog, QApplication
 import json
 import logging
 import numpy as np
+import os
 
+from .. import DataType
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 from ..utilities.get import Get
 from .save_load_data_tab import SaveLoadDataTab
+from ..step1.data_handler import DataHandler
 
 
 class SessionHandler:
@@ -145,9 +148,18 @@ class SessionHandler:
 
         session_dict = self.parent.session_dict
 
+        # load data tab
 
-
-
+        # sample
+        list_sample_files = session_dict[DataType.sample]['list files']
+        if list_sample_files:
+            input_folder = session_dict[DataType.sample]['current folder']
+            o_data_handler = DataHandler(parent=self.parent,
+                                         data_type=DataType.sample)
+            list_sample_files_fullname = [os.path.join(input_folder, _file) for _file in list_sample_files]
+            o_data_handler.load_files(list_of_files=list_sample_files_fullname)
+            time_spectra_file = session_dict[DataType.sample]['time spectra filename']
+            o_data_handler.load_time_spectra(time_spectra_file=time_spectra_file)
 
         # list_ui = self.parent.list_ui
         #
