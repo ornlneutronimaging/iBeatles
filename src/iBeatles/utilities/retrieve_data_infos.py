@@ -19,9 +19,9 @@ class RetrieveDataInfos(object):
                                  'ob': self.parent.ui.data_general_infos,
                                  'normalized': self.parent.ui.normalized_general_infos}
 
-        self.selected_infos_ui = {'sample': self.parent.ui.data_selected_infos,
-                                  'ob': self.parent.ui.data_selected_infos,
-                                  'normalized': self.parent.ui.normalized_selected_infos}
+        # self.selected_infos_ui = {'sample': self.parent.ui.data_selected_infos,
+        #                           'ob': self.parent.ui.data_selected_infos,
+        #                           'normalized': self.parent.ui.normalized_selected_infos}
 
         self.path = self.parent.data_metadata[data_type]['folder']
 
@@ -51,31 +51,39 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     data = []
 
     def update(self):
+
         list_row_selected = list(np.sort(self.get_list_row_selected()))
+
+
 
         if not list_row_selected:
 
-            list_files_selected = self.parent.list_file_selected[self.data_type]
-            for _row_selected in list_files_selected:
-                _item = self.parent.ui.list_sample.item(_row_selected)
-                _item.setSelected(True)
+            if self.parent.data_metadata[self.data_type]['data'] == []:
+                self.selected_infos = {}
+                self.data = []
+            else:
 
-            data = self.parent.data_metadata[self.data_type]['data']
-            self.data = np.sum(data, axis=0)
+                list_files_selected = self.parent.list_file_selected[self.data_type]
+                for _row_selected in list_files_selected:
+                    _item = self.parent.ui.list_sample.item(_row_selected)
+                    _item.setSelected(True)
 
-            # self.selected_infos = {}
-            # self.data = []
-            #
-            # if self.data_type == 'normalized':
-            #     self.parent.data_metadata['normalized']['data_live_selection'] = []
+                data = self.parent.data_metadata[self.data_type]['data']
+                self.data = np.sum(data, axis=0)
+
+                # self.selected_infos = {}
+                # self.data = []
+                #
+                # if self.data_type == 'normalized':
+                #     self.parent.data_metadata['normalized']['data_live_selection'] = []
 
         else:
+
             list_files_selected = self.get_list_files_selected()
             full_filename = os.path.join(self.path, list_files_selected[0])
             image_handler = ImageHandler(parent=self.parent,
                                          filename=full_filename)
             self.selected_infos = image_handler.get_metadata(self.selected_infos)
-            #            self.data = image_handler.get_data() #remove_me
             full_data = self.parent.data_metadata[self.data_type]['data']
             _data = []
             for index in list_row_selected:
@@ -91,12 +99,12 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
 
     def display(self):
 
-        # metadata
-        text = ''
-        for key in self.selected_infos:
-            text += '<b>{}</b>: {}<br/>'.format(self.selected_infos[key]['name'],
-                                                self.selected_infos[key]['value'])
-        self.selected_infos_ui[self.data_type].setHtml(text)
+        # # metadata
+        # text = ''
+        # for key in self.selected_infos:
+        #     text += '<b>{}</b>: {}<br/>'.format(self.selected_infos[key]['name'],
+        #                                         self.selected_infos[key]['value'])
+        # self.selected_infos_ui[self.data_type].setHtml(text)
 
         o_plot = Step1Plot(parent=self.parent,
                            data_type=self.data_type,

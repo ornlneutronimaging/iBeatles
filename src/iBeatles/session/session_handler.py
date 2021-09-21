@@ -76,6 +76,8 @@ class SessionHandler:
             o_gui.check_time_spectra_widgets()
             o_gui.check_ob_widgets()
             self.parent.check_files_error()
+            self.parent.retrieve_general_infos(data_type=DataType.sample)
+            self.parent.retrieve_selected_row_infos(data_type=DataType.sample)
 
         # ob
         list_ob_files = session_dict[DataType.ob]['list files']
