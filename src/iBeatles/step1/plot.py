@@ -81,7 +81,7 @@ class Step1Plot(object):
                 self.add_origin_label(self.parent.ui.normalized_image_view)
                 self.parent.data_metadata['normalized']['data_live_selection'] = _data
 
-                # make sure that if we have the fitting window open, we have also at leat the binning
+                # make sure that if we have the fitting window open, we have also at least the binning
                 if not (self.parent.fitting_ui is None) and \
                         (self.parent.binning_ui is None):
                     self.parent.menu_view_binning_clicked()

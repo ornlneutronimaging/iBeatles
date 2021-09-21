@@ -7,6 +7,7 @@ from copy import deepcopy
 import logging
 import versioneer
 
+from . import DataType
 from .config_handler import ConfigHandler
 from .all_steps.log_launcher import LogLauncher
 from .step1.event_handler import EventHandler as Step1EventHandler
@@ -841,7 +842,7 @@ class MainWindow(QMainWindow):
         self.close()
 
     def test_button_clicked(self):
-        print(self.ui.list_sample.selectedItems())
+        self.ui.area.setVisible(True)
 
 
 def main(args):

@@ -34,6 +34,7 @@ class RetrieveDataInfos(object):
 
 
 class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
+
     selected_infos = {'acquisition_duration': {'name': "Acquisition Duration",
                                                'value': 0},
                       'acquisition_time': {'name': 'Acquisition Time',
@@ -52,12 +53,21 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
     def update(self):
         list_row_selected = list(np.sort(self.get_list_row_selected()))
 
-        if list_row_selected == []:
-            self.selected_infos = {}
-            self.data = []
+        if not list_row_selected:
 
-            if self.data_type == 'normalized':
-                self.parent.data_metadata['normalized']['data_live_selection'] = []
+            list_files_selected = self.parent.list_file_selected[self.data_type]
+            for _row_selected in list_files_selected:
+                _item = self.parent.ui.list_sample.item(_row_selected)
+                _item.setSelected(True)
+
+            data = self.parent.data_metadata[self.data_type]['data']
+            self.data = np.sum(data, axis=0)
+
+            # self.selected_infos = {}
+            # self.data = []
+            #
+            # if self.data_type == 'normalized':
+            #     self.parent.data_metadata['normalized']['data_live_selection'] = []
 
         else:
             list_files_selected = self.get_list_files_selected()
@@ -75,7 +85,8 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
             if self.data_type == 'normalized':
                 self.parent.data_metadata['normalized']['data_live_selection'] = _data
 
-        self.parent.list_file_selected[self.data_type] = list_row_selected
+            self.parent.list_file_selected[self.data_type] = list_row_selected
+
         self.display()
 
     def display(self):
