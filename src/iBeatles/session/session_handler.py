@@ -139,11 +139,16 @@ class SessionHandler:
         self.parent.session_dict = self.session_dict
 
     def load_to_ui(self):
-        pass
-        # if not self.load_successful:
-        #     return
-        #
-        # session_dict = self.parent.session_dict
+
+        if not self.load_successful:
+            return
+
+        session_dict = self.parent.session_dict
+
+
+
+
+
         # list_ui = self.parent.list_ui
         #
         # list_load_method = {DataType.projections: self.parent.projections_text_field_returned,
@@ -192,11 +197,11 @@ class SessionHandler:
         #     # general parameters
         #     o_advanced = GeneralSettingsHandler(parent=self.parent)
         #     o_advanced.initialization_from_session()
-        #
-        # show_status_message(parent=self.parent,
-        #                     message=f"Loaded {self.config_file_name}",
-        #                     status=StatusMessageStatus.ready,
-        #                     duration_s=10)
+
+        show_status_message(parent=self.parent,
+                            message=f"Loaded {self.config_file_name}",
+                            status=StatusMessageStatus.ready,
+                            duration_s=10)
 
     # def _retrieve_general_settings(self):
     #     number_of_scanned_periods = self.parent.ui.number_of_scanned_periods_spinBox.value()
@@ -239,50 +244,49 @@ class SessionHandler:
             logging.info(f"Saving configuration into {config_file_name}")
 
     def load_from_file(self, config_file_name=None):
-        pass
-        # self.parent.loading_from_config = True
-        #
-        # if config_file_name is None:
-        #     config_file_name = QFileDialog.getOpenFileName(self.parent,
-        #                                                    directory=self.parent.homepath,
-        #                                                    caption="Select session file ...",
-        #                                                    filter="session (*.json)",
-        #                                                    initialFilter="session")
-        #     QApplication.processEvents()
-        #     config_file_name = config_file_name[0]
-        #
-        # if config_file_name:
-        #     config_file_name = config_file_name
-        #     self.config_file_name = config_file_name
-        #     show_status_message(parent=self.parent,
-        #                         message=f"Loading {config_file_name} ...",
-        #                         status=StatusMessageStatus.ready)
-        #
-        #     with open(config_file_name, "r") as read_file:
-        #         session_to_save = json.load(read_file)
-        #         if session_to_save.get("config version", None) is None:
-        #             logging.info(f"Session file is out of date!")
-        #             logging.info(f"-> expected version: {self.parent.config['config version']}")
-        #             logging.info(f"-> session version: Unknown!")
-        #             self.load_successful = False
-        #         elif session_to_save["config version"] == self.parent.config["config version"]:
-        #             self.parent.session_dict = session_to_save
-        #             logging.info(f"Loaded from {config_file_name}")
-        #         else:
-        #             logging.info(f"Session file is out of date!")
-        #             logging.info(f"-> expected version: {self.parent.config['config version']}")
-        #             logging.info(f"-> session version: {session_to_save['config version']}")
-        #             self.load_successful = False
-        #
-        #         if self.load_successful == False:
-        #             show_status_message(parent=self.parent,
-        #                                 message=f"{config_file_name} not loaded! (check log for more information)",
-        #                                 status=StatusMessageStatus.ready,
-        #                                 duration_s=10)
-        #
-        # else:
-        #     self.load_successful = False
-        #     show_status_message(parent=self.parent,
-        #                         message=f"{config_file_name} not loaded! (check log for more information)",
-        #                         status=StatusMessageStatus.ready,
-        #                         duration_s=10)
+        self.parent.loading_from_config = True
+
+        if config_file_name is None:
+            config_file_name = QFileDialog.getOpenFileName(self.parent,
+                                                           directory=self.parent.homepath,
+                                                           caption="Select session file ...",
+                                                           filter="session (*.json)",
+                                                           initialFilter="session")
+            QApplication.processEvents()
+            config_file_name = config_file_name[0]
+
+        if config_file_name:
+            config_file_name = config_file_name
+            self.config_file_name = config_file_name
+            show_status_message(parent=self.parent,
+                                message=f"Loading {config_file_name} ...",
+                                status=StatusMessageStatus.ready)
+
+            with open(config_file_name, "r") as read_file:
+                session_to_save = json.load(read_file)
+                if session_to_save.get("config version", None) is None:
+                    logging.info(f"Session file is out of date!")
+                    logging.info(f"-> expected version: {self.parent.config['config version']}")
+                    logging.info(f"-> session version: Unknown!")
+                    self.load_successful = False
+                elif session_to_save["config version"] == self.parent.config["config version"]:
+                    self.parent.session_dict = session_to_save
+                    logging.info(f"Loaded from {config_file_name}")
+                else:
+                    logging.info(f"Session file is out of date!")
+                    logging.info(f"-> expected version: {self.parent.config['config version']}")
+                    logging.info(f"-> session version: {session_to_save['config version']}")
+                    self.load_successful = False
+
+                if not self.load_successful:
+                    show_status_message(parent=self.parent,
+                                        message=f"{config_file_name} not loaded! (check log for more information)",
+                                        status=StatusMessageStatus.ready,
+                                        duration_s=10)
+
+        else:
+            self.load_successful = False
+            show_status_message(parent=self.parent,
+                                message=f"{config_file_name} not loaded! (check log for more information)",
+                                status=StatusMessageStatus.ready,
+                                duration_s=10)
