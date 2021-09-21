@@ -13,19 +13,27 @@ class SessionHandler:
     config_file_name = ""
     load_successful = True
 
+    session_dict = {'config version': None,
+                    'sample': {'list files': None,
+                               'current folder': None,
+                               'time spectra filename': None,
+                               'list files selected': None,
+                    },
+    }
+
     def __init__(self, parent=None):
         logging.info("-> Saving current session before leaving the application")
         self.parent = parent
 
     def save_from_ui(self):
 
-        session_dict = {'config version': self.parent.config["config version"]}
+        self.session_dict['config version'] = self.parent.config["config version"]
 
         # Load data tab
         o_save_load_data_tab = SaveLoadDataTab(parent=self.parent,
-                                               session_dict=session_dict)
+                                               session_dict=self.session_dict)
         o_save_load_data_tab.sample()
-
+        self.session_dict = o_save_load_data_tab.session_dict
 
         # # import input tab data
         # list_ui = self.parent.list_ui
@@ -128,7 +136,7 @@ class SessionHandler:
         # else:
         #     session_dict['advanced settings'] = advanced_session_dict
         #
-        # self.parent.session_dict = session_dict
+        self.parent.session_dict = self.session_dict
 
     def load_to_ui(self):
         pass

@@ -110,6 +110,12 @@ class DataHandler:
         if not time_spectra_file:
             time_spectra_file = self.browse_file_name()
 
+        if time_spectra_file is None:
+            logging.info("User cancel browsing for time_spectra_file manually but time spectra is Mandatory!")
+            time_spectra_file = self.browse_file_name()
+
+        logging.info(f"User manually selected time spectra file {time_spectra_file}")
+
         self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = time_spectra_file
         o_time_handler = TimeSpectraHandler(parent=self.parent,
                                             data_type=self.data_type)
