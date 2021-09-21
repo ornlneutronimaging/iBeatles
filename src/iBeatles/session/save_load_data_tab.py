@@ -2,6 +2,7 @@ import logging
 
 from .. import DataType
 from .save_tab import SaveTab
+from ..utilities.gui_handler import GuiHandler
 
 
 class SaveLoadDataTab(SaveTab):
@@ -44,3 +45,25 @@ class SaveLoadDataTab(SaveTab):
         self.session_dict[data_type]['list files'] = list_files
         self.session_dict[data_type]['current folder'] = current_folder
         self.session_dict[data_type]['list files selected'] = list_files_selected
+
+    def instrument(self):
+        """record the settings of the instrument such as offset, distance source/detector ..."""
+
+        list_ui = {'distance': self.parent.ui.distance_source_detector,
+                   'beam': self.parent.ui.beam_rate,
+                   'detector': self.parent.ui.detector_offset}
+
+        o_gui = GuiHandler(parent=self.parent)
+        distance_value = o_gui.get_text(ui=list_ui['distance'])
+        detector_value = o_gui.get_text(ui=list_ui['detector'])
+        beam_index = o_gui.get_index_selected(ui=list_ui['beam'])
+
+        logging.info("Recording instrument")
+        logging.info(f" distance source detector: {distance_value}")
+        logging.info(f" detector value: {detector_value}")
+        logging.info(f" beam index: {beam_index}")
+
+        self.session_dict["instrument"]["distance source detector"] = distance_value
+        self.session_dict["instrument"]["detector value"] = detector_value
+        self.session_dict["instrument"]["beam index"] = beam_index
+

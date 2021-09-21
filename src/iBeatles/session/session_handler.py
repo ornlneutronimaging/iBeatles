@@ -10,7 +10,7 @@ from ..utilities.get import Get
 from .save_load_data_tab import SaveLoadDataTab
 from ..step1.data_handler import DataHandler
 from ..step1.gui_handler import Step1GuiHandler
-
+from ..utilities.gui_handler import GuiHandler
 
 class SessionHandler:
 
@@ -27,6 +27,9 @@ class SessionHandler:
                                'current folder'       : None,
                                'list files selected'  : None,
                           },
+                    "instrument": {'distance source detector': None,
+                                   'beam index': 0,
+                                   'detector value': None},
                     }
 
     def __init__(self, parent=None):
@@ -42,6 +45,7 @@ class SessionHandler:
                                                session_dict=self.session_dict)
         o_save_load_data_tab.sample()
         o_save_load_data_tab.ob()
+        o_save_load_data_tab.instrument()
         self.session_dict = o_save_load_data_tab.session_dict
 
 
@@ -92,6 +96,14 @@ class SessionHandler:
             _item = self.parent.ui.list_open_beam.item(_row_selected)
             _item.setSelected(True)
 
+        # instrument
+        o_gui = GuiHandler(parent=self.parent)
+        list_ui = {'distance': self.parent.ui.distance_source_detector,
+                   'beam': self.parent.ui.beam_rate,
+                   'detector': self.parent.ui.detector_offset}
+        o_gui.set_text(value=session_dict["instrument"]["distance source detector"], ui=list_ui['distance'])
+        o_gui.set_text(value=session_dict["instrument"]["detector value"], ui=list_ui['detector'])
+        o_gui.set_index_selected(index=session_dict["instrument"]["beam index"], ui=list_ui['beam'])
 
         show_status_message(parent=self.parent,
                             message=f"Loaded {self.config_file_name}",
