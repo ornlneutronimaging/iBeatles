@@ -3,6 +3,7 @@ import glob
 from pathlib import PurePath
 import numpy as np
 from qtpy.QtWidgets import QListWidgetItem, QFileDialog
+import logging
 
 from ..utilities.load_files import LoadFiles
 from ..utilities.file_handler import FileHandler
@@ -55,6 +56,13 @@ class DataHandler:
         if not list_of_files:
             return
 
+        logging.info(f" len(list_of_files) = {len(list_of_files)}")
+        if len(list_of_files) > 2:
+            logging.info(f"  list_of_files[0] = {list_of_files[0]}")
+            logging.info("    ...")
+            logging.info(f"  list_of_files[-1] = {list_of_files[-1]}")
+        else:
+            logging.info(f"  list_of_files = {list_of_files}")
         self.load_files(list_of_files)
 
     def import_time_spectra(self):
@@ -71,7 +79,9 @@ class DataHandler:
         return list_of_files
 
     def load_files(self, list_of_files):
-        image_type = self.get_image_type(list_of_files)
+        logging.info("Loading files")
+        image_type = DataHandler.get_image_type(list_of_files)
+        logging.info(f" image type: {image_type}")
         o_load_image = LoadFiles(parent=self.parent,
                                  image_ext=image_type,
                                  list_of_files=list_of_files)
@@ -82,10 +92,6 @@ class DataHandler:
         self.parent.list_files[self.data_type] = o_load_image.list_of_files
         self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
         self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
-
-    def get_image_type(self, list_of_files):
-        image_type = FileHandler.get_file_extension(list_of_files[0])
-        return image_type
 
     def get_time_spectra_file(self):
         o_time_spectra = GetTimeSpectraFilename(parent=self.parent,
@@ -227,6 +233,11 @@ class DataHandler:
 
         _parent_folder = FileHandler.get_parent_folder(_folder)
         self.list_ui[self.data_type]['folder'].setText(_parent_folder)
+
+    @staticmethod
+    def get_image_type(list_of_files):
+        image_type = FileHandler.get_file_extension(list_of_files[0])
+        return image_type
 
 
 class FileDialog(QFileDialog):

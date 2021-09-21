@@ -14,6 +14,7 @@ class SessionHandler:
     load_successful = True
 
     def __init__(self, parent=None):
+        logging.info("-> Saving current session before leaving the application")
         self.parent = parent
 
     def save_from_ui(self):

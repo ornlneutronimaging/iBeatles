@@ -1,3 +1,5 @@
+import logging
+
 from ..all_steps.event_handler import EventHandler as TopEventHandler
 from ..step1.data_handler import DataHandler
 from ..step1.plot import Step1Plot
@@ -7,6 +9,8 @@ from ..step1.gui_handler import Step1GuiHandler
 class EventHandler(TopEventHandler):
 
     def import_button_clicked(self):
+        logging.info(f"{self.data_type} import button clicked")
+
         self.parent.loading_flag = True
         o_load = DataHandler(parent=self.parent,
                              data_type=self.data_type)
@@ -25,3 +29,8 @@ class EventHandler(TopEventHandler):
             o_gui.check_time_spectra_widgets()
             o_gui.check_ob_widgets()
             self.parent.check_files_error()
+
+        else:
+
+            logging.info(f"Import button clicked ... operation canceled!")
+
