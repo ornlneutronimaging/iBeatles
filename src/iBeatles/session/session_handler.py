@@ -36,6 +36,7 @@ class SessionHandler:
         o_save_load_data_tab = SaveLoadDataTab(parent=self.parent,
                                                session_dict=self.session_dict)
         o_save_load_data_tab.sample()
+        o_save_load_data_tab.ob()
         self.session_dict = o_save_load_data_tab.session_dict
 
         # # import input tab data
@@ -164,6 +165,20 @@ class SessionHandler:
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_sample.item(_row_selected)
                 _item.setSelected(True)
+
+        # ob
+        list_ob_files = session_dict[DataType.ob]['list files']
+        if list_ob_files:
+            input_folder = session_dict[DataType.ob]['current folder']
+            o_data_handler = DataHandler(parent=self.parent,
+                                         data_type=DataType.ob)
+            list_ob_files_fullname = [os.path.join(input_folder, _file) for _file in list_ob_files]
+            o_data_handler.load_files(list_of_files=list_ob_files_fullname)
+        list_files_selected = session_dict[DataType.ob]['list files selected']
+        for _row_selected in list_files_selected:
+            _item = self.parent.ui.list_ob.item(_row_selected)
+            _item.setSelected(True)
+        # ob
 
         # list_ui = self.parent.list_ui
         #
