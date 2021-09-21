@@ -2000,6 +2000,14 @@
     </property>
     <addaction name="actionRotate_Images"/>
    </widget>
+   <widget class="QMenu" name="menuSession">
+    <property name="title">
+     <string>Session</string>
+    </property>
+    <addaction name="actionLoadSession"/>
+    <addaction name="actionSaveSession"/>
+   </widget>
+   <addaction name="menuSession"/>
    <addaction name="menuSteps"/>
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
@@ -2077,6 +2085,16 @@
   <action name="actionClose">
    <property name="text">
     <string>Close</string>
+   </property>
+  </action>
+  <action name="actionLoadSession">
+   <property name="text">
+    <string>Load ...</string>
+   </property>
+  </action>
+  <action name="actionSaveSession">
+   <property name="text">
+    <string>Save ...</string>
    </property>
   </action>
  </widget>
@@ -2772,6 +2790,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionLoadSession</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>load_session_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSaveSession</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save_session_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2825,5 +2875,7 @@
   <slot>rotate_normalized_images_clicked()</slot>
   <slot>log_clicked()</slot>
   <slot>close_clicked()</slot>
+  <slot>load_session_clicked()</slot>
+  <slot>save_session_clicked()</slot>
  </slots>
 </ui>

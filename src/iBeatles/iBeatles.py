@@ -311,6 +311,16 @@ class MainWindow(QMainWindow):
             load_session_ui.show()
 
     # Menu
+    def load_session_clicked(self):
+        o_session = SessionHandler(parent=self)
+        o_session.load_from_file()
+        o_session.load_to_ui()
+
+    def save_session_clicked(self):
+        o_session = SessionHandler(parent=self)
+        o_session.save_from_ui()
+        o_session.save_to_file()
+
     def menu_view_load_data_clicked(self):
         self.ui.tabWidget.setCurrentIndex(0)
 
