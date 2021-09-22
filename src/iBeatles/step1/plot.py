@@ -313,7 +313,7 @@ class Step1Plot(object):
                         y0 = int(y0)
                         w = int(w)
                         h = int(h)
-                    #                        return
+
                     else:
                         try:
                             [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui,

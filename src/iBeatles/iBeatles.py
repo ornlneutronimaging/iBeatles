@@ -126,7 +126,7 @@ class MainWindow(QMainWindow):
     selected_element_name = ''
 
     # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
-    init_array = ['label_roi', '0', '0', '1', '1', '0']
+    init_array = ['label_roi', '0', '0', '20', '20', '0']
 
     # [[use?, x0, y0, width, height, mean_counts]]
     init_array_normalization = [True, 0, 0, 20, 20, -1]
