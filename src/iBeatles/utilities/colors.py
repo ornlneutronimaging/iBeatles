@@ -6,6 +6,11 @@ roi_group_color = [QtCore.Qt.blue,
                    QtCore.Qt.green,
                    QtCore.Qt.darkYellow]
 
+roi_group_color = [QtCore.Qt.yellow,
+                   QtCore.Qt.red,
+                   QtCore.Qt.lightGray,
+                   QtCore.Qt.green]
+
 pen_color = {'0': (62, 13, 244),  # blue
              '1': (139, 10, 19),  # dark red
              '2': (36, 244, 31),  # green

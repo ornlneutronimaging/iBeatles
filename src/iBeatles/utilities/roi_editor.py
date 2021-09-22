@@ -204,7 +204,7 @@ class RoiEditorInterface(QMainWindow):
 
         # label roi
         label_roi = pg.TextItem(
-            html='<div style="text-align: center"><span style="color: #FFF;">' + label + '</span></div>',
+            html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
             anchor=(-0.3, 1.3),
             border='w',
             fill=(0, 0, 255, 50))
@@ -324,7 +324,6 @@ class RoiEditorInterface(QMainWindow):
 
         range_selected = QTableWidgetSelectionRange(row, 0, row, nbr_column - 1)
         self.ui.tableWidget.setRangeSelected(range_selected, True)
-        print("row to select: {}".format(row))
         QApplication.processEvents()
 
     def roi_editor_table_changed(self, row, column):
