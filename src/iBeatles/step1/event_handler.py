@@ -33,7 +33,6 @@ class EventHandler(TopEventHandler):
             o_gui.check_time_spectra_widgets()
             o_gui.check_ob_widgets()
             self.parent.check_files_error()
-
         else:
             logging.info(f"Import button clicked ... operation canceled!")
 

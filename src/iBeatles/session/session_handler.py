@@ -72,7 +72,7 @@ class SessionHandler:
             list_files_selected = session_dict[DataType.sample]['list files selected']
             self.parent.list_roi[DataType.sample] = session_dict[DataType.sample]['list rois']
             o_gui = Step1GuiHandler(parent=self.parent, data_type=DataType.sample)
-            o_gui.initialize_rois_id()
+            o_gui.initialize_rois_and_labels()
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_sample.item(_row_selected)
                 _item.setSelected(True)
