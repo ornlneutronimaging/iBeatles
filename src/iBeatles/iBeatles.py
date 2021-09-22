@@ -1,4 +1,3 @@
-from qtpy.QtGui import (QDesktopServices, QIcon)
 from qtpy import QtCore
 from qtpy.QtWidgets import QApplication, QMainWindow
 import sys
@@ -7,7 +6,6 @@ from copy import deepcopy
 import logging
 import versioneer
 
-from . import DataType
 from .config_handler import ConfigHandler
 from .all_steps.log_launcher import LogLauncher
 from .step1.event_handler import EventHandler as Step1EventHandler
@@ -16,6 +14,8 @@ from .step1.gui_handler import Step1GuiHandler
 from .step1.time_spectra_handler import TimeSpectraHandler
 from .step1.plot import Step1Plot
 from .step1.check_error import CheckError
+from .step1.initialization import Initialization
+
 from .utilities.get import Get
 from .session.load_previous_session_launcher import LoadPreviousSessionLauncher
 from .session.session_handler import SessionHandler
@@ -28,7 +28,6 @@ from .step2.normalization import Normalization
 from .step3.gui_handler import Step3GuiHandler
 
 from .binning.binning_launcher import BinningLauncher
-from .binning.binning_handler import BinningHandler
 
 from .fitting.fitting_launcher import FittingLauncher
 from .fitting.selected_bin_handler import SelectedBinsHandler
@@ -47,7 +46,6 @@ from .utilities.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
-# from .icons import icons_rc
 
 
 class MainWindow(QMainWindow):
@@ -224,12 +222,12 @@ class MainWindow(QMainWindow):
         self.automatic_load_of_previous_session()
 
     def init_interface(self):
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.init_gui()
-        o_gui.init_labels()
-        o_gui.init_material_widgets()
-        o_gui.init_statusbar()
-        o_gui.init_pyqtgraph()
+        o_gui = Initialization(parent=self)
+        o_gui.gui()
+        o_gui.labels()
+        o_gui.material_widgets()
+        o_gui.statusbar()
+        o_gui.pyqtgraph()
         self.update_delta_lambda()
         o_gui.connect_widgets()
 
