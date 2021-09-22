@@ -48,10 +48,6 @@ class SessionHandler:
         o_save_load_data_tab.ob()
         o_save_load_data_tab.instrument()
         self.session_dict = o_save_load_data_tab.session_dict
-
-
-
-
         self.parent.session_dict = self.session_dict
 
     def load_to_ui(self):
@@ -75,10 +71,11 @@ class SessionHandler:
             o_data_handler.load_time_spectra(time_spectra_file=time_spectra_file)
             list_files_selected = session_dict[DataType.sample]['list files selected']
             self.parent.list_roi[DataType.sample] = session_dict[DataType.sample]['list rois']
+            o_gui = Step1GuiHandler(parent=self.parent, data_type=DataType.sample)
+            o_gui.initialize_rois_id()
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_sample.item(_row_selected)
                 _item.setSelected(True)
-            o_gui = Step1GuiHandler(parent=self.parent, data_type=DataType.sample)
             o_gui.check_time_spectra_widgets()
             o_gui.check_ob_widgets()
             self.parent.check_files_error()

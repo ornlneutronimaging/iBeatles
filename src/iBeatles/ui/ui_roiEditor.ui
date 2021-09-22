@@ -118,6 +118,25 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="done_pushButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>45</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+          <kerning>true</kerning>
+         </font>
+        </property>
+        <property name="text">
+         <string>Done</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -128,7 +147,7 @@
      <x>0</x>
      <y>0</y>
      <width>446</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -222,6 +241,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>done_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>done_pushButton_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>395</x>
+     <y>361</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>445</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -248,5 +283,6 @@
   <slot>remove_roi_button_clicked()</slot>
   <slot>roi_editor_table_changed()</slot>
   <slot>roi_editor_current_cell_changed()</slot>
+  <slot>done_pushButton_clicked()</slot>
  </slots>
 </ui>

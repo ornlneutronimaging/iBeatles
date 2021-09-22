@@ -15,6 +15,7 @@ from .step1.time_spectra_handler import TimeSpectraHandler
 from .step1.plot import Step1Plot
 from .step1.check_error import CheckError
 from .step1.initialization import Initialization
+from .step1.roi import DEFAULT_ROI
 
 from .utilities.get import Get
 from .session.load_previous_session_launcher import LoadPreviousSessionLauncher
@@ -125,8 +126,8 @@ class MainWindow(QMainWindow):
     selected_element_hkl_array = []
     selected_element_name = ''
 
-    # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
-    init_array = ['label_roi', '0', '0', '20', '20', '0']
+    # # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
+    # init_array = ['label_roi', '0', '0', '20', '20', '0']
 
     # [[use?, x0, y0, width, height, mean_counts]]
     init_array_normalization = [True, 0, 0, 20, 20, -1]
@@ -145,14 +146,14 @@ class MainWindow(QMainWindow):
                                     'ob': None,
                                     'normalized': None}
 
-    list_roi = {'sample': [init_array],
-                'ob': [init_array],
+    list_roi = {'sample': [],
+                'ob': [],
                 'normalization': [deepcopy(init_array_normalization)],
-                'normalized': [init_array]}
+                'normalized': []}
 
-    old_list_roi = {'sample': [init_array],
-                    'ob': [init_array],
-                    'normalized': [init_array]}
+    old_list_roi = {'sample': [],
+                    'ob': [],
+                    'normalized': []}
 
     list_file_selected = {'sample': [],
                           'ob': [],
@@ -219,6 +220,7 @@ class MainWindow(QMainWindow):
                             level=logging.INFO)
         logging.info("*** Starting a new session ***")
         logging.info(f" Version: {versioneer.get_version()}")
+
 
         self.automatic_load_of_previous_session()
 
@@ -301,10 +303,17 @@ class MainWindow(QMainWindow):
                                                'normalized_data': [],
                                                'normalized_lambda': []}}
 
-
         self.range_files_to_normalized_step2 = {'file_index': [],
                                                 'tof': [],
                                                 'lambda': []}
+
+        self.list_roi[DataType.sample] = [DEFAULT_ROI]
+        self.list_roi[DataType.ob] = [DEFAULT_ROI]
+        self.list_roi[DataType.normalized] = [DEFAULT_ROI]
+
+        self.old_list_roi[DataType.sample] = [DEFAULT_ROI]
+        self.old_list_roi[DataType.ob] = [DEFAULT_ROI]
+        self.old_list_roi[DataType.normalized] = [DEFAULT_ROI]
 
     def automatic_load_of_previous_session(self):
         o_get = Get(parent=self)

@@ -7,9 +7,9 @@ import pyqtgraph as pg
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
 
-from ..utilities.colors import pen_color
 from .gui_handler import Step1GuiHandler as GuiHandler
 from .. import DataType
+from .roi import Roi
 
 
 class Initialization:
@@ -109,8 +109,7 @@ class Initialization:
         image_view = pg.ImageView()
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
-        roi = pg.ROI([0, 0], [20, 20], pen=pen_color['0'], scaleSnap=True)
-        roi.addScaleHandle([1, 1], [0, 0])
+        roi = Roi.get_default_roi()
         image_view.addItem(roi)
         roi.sigRegionChanged.connect(roi_function)
 

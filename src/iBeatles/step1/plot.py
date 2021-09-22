@@ -68,6 +68,7 @@ class Step1Plot(object):
         else:
             _data = np.array(_data)
             if self.data_type == 'sample':
+                pass
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.image_view)

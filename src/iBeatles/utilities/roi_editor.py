@@ -200,7 +200,7 @@ class RoiEditorInterface(QMainWindow):
         list_label_roi_id = self.parent.list_label_roi_id[self.title]
         _nbr_row = len(list_roi)
 
-        init_roi = ['label_name', '0', '0', '1', '1', '0']
+        init_roi = ['label_name', '0', '0', '20', '20', '0']
         [label, x0, y0, width, height, group] = init_roi
 
         # label roi
@@ -342,3 +342,6 @@ class RoiEditorInterface(QMainWindow):
     def cell_changed(self, _i, _j):
         o_plot = Step1Plot(parent=self.parent, data_type=self.title)
         o_plot.display_bragg_edge(mouse_selection=False)
+
+    def done_pushButton_clicked(self):
+        self.close()

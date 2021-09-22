@@ -6,6 +6,7 @@ from ..step1.plot import Step1Plot
 from ..utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
 from ..step1.math_utilities import calculate_delta_lambda
 from ..utilities.gui_handler import GuiHandler
+from .. import DataType
 
 
 class CustomAxis(pg.AxisItem):
@@ -20,6 +21,44 @@ class Step1GuiHandler(object):
     def __init__(self, parent=None, data_type='sample'):
         self.parent = parent
         self.data_type = data_type
+
+    def initialize_rois_id(self):
+        """Reached when ROIs have not been manually initialized but loaded via a session"""
+        list_roi = self.parent.list_roi[self.data_type]
+        list_roi_id = []
+        list_label_roi_id = []
+
+        for _roi in list_roi:
+            [label, x0, y0, width, height, group] = _roi
+
+            # label roi
+            label_roi = pg.TextItem(
+                    html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
+                    anchor=(-0.3, 1.3),
+                    border='w',
+                    fill=(0, 0, 255, 50))
+
+            # roi region in image
+            roi = pg.ROI([x0, y0], [width, height])
+            roi.addScaleHandle([1, 1], [0, 0])
+            if self.data_type == DataType.sample:
+                self.parent.ui.image_view.addItem(roi)
+                self.parent.ui.image_view.addItem(label_roi)
+                roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)
+            elif self.data_type == DataType.ob:
+                self.parent.ui.ob_image_view.addItem(roi)
+                self.parent.ui.ob_image_view.addItem(label_roi)
+                roi.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)
+            elif self.data_type == DataType.normalized:
+                self.parent.ui.normalized_image_view.addItem(roi)
+                self.parent.ui.normalized_image_view.addItem(label_roi)
+                roi.sigRegionChanged.connect(self.parent.roi_normalized_image_view_changed)
+
+            list_roi_id.append(roi)
+            list_roi_id.append(label_roi)
+
+        self.parent.list_roi_id[self.data_type] = list_roi_id
+        self.parent.list_label_roi_id[self.data_type] = list_label_roi_id
 
     def sync_instrument_widgets(self, source='load_data'):
 
