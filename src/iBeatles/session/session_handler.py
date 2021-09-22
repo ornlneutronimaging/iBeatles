@@ -22,6 +22,7 @@ class SessionHandler:
                                'current folder': None,
                                'time spectra filename': None,
                                'list files selected': None,
+                               'list rois': None,
                                },
                     'ob': {'list files'           : None,
                                'current folder'       : None,
@@ -73,6 +74,7 @@ class SessionHandler:
             time_spectra_file = session_dict[DataType.sample]['time spectra filename']
             o_data_handler.load_time_spectra(time_spectra_file=time_spectra_file)
             list_files_selected = session_dict[DataType.sample]['list files selected']
+            self.parent.list_roi[DataType.sample] = session_dict[DataType.sample]['list rois']
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_sample.item(_row_selected)
                 _item.setSelected(True)
@@ -92,6 +94,7 @@ class SessionHandler:
             list_ob_files_fullname = [os.path.join(input_folder, _file) for _file in list_ob_files]
             o_data_handler.load_files(list_of_files=list_ob_files_fullname)
         list_files_selected = session_dict[DataType.ob]['list files selected']
+        self.parent.list_roi[DataType.ob] = session_dict[DataType.ob]['list rois']
         for _row_selected in list_files_selected:
             _item = self.parent.ui.list_open_beam.item(_row_selected)
             _item.setSelected(True)
