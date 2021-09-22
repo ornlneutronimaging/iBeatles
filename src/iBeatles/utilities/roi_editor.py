@@ -50,7 +50,7 @@ class RoiEditorInterface(QMainWindow):
         self.initialize_table()
         self.fill_table()
 
-        QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int"), self.cell_changed)
+        # QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int"), self.cell_changed)
 
     def initialize_table(self):
         for _index, _width in enumerate(self.col_width):
@@ -80,7 +80,8 @@ class RoiEditorInterface(QMainWindow):
             # _color = colors.roi_group_color[int(group)]
             self.set_row(_row, label, x0, y0, width, height, int(group))
 
-        QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int)"), self.cell_changed)
+        # QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int)"), self.cell_changed)
+        self.ui.tableWidget.cellChanged.connect(self.cell_changed)
 
     def set_row(self, _row, label, x0, y0, width, height, group):
 
@@ -110,7 +111,7 @@ class RoiEditorInterface(QMainWindow):
         _widget = QComboBox()
         _widget.addItems(self.list_name_groups)
         _widget.setCurrentIndex(int(group))
-        QtCore.QObject.connect(_widget, QtCore.SIGNAL("currentIndexChanged(int)"), self.changed_group)
+        # QtCore.QObject.connect(_widget, QtCore.SIGNAL("currentIndexChanged(int)"), self.changed_group)
         self.ui.tableWidget.setCellWidget(_row, 5, _widget)
 
     def get_row(self, row=0):
