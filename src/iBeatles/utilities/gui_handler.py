@@ -1,3 +1,6 @@
+from .. import DataType
+
+
 class GuiHandler(object):
 
     def __init__(self, parent=None):
@@ -29,15 +32,8 @@ class GuiHandler(object):
             list_button_ui[active_type]['lambda'].setEnabled(False)
             list_button_ui[active_type]['file_index'].setChecked(True)
 
-    def get_xaxis_checked(self, data_type='sample'):
-        list_button_ui = self.parent.xaxis_button_ui
-
-        if list_button_ui[data_type]['file_index'].isChecked():
-            return 'file_index'
-        elif list_button_ui[data_type]['tof'].isChecked():
-            return 'tof'
-        else:
-            return 'lambda'
+    def get_xaxis_checked(self, data_type=DataType.sample):
+        return self.parent.data_metadata[data_type]['xaxis']
 
     def xaxis_label(self):
         o_gui = GuiHandler(parent=self.parent)

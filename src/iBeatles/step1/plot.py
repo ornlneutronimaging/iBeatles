@@ -267,6 +267,7 @@ class Step1Plot(object):
             self.clear_bragg_edge_plot()
 
         else:  # retrieve dictionaries of roi_id and roi data (label, x, y, w, h, group)
+
             list_roi_id = self.parent.list_roi_id[self.data_type]
             list_roi = self.parent.list_roi[self.data_type]
 
@@ -368,13 +369,13 @@ class Step1Plot(object):
                 tof_array = self.parent.data_metadata['time_spectra']['data']
                 lambda_array = self.parent.data_metadata['time_spectra']['lambda']
 
-            # enable the right xaxis buttons
+            # # enable the right xaxis buttons
             o_gui = GuiHandler(parent=self.parent)
-            if tof_array == []:
-                tof_flag = False
-            else:
-                tof_flag = True
-            o_gui.enable_xaxis_button(tof_flag=tof_flag)
+            # if tof_array == []:
+            #     tof_flag = False
+            # else:
+            #     tof_flag = True
+            # o_gui.enable_xaxis_button(tof_flag=tof_flag)
 
             list_files_selected = self.parent.list_file_selected[self.data_type]
             linear_region_left = list_files_selected[0]

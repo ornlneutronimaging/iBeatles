@@ -46,6 +46,7 @@ from .utilities.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
+from . import DataType
 
 
 class MainWindow(QMainWindow):
@@ -268,6 +269,7 @@ class MainWindow(QMainWindow):
                                          'folder': current_folder,
                                          'general_infos': None,
                                          'data': [],
+                                         'xaxis': 'file_index',
                                          'time_spectra': {'folder': '',
                                                           'filename': '',
                                                           },
@@ -276,11 +278,13 @@ class MainWindow(QMainWindow):
                                      'list_widget_ui': self.ui.list_open_beam,
                                      'folder': current_folder,
                                      'general_infos': None,
+                                     'xaxis': 'file_index',
                                      'data': []},
                               'normalized': {'title': 'Select folder or list of files',
                                              'folder': current_folder,
                                              'general_infos': None,
                                              'data': [],
+                                             'xaxis': 'file_index',
                                              'data_live_selection': [],
                                              'time_spectra': {'folder': '',
                                                               'filename': '',
@@ -470,7 +474,9 @@ class MainWindow(QMainWindow):
         o_data.load_time_spectra()
         o_plot = Step1Plot(parent=self, data_type='normalized')
         o_plot.display_bragg_edge(mouse_selection=False)
-        self.sample_list_selection_changed()
+
+        o_event = Step1EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
 
         o_gui.block_instrument_widgets(status=False)
 
@@ -585,14 +591,6 @@ class MainWindow(QMainWindow):
         o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='ob')
         o_retrieve_data_infos.update()
 
-    def sample_list_selection_changed(self):
-        if not self.loading_flag:
-            o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='sample')
-            o_retrieve_data_infos.update()
-            self.roi_image_view_changed(mouse_selection=False)
-        else:
-            self.loading_flag = False
-
     def sample_list_right_click(self, position):
         o_list_handler = ListDataHandler(parent=self)
         o_list_handler.right_click(position=position)
@@ -656,21 +654,34 @@ class MainWindow(QMainWindow):
         self.roi_ob_image_view_changed()
 
     def file_index_xaxis_button_clicked(self):
-        self.sample_list_selection_changed()
+        self.data_metadata[DataType.sample]['xaxis'] = 'file_index'
+        o_event = Step1EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
 
     def tof_xaxis_button_clicked(self):
-        self.sample_list_selection_changed()
+        self.data_metadata[DataType.sample]['xaxis'] = 'tof'
+        o_event = Step1EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
 
     def lambda_xaxis_button_clicked(self):
-        self.sample_list_selection_changed()
+        self.data_metadata[DataType.sample]['xaxis'] = 'lambda'
+        o_event = Step1EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
+
+    def sample_list_selection_changed(self):
+        o_event = Step1EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
 
     def ob_file_index_xaxis_button_clicked(self):
+        self.data_metadata[DataType.ob]['xaxis'] = 'file_index'
         self.open_beam_list_selection_changed()
 
     def ob_tof_xaxis_button_clicked(self):
+        self.data_metadata[DataType.ob]['xaxis'] = 'tof'
         self.open_beam_list_selection_changed()
 
     def ob_lambda_xaxis_button_clicked(self):
+        self.data_metadata[DataType.ob]['xaxis'] = 'lambda'
         self.open_beam_list_selection_changed()
 
     # TAB 2:

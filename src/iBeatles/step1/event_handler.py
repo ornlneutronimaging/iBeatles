@@ -5,6 +5,10 @@ from ..step1.data_handler import DataHandler
 from ..step1.plot import Step1Plot
 from ..step1.gui_handler import Step1GuiHandler
 
+from ..utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos
+
+from .. import DataType
+
 
 class EventHandler(TopEventHandler):
 
@@ -31,6 +35,12 @@ class EventHandler(TopEventHandler):
             self.parent.check_files_error()
 
         else:
-
             logging.info(f"Import button clicked ... operation canceled!")
 
+    def sample_list_selection_changed(self):
+        if not self.parent.loading_flag:
+            o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self.parent, data_type=DataType.sample)
+            o_retrieve_data_infos.update()
+            self.parent.roi_image_view_changed(mouse_selection=False)
+        else:
+            self.parent.loading_flag = False

@@ -54,8 +54,6 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
 
         list_row_selected = list(np.sort(self.get_list_row_selected()))
 
-
-
         if not list_row_selected:
 
             if self.parent.data_metadata[self.data_type]['data'] == []:
