@@ -47,7 +47,7 @@ from .utilities.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
-from . import DataType
+from . import DataType, RegionType
 
 
 class MainWindow(QMainWindow):
@@ -130,7 +130,7 @@ class MainWindow(QMainWindow):
     # init_array = ['label_roi', '0', '0', '20', '20', '0']
 
     # [[use?, x0, y0, width, height, mean_counts]]
-    init_array_normalization = [True, 0, 0, 20, 20, -1]
+    init_array_normalization = [True, 0, 0, 20, 20, RegionType.background]
 
     # list roi ui id (when multiple roi in plots)
     list_roi_id = {'sample': [],
@@ -694,23 +694,25 @@ class MainWindow(QMainWindow):
     # TAB 2:
 
     def normalization_manual_roi_changed(self):
-        # QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         self.ui.normalization_tableWidget.blockSignals(True)
         o_roi = Step2RoiHandler(parent=self)
         o_roi.save_roi()
         o_plot = Step2Plot(parent=self)
         o_plot.update_roi_table()
+        o_plot.display_bragg_edge()
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()
         self.ui.normalization_tableWidget.blockSignals(False)
-        # QApplication.restoreOverrideCursor()
 
     def normalization_row_status_changed(self):
         o_roi = Step2RoiHandler(parent=self)
         o_roi.save_table()
         o_roi.enable_selected_roi()
-        o_normalization = Normalization(parent=self)
-        o_normalization.run()
+        # o_normalization = Normalization(parent=self)
+        # o_normalization.run()
+
+    def normalization_row_status_region_type_changed(self, value):
+        self.normalization_row_status_changed()
 
     def normalization_remove_roi_button_clicked(self):
         self.ui.normalization_tableWidget.blockSignals(True)

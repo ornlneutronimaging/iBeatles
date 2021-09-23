@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import QTableWidgetItem, QCheckBox
+from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
 import numpy as np
 import pyqtgraph as pg
 
@@ -6,6 +6,7 @@ from neutronbraggedge.experiment_handler.experiment import Experiment
 # from iBeatles.py.utilities.colors import pen_color
 # from iBeatles.py.utilities.roi_handler import RoiHandler
 from ..utilities.gui_handler import GuiHandler
+from .. import RegionType
 
 
 class CustomAxis(pg.AxisItem):
@@ -100,6 +101,25 @@ class Step2Plot(object):
             roi_id.setPos([x0, y0], update=False, finish=False)
             roi_id.setSize([width, height], update=False, finish=False)
 
+    def display_bragg_edge(self):
+
+        _plot_ui = self.parent.step2_ui['bragg_edge_plot']
+        _plot_ui.clear()
+
+        list_roi_id = self.parent.list_roi_id['normalization']
+        list_roi = self.parent.list_roi['normalization']
+
+        for _index, roi in enumerate(list_roi_id):
+            print(f"list roi id of index: {_index}")
+
+
+
+
+
+
+
+
+
     def display_counts_vs_file(self, data=[], list_roi=[]):
         if data == []:
             _data = self.normalized
@@ -149,22 +169,23 @@ class Step2Plot(object):
             _range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['file_index']
 
         # labels
-        _plot_ui.setLabel("left", "Sample/OB (px in ROI selected)")
+        _plot_ui.setLabel("left", "Average counts of ROIs")
 
-        # display range of file to keep
-        linear_region_range = [x_axis[_range_files_to_normalized_step2[0]],
-                               x_axis[_range_files_to_normalized_step2[1]]]
+        # # display range of file to keep
+        # linear_region_range = [x_axis[_range_files_to_normalized_step2[0]],
+        #                        x_axis[_range_files_to_normalized_step2[1]]]
+        #
+        # lr = pg.LinearRegionItem(values=linear_region_range,
+        #                          orientation='vertical',
+        #                          brush=None,
+        #                          movable=True,
+        #                          bounds=None)
+        #
+        # lr.sigRegionChangeFinished.connect(self.parent.step2_bragg_edge_selection_changed)
+        # lr.setZValue(-10)
+        # self.parent.step2_ui['bragg_edge_plot'].addItem(lr)
+        # self.parent.bragg_edge_selection = lr
 
-        lr = pg.LinearRegionItem(values=linear_region_range,
-                                 orientation='vertical',
-                                 brush=None,
-                                 movable=True,
-                                 bounds=None)
-
-        lr.sigRegionChangeFinished.connect(self.parent.step2_bragg_edge_selection_changed)
-        lr.setZValue(-10)
-        self.parent.step2_ui['bragg_edge_plot'].addItem(lr)
-        self.parent.bragg_edge_selection = lr
         self.parent.current_bragg_edge_x_axis['normalization'] = x_axis
 
     def calculate_mean_counts(self, data, list_roi=[]):
@@ -228,7 +249,8 @@ class Step2Plot(object):
 
     def set_row(self, row_index, roi_array):
 
-        [status_row, x0, y0, width, height, mean_counts] = roi_array
+        # region type is either 'sample' or 'background'
+        [status_row, x0, y0, width, height, region_type] = roi_array
 
         # button
         _widget = QCheckBox()
@@ -256,12 +278,16 @@ class Step2Plot(object):
         _widget.stateChanged.connect(self.parent.normalization_row_status_changed)
         self.parent.ui.normalization_tableWidget.blockSignals(False)
 
-        # mean counts
-        # _item = self.get_item(str(mean_counts))
-        # self.parent.ui.normalization_tableWidget.setItem(row_index, 6, _item)
+        # region type
+        _widget = QComboBox()
+        _widget.addItems([RegionType.sample, RegionType.background])
+        index = 0 if (region_type == RegionType.sample) else 1
+        _widget.setCurrentIndex(index)
+        _widget.currentIndexChanged.connect(self.parent.normalization_row_status_region_type_changed)
+        self.parent.ui.normalization_tableWidget.setCellWidget(row_index, 5, _widget)
 
     def update_row(self, row_index, roi_array):
-        [status_row, x0, y0, width, height, mean_counts] = roi_array
+        [status_row, x0, y0, width, height, _] = roi_array
 
         # button
         _widget = self.parent.ui.normalization_tableWidget.cellWidget(row_index, 0)

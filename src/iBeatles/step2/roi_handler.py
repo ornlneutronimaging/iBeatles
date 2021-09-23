@@ -1,8 +1,9 @@
-from qtpy.QtWidgets import QTableWidgetItem, QCheckBox
+from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
 import pyqtgraph as pg
 import numpy as np
 
 from ..step2 import gui_handler
+from .. import RegionType
 
 
 class Step2RoiHandler(object):
@@ -70,7 +71,11 @@ class Step2RoiHandler(object):
             raise ValueError
         height = str(_item.text())
 
-        return [flag, x0, y0, width, height, -1]
+        # region type
+        _text_widget = self.parent.ui.normalization_tableWidget.cellWidget(row, 5)
+        region_type = _text_widget.currentText()
+
+        return [flag, x0, y0, width, height, region_type]
 
     def save_roi(self):
         list_roi_id = self.parent.list_roi_id['normalization']
@@ -155,7 +160,7 @@ class Step2RoiHandler(object):
         self.parent.ui.normalization_tableWidget.insertRow(row)
 
         init_array = self.parent.list_roi['normalization'][-1]
-        [flag, x0, y0, width, height, not_used] = init_array
+        [flag, x0, y0, width, height, region_type] = init_array
 
         # button
         _widget = QCheckBox()
@@ -179,6 +184,14 @@ class Step2RoiHandler(object):
         # height
         _item = self.get_item(str(height))
         self.parent.ui.normalization_tableWidget.setItem(row, 4, _item)
+
+        # region type
+        _widget = QComboBox()
+        _widget.addItems([RegionType.sample, RegionType.background])
+        index = 0 if (region_type == RegionType.sample) else 1
+        _widget.setCurrentIndex(index)
+        _widget.currentIndexChanged.connect(self.parent.normalization_row_status_region_type_changed)
+        self.parent.ui.normalization_tableWidget.setCellWidget(row, 5, _widget)
 
     def get_list_of_roi_to_use(self):
         list_roi = []

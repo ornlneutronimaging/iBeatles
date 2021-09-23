@@ -938,7 +938,7 @@
               <widget class="QWidget" name="widget_2" native="true">
                <property name="maximumSize">
                 <size>
-                 <width>350</width>
+                 <width>410</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -960,7 +960,7 @@
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>350</width>
+                    <width>370</width>
                     <height>16777215</height>
                    </size>
                   </property>
@@ -1002,6 +1002,11 @@
                   <column>
                    <property name="text">
                     <string>Height</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Type</string>
                    </property>
                   </column>
                  </widget>
@@ -1151,19 +1156,6 @@
                 </item>
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_26">
-                  <item>
-                   <spacer name="horizontalSpacer_11">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
                   <item>
                    <widget class="QPushButton" name="normalization_button">
                     <property name="enabled">

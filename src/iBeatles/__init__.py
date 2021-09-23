@@ -18,6 +18,11 @@ class DataType:
     normalization = 'normalization'
 
 
+class RegionType:
+    sample = 'sample'
+    background= 'background'
+
+
 def load_ui(ui_filename, baseinstance):
     ui_filename = os.path.split(ui_filename)[-1]
     ui_path = os.path.dirname(ui.__file__)

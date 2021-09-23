@@ -27,7 +27,7 @@ class Step2GuiHandler(object):
         # o_step2_plot.display_counts_vs_file()
         # o_normalization = Normalization(parent=self.parent)
         # o_normalization.run()
-        # o_step2_plot.init_roi_table()
+        o_step2_plot.init_roi_table()
         # self.check_run_normalization_button()
 
     def init_table(self):
@@ -69,13 +69,13 @@ class Step2GuiHandler(object):
         bragg_edge_plot = pg.PlotWidget()
         bragg_edge_plot.plot()
 
-        # bragg_edge_plot.setLabel("top", "")
-        p1 = bragg_edge_plot.plotItem
-        p1.layout.removeItem(p1.getAxis('top'))
-        caxis = CustomAxis(orientation='top', parent=p1)
-        caxis.setLabel('')
-        caxis.linkToView(p1.vb)
-        p1.layout.addItem(caxis, 1, 1)
+        # # bragg_edge_plot.setLabel("top", "")
+        # p1 = bragg_edge_plot.plotItem
+        # p1.layout.removeItem(p1.getAxis('top'))
+        # caxis = CustomAxis(orientation='top', parent=p1)
+        # caxis.setLabel('')
+        # caxis.linkToView(p1.vb)
+        # p1.layout.addItem(caxis, 1, 1)
 
         # add file_index, TOF, Lambda x-axis buttons
         hori_layout = QHBoxLayout()
@@ -123,7 +123,7 @@ class Step2GuiHandler(object):
         self.parent.list_roi_id['normalization'] = [roi]
         self.parent.step2_ui['bragg_edge_plot'] = bragg_edge_plot
         # self.parent.step2_ui['normalized_profile_plot'] = normalized_profile_plot
-        self.parent.step2_ui['caxis'] = caxis
+        # self.parent.step2_ui['caxis'] = caxis
         self.parent.step2_ui['xaxis_file_index'] = file_index_button
         self.parent.step2_ui['xaxis_lambda'] = lambda_button
         self.parent.step2_ui['xaxis_tof'] = tof_button
