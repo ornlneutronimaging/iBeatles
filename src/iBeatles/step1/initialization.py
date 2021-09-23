@@ -24,7 +24,7 @@ class Initialization:
         self.material_widgets()
         self.statusbar()
         self.pyqtgraph()
-        self.widgets()
+        self.icons()
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
@@ -45,15 +45,8 @@ class Initialization:
         self.parent.ui.load_data_splitter.setSizes([200, 500])
         self.parent.ui.normalized_splitter.setSizes([150, 600])
 
-        # make sure user load data first (before OB)
-        self.parent.ui.import_open_beam_button.setEnabled(False)
-
-        # reset buttons
-        icon = QIcon(":/MPL Toolbar/reset_icon.png")
-        self.parent.ui.reset_lattice_button.setIcon(icon)
-        self.parent.ui.reset_lattice_button_2.setIcon(icon)
-        self.parent.ui.reset_crystal_structure_button.setIcon(icon)
-        self.parent.ui.reset_crystal_structure_button_2.setIcon(icon)
+        # ob tab
+        self.parent.ui.toolBox.setItemEnabled(1, False)
 
         # add shortcuts to menu button
         self.parent.ui.action1_load_data.setShortcut('Ctrl+1')
@@ -275,10 +268,13 @@ class Initialization:
         self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button1
         self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button1
 
-    def widgets(self):
+    def icons(self):
+        # reset buttons
         icon = QIcon(refresh_image)
         self.parent.ui.reset_lattice_button.setIcon(icon)
         self.parent.ui.reset_crystal_structure_button.setIcon(icon)
+        self.parent.ui.reset_lattice_button_2.setIcon(icon)
+        self.parent.ui.reset_crystal_structure_button_2.setIcon(icon)
 
     def connect_widgets(self):
         self.parent.ui.list_of_elements.currentIndexChanged.connect(self.parent.list_of_element_index_changed)

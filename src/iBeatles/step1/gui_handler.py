@@ -223,7 +223,7 @@ class Step1GuiHandler(object):
 
     def check_ob_widgets(self):
         if self.parent.data_metadata[self.data_type]['data']:
-            self.parent.ui.import_open_beam_button.setEnabled(True)
+            self.parent.ui.toolBox.setItemEnabled(1, True)
 
     def check_time_spectra_widgets(self):
         time_spectra_data = self.parent.data_metadata['time_spectra']['data']
