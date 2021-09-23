@@ -68,7 +68,6 @@ class Step1Plot(object):
         else:
             _data = np.array(_data)
             if self.data_type == 'sample':
-                pass
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.image_view)
@@ -102,6 +101,18 @@ class Step1Plot(object):
                 if not (self.parent.rotate_ui is None):
                     o_rotate = self.parent.rotate_ui
                     o_rotate.display_rotated_images()
+
+    def initialize_default_roi(self):
+        if self.data_type == 'sample':
+            self.add_origin_roi(self.parent.ui.image_view, self.parent.ui.image_view_roi)
+        elif self.data_type == 'ob':
+            self.add_origin_roi(self.parent.ui.ob_image_view, self.parent.ui.ob_image_view_roi)
+        elif self.data_type == 'normalized':
+            self.add_origin_roi(self.parent.ui.normalized_image_view, self.parent.ui.normalized_image_view_roi)
+
+    def add_origin_roi(self, image_view, roi_id):
+        image_view.addItem(roi_id)
+        self.parent.list_roi_id[self.data_type] = [roi_id]
 
     def add_origin_label(self, image_ui):
         # origin label

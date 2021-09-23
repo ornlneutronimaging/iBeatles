@@ -30,10 +30,22 @@ class Step1GuiHandler(object):
         roi_function = None
         if self.data_type == DataType.sample:
             roi_function = self.parent.roi_image_view_changed
+            image_view = self.parent.ui.image_view
+            method = self.parent.roi_image_view_changed
         elif self.data_type == DataType.ob:
             roi_function = self.parent.roi_ob_image_view_changed
+            image_view = self.parent.ui.ob_image_view
+            method = self.parent.roi_ob_image_view_changed
         elif self.data_type == DataType.normalized:
             roi_function = self.parent.roi_normalized_image_view_changed
+            image_view = self.parent.ui.normalized_image_view
+            method = self.parent.roi_normalized_image_view_changed
+
+        already_existing_list_roi = self.parent.list_roi_id[self.data_type]
+        already_existing_list_label_roi = self.parent.list_label_roi_id[self.data_type]
+        for _roi_id, _label_id in zip(already_existing_list_roi, already_existing_list_label_roi):
+            image_view.removeItem(_roi_id)
+            image_view.removeItem(_label_id)
 
         list_roi_id = Roi.setup_roi_id(list_roi=list_roi, roi_function=roi_function)
         self.parent.list_roi_id[self.data_type] = list_roi_id
@@ -41,7 +53,9 @@ class Step1GuiHandler(object):
         list_label_roi_id = []
 
         for _roi, _roi_id in zip(list_roi, list_roi_id):
-            label= _roi[0]
+            label = _roi[0]
+            x0 = int(_roi[1])
+            y0 = int(_roi[2])
 
             # label roi
             label_roi = pg.TextItem(
@@ -53,18 +67,10 @@ class Step1GuiHandler(object):
             # # roi region in image
             # roi = pg.ROI([x0, y0], [width, height])
             # roi.addScaleHandle([1, 1], [0, 0])
-            if self.data_type == DataType.sample:
-                self.parent.ui.image_view.addItem(_roi_id)
-                self.parent.ui.image_view.addItem(label_roi)
-                _roi_id.sigRegionChanged.connect(self.parent.roi_image_view_changed)
-            elif self.data_type == DataType.ob:
-                self.parent.ui.ob_image_view.addItem(_roi_id)
-                self.parent.ui.ob_image_view.addItem(label_roi)
-                _roi_id.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)
-            elif self.data_type == DataType.normalized:
-                self.parent.ui.normalized_image_view.addItem(_roi_id)
-                self.parent.ui.normalized_image_view.addItem(label_roi)
-                _roi_id.sigRegionChanged.connect(self.parent.roi_normalized_image_view_changed)
+            image_view.addItem(_roi_id)
+            image_view.addItem(label_roi)
+            label_roi.setPos(x0, y0)
+            _roi_id.sigRegionChanged.connect(method)
 
             list_label_roi_id.append(label_roi)
 

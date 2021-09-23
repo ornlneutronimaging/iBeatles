@@ -110,7 +110,7 @@ class Initialization:
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         roi = Roi.get_default_roi()
-        image_view.addItem(roi)
+        # image_view.addItem(roi)
         roi.sigRegionChanged.connect(roi_function)
 
         roi_editor_button = QPushButton("ROI editor ...")

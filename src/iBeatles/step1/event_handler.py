@@ -28,6 +28,7 @@ class EventHandler(TopEventHandler):
             self.parent.retrieve_general_infos(data_type=self.data_type)
             self.parent.retrieve_selected_row_infos(data_type=self.data_type)
             o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
+            o_plot.initialize_default_roi()
             o_plot.display_bragg_edge(mouse_selection=False)
             o_gui = Step1GuiHandler(parent=self.parent, data_type=self.data_type)
             o_gui.check_time_spectra_widgets()

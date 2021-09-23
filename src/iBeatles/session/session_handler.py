@@ -113,7 +113,6 @@ class SessionHandler:
 
         o_gui.set_text(value=session_dict["instrument"]["detector value"], ui=list_ui['detector'])
 
-
         show_status_message(parent=self.parent,
                             message=f"Loaded {self.config_file_name}",
                             status=StatusMessageStatus.ready,
