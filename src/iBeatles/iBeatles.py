@@ -226,11 +226,7 @@ class MainWindow(QMainWindow):
 
     def init_interface(self):
         o_gui = Initialization(parent=self)
-        o_gui.gui()
-        o_gui.labels()
-        o_gui.material_widgets()
-        o_gui.statusbar()
-        o_gui.pyqtgraph()
+        o_gui.all()
         self.update_delta_lambda()
         o_gui.connect_widgets()
 

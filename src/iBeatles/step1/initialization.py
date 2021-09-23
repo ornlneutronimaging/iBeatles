@@ -10,12 +10,21 @@ from neutronbraggedge.braggedge import BraggEdge
 from .gui_handler import Step1GuiHandler as GuiHandler
 from .. import DataType
 from .roi import Roi
+from .. import refresh_image
 
 
 class Initialization:
 
     def __init__(self, parent=None):
         self.parent = parent
+
+    def all(self):
+        self.gui()
+        self.labels()
+        self.material_widgets()
+        self.statusbar()
+        self.pyqtgraph()
+        self.widgets()
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
@@ -265,6 +274,11 @@ class Initialization:
         self.parent.xaxis_button_ui['normalized']['tof'] = tof_button1
         self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button1
         self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button1
+
+    def widgets(self):
+        icon = QIcon(refresh_image)
+        self.parent.ui.reset_lattice_button.setIcon(icon)
+        self.parent.ui.reset_crystal_structure_button.setIcon(icon)
 
     def connect_widgets(self):
         self.parent.ui.list_of_elements.currentIndexChanged.connect(self.parent.list_of_element_index_changed)
