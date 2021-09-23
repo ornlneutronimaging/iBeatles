@@ -48,6 +48,9 @@ class Initialization:
         # ob tab
         self.parent.ui.toolBox.setItemEnabled(1, False)
 
+        # normalized
+        self.parent.ui.tabWidget.setTabEnabled(1, False)
+
         # add shortcuts to menu button
         self.parent.ui.action1_load_data.setShortcut('Ctrl+1')
         self.parent.ui.action2_Normalization_2.setShortcut('Ctrl+2')

@@ -221,9 +221,10 @@ class Step1GuiHandler(object):
         self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
         self.parent.ui.delta_lambda_value_2.setText("{:.2f}".format(delta_lambda))
 
-    def check_ob_widgets(self):
+    def check_step1_widgets(self):
         if self.parent.data_metadata[self.data_type]['data']:
             self.parent.ui.toolBox.setItemEnabled(1, True)
+            self.parent.ui.tabWidget.setTabEnabled(1, True)
 
     def check_time_spectra_widgets(self):
         time_spectra_data = self.parent.data_metadata['time_spectra']['data']
