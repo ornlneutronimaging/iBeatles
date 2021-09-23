@@ -92,6 +92,8 @@ class SessionHandler:
             o_data_handler.load_files(list_of_files=list_ob_files_fullname)
         list_files_selected = session_dict[DataType.ob]['list files selected']
         self.parent.list_roi[DataType.ob] = session_dict[DataType.ob]['list rois']
+        o_gui = Step1GuiHandler(parent=self.parent, data_type=DataType.ob)
+        o_gui.initialize_rois_and_labels()
         for _row_selected in list_files_selected:
             _item = self.parent.ui.list_open_beam.item(_row_selected)
             _item.setSelected(True)
