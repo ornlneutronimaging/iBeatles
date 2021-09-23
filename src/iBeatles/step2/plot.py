@@ -125,7 +125,7 @@ class Step2Plot(object):
 
         if xaxis_choice == 'file_index':
             x_axis = np.arange(len(_array_sample_vs_file_index))
-            # curve = _plot_ui.plot(_array_sample_vs_file_index)
+            _plot_ui.plot(_array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", "File Index")
 
         elif xaxis_choice == 'tof':
@@ -149,10 +149,9 @@ class Step2Plot(object):
             _range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['file_index']
 
         # labels
-        _plot_ui.setLabel("left", "OB/Sample of ROI")
+        _plot_ui.setLabel("left", "Sample/OB (px in ROI selected)")
 
         # display range of file to keep
-
         linear_region_range = [x_axis[_range_files_to_normalized_step2[0]],
                                x_axis[_range_files_to_normalized_step2[1]]]
 

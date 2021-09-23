@@ -15,6 +15,7 @@ class DataType:
     ob = 'ob'
     df = 'df'
     normalized = 'normalized'
+    normalization = 'normalization'
 
 
 def load_ui(ui_filename, baseinstance):

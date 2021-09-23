@@ -369,6 +369,7 @@ class MainWindow(QMainWindow):
                 o_gui.enable_xaxis_button(tof_flag=False)
             else:
                 o_gui.enable_xaxis_button(tof_flag=True)
+            self.step2_file_index_radio_button_clicked()
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
@@ -740,18 +741,21 @@ class MainWindow(QMainWindow):
         self.ui.tabWidget.setCurrentIndex(2)
 
     def step2_file_index_radio_button_clicked(self):
+        self.data_metadata[DataType.normalization]['xaxis'] = 'file_index'
         o_plot = Step2Plot(parent=self)
         o_normalization = Normalization(parent=self)
         o_normalization.run()
         o_plot.display_roi()
 
     def step2_tof_radio_button_clicked(self):
+        self.data_metadata[DataType.normalization]['xaxis'] = 'tof'
         o_plot = Step2Plot(parent=self)
         o_normalization = Normalization(parent=self)
         o_normalization.run()
         o_plot.display_roi()
 
     def step2_lambda_radio_button_clicked(self):
+        self.data_metadata[DataType.normalization]['xaxis'] = 'lambda'
         o_plot = Step2Plot(parent=self)
         o_normalization = Normalization(parent=self)
         o_normalization.run()
