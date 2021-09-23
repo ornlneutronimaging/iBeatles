@@ -6,6 +6,7 @@ from ..utilities.gui_handler import GuiHandler
 from ..utilities import colors
 from ..step1.plot import Step1Plot
 from .. import load_ui
+from ..step1.roi import DEFAULT_ROI
 
 
 class RoiEditor(object):
@@ -60,7 +61,7 @@ class RoiEditorInterface(QMainWindow):
         self.list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
 
     def get_item(self, text, color):
-        _item = QTableWidgetItem(text)
+        _item = QTableWidgetItem(str(text))
         _item.setForeground(color)
 
         return _item
@@ -111,7 +112,7 @@ class RoiEditorInterface(QMainWindow):
         _widget = QComboBox()
         _widget.addItems(self.list_name_groups)
         _widget.setCurrentIndex(int(group))
-        # QtCore.QObject.connect(_widget, QtCore.SIGNAL("currentIndexChanged(int)"), self.changed_group)
+        _widget.currentIndexChanged.connect(self.changed_group)
         self.ui.tableWidget.setCellWidget(_row, 5, _widget)
 
     def get_row(self, row=0):
@@ -200,8 +201,12 @@ class RoiEditorInterface(QMainWindow):
         list_label_roi_id = self.parent.list_label_roi_id[self.title]
         _nbr_row = len(list_roi)
 
-        init_roi = ['label_name', '0', '0', '20', '20', '0']
+        init_roi = DEFAULT_ROI
         [label, x0, y0, width, height, group] = init_roi
+        x0 = int(x0)
+        y0 = int(y0)
+        width = int(width)
+        height = int(height)
 
         # label roi
         label_roi = pg.TextItem(
@@ -211,7 +216,7 @@ class RoiEditorInterface(QMainWindow):
             fill=(0, 0, 255, 50))
 
         # roi region in image
-        roi = pg.ROI([0, 0], [1, 1])
+        roi = pg.ROI([x0, y0], [width, height])
         roi.addScaleHandle([1, 1], [0, 0])
         if self.title == 'sample':
             self.parent.ui.image_view.addItem(roi)
@@ -225,6 +230,8 @@ class RoiEditorInterface(QMainWindow):
             self.parent.ui.normalized_image_view.addItem(roi)
             self.parent.ui.normalized_image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_normalized_image_view_changed)
+
+        label_roi.setPos(x0, y0)
 
         new_list_roi = []
         new_list_roi_id = []
