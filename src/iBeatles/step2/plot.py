@@ -6,7 +6,9 @@ from neutronbraggedge.experiment_handler.experiment import Experiment
 # from iBeatles.py.utilities.colors import pen_color
 # from iBeatles.py.utilities.roi_handler import RoiHandler
 from ..utilities.gui_handler import GuiHandler
-from .. import RegionType
+from .. import RegionType, DataType
+from .get import Get as Step2Get
+from ..utilities.colors import pen_color
 
 
 class CustomAxis(pg.AxisItem):
@@ -34,7 +36,7 @@ class CustomAxis(pg.AxisItem):
         return strings
 
 
-class Step2Plot(object):
+class Step2Plot:
     sample = []
     ob = []
     normalization = []
@@ -109,84 +111,166 @@ class Step2Plot(object):
         list_roi_id = self.parent.list_roi_id['normalization']
         list_roi = self.parent.list_roi['normalization']
 
-        for _index, roi in enumerate(list_roi_id):
-            print(f"list roi id of index: {_index}")
+        o_get = Step2Get(parent=self.parent)
+        list_sample_roi = []
+        list_background_roi = []
+        for _row_index, roi in enumerate(list_roi_id):
 
+            [flag, x0, y0, width, height, region_type] = o_get.roi_table_row(row=_row_index)
+            if flag is False:
+                continue
 
+            if region_type == RegionType.sample:
+                list_sample_roi.append([x0, y0, width, height])
+            else:
+                list_background_roi.append([x0, y0, width, height])
 
-
-
-
-
-
-
-    def display_counts_vs_file(self, data=[], list_roi=[]):
-        if data == []:
-            _data = self.normalized
-            if _data == []:
-                self.clear_counts_vs_file()
-                return
-
-            if list_roi == []:
-                self.clear_counts_vs_file()
-                return
-
-            _array_sample_vs_file_index = self.calculate_mean_counts(_data, list_roi=list_roi)
-
-        else:
-
-            _array_sample_vs_file_index = data
-
-        _plot_ui = self.parent.step2_ui['bragg_edge_plot']
-        _plot_ui.clear()
+        data_to_plot = self.extract_data_from_roi(list_sample_roi=list_sample_roi,
+                                                  list_background_roi=list_background_roi)
 
         o_gui = GuiHandler(parent=self.parent)
         xaxis_choice = o_gui.get_step2_xaxis_checked()
-
         if xaxis_choice == 'file_index':
-            x_axis = np.arange(len(_array_sample_vs_file_index))
-            _plot_ui.plot(_array_sample_vs_file_index)
+            x_axis = np.arange(len(data_to_plot[RegionType.sample]))
             _plot_ui.setLabel("bottom", "File Index")
 
         elif xaxis_choice == 'tof':
             tof_array = self.parent.data_metadata['time_spectra']['data']
             tof_array = tof_array * 1e6
-            _plot_ui.plot(tof_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u"TOF (\u00B5s)")
             x_axis = tof_array
 
         else:
             lambda_array = self.parent.data_metadata['time_spectra']['lambda']
             lambda_array = lambda_array * 1e10
-            _plot_ui.plot(lambda_array, _array_sample_vs_file_index)
             _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
             x_axis = lambda_array
 
-        if self.parent.range_files_to_normalized_step2['file_index'] == []:
-            _range_files_to_normalized_step2 = [0, x_axis[-1]]
-            self.parent.range_files_to_normalized_step2['file_index'] = _range_files_to_normalized_step2
-        else:
-            _range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['file_index']
+        if data_to_plot[RegionType.sample]:
+            # display the profile for the sample
+            curve = _plot_ui.plot(x_axis,
+                                  data_to_plot[RegionType.sample],
+                                  symbolPen=None, pen=pen_color[0],
+                                  symbol='t',
+                                  symbolSize=5)
 
-        # labels
-        _plot_ui.setLabel("left", "Average counts of ROIs")
+        if data_to_plot[RegionType.background]:
+            # display the profile for the background
+            curve = _plot_ui.plot(x_axis,
+                                  data_to_plot[RegionType.background],
+                                  symbolPen=None, pen=pen_color[1],
+                                  symbol='t',
+                                  symbolSize=5)
 
-        # # display range of file to keep
-        # linear_region_range = [x_axis[_range_files_to_normalized_step2[0]],
-        #                        x_axis[_range_files_to_normalized_step2[1]]]
-        #
-        # lr = pg.LinearRegionItem(values=linear_region_range,
-        #                          orientation='vertical',
-        #                          brush=None,
-        #                          movable=True,
-        #                          bounds=None)
-        #
-        # lr.sigRegionChangeFinished.connect(self.parent.step2_bragg_edge_selection_changed)
-        # lr.setZValue(-10)
-        # self.parent.step2_ui['bragg_edge_plot'].addItem(lr)
-        # self.parent.bragg_edge_selection = lr
+    def extract_data_from_roi(self, list_sample_roi=None, list_background_roi=None):
+        data_to_plot = {RegionType.sample: None,
+                        RegionType.background: None}
 
-        self.parent.current_bragg_edge_x_axis['normalization'] = x_axis
+        data = self.parent.data_metadata[DataType.sample]['data']
+
+        if list_sample_roi:
+
+            sample_y_profile = []
+            for _data in data:
+
+                total_counts = 0
+                total_pixel = 0
+                for _roi in list_sample_roi:
+                    [x0, y0, width, height] = _roi
+
+                    total_counts += _data[x0:x0+width, y0:y0+height]
+                    total_pixel += (width * height)
+
+                sample_y_profile.append(total_counts/total_pixel)
+
+            data_to_plot[RegionType.sample] = sample_y_profile
+
+        if list_background_roi:
+
+            background_y_profile = []
+            for _data in data:
+
+                total_counts = 0
+                total_pixel = 0
+                for _roi in list_background_roi:
+                    [x0, y0, width, height] = _roi
+
+                    total_counts += _data[x0:x0 + width, y0:y0 + height]
+                    total_pixel += (width * height)
+
+                background_y_profile.append(total_counts / total_pixel)
+
+            data_to_plot[RegionType.background] = background_y_profile
+
+        return data_to_plot
+
+    # def display_counts_vs_file(self, data=[], list_roi=[]):
+    #     if data == []:
+    #         _data = self.normalized
+    #         if _data == []:
+    #             self.clear_counts_vs_file()
+    #             return
+    #
+    #         if list_roi == []:
+    #             self.clear_counts_vs_file()
+    #             return
+    #
+    #         _array_sample_vs_file_index = self.calculate_mean_counts(_data, list_roi=list_roi)
+    #
+    #     else:
+    #
+    #         _array_sample_vs_file_index = data
+    #
+    #     _plot_ui = self.parent.step2_ui['bragg_edge_plot']
+    #     _plot_ui.clear()
+    #
+    #     o_gui = GuiHandler(parent=self.parent)
+    #     xaxis_choice = o_gui.get_step2_xaxis_checked()
+    #
+    #     if xaxis_choice == 'file_index':
+    #         x_axis = np.arange(len(_array_sample_vs_file_index))
+    #         _plot_ui.plot(_array_sample_vs_file_index)
+    #         _plot_ui.setLabel("bottom", "File Index")
+    #
+    #     elif xaxis_choice == 'tof':
+    #         tof_array = self.parent.data_metadata['time_spectra']['data']
+    #         tof_array = tof_array * 1e6
+    #         _plot_ui.plot(tof_array, _array_sample_vs_file_index)
+    #         _plot_ui.setLabel("bottom", u"TOF (\u00B5s)")
+    #         x_axis = tof_array
+    #
+    #     else:
+    #         lambda_array = self.parent.data_metadata['time_spectra']['lambda']
+    #         lambda_array = lambda_array * 1e10
+    #         _plot_ui.plot(lambda_array, _array_sample_vs_file_index)
+    #         _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
+    #         x_axis = lambda_array
+    #
+    #     if self.parent.range_files_to_normalized_step2['file_index'] == []:
+    #         _range_files_to_normalized_step2 = [0, x_axis[-1]]
+    #         self.parent.range_files_to_normalized_step2['file_index'] = _range_files_to_normalized_step2
+    #     else:
+    #         _range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['file_index']
+    #
+    #     # labels
+    #     _plot_ui.setLabel("left", "Average counts of ROIs")
+    #
+    #     # # display range of file to keep
+    #     # linear_region_range = [x_axis[_range_files_to_normalized_step2[0]],
+    #     #                        x_axis[_range_files_to_normalized_step2[1]]]
+    #     #
+    #     # lr = pg.LinearRegionItem(values=linear_region_range,
+    #     #                          orientation='vertical',
+    #     #                          brush=None,
+    #     #                          movable=True,
+    #     #                          bounds=None)
+    #     #
+    #     # lr.sigRegionChangeFinished.connect(self.parent.step2_bragg_edge_selection_changed)
+    #     # lr.setZValue(-10)
+    #     # self.parent.step2_ui['bragg_edge_plot'].addItem(lr)
+    #     # self.parent.bragg_edge_selection = lr
+    #
+    #     self.parent.current_bragg_edge_x_axis['normalization'] = x_axis
 
     def calculate_mean_counts(self, data, list_roi=[]):
         if data == []:

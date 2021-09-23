@@ -4,7 +4,7 @@ import pyqtgraph as pg
 from pyqtgraph.dockarea import DockArea, Dock
 
 from ..utilities.colors import pen_color
-from ..step2.plot import Step2Plot
+from .plot import Step2Plot
 from ..step2.normalization import Normalization
 
 
