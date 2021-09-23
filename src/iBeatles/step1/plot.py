@@ -434,8 +434,10 @@ class Step1Plot(object):
         plot_ui.clear()
 
         list_files_selected = self.parent.list_file_selected[self.data_type]
-        linear_region_left = list_files_selected[0]
-        linear_region_right = list_files_selected[-1]
+        linear_region_left_index = int(list_files_selected[0])
+        linear_region_right_index = int(list_files_selected[-1])
+        linear_region_left = linear_region_left_index
+        linear_region_right = linear_region_right_index
 
         x_axis = []
         plot_ui.setLabel("left", "Total Counts")
@@ -489,8 +491,8 @@ class Step1Plot(object):
                                          symbolSize=5,
                                          symbol=_symbol)
                     x_axis = tof_array
-                    linear_region_left = tof_array[linear_region_left]
-                    linear_region_right = tof_array[linear_region_right]
+                    linear_region_left = tof_array[linear_region_left_index]
+                    linear_region_right = tof_array[linear_region_right_index]
 
                 else:  # lambda
 
@@ -503,8 +505,9 @@ class Step1Plot(object):
                                          symbolSize=5,
                                          )
                     x_axis = lambda_array
-                    linear_region_left = lambda_array[linear_region_left]
-                    linear_region_right = lambda_array[linear_region_right]
+
+                    linear_region_left = lambda_array[linear_region_left_index]
+                    linear_region_right = lambda_array[linear_region_right_index]
 
                     if first_index:
                         self.display_selected_element_bragg_edges(plot_ui=plot_ui,
