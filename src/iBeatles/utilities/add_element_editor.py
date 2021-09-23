@@ -31,7 +31,7 @@ class AddElementInterface(QMainWindow):
         self.parent = parent
 
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_addElement', baseinstance=self)
+        self.ui = load_ui('ui_addElement.ui', baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
         self.setWindowTitle("Add Element Editor")
