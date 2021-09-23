@@ -157,7 +157,7 @@ class Step2Plot(object):
                                x_axis[_range_files_to_normalized_step2[1]]]
 
         lr = pg.LinearRegionItem(values=linear_region_range,
-                                 orientation=None,
+                                 orientation='vertical',
                                  brush=None,
                                  movable=True,
                                  bounds=None)

@@ -357,9 +357,10 @@ class MainWindow(QMainWindow):
     def tab_widget_changed(self, tab_selected):
         if tab_selected == 1:  # normalization
 
-            # if step1 threw some errors, nothing else to do
-            if self.steps_error['step1']['status']:
-                return
+            # # if step1 threw some errors, nothing else to do
+            # if self.steps_error['step1']['status']:
+            #     print(self.steps_error['step1'])
+            #     return
 
             o_gui = Step2GuiHandler(parent=self)
             o_gui.update_widgets()
