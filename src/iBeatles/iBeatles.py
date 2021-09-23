@@ -694,16 +694,16 @@ class MainWindow(QMainWindow):
     # TAB 2:
 
     def normalization_manual_roi_changed(self):
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        # QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         self.ui.normalization_tableWidget.blockSignals(True)
         o_roi = Step2RoiHandler(parent=self)
         o_roi.save_roi()
         o_plot = Step2Plot(parent=self)
         o_plot.update_roi_table()
-        o_normalization = Normalization(parent=self)
-        o_normalization.run()
+        # o_normalization = Normalization(parent=self)
+        # o_normalization.run()
         self.ui.normalization_tableWidget.blockSignals(False)
-        QApplication.restoreOverrideCursor()
+        # QApplication.restoreOverrideCursor()
 
     def normalization_row_status_changed(self):
         o_roi = Step2RoiHandler(parent=self)

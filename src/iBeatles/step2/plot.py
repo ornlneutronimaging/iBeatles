@@ -201,8 +201,8 @@ class Step2Plot(object):
         return final_array
 
     def init_roi_table(self):
-        if self.sample == []:
-            return
+        # if self.sample == []:
+        #     return
 
         # clear table
         for _row in np.arange(self.parent.ui.normalization_tableWidget.rowCount()):
@@ -214,8 +214,8 @@ class Step2Plot(object):
             self.set_row(_row, _roi)
 
     def update_roi_table(self):
-        if self.sample == []:
-            return
+        # if self.sample == []:
+        #     return
 
         list_roi = self.parent.list_roi['normalization']
         for _row, _roi in enumerate(list_roi):

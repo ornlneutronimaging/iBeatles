@@ -11,6 +11,8 @@ from .save_load_data_tab import SaveLoadDataTab
 from ..step1.data_handler import DataHandler
 from ..step1.gui_handler import Step1GuiHandler
 from ..utilities.gui_handler import GuiHandler
+from ..step2.plot import Step2Plot
+
 
 class SessionHandler:
 
@@ -81,6 +83,10 @@ class SessionHandler:
             self.parent.check_files_error()
             self.parent.retrieve_general_infos(data_type=DataType.sample)
             self.parent.retrieve_selected_row_infos(data_type=DataType.sample)
+
+            o_step2_plot = Step2Plot(parent=self.parent)
+            o_step2_plot.prepare_data()
+            o_step2_plot.init_roi_table()
 
         # ob
         list_ob_files = session_dict[DataType.ob]['list files']

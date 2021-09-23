@@ -25,10 +25,10 @@ class Step2GuiHandler(object):
         o_step2_plot.prepare_data()
         o_step2_plot.display_image()
         # o_step2_plot.display_counts_vs_file()
-        o_normalization = Normalization(parent=self.parent)
-        o_normalization.run()
-        o_step2_plot.init_roi_table()
-        self.check_run_normalization_button()
+        # o_normalization = Normalization(parent=self.parent)
+        # o_normalization.run()
+        # o_step2_plot.init_roi_table()
+        # self.check_run_normalization_button()
 
     def init_table(self):
         for _index, _width in enumerate(self.col_width):
@@ -59,7 +59,7 @@ class Step2GuiHandler(object):
         roi = pg.ROI([0, 0], [20, 20], pen=pen_color['0'])
         roi.addScaleHandle([1, 1], [0, 0])
         image_view.addItem(roi)
-        roi.sigRegionChangeFinished.connect(self.parent.normalization_manual_roi_changed)
+        roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
 
         # vertical_layout.addWidget(image_view)
         # top_right_widget = QWidget()
