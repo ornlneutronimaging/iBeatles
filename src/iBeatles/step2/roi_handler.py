@@ -137,7 +137,7 @@ class Step2RoiHandler(object):
     def add_roi_in_image(self):
         roi = pg.ROI([0, 0], [20, 20])
         roi.addScaleHandle([1, 1], [0, 0])
-        roi.sigRegionChangeFinished.connect(self.parent.normalization_manual_roi_changed)
+        roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
         self.parent.step2_ui['image_view'].addItem(roi)
         return roi
 

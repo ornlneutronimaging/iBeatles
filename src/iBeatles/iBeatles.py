@@ -370,6 +370,8 @@ class MainWindow(QMainWindow):
             else:
                 o_gui.enable_xaxis_button(tof_flag=True)
             self.step2_file_index_radio_button_clicked()
+            o_plot = Step2Plot(parent=self)
+            o_plot.display_bragg_edge()
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
@@ -708,6 +710,8 @@ class MainWindow(QMainWindow):
         o_roi = Step2RoiHandler(parent=self)
         o_roi.save_table()
         o_roi.enable_selected_roi()
+        o_plot = Step2Plot(parent=self)
+        o_plot.display_bragg_edge()
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()
 

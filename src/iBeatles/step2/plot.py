@@ -104,7 +104,6 @@ class Step2Plot:
             roi_id.setSize([width, height], update=False, finish=False)
 
     def display_bragg_edge(self):
-
         _plot_ui = self.parent.step2_ui['bragg_edge_plot']
         _plot_ui.clear()
 
@@ -128,10 +127,16 @@ class Step2Plot:
         data_to_plot = self.extract_data_from_roi(list_sample_roi=list_sample_roi,
                                                   list_background_roi=list_background_roi)
 
+        if (not data_to_plot[RegionType.sample]) and (not data_to_plot[RegionType.background]):
+            return
+
         o_gui = GuiHandler(parent=self.parent)
         xaxis_choice = o_gui.get_step2_xaxis_checked()
         if xaxis_choice == 'file_index':
-            x_axis = np.arange(len(data_to_plot[RegionType.sample]))
+            if data_to_plot[RegionType.sample]:
+                x_axis = np.arange(len(data_to_plot[RegionType.sample]))
+            else:
+                x_axis = np.arange(len(data_to_plot[RegionType.background]))
             _plot_ui.setLabel("bottom", "File Index")
 
         elif xaxis_choice == 'tof':
@@ -150,7 +155,7 @@ class Step2Plot:
             # display the profile for the sample
             curve = _plot_ui.plot(x_axis,
                                   data_to_plot[RegionType.sample],
-                                  symbolPen=None, pen=pen_color[0],
+                                  symbolPen=None, pen=pen_color['0'],
                                   symbol='t',
                                   symbolSize=5)
 
@@ -158,7 +163,7 @@ class Step2Plot:
             # display the profile for the background
             curve = _plot_ui.plot(x_axis,
                                   data_to_plot[RegionType.background],
-                                  symbolPen=None, pen=pen_color[1],
+                                  symbolPen=None, pen=pen_color['1'],
                                   symbol='t',
                                   symbolSize=5)
 
@@ -171,14 +176,19 @@ class Step2Plot:
         if list_sample_roi:
 
             sample_y_profile = []
-            for _data in data:
+            for _index_data, _data in enumerate(data):
 
                 total_counts = 0
                 total_pixel = 0
                 for _roi in list_sample_roi:
                     [x0, y0, width, height] = _roi
 
-                    total_counts += _data[x0:x0+width, y0:y0+height]
+                    x0 = int(x0)
+                    y0 = int(y0)
+                    width = int(width)
+                    height = int(height)
+
+                    total_counts += np.sum(_data[x0:x0+width, y0:y0+height])
                     total_pixel += (width * height)
 
                 sample_y_profile.append(total_counts/total_pixel)
@@ -195,7 +205,12 @@ class Step2Plot:
                 for _roi in list_background_roi:
                     [x0, y0, width, height] = _roi
 
-                    total_counts += _data[x0:x0 + width, y0:y0 + height]
+                    x0 = int(x0)
+                    y0 = int(y0)
+                    width = int(width)
+                    height = int(height)
+
+                    total_counts += np.sum(_data[x0:x0 + width, y0:y0 + height])
                     total_pixel += (width * height)
 
                 background_y_profile.append(total_counts / total_pixel)
