@@ -8,6 +8,7 @@ from .. import DataType
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 from ..utilities.get import Get
 from .save_load_data_tab import SaveLoadDataTab
+from .save_normalization_tab import SaveNormalizationTab
 from ..step1.data_handler import DataHandler
 from ..step1.gui_handler import Step1GuiHandler
 from ..utilities.gui_handler import GuiHandler
@@ -30,6 +31,8 @@ class SessionHandler:
                                'current folder'       : None,
                                'list files selected'  : None,
                           },
+                    'normalization': {'roi': None,
+                                      },
                     "instrument": {'distance source detector': None,
                                    'beam index': 0,
                                    'detector value': None},
@@ -50,6 +53,12 @@ class SessionHandler:
         o_save_load_data_tab.ob()
         o_save_load_data_tab.instrument()
         self.session_dict = o_save_load_data_tab.session_dict
+
+        o_save_normalization = SaveNormalizationTab(parent=self.parent,
+                                                    session_dict=self.session_dict)
+        o_save_normalization.normalization()
+        self.session_dict = o_save_normalization.session_dict
+
         self.parent.session_dict = self.session_dict
 
     def load_to_ui(self):
