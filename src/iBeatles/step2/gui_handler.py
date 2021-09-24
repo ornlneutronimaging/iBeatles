@@ -7,6 +7,7 @@ from ..utilities.colors import pen_color
 from .plot import Step2Plot
 from ..step2.normalization import Normalization
 from ..step1.roi import DEFAULT_ROI
+from .. import DataType
 from .. import RegionType
 from . import roi_label_color
 
@@ -60,24 +61,66 @@ class Step2GuiHandler(object):
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
 
-        [_, x0, y0, width, height, _] = DEFAULT_ROI
-        x0 = int(x0)
-        y0 = int(y0)
-        width = int(width)
-        height = int(height)
+        if self.parent.list_roi[DataType.normalization]:
 
-        roi = pg.ROI([x0, y0], [width, height], pen=pen_color['0'])
-        roi.addScaleHandle([1, 1], [0, 0])
-        image_view.addItem(roi)
-        roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
+            list_roi = self.parent.list_roi[DataType.normalization]
 
-        label_roi = pg.TextItem(html=f'<div style="text-align: center"><span style="color: '
-                                     f'{roi_label_color[RegionType.background]};">' + RegionType.background + '</span></div>',
-                                anchor=(-0.3, 1.3),
-                                border='w',
-                                fill=(0, 0, 255, 50))
-        label_roi.setPos(x0, y0)
-        image_view.addItem(label_roi)
+            list_roi_id = []
+            list_label_roi_id = []
+
+            for _roi in list_roi:
+
+                [is_visible, x0, y0, width, height, region_type] = _roi
+                x0 = int(x0)
+                y0 = int(y0)
+                width = int(width)
+                height = int(height)
+
+                roi = pg.ROI([x0, y0], [width, height], pen=pen_color['0'])
+                roi.addScaleHandle([1, 1], [0, 0])
+                image_view.addItem(roi)
+                roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
+
+                label_roi = pg.TextItem(html=f'<div style="text-align: center"><span style="color: '
+                                             f'{roi_label_color[region_type]};">' + region_type +
+                                             '</span></div>',
+                                        anchor=(-0.3, 1.3),
+                                        border='w',
+                                        fill=(0, 0, 255, 50))
+                label_roi.setPos(x0, y0)
+                image_view.addItem(label_roi)
+
+                label_roi.isVisible(is_visible)
+                roi.isVisible(is_visible)
+
+                list_roi_id.append(roi)
+                list_label_roi_id.append(label_roi)
+
+            self.parent.list_roi_id['normalization'] = list_roi_id
+            self.parent.list_label_roi_id['normalization'] = list_label_roi_id
+
+        else:
+
+            [_, x0, y0, width, height, _] = DEFAULT_ROI
+            x0 = int(x0)
+            y0 = int(y0)
+            width = int(width)
+            height = int(height)
+
+            roi = pg.ROI([x0, y0], [width, height], pen=pen_color['0'])
+            roi.addScaleHandle([1, 1], [0, 0])
+            image_view.addItem(roi)
+            roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
+
+            label_roi = pg.TextItem(html=f'<div style="text-align: center"><span style="color: '
+                                         f'{roi_label_color[RegionType.background]};">' + RegionType.background + '</span></div>',
+                                    anchor=(-0.3, 1.3),
+                                    border='w',
+                                    fill=(0, 0, 255, 50))
+            label_roi.setPos(x0, y0)
+            image_view.addItem(label_roi)
+            self.parent.list_roi_id['normalization'] = [roi]
+            self.parent.list_label_roi_id['normalization'] = [label_roi]
 
         # vertical_layout.addWidget(image_view)
         # top_right_widget = QWidget()
@@ -138,8 +181,6 @@ class Step2GuiHandler(object):
 
         self.parent.step2_ui['area'] = area
         self.parent.step2_ui['image_view'] = image_view
-        self.parent.list_roi_id['normalization'] = [roi]
-        self.parent.list_label_roi_id['normalization'] = [label_roi]
         self.parent.step2_ui['bragg_edge_plot'] = bragg_edge_plot
         # self.parent.step2_ui['normalized_profile_plot'] = normalized_profile_plot
         # self.parent.step2_ui['caxis'] = caxis

@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
 
     list_roi = {'sample': [],
                 'ob': [],
-                'normalization': [deepcopy(init_array_normalization)],
+                'normalization': [],
                 'normalized': []}
 
     old_list_roi = {'sample': [],
