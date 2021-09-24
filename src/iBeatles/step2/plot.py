@@ -420,7 +420,7 @@ class Step2Plot:
 
         # button
         _widget = QCheckBox()
-        _widget.setChecked(status_row)
+        _widget.setChecked(bool(status_row))
         self.parent.ui.normalization_tableWidget.setCellWidget(row_index, 0, _widget)
         self.parent.ui.normalization_tableWidget.blockSignals(True)
 
@@ -456,7 +456,7 @@ class Step2Plot:
 
         # button
         _widget = self.parent.ui.normalization_tableWidget.cellWidget(row_index, 0)
-        _widget.setChecked(status_row)
+        _widget.setChecked(bool(status_row))
 
         # x0
         _item = self.parent.ui.normalization_tableWidget.item(row_index, 1)

@@ -173,6 +173,7 @@ class Step2GuiHandler(object):
 
         else:
 
+            self.parent.list_roi[DataType.normalization] = [DEFAULT_ROI]
             [_, x0, y0, width, height, _] = DEFAULT_ROI
             x0 = int(x0)
             y0 = int(y0)
