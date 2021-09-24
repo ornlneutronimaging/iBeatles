@@ -30,15 +30,15 @@ class Step2RoiHandler(object):
     def enable_selected_roi(self):
         list_roi = self.parent.list_roi['normalization']
         list_roi_id = self.parent.list_roi_id['normalization']
+        list_label_roi_id = self.parent.list_label_roi_id['normalization']
 
         for index, roi in enumerate(list_roi):
 
             _roi_id = list_roi_id[index]
+            _label_roi_id = list_label_roi_id[index]
             is_roi_visible = roi[0]
-            if is_roi_visible:
-                _roi_id.setVisible(True)
-            else:
-                _roi_id.setVisible(False)
+            _roi_id.setVisible(is_roi_visible)
+            _label_roi_id.setVisible(is_roi_visible)
 
     # def get_row(self, row=-1):
     #     if row == -1:

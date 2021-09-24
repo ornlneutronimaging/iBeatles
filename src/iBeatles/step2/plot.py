@@ -98,6 +98,9 @@ class Step2Plot:
         for index, roi_id in enumerate(list_roi_id):
             [_, x0, y0, width, height, region_type] = roi[index]
 
+            x0 = int(x0)
+            y0 = int(y0)
+
             roi_id.setPos([x0, y0], update=False, finish=False)
             roi_id.setSize([width, height], update=False, finish=False)
 
@@ -354,6 +357,8 @@ class Step2Plot:
 
         for _row, _roi in enumerate(list_roi):
             [status_row, x0, y0, width, height, region_type] = _roi
+            x0 = int(x0)
+            y0 = int(y0)
             _label_roi_id = list_label_roi_id[_row]
             _label_roi_id.setPos(x0, y0)
             _label_roi_id.setHtml('<div style="text-align: center"><span style="color: '
