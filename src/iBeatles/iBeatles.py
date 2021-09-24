@@ -753,21 +753,24 @@ class MainWindow(QMainWindow):
         o_plot = Step2Plot(parent=self)
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()
-        o_plot.display_roi()
+        # o_plot.display_roi()
+        o_plot.display_bragg_edge()
 
     def step2_tof_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'tof'
         o_plot = Step2Plot(parent=self)
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()
-        o_plot.display_roi()
+        # o_plot.display_roi()
+        o_plot.display_bragg_edge()
 
     def step2_lambda_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'lambda'
         o_plot = Step2Plot(parent=self)
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()
-        o_plot.display_roi()
+        # o_plot.display_roi()
+        o_plot.display_bragg_edge()
 
     def normalization_tableWidget_cell_changed(self, row, col):
         o_roi = Step2RoiHandler(parent=self)
