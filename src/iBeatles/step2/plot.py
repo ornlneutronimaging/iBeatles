@@ -10,6 +10,7 @@ from .. import RegionType, DataType
 from .get import Get as Step2Get
 from ..utilities.colors import pen_color
 from . import roi_label_color
+from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 
 
 class CustomAxis(pg.AxisItem):
@@ -144,6 +145,9 @@ class Step2Plot:
         data_to_plot = self.extract_data_from_roi(list_sample_roi=list_sample_roi,
                                                   list_background_roi=list_background_roi)
 
+        if data_to_plot is None:
+            return
+
         if (not data_to_plot[RegionType.sample]) and (not data_to_plot[RegionType.background]):
             return
 
@@ -231,6 +235,9 @@ class Step2Plot:
 
                     total_counts += np.sum(_data[x0:x0 + width, y0:y0 + height])
                     total_pixel += (width * height)
+
+                if total_pixel == 0:
+                    return None
 
                 background_y_profile.append(total_counts / total_pixel)
 
