@@ -1,4 +1,5 @@
 from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
+from qtpy import QtGui
 import numpy as np
 import pyqtgraph as pg
 
@@ -372,6 +373,32 @@ class Step2Plot:
             _label_roi_id.setHtml(f'<div style="text-align: center"><span style="color: '
                                   f'{roi_label_color[region_type]};">' + region_type +
                                   '</span></div>')
+
+    def check_error_in_roi_table(self):
+        list_roi = self.parent.list_roi['normalization']
+
+        for _row, _roi in enumerate(list_roi):
+            [status_row, x0, y0, width, height, region_type] = _roi
+            width = int(width)
+            height = int(height)
+
+            if (width == 0) or (height == 0):
+                are_all_cells_ok = False
+            else:
+                are_all_cells_ok = True
+
+            self._set_roi_row_background(are_all_cells_ok=are_all_cells_ok,
+                                         row=_row)
+
+    def _set_roi_row_background(self, are_all_cells_ok=True, row=0):
+        if are_all_cells_ok:
+            color = QtGui.QColor(255, 255, 255)
+        else:
+            color = QtGui.QColor(255, 0, 0)
+
+        for _col in np.arange(1, 5):
+            _item = self.parent.ui.normalization_tableWidget.item(row, _col)
+            _item.setBackground(color)
 
     def update_roi_table(self):
         # if self.sample == []:

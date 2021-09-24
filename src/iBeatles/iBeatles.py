@@ -703,6 +703,7 @@ class MainWindow(QMainWindow):
         o_plot = Step2Plot(parent=self)
         o_plot.update_roi_table()
         o_plot.update_label_roi()
+        o_plot.check_error_in_roi_table()
         o_plot.display_bragg_edge()
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()
@@ -779,6 +780,7 @@ class MainWindow(QMainWindow):
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()
         o_plot.display_roi()
+        o_plot.check_error_in_roi_table()
 
     def step2_bragg_edge_selection_changed(self):
         lr = self.bragg_edge_selection
