@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
+from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox, QWidget, QLabel, QHBoxLayout
 from qtpy import QtGui
 import numpy as np
 import pyqtgraph as pg
@@ -421,7 +421,6 @@ class Step2Plot:
         # button
         _widget = QCheckBox()
         _widget.setChecked(status_row)
-        # QtCore.QObject.connect(_widget, QtCore.SIGNAL("stateChanged(int)"), self.parent.normalization_row_status_changed)
         self.parent.ui.normalization_tableWidget.setCellWidget(row_index, 0, _widget)
         self.parent.ui.normalization_tableWidget.blockSignals(True)
 
