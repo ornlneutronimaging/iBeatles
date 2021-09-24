@@ -104,6 +104,16 @@ class Step2Plot:
             roi_id.setSize([width, height], update=False, finish=False)
 
     def display_bragg_edge(self):
+
+        def set_curve_point(text=RegionType.sample, parent_curve=None):
+            curve_point = pg.CurvePoint(parent_curve)
+            _plot_ui.addItem(curve_point)
+            _text = pg.TextItem(text, anchor=(0.5, 0))
+            _text.setParentItem(curve_point)
+            arrow = pg.ArrowItem(angle=0)
+            arrow.setParentItem(curve_point)
+            curve_point.setPos(x_axis[-1])
+
         _plot_ui = self.parent.step2_ui['bragg_edge_plot']
         _plot_ui.clear()
 
@@ -158,6 +168,7 @@ class Step2Plot:
                                   symbolPen=None, pen=pen_color['0'],
                                   symbol='t',
                                   symbolSize=5)
+            set_curve_point(text=RegionType.sample, parent_curve=curve)
 
         if data_to_plot[RegionType.background]:
             # display the profile for the background
@@ -166,6 +177,7 @@ class Step2Plot:
                                   symbolPen=None, pen=pen_color['1'],
                                   symbol='t',
                                   symbolSize=5)
+            set_curve_point(text=RegionType.background, parent_curve=curve)
 
     def extract_data_from_roi(self, list_sample_roi=None, list_background_roi=None):
         data_to_plot = {RegionType.sample: None,
