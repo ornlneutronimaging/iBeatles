@@ -5,6 +5,7 @@ import numpy as np
 from ..step2 import gui_handler
 from .. import RegionType
 from .get import Get as Step2Get
+from ..step1.roi import DEFAULT_ROI
 
 
 class Step2RoiHandler(object):
@@ -119,35 +120,54 @@ class Step2RoiHandler(object):
 
         list_roi = self.parent.list_roi['normalization']
         list_roi_id = self.parent.list_roi_id['normalization']
+        list_label_roi_id = self.parent.list_label_roi_id['normalization']
+
         new_list_roi = []
         new_list_roi_id = []
+        new_list_label_roi_id = []
         for _index, _roi in enumerate(list_roi):
             if _index == _row_selected:
                 self.parent.step2_ui['image_view'].removeItem(list_roi_id[_index])
                 continue
             new_list_roi.append(_roi)
             new_list_roi_id.append(list_roi_id[_index])
+            new_list_label_roi_id.append(list_label_roi_id[_index])
 
         self.parent.list_roi['normalization'] = new_list_roi
         self.parent.list_roi_id['normalization'] = new_list_roi_id
+        self.parent.list_label_roi_id['normalization'] = new_list_label_roi_id
 
         o_gui = gui_handler.Step2GuiHandler(parent=self.parent)
         o_gui.check_add_remove_roi_buttons()
 
     def add_roi_in_image(self):
-        roi = pg.ROI([0, 0], [20, 20])
+        x0 = int(DEFAULT_ROI[1])
+        y0 = int(DEFAULT_ROI[2])
+        width = int(DEFAULT_ROI[3])
+        height = int(DEFAULT_ROI[4])
+
+        roi = pg.ROI([x0, y0], [width, height])
         roi.addScaleHandle([1, 1], [0, 0])
         roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
         self.parent.step2_ui['image_view'].addItem(roi)
-        return roi
+
+        label_roi = pg.TextItem(html='<div style="text-align: center"><span style="color: '
+                                     '#ff0000;">' + RegionType.background + '</span></div>',
+                                anchor=(-0.3, 1.3),
+                                border='w',
+                                fill=(0, 0, 255, 50))
+        label_roi.setPos(x0, y0)
+        self.parent.step2_ui['image_view'].addItem(label_roi)
+
+        return roi, label_roi
 
     def add_roi(self):
         nbr_row_table = self.parent.ui.normalization_tableWidget.rowCount()
-        new_roi_id = self.add_roi_in_image()
+        new_roi_id, new_label_roi_id = self.add_roi_in_image()
 
         self.parent.list_roi['normalization'].append(self.parent.init_array_normalization)
         self.parent.list_roi_id['normalization'].append(new_roi_id)
-
+        self.parent.list_label_roi_id['normalization'].append(new_label_roi_id)
         self.insert_row(row=nbr_row_table)
 
         o_gui = gui_handler.Step2GuiHandler(parent=self.parent)

@@ -140,6 +140,7 @@ class MainWindow(QMainWindow):
 
     list_label_roi_id = {'sample': [],
                          'ob': [],
+                         'normalization': [],
                          'normalized': []}
 
     list_bragg_edge_selection_id = {'sample': None,
@@ -701,6 +702,7 @@ class MainWindow(QMainWindow):
         o_roi.save_roi()
         o_plot = Step2Plot(parent=self)
         o_plot.update_roi_table()
+        o_plot.update_label_roi()
         o_plot.display_bragg_edge()
         # o_normalization = Normalization(parent=self)
         # o_normalization.run()

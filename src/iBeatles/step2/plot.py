@@ -89,19 +89,22 @@ class Step2Plot:
 
     def display_roi(self):
         list_roi_id = self.parent.list_roi_id['normalization']
+        list_label_roi_id = self.parent.list_label_roi_id['normalization']
         roi = self.parent.list_roi['normalization']
 
         if list_roi_id == []:
             return
 
         for index, roi_id in enumerate(list_roi_id):
-            [_, x0, y0, width, height, _] = roi[index]
-
-            # x1 = x0 + width
-            # y1 = y0 + height
+            [_, x0, y0, width, height, region_type] = roi[index]
 
             roi_id.setPos([x0, y0], update=False, finish=False)
             roi_id.setSize([width, height], update=False, finish=False)
+
+            _label_roi_id = list_label_roi_id[index]
+            _label_roi_id.setPos(x0, y0)
+            _label_roi_id.setHtml('<div style="text-align: center"><span style="color: '
+                                     '#ff0000;">' + region_type + '</span></div>')
 
     def display_bragg_edge(self):
 
@@ -344,6 +347,17 @@ class Step2Plot:
         for _row, _roi in enumerate(list_roi):
             self.parent.ui.normalization_tableWidget.insertRow(_row)
             self.set_row(_row, _roi)
+
+    def update_label_roi(self):
+        list_roi = self.parent.list_roi['normalization']
+        list_label_roi_id = self.parent.list_label_roi_id['normalization']
+
+        for _row, _roi in enumerate(list_roi):
+            [status_row, x0, y0, width, height, region_type] = _roi
+            _label_roi_id = list_label_roi_id[_row]
+            _label_roi_id.setPos(x0, y0)
+            _label_roi_id.setHtml('<div style="text-align: center"><span style="color: '
+                                     '#ff0000;">' + region_type + '</span></div>')
 
     def update_roi_table(self):
         # if self.sample == []:
