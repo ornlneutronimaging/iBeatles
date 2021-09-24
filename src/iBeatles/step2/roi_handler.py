@@ -128,6 +128,7 @@ class Step2RoiHandler(object):
         for _index, _roi in enumerate(list_roi):
             if _index == _row_selected:
                 self.parent.step2_ui['image_view'].removeItem(list_roi_id[_index])
+                self.parent.step2_ui['image_view'].removeItem(list_label_roi_id[_index])
                 continue
             new_list_roi.append(_roi)
             new_list_roi_id.append(list_roi_id[_index])
