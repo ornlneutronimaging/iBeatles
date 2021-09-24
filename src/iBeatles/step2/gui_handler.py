@@ -8,6 +8,7 @@ from .plot import Step2Plot
 from ..step2.normalization import Normalization
 from ..step1.roi import DEFAULT_ROI
 from .. import RegionType
+from . import roi_label_color
 
 
 class CustomAxis(pg.AxisItem):
@@ -70,8 +71,8 @@ class Step2GuiHandler(object):
         image_view.addItem(roi)
         roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
 
-        label_roi = pg.TextItem(html='<div style="text-align: center"><span style="color: '
-                                     '#ff0000;">' + RegionType.background + '</span></div>',
+        label_roi = pg.TextItem(html=f'<div style="text-align: center"><span style="color: '
+                                     f'{roi_label_color[RegionType.background]};">' + RegionType.background + '</span></div>',
                                 anchor=(-0.3, 1.3),
                                 border='w',
                                 fill=(0, 0, 255, 50))

@@ -9,6 +9,7 @@ from ..utilities.gui_handler import GuiHandler
 from .. import RegionType, DataType
 from .get import Get as Step2Get
 from ..utilities.colors import pen_color
+from . import roi_label_color
 
 
 class CustomAxis(pg.AxisItem):
@@ -361,8 +362,9 @@ class Step2Plot:
             y0 = int(y0)
             _label_roi_id = list_label_roi_id[_row]
             _label_roi_id.setPos(x0, y0)
-            _label_roi_id.setHtml('<div style="text-align: center"><span style="color: '
-                                     '#ff0000;">' + region_type + '</span></div>')
+            _label_roi_id.setHtml(f'<div style="text-align: center"><span style="color: '
+                                  f'{roi_label_color[region_type]};">' + region_type +
+                                  '</span></div>')
 
     def update_roi_table(self):
         # if self.sample == []:
