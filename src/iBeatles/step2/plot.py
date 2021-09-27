@@ -246,74 +246,6 @@ class Step2Plot:
 
         return data_to_plot
 
-    # def display_counts_vs_file(self, data=[], list_roi=[]):
-    #     if data == []:
-    #         _data = self.normalized
-    #         if _data == []:
-    #             self.clear_counts_vs_file()
-    #             return
-    #
-    #         if list_roi == []:
-    #             self.clear_counts_vs_file()
-    #             return
-    #
-    #         _array_sample_vs_file_index = self.calculate_mean_counts(_data, list_roi=list_roi)
-    #
-    #     else:
-    #
-    #         _array_sample_vs_file_index = data
-    #
-    #     _plot_ui = self.parent.step2_ui['bragg_edge_plot']
-    #     _plot_ui.clear()
-    #
-    #     o_gui = GuiHandler(parent=self.parent)
-    #     xaxis_choice = o_gui.get_step2_xaxis_checked()
-    #
-    #     if xaxis_choice == 'file_index':
-    #         x_axis = np.arange(len(_array_sample_vs_file_index))
-    #         _plot_ui.plot(_array_sample_vs_file_index)
-    #         _plot_ui.setLabel("bottom", "File Index")
-    #
-    #     elif xaxis_choice == 'tof':
-    #         tof_array = self.parent.data_metadata['time_spectra']['data']
-    #         tof_array = tof_array * 1e6
-    #         _plot_ui.plot(tof_array, _array_sample_vs_file_index)
-    #         _plot_ui.setLabel("bottom", u"TOF (\u00B5s)")
-    #         x_axis = tof_array
-    #
-    #     else:
-    #         lambda_array = self.parent.data_metadata['time_spectra']['lambda']
-    #         lambda_array = lambda_array * 1e10
-    #         _plot_ui.plot(lambda_array, _array_sample_vs_file_index)
-    #         _plot_ui.setLabel("bottom", u'\u03BB (\u212B)')
-    #         x_axis = lambda_array
-    #
-    #     if self.parent.range_files_to_normalized_step2['file_index'] == []:
-    #         _range_files_to_normalized_step2 = [0, x_axis[-1]]
-    #         self.parent.range_files_to_normalized_step2['file_index'] = _range_files_to_normalized_step2
-    #     else:
-    #         _range_files_to_normalized_step2 = self.parent.range_files_to_normalized_step2['file_index']
-    #
-    #     # labels
-    #     _plot_ui.setLabel("left", "Average counts of ROIs")
-    #
-    #     # # display range of file to keep
-    #     # linear_region_range = [x_axis[_range_files_to_normalized_step2[0]],
-    #     #                        x_axis[_range_files_to_normalized_step2[1]]]
-    #     #
-    #     # lr = pg.LinearRegionItem(values=linear_region_range,
-    #     #                          orientation='vertical',
-    #     #                          brush=None,
-    #     #                          movable=True,
-    #     #                          bounds=None)
-    #     #
-    #     # lr.sigRegionChangeFinished.connect(self.parent.step2_bragg_edge_selection_changed)
-    #     # lr.setZValue(-10)
-    #     # self.parent.step2_ui['bragg_edge_plot'].addItem(lr)
-    #     # self.parent.bragg_edge_selection = lr
-    #
-    #     self.parent.current_bragg_edge_x_axis['normalization'] = x_axis
-
     def calculate_mean_counts(self, data, list_roi=[]):
         if data == []:
             return data
@@ -410,7 +342,6 @@ class Step2Plot:
 
     def get_item(self, text):
         _item = QTableWidgetItem(text)
-        # _item.setBackground(color)
         return _item
 
     def set_row(self, row_index, roi_array):

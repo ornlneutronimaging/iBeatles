@@ -717,11 +717,13 @@ class MainWindow(QMainWindow):
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
         o_plot.update_label_roi()
-        # o_normalization = Normalization(parent=self)
-        # o_normalization.run()
+        o_gui = Step2GuiHandler(parent=self)
+        o_gui.check_run_normalization_button()
 
     def normalization_row_status_region_type_changed(self, value):
         self.normalization_row_status_changed()
+        o_gui = Step2GuiHandler(parent=self)
+        o_gui.check_run_normalization_button()
 
     def normalization_remove_roi_button_clicked(self):
         self.ui.normalization_tableWidget.blockSignals(True)

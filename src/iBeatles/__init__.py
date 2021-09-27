@@ -19,8 +19,8 @@ class DataType:
 
 
 class RegionType:
-    sample = 'background'
-    background = 'sample'
+    sample = 'sample'
+    background = 'background'
 
 
 def load_ui(ui_filename, baseinstance):
