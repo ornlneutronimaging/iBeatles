@@ -6,7 +6,7 @@ from pyqtgraph.dockarea import DockArea, Dock
 from ..utilities.colors import pen_color
 from .plot import Step2Plot
 from ..step2.normalization import Normalization
-from ..step1.roi import DEFAULT_ROI
+from ..step1.roi import DEFAULT_NORMALIZATION_ROI
 from .. import DataType
 from .. import RegionType
 from . import roi_label_color
@@ -154,7 +154,7 @@ class Step2GuiHandler(object):
                 roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
 
                 label_roi = pg.TextItem(html=f'<div style="text-align: center"><span style="color: '
-                                             f'{roi_label_color[region_type]};">' + region_type +
+                                             f'{roi_label_color[str(region_type)]};">' + region_type +
                                              '</span></div>',
                                         anchor=(-0.3, 1.3),
                                         border='w',
@@ -173,8 +173,8 @@ class Step2GuiHandler(object):
 
         else:
 
-            self.parent.list_roi[DataType.normalization] = [DEFAULT_ROI]
-            [_, x0, y0, width, height, _] = DEFAULT_ROI
+            self.parent.list_roi[DataType.normalization] = [DEFAULT_NORMALIZATION_ROI]
+            [_, x0, y0, width, height, region_type] = DEFAULT_NORMALIZATION_ROI
             x0 = int(x0)
             y0 = int(y0)
             width = int(width)
@@ -186,7 +186,7 @@ class Step2GuiHandler(object):
             roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
 
             label_roi = pg.TextItem(html=f'<div style="text-align: center"><span style="color: '
-                                         f'{roi_label_color[RegionType.background]};">' + RegionType.background + '</span></div>',
+                                         f'{roi_label_color[region_type]};">' + region_type + '</span></div>',
                                     anchor=(-0.3, 1.3),
                                     border='w',
                                     fill=(0, 0, 255, 50))
