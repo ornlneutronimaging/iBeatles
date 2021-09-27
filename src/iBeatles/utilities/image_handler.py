@@ -75,7 +75,10 @@ class ImageHandler(object):
         _o_image = Image.open(filename)
 
         # metadata dict
-        metadata = _o_image.tag_v2.as_dict()
+        try:
+            metadata = _o_image.tag_v2.as_dict()
+        except AttributeError:
+            metadata = None
         self.metadata = metadata
 
         # image

@@ -12,7 +12,7 @@ class LoadFiles(object):
     list_of_files = []
     data = []
 
-    def __init__(self, parent=None, image_ext='.tiff', folder=None, list_of_files=None):
+    def __init__(self, parent=None, image_ext='.tif', folder=None, list_of_files=None):
         self.parent = parent
         self.image_ext = image_ext
         self.folder = folder
@@ -39,7 +39,6 @@ class LoadFiles(object):
         self.list_of_files = short_list_of_files
 
     def retrieve_data(self):
-
         self.image_array = []
 
         self.parent.eventProgress.setMinimum(0)

@@ -37,8 +37,10 @@ class EventHandler(TopEventHandler):
             self.parent.check_files_error()
             o_step2_gui = Step2Initialization(parent=self.parent)
             o_step2_gui.roi()
+
         else:
             logging.info(f"Import button clicked ... operation canceled!")
+
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:

@@ -47,12 +47,12 @@ class DataHandler:
                                                        options=QFileDialog.ShowDirsOnly))
         return _folder
 
-    def import_files_from_folder(self, folder=''):
+    def import_files_from_folder(self, folder='', extension=".fits"):
         if folder == '':
             self.user_canceled = True
             return ''
 
-        list_of_files = self.get_list_of_files(folder=folder)
+        list_of_files = self.get_list_of_files(folder=folder, file_ext=extension)
         if not list_of_files:
             return
 

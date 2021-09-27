@@ -28,6 +28,7 @@ from .step2.plot import Step2Plot
 from .step2.normalization import Normalization
 
 from .step3.gui_handler import Step3GuiHandler
+from .step3.event_handler import EventHandler as Step3EventHandler
 
 from .binning.binning_launcher import BinningLauncher
 
@@ -752,8 +753,6 @@ class MainWindow(QMainWindow):
         o_norm.run_and_export()
         self.ui.tabWidget.setCurrentIndex(2)
 
-
-
     def step2_file_index_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'file_index'
         o_plot = Step2Plot(parent=self)
@@ -809,7 +808,7 @@ class MainWindow(QMainWindow):
         o_time_spectra.display()
 
     def normalized_import_button_clicked(self):
-        o_event = Step1EventHandler(parent=self, data_type='normalized')
+        o_event = Step3EventHandler(parent=self, data_type='normalized')
         o_event.import_button_clicked()
 
         # self.loading_flag = True
