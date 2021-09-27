@@ -33,7 +33,7 @@ class RetrieveDataInfos(object):
                                'ob': self.parent.ui.image_view}
 
 
-class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
+class RetrieveGeneralDataInfos(RetrieveDataInfos):
 
     selected_infos = {'acquisition_duration': {'name': "Acquisition Duration",
                                                'value': 0},
@@ -69,19 +69,8 @@ class RetrieveSelectedFileDataInfos(RetrieveDataInfos):
                 data = self.parent.data_metadata[self.data_type]['data']
                 self.data = np.sum(data, axis=0)
 
-                # self.selected_infos = {}
-                # self.data = []
-                #
-                # if self.data_type == 'normalized':
-                #     self.parent.data_metadata['normalized']['data_live_selection'] = []
-
         else:
 
-            list_files_selected = self.get_list_files_selected()
-            full_filename = os.path.join(self.path, list_files_selected[0])
-            image_handler = ImageHandler(parent=self.parent,
-                                         filename=full_filename)
-            self.selected_infos = image_handler.get_metadata(self.selected_infos)
             full_data = self.parent.data_metadata[self.data_type]['data']
             _data = []
             for index in list_row_selected:

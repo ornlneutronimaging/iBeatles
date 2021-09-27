@@ -6,7 +6,7 @@ from ..step1.plot import Step1Plot
 from ..step2.initialization import Initialization as Step2Initialization
 from ..step1.gui_handler import Step1GuiHandler
 
-from ..utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos
+from ..utilities.retrieve_data_infos import RetrieveGeneralDataInfos
 
 from .. import DataType
 

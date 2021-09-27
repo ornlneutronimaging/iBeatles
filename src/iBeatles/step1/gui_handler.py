@@ -3,7 +3,7 @@ import pyqtgraph as pg
 from neutronbraggedge.braggedge import BraggEdge
 
 from ..step1.plot import Step1Plot
-from ..utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveSelectedFileDataInfos
+from ..utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveGeneralDataInfos
 from ..step1.math_utilities import calculate_delta_lambda
 from ..utilities.gui_handler import GuiHandler
 from .. import DataType
@@ -105,14 +105,14 @@ class Step1GuiHandler(object):
             # data_preview_box_label = "Sample Image Preview"
             o_general_infos = RetrieveGeneralFileInfos(parent=self.parent,
                                                        data_type='sample')
-            o_selected_infos = RetrieveSelectedFileDataInfos(parent=self.parent,
-                                                             data_type='sample')
+            o_selected_infos = RetrieveGeneralDataInfos(parent=self.parent,
+                                                        data_type='sample')
         else:
             # data_preview_box_label = "Open Beam Image Preview"
             o_general_infos = RetrieveGeneralFileInfos(parent=self.parent,
                                                        data_type='ob')
-            o_selected_infos = RetrieveSelectedFileDataInfos(parent=self.parent,
-                                                             data_type='ob')
+            o_selected_infos = RetrieveGeneralDataInfos(parent=self.parent,
+                                                        data_type='ob')
             data_type = 'ob'
 
         o_general_infos.update()

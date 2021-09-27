@@ -39,7 +39,7 @@ from .step6.strain_mapping_launcher import StrainMappingLauncher
 
 from .tools.rotate_images import RotateImages
 
-from .utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos, RetrieveGeneralFileInfos
+from .utilities.retrieve_data_infos import RetrieveGeneralDataInfos, RetrieveGeneralFileInfos
 from .utilities.list_data_handler import ListDataHandler
 from .utilities.roi_editor import RoiEditor
 from .utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
@@ -445,7 +445,7 @@ class MainWindow(QMainWindow):
         o_bragg_selection = BraggEdgeSelectionHandler(parent=self, data_type=data_type)
         o_bragg_selection.update_dropdown()
 
-        o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type=data_type)
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=data_type)
         o_retrieve_data_infos.update()
 
         _ui_list.blockSignals(False)
@@ -596,11 +596,11 @@ class MainWindow(QMainWindow):
                                    row=row)
 
     def sample_retrieve_selected_row_infos(self):
-        o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='sample')
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='sample')
         o_retrieve_data_infos.update()
 
     def open_beam_retrieve_selected_row_infos(self):
-        o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='ob')
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='ob')
         o_retrieve_data_infos.update()
 
     def sample_list_right_click(self, position):
@@ -624,7 +624,7 @@ class MainWindow(QMainWindow):
 
     def open_beam_list_selection_changed(self):
         if not self.loading_flag:
-            o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='ob')
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='ob')
             o_retrieve_data_infos.update()
             self.roi_ob_image_view_changed(mouse_selection=False)
         else:
@@ -824,7 +824,7 @@ class MainWindow(QMainWindow):
         # o_gui.check_widgets()
 
     def normalized_retrieve_selected_row_infos(self):
-        o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='normalized')
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='normalized')
         o_retrieve_data_infos.update()
 
     def select_normalized_row(self, row=0):
