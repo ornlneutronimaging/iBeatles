@@ -37,7 +37,7 @@ class LoadLoadDataTab:
             o_gui.check_step1_widgets()
             self.parent.check_files_error()
             self.parent.retrieve_general_infos(data_type=DataType.sample)
-            self.parent.retrieve_selected_row_infos(data_type=DataType.sample)
+            self.parent.retrieve_general_data_infos(data_type=DataType.sample)
 
             o_step2_plot = Step2Plot(parent=self.parent)
             o_step2_plot.prepare_data()
