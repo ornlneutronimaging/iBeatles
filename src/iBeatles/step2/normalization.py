@@ -1,7 +1,6 @@
 from qtpy.QtWidgets import QFileDialog, QApplication, QListWidgetItem
 import os
 import shutil
-# from copy import deepcopy
 import numpy as np
 
 from ..step2.roi_handler import Step2RoiHandler

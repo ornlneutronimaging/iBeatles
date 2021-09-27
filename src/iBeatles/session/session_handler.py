@@ -70,6 +70,7 @@ class SessionHandler:
         # load normalization tab
         o_norm = LoadNormalization(parent=self.parent)
         o_norm.roi()
+        o_norm.check_widgets()
 
         show_status_message(parent=self.parent,
                             message=f"Loaded {self.config_file_name}",

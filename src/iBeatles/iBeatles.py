@@ -21,6 +21,7 @@ from .utilities.get import Get
 from .session.load_previous_session_launcher import LoadPreviousSessionLauncher
 from .session.session_handler import SessionHandler
 
+from .step2.initialization import Initialization as Step2Initialization
 from .step2.gui_handler import Step2GuiHandler
 from .step2.roi_handler import Step2RoiHandler
 from .step2.plot import Step2Plot
@@ -234,9 +235,9 @@ class MainWindow(QMainWindow):
         # init bragg edge element
         o_bragg_edge = BraggEdgeElementHandler(parent=self)
 
-        o_gui_2 = Step2GuiHandler(parent=self)
-        o_gui_2.init_pyqtgraph()
-        o_gui_2.init_table()
+        o_gui_2 = Step2Initialization(parent=self)
+        o_gui_2.pyqtgraph()
+        o_gui_2.table()
 
     def setup(self):
 

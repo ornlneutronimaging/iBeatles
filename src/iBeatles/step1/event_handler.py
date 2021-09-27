@@ -3,7 +3,7 @@ import logging
 from ..all_steps.event_handler import EventHandler as TopEventHandler
 from ..step1.data_handler import DataHandler
 from ..step1.plot import Step1Plot
-from ..step2.gui_handler import Step2GuiHandler
+from ..step2.initialization import Initialization as Step2Initialization
 from ..step1.gui_handler import Step1GuiHandler
 
 from ..utilities.retrieve_data_infos import RetrieveSelectedFileDataInfos
@@ -35,8 +35,8 @@ class EventHandler(TopEventHandler):
             o_gui.check_time_spectra_widgets()
             o_gui.check_step1_widgets()
             self.parent.check_files_error()
-            o_step2_gui = Step2GuiHandler(parent=self.parent)
-            o_step2_gui.initialize_roi()
+            o_step2_gui = Step2Initialization(parent=self.parent)
+            o_step2_gui.roi()
         else:
             logging.info(f"Import button clicked ... operation canceled!")
 
