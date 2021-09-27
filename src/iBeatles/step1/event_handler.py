@@ -27,7 +27,7 @@ class EventHandler(TopEventHandler):
 
             self.parent.select_load_data_row(data_type=self.data_type, row=0)
             self.parent.retrieve_general_infos(data_type=self.data_type)
-            self.parent.retrieve_selected_row_infos(data_type=self.data_type)
+            self.parent.retrieve_general_data_infos(data_type=self.data_type)
             o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
             o_plot.initialize_default_roi()
             o_plot.display_bragg_edge(mouse_selection=False)

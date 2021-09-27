@@ -403,13 +403,13 @@ class MainWindow(QMainWindow):
             o_general_infos = RetrieveGeneralFileInfos(parent=self, data_type=data_type)
             o_general_infos.update()
 
-    def retrieve_selected_row_infos(self, data_type='sample'):
+    def retrieve_general_data_infos(self, data_type='sample'):
         if data_type == 'sample':
-            self.sample_retrieve_selected_row_infos()
+            self.sample_retrieve_general_data_infos()
         elif data_type == 'ob':
-            self.open_beam_retrieve_selected_row_infos()
+            self.open_beam_retrieve_general_data_infos()
         elif data_type == 'normalized':
-            self.normalized_retrieve_selected_row_infos()
+            self.normalized_retrieve_general_data_infos()
 
     def load_data_tab_changed(self, tab_index):
         o_gui = Step1GuiHandler(parent=self)
@@ -595,11 +595,11 @@ class MainWindow(QMainWindow):
         o_gui.select_load_data_row(data_type=data_type,
                                    row=row)
 
-    def sample_retrieve_selected_row_infos(self):
+    def sample_retrieve_general_data_infos(self):
         o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='sample')
         o_retrieve_data_infos.update()
 
-    def open_beam_retrieve_selected_row_infos(self):
+    def open_beam_retrieve_general_data_infos(self):
         o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='ob')
         o_retrieve_data_infos.update()
 
@@ -823,7 +823,7 @@ class MainWindow(QMainWindow):
         # o_gui = Step3GuiHandler(parent=self)
         # o_gui.check_widgets()
 
-    def normalized_retrieve_selected_row_infos(self):
+    def normalized_retrieve_general_data_infos(self):
         o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='normalized')
         o_retrieve_data_infos.update()
 
