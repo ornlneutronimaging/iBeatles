@@ -4,6 +4,8 @@ import pyqtgraph as pg
 from .plot import Step2Plot
 from .get import Get
 
+from . import RegionType
+
 
 class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
@@ -37,6 +39,7 @@ class Step2GuiHandler(object):
         o_get = Get(parent=self.parent)
         _status = o_get.status_of_run_normalization_button()
         self.parent.ui.normalization_button.setEnabled(_status)
+        self.update_instructions()
 
     def enable_xaxis_button(self, tof_flag=True):
         list_ui = [self.parent.step2_ui['xaxis_file_index'],
@@ -50,3 +53,13 @@ class Step2GuiHandler(object):
             list_ui[1].setEnabled(False)
             list_ui[2].setEnabled(False)
             list_ui[0].setChecked(True)
+
+    def update_instructions(self):
+        o_get = Get(parent=self.parent)
+        _status = o_get.status_of_run_normalization_button()
+        if not _status:
+            instructions = '<font color="red">Activate</font> at least one <font color="red">Background ROI</font> ' \
+                           'to enable the Normalization switch!</html>'
+        else:
+            instructions = 'A <font color="red">Background ROI</font> will improve the normalization!</html>'
+        self.parent.ui.normalization_instructions.setHtml(instructions)
