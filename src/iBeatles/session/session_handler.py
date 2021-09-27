@@ -8,6 +8,10 @@ from .save_load_data_tab import SaveLoadDataTab
 from .save_normalization_tab import SaveNormalizationTab
 from .load_load_data_tab import LoadLoadDataTab
 from .load_normalization import LoadNormalization
+from .save_normalized_tab import SaveNormalizedTab
+
+
+from .. import DataType
 
 
 class SessionHandler:
@@ -16,18 +20,24 @@ class SessionHandler:
     load_successful = True
 
     session_dict = {'config version': None,
-                    'sample': {'list files': None,
-                               'current folder': None,
-                               'time spectra filename': None,
-                               'list files selected': None,
-                               'list rois': None,
-                               },
-                    'ob': {'list files'           : None,
-                               'current folder'       : None,
-                               'list files selected'  : None,
-                          },
-                    'normalization': {'roi': None,
+                    DataType.sample: {'list files': None,
+                                      'current folder': None,
+                                      'time spectra filename': None,
+                                      'list files selected': None,
+                                      'list rois': None,
                                       },
+                    DataType.ob: {'list files'           : None,
+                                  'current folder'       : None,
+                                  'list files selected'  : None,
+                                 },
+                    DataType.normalization: {'roi': None,
+                                            },
+                    DataType.normalized: {'list files': None,
+                                          'current folder': None,
+                                          'time spectra filename': None,
+                                          'list files selected': None,
+                                          'list rois': None,
+                                          },
                     "instrument": {'distance source detector': None,
                                    'beam index': 0,
                                    'detector value': None},
@@ -49,10 +59,16 @@ class SessionHandler:
         o_save_load_data_tab.instrument()
         self.session_dict = o_save_load_data_tab.session_dict
 
+        # save normalization
         o_save_normalization = SaveNormalizationTab(parent=self.parent,
                                                     session_dict=self.session_dict)
         o_save_normalization.normalization()
         self.session_dict = o_save_normalization.session_dict
+
+        # save normalized
+        o_save_normalized = SaveNormalizedTab(parent=self.parent,
+                                              session_dict=self.session_dict)
+        self.session_dict = o_save_normalized.session_dict
 
         self.parent.session_dict = self.session_dict
 
