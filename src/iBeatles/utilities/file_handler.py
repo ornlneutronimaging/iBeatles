@@ -1,6 +1,8 @@
 from pathlib import Path
 from astropy.io import fits
 import numpy as np
+import os
+import shutil
 
 
 class FileHandler(object):
@@ -78,6 +80,12 @@ class FileHandler(object):
 
         f.close()
 
+    @staticmethod
+    def make_or_reset_folder(folder_name):
+        if os.path.exists(folder_name):
+            shutil.rmtree(folder_name)
+        os.makedirs(folder_name)
+
 
 def read_ascii(filename=''):
     '''return contain of an ascii file'''
@@ -89,4 +97,3 @@ def read_ascii(filename=''):
 def write_ascii(text="", filename=''):
     with open(filename, 'w') as f:
         f.write(text)
-        

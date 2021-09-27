@@ -2,11 +2,16 @@ from qtpy.QtWidgets import QFileDialog, QApplication, QListWidgetItem
 import os
 import shutil
 import numpy as np
+import logging
+
+from NeuNorm.normalization import Normalization as NeuNormNormalization
+from NeuNorm.roi import ROI
 
 from ..step2.roi_handler import Step2RoiHandler
 from ..step2.plot import Step2Plot
 from ..utilities.file_handler import FileHandler
 from ..step1.time_spectra_handler import TimeSpectraHandler
+from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 
 
 class Normalization(object):
@@ -16,6 +21,8 @@ class Normalization(object):
         self.parent = parent
 
     def run_and_export(self):
+
+        logging.info("Running and exporting normalization:")
 
         # ask for output folder location
         sample_folder = self.parent.data_metadata['sample']['folder']
@@ -27,13 +34,18 @@ class Normalization(object):
                                              options=QFileDialog.ShowDirsOnly))
 
         if not output_folder:
+            logging.info(" No output folder selected, normalization stopped!")
             return
 
-        # calculate the array of coefficients
-        self.run(live_plot=False)
+        logging.info(f" output folder selected: {output_folder}")
+        full_output_folder = os.path.join(output_folder, sample_name + "_normalized")
+        FileHandler.make_or_reset_folder(full_output_folder)
+        logging.info(f" full output folder will be: {full_output_folder}")
 
-        # perform normalization on all images selected
-        self.normalize_full_set(output_folder=output_folder, base_folder_name=sample_name)
+        self.running_normalization(output_folder=full_output_folder)
+
+        # # perform normalization on all images selected
+        # self.normalize_full_set(output_folder=output_folder, base_folder_name=sample_name)
 
     def normalize_full_set(self, output_folder='', base_folder_name=''):
 
@@ -151,50 +163,81 @@ class Normalization(object):
 
         return _data
 
-    def run(self, live_plot=True):
+    def running_normalization(self, output_folder=None):
+        logging.info(" running normalization!")
         _data = self.parent.data_metadata['sample']['data']
         _ob = self.parent.data_metadata['ob']['data']
 
         # no data, nothing to do
-        if _data == []:
+        if not _data:
+            print("I shouldn't be able to see this!")
             return
 
         # check if roi selected or not
         o_roi_handler = Step2RoiHandler(parent=self.parent)
         try:  # to avoid valueError when row not fully filled
-            list_roi_to_use = o_roi_handler.get_list_of_roi_to_use()
+            list_roi_to_use = o_roi_handler.get_list_of_background_roi_to_use()
         except ValueError:
+            logging.info(" Error raised when retrieving the background ROI!")
             return
 
+        logging.info(f" Background list of ROI: {list_roi_to_use}")
+
         # if just sample data
-        if _ob == []:
-            self.normalization_only_sample_data(_data, list_roi_to_use, live_plot)
+        if not _ob:
+            self.normalization_only_sample_data(_data, list_roi_to_use, output_folder)
         else:
-            self.normalization_sample_and_ob_data(_data, _ob, list_roi_to_use, live_plot)
+            self.normalization_sample_and_ob_data(_data, _ob, list_roi_to_use)
 
-    def normalization_only_sample_data(self, data, list_roi, live_plot):
-        if list_roi == []:
-            self.normalization_only_sample_data_without_roi(data, live_plot)
-        else:
-            self.normalization_only_sample_data_with_roi(data, list_roi, live_plot)
+    def normalization_only_sample_data(self, data, list_roi, output_folder):
 
-    def normalization_sample_and_ob_data(self, data, ob, list_roi, live_plot):
-        if list_roi == []:
-            self.normalization_sample_and_ob_data_without_roi(data, ob, live_plot)
-        else:
-            self.normalization_sample_and_ob_data_with_roi(data, ob, list_roi, live_plot)
+        logging.info(" running normalization with only sample data ...")
 
-    def normalization_only_sample_data_without_roi(self, data, live_plot):
-        o_plot = Step2Plot(parent=self.parent)
-        o_plot.clear_counts_vs_file()
+        show_status_message(parent=self.parent,
+                            message="Loading data ...",
+                            status=StatusMessageStatus.working)
+        o_norm = NeuNormNormalization()
+        o_norm.load(data=data)
+        show_status_message(parent=self.parent,
+                            message="Loading data ... Done!",
+                            status=StatusMessageStatus.working,
+                            duration_s=5)
 
-    def normalization_only_sample_data_with_roi(self, data, list_roi, live_plot):
-        o_plot = Step2Plot(parent=self.parent, normalized=data)
-        self.calculate_coeff(sample=data, list_roi=list_roi)
-        # sample_integrated = o_plot.calculate_mean_counts(data)
-        # array_by_coeff = o_plot.multiply_array_by_coeff(data=sample_integrated, coeff=self.coeff_array)
-        if live_plot:
-            o_plot.display_counts_vs_file(data=self.coeff_array)
+        list_roi_object = []
+        for _roi in list_roi:
+            o_roi = ROI(x0=int(_roi[0]),
+                        y0=int(_roi[1]),
+                        width=int(_roi[2]),
+                        height=int(_roi[3]))
+            list_roi_object.append(o_roi)
+
+        show_status_message(parent=self.parent,
+                            message="Running normalization ...",
+                            status=StatusMessageStatus.working)
+        o_norm.normalization(roi=list_roi_object,
+                             use_only_sample=True)
+        show_status_message(parent=self.parent,
+                            message="Running normalization ... Done!",
+                            status=StatusMessageStatus.working,
+                            duration_s=5)
+
+        show_status_message(parent=self.parent,
+                            message="Exporting normalized files ...",
+                            status=StatusMessageStatus.working)
+        o_norm.export(folder=output_folder)
+        show_status_message(parent=self.parent,
+                            message="Exporting normalized files ... Done!",
+                            status=StatusMessageStatus.working,
+                            duration_s=5)
+
+        logging.info(" running normalization with only sample data ... Done!")
+
+    def normalization_sample_and_ob_data(self, data, ob, list_roi):
+        pass
+        # if list_roi == []:
+        #     self.normalization_sample_and_ob_data_without_roi(data, ob, live_plot)
+        # else:
+        #     self.normalization_sample_and_ob_data_with_roi(data, ob, list_roi, live_plot)
 
     def normalization_sample_and_ob_data_without_roi(self, data, ob, live_plot):
         o_plot = Step2Plot(parent=self.parent)

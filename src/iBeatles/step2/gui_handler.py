@@ -4,8 +4,6 @@ import pyqtgraph as pg
 from .plot import Step2Plot
 from .get import Get
 
-from . import RegionType
-
 
 class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):

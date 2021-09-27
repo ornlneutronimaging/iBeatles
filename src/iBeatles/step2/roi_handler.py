@@ -228,3 +228,16 @@ class Step2RoiHandler(object):
                 list_roi.append(_roi)
 
         return list_roi
+
+    def get_list_of_background_roi_to_use(self):
+        list_background_roi = []
+
+        nbr_row = self.parent.ui.normalization_tableWidget.rowCount()
+        o_get = Step2Get(parent=self.parent)
+        for _row in np.arange(nbr_row):
+            _row_value = o_get.roi_table_row(row=_row)
+            if _row_value[0] and (_row_value[-1] == RegionType.background):
+                _roi = _row_value[1:5]
+                list_background_roi.append(_roi)
+
+        return list_background_roi

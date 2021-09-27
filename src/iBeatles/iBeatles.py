@@ -745,7 +745,7 @@ class MainWindow(QMainWindow):
         self.ui.normalization_tableWidget.blockSignals(False)
 
     def scaling_coefficient_validated(self):
-        print("run scaling coefficient validated")
+        pass
 
     def normalization_button_clicked(self):
         o_norm = Normalization(parent=self)
