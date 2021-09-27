@@ -752,6 +752,8 @@ class MainWindow(QMainWindow):
         o_norm.run_and_export()
         self.ui.tabWidget.setCurrentIndex(2)
 
+
+
     def step2_file_index_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'file_index'
         o_plot = Step2Plot(parent=self)

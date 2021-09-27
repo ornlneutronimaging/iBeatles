@@ -13,8 +13,11 @@ from ..utilities.file_handler import FileHandler
 from ..step1.time_spectra_handler import TimeSpectraHandler
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 
+from .. import DataType
+
 
 class Normalization(object):
+
     coeff_array = 1  # ob / sample of ROI selected
 
     def __init__(self, parent=None):
@@ -183,14 +186,14 @@ class Normalization(object):
 
         logging.info(f" Background list of ROI: {list_roi_to_use}")
 
-        # if just sample data
         if not _ob:
+            # if just sample data
             self.normalization_only_sample_data(_data, list_roi_to_use, output_folder)
         else:
-            self.normalization_sample_and_ob_data(_data, _ob, list_roi_to_use)
+            # if ob
+            self.normalization_sample_and_ob_data(_data, _ob, list_roi_to_use, output_folder)
 
     def normalization_only_sample_data(self, data, list_roi, output_folder):
-
         logging.info(" running normalization with only sample data ...")
 
         show_status_message(parent=self.parent,
@@ -232,12 +235,60 @@ class Normalization(object):
 
         logging.info(" running normalization with only sample data ... Done!")
 
-    def normalization_sample_and_ob_data(self, data, ob, list_roi):
-        pass
-        # if list_roi == []:
-        #     self.normalization_sample_and_ob_data_without_roi(data, ob, live_plot)
-        # else:
-        #     self.normalization_sample_and_ob_data_with_roi(data, ob, list_roi, live_plot)
+    def normalization_sample_and_ob_data(self, data, ob, list_roi, output_folder):
+        logging.info(" running normalization with sample and ob data ...")
+
+        # sample
+        show_status_message(parent=self.parent,
+                            message="Loading sample data ...",
+                            status=StatusMessageStatus.working)
+        o_norm = NeuNormNormalization()
+        o_norm.load(data=data)
+        show_status_message(parent=self.parent,
+                            message="Loading sample data ... Done!",
+                            status=StatusMessageStatus.working)
+
+        # ob
+        show_status_message(parent=self.parent,
+                            message="Loading ob data ...",
+                            status=StatusMessageStatus.working)
+        o_norm.load(data=ob, data_type=DataType.ob)
+        show_status_message(parent=self.parent,
+                            message="Loading ob data ... Done!",
+                            status=StatusMessageStatus.working,
+                            duration_s=5)
+
+        list_roi_object = []
+        for _roi in list_roi:
+            o_roi = ROI(x0=int(_roi[0]),
+                        y0=int(_roi[1]),
+                        width=int(_roi[2]),
+                        height=int(_roi[3]))
+            list_roi_object.append(o_roi)
+
+        show_status_message(parent=self.parent,
+                            message="Running normalization ...",
+                            status=StatusMessageStatus.working)
+        if list_roi_object:
+            o_norm.normalization(roi=list_roi_object)
+        else:
+            o_norm.normalization()
+
+        show_status_message(parent=self.parent,
+                            message="Running normalization ... Done!",
+                            status=StatusMessageStatus.working,
+                            duration_s=5)
+
+        show_status_message(parent=self.parent,
+                            message="Exporting normalized files ...",
+                            status=StatusMessageStatus.working)
+        o_norm.export(folder=output_folder)
+        show_status_message(parent=self.parent,
+                            message="Exporting normalized files ... Done!",
+                            status=StatusMessageStatus.working,
+                            duration_s=5)
+
+        logging.info(" running normalization with sample and ob data ... Done!")
 
     def normalization_sample_and_ob_data_without_roi(self, data, ob, live_plot):
         o_plot = Step2Plot(parent=self.parent)
