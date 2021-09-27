@@ -399,7 +399,7 @@ class MainWindow(QMainWindow):
         o_plot.display_bragg_edge(mouse_selection=mouse_selection)
 
     def retrieve_general_infos(self, data_type='sample'):
-        if data_type == 'sample':
+        if data_type in (DataType.sample, DataType.normalized):
             o_general_infos = RetrieveGeneralFileInfos(parent=self, data_type=data_type)
             o_general_infos.update()
 
@@ -832,19 +832,16 @@ class MainWindow(QMainWindow):
         o_gui.select_normalized_row(row=row)
 
     def normalized_list_selection_changed(self):
-
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
         if not self.loading_flag:
-            o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='normalized')
-            o_retrieve_data_infos.update()
+            # o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='normalized')
+            # o_retrieve_data_infos.update()
             self.roi_normalized_image_view_changed(mouse_selection=False)
             if self.fitting_ui:
                 o_selection = SelectedBinsHandler(parent=self)
                 o_selection.update_bragg_edge_plot()
         else:
             self.loading_flag = False
-
         QApplication.restoreOverrideCursor()
 
     def roi_normalized_image_view_changed(self, mouse_selection=True):
