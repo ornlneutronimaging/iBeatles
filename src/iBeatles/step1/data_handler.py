@@ -279,8 +279,6 @@ class FileDialog(QFileDialog):
         self.close()
 
     def filesSelected(self):
-        print("in FileDialog, filesSelected")
-        print("self.selected_files: {}".format(self.selected_files))
         return self.selected_files
 
 

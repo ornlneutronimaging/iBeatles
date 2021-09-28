@@ -3,6 +3,7 @@ import logging
 from ..all_steps.event_handler import EventHandler as TopEventHandler
 from ..step1.data_handler import DataHandler
 from ..step1.plot import Step1Plot
+from .gui_handler import Step3GuiHandler
 
 from ..utilities.retrieve_data_infos import RetrieveGeneralDataInfos
 
@@ -30,6 +31,8 @@ class EventHandler(TopEventHandler):
             o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
             o_plot.initialize_default_roi()
             o_plot.display_bragg_edge(mouse_selection=False)
+            o_gui = Step3GuiHandler(parent=self.parent)
+            o_gui.check_widgets()
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:

@@ -1,8 +1,8 @@
-# from iBeatles.py.step1.plot import Step1Plot
 from ..utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveGeneralDataInfos
+from .. import DataType
 
 
-class Step3GuiHandler(object):
+class Step3GuiHandler:
 
     def __init__(self, parent=None):
         self.parent = parent
@@ -44,9 +44,9 @@ class Step3GuiHandler(object):
         self.parent.ui.display_warning_2.setVisible(_display_error_label)
 
     def check_widgets(self):
-        # if self.parent.data_files['normalized'] == []:
-        #     status = False
-        # else:
-        #     status = True
+        if self.parent.list_files[DataType.normalized] == []:
+            status = False
+        else:
+            status = True
 
-        self.parent.ui.actionRotate_Images.setEnabled(True)
+        self.parent.ui.actionRotate_Images.setEnabled(status)
