@@ -6,9 +6,10 @@ from ..utilities.status_message_config import StatusMessageStatus, show_status_m
 from ..utilities.get import Get
 from .save_load_data_tab import SaveLoadDataTab
 from .save_normalization_tab import SaveNormalizationTab
+from .save_normalized_tab import SaveNormalizedTab
 from .load_load_data_tab import LoadLoadDataTab
 from .load_normalization import LoadNormalization
-from .save_normalized_tab import SaveNormalizedTab
+from .load_normalized import LoadNormalized
 
 
 from .. import DataType
@@ -68,6 +69,7 @@ class SessionHandler:
         # save normalized
         o_save_normalized = SaveNormalizedTab(parent=self.parent,
                                               session_dict=self.session_dict)
+        o_save_normalized.normalized()
         self.session_dict = o_save_normalized.session_dict
 
         self.parent.session_dict = self.session_dict
@@ -87,6 +89,10 @@ class SessionHandler:
         o_norm = LoadNormalization(parent=self.parent)
         o_norm.roi()
         o_norm.check_widgets()
+
+        # load normalized tab
+        o_normalized = LoadNormalized(parent=self.parent)
+        o_normalized.all()
 
         show_status_message(parent=self.parent,
                             message=f"Loaded {self.config_file_name}",
