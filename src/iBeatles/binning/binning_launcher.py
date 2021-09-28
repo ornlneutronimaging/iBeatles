@@ -2,11 +2,9 @@ from qtpy.QtWidgets import (QMainWindow, QWidget, QSpacerItem, QLabel, QHBoxLayo
                             QSizePolicy)
 from qtpy import QtCore
 
-# from pyqtgraph.dockarea import *
 import pyqtgraph as pg
 import numpy as np
 
-# from iBeatles.py.interfaces.ui_binningWindow import Ui_MainWindow as UiMainWindow
 from ..utilities import colors
 
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
@@ -53,8 +51,6 @@ class BinningWindow(QMainWindow):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_binningWindow.ui', baseinstance=self)
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
         self.setWindowTitle("4. Binning")
 
         self.load_data()
@@ -273,6 +269,7 @@ class BinningWindow(QMainWindow):
         # o_fitting_ui.display_roi()
         # o_fitting_ui.fill_table()
 
+        self.record_roi()
         QApplication.restoreOverrideCursor()
 
     def update_binning_bins(self):
@@ -295,6 +292,7 @@ class BinningWindow(QMainWindow):
                           pxMode=False)
 
         self.parent.binning_line_view['ui'] = line_view
+        self.record_roi()
 
     def calculate_matrix_of_pixel_bins(self, bin_size=2,
                                        x0=0,
@@ -346,17 +344,11 @@ class BinningWindow(QMainWindow):
         self.parent.binning_ui = None
 
         if len(self.data) > 0:
-
-            x0 = np.int(str(self.ui.selection_x0.text()))
-            y0 = np.int(str(self.ui.selection_y0.text()))
-            width = np.int(str(self.ui.selection_width.text()))
-            height = np.int(str(self.ui.selection_height.text()))
-            bin_size = np.int(str(self.ui.pixel_bin_size.text()))
-            self.parent.binning_roi = [x0, y0, width, height, bin_size]
+            self.record_roi()
 
         else:
 
-            # reset everyting if we quit with no data plotted
+            # reset everything if we quit with no data plotted
             binning_line_view = {'ui': None,
                                  'pos': None,
                                  'adj': None,
@@ -364,3 +356,11 @@ class BinningWindow(QMainWindow):
                                  'image_view': None,
                                  'roi': None}
             self.parent.binning_line_view = binning_line_view
+
+    def record_roi(self):
+        x0 = np.int(str(self.ui.selection_x0.text()))
+        y0 = np.int(str(self.ui.selection_y0.text()))
+        width = np.int(str(self.ui.selection_width.text()))
+        height = np.int(str(self.ui.selection_height.text()))
+        bin_size = np.int(str(self.ui.pixel_bin_size.text()))
+        self.parent.binning_roi = [x0, y0, width, height, bin_size]

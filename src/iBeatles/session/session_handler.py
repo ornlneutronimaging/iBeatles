@@ -7,9 +7,11 @@ from ..utilities.get import Get
 from .save_load_data_tab import SaveLoadDataTab
 from .save_normalization_tab import SaveNormalizationTab
 from .save_normalized_tab import SaveNormalizedTab
+from .save_bin_tab import SaveBinTab
 from .load_load_data_tab import LoadLoadDataTab
 from .load_normalization import LoadNormalization
 from .load_normalized import LoadNormalized
+from .load_bin import LoadBin
 
 
 from .. import DataType
@@ -42,6 +44,7 @@ class SessionHandler:
                     "instrument": {'distance source detector': None,
                                    'beam index': 0,
                                    'detector value': None},
+                    "bin": {'roi': None},
                     }
 
     def __init__(self, parent=None):
@@ -72,6 +75,12 @@ class SessionHandler:
         o_save_normalized.normalized()
         self.session_dict = o_save_normalized.session_dict
 
+        # save bin
+        o_save_bin = SaveBinTab(parent=self.parent,
+                                session_dict=self.session_dict)
+        o_save_bin.bin()
+        self.session_dict = o_save_normalized.session_dict
+
         self.parent.session_dict = self.session_dict
 
     def load_to_ui(self, tabs_to_load=None):
@@ -99,6 +108,12 @@ class SessionHandler:
             # load normalized tab
             o_normalized = LoadNormalized(parent=self.parent)
             o_normalized.all()
+
+        if DataType.bin in tabs_to_load:
+
+            # load bin tab
+            o_bin = LoadBin(parent=self.parent)
+            o_bin.all()
 
         show_status_message(parent=self.parent,
                             message=f"Loaded {self.config_file_name}",
@@ -189,4 +204,6 @@ class SessionHandler:
             list_tabs_to_load.append(DataType.sample)
         if session_dict[DataType.normalized]['list files']:
             list_tabs_to_load.append(DataType.normalized)
+            list_tabs_to_load.append(DataType.bin)
+
         return list_tabs_to_load

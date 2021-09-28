@@ -1,12 +1,10 @@
 from qtpy.QtWidgets import QMainWindow, QTableWidgetItem, QComboBox, QTableWidgetSelectionRange, QApplication
 import pyqtgraph as pg
-from qtpy import QtCore
 
 from ..utilities.gui_handler import GuiHandler
 from ..utilities import colors
 from ..step1.plot import Step1Plot
-from .. import load_ui
-from ..step1.roi import DEFAULT_ROI
+from .. import load_ui, DEFAULT_ROI
 
 
 class RoiEditor(object):

@@ -2,10 +2,10 @@ import pyqtgraph as pg
 
 from .. import DataType
 from ..utilities.colors import pen_color
-from .. import RegionType
+from .. import RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
 
-DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
-DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', RegionType.background]
+# DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
+# DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', RegionType.background]
 
 
 class Roi:

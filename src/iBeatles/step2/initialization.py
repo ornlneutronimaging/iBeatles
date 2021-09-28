@@ -4,8 +4,7 @@ from pyqtgraph.dockarea import DockArea, Dock
 
 from ..utilities.colors import pen_color
 
-from ..step1.roi import DEFAULT_NORMALIZATION_ROI
-from .. import DataType
+from .. import DataType, DEFAULT_NORMALIZATION_ROI
 from . import roi_label_color
 
 

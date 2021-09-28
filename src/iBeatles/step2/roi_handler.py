@@ -3,9 +3,8 @@ import pyqtgraph as pg
 import numpy as np
 
 from ..step2 import gui_handler
-from .. import RegionType
+from .. import RegionType, DEFAULT_ROI
 from .get import Get as Step2Get
-from ..step1.roi import DEFAULT_ROI
 
 
 class Step2RoiHandler(object):

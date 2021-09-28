@@ -9,6 +9,10 @@ del get_versions
 root = os.path.dirname(os.path.realpath(__file__))
 refresh_image = os.path.join(root, "icons/refresh.png")
 
+DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
+DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', 'background']
+DEFAULT_BIN = [0, 0, 20, 20, 10]
+
 
 class DataType:
     sample = 'sample'
@@ -16,6 +20,7 @@ class DataType:
     df = 'df'
     normalized = 'normalized'
     normalization = 'normalization'
+    bin = "bin"
 
 
 class RegionType:

@@ -23,7 +23,7 @@ class BinningHandler(object):
         if self.parent.binning_line_view['ui']:
             binning_line_view = self.parent.binning_line_view
             line_view_binning = binning_line_view['ui']
-            #            self.parent.binning_ui.line_view = line_view_binning
+            # self.parent.binning_ui.line_view = line_view_binning
 
             pos = binning_line_view['pos']
             adj = binning_line_view['adj']

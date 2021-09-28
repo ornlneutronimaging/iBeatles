@@ -15,7 +15,6 @@ from .step1.time_spectra_handler import TimeSpectraHandler
 from .step1.plot import Step1Plot
 from .step1.check_error import CheckError
 from .step1.initialization import Initialization
-from .step1.roi import DEFAULT_ROI
 
 from .utilities.get import Get
 from .session.load_previous_session_launcher import LoadPreviousSessionLauncher
@@ -49,7 +48,7 @@ from .utilities.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
-from . import DataType, RegionType
+from . import DataType, RegionType, DEFAULT_ROI
 
 
 class MainWindow(QMainWindow):

@@ -23,6 +23,9 @@
    </item>
    <item>
     <widget class="QCheckBox" name="sample_and_ob_checkBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
       <string>Sample and OB</string>
      </property>
@@ -30,8 +33,21 @@
    </item>
    <item>
     <widget class="QCheckBox" name="normalized_checkBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
       <string>Normalized</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="bin_checkBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Bin</string>
      </property>
     </widget>
    </item>
@@ -43,7 +59,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>32</height>
+       <height>11</height>
       </size>
      </property>
     </spacer>
