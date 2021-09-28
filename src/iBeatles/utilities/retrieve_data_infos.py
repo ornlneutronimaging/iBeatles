@@ -133,11 +133,12 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
             self.general_infos['number_of_files']['value'] = _nbr_files
 
             _first_file = data_files[0]
+            first_file_full_name = os.path.join(folder, _first_file)
 
-            _timestamp_first_file = self.get_formated_time(folder + _first_file)
+            _timestamp_first_file = self.get_formated_time(first_file_full_name)
             self.general_infos['time_stamp_files']['value'] = _timestamp_first_file
 
-            _size_of_one_file_kb = float(os.path.getsize(folder + _first_file))
+            _size_of_one_file_kb = float(os.path.getsize(first_file_full_name))
             _file_size_mb = "{:.2f}".format(_size_of_one_file_kb / 1000000.0)
             self.general_infos['size_mb']['value'] = _file_size_mb
 

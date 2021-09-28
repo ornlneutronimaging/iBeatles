@@ -23,6 +23,7 @@ class EventHandler(TopEventHandler):
 
         if self.parent.data_metadata[self.data_type]['data']:
 
+            self.parent.data_metadata[self.data_type]['folder'] = _folder
             self.parent.select_load_data_row(data_type=self.data_type, row=0)
             self.parent.retrieve_general_infos(data_type=self.data_type)
             self.parent.retrieve_general_data_infos(data_type=self.data_type)

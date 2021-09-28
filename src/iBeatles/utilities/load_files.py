@@ -16,6 +16,10 @@ class LoadFiles(object):
         self.parent = parent
         self.image_ext = image_ext
         self.folder = folder
+
+        print("in loadFiles")
+        print(f"folder: {self.folder}")
+
         self.retrieve_list_of_files(list_of_files=list_of_files)
         self.retrieve_data()
 
