@@ -3,8 +3,6 @@ import logging
 from ..all_steps.event_handler import EventHandler as TopEventHandler
 from ..step1.data_handler import DataHandler
 from ..step1.plot import Step1Plot
-from ..step2.initialization import Initialization as Step2Initialization
-from ..step1.gui_handler import Step1GuiHandler
 
 from ..utilities.retrieve_data_infos import RetrieveGeneralDataInfos
 

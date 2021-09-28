@@ -224,7 +224,6 @@ class MainWindow(QMainWindow):
         logging.info("*** Starting a new session ***")
         logging.info(f" Version: {versioneer.get_version()}")
 
-
         self.automatic_load_of_previous_session()
 
     def init_interface(self):

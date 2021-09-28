@@ -4,6 +4,7 @@ import os
 from .. import load_ui
 from .session_handler import SessionHandler
 from ..utilities.get import Get
+from .load_previous_session_launcher_multiple_choice import LoadPreviousSessionLauncherMultipleChoice
 
 
 class LoadPreviousSessionLauncher(QDialog):
@@ -24,8 +25,14 @@ class LoadPreviousSessionLauncher(QDialog):
         o_get = Get(parent=self.parent)
         full_config_file_name = o_get.get_automatic_config_file_name()
         o_session.load_from_file(config_file_name=full_config_file_name)
-        o_session.load_to_ui()
-        self.parent.loading_from_config = False
+        list_tabs_to_load = o_session.get_tabs_to_load()
+        if len(list_tabs_to_load) < 2:
+            o_session.load_to_ui(tabs_to_load=list_tabs_to_load)
+            self.parent.loading_from_config = False
+        else:
+            load_session_ui = LoadPreviousSessionLauncherMultipleChoice(parent=self.parent,
+                                                                        list_tabs_to_load=list_tabs_to_load)
+            load_session_ui.show()
 
     def no_clicked(self):
         self.close()

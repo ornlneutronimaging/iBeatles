@@ -74,25 +74,31 @@ class SessionHandler:
 
         self.parent.session_dict = self.session_dict
 
-    def load_to_ui(self):
+    def load_to_ui(self, tabs_to_load=None):
 
         if not self.load_successful:
             return
 
-        # load data tab
-        o_load = LoadLoadDataTab(parent=self.parent)
-        o_load.sample()
-        o_load.ob()
-        o_load.instrument()
+        logging.info(f"Automatic session tabs to load: {tabs_to_load}")
 
-        # load normalization tab
-        o_norm = LoadNormalization(parent=self.parent)
-        o_norm.roi()
-        o_norm.check_widgets()
+        if DataType.sample in tabs_to_load:
 
-        # load normalized tab
-        o_normalized = LoadNormalized(parent=self.parent)
-        o_normalized.all()
+            # load data tab
+            o_load = LoadLoadDataTab(parent=self.parent)
+            o_load.sample()
+            o_load.ob()
+            o_load.instrument()
+
+            # load normalization tab
+            o_norm = LoadNormalization(parent=self.parent)
+            o_norm.roi()
+            o_norm.check_widgets()
+
+        if DataType.normalized in tabs_to_load:
+
+            # load normalized tab
+            o_normalized = LoadNormalized(parent=self.parent)
+            o_normalized.all()
 
         show_status_message(parent=self.parent,
                             message=f"Loaded {self.config_file_name}",
@@ -175,3 +181,12 @@ class SessionHandler:
                                 message=f"{config_file_name} not loaded! (check log for more information)",
                                 status=StatusMessageStatus.ready,
                                 duration_s=10)
+
+    def get_tabs_to_load(self):
+        session_dict = self.parent.session_dict
+        list_tabs_to_load = []
+        if session_dict[DataType.sample]['list files']:
+            list_tabs_to_load.append(DataType.sample)
+        if session_dict[DataType.normalized]['list files']:
+            list_tabs_to_load.append(DataType.normalized)
+        return list_tabs_to_load
