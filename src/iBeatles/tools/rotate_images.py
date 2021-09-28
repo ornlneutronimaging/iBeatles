@@ -1,11 +1,11 @@
 from qtpy.QtWidgets import QMainWindow, QProgressBar, QVBoxLayout, QFileDialog, QApplication
-# from pyqtgraph.dockarea import *
 from qtpy import QtCore
 import pyqtgraph as pg
 import numpy as np
 import scipy
 import shutil
 import os
+import logging
 
 from ..utilities.file_handler import FileHandler
 from .. import load_ui, DataType
@@ -44,7 +44,7 @@ class RotateImagesWindow(QMainWindow):
         self.eventProgress = QProgressBar(self.ui.statusbar)
         self.eventProgress.setMinimumSize(20, 14)
         self.eventProgress.setMaximumSize(540, 100)
-        self.eventProgress.setVisible(True)
+        self.eventProgress.setVisible(False)
         self.ui.statusbar.addPermanentWidget(self.eventProgress)
 
     def init_pyqtgraph(self):
@@ -124,15 +124,24 @@ class RotateImagesWindow(QMainWindow):
 
     def save_and_use_clicked(self):
 
+        logging.info("Rotating normalized images")
+
         # select folder
         folder = self.parent.data_metadata[DataType.normalized]['folder']
         output_folder = str(QFileDialog.getExistingDirectory(caption='Select Folder for Rotated Images ...',
                                                              directory=folder))
 
         if not output_folder:
+            logging.info(" User cancel rotating the images")
             return
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+
+        # create folder inside this selected folder
+        rotation_value = self.ui.angle_horizontalSlider.value()
+        output_folder = os.path.join(output_folder, f"rotated_by_{rotation_value}degrees")
+        FileHandler.make_or_reset_folder(output_folder)
+
         self.rotate_and_save_all_images(target_folder=output_folder)
         self.reload_rotated_images()
         self.copy_time_spectra(target_folder=output_folder)
@@ -141,7 +150,7 @@ class RotateImagesWindow(QMainWindow):
         self.close()
 
     def copy_time_spectra(self, target_folder=None):
-        time_spectra = self.parent.data_metadata['time_spectra']['full_file_name']
+        time_spectra = self.parent.data_metadata[DataType.normalized]['time_spectra']['filename']
         target_filename = os.path.join(target_folder, os.path.basename(time_spectra))
         if os.path.exists(target_filename):
             os.remove(target_filename)
@@ -160,6 +169,7 @@ class RotateImagesWindow(QMainWindow):
 
     def rotate_and_save_all_images(self, target_folder=''):
         rotation_value = self.ui.angle_horizontalSlider.value()
+        logging.info(f" rotation value: {rotation_value}")
 
         normalized_array = self.parent.data_metadata['normalized']['data']
         self.eventProgress.setValue(0)
@@ -167,7 +177,8 @@ class RotateImagesWindow(QMainWindow):
         self.eventProgress.setVisible(True)
 
         rotated_normalized_array = []
-        normalized_filename = self.parent.data_files['normalized']
+        normalized_filename = self.parent.list_files[DataType.normalized]
+
         basefolder = os.path.basename(os.path.abspath(target_folder))
         self.parent.ui.normalized_folder.setText(basefolder)
 
