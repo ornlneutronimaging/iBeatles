@@ -48,11 +48,19 @@ class DataHandler:
         return _folder
 
     def import_files_from_folder(self, folder='', extension=".fits"):
+        logging.info(f"importing files from folder with extension: {extension}")
         if folder == '':
             self.user_canceled = True
             return ''
 
-        list_of_files = self.get_list_of_files(folder=folder, file_ext=extension)
+        if type(extension) is list:
+            for _ext in extension:
+                list_of_files = self.get_list_of_files(folder=folder, file_ext=_ext)
+                if list_of_files:
+                    break
+        else:
+            list_of_files = self.get_list_of_files(folder=folder, file_ext=extension)
+
         if not list_of_files:
             return
 

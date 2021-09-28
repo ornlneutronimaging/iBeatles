@@ -20,7 +20,7 @@ class EventHandler(TopEventHandler):
         o_load = DataHandler(parent=self.parent,
                              data_type=self.data_type)
         _folder = o_load.select_folder()
-        o_load.import_files_from_folder(folder=_folder, extension=".tif")
+        o_load.import_files_from_folder(folder=_folder, extension=[".tif", ".fits", ".tiff"])
         o_load.import_time_spectra()
 
         if self.parent.data_metadata[self.data_type]['data']:
