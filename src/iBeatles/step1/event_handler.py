@@ -41,7 +41,6 @@ class EventHandler(TopEventHandler):
         else:
             logging.info(f"Import button clicked ... operation canceled!")
 
-
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:
             o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type=DataType.sample)

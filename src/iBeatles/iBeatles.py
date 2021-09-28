@@ -850,13 +850,19 @@ class MainWindow(QMainWindow):
         self.roi_normalized_image_view_changed()
 
     def normalized_file_index_xaxis_button_clicked(self):
-        self.normalized_list_selection_changed()
+        self.data_metadata[DataType.normalized]['xaxis'] = 'file_index'
+        o_event = Step3EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
 
     def normalized_tof_xaxis_button_clicked(self):
-        self.normalized_list_selection_changed()
+        self.data_metadata[DataType.normalized]['xaxis'] = 'tof'
+        o_event = Step3EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
 
     def normalized_lambda_xaxis_button_clicked(self):
-        self.normalized_list_selection_changed()
+        self.data_metadata[DataType.normalized]['xaxis'] = 'lambda'
+        o_event = Step3EventHandler(parent=self)
+        o_event.sample_list_selection_changed()
 
     def closeEvent(self, event):
         o_session = SessionHandler(parent=self)

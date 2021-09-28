@@ -31,3 +31,11 @@ class EventHandler(TopEventHandler):
             o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
             o_plot.initialize_default_roi()
             o_plot.display_bragg_edge(mouse_selection=False)
+
+    def sample_list_selection_changed(self):
+        if not self.parent.loading_flag:
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type=DataType.normalized)
+            o_retrieve_data_infos.update()
+            self.parent.roi_normalized_image_view_changed(mouse_selection=False)
+        else:
+            self.parent.loading_flag = False
