@@ -811,18 +811,6 @@ class MainWindow(QMainWindow):
         o_event = Step3EventHandler(parent=self, data_type='normalized')
         o_event.import_button_clicked()
 
-        # self.loading_flag = True
-        # o_load = DataHandler(parent=self)
-        # o_load.retrieve_files(data_type='normalized')
-        # if not o_load.user_canceled:
-        #     self.select_normalized_row(row=0)
-        #     self.retrieve_general_infos(data_type='normalized')
-        #     self.retrieve_selected_row_infos(data_type='normalized')
-        #     o_plot = Step1Plot(parent=self, data_type='normalized')
-        #     o_plot.display_bragg_edge()
-        # o_gui = Step3GuiHandler(parent=self)
-        # o_gui.check_widgets()
-
     def normalized_retrieve_general_data_infos(self):
         o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='normalized')
         o_retrieve_data_infos.update()
@@ -834,12 +822,15 @@ class MainWindow(QMainWindow):
     def normalized_list_selection_changed(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         if not self.loading_flag:
-            # o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='normalized')
-            # o_retrieve_data_infos.update()
+            # # o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='normalized')
+            # # o_retrieve_data_infos.update()
+            # self.roi_normalized_image_view_changed(mouse_selection=False)
+            # if self.fitting_ui:
+            #     o_selection = SelectedBinsHandler(parent=self)
+            #     o_selection.update_bragg_edge_plot()
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
+            o_retrieve_data_infos.update()
             self.roi_normalized_image_view_changed(mouse_selection=False)
-            if self.fitting_ui:
-                o_selection = SelectedBinsHandler(parent=self)
-                o_selection.update_bragg_edge_plot()
         else:
             self.loading_flag = False
         QApplication.restoreOverrideCursor()
