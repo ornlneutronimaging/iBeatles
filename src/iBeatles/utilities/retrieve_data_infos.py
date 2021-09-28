@@ -62,9 +62,11 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
             else:
 
                 list_files_selected = self.parent.list_file_selected[self.data_type]
+                self.table_ui[self.data_type].blockSignals(True)
                 for _row_selected in list_files_selected:
-                    _item = self.parent.ui.list_sample.item(_row_selected)
+                    _item = self.table_ui[self.data_type].item(_row_selected)
                     _item.setSelected(True)
+                self.table_ui[self.data_type].blockSignals(False)
 
                 data = self.parent.data_metadata[self.data_type]['data']
                 self.data = np.sum(data, axis=0)

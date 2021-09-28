@@ -262,11 +262,6 @@ class FileDialog(QFileDialog):
         QFileDialog.__init__(self, *args)
         self.setOption(self.DontUseNativeDialog, False)
         self.setFileMode(self.ExistingFiles)
-        # buttons = self.findChildren(QPushButton)
-        # self.openBtn = [x for x in buttons if 'open' in str(x.text()).lower()][0]
-        # self.openBtn.clicked.disconnect()
-        # self.openBtn.clicked.connect(self.openClicked)
-        # self.tree = self.findChild(QTreeView)
 
     def openClicked(self):
         indexes = self.tree.selectionModel().selectedIndexes()

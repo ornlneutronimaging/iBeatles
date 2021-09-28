@@ -820,12 +820,6 @@ class MainWindow(QMainWindow):
     def normalized_list_selection_changed(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         if not self.loading_flag:
-            # # o_retrieve_data_infos = RetrieveSelectedFileDataInfos(parent=self, data_type='normalized')
-            # # o_retrieve_data_infos.update()
-            # self.roi_normalized_image_view_changed(mouse_selection=False)
-            # if self.fitting_ui:
-            #     o_selection = SelectedBinsHandler(parent=self)
-            #     o_selection.update_bragg_edge_plot()
             o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
             o_retrieve_data_infos.update()
             self.roi_normalized_image_view_changed(mouse_selection=False)
