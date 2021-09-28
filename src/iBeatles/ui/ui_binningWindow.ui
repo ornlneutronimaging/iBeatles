@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
-    <height>617</height>
+    <width>978</width>
+    <height>601</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -179,19 +179,34 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QLineEdit" name="pixel_bin_size">
-             <property name="text">
-              <string>10</string>
+            <widget class="QSlider" name="bin_size_horizontalSlider">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>100</number>
+             </property>
+             <property name="value">
+              <number>10</number>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="tickPosition">
+              <enum>QSlider::TicksAbove</enum>
+             </property>
+             <property name="tickInterval">
+              <number>10</number>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_5">
+            <widget class="QLabel" name="bin_size_label">
              <property name="text">
-              <string>pixel x pixel</string>
+              <string>10</string>
              </property>
             </widget>
            </item>
@@ -233,8 +248,8 @@
    <slot>roi_selection_widgets_modified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>539</x>
-     <y>60</y>
+     <x>680</x>
+     <y>66</y>
     </hint>
     <hint type="destinationlabel">
      <x>786</x>
@@ -265,8 +280,8 @@
    <slot>roi_selection_widgets_modified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>552</x>
-     <y>125</y>
+     <x>680</x>
+     <y>128</y>
     </hint>
     <hint type="destinationlabel">
      <x>788</x>
@@ -291,18 +306,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>pixel_bin_size</sender>
-   <signal>editingFinished()</signal>
+   <sender>bin_size_horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>roi_selection_widgets_modified()</slot>
+   <slot>bin_slider_value_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>513</x>
-     <y>221</y>
+     <x>538</x>
+     <y>213</y>
     </hint>
     <hint type="destinationlabel">
-     <x>756</x>
-     <y>350</y>
+     <x>488</x>
+     <y>300</y>
     </hint>
    </hints>
   </connection>
@@ -357,5 +372,6 @@
   <slot>menu_view_fitting_clicked()</slot>
   <slot>menu_view_strain_mapping_clicked()</slot>
   <slot>roi_selection_widgets_modified()</slot>
+  <slot>bin_slider_value_changed()</slot>
  </slots>
 </ui>

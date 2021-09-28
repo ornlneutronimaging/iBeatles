@@ -68,7 +68,10 @@ class BinningWindow(QMainWindow):
             self.ui.selection_y0.setText(str(y0))
             self.ui.selection_width.setText(str(width))
             self.ui.selection_height.setText(str(height))
-            self.ui.pixel_bin_size.setText(str(bin_size))
+            self.ui.bin_size_horizontalSlider.setValue(bin_size)
+
+    def bin_slider_value_changed(self, new_value):
+        self.roi_selection_widgets_modified()
 
     def roi_changed_finished(self):
         self.roi_selection_widgets_modified()
@@ -109,6 +112,7 @@ class BinningWindow(QMainWindow):
 
         self.ui.groupBox.setEnabled(status)
         self.ui.groupBox_2.setEnabled(status)
+        self.ui.bin_size_horizontalSlider.setEnabled(status)
 
         pg.setConfigOptions(antialias=True)
 
@@ -171,7 +175,7 @@ class BinningWindow(QMainWindow):
         if s_variable == '':
             s_variable = str(self.default_bins_settings[variable_name])
             ui.setText(s_variable)
-        return np.int(s_variable)
+        return int(s_variable)
 
     def roi_selection_widgets_modified(self):
 
@@ -195,8 +199,10 @@ class BinningWindow(QMainWindow):
                                               variable_name='width')
         height = self.get_correct_widget_value(ui=self.ui.selection_height,
                                                variable_name='height')
-        bin_size = self.get_correct_widget_value(ui=self.ui.pixel_bin_size,
-                                                 variable_name='bin_size')
+        # bin_size = self.get_correct_widget_value(ui=self.ui.pixel_bin_size,
+        #                                          variable_name='bin_size')
+        bin_size = self.ui.bin_size_horizontalSlider.value()
+        self.ui.bin_size_label.setText(str(bin_size))
 
         self.parent.binning_bin_size = bin_size
         self.parent.binning_done = True
@@ -302,11 +308,11 @@ class BinningWindow(QMainWindow):
 
         pos_adj_dict = {}
 
-        nbr_height_bins = np.float(height) / np.float(bin_size)
-        real_height = y0 + np.int(nbr_height_bins) * np.int(bin_size)
+        nbr_height_bins = float(height) / float(bin_size)
+        real_height = y0 + int(nbr_height_bins) * int(bin_size)
 
-        nbr_width_bins = np.float(width) / np.float(bin_size)
-        read_width = x0 + np.int(nbr_width_bins) * np.int(bin_size)
+        nbr_width_bins = float(width) / float(bin_size)
+        read_width = x0 + int(nbr_width_bins) * int(bin_size)
 
         # pos (each matrix is one side of the lines)
         pos = []
@@ -358,9 +364,9 @@ class BinningWindow(QMainWindow):
             self.parent.binning_line_view = binning_line_view
 
     def record_roi(self):
-        x0 = np.int(str(self.ui.selection_x0.text()))
-        y0 = np.int(str(self.ui.selection_y0.text()))
-        width = np.int(str(self.ui.selection_width.text()))
-        height = np.int(str(self.ui.selection_height.text()))
-        bin_size = np.int(str(self.ui.pixel_bin_size.text()))
+        x0 = int(str(self.ui.selection_x0.text()))
+        y0 = int(str(self.ui.selection_y0.text()))
+        width = int(str(self.ui.selection_width.text()))
+        height = int(str(self.ui.selection_height.text()))
+        bin_size = self.ui.bin_size_horizontalSlider.value()
         self.parent.binning_roi = [x0, y0, width, height, bin_size]

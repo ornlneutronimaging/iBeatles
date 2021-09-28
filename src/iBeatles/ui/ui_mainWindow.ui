@@ -2307,7 +2307,7 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1209</x>
+     <x>1149</x>
      <y>702</y>
     </hint>
     <hint type="destinationlabel">
@@ -2323,7 +2323,7 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1177</x>
+     <x>1117</x>
      <y>702</y>
     </hint>
     <hint type="destinationlabel">
