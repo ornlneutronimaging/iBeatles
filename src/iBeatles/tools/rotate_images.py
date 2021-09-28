@@ -48,7 +48,6 @@ class RotateImagesWindow(QMainWindow):
         self.ui.statusbar.addPermanentWidget(self.eventProgress)
 
     def init_pyqtgraph(self):
-
         self.ui.image_view = pg.ImageView()
         self.ui.image_view.ui.roiBtn.hide()
         self.ui.image_view.ui.menuBtn.hide()
@@ -123,7 +122,6 @@ class RotateImagesWindow(QMainWindow):
         self.ui.line_view = line_view
 
     def save_and_use_clicked(self):
-
         logging.info("Rotating normalized images")
 
         # select folder
@@ -154,6 +152,8 @@ class RotateImagesWindow(QMainWindow):
         target_filename = os.path.join(target_folder, os.path.basename(time_spectra))
         if os.path.exists(target_filename):
             os.remove(target_filename)
+        self.parent.data_metadata[DataType.normalized]['time_spectra']['filename'] = target_filename
+        self.parent.data_metadata[DataType.normalized]['time_spectra']['folder'] = os.path.dirname(target_filename)
         shutil.copyfile(time_spectra, target_filename)
         _folder_time_spectra = os.path.basename(os.path.abspath(target_folder))
         self.parent.ui.time_spectra_folder_2.setText(_folder_time_spectra)
@@ -182,6 +182,7 @@ class RotateImagesWindow(QMainWindow):
         basefolder = os.path.basename(os.path.abspath(target_folder))
         self.parent.ui.normalized_folder.setText(basefolder)
 
+        list_new_filename = []
         for _index, _data in enumerate(normalized_array):
             # rotate image
             rotated_data = scipy.ndimage.interpolation.rotate(_data, rotation_value)
@@ -189,12 +190,14 @@ class RotateImagesWindow(QMainWindow):
 
             # save image
             new_filename = os.path.join(target_folder, normalized_filename[_index])
+            list_new_filename.append(new_filename)
             self._save_image(filename=new_filename, data=rotated_data)
 
             self.eventProgress.setValue(_index + 1)
             QApplication.processEvents()
 
         self.parent.data_metadata['normalized']['data'] = rotated_normalized_array
+        self.parent.list_files[DataType.normalized] = list_new_filename
         self.eventProgress.setVisible(False)
 
         self.parent.normalized_list_selection_changed()
