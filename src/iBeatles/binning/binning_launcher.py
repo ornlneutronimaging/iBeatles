@@ -1,5 +1,4 @@
-from qtpy.QtWidgets import (QMainWindow, QWidget, QSpacerItem, QLabel, QHBoxLayout, QVBoxLayout, QApplication,
-                            QSizePolicy)
+from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QApplication
 from qtpy import QtCore
 
 import pyqtgraph as pg
@@ -25,7 +24,6 @@ class BinningLauncher(object):
             self.parent.binning_ui = binning_window
             o_binning = BinningHandler(parent=self.parent)
             o_binning.display_image()
-        #            o_binning.display_selection()
         else:
             self.parent.binning_ui.setFocus()
             self.parent.binning_ui.activateWindow()
@@ -130,45 +128,12 @@ class BinningWindow(QMainWindow):
         image_view.addItem(line_view)
         self.parent.binning_line_view['ui'] = line_view
 
-        # bottom x, y and counts labels
-        hori_layout = QHBoxLayout()
-        spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        x_label = QLabel("X:")
-        x_value = QLabel("N/A")
-        x_value.setFixedWidth(50)
-        self.widgets_ui['x_value'] = x_value
-        spacer2 = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Minimum)
-        y_label = QLabel("Y:")
-        y_value = QLabel("N/A")
-        y_value.setFixedWidth(50)
-        self.widgets_ui['y_value'] = y_value
-        spacer3 = QSpacerItem(40, 20, QSizePolicy.Minimum, QSizePolicy.Minimum)
-        intensity_label = QLabel("Counts:")
-        intensity_value = QLabel("N/A")
-        self.widgets_ui['intensity_value'] = intensity_value
-        intensity_value.setFixedWidth(50)
-
-        hori_layout.addItem(spacer1)
-        hori_layout.addWidget(x_label)
-        hori_layout.addWidget(x_value)
-        hori_layout.addItem(spacer2)
-        hori_layout.addWidget(y_label)
-        hori_layout.addWidget(y_value)
-        hori_layout.addItem(spacer3)
-        hori_layout.addWidget(intensity_label)
-        hori_layout.addWidget(intensity_value)
-        hori_widget = QWidget()
-        hori_widget.setLayout(hori_layout)
-
         # put everything back into the main GUI
         vertical_layout = QVBoxLayout()
         vertical_layout.addWidget(image_view)
-        vertical_layout.addWidget(hori_widget)
 
         self.ui.left_widget.setLayout(vertical_layout)
         self.ui.left_widget.setVisible(status)
-
-    #        image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image)
 
     def get_correct_widget_value(self, ui='', variable_name=''):
         s_variable = str(ui.text())
@@ -199,16 +164,11 @@ class BinningWindow(QMainWindow):
                                               variable_name='width')
         height = self.get_correct_widget_value(ui=self.ui.selection_height,
                                                variable_name='height')
-        # bin_size = self.get_correct_widget_value(ui=self.ui.pixel_bin_size,
-        #                                          variable_name='bin_size')
         bin_size = self.ui.bin_size_horizontalSlider.value()
         self.ui.bin_size_label.setText(str(bin_size))
 
         self.parent.binning_bin_size = bin_size
         self.parent.binning_done = True
-
-        # self.widgets_ui['roi'].setPos([x0, y0], update=False, finish=False)
-        # self.widgets_ui['roi'].setSize([width, height], update=False, finish=False)
 
         self.parent.binning_line_view['roi'].setPos([x0, y0], update=False, finish=False)
         self.parent.binning_line_view['roi'].setSize([width, height], update=False, finish=False)
@@ -248,32 +208,6 @@ class BinningWindow(QMainWindow):
             o_hanlder = FittingHandler(parent=self.parent)
 
             o_hanlder.display_roi()
-
-        # if self.parent.fitting_ui:
-        # if self.parent.fitting_ui.line_view:
-        # if self.parent.fitting_ui.line_view in self.parent.fitting_ui.image_view.children():
-        # self.parent.fitting_ui.image_view.removeItem(self.parent.fitting_ui.line_view)
-        # self.parent.fitting_ui.line_view = None
-
-        # #remove pre-defined lock and selected item
-        # table_dictionary = self.parent.fitting_ui.table_dictionary
-        # for _entry in table_dictionary.keys():
-        # if table_dictionary[_entry]['selected_item'] in self.parent.fitting_ui.image_view.children():
-        # self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['selected_item'])
-        # if table_dictionary[_entry]['locked_item'] in self.parent.fitting_ui.image_view.children():
-        # self.parent.fitting_ui.image_view.removeItem(table_dictionary[_entry]['locked_item'])
-
-        # self.line_view_binning = line_view_binning
-        # self.pos = pos
-        # self.adj = adj
-        # self.lines = lines
-
-        # if self.parent.fitting_ui:
-
-        # o_fitting_ui = FittingHandler(parent=self.parent)
-        # o_fitting_ui.display_image()
-        # o_fitting_ui.display_roi()
-        # o_fitting_ui.fill_table()
 
         self.record_roi()
         QApplication.restoreOverrideCursor()
