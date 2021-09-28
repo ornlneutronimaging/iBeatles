@@ -29,7 +29,7 @@ class LoadNormalized:
             list_files_selected = session_dict[data_type]['list files selected']
             self.parent.list_file_selected[data_type] = list_files_selected
             self.parent.list_roi[data_type] = session_dict[data_type]['list rois']
-            o_gui = Step1GuiHandler(parent=self.parent, data_type=DataType.sample)
+            o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
             o_gui.initialize_rois_and_labels()
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_normalized.item(_row_selected)
