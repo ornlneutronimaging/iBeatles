@@ -6,3 +6,5 @@ class LoadBin:
 
     def all(self):
         session_dict = self.session_dict
+
+        self.parent.binning_roi = session_dict['bin']['roi']

@@ -38,6 +38,8 @@ class LoadPreviousSessionLauncherMultipleChoice(QDialog):
             list_tabs_to_load.append(DataType.sample)
         if self.ui.normalized_checkBox.isChecked():
             list_tabs_to_load.append(DataType.normalized)
+        if self.ui.bin_checkBox.isChecked():
+            list_tabs_to_load.append(DataType.bin)
         return list_tabs_to_load
 
     def ok_clicked(self):
