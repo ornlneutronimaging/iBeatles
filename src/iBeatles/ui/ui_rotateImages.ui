@@ -26,54 +26,40 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Rotation Angle (degrees)</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="rotation_value">
-        <property name="minimumSize">
-         <size>
-          <width>100</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>(ex: 45, -27)</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Rotation Angle</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QSlider" name="angle_horizontalSlider">
+         <property name="minimum">
+          <number>-180</number>
+         </property>
+         <property name="maximum">
+          <number>180</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="angle_value">
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>degrees</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
     <item>
      <spacer name="verticalSpacer">
@@ -136,7 +122,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
@@ -161,22 +147,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>rotation_value</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>display_rotated_images()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>239</x>
-     <y>477</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>269</x>
-     <y>500</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>save_and_use_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -192,10 +162,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>angle_horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>slider_value_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>220</x>
+     <y>426</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cancel_clicked()</slot>
   <slot>display_rotated_images()</slot>
   <slot>save_and_use_clicked()</slot>
+  <slot>slider_value_changed()</slot>
  </slots>
 </ui>

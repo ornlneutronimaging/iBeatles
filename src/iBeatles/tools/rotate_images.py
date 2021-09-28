@@ -8,7 +8,7 @@ import shutil
 import os
 
 from ..utilities.file_handler import FileHandler
-from .. import load_ui
+from .. import load_ui, DataType
 
 
 class RotateImages(object):
@@ -35,8 +35,6 @@ class RotateImagesWindow(QMainWindow):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_rotateImages.ui', baseinstance=self)
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
 
         self.init_pyqtgraph()
         self.init_widgets()
@@ -63,12 +61,16 @@ class RotateImagesWindow(QMainWindow):
 
     def display_rotated_images(self):
         data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
-        rotation_value = np.float(str(self.ui.rotation_value.text()))
+        rotation_value = self.ui.angle_horizontalSlider.value()
 
         rotated_data = scipy.ndimage.interpolation.rotate(data, rotation_value)
         self.ui.image_view.setImage(rotated_data)
 
         self.display_grid(data=rotated_data)
+
+    def slider_value_changed(self, value):
+        self.ui.angle_value.setText(str(value))
+        self.display_rotated_images()
 
     def display_grid(self, data=None):
         [height, width] = np.shape(data)
@@ -123,7 +125,7 @@ class RotateImagesWindow(QMainWindow):
     def save_and_use_clicked(self):
 
         # select folder
-        folder = self.parent.normalized_folder
+        folder = self.parent.data_metadata[DataType.normalized]['folder']
         output_folder = str(QFileDialog.getExistingDirectory(caption='Select Folder for Rotated Images ...',
                                                              directory=folder))
 
@@ -157,7 +159,7 @@ class RotateImagesWindow(QMainWindow):
         FileHandler.make_fits(data=data, filename=filename)
 
     def rotate_and_save_all_images(self, target_folder=''):
-        rotation_value = np.float(str(self.ui.rotation_value.text()))
+        rotation_value = self.ui.angle_horizontalSlider.value()
 
         normalized_array = self.parent.data_metadata['normalized']['data']
         self.eventProgress.setValue(0)
