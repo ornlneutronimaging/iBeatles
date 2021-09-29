@@ -2,11 +2,11 @@ from qtpy.QtWidgets import QMenu, QApplication
 from qtpy import QtCore, QtGui
 import numpy as np
 
-from ..fitting.export_fitting_handler import ExportFittingHandler
-from ..fitting.advanced_selection_launcher import AdvancedSelectionLauncher
-from ..fitting.filling_table_handler import FillingTableHandler
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
-from ..fitting.set_fitting_variables_launcher import SetFittingVariablesLauncher
+from .export_fitting_handler import ExportFittingHandler
+from .advanced_selection_launcher import AdvancedSelectionLauncher
+from .filling_table_handler import FillingTableHandler
+from .set_fitting_variables_launcher import SetFittingVariablesLauncher
 
 
 class ValueTableHandler(object):

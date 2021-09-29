@@ -27,9 +27,7 @@ class AdvancedSelectionWindow(QMainWindow):
 
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_advancedFittingSelection', baseinstance=self)
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
+        self.ui = load_ui('ui_advancedFittingSelection.ui', baseinstance=self)
         self.setWindowTitle("Graphical Selection Tool")
 
         self.ui.selection_table.blockSignals(True)

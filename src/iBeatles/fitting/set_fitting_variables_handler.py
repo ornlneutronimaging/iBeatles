@@ -51,7 +51,7 @@ class SetFittingVariablesHandler(object):
                                                        max_value=max_value,
                                                        value=_value)
                 _item = QTableWidgetItem(str(_value))
-                _item.setBackgroundColor(_color)
+                _item.setBackground(_color)
 
                 bin_index = _row + nbr_row * _col
                 if self.is_bin_locked(bin_index=bin_index):
@@ -130,7 +130,7 @@ class SetFittingVariablesHandler(object):
                 _item = QTableWidgetItem("nan")
             else:
                 _item = QTableWidgetItem("{:04.2f}".format(_value))
-            _item.setBackgroundColor(_color)
+            _item.setBackground(_color)
             _item.setTextAlignment(QtCore.Qt.AlignRight)
             if (_row < mid_point) and (nbr_row != 1):
                 # font should be changed from black to white
