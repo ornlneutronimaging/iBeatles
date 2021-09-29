@@ -231,6 +231,13 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
    </layout>
@@ -321,6 +328,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>ok_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>738</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>872</x>
+     <y>485</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -373,5 +396,6 @@
   <slot>menu_view_strain_mapping_clicked()</slot>
   <slot>roi_selection_widgets_modified()</slot>
   <slot>bin_slider_value_changed()</slot>
+  <slot>ok_button_clicked()</slot>
  </slots>
 </ui>

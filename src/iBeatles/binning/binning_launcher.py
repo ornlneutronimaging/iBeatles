@@ -304,3 +304,6 @@ class BinningWindow(QMainWindow):
         height = int(str(self.ui.selection_height.text()))
         bin_size = self.ui.bin_size_horizontalSlider.value()
         self.parent.binning_roi = [x0, y0, width, height, bin_size]
+
+    def ok_button_clicked(self):
+        self.close()
