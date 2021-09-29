@@ -10,7 +10,7 @@ from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ..fitting.fitting_handler import FittingHandler
 from ..fitting.filling_table_handler import FillingTableHandler
 from ..binning.binning_handler import BinningHandler
-from .. import load_ui
+from .. import load_ui, BINNING_LINE_COLOR
 
 
 class BinningLauncher(object):
@@ -182,7 +182,7 @@ class BinningWindow(QMainWindow):
         pos = pos_adj_dict['pos']
         adj = pos_adj_dict['adj']
 
-        line_color = (255, 0, 0, 255, 1)
+        line_color = BINNING_LINE_COLOR
         lines = np.array([line_color for n in np.arange(len(pos))],
                          dtype=[('red', np.ubyte), ('green', np.ubyte),
                                 ('blue', np.ubyte), ('alpha', np.ubyte),

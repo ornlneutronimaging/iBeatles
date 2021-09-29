@@ -48,7 +48,7 @@ class SessionHandler:
                     "bin": {'roi': None,
                             'binning line view': {'pos': None,
                                                   'adj': None,
-                                                  'pen': None,
+                                                  'line color': None,
                                                   },
                             },
                     }
@@ -146,6 +146,7 @@ class SessionHandler:
         if config_file_name:
             output_file_name = config_file_name
             session_dict = self.parent.session_dict
+
             with open(output_file_name, 'w') as json_file:
                 json.dump(session_dict, json_file)
 

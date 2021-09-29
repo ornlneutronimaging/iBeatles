@@ -12,6 +12,7 @@ refresh_image = os.path.join(root, "icons/refresh.png")
 DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
 DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', 'background']
 DEFAULT_BIN = [0, 0, 20, 20, 10]
+BINNING_LINE_COLOR = (255, 0, 0, 255, 1)
 
 
 class DataType:

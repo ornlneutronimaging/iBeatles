@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class LoadBin:
 
     def __init__(self, parent=None):
@@ -12,4 +15,10 @@ class LoadBin:
         binning_line_view = session_dict['bin']['binning line view']
         self.parent.binning_line_view['pos'] = binning_line_view['pos']
         self.parent.binning_line_view['adj'] = binning_line_view['adj']
-        self.parent.binning_line_view['pen'] = binning_line_view['pen']
+
+        line_color = binning_line_view['line color']
+        lines = np.array([line_color for n in np.arange(len(self.parent.binning_line_view['pos']))],
+                         dtype=[('red', np.ubyte), ('green', np.ubyte),
+                                ('blue', np.ubyte), ('alpha', np.ubyte),
+                                ('width', float)])
+        self.parent.binning_line_view['pen'] = lines
