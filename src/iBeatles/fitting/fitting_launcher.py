@@ -4,6 +4,7 @@ from qtpy import QtCore
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 import numpy as np
+import logging
 
 # from iBeatles.py.utilities.colors import pen_color
 from ..utilities.array_utilities import find_nearest_index
@@ -115,11 +116,10 @@ class FittingWindow(QMainWindow):
 
     def __init__(self, parent=None):
 
+        logging.info("Launching fitting tab!")
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        # self.ui = UiMainWindow()
         self.ui = load_ui('ui_fittingWindow.ui', baseinstance=self)
-        # self.ui.setupUi(self)
         self.setWindowTitle("5. Fitting")
 
         self.init_pyqtgraph()
@@ -258,6 +258,9 @@ class FittingWindow(QMainWindow):
             status = True
         else:
             status = False
+
+        print(f"self.parent.binning_line_view['pos']: {self.parent.binning_line_view['pos']}")
+        print(f"status: {status}")
 
         area = DockArea()
         self.ui.area = area

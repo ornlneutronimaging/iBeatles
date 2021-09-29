@@ -32,9 +32,9 @@ class SessionHandler:
                     DataType.ob: {'list files'           : None,
                                   'current folder'       : None,
                                   'list files selected'  : None,
-                                 },
+                                  },
                     DataType.normalization: {'roi': None,
-                                            },
+                                             },
                     DataType.normalized: {'list files': None,
                                           'current folder': None,
                                           'time spectra filename': None,
@@ -43,8 +43,11 @@ class SessionHandler:
                                           },
                     "instrument": {'distance source detector': None,
                                    'beam index': 0,
-                                   'detector value': None},
-                    "bin": {'roi': None},
+                                   'detector value': None,
+                                   },
+                    "bin": {'roi': None,
+                            'binning line view': None,
+                            },
                     }
 
     def __init__(self, parent=None):
