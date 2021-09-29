@@ -133,22 +133,6 @@ class FittingWindow(QMainWindow):
         o_fitting = FittingHandler(parent=self.parent)
         o_fitting.fill_table()
 
-    # def init_table_behavior(self):
-    #     for _column, _width in enumerate(self.header_table_columns_width):
-    #         self.ui.header_table.setColumnWidth(_column, _width)
-    #
-    #     for _column, _width in enumerate(self.fitting_table_columns_width):
-    #         self.ui.value_table.setColumnWidth(_column, _width)
-    #
-    #     self.hori_header_table = self.ui.header_table.horizontalHeader()
-    #     self.hori_value_table = self.ui.value_table.horizontalHeader()
-    #
-    #     self.hori_header_table.sectionResized.connect(self.resizing_header_table)
-    #     self.hori_value_table.sectionResized.connect(self.resizing_value_table)
-    #
-    #     self.hori_header_table.sectionClicked.connect(self.column_header_table_clicked)
-    #     self.hori_value_table.sectionClicked.connect(self.column_value_table_clicked)
-
     def column_value_table_clicked(self, column):
         '''
         to make sure that if the val or err column is selected, or unselected, the other
@@ -227,14 +211,6 @@ class FittingWindow(QMainWindow):
                 index_header = np.int(index_column - 6) / 2 + 5
                 self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
 
-    # def init_widgets(self):
-    #     '''
-    #     such as material h,k,l list according to material selected in normalized tab
-    #     '''
-    #     hkl_list = self.parent.selected_element_hkl_array
-    #     str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
-    #     self.ui.hkl_list_ui.addItems(str_hkl_list)
-
     def check_status_widgets(self):
         if (len(self.parent.data_metadata['normalized']['data_live_selection']) > 0) and \
                 not (self.parent.binning_line_view['pos'] is None):
@@ -243,108 +219,6 @@ class FittingWindow(QMainWindow):
             status = False
 
         self.ui.instructions_step1_button.setEnabled(status)
-
-    # def init_labels(self):
-    #     self.ui.lambda_min_label.setText(u"\u03BB<sub>min</sub>")
-    #     self.ui.lambda_max_label.setText(u"\u03BB<sub>max</sub>")
-    #     self.ui.lambda_min_units.setText(u"\u212B")
-    #     self.ui.lambda_max_units.setText(u"\u212B")
-    #     self.ui.bragg_edge_units.setText(u"\u212B")
-    #     self.ui.material_groupBox.setTitle(self.parent.selected_element_name)
-
-    # def init_pyqtgraph(self):
-    #
-    #     if (len(self.parent.data_metadata['normalized']['data_live_selection']) > 0) and \
-    #             not (self.parent.binning_line_view['pos'] is None):
-    #         status = True
-    #     else:
-    #         status = False
-    #
-    #     area = DockArea()
-    #     self.ui.area = area
-    #     area.setVisible(status)
-    #     d1 = Dock("Image Preview", size=(200, 300))
-    #     d2 = Dock("Bragg Edge", size=(200, 100))
-    #
-    #     area.addDock(d1, 'top')
-    #     area.addDock(d2, 'bottom')
-    #
-    #     preview_widget = pg.GraphicsLayoutWidget()
-    #     pg.setConfigOptions(antialias=True)  # this improve display
-    #
-    #     vertical_layout = QVBoxLayout()
-    #     preview_widget.setLayout(vertical_layout)
-    #
-    #     # image view (top plot)
-    #     image_view = pg.ImageView()
-    #     image_view.ui.roiBtn.hide()
-    #     image_view.ui.menuBtn.hide()
-    #     self.image_view = image_view
-    #     image_view.scene.sigMouseMoved.connect(self.mouse_moved_in_image_view)
-    #
-    #     top_widget = QWidget()
-    #     vertical = QVBoxLayout()
-    #     vertical.addWidget(image_view)
-    #
-    #     # bin transparency
-    #     transparency_layout = QHBoxLayout()
-    #     spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-    #     transparency_layout.addItem(spacer)
-    #     label = QLabel("Bin Transparency")
-    #     transparency_layout.addWidget(label)
-    #     slider = QSlider(QtCore.Qt.Horizontal)
-    #     slider.setMaximum(100)
-    #     slider.setMinimum(0)
-    #     slider.setValue(50)
-    #     slider.valueChanged.connect(self.slider_changed)
-    #     self.slider = slider
-    #     transparency_layout.addWidget(slider)
-    #     bottom_widget = QWidget()
-    #     bottom_widget.setLayout(transparency_layout)
-    #
-    #     top_widget.setLayout(vertical)
-    #     d1.addWidget(top_widget)
-    #     d1.addWidget(bottom_widget)
-    #
-    #     # bragg edge plot (bottom plot)
-    #     bragg_edge_plot = pg.PlotWidget(title='')
-    #     bragg_edge_plot.plot()
-    #     self.bragg_edge_plot = bragg_edge_plot
-    #
-    #     # plot all or individual bins
-    #     buttons_layout = QHBoxLayout()
-    #     spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-    #     buttons_layout.addItem(spacer)
-    #     label = QLabel("Plot")
-    #     label.setEnabled(False)
-    #     buttons_layout.addWidget(label)
-    #
-    #     # all bins button
-    #     active_button = QRadioButton()
-    #     active_button.setText("Active Bins")
-    #     active_button.setChecked(True)
-    #     # active_button.setEnabled(False)
-    #     active_button.pressed.connect(self.active_button_pressed)
-    #     self.ui.active_bins_button = active_button
-    #
-    #     # indi bin button
-    #     buttons_layout.addWidget(active_button)
-    #     locked_button = QRadioButton()
-    #     locked_button.setText("Locked Bins")
-    #     locked_button.setChecked(False)
-    #     # locked_button.setEnabled(False)
-    #     locked_button.pressed.connect(self.lock_button_pressed)
-    #     self.ui.locked_bins_button = locked_button
-    #
-    #     buttons_layout.addWidget(locked_button)
-    #     bottom_widget = QWidget()
-    #     bottom_widget.setLayout(buttons_layout)
-    #
-    #     d2.addWidget(bragg_edge_plot)
-    #     d2.addWidget(bottom_widget)
-    #
-    #     vertical_layout.addWidget(area)
-    #     self.ui.widget.setLayout(vertical_layout)
 
     def active_button_pressed(self):
         self.bragg_edge_active_button_status = True
