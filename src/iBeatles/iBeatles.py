@@ -2,7 +2,6 @@ from qtpy import QtCore
 from qtpy.QtWidgets import QApplication, QMainWindow
 import sys
 import os
-from copy import deepcopy
 import logging
 import versioneer
 

@@ -6,6 +6,7 @@ from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 import logging
 
 from ..utilities.load_files import LoadFiles
+from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 from ..utilities.file_handler import FileHandler
 from ..step1.time_spectra_handler import TimeSpectraHandler
 
@@ -63,6 +64,10 @@ class DataHandler:
 
         if not list_of_files:
             logging.info(f"Folder {folder} is empty or does not contain the right file format!")
+            show_status_message(parent=self.parent,
+                                message=f"Folder selected is empty or contains the wrong file formats!",
+                                status=StatusMessageStatus.error,
+                                duration_s=5)
             return
 
         logging.info(f" len(list_of_files) = {len(list_of_files)}")
