@@ -9,9 +9,9 @@ from .save_normalization_tab import SaveNormalizationTab
 from .save_normalized_tab import SaveNormalizedTab
 from .save_bin_tab import SaveBinTab
 from .load_load_data_tab import LoadLoadDataTab
-from .load_normalization import LoadNormalization
-from .load_normalized import LoadNormalized
-from .load_bin import LoadBin
+from .load_normalization_tab import LoadNormalization
+from .load_normalized_tab import LoadNormalized
+from .load_bin_tab import LoadBin
 
 
 from .. import DataType
@@ -46,7 +46,10 @@ class SessionHandler:
                                    'detector value': None,
                                    },
                     "bin": {'roi': None,
-                            'binning line view': None,
+                            'binning line view': {'pos': None,
+                                                  'adj': None,
+                                                  'pen': None,
+                                                  },
                             },
                     }
 
