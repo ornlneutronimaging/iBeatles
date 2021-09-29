@@ -47,7 +47,7 @@ from .utilities.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
-from . import DataType, RegionType, DEFAULT_ROI
+from . import DataType, RegionType, DEFAULT_ROI, DEFAULT_BIN
 
 
 class MainWindow(QMainWindow):
@@ -94,8 +94,8 @@ class MainWindow(QMainWindow):
                          'pen': None,
                          'image_view': None,
                          'roi': None}
-    binning_roi = []  # x0, x1, y0, y1
-    binning_bin_size = 20
+    binning_roi = DEFAULT_BIN   # x0, x1, width, height, bin_size
+    # binning_bin_size = 20
     binning_done = False
 
     # fitting window stuff

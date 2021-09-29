@@ -167,7 +167,7 @@ class BinningWindow(QMainWindow):
         bin_size = self.ui.bin_size_horizontalSlider.value()
         self.ui.bin_size_label.setText(str(bin_size))
 
-        self.parent.binning_bin_size = bin_size
+        # self.parent.binning_bin_size = bin_size
         self.parent.binning_done = True
 
         self.parent.binning_line_view['roi'].setPos([x0, y0], update=False, finish=False)
