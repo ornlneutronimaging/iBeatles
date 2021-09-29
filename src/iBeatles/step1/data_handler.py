@@ -62,6 +62,7 @@ class DataHandler:
             list_of_files = self.get_list_of_files(folder=folder, file_ext=extension)
 
         if not list_of_files:
+            logging.info(f"Folder {folder} is empty or does not contain the right file format!")
             return
 
         logging.info(f" len(list_of_files) = {len(list_of_files)}")
