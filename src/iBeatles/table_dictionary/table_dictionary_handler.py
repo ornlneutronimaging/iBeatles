@@ -7,7 +7,6 @@ import pandas as pd
 from ..fitting import fitting_handler
 from ..utilities.array_utilities import get_min_max_xy
 # from iBeatles.py.utilities.math_tools import get_random_value
-from .. import DEFAULT_BIN
 
 
 class TableDictionaryHandler(object):
@@ -93,7 +92,7 @@ class TableDictionaryHandler(object):
         if not self.parent.table_dictionary == {}:
             return
 
-        bin_size = DEFAULT_BIN[-1]
+        bin_size = self.parent.binning_roi[-1]
         pos = self.parent.binning_line_view['pos']
 
         # calculate outside real edges of bins

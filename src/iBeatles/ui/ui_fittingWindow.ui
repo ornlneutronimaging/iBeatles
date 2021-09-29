@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1218</width>
-    <height>785</height>
+    <width>1773</width>
+    <height>897</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -81,7 +81,7 @@
               <x>0</x>
               <y>0</y>
               <width>274</width>
-              <height>316</height>
+              <height>379</height>
              </rect>
             </property>
             <attribute name="label">
@@ -269,7 +269,7 @@
               <x>0</x>
               <y>0</y>
               <width>274</width>
-              <height>316</height>
+              <height>379</height>
              </rect>
             </property>
             <attribute name="label">
@@ -458,13 +458,13 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>1180</width>
+            <width>1500</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>1180</width>
+            <width>1500</width>
             <height>22</height>
            </size>
           </property>
@@ -526,7 +526,7 @@
           </column>
           <column>
            <property name="text">
-            <string>Fitting Confidence</string>
+            <string>Fit. Confidence</string>
            </property>
           </column>
           <column>
@@ -581,13 +581,13 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>1180</width>
+            <width>1500</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>1180</width>
+            <width>1500</width>
             <height>16777215</height>
            </size>
           </property>

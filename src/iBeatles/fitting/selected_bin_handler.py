@@ -181,7 +181,7 @@ class SelectedBinsHandler(object):
         if self.parent.fitting_lr is None:
 
             lr = pg.LinearRegionItem(values=linear_region_range,
-                                     orientation=None,
+                                     orientation='vertical',
                                      brush=None,
                                      movable=True,
                                      bounds=None)

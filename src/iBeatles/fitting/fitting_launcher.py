@@ -68,7 +68,7 @@ class FittingWindow(QMainWindow):
                                  11: [17, 18],
                                  12: [19, 20]}
 
-    para_cell_width = 110
+    para_cell_width = 130
     header_table_columns_width = [30, 30, 50, 50, 100,
                                   para_cell_width,
                                   para_cell_width,
