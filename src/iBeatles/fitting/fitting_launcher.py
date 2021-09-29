@@ -259,9 +259,6 @@ class FittingWindow(QMainWindow):
         else:
             status = False
 
-        print(f"self.parent.binning_line_view['pos']: {self.parent.binning_line_view['pos']}")
-        print(f"status: {status}")
-
         area = DockArea()
         self.ui.area = area
         area.setVisible(status)

@@ -8,3 +8,7 @@ class LoadBin:
         session_dict = self.session_dict
 
         self.parent.binning_roi = session_dict['bin']['roi']
+
+        binning_line_view = session_dict['bin']['binning line view']
+        self.parent.binning_line_view['pos'] = binning_line_view
+        
