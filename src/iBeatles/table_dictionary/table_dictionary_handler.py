@@ -4,12 +4,14 @@ import os
 import pyqtgraph as pg
 import pandas as pd
 
+from ..utilities.table_handler import TableHandler
+
 from ..fitting import fitting_handler
 from ..utilities.array_utilities import get_min_max_xy
 # from iBeatles.py.utilities.math_tools import get_random_value
 
 
-class TableDictionaryHandler(object):
+class TableDictionaryHandler:
     selected_color = {'pen': (0, 0, 0, 30),
                       'brush': (0, 255, 0, 150)}
 
@@ -26,21 +28,23 @@ class TableDictionaryHandler(object):
               'a5_value', 'a5_err', 'a5_fixed',
               'a6_value', 'a6_err', 'a6_fixed']
 
-    def __init__(self, parent=None):
+    def __init__(self, grand_parent=None, parent=None):
+        self.grand_parent = grand_parent
         self.parent = parent
+        self.value_table_ui = self.parent.ui.value_table
 
     def fill_table_with_variable(self, variable_name='d_spacing', value=np.NaN, list_keys=[], all_keys=False):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         if all_keys:
             list_keys = table_dictionary.keys()
 
         for _key in list_keys:
             table_dictionary[_key][variable_name]['val'] = value
 
-        self.parent.table_dictionary = table_dictionary
+        self.grand_parent.table_dictionary = table_dictionary
 
     def populate_table_dictionary_entry(self, index=0, array=[]):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
         table_dictionary[str(index)] = {'bin_coordinates': {'x0': array[0],
                                                             'x1': array[2],
@@ -80,20 +84,20 @@ class TableDictionaryHandler(object):
                                                'fixed': array[32]},
                                         }
 
-        self.parent.table_dictionary = table_dictionary
+        self.grand_parent.table_dictionary = table_dictionary
 
     def create_table_dictionary(self):
         '''
         this will define the corner position and index of each cell
         '''
-        if len(np.array(self.parent.data_metadata['normalized']['data_live_selection'])) == 0:
+        if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
             return
 
-        if not self.parent.table_dictionary == {}:
+        if not self.grand_parent.table_dictionary == {}:
             return
 
-        bin_size = self.parent.binning_roi[-1]
-        pos = self.parent.binning_line_view['pos']
+        bin_size = self.grand_parent.binning_roi[-1]
+        pos = self.grand_parent.binning_line_view['pos']
 
         # calculate outside real edges of bins
         min_max_xy = get_min_max_xy(pos)
@@ -175,22 +179,26 @@ class TableDictionaryHandler(object):
 
             _index_col += 1
 
-        self.parent.table_dictionary = table_dictionary
+        self.grand_parent.table_dictionary = table_dictionary
 
-        # self.parent.fitting_ui.table_dictionary = table_dictionary
+        # self.grand_parent.fitting_ui.table_dictionary = table_dictionary
 
-        self.parent.fitting_selection['nbr_row'] = _index_row
-        self.parent.fitting_selection['nbr_column'] = _index_col
+        self.grand_parent.fitting_selection['nbr_row'] = _index_row
+        self.grand_parent.fitting_selection['nbr_column'] = _index_col
 
     def full_table_selection_tool(self, status=True):
 
-        table_dictionary = self.parent.table_dictionary
-        for _index in table_dictionary:
-            _item = table_dictionary[_index]
-            _item['active'] = status
-            table_dictionary[_index] = _item
+        print("selecting full table selection tool")
+        o_table = TableHandler(table_ui=self.value_table_ui)
+        o_table.select_everything(True)
 
-        self.parent.table_dictionary = table_dictionary
+        # table_dictionary = self.grand_parent.table_dictionary
+        # for _index in table_dictionary:
+        #     _item = table_dictionary[_index]
+        #     _item['active'] = status
+        #     table_dictionary[_index] = _item
+        #
+        # self.grand_parent.table_dictionary = table_dictionary
 
     def unselect_full_table(self):
         self.full_table_selection_tool(status=False)
@@ -199,7 +207,7 @@ class TableDictionaryHandler(object):
         self.full_table_selection_tool(status=True)
 
     def get_average_parameters_activated(self):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
         d_spacing = []
         alpha = []
@@ -252,14 +260,14 @@ class TableDictionaryHandler(object):
             return np.nanmean(array)
 
     def import_table(self):
-        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
-        table_file = str(QFileDialog.getOpenFileName(self.parent,
+        default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        table_file = str(QFileDialog.getOpenFileName(self.grand_parent,
                                                      'Define Location and File Name Where to Export the Table!',
-                                                     os.path.join(self.parent.normalized_folder, default_file_name)))
+                                                     os.path.join(self.grand_parent.normalized_folder, default_file_name)))
 
         if table_file:
             pandas_data_frame = pd.read_csv(table_file)
-            o_table = TableDictionaryHandler(parent=self.parent)
+            o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
 
             numpy_table = pandas_data_frame.values
             # loop over each row in the pandas data frame
@@ -267,18 +275,18 @@ class TableDictionaryHandler(object):
                 o_table.populate_table_dictionary_entry(index=_index,
                                                         array=_row_values)
 
-            o_fitting = iBeatles.fitting.fitting_handler.FittingHandler(parent=self.parent)
+            o_fitting = iBeatles.fitting.fitting_handler.FittingHandler(grand_parent=self.grand_parent)
             o_fitting.fill_table()
 
     def export_table(self):
-        default_file_name = str(self.parent.ui.normalized_folder.text()) + '_fitting_table.csv'
-        table_file = str(QFileDialog.getSaveFileName(self.parent,
+        default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + '_fitting_table.csv'
+        table_file = str(QFileDialog.getSaveFileName(self.grand_parent,
                                                      'Select or Define Name of File!',
                                                      default_file_name,
                                                      "CSV (*.csv)"))
 
         if table_file:
-            table_dictionary = self.parent.table_dictionary
+            table_dictionary = self.grand_parent.table_dictionary
             o_table_formated = FormatTableForExport(table=table_dictionary)
             pandas_data_frame = o_table_formated.pandas_data_frame
             header = self.header

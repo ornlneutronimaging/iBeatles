@@ -29,7 +29,8 @@ class FittingLauncher(object):
             fitting_window = FittingWindow(parent=parent)
             fitting_window.show()
             self.parent.fitting_ui = fitting_window
-            o_fitting = FittingHandler(parent=self.parent)
+            o_fitting = FittingHandler(grand_parent=self.parent,
+                                       parent=self.parent.fitting_ui)
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
@@ -302,7 +303,8 @@ class FittingWindow(QMainWindow):
             self.parent.table_dictionary = table_dictionary
 
         # hide this row if status is False and user only wants to see locked items
-        o_filling_handler = FillingTableHandler(parent=self.parent)
+        o_filling_handler = FillingTableHandler(grand_parent=self.parent,
+                                                parent=self)
         if (status is False) and (o_filling_handler.get_row_to_show_state() == 'active'):
             self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
@@ -374,7 +376,8 @@ class FittingWindow(QMainWindow):
         self.parent.table_dictionary = table_dictionary
 
         # hide this row if status is False and user only wants to see locked items
-        o_filling_handler = FillingTableHandler(parent=self.parent)
+        o_filling_handler = FillingTableHandler(grand_parent=self.parent,
+                                                parent=self)
         if (status is False) and (o_filling_handler.get_row_to_show_state() == 'lock'):
             self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
@@ -390,7 +393,8 @@ class FittingWindow(QMainWindow):
             self.parent.advanced_selection_ui.ui.lock_table.blockSignals(False)
 
     def value_table_right_click(self, position):
-        o_table_handler = ValueTableHandler(parent=self.parent)
+        o_table_handler = ValueTableHandler(grand_parent=self.parent,
+                                            parent=self)
         o_table_handler.right_click(position=position)
 
     def update_image_view_selection(self):
@@ -468,12 +472,14 @@ class FittingWindow(QMainWindow):
 
     def advanced_table_clicked(self, status):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        o_table_handler = FillingTableHandler(parent=self.parent)
+        o_table_handler = FillingTableHandler(grand_parent=self.parent,
+                                              parent=self)
         o_table_handler.set_mode(advanced_mode=status)
         QApplication.restoreOverrideCursor()
 
     def update_table(self):
-        o_filling_table = FillingTableHandler(parent=self.parent)
+        o_filling_table = FillingTableHandler(grand_parent=self.parent,
+                                              parent=self)
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)

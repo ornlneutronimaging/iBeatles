@@ -20,23 +20,24 @@ class ValueTableHandler(object):
     __export = None
     __import = None
 
-    def __init__(self, parent=None):
+    def __init__(self, grand_parent=None, parent=None):
+        self.grand_parent = grand_parent
         self.parent = parent
 
     def right_click(self, position):
-        menu = QMenu(self.parent)
+        menu = QMenu(self.grand_parent)
 
-        if (len(self.parent.fitting_ui.data) == 0) or \
-                (self.parent.binning_line_view['pos'] is None):
+        if (len(self.grand_parent.fitting_ui.data) == 0) or \
+                (self.grand_parent.binning_line_view['pos'] is None):
             status = False
         else:
             status = True
 
-        # _select_all = menu.addAction("Activate All")
-        # _select_all.setEnabled(status)
-        # _unselect_all = menu.addAction("Deactivate All")
-        # _unselect_all.setEnabled(status)
-        # menu.addSeparator()
+        self.__select_all = menu.addAction("Select All")
+        self.__select_all.setEnabled(status)
+        self.__unselect_all = menu.addAction("Unselect All")
+        self.__unselect_all.setEnabled(status)
+        menu.addSeparator()
 
         self.__advanced_selection = menu.addAction("Selection/Lock Tool ...")
         self.__advanced_selection.setEnabled(status)
@@ -91,25 +92,25 @@ class ValueTableHandler(object):
         }.get(action, lambda: None)()
 
     def export_fitting(self):
-        o_export_fitting = ExportFittingHandler(parent=self.parent)
+        o_export_fitting = ExportFittingHandler(grand_parent=self.grand_parent)
         o_export_fitting.run()
 
     def export_table(self):
-        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
         o_table.export_table()
 
     def import_table(self):
-        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
         o_table.import_table()
 
     def changed_fixed_variables_status(self, status=True):
-        selection = self.parent.fitting_ui.ui.value_table.selectedRanges()
-        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
+        selection = self.parent.ui.value_table.selectedRanges()
+        nbr_row = self.parent.ui.value_table.rowCount()
 
-        o_fill_table = FillingTableHandler(parent=self.parent)
+        o_fill_table = FillingTableHandler(grand_parent=self.grand_parent)
         row_to_show_status = o_fill_table.get_row_to_show_state()
 
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
         column_variable_match = {5: 'd_spacing',
                                  7: 'sigma',
@@ -152,9 +153,9 @@ class ValueTableHandler(object):
                             _entry[name_variable]['fixed'] = status
                             table_dictionary[str(_index)] = _entry
 
-            self.parent.table_dictionary = table_dictionary
+            self.grand_parent.table_dictionary = table_dictionary
 
-            o_fitting = FillingTableHandler(parent=self.parent)
+            o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
             o_fitting.fill_table()
 
     def fixed_variables(self):
@@ -164,64 +165,63 @@ class ValueTableHandler(object):
         self.changed_fixed_variables_status(status=False)
 
     def select_all(self):
+        # QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
-        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
         o_table.select_full_table()
 
-        o_fitting = FillingTableHandler(parent=self.parent)
-        o_fitting.fill_table()
+        # o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
+        # o_fitting.fill_table()
+        #
+        # self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+        #
+        # # if self.grand_parent.advanced_selection_ui:
+        # # self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
+        #
+        # # nbr_row = self.grand_parent.fitting_ui.ui.value_table.rowCount()
+        # # nbr_column = self.grand_parent.fitting_ui.ui.value_table.columnCount()
+        # # _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
+        # # self.grand_parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, True)
+        # # o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
+        # # o_fitting.select_full_table()
+        #
+        # #        self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+        # if self.grand_parent.advanced_selection_ui:
+        #     self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
 
-        self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-
-        # if self.parent.advanced_selection_ui:
-        # self.parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
-
-        # nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
-        # nbr_column = self.parent.fitting_ui.ui.value_table.columnCount()
-        # _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
-        # self.parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, True)
-        # o_fitting = FillingTableHandler(parent=self.parent)
-        # o_fitting.select_full_table()
-
-        #        self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-        if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
-
-        QApplication.restoreOverrideCursor()
+        # QApplication.restoreOverrideCursor()
 
     def unselect_all(self):
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
-        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
         o_table.unselect_full_table()
 
-        o_fitting = FillingTableHandler(parent=self.parent)
+        o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
         o_fitting.fill_table()
 
-        self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+        self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
-        # if self.parent.advanced_selection_ui:
-        # self.parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
-        # nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
-        # nbr_column = self.parent.fitting_ui.ui.value_table.columnCount()
+        # if self.grand_parent.advanced_selection_ui:
+        # self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
+        # nbr_row = self.grand_parent.fitting_ui.ui.value_table.rowCount()
+        # nbr_column = self.grand_parent.fitting_ui.ui.value_table.columnCount()
         # _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
-        # self.parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, False)
-        # o_fitting = FillingTableHandler(parent=self.parent)
+        # self.grand_parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, False)
+        # o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
         # o_fitting.unselect_full_table()
-        # self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-        # if self.parent.advanced_selection_ui:
-        # self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
+        # self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+        # if self.grand_parent.advanced_selection_ui:
+        # self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
 
         QApplication.restoreOverrideCursor()
 
     def advanced_selection(self):
-        AdvancedSelectionLauncher(parent=self.parent)
+        AdvancedSelectionLauncher(grand_parent=self.grand_parent)
 
     def set_variables(self):
-        SetFittingVariablesLauncher(parent=self.parent)
+        SetFittingVariablesLauncher(grand_parent=self.grand_parent)
 
     def reset(self):
         print("reset")
