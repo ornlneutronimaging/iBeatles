@@ -49,6 +49,7 @@ class FittingHandler(object):
         self.parent.fitting_ui.line_view_fitting = line_view_fitting
         self.parent.fitting_ui.image_view.addItem(line_view_fitting)
         self.parent.fitting_ui.line_view = line_view_fitting
+
         self.parent.fitting_ui.line_view.setData(pos=pos,
                                                  adj=adj,
                                                  pen=lines,

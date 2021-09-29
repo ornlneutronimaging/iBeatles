@@ -13,10 +13,10 @@ class LoadBin:
         self.parent.binning_roi = session_dict['bin']['roi']
 
         binning_line_view = session_dict['bin']['binning line view']
-        self.parent.binning_line_view['pos'] = binning_line_view['pos']
-        self.parent.binning_line_view['adj'] = binning_line_view['adj']
+        self.parent.binning_line_view['pos'] = np.array(binning_line_view['pos'])
+        self.parent.binning_line_view['adj'] = np.array(binning_line_view['adj'])
 
-        line_color = binning_line_view['line color']
+        line_color = tuple(binning_line_view['line color'])
         lines = np.array([line_color for n in np.arange(len(self.parent.binning_line_view['pos']))],
                          dtype=[('red', np.ubyte), ('green', np.ubyte),
                                 ('blue', np.ubyte), ('alpha', np.ubyte),

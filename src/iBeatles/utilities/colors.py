@@ -30,4 +30,5 @@ def set_alpha_value(lines=[], transparency=50):
                      dtype=[('red', np.ubyte), ('green', np.ubyte),
                             ('blue', np.ubyte), ('alpha', np.ubyte),
                             ('width', float)])
+
     return lines
