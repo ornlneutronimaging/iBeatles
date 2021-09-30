@@ -323,6 +323,9 @@ class FittingWindow(QMainWindow):
 
     def lock_button_state_changed(self, status, row_clicked):
         """
+        All the row selected should mirror the state of this button
+
+
         status: 0: off
                 2: on
 
@@ -337,6 +340,14 @@ class FittingWindow(QMainWindow):
             status = False
         else:
             status = True
+
+        #FIXME
+
+
+
+
+
+
 
         # perform same status on all rows
         _selection = self.ui.value_table.selectedRanges()

@@ -81,8 +81,7 @@ class FillingTableHandler(object):
 
             _lock_button.setChecked(_is_lock)
             _lock_button.stateChanged.connect(lambda state=0,
-                                              row=_index: self.parent.lock_button_state_changed(state,
-                                                                                                           row))
+                                              row=_index: self.parent.lock_button_state_changed(state, row))
 
             self.parent.ui.value_table.setCellWidget(_index, 2, _lock_button)
 
@@ -92,8 +91,7 @@ class FillingTableHandler(object):
 
             _active_button.setChecked(_is_active)
             _active_button.stateChanged.connect(lambda state=0,
-                                                row=_index: self.parent.active_button_state_changed(state,
-                                                                                                               row))
+                                                row=_index: self.parent.active_button_state_changed(state, row))
 
             self.parent.ui.value_table.setCellWidget(_index, 3, _active_button)
 
