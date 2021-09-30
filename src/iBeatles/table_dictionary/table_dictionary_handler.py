@@ -255,7 +255,7 @@ class TableDictionaryHandler:
         if array == []:
             return np.NaN
         else:
-            return np.nanmean(array)
+            return np.mean(array)
 
     def import_table(self):
         default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + '_fitting_table.csv'
