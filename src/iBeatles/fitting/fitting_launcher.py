@@ -308,7 +308,8 @@ class FittingWindow(QMainWindow):
         if (status is False) and (o_filling_handler.get_row_to_show_state() == 'active'):
             self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
-        o_bin_handler = SelectedBinsHandler(parent=self.parent)
+        o_bin_handler = SelectedBinsHandler(parent=self,
+                                            grand_parent=self.parent)
         o_bin_handler.update_bins_selected()
         self.update_bragg_edge_plot()
         o_bin_handler.update_bins_locked()
@@ -404,20 +405,19 @@ class FittingWindow(QMainWindow):
             self.parent.advanced_selection_ui.ui.lock_table.blockSignals(False)
 
     def value_table_right_click(self, position):
-        o_table_handler = ValueTableHandler(grand_parent=self.parent,
-                                            parent=self)
+        o_table_handler = ValueTableHandler(grand_parent=self.parent, parent=self)
         o_table_handler.right_click(position=position)
 
     def update_image_view_selection(self):
-        o_bin_handler = SelectedBinsHandler(parent=self.parent)
+        o_bin_handler = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_bin_handler.update_bins_selected()
 
     def update_image_view_lock(self):
-        o_bin_handler = SelectedBinsHandler(parent=self.parent)
+        o_bin_handler = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_bin_handler.update_bins_locked()
 
     def update_bragg_edge_plot(self, update_selection=True):
-        o_bin_handler = SelectedBinsHandler(parent=self.parent)
+        o_bin_handler = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_bin_handler.update_bragg_edge_plot()
         if update_selection:
             self.bragg_edge_linear_region_changing()

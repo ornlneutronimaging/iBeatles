@@ -12,33 +12,33 @@ class SelectedBinsHandler(object):
     lock_color = {'pen': (0, 0, 0, 30),
                   'brush': (255, 0, 0, 240)}
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
-        self.fitting_ui = self.parent.fitting_ui
+        self.grand_parent = grand_parent
 
     def clear_all_selected_bins(self):
-        list_bins = self.parent.fitting_ui.list_bins_selected_item
+        list_bins = self.parent.list_bins_selected_item
         for _bin_ui in list_bins:
-            self.parent.fitting_ui.image_view.removeItem(_bin_ui)
+            self.parent.image_view.removeItem(_bin_ui)
 
     def clear_all_locked_bins(self):
-        list_bins = self.parent.fitting_ui.list_bins_locked_item
+        list_bins = self.parent.list_bins_locked_item
         for _bin_ui in list_bins:
-            self.parent.fitting_ui.image_view.removeItem(_bin_ui)
+            self.parent.image_view.removeItem(_bin_ui)
 
     def update_bins_selected(self):
         self.clear_all_selected_bins()
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         list_bins_selected_item = []
         for _index in table_dictionary.keys():
             box = table_dictionary[_index]['selected_item']
             if table_dictionary[_index]['active']:
-                self.parent.fitting_ui.image_view.addItem(box)
+                self.parent.image_view.addItem(box)
                 list_bins_selected_item.append(box)
-        self.parent.fitting_ui.list_bins_selected_item = list_bins_selected_item
+        self.parent.list_bins_selected_item = list_bins_selected_item
 
         # self.clear_all_selected_bins()
-        # selection = self.fitting_ui.ui.value_table.selectedRanges()
+        # selection = self.parent.ui.value_table.selectedRanges()
         # list_bin_selected = self.retrieve_list_bin_selected(selection)
 
         # table_dictionary = self.parent.table_dictionary
@@ -67,14 +67,14 @@ class SelectedBinsHandler(object):
 
     def update_bins_locked(self, all_flag=True):
         self.clear_all_locked_bins()
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         list_bins_locked_item = []
         for _index in table_dictionary.keys():
             box = table_dictionary[_index]['locked_item']
             if table_dictionary[_index]['lock']:
-                self.parent.fitting_ui.image_view.addItem(box)
+                self.parent.image_view.addItem(box)
                 list_bins_locked_item.append(box)
-        self.parent.fitting_ui.list_bins_locked_item = list_bins_locked_item
+        self.parent.list_bins_locked_item = list_bins_locked_item
 
         # table_dictionary = self.parent.table_dictionary
         # nbr_row = len(table_dictionary)
@@ -105,12 +105,12 @@ class SelectedBinsHandler(object):
     def retrieve_list_bin_selected(self):
         list_bin_selected = []
 
-        if self.parent.fitting_ui.bragg_edge_active_button_status:
+        if self.parent.bragg_edge_active_button_status:
             flag_name = 'active'
         else:
             flag_name = 'lock'
 
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         for _index in table_dictionary:
             if table_dictionary[_index][flag_name]:
                 list_bin_selected.append(_index)
@@ -118,15 +118,15 @@ class SelectedBinsHandler(object):
         return list_bin_selected
 
     def update_bragg_edge_plot(self):
-        self.parent.fitting_ui.bragg_edge_plot.clear()
+        self.parent.bragg_edge_plot.clear()
 
         list_bin_selected = self.retrieve_list_bin_selected()
         if list_bin_selected == []:
             return
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
         # retrieve image
-        data_2d = np.array(self.parent.data_metadata['normalized']['data'])
+        data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
 
         # isolate data selected    data[x0:x1, y0:y1] for each bin selected
         bragg_edge_data = []
@@ -149,36 +149,36 @@ class SelectedBinsHandler(object):
             # bragg_edge_data += final
 
         bragg_edge_data = np.nanmean(bragg_edge_data, axis=0)
-        x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
+        x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
 
         # save x and y-axis of bragg edge plot for initialization of a1, a2, a5 and a6
-        self.parent.fitting_ui.bragg_edge_data['x_axis'] = x_axis
-        self.parent.fitting_ui.bragg_edge_data['y_axis'] = bragg_edge_data
+        self.parent.bragg_edge_data['x_axis'] = x_axis
+        self.parent.bragg_edge_data['y_axis'] = bragg_edge_data
 
-        self.parent.fitting_ui.bragg_edge_plot.plot(x_axis, bragg_edge_data)
+        self.parent.bragg_edge_plot.plot(x_axis, bragg_edge_data)
         # if self.parent.xaxis_button_ui['normalized']['file_index'].isChecked():
         # self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", "File Index")
         # elif self.parent.xaxis_button_ui['normalized']['tof'].isChecked():
         # self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u"TOF (\u00B5s)")
         # else:
-        self.parent.fitting_ui.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
-        self.parent.fitting_ui.bragg_edge_plot.setLabel("left", "Average Counts")
+        self.parent.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
+        self.parent.bragg_edge_plot.setLabel("left", "Average Counts")
 
-        if self.parent.fitting_bragg_edge_linear_selection == []:
+        if self.grand_parent.fitting_bragg_edge_linear_selection == []:
             linear_region_left = 0
             linear_region_right = len(x_axis) - 1
-            self.parent.fitting_bragg_edge_linear_selection = [linear_region_left,
+            self.grand_parent.fitting_bragg_edge_linear_selection = [linear_region_left,
                                                                linear_region_right]
         else:
             [linear_region_left, linear_region_right] = \
-                self.parent.fitting_bragg_edge_linear_selection
+                self.grand_parent.fitting_bragg_edge_linear_selection
 
         lr_left = x_axis[linear_region_left]
         lr_right = x_axis[linear_region_right]
 
         linear_region_range = [lr_left, lr_right]
 
-        if self.parent.fitting_lr is None:
+        if self.parent is None:
 
             lr = pg.LinearRegionItem(values=linear_region_range,
                                      orientation='vertical',
@@ -186,23 +186,24 @@ class SelectedBinsHandler(object):
                                      movable=True,
                                      bounds=None)
             lr.setZValue(-10)
-            lr.sigRegionChangeFinished.connect(self.fitting_ui.bragg_edge_linear_region_changed)
-            lr.sigRegionChanged.connect(self.fitting_ui.bragg_edge_linear_region_changing)
-            self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
-            self.parent.fitting_lr = lr
+            lr.sigRegionChangeFinished.connect(self.grand_parent.bragg_edge_linear_region_changed)
+            lr.sigRegionChanged.connect(self.grand_parent.bragg_edge_linear_region_changing)
+            self.grand_parent.bragg_edge_plot.addItem(lr)
+            self.grand_parent.fitting_lr = lr
 
         else:
             lr = self.parent.fitting_lr
             lr.setRegion(linear_region_range)
-            self.parent.fitting_ui.bragg_edge_plot.addItem(lr)
+            self.parent.bragg_edge_plot.addItem(lr)
 
         display_fitting = True
         if display_fitting:
 
-            o_table = TableDictionaryHandler(parent=self.parent)
+            o_table = TableDictionaryHandler(grand_parent=self.grand_parent,
+                                             parent=self.parent)
             parameters = o_table.get_average_parameters_activated()
 
-            _advanced_fitting_mode = self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
+            _advanced_fitting_mode = self.parent.ui.advanced_table_checkBox.isChecked()
 
             d_spacing = parameters['d_spacing']
             alpha = parameters['alpha']
@@ -226,4 +227,4 @@ class SelectedBinsHandler(object):
 
             # fit_y_axis *= nbr_index_selected #FIXME
 
-            self.parent.fitting_ui.bragg_edge_plot.plot(fit_x_axis, fit_y_axis, pen='r')
+            self.parent.bragg_edge_plot.plot(fit_x_axis, fit_y_axis, pen='r')
