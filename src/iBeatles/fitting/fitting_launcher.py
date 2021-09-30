@@ -393,7 +393,8 @@ class FittingWindow(QMainWindow):
         if (status is False) and (o_filling_handler.get_row_to_show_state() == 'lock'):
             self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
-        o_bin_handler = SelectedBinsHandler(parent=self.parent)
+        o_bin_handler = SelectedBinsHandler(parent=self,
+                                            grand_parent=self.parent)
         o_bin_handler.update_bins_locked()
         self.update_bragg_edge_plot()
         o_bin_handler.update_bins_selected()

@@ -98,6 +98,7 @@ class MainWindow(QMainWindow):
     # binning_bin_size = 20
     binning_done = False
 
+    ## FITTING TAB
     # fitting window stuff
     init_sigma_alpha_ui = None
     fitting_ui = None
