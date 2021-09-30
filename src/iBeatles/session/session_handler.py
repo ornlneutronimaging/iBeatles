@@ -96,35 +96,52 @@ class SessionHandler:
 
         logging.info(f"Automatic session tabs to load: {tabs_to_load}")
 
-        if DataType.sample in tabs_to_load:
+        try:
 
-            # load data tab
-            o_load = LoadLoadDataTab(parent=self.parent)
-            o_load.sample()
-            o_load.ob()
-            o_load.instrument()
+            if DataType.sample in tabs_to_load:
 
-            # load normalization tab
-            o_norm = LoadNormalization(parent=self.parent)
-            o_norm.roi()
-            o_norm.check_widgets()
+                # load data tab
+                o_load = LoadLoadDataTab(parent=self.parent)
+                o_load.sample()
+                o_load.ob()
+                o_load.instrument()
 
-        if DataType.normalized in tabs_to_load:
+                # load normalization tab
+                o_norm = LoadNormalization(parent=self.parent)
+                o_norm.roi()
+                o_norm.check_widgets()
 
-            # load normalized tab
-            o_normalized = LoadNormalized(parent=self.parent)
-            o_normalized.all()
+            if DataType.normalized in tabs_to_load:
 
-        if DataType.bin in tabs_to_load:
+                # load normalized tab
+                o_normalized = LoadNormalized(parent=self.parent)
+                o_normalized.all()
 
-            # load bin tab
-            o_bin = LoadBin(parent=self.parent)
-            o_bin.all()
+            if DataType.bin in tabs_to_load:
 
-        show_status_message(parent=self.parent,
-                            message=f"Loaded {self.config_file_name}",
-                            status=StatusMessageStatus.ready,
-                            duration_s=10)
+                # load bin tab
+                o_bin = LoadBin(parent=self.parent)
+                o_bin.all()
+
+            show_status_message(parent=self.parent,
+                                message=f"Loaded {self.config_file_name}",
+                                status=StatusMessageStatus.ready,
+                                duration_s=10)
+
+        except FileNotFoundError:
+            show_status_message(parent=self.parent,
+                                message=f"One of the data file could not be located. Aborted loading session!",
+                                status=StatusMessageStatus.error,
+                                duration_s=10)
+            logging.info("Loading session aborted! FileNotFoundError raised!")
+
+        except ValueError:
+            show_status_message(parent=self.parent,
+                                message=f"One of the data file could not be located. Aborted loading session!",
+                                status=StatusMessageStatus.error,
+                                duration_s=10)
+            logging.info("Loading session aborted! ValueError raised!")
+
 
     def automatic_save(self):
         o_get = Get(parent=self.parent)
