@@ -10,11 +10,14 @@ class SaveBinTab(SaveTab):
         """ record the ROI selected"""
 
         def format_numpy_array_into_list(numpy_array):
-            formatted_array = []
-            for _entry in numpy_array:
-                _new_entry = [int(value) for value in _entry]
-                formatted_array.append(_new_entry)
-            return list(formatted_array)
+            if numpy_array:
+                formatted_array = []
+                for _entry in numpy_array:
+                    _new_entry = [int(value) for value in _entry]
+                    formatted_array.append(_new_entry)
+                return list(formatted_array)
+            else:
+                return None
 
         [x0, y0, width, height, bin_size] = self.parent.binning_roi
         binning_line_view_pos = self.parent.binning_line_view['pos']
@@ -27,8 +30,16 @@ class SaveBinTab(SaveTab):
 
         logging.info("Recording parameters of bin tab")
         logging.info(f" x0:{x0}, y0:{y0}, width:{width}, height:{height}, bin_size:{bin_size}")
-        logging.info(f" len(binning_line_view_pos): {len(binning_line_view_pos)}")
-        logging.info(f" len(binning_line_view_adj): {len(binning_line_view_adj)}")
+        if binning_line_view_pos:
+            logging.info(f" len(binning_line_view_pos): {len(binning_line_view_pos)}")
+        else:
+            logging.info(f" binning_line_view_pos: None")
+
+        if formatted_binning_line_view_adj:
+            logging.info(f" len(binning_line_view_adj): {len(binning_line_view_adj)}")
+        else:
+            logging.info(f" binning_line_view_adj: None")
+        
         logging.info(f" binning_line_view_line_color: {binning_line_view_line_color}")
 
         self.session_dict['bin']['roi'] = [x0, y0, width, height, bin_size]
