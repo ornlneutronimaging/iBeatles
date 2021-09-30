@@ -187,10 +187,8 @@ class TableDictionaryHandler:
         self.grand_parent.fitting_selection['nbr_column'] = _index_col
 
     def full_table_selection_tool(self, status=True):
-
-        print("selecting full table selection tool")
         o_table = TableHandler(table_ui=self.value_table_ui)
-        o_table.select_everything(True)
+        o_table.select_everything(status)
 
         # table_dictionary = self.grand_parent.table_dictionary
         # for _index in table_dictionary:
