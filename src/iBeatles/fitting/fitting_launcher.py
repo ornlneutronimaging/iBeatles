@@ -262,10 +262,10 @@ class FittingWindow(QMainWindow):
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
 
-        if status == 0:
-            status = False
-        else:
-            status = True
+        # if status == 0:
+        #     status = False
+        # else:
+        #     status = True
 
         self.mirror_state_of_widgets(column=3, row_clicked=row_clicked)
 
@@ -276,7 +276,7 @@ class FittingWindow(QMainWindow):
         #     if 3 in [_select.leftColumn(), _select.rightColumn()]:
         #         _this_column_is_selected = True
         #         break
-        #
+
         # table_dictionary = self.parent.table_dictionary
         # if _this_column_is_selected:
         #     # update_selection_flag = True  # we change the state so we need to update the selection
@@ -304,42 +304,48 @@ class FittingWindow(QMainWindow):
         #             _widget.blockSignals(False)
         #             update_lock_flag = True
         #     self.parent.table_dictionary = table_dictionary
-        #
-        # # hide this row if status is False and user only wants to see locked items
-        # o_filling_handler = FillingTableHandler(grand_parent=self.parent,
-        #                                         parent=self)
+
+        # hide this row if status is False and user only wants to see locked items
+        o_filling_handler = FillingTableHandler(grand_parent=self.parent,
+                                                parent=self)
         # if (status is False) and (o_filling_handler.get_row_to_show_state() == 'active'):
         #     self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
-        #
-        # o_bin_handler = SelectedBinsHandler(parent=self,
-        #                                     grand_parent=self.parent)
-        # o_bin_handler.update_bins_selected()
-        # self.update_bragg_edge_plot()
-        # o_bin_handler.update_bins_locked()
-        #
-        # if self.parent.advanced_selection_ui:
-        #     self.parent.advanced_selection_ui.update_selection_table()
-        #     if update_lock_flag:
-        #         self.parent.advanced_selection_ui.update_lock_table()
-        #     self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
+
+        o_bin_handler = SelectedBinsHandler(parent=self,
+                                            grand_parent=self.parent)
+        o_bin_handler.update_bins_selected()
+        self.update_bragg_edge_plot()
+        o_bin_handler.update_bins_locked()
+
+        if self.parent.advanced_selection_ui:
+            self.parent.advanced_selection_ui.update_selection_table()
+            if update_lock_flag:
+                self.parent.advanced_selection_ui.update_lock_table()
+            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
 
         QApplication.restoreOverrideCursor()
 
     def mirror_state_of_widgets(self, column=2, row_clicked=0):
-        # perform same status on all rows
+        # perform same status on all rows and save it in table_dictionary
+        label_column = 'active' if column == 3 else 'lock'
+
         o_table = TableHandler(table_ui=self.ui.value_table)
         list_row_selected = o_table.get_rows_of_table_selected()
 
         o_table_handler = TableDictionaryHandler(grand_parent=self.parent,
                                                  parent=self)
-        is_this_row_checked = o_table_handler.is_this_row_locked(row=row_clicked,
-                                                                 column=column)
+        is_this_row_checked = o_table_handler.is_this_row_checked(row=row_clicked,
+                                                                  column=column)
+
         for _row in list_row_selected:
+            self.parent.table_dictionary[str(_row)][label_column] = is_this_row_checked
             if _row == row_clicked:
                 continue
             _widget = o_table.get_widget(row=_row,
                                          column=column)
+            _widget.blockSignals(True)
             _widget.setChecked(is_this_row_checked)
+            _widget.blockSignals(False)
 
     def lock_button_state_changed(self, status, row_clicked):
         """

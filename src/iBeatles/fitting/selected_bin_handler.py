@@ -102,25 +102,29 @@ class SelectedBinsHandler(object):
         # self.parent.table_dictionary = table_dictionary
         # self.parent.fitting_ui.list_bins_locked_item = list_bins_locked_item
 
-    def retrieve_list_bin_selected(self):
+    def retrieve_list_bin_selected(self, flag_name='active'):
+        """this is looking at the table_dictionary and the flag of the 'active' or 'lock' key
+        item to figure out if the row is checked or not"""
+
         list_bin_selected = []
 
-        if self.parent.bragg_edge_active_button_status:
-            flag_name = 'active'
-        else:
-            flag_name = 'lock'
+        # if self.parent.bragg_edge_active_button_status:
+        #     flag_name = 'active'
+        # else:
+        #     flag_name = 'lock'
 
         table_dictionary = self.grand_parent.table_dictionary
         for _index in table_dictionary:
             if table_dictionary[_index][flag_name]:
                 list_bin_selected.append(_index)
 
+        list_bin_selected.sort()
         return list_bin_selected
 
     def update_bragg_edge_plot(self):
         self.parent.bragg_edge_plot.clear()
 
-        list_bin_selected = self.retrieve_list_bin_selected()
+        list_bin_selected = self.retrieve_list_bin_selected(flag_name='active')
         if list_bin_selected == []:
             return
         table_dictionary = self.grand_parent.table_dictionary

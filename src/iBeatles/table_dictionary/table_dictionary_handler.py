@@ -290,11 +290,11 @@ class TableDictionaryHandler:
             header = self.header
             pandas_data_frame.to_csv(table_file, header=header)
 
-    def is_this_row_activated(self, row=0):
-        widget = self.parent.ui.value_table.cellWidget(row, 3)
-        return widget.isChecked()
+    # def is_this_row_activated(self, row=0):
+    #     widget = self.parent.ui.value_table.cellWidget(row, 3)
+    #     return widget.isChecked()
 
-    def is_this_row_locked(self, row=0, column=2):
+    def is_this_row_checked(self, row=0, column=2):
         widget = self.parent.ui.value_table.cellWidget(row, column)
         return widget.isChecked()
 
