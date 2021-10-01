@@ -27,13 +27,17 @@ class TableHandler:
     def select_rows(self, list_of_rows=None):
         self.table_ui.blockSignals(True)
         self.select_everything(False)
-        nbr_row = self.table_ui.rowCount()
         nbr_column = self.table_ui.columnCount()
 
         for _row in list_of_rows:
-            selection_range = QTableWidgetSelectionRange(_row, 0, _row, nbr_column - 1)
+            selection_range = QTableWidgetSelectionRange(_row, 0, _row, nbr_column-1)
             self.table_ui.setRangeSelected(selection_range, True)
         self.table_ui.blockSignals(False)
+
+    def add_this_row_to_selection(self, row=0):
+        nbr_column = self.column_count()
+        selection_range = QTableWidgetSelectionRange(row, 0, row, nbr_column-1)
+        self.table_ui.setRangeSelected(selection_range, True)
 
     def remove_all_rows(self):
         nbr_row = self.table_ui.rowCount()

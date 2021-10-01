@@ -330,7 +330,10 @@ class FittingWindow(QMainWindow):
         label_column = 'active' if column == 3 else 'lock'
 
         o_table = TableHandler(table_ui=self.ui.value_table)
+        o_table.add_this_row_to_selection(row=row_clicked)
         list_row_selected = o_table.get_rows_of_table_selected()
+
+
 
         o_table_handler = TableDictionaryHandler(grand_parent=self.parent,
                                                  parent=self)
