@@ -23,8 +23,9 @@ class TableFittingStoryDictionaryHandler(object):
                   'a6': False,
                   'progress': Status.not_run_yet}
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
+        self.grand_parent = grand_parent
 
     def initialize_table(self):
 
@@ -44,11 +45,11 @@ class TableFittingStoryDictionaryHandler(object):
             for _variable in _story:
                 table_fitting_story_dictionary[_index][_variable] = True
 
-        self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
+        self.grand_parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
     def move_entry(self, current_index_row=0, direction='up'):
 
-        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
 
         if direction == 'up':
             new_index_row = current_index_row - 1
@@ -59,11 +60,11 @@ class TableFittingStoryDictionaryHandler(object):
         table_fitting_story_dictionary[new_index_row] = table_fitting_story_dictionary[current_index_row]
         table_fitting_story_dictionary[current_index_row] = tmp_entry
 
-        self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
+        self.grand_parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
     def remove_entry(self, index_to_remove=0):
 
-        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
+        table_fitting_story_dictionary = self.grang_parent.table_fitting_story_dictionary
         # nbr_entry = len(table_fitting_story_dictionary)
 
         new_table_fitting_story_dictionary = collections.OrderedDict()
@@ -76,11 +77,11 @@ class TableFittingStoryDictionaryHandler(object):
             new_table_fitting_story_dictionary[new_index] = table_fitting_story_dictionary[_index]
             new_index += 1
 
-        self.parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary
+        self.grand_parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary
 
     def add_entry(self, index_to_add=1):
 
-        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
         nbr_entry = len(table_fitting_story_dictionary)
 
         new_table_fitting_story_dictionary = collections.OrderedDict()
@@ -104,5 +105,4 @@ class TableFittingStoryDictionaryHandler(object):
                     new_table_fitting_story_dictionary[new_index] = table_fitting_story_dictionary[_index]
                     new_index += 1
 
-        print(new_table_fitting_story_dictionary)
-        self.parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary
+        self.grand_parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary

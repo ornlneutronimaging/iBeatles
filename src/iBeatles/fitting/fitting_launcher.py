@@ -354,11 +354,9 @@ class FittingWindow(QMainWindow):
         """
         All the row selected should mirror the state of this button
 
-
         status: 0: off
                 2: on
 
-        we also need to make sure that if the button is lock, it can not be activated !
         """
         update_selection_flag = False
 
@@ -371,42 +369,6 @@ class FittingWindow(QMainWindow):
             status = True
 
         self.mirror_state_of_widgets(column=2, row_clicked=row_clicked)
-
-        #
-        # _this_column_is_selected = False
-        # for _select in _selection:
-        #     if 2 in [_select.leftColumn(), _select.rightColumn()]:
-        #         _this_column_is_selected = True
-        #         break
-        #
-        # table_dictionary = self.parent.table_dictionary
-        # if _this_column_is_selected:
-        #     update_selection_flag = True  # we change the state so we need to update the selection
-        #     for _index in table_dictionary:
-        #         table_dictionary[_index]['lock'] = status
-        #         _widget_lock = self.ui.value_table.cellWidget(int(_index), 2)
-        #         _widget_lock.blockSignals(True)
-        #         _widget_lock.setChecked(status)
-        #         _widget_lock.blockSignals(False)
-        #         if status:
-        #             _widget = self.ui.value_table.cellWidget(int(_index), 3)
-        #             if _widget.isChecked():  # because we can not be active and locked at the same time
-        #                 table_dictionary[_index]['active'] = False
-        #                 _widget.blockSignals(True)
-        #                 _widget.setChecked(False)
-        #                 _widget.blockSignals(False)
-        # else:
-        #     table_dictionary[str(row_clicked)]['lock'] = status
-        #     if status:
-        #         _widget = self.ui.value_table.cellWidget(row_clicked, 3)
-        #         if _widget.isChecked():  # because we can not be active and locked at the same time
-        #             table_dictionary[str(row_clicked)]['active'] = False
-        #             _widget.blockSignals(True)
-        #             _widget.setChecked(False)
-        #             _widget.blockSignals(False)
-        #             update_selection_flag = True  # we change the state so we need to update the selection
-        #
-        # self.parent.table_dictionary = table_dictionary
 
         # hide this row if status is False and user only wants to see locked items
         o_filling_handler = FillingTableHandler(grand_parent=self.parent,
@@ -533,12 +495,14 @@ class FittingWindow(QMainWindow):
         o_bin_handler.update_bragg_edge_plot()
 
     def initialize_all_parameters_button_clicked(self):
-        o_initialization = FittingInitializationHandler(parent=self.parent)
+        o_initialization = FittingInitializationHandler(parent=self,
+                                                        grand_parent=self.parent)
         o_initialization.make_all_active()
         o_initialization.run()
 
     def initialize_all_parameters_step2(self):
-        o_initialization = FittingInitializationHandler(parent=self.parent)
+        o_initialization = FittingInitializationHandler(parent=self.parent,
+                                                        grand_parent=self.parent)
         o_initialization.finished_up_initialization()
 
         # activate or not step4 (yes if we were able to initialize correctly all variables)
@@ -550,7 +514,8 @@ class FittingWindow(QMainWindow):
         pass
 
     def create_fitting_story_checked(self):
-        CreateFittingStoryLauncher(parent=self.parent)
+        CreateFittingStoryLauncher(parent=self,
+                                   grand_parent=self.parent)
 
     def closeEvent(self, event=None):
         if self.parent.advanced_selection_ui:

@@ -26,29 +26,33 @@ class FittingInitializationHandler(object):
 
     percentage_of_data_to_remove_on_side = 10.  # %
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
+        self.grand_parent = grand_parent
 
     def make_all_active(self):
-        o_table = TableDictionaryHandler(parent=self.parent)
+        o_table = TableDictionaryHandler(parent=self.parent,
+                                         grand_parent=self.grand_parent)
         o_table.full_table_selection_tool(status=True)
-        self.parent.fitting_ui.update_table()
-        self.parent.fitting_ui.update_bragg_edge_plot()
+        self.grand_parent.fitting_ui.update_table()
+        self.grand_parent.fitting_ui.update_bragg_edge_plot()
 
     def run(self):
-        InitializationSigmaAlpha(parent=self.parent)
+        InitializationSigmaAlpha(parent=self.parent,
+                                 grand_parent=self.grand_parent)
 
     def finished_up_initialization(self):
-        self.advanced_mode = self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
-        if self.parent.fitting_ui.sigma_alpha_initialized:
+        self.advanced_mode = self.parent.ui.advanced_table_checkBox.isChecked()
+        if self.parent.sigma_alpha_initialized:
             QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
             self.retrieve_parameters_and_update_table()
-            self.parent.fitting_ui.update_table()
+            self.grand_parent.update_table()
             QApplication.restoreOverrideCursor()
 
     def retrieve_parameters_and_update_table(self):
-        table_handler = TableDictionaryHandler(parent=self.parent)
-        initialization_table = self.parent.fitting_ui.initialization_table
+        table_handler = TableDictionaryHandler(parent=self.parent,
+                                               grand_parent=self.grand_parent)
+        initialization_table = self.parent.initialization_table
 
         d_spacing = self.get_d_spacing()
         if np.isnan(d_spacing):
@@ -127,17 +131,17 @@ class FittingInitializationHandler(object):
                                                    value=a2,
                                                    all_keys=True)
 
-        self.parent.fitting_ui.initialization_table = initialization_table
+        self.parent.initialization_table = initialization_table
 
     def isolate_left_and_right_part_of_inflection_point(self):
         # get array of counts selected
-        [left_index, right_index] = self.parent.fitting_bragg_edge_linear_selection
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         # get full x_axis
-        full_x_axis = self.parent.fitting_ui.bragg_edge_data['x_axis']
+        full_x_axis = self.parent.bragg_edge_data['x_axis']
 
         # get full y_axis
-        full_y_axis = self.parent.fitting_ui.bragg_edge_data['y_axis']
+        full_y_axis = self.parent.bragg_edge_data['y_axis']
 
         # # calculate inflexion point (index) using Ed's method
         # y_axis = full_y_axis[left_index: right_index+1]
@@ -200,9 +204,6 @@ class FittingInitializationHandler(object):
         nbr_data = len(x_axis)
         nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
 
-        print("nbr_data_to_remove: {}".format(nbr_data_to_remove))
-        print("len(x_axis): {}".format(len(x_axis)))
-
         x_axis_to_use = x_axis[nbr_data_to_remove:]
         y_axis_to_use = y_axis[nbr_data_to_remove:]
 
@@ -221,11 +222,11 @@ class FittingInitializationHandler(object):
         return a6
 
     def get_sigma(self):
-        sigma = self.parent.fitting_ui.initialization_table['sigma']
+        sigma = self.parent.initialization_table['sigma']
         return sigma
 
     def get_alpha(self):
-        alpha = self.parent.fitting_ui.initialization_table['alpha']
+        alpha = self.parent.initialization_table['alpha']
         return alpha
 
     def get_d_spacing(self):

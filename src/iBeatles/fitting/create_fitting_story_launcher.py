@@ -11,17 +11,19 @@ from .. import load_ui
 
 class CreateFittingStoryLauncher(object):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
+        self.grand_parent = grand_parent
 
-        if self.parent.fitting_story_ui is None:
-            fitting_story_window = FittingStoryWindow(parent=parent)
+        if self.grand_parent.fitting_story_ui is None:
+            fitting_story_window = FittingStoryWindow(parent=parent,
+                                                      grand_parent=grand_parent)
             fitting_story_window.show()
-            self.parent.fitting_story_ui = fitting_story_window
+            self.grand_parent.fitting_story_ui = fitting_story_window
 
         else:
-            self.parent.fitting_story_ui.setFocus()
-            self.parent.fitting_story_ui.activateWindow()
+            self.grand_parent.fitting_story_ui.setFocus()
+            self.grand_parent.fitting_story_ui.activateWindow()
 
 
 class FittingStoryWindow(QMainWindow):
@@ -34,9 +36,10 @@ class FittingStoryWindow(QMainWindow):
                        'a6',
                        ]
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
-        QMainWindow.__init__(self, parent=parent)
+        self.grand_parent = grand_parent
+        QMainWindow.__init__(self, parent=grand_parent)
         self.ui = load_ui('ui_fittingStoryTable.ui', baseinstance=self)
         # self.ui= UiMainWindow()
         # self.ui.setupUi(self)
@@ -78,23 +81,25 @@ class FittingStoryWindow(QMainWindow):
             self.ui.story_table.removeRow(0)
 
     def initialize_table(self):
-        if self.parent.table_fitting_story_dictionary == {}:
-            o_table = TableFittingStoryDictionaryHandler(parent=self.parent)
+        if self.grand_parent.table_fitting_story_dictionary == {}:
+            o_table = TableFittingStoryDictionaryHandler(parent=self.parent,
+                                                         grand_parent=self.grand_parent)
             o_table.initialize_table()
 
     def reset_table(self):
-        o_table = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table = TableFittingStoryDictionaryHandler(parent=self.parent,
+                                                     grand_parent=self.grand_parent)
         o_table.initialize_table()
         self.fill_table()
         self.select_row(row=0)
         self.check_status_buttons(row=0)
 
     def fill_table(self):
-        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
 
         story_table = self.ui.story_table
 
-        if self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked():
+        if self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked():
             story_table.showColumn(5)
             story_table.showColumn(6)
         else:
@@ -129,7 +134,7 @@ class FittingStoryWindow(QMainWindow):
 
     def widget_state_changed(self, state=0, row=0, column=0):
 
-        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
         _entry = table_fitting_story_dictionary[row]
 
         # _widget = self.ui.story_table.cellWidget(row, column)
@@ -141,7 +146,7 @@ class FittingStoryWindow(QMainWindow):
 
         _entry[self.list_column_tag[column]] = status
         table_fitting_story_dictionary[row] = _entry
-        self.parent.table_fitting_story_dictionary = table_fitting_story_dictionary
+        self.grand_parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
     def set_widget(self, status=False, row=0, column=0):
         _layout = QHBoxLayout()
@@ -168,7 +173,8 @@ class FittingStoryWindow(QMainWindow):
         else:
             row = -1
 
-        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent,
+                                                             grand_parent=self.grand_parent)
         o_table_handler.add_entry(index_to_add=row + 1)
 
         self.fill_table()
@@ -180,7 +186,8 @@ class FittingStoryWindow(QMainWindow):
         selection = self.ui.story_table.selectedRanges()[0]
         row = selection.topRow()
 
-        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent,
+                                                             grand_parent=self.grand_parent)
         o_table_handler.remove_entry(index_to_remove=row)
 
         self.fill_table()
@@ -200,14 +207,16 @@ class FittingStoryWindow(QMainWindow):
         self.check_status_add_remove_buttons()
 
     def start_fitting_button_clicked(self):
-        o_fitting = FittingJobHandler(parent=self.parent)
+        o_fitting = FittingJobHandler(parent=self.parent,
+                                      grand_parent=self.grand_parent)
         o_fitting.run_story()
 
     def _move_row_clicked(self, direction='up'):
         selection = self.ui.story_table.selectedRanges()[0]
         row = selection.topRow()
 
-        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent)
+        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent,
+                                                             grand_parent=self.grand_parent)
         o_table_handler.move_entry(current_index_row=row, direction=direction)
 
         self.fill_table()
@@ -290,4 +299,4 @@ class FittingStoryWindow(QMainWindow):
         self.ui.remove_row_button.setEnabled(remove_status)
 
     def closeEvent(self, event=None):
-        self.parent.fitting_story_ui = None
+        self.grand_parent.fitting_story_ui = None

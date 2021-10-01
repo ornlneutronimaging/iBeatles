@@ -20,15 +20,16 @@ class ResultValueError(object):
 
 class FittingJobHandler(object):
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
+        self.grand_parent = grand_parent
 
     def run_story(self):
-        table_fitting_story_dictionary = self.parent.table_fitting_story_dictionary
-        table_dictionary = self.parent.table_dictionary
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         nbr_entry = len(table_fitting_story_dictionary)
 
-        _advanced_fitting_mode = self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
+        _advanced_fitting_mode = self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
 
         # define fitting equation
         if _advanced_fitting_mode:
@@ -37,17 +38,17 @@ class FittingJobHandler(object):
             gmodel = Model(basic_fit, missing='drop')
 
         # index of selection in bragg edge plot
-        [left_index, right_index] = self.parent.fitting_bragg_edge_linear_selection
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         # retrieve image
-        data_2d = np.array(self.parent.data_metadata['normalized']['data'])
-        full_x_axis = self.parent.fitting_ui.bragg_edge_data['x_axis']
+        data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
+        full_x_axis = self.parent.bragg_edge_data['x_axis']
         x_axis = np.array(full_x_axis[left_index: right_index], dtype=float)
 
-        self.parent.fitting_story_ui.eventProgress.setValue(0)
-        self.parent.fitting_story_ui.eventProgress.setMaximum(nbr_entry)
-        self.parent.fitting_story_ui.eventProgress.setVisible(True)
-        self.parent.fitting_story_ui.eventProgress2.setVisible(True)
+        self.grand_parent.fitting_story_ui.eventProgress.setValue(0)
+        self.grand_parent.fitting_story_ui.eventProgress.setMaximum(nbr_entry)
+        self.grand_parent.fitting_story_ui.eventProgress.setVisible(True)
+        self.grand_parent.fitting_story_ui.eventProgress2.setVisible(True)
 
         for _entry_index in table_fitting_story_dictionary.keys():
 
@@ -64,8 +65,8 @@ class FittingJobHandler(object):
                 a5_flag = _entry['a5']
                 a6_flag = _entry['a6']
 
-            self.parent.fitting_story_ui.eventProgress2.setValue(0)
-            self.parent.fitting_story_ui.eventProgress2.setMaximum(len(table_dictionary))
+            self.grand_parent.fitting_story_ui.eventProgress2.setValue(0)
+            self.grand_parent.fitting_story_ui.eventProgress2.setMaximum(len(table_dictionary))
 
             # loop over all the bins
             progress_bar_index = 0
@@ -168,20 +169,20 @@ class FittingJobHandler(object):
                     table_dictionary[_bin_index] = _bin_entry
 
                 progress_bar_index += 1
-                self.parent.fitting_story_ui.eventProgress2.setValue(progress_bar_index)
+                self.grand_parent.fitting_story_ui.eventProgress2.setValue(progress_bar_index)
                 QApplication.processEvents()
 
             self.status_of_row(row=_entry_index, status='DONE')
 
-            self.parent.fitting_story_ui.eventProgress.setValue(_entry_index + 1)
+            self.grand_parent.fitting_story_ui.eventProgress.setValue(_entry_index + 1)
             QApplication.processEvents()
 
-            self.parent.table_dictionary = table_dictionary
-            self.parent.fitting_ui.re_fill_table()
-            self.parent.fitting_ui.update_bragg_edge_plot(update_selection=False)
+            self.grand_parent.table_dictionary = table_dictionary
+            self.grand_parent.fitting_ui.re_fill_table()
+            self.grand_parent.fitting_ui.update_bragg_edge_plot(update_selection=False)
 
-        self.parent.fitting_story_ui.eventProgress.setVisible(False)
-        self.parent.fitting_story_ui.eventProgress2.setVisible(False)
+        self.grand_parent.fitting_story_ui.eventProgress.setVisible(False)
+        self.grand_parent.fitting_story_ui.eventProgress2.setVisible(False)
 
     def status_of_row(self, row=0, status='IN PROGRESS'):
         if status == 'IN PROGRESS':
@@ -198,5 +199,5 @@ class FittingJobHandler(object):
         _brush = QtGui.QBrush(_color)
         _item.setForeground(_brush)
 
-        self.parent.fitting_story_ui.ui.story_table.setItem(row, 7, _item)
+        self.grand_parent.fitting_story_ui.ui.story_table.setItem(row, 7, _item)
         QApplication.processEvents()
