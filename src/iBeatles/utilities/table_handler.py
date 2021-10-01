@@ -57,11 +57,11 @@ class TableHandler:
 
     def get_rows_of_table_selected(self):
         if self.table_ui is None:
-            return None
+            return []
 
         selected_ranges = self.table_ui.selectedRanges()
         if selected_ranges == []:
-            return None
+            return []
 
         list_row_selected = []
         for _selection in selected_ranges:
@@ -74,6 +74,7 @@ class TableHandler:
                 for _row in _range:
                     list_row_selected.append(_row)
 
+        list_row_selected.sort()
         return list_row_selected
 
     def get_row_selected(self):

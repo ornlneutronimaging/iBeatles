@@ -273,7 +273,7 @@ class TableDictionaryHandler:
                 o_table.populate_table_dictionary_entry(index=_index,
                                                         array=_row_values)
 
-            o_fitting = iBeatles.fitting.fitting_handler.FittingHandler(grand_parent=self.grand_parent)
+            o_fitting = fitting_handler.FittingHandler(grand_parent=self.grand_parent)
             o_fitting.fill_table()
 
     def export_table(self):
@@ -289,6 +289,14 @@ class TableDictionaryHandler:
             pandas_data_frame = o_table_formated.pandas_data_frame
             header = self.header
             pandas_data_frame.to_csv(table_file, header=header)
+
+    def is_this_row_activated(self, row=0):
+        widget = self.parent.ui.value_table.cellWidget(row, 3)
+        return widget.isChecked()
+
+    def is_this_row_locked(self, row=0, column=2):
+        widget = self.parent.ui.value_table.cellWidget(row, column)
+        return widget.isChecked()
 
 
 class FormatTableForExport(object):
