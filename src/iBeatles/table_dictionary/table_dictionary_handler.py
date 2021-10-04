@@ -92,7 +92,7 @@ class TableDictionaryHandler:
         self.grand_parent.table_dictionary = table_dictionary
 
     def initialize_parameters_from_session(self):
-        session_table_dictionary = self.grand_parent.table_dictionary_from_session
+        session_table_dictionary = self.grand_parent.session_dict["fitting"]["table dictionary"]
         table_dictionary = self.grand_parent.table_dictionary
 
         for _row in session_table_dictionary.keys():
@@ -108,8 +108,14 @@ class TableDictionaryHandler:
             table_dictionary[_row]['a5'] = _entry['a5']
             table_dictionary[_row]['a6'] = _entry['a6']
 
+        [lambda_min, lambda_max] = self.grand_parent.session_dict["fitting"]["lambda range"]
+        # x_axis = self.grand_parent.session_dict["fitting"]["x_axis"]
+
+        self.parent.ui.lambda_min_lineEdit.setText("{:4.2f}".format(lambda_min))
+        self.parent.ui.lambda_max_lineEdit.setText("{:4.2f}".format(lambda_max))
+
         self.grand_parent.table_dictionary = table_dictionary
-        self.grand_parent.table_dictionary_from_session = None
+        self.grand_parent.table_loaded_from_session = None
 
     def create_table_dictionary(self):
         '''
@@ -310,8 +316,8 @@ class TableDictionaryHandler:
 
         if table_file:
             table_dictionary = self.grand_parent.table_dictionary
-            o_table_formated = FormatTableForExport(table=table_dictionary)
-            pandas_data_frame = o_table_formated.pandas_data_frame
+            o_table_formatted = FormatTableForExport(table=table_dictionary)
+            pandas_data_frame = o_table_formatted.pandas_data_frame
             header = self.header
             pandas_data_frame.to_csv(table_file, header=header)
 

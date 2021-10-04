@@ -38,5 +38,15 @@ class SaveFittingTab(SaveTab):
                                                 'a2': a2,
                                                 'a5': a5,
                                                 'a6': a6}
-
         self.session_dict["fitting"]["table dictionary"] = formatted_table_dictionary
+
+        self.session_dict['fitting']['x_axis'] = [float(x) for x in self.parent.normalized_lambda_bragg_edge_x_axis]
+
+        min_lambda = float(str(self.parent.ui.lambda_min_lineEdit.text()))
+        max_lambda = float(str(self.parent.ui.lambda_max_lineEdit.text()))
+
+        self.session_dict['fitting']['lambda range'] = [min_lambda, max_lambda]
+
+        logging.info(f" x_axis: {self.session_dict['fitting']['x_axis']}")
+        logging.info(f" lambda range: {self.session_dict['fitting']['lambda range']}")
+

@@ -8,6 +8,6 @@ class LoadFitting:
         self.session_dict = parent.session_dict
 
     def table_dictionary(self):
-        formatted_table_dictionary = self.session_dict["fitting"]["table dictionary"]
-
-        self.parent.table_dictionary_from_session = formatted_table_dictionary
+        self.parent.session_dict['fitting'] = self.session_dict["fitting"]
+        self.parent.table_loaded_from_session = True
+        

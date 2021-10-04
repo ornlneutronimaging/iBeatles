@@ -70,7 +70,7 @@ class FittingHandler:
         o_table.create_table_dictionary()
 
         refresh_image_view = False
-        if self.grand_parent.table_dictionary_from_session:
+        if self.grand_parent.table_loaded_from_session:
             o_table.initialize_parameters_from_session()
             refresh_image_view = True
 
@@ -83,4 +83,6 @@ class FittingHandler:
                                                 grand_parent=self.grand_parent)
             o_bin_handler.update_bins_locked()
             o_bin_handler.update_bins_selected()
+            o_bin_handler.update_bragg_edge_plot()
+            self.parent.min_or_max_lambda_manually_changed()
 

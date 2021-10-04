@@ -54,7 +54,10 @@ class SessionHandler:
                                                   'line color': None,
                                                   },
                             },
-                    "fitting": {"table dictionary": None}
+                    "fitting": {"table dictionary": None,
+                                "lambda range": None,
+                                "x_axis": None,
+                                }
                     }
 
     def __init__(self, parent=None):
