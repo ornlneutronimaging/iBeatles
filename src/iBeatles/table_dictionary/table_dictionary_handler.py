@@ -91,6 +91,22 @@ class TableDictionaryHandler:
 
         self.grand_parent.table_dictionary = table_dictionary
 
+    def initialize_parameters_from_session(self):
+        session_table_dictionary = self.grand_parent.table_dictionary_from_session
+        table_dictionary = self.grand_parent.table_dictionary
+
+        for _row in session_table_dictionary.keys():
+
+            _entry = session_table_dictionary[_row]
+            lock_flag = _entry['lock']
+            table_dictionary[_row]['lock'] = lock_flag
+
+            active_flag = _entry['active']
+            table_dictionary[_row]['active'] = active_flag
+
+        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.table_dictionary_from_session = None
+
     def create_table_dictionary(self):
         '''
         this will define the corner position and index of each cell

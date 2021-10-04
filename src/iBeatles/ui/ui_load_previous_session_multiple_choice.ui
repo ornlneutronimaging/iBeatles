@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>169</height>
+    <width>656</width>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,6 +48,16 @@
      </property>
      <property name="text">
       <string>Bin</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="fitting_checkBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Fitting</string>
      </property>
     </widget>
    </item>

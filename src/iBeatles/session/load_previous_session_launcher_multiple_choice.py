@@ -3,7 +3,6 @@ import os
 
 from .. import load_ui
 from .session_handler import SessionHandler
-from ..utilities.get import Get
 
 from .. import DataType
 
@@ -31,6 +30,8 @@ class LoadPreviousSessionLauncherMultipleChoice(QDialog):
             self.ui.normalized_checkBox.setChecked(True)
             self.ui.bin_checkBox.setEnabled(True)
             self.ui.bin_checkBox.setChecked(True)
+            self.ui.fitting_checkBox.setEnabled(True)
+            self.ui.fitting_checkBox.setChecked(True)
 
     def _get_list_tabs_to_load(self):
         list_tabs_to_load = []
@@ -40,6 +41,8 @@ class LoadPreviousSessionLauncherMultipleChoice(QDialog):
             list_tabs_to_load.append(DataType.normalized)
         if self.ui.bin_checkBox.isChecked():
             list_tabs_to_load.append(DataType.bin)
+        if self.ui.fitting_checkBox.isChecked():
+            list_tabs_to_load.append(DataType.fitting)
         return list_tabs_to_load
 
     def ok_clicked(self):

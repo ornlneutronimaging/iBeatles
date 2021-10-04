@@ -22,6 +22,7 @@ class DataType:
     normalized = 'normalized'
     normalization = 'normalization'
     bin = "bin"
+    fitting = "fitting"
 
 
 class RegionType:

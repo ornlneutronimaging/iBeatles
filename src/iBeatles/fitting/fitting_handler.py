@@ -68,6 +68,10 @@ class FittingHandler:
                                          parent=self.parent)
         o_table.create_table_dictionary()
 
+        if self.grand_parent.table_dictionary_from_session:
+            o_table.initialize_parameters_from_session()
+
         o_fill_table = FillingTableHandler(grand_parent=self.grand_parent,
                                            parent=self.parent)
         o_fill_table.fill_table()
+

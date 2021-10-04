@@ -20,7 +20,7 @@ class SaveFittingTab(SaveTab):
             active_flag = _entry['active']
             lock_flag = _entry['lock']
 
-            formatted_table_dictionary[_row] = {'active flag': active_flag,
+            formatted_table_dictionary[_row] = {'active': active_flag,
                                                 'lock': lock_flag}
 
         self.session_dict["fitting"]["table dictionary"] = formatted_table_dictionary

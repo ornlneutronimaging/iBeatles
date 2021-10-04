@@ -14,6 +14,7 @@ from .load_load_data_tab import LoadLoadDataTab
 from .load_normalization_tab import LoadNormalization
 from .load_normalized_tab import LoadNormalized
 from .load_bin_tab import LoadBin
+from .load_fitting_tab import LoadFitting
 
 
 from .. import DataType
@@ -130,6 +131,12 @@ class SessionHandler:
                 # load bin tab
                 o_bin = LoadBin(parent=self.parent)
                 o_bin.all()
+
+            if DataType.fitting in tabs_to_load:
+
+                # load fitting
+                o_fit = LoadFitting(parent=self.parent)
+                o_fit.table_dictionary()
 
             show_status_message(parent=self.parent,
                                 message=f"Loaded {self.config_file_name}",

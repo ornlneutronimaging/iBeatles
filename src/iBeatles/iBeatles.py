@@ -120,6 +120,7 @@ class MainWindow(QMainWindow):
     # table dictionary used in fitting/binning/advanced_selection/review
     table_dictionary = {}
     table_fitting_story_dictionary = {}
+    table_dictionary_from_session = None
 
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}
