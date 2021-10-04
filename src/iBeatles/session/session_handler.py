@@ -8,6 +8,8 @@ from .save_load_data_tab import SaveLoadDataTab
 from .save_normalization_tab import SaveNormalizationTab
 from .save_normalized_tab import SaveNormalizedTab
 from .save_bin_tab import SaveBinTab
+from .save_fitting_tab import SaveFittingTab
+
 from .load_load_data_tab import LoadLoadDataTab
 from .load_normalization_tab import LoadNormalization
 from .load_normalized_tab import LoadNormalized
@@ -51,6 +53,7 @@ class SessionHandler:
                                                   'line color': None,
                                                   },
                             },
+                    "fitting": {"table dictionary": None}
                     }
 
     def __init__(self, parent=None):
@@ -86,6 +89,11 @@ class SessionHandler:
                                 session_dict=self.session_dict)
         o_save_bin.bin()
         self.session_dict = o_save_normalized.session_dict
+
+        # save fitting
+        o_save_fitting = SaveFittingTab(parent=self.parent,
+                                        session_dict=self.session_dict)
+        o_save_fitting.fitting()
 
         self.parent.session_dict = self.session_dict
 
