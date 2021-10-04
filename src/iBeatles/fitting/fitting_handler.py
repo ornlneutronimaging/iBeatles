@@ -4,6 +4,7 @@ import pyqtgraph as pg
 from ..utilities import colors
 from ..fitting.filling_table_handler import FillingTableHandler
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from .selected_bin_handler import SelectedBinsHandler
 
 
 class FittingHandler:
@@ -52,10 +53,10 @@ class FittingHandler:
         self.parent.line_view = line_view_fitting
 
         self.parent.line_view.setData(pos=pos,
-                                                 adj=adj,
-                                                 pen=lines,
-                                                 symbol=None,
-                                                 pxMode=False)
+                                      adj=adj,
+                                      pen=lines,
+                                      symbol=None,
+                                      pxMode=False)
 
     def fill_table(self):
         if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
@@ -68,10 +69,18 @@ class FittingHandler:
                                          parent=self.parent)
         o_table.create_table_dictionary()
 
+        refresh_image_view = False
         if self.grand_parent.table_dictionary_from_session:
             o_table.initialize_parameters_from_session()
+            refresh_image_view = True
 
         o_fill_table = FillingTableHandler(grand_parent=self.grand_parent,
                                            parent=self.parent)
         o_fill_table.fill_table()
+
+        if refresh_image_view:
+            o_bin_handler = SelectedBinsHandler(parent=self.parent,
+                                                grand_parent=self.grand_parent)
+            o_bin_handler.update_bins_locked()
+            o_bin_handler.update_bins_selected()
 

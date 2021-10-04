@@ -361,7 +361,6 @@ class FittingWindow(QMainWindow):
 
         status: 0: off
                 2: on
-
         """
         update_selection_flag = False
 

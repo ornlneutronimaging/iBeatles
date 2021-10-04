@@ -96,13 +96,17 @@ class TableDictionaryHandler:
         table_dictionary = self.grand_parent.table_dictionary
 
         for _row in session_table_dictionary.keys():
-
             _entry = session_table_dictionary[_row]
-            lock_flag = _entry['lock']
-            table_dictionary[_row]['lock'] = lock_flag
-
-            active_flag = _entry['active']
-            table_dictionary[_row]['active'] = active_flag
+            table_dictionary[_row]['lock'] = _entry['lock']
+            table_dictionary[_row]['active'] = _entry['active']
+            table_dictionary[_row]['fitting_confidence'] = _entry['fitting_confidence']
+            table_dictionary[_row]['d_spacing'] = _entry['d_spacing']
+            table_dictionary[_row]['sigma'] = _entry['sigma']
+            table_dictionary[_row]['alpha'] = _entry['alpha']
+            table_dictionary[_row]['a1'] = _entry['a1']
+            table_dictionary[_row]['a2'] = _entry['a2']
+            table_dictionary[_row]['a5'] = _entry['a5']
+            table_dictionary[_row]['a6'] = _entry['a6']
 
         self.grand_parent.table_dictionary = table_dictionary
         self.grand_parent.table_dictionary_from_session = None
