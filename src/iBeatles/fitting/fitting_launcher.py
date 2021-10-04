@@ -19,6 +19,7 @@ from .filling_table_handler import FillingTableHandler
 from .fitting_initialization_handler import FittingInitializationHandler
 from .create_fitting_story_launcher import CreateFittingStoryLauncher
 from .initialization import Initialization
+from .event_handler import EventHandler
 
 
 class FittingLauncher(object):
@@ -42,6 +43,9 @@ class FittingLauncher(object):
 
 
 class FittingWindow(QMainWindow):
+
+    fitting_lr = None
+
     data = []
     there_is_a_roi = False
     bragg_edge_active_button_status = True  # to make sure active/lock button worked correctly
@@ -214,13 +218,7 @@ class FittingWindow(QMainWindow):
                 self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
 
     def check_status_widgets(self):
-        if (len(self.parent.data_metadata['normalized']['data_live_selection']) > 0) and \
-                not (self.parent.binning_line_view['pos'] is None):
-            status = True
-        else:
-            status = False
-
-        self.ui.instructions_step1_button.setEnabled(status)
+        self.check_state_of_step1_button()
 
     def active_button_pressed(self):
         self.bragg_edge_active_button_status = True
@@ -251,6 +249,14 @@ class FittingWindow(QMainWindow):
         o_fitting_handler = FittingHandler(parent=self.parent)
         o_fitting_handler.display_roi()
 
+    def check_state_of_step1_button(self):
+        """The step1 button should be enabled if at least one row of the big table
+        is activated and display in the 1D plot"""
+        o_table = TableDictionaryHandler(parent=self,
+                                         grand_parent=self.parent)
+        is_at_least_one_row_activated = o_table.is_at_least_one_row_activated()
+        self.ui.instructions_step1_button.setEnabled(is_at_least_one_row_activated)
+
     def active_button_state_changed(self, status, row_clicked):
         '''
         status: 0: off
@@ -268,6 +274,7 @@ class FittingWindow(QMainWindow):
         #     status = True
 
         self.mirror_state_of_widgets(column=3, row_clicked=row_clicked)
+        self.check_state_of_step1_button()
 
         # # perform same status on all rows
         # _selection = self.ui.value_table.selectedRanges()
@@ -332,8 +339,6 @@ class FittingWindow(QMainWindow):
         o_table = TableHandler(table_ui=self.ui.value_table)
         o_table.add_this_row_to_selection(row=row_clicked)
         list_row_selected = o_table.get_rows_of_table_selected()
-
-
 
         o_table_handler = TableDictionaryHandler(grand_parent=self.parent,
                                                  parent=self)
@@ -429,38 +434,12 @@ class FittingWindow(QMainWindow):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
     def bragg_edge_linear_region_changing(self):
-        # current xaxis is
-        x_axis = self.parent.fitting_bragg_edge_x_axis
-        _lr = self.parent.fitting_lr
-        if _lr is None:
-            return
-        selection = list(_lr.getRegion())
-
-        left_index = find_nearest_index(array=x_axis, value=selection[0])
-        right_index = find_nearest_index(array=x_axis, value=selection[1])
-
-        # display lambda left and right
-        lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda'] * 1e10
-        _lambda_min = lambda_array[left_index]
-        _lambda_max = lambda_array[right_index]
-
-        self.ui.lambda_min_lineEdit.setText("{:4.2f}".format(_lambda_min))
-        self.ui.lambda_max_lineEdit.setText("{:4.2f}".format(_lambda_max))
+        self.bragg_edge_linear_region_changed()
 
     def bragg_edge_linear_region_changed(self):
-
-        # current xaxis is
-        x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
-        _lr = self.parent.fitting_lr
-        if _lr is None:
-            return
-        selection = list(_lr.getRegion())
-
-        left_index = find_nearest_index(array=x_axis, value=selection[0])
-        right_index = find_nearest_index(array=x_axis, value=selection[1])
-
-        list_selected = [left_index, right_index]
-        self.parent.fitting_bragg_edge_linear_selection = list_selected
+        o_event = EventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.bragg_edge_region_changed()
 
     def check_advanced_table_status(self):
         button_status = self.ui.advanced_table_checkBox.isChecked()
@@ -481,18 +460,9 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def min_or_max_lambda_manually_changed(self):
-        min_lambda = float(str(self.ui.lambda_min_lineEdit.text()))
-        max_lambda = float(str(self.ui.lambda_max_lineEdit.text()))
-
-        lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda'] * 1e10
-
-        left_index = find_nearest_index(array=lambda_array, value=min_lambda)
-        right_index = find_nearest_index(array=lambda_array, value=max_lambda)
-
-        self.parent.fitting_bragg_edge_linear_selection = [left_index, right_index]
-
-        o_bin_handler = SelectedBinsHandler(parent=self.parent)
-        o_bin_handler.update_bragg_edge_plot()
+        o_event = EventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.min_or_max_lambda_manually_changed()
 
     def initialize_all_parameters_button_clicked(self):
         o_initialization = FittingInitializationHandler(parent=self,
@@ -501,7 +471,7 @@ class FittingWindow(QMainWindow):
         o_initialization.run()
 
     def initialize_all_parameters_step2(self):
-        o_initialization = FittingInitializationHandler(parent=self.parent,
+        o_initialization = FittingInitializationHandler(parent=self,
                                                         grand_parent=self.parent)
         o_initialization.finished_up_initialization()
 

@@ -109,7 +109,7 @@ class MainWindow(QMainWindow):
                          'nbr_row': -1}
     #    fitting_bragg_edge_x_axis = []
     fitting_bragg_edge_linear_selection = []
-    fitting_lr = None
+    # fitting_lr = None
 
     # strain mapping ui (step6)
     strain_mapping_ui = None

@@ -56,10 +56,10 @@ class InitializeWindow(QMainWindow):
             _alpha = np.NaN
             _alpha_status = False
 
-        initialization_table = self.parent.fitting_ui.initialization_table
+        initialization_table = self.parent.initialization_table
         initialization_table['sigma'] = _sigma
         initialization_table['alpha'] = _alpha
-        self.parent.initialization_table = initialization_table
+        self.grand_parent.initialization_table = initialization_table
 
         self.ui.sigma_error.setVisible(not _sigma_status)
         self.ui.alpha_error.setVisible(not _alpha_status)

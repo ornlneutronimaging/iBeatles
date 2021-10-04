@@ -11,6 +11,11 @@ from ..utilities.array_utilities import get_min_max_xy
 # from iBeatles.py.utilities.math_tools import get_random_value
 
 
+class ColumnNameIndex:
+    activate = 3
+    lock = 2
+
+
 class TableDictionaryHandler:
     selected_color = {'pen': (0, 0, 0, 30),
                       'brush': (0, 255, 0, 150)}
@@ -290,9 +295,12 @@ class TableDictionaryHandler:
             header = self.header
             pandas_data_frame.to_csv(table_file, header=header)
 
-    # def is_this_row_activated(self, row=0):
-    #     widget = self.parent.ui.value_table.cellWidget(row, 3)
-    #     return widget.isChecked()
+    def is_at_least_one_row_activated(self):
+        nbr_row = self.value_table_ui.rowCount()
+        for _row in np.arange(nbr_row):
+            if self.is_this_row_checked(row=_row, column=ColumnNameIndex.activate):
+                return True
+        return False
 
     def is_this_row_checked(self, row=0, column=2):
         widget = self.parent.ui.value_table.cellWidget(row, column)

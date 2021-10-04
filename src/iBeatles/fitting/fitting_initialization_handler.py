@@ -234,8 +234,9 @@ class FittingInitializationHandler(object):
         calculates the d-spacing using the lambda range selection and using the central lambda
         2* d_spacing = lambda
         """
-        lambda_min = np.float(str(self.parent.fitting_ui.ui.lambda_min_lineEdit.text()))
-        lambda_max = np.float(str(self.parent.fitting_ui.ui.lambda_max_lineEdit.text()))
+        print(f"self.parent.ui.lambda_min_lineEdit.text(): {self.parent.ui.lambda_min_lineEdit.text()}")
+        lambda_min = np.float(str(self.parent.ui.lambda_min_lineEdit.text()))
+        lambda_max = np.float(str(self.parent.ui.lambda_max_lineEdit.text()))
 
         average_lambda = np.mean([lambda_min, lambda_max])
         d_spacing = average_lambda / 2.
