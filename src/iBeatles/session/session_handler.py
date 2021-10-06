@@ -58,6 +58,7 @@ class SessionHandler:
                                 "lambda range index": None,
                                 "x_axis": None,
                                 "transparency": 50,
+                                "plot active row flag": True,
                                 }
                     }
 

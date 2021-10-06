@@ -48,6 +48,7 @@ class SaveFittingTab(SaveTab):
 
         self.session_dict['fitting']['lambda range index'] = [min_lambda_index, max_lambda_index]
         self.session_dict['fitting']['transparency'] = self.parent.fitting_transparency_slider_value
+        self.session_dict['fitting']['plot active row flag'] = self.parent.display_active_row_flag
 
         logging.info(f" x_axis: {self.session_dict['fitting']['x_axis']}")
         logging.info(f" lambda range index: {self.session_dict['fitting']['lambda range index']}")

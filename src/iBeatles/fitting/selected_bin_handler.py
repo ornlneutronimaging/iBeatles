@@ -124,9 +124,15 @@ class SelectedBinsHandler(object):
     def update_bragg_edge_plot(self):
         self.parent.bragg_edge_plot.clear()
 
-        list_bin_selected = self.retrieve_list_bin_selected(flag_name='active')
+        if self.parent.ui.active_bins_button.isChecked():
+            flag_name = 'active'
+        else:
+            flag_name = 'lock'
+        list_bin_selected = self.retrieve_list_bin_selected(flag_name=flag_name)
+
         if list_bin_selected == []:
             return
+
         table_dictionary = self.grand_parent.table_dictionary
 
         # retrieve image

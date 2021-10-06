@@ -123,6 +123,12 @@ class TableDictionaryHandler:
         transparency = self.grand_parent.session_dict['fitting']['transparency']
         self.parent.ui.slider.setValue(transparency)
 
+        self.grand_parent.display_active_row_flag = self.grand_parent.session_dict['fitting']['plot active row flag']
+        self.parent.ui.active_bins_button.setChecked(self.grand_parent.display_active_row_flag)
+        self.parent.ui.locked_bins_button.setChecked(not self.grand_parent.display_active_row_flag)
+
+        print(f"self.grand_parent.display_active_row_flag: {self.grand_parent.display_active_row_flag}")
+
         self.grand_parent.table_dictionary = table_dictionary
         self.grand_parent.table_loaded_from_session = None
 

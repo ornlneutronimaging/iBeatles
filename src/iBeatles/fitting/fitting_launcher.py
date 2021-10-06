@@ -221,11 +221,11 @@ class FittingWindow(QMainWindow):
         self.check_state_of_step1_button()
 
     def active_button_pressed(self):
-        self.bragg_edge_active_button_status = True
+        self.parent.display_active_row_flag = True
         self.update_bragg_edge_plot()
 
     def lock_button_pressed(self):
-        self.bragg_edge_active_button_status = False
+        self.parent.display_active_row_flag = False
         self.update_bragg_edge_plot()
 
     def mouse_moved_in_image_view(self):
