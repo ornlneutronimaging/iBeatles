@@ -1,13 +1,8 @@
-from qtpy.QtWidgets import (QMainWindow, QApplication, QTableWidgetSelectionRange, QVBoxLayout, QHBoxLayout, QWidget,
-                            QLabel, QSpacerItem, QSlider, QRadioButton, QSizePolicy)
+from qtpy.QtWidgets import QMainWindow, QApplication, QTableWidgetSelectionRange
 from qtpy import QtCore
-from pyqtgraph.dockarea import DockArea, Dock
-import pyqtgraph as pg
 import numpy as np
 import logging
 
-# from iBeatles.py.utilities.colors import pen_color
-from ..utilities.array_utilities import find_nearest_index
 from ..utilities.table_handler import TableHandler
 from .. import load_ui
 
@@ -137,7 +132,8 @@ class FittingWindow(QMainWindow):
         self.check_status_widgets()
 
     def re_fill_table(self):
-        o_fitting = FittingHandler(parent=self.parent)
+        o_fitting = FittingHandler(parent=self,
+                                   grand_parent=self.parent)
         o_fitting.fill_table()
 
     def column_value_table_clicked(self, column):
