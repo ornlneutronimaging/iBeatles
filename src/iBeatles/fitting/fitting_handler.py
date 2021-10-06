@@ -42,6 +42,7 @@ class FittingHandler:
 
         # define new transparency of roi
         transparency = self.parent.slider.value()
+        self.grand_parent.fitting_transparency_slider_value = transparency
         lines = colors.set_alpha_value(lines=lines, transparency=transparency)
 
         if self.parent.line_view_fitting:

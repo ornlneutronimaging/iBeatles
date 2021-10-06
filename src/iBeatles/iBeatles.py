@@ -109,6 +109,7 @@ class MainWindow(QMainWindow):
                          'nbr_row': -1}
     #    fitting_bragg_edge_x_axis = []
     fitting_bragg_edge_linear_selection = []   # [left lambda, right lambda]
+    fitting_transparency_slider_value = 50      # from 0 to 100
     # fitting_lr = None
     table_loaded_from_session = False
 

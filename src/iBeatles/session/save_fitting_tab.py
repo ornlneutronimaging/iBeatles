@@ -47,6 +47,7 @@ class SaveFittingTab(SaveTab):
         max_lambda_index = int(fitting_bragg_edge_linear_selection[1])
 
         self.session_dict['fitting']['lambda range index'] = [min_lambda_index, max_lambda_index]
+        self.session_dict['fitting']['transparency'] = self.parent.fitting_transparency_slider_value
 
         logging.info(f" x_axis: {self.session_dict['fitting']['x_axis']}")
         logging.info(f" lambda range index: {self.session_dict['fitting']['lambda range index']}")

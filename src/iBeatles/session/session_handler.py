@@ -57,6 +57,7 @@ class SessionHandler:
                     "fitting": {"table dictionary": None,
                                 "lambda range index": None,
                                 "x_axis": None,
+                                "transparency": 50,
                                 }
                     }
 

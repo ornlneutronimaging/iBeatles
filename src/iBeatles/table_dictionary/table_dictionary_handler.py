@@ -120,6 +120,9 @@ class TableDictionaryHandler:
             self.parent.ui.lambda_max_lineEdit.setText("{:4.2f}".format(lambda_max))
             self.grand_parent.fitting_bragg_edge_linear_selection = [lambda_min_index, lambda_max_index]
 
+        transparency = self.grand_parent.session_dict['fitting']['transparency']
+        self.parent.ui.slider.setValue(transparency)
+
         self.grand_parent.table_dictionary = table_dictionary
         self.grand_parent.table_loaded_from_session = None
 

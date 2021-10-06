@@ -246,7 +246,8 @@ class FittingWindow(QMainWindow):
         self.ui.bragg_edge_calculated.setText(value)
 
     def slider_changed(self):
-        o_fitting_handler = FittingHandler(parent=self.parent)
+        o_fitting_handler = FittingHandler(parent=self,
+                                           grand_parent=self.parent)
         o_fitting_handler.display_roi()
 
     def check_state_of_step1_button(self):
