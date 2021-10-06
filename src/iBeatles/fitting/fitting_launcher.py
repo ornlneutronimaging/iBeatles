@@ -218,10 +218,6 @@ class FittingWindow(QMainWindow):
                 index_header = np.int(index_column - 6) / 2 + 5
                 self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
 
-    def check_status_widgets(self):
-        self.check_state_of_step3_button()
-        self.check_state_of_step4_button()
-
     def active_button_pressed(self):
         self.parent.display_active_row_flag = True
         self.update_bragg_edge_plot()
@@ -251,6 +247,10 @@ class FittingWindow(QMainWindow):
         o_fitting_handler = FittingHandler(parent=self,
                                            grand_parent=self.parent)
         o_fitting_handler.display_roi()
+
+    def check_status_widgets(self):
+        self.check_state_of_step3_button()
+        self.check_state_of_step4_button()
 
     def check_state_of_step3_button(self):
         """The step1 button should be enabled if at least one row of the big table
