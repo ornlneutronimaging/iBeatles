@@ -30,8 +30,10 @@ class InitializeWindow(QMainWindow):
 
     def ok_button_clicked(self):
         if self.variable_correctly_initialized():
-            self.grand_parent.fitting_ui.sigma_alpha_initialized = True
-            self.grand_parent.fitting_ui.initialize_all_parameters_step2()
+            self.parent.sigma_alpha_initialized = True
+            self.parent.initialize_all_parameters_step2()
+            self.parent.is_ready_to_fit = True
+            self.parent.check_state_of_step4_button()
             self.close()
 
     def cancel_button_clicked(self):

@@ -46,7 +46,7 @@ class FittingInitializationHandler(object):
         if self.parent.sigma_alpha_initialized:
             QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
             self.retrieve_parameters_and_update_table()
-            self.grand_parent.update_table()
+            self.parent.update_table()
             QApplication.restoreOverrideCursor()
 
     def retrieve_parameters_and_update_table(self):

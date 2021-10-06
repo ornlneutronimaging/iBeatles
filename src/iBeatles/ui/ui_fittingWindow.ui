@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1773</width>
-    <height>897</height>
+    <width>2114</width>
+    <height>925</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -81,7 +81,7 @@
               <x>0</x>
               <y>0</y>
               <width>274</width>
-              <height>379</height>
+              <height>395</height>
              </rect>
             </property>
             <attribute name="label">
@@ -269,7 +269,7 @@
               <x>0</x>
               <y>0</y>
               <width>276</width>
-              <height>379</height>
+              <height>395</height>
              </rect>
             </property>
             <attribute name="label">
@@ -297,56 +297,67 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="instructions_step1_button">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="toolTip">
-                <string>Program determines inital guess value of parameters and fits data using 1 global bin</string>
-               </property>
-               <property name="text">
-                <string>step3 - Initialize All Parameters</string>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QLabel" name="step3_label">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>Step3 -</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="step3_button">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>Program determines inital guess value of parameters and fits data using 1 global bin</string>
+                 </property>
+                 <property name="text">
+                  <string>Initialize All Parameters</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QGroupBox" name="step4_groupBox">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="title">
-                <string>step4</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_2">
-                <item>
-                 <widget class="QPushButton" name="fit_table_active_cell_button">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="text">
-                   <string>Fit Table Active Cell</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QLabel" name="label_4">
-                  <property name="text">
-                   <string>or</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="create_fitting_story_button">
-                  <property name="text">
-                   <string>Create Fitting Story ...</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QLabel" name="step4_label">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="text">
+                  <string>Step4 -</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="step4_button">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Create Fitting Story ...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item>
               <spacer name="verticalSpacer_2">
@@ -860,7 +871,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>instructions_step1_button</sender>
+   <sender>step3_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>initialize_all_parameters_button_clicked()</slot>
@@ -908,23 +919,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>fit_table_active_cell_button</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>fit_table_active_cell_checked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1112</x>
-     <y>222</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1210</x>
-     <y>350</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>create_fitting_story_button</sender>
+   <sender>step4_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>create_fitting_story_checked()</slot>

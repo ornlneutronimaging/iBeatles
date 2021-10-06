@@ -45,6 +45,7 @@ class FittingLauncher(object):
 class FittingWindow(QMainWindow):
 
     fitting_lr = None
+    is_ready_to_fit = False
 
     data = []
     there_is_a_roi = False
@@ -218,7 +219,8 @@ class FittingWindow(QMainWindow):
                 self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
 
     def check_status_widgets(self):
-        self.check_state_of_step1_button()
+        self.check_state_of_step3_button()
+        self.check_state_of_step4_button()
 
     def active_button_pressed(self):
         self.parent.display_active_row_flag = True
@@ -250,13 +252,18 @@ class FittingWindow(QMainWindow):
                                            grand_parent=self.parent)
         o_fitting_handler.display_roi()
 
-    def check_state_of_step1_button(self):
+    def check_state_of_step3_button(self):
         """The step1 button should be enabled if at least one row of the big table
         is activated and display in the 1D plot"""
         o_table = TableDictionaryHandler(parent=self,
                                          grand_parent=self.parent)
         is_at_least_one_row_activated = o_table.is_at_least_one_row_activated()
-        self.ui.instructions_step1_button.setEnabled(is_at_least_one_row_activated)
+        self.ui.step3_button.setEnabled(is_at_least_one_row_activated)
+        self.ui.step3_label.setEnabled(is_at_least_one_row_activated)
+
+    def check_state_of_step4_button(self):
+        self.ui.step4_button.setEnabled(self.is_ready_to_fit)
+        self.ui.step4_label.setEnabled(self.is_ready_to_fit)
 
     def active_button_state_changed(self, status, row_clicked):
         '''
@@ -275,7 +282,7 @@ class FittingWindow(QMainWindow):
         #     status = True
 
         self.mirror_state_of_widgets(column=3, row_clicked=row_clicked)
-        self.check_state_of_step1_button()
+        self.check_state_of_step3_button()
 
         # # perform same status on all rows
         # _selection = self.ui.value_table.selectedRanges()
@@ -410,7 +417,7 @@ class FittingWindow(QMainWindow):
         o_bin_handler.update_bragg_edge_plot()
         if update_selection:
             self.bragg_edge_linear_region_changing()
-        self.check_state_of_step1_button()
+        self.check_state_of_step3_button()
 
     def selection_in_value_table_of_rows_cell_clicked(self, row, column):
         pass
@@ -435,22 +442,30 @@ class FittingWindow(QMainWindow):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
     def bragg_edge_linear_region_changing(self):
+        self.is_ready_to_fit = False
         self.bragg_edge_linear_region_changed()
+        self.check_status_widgets()
 
     def bragg_edge_linear_region_changed(self):
+        self.is_ready_to_fit = False
         o_event = EventHandler(parent=self,
                                grand_parent=self.parent)
         o_event.bragg_edge_region_changed()
+        self.check_status_widgets()
 
     def check_advanced_table_status(self):
+        self.is_ready_to_fit = False
         button_status = self.ui.advanced_table_checkBox.isChecked()
         self.advanced_table_clicked(button_status)
+        self.check_status_widgets()
 
     def advanced_table_clicked(self, status):
+        self.is_ready_to_fit = False
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         o_table_handler = FillingTableHandler(grand_parent=self.parent,
                                               parent=self)
         o_table_handler.set_mode(advanced_mode=status)
+        self.check_status_widgets()
         QApplication.restoreOverrideCursor()
 
     def update_table(self):
@@ -468,7 +483,7 @@ class FittingWindow(QMainWindow):
     def initialize_all_parameters_button_clicked(self):
         o_initialization = FittingInitializationHandler(parent=self,
                                                         grand_parent=self.parent)
-        o_initialization.make_all_active()
+        # o_initialization.make_all_active()
         o_initialization.run()
 
     def initialize_all_parameters_step2(self):
@@ -477,12 +492,10 @@ class FittingWindow(QMainWindow):
         o_initialization.finished_up_initialization()
 
         # activate or not step4 (yes if we were able to initialize correctly all variables)
-        self.ui.step4_groupBox.setEnabled(o_initialization.all_variables_initialized)
+        self.ui.step4_button.setEnabled(o_initialization.all_variables_initialized)
+        self.ui.step4_label.setEnabled(o_initialization.all_variables_initialized)
 
         self.update_bragg_edge_plot()
-
-    def fit_table_active_cell_checked(self):
-        pass
 
     def create_fitting_story_checked(self):
         CreateFittingStoryLauncher(parent=self,
