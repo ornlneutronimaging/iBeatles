@@ -127,8 +127,6 @@ class TableDictionaryHandler:
         self.parent.ui.active_bins_button.setChecked(self.grand_parent.display_active_row_flag)
         self.parent.ui.locked_bins_button.setChecked(not self.grand_parent.display_active_row_flag)
 
-        print(f"self.grand_parent.display_active_row_flag: {self.grand_parent.display_active_row_flag}")
-
         self.grand_parent.table_dictionary = table_dictionary
         self.grand_parent.table_loaded_from_session = None
 

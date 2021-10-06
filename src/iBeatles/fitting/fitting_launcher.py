@@ -410,6 +410,7 @@ class FittingWindow(QMainWindow):
         o_bin_handler.update_bragg_edge_plot()
         if update_selection:
             self.bragg_edge_linear_region_changing()
+        self.check_state_of_step1_button()
 
     def selection_in_value_table_of_rows_cell_clicked(self, row, column):
         pass

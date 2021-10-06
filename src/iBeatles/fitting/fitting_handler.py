@@ -86,4 +86,4 @@ class FittingHandler:
             o_bin_handler.update_bins_selected()
             o_bin_handler.update_bragg_edge_plot()
             self.parent.min_or_max_lambda_manually_changed()
-
+            self.parent.check_state_of_step1_button()
