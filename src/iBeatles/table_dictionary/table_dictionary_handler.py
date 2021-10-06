@@ -108,11 +108,17 @@ class TableDictionaryHandler:
             table_dictionary[_row]['a5'] = _entry['a5']
             table_dictionary[_row]['a6'] = _entry['a6']
 
-        [lambda_min, lambda_max] = self.grand_parent.session_dict["fitting"]["lambda range"]
-        # x_axis = self.grand_parent.session_dict["fitting"]["x_axis"]
+        lambda_range = self.grand_parent.session_dict["fitting"]["lambda range index"]
+        if lambda_range:
+            [lambda_min_index, lambda_max_index] = self.grand_parent.session_dict["fitting"]["lambda range index"]
+            x_axis = self.grand_parent.session_dict["fitting"]["x_axis"]
 
-        self.parent.ui.lambda_min_lineEdit.setText("{:4.2f}".format(lambda_min))
-        self.parent.ui.lambda_max_lineEdit.setText("{:4.2f}".format(lambda_max))
+            lambda_min = x_axis[lambda_min_index]
+            lambda_max = x_axis[lambda_max_index]
+
+            self.parent.ui.lambda_min_lineEdit.setText("{:4.2f}".format(lambda_min))
+            self.parent.ui.lambda_max_lineEdit.setText("{:4.2f}".format(lambda_max))
+            self.grand_parent.fitting_bragg_edge_linear_selection = [lambda_min_index, lambda_max_index]
 
         self.grand_parent.table_dictionary = table_dictionary
         self.grand_parent.table_loaded_from_session = None

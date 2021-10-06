@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
     fitting_selection = {'nbr_column': -1,
                          'nbr_row': -1}
     #    fitting_bragg_edge_x_axis = []
-    fitting_bragg_edge_linear_selection = []
+    fitting_bragg_edge_linear_selection = []   # [left lambda, right lambda]
     # fitting_lr = None
     table_loaded_from_session = False
 

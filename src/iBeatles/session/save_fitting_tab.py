@@ -42,11 +42,12 @@ class SaveFittingTab(SaveTab):
 
         self.session_dict['fitting']['x_axis'] = [float(x) for x in self.parent.normalized_lambda_bragg_edge_x_axis]
 
-        min_lambda = float(str(self.parent.ui.lambda_min_lineEdit.text()))
-        max_lambda = float(str(self.parent.ui.lambda_max_lineEdit.text()))
+        fitting_bragg_edge_linear_selection = self.parent.fitting_bragg_edge_linear_selection
+        min_lambda_index = int(fitting_bragg_edge_linear_selection[0])
+        max_lambda_index = int(fitting_bragg_edge_linear_selection[1])
 
-        self.session_dict['fitting']['lambda range'] = [min_lambda, max_lambda]
+        self.session_dict['fitting']['lambda range index'] = [min_lambda_index, max_lambda_index]
 
         logging.info(f" x_axis: {self.session_dict['fitting']['x_axis']}")
-        logging.info(f" lambda range: {self.session_dict['fitting']['lambda range']}")
+        logging.info(f" lambda range index: {self.session_dict['fitting']['lambda range index']}")
 

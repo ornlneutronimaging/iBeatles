@@ -55,7 +55,7 @@ class SessionHandler:
                                                   },
                             },
                     "fitting": {"table dictionary": None,
-                                "lambda range": None,
+                                "lambda range index": None,
                                 "x_axis": None,
                                 }
                     }
