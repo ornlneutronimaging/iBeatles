@@ -124,7 +124,7 @@ class SelectedBinsHandler(object):
     def update_bragg_edge_plot(self):
         self.parent.bragg_edge_plot.clear()
 
-        if self.parent.ui.active_bins_button.isChecked():
+        if self.grand_parent.display_active_row_flag:
             flag_name = 'active'
         else:
             flag_name = 'lock'
