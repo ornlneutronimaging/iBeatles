@@ -8,23 +8,23 @@ class SetFittingVariablesHandler(object):
     colorscale_cell_size = {'width': 75,
                             'height': 30}
 
-    def __init__(self, parent=None):
-        self.parent = parent
+    def __init__(self, grand_parent=None):
+        self.grand_parent = grand_parent
 
     def get_variable_selected(self):
-        if self.parent.fitting_set_variables_ui.ui.d_spacing_button.isChecked():
+        if self.grand_parent.fitting_set_variables_ui.ui.d_spacing_button.isChecked():
             return 'd_spacing'
-        elif self.parent.fitting_set_variables_ui.ui.sigma_button.isChecked():
+        elif self.grand_parent.fitting_set_variables_ui.ui.sigma_button.isChecked():
             return 'sigma'
-        elif self.parent.fitting_set_variables_ui.ui.alpha_button.isChecked():
+        elif self.grand_parent.fitting_set_variables_ui.ui.alpha_button.isChecked():
             return 'alpha'
-        elif self.parent.fitting_set_variables_ui.ui.a1_button.isChecked():
+        elif self.grand_parent.fitting_set_variables_ui.ui.a1_button.isChecked():
             return 'a1'
-        elif self.parent.fitting_set_variables_ui.ui.a2_button.isChecked():
+        elif self.grand_parent.fitting_set_variables_ui.ui.a2_button.isChecked():
             return 'a2'
-        elif self.parent.fitting_set_variables_ui.ui.a5_button.isChecked():
+        elif self.grand_parent.fitting_set_variables_ui.ui.a5_button.isChecked():
             return 'a5'
-        elif self.parent.fitting_set_variables_ui.ui.a6_button.isChecked():
+        elif self.grand_parent.fitting_set_variables_ui.ui.a6_button.isChecked():
             return 'a6'
 
     def populate_table_with_variable(self, variable='d_spacing'):
@@ -79,24 +79,24 @@ class SetFittingVariablesHandler(object):
                     _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
                     _item.setTextColor(_foreground_color)
 
-                self.parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
+                self.grand_parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
 
     def is_bin_fixed(self, bin_index=0, variable_name='d_spacing'):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         return table_dictionary[str(bin_index)][variable_name]['fixed']
 
     def is_bin_locked(self, bin_index=0):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         return table_dictionary[str(bin_index)]['lock']
 
     def is_bin_activated(self, bin_index=0):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         return table_dictionary[str(bin_index)]['active']
 
     def clear_colorscale_table(self):
-        nbr_row = self.parent.fitting_set_variables_ui.ui.colorscale_table.rowCount()
+        nbr_row = self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.rowCount()
         for _row in np.arange(nbr_row):
-            self.parent.fitting_set_variables_ui.ui.colorscale_table.removeRow(0)
+            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.removeRow(0)
 
     def initialize_colorscale_table(self, min_value=0, max_value=1):
         self.clear_colorscale_table()
@@ -113,10 +113,10 @@ class SetFittingVariablesHandler(object):
             nbr_row = 1
 
         for _index in np.arange(nbr_row - 1, -1, -1):
-            self.parent.fitting_set_variables_ui.ui.colorscale_table.insertRow(_row)
-            self.parent.fitting_set_variables_ui.ui.colorscale_table.setRowHeight(_row,
+            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.insertRow(_row)
+            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.setRowHeight(_row,
                                                                                   self.colorscale_cell_size['height'])
-            self.parent.fitting_set_variables_ui.ui.colorscale_table.setColumnWidth(_row,
+            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.setColumnWidth(_row,
                                                                                     self.colorscale_cell_size['width'])
             if np.isnan(step):
                 _value = np.NaN
@@ -137,7 +137,7 @@ class SetFittingVariablesHandler(object):
                 _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
                 _item.setTextColor(_foreground_color)
 
-            self.parent.fitting_set_variables_ui.ui.colorscale_table.setItem(_row, 0, _item)
+            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.setItem(_row, 0, _item)
             _row += 1
 
     def get_color_for_this_value(self, min_value=0, max_value=1, value=0):
@@ -150,9 +150,9 @@ class SetFittingVariablesHandler(object):
         return QtGui.QColor(0, _ratio * 255, 0, alpha=255)
 
     def create_array_of_variable(self, variable='d_spacing'):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
-        _table_selection = self.parent.fitting_selection
+        _table_selection = self.grand_parent.fitting_selection
         nbr_column = _table_selection['nbr_column']
         nbr_row = _table_selection['nbr_row']
 
@@ -171,7 +171,7 @@ class SetFittingVariablesHandler(object):
                                        variable_value=0,
                                        table_nbr_row=0):
 
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
         nbr_row = table_nbr_row
 
         for _select in selection:
@@ -185,7 +185,7 @@ class SetFittingVariablesHandler(object):
                     if not table_dictionary[_index]['lock']:
                         table_dictionary[_index][variable_name]['val'] = float(variable_value)
                         table_dictionary[_index][variable_name]['err'] = np.NaN
-            self.parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
-        self.parent.table_dictionary = table_dictionary
+        self.grand_parent.table_dictionary = table_dictionary
         self.populate_table_with_variable(variable=variable_name)

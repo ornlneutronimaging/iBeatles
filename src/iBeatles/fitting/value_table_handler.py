@@ -165,66 +165,23 @@ class ValueTableHandler(object):
         self.changed_fixed_variables_status(status=False)
 
     def select_all(self):
-        # QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
         o_table = TableDictionaryHandler(grand_parent=self.grand_parent,
                                          parent=self.parent)
         o_table.select_full_table()
 
-        # o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
-        # o_fitting.fill_table()
-        #
-        # self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-        #
-        # # if self.grand_parent.advanced_selection_ui:
-        # # self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
-        #
-        # # nbr_row = self.grand_parent.fitting_ui.ui.value_table.rowCount()
-        # # nbr_column = self.grand_parent.fitting_ui.ui.value_table.columnCount()
-        # # _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
-        # # self.grand_parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, True)
-        # # o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
-        # # o_fitting.select_full_table()
-        #
-        # #        self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-        # if self.grand_parent.advanced_selection_ui:
-        #     self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
-
-        # QApplication.restoreOverrideCursor()
-
     def unselect_all(self):
-
-        # QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
         o_table = TableDictionaryHandler(grand_parent=self.grand_parent,
                                          parent=self.parent)
         o_table.unselect_full_table()
 
-        # o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
-        # o_fitting.fill_table()
-        #
-        # self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-        #
-        # # if self.grand_parent.advanced_selection_ui:
-        # # self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
-        # # nbr_row = self.grand_parent.fitting_ui.ui.value_table.rowCount()
-        # # nbr_column = self.grand_parent.fitting_ui.ui.value_table.columnCount()
-        # # _selection_range = QtGui.QTableWidgetSelectionRange(0, 0, nbr_row-1, nbr_column-1)
-        # # self.grand_parent.fitting_ui.ui.value_table.setRangeSelected(_selection_range, False)
-        # # o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
-        # # o_fitting.unselect_full_table()
-        # # self.grand_parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-        # # if self.grand_parent.advanced_selection_ui:
-        # # self.grand_parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
-        #
-        # QApplication.restoreOverrideCursor()
 
     def advanced_selection(self):
         AdvancedSelectionLauncher(grand_parent=self.grand_parent,
                                   parent=self.parent)
 
     def set_variables(self):
-        SetFittingVariablesLauncher(grand_parent=self.grand_parent)
+        SetFittingVariablesLauncher(grand_parent=self.grand_parent,
+                                    parent=self.parent)
 
     def reset(self):
         print("reset")
