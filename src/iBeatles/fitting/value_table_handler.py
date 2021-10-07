@@ -45,13 +45,13 @@ class ValueTableHandler(object):
         self.__set_variables = menu.addAction("Variables Advanced Tool ...")
         self.__set_variables.setEnabled(status)
 
-        menu.addSeparator()
-
-        self.__fixed = menu.addAction("Fixed Variables Selected")
-        self.__fixed.setEnabled(status)
-
-        self.__unfixed = menu.addAction("Unfixed Variables Selected")
-        self.__unfixed.setEnabled(status)
+        # menu.addSeparator()
+        #
+        # self.__fixed = menu.addAction("Fixed Variables Selected")
+        # self.__fixed.setEnabled(status)
+        #
+        # self.__unfixed = menu.addAction("Unfixed Variables Selected")
+        # self.__unfixed.setEnabled(status)
 
         menu.addSeparator()
 
