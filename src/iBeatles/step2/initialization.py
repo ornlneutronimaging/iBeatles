@@ -153,7 +153,7 @@ class Initialization:
 
         else:
 
-            self.parent.list_roi[DataType.normalization] = [DEFAULT_NORMALIZATION_ROI]
+            self.parent.list_roi[DataType.normalization] = DEFAULT_NORMALIZATION_ROI
             [_, x0, y0, width, height, region_type] = DEFAULT_NORMALIZATION_ROI
             x0 = int(x0)
             y0 = int(y0)

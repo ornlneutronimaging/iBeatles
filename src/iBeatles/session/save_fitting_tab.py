@@ -1,7 +1,6 @@
 import logging
 
 from .save_tab import SaveTab
-from .. import DataType
 
 
 class SaveFittingTab(SaveTab):
@@ -43,10 +42,11 @@ class SaveFittingTab(SaveTab):
         self.session_dict['fitting']['x_axis'] = [float(x) for x in self.parent.normalized_lambda_bragg_edge_x_axis]
 
         fitting_bragg_edge_linear_selection = self.parent.fitting_bragg_edge_linear_selection
-        min_lambda_index = int(fitting_bragg_edge_linear_selection[0])
-        max_lambda_index = int(fitting_bragg_edge_linear_selection[1])
+        if fitting_bragg_edge_linear_selection:
+            min_lambda_index = int(fitting_bragg_edge_linear_selection[0])
+            max_lambda_index = int(fitting_bragg_edge_linear_selection[1])
+            self.session_dict['fitting']['lambda range index'] = [min_lambda_index, max_lambda_index]
 
-        self.session_dict['fitting']['lambda range index'] = [min_lambda_index, max_lambda_index]
         self.session_dict['fitting']['transparency'] = self.parent.fitting_transparency_slider_value
         self.session_dict['fitting']['plot active row flag'] = self.parent.display_active_row_flag
 

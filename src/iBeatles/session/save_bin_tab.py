@@ -20,7 +20,7 @@ class SaveBinTab(SaveTab):
             else:
                 return None
 
-        [x0, y0, width, height, bin_size] = self.parent.binning_roi
+        [name, x0, y0, width, height, bin_size] = self.parent.binning_roi
         binning_line_view_pos = self.parent.binning_line_view['pos']
         formatted_binning_line_view_pos = format_numpy_array_into_list(binning_line_view_pos)
 
@@ -43,7 +43,7 @@ class SaveBinTab(SaveTab):
 
         logging.info(f" binning_line_view_line_color: {binning_line_view_line_color}")
 
-        self.session_dict['bin']['roi'] = [x0, y0, width, height, bin_size]
+        self.session_dict['bin']['roi'] = [name, x0, y0, width, height, bin_size]
         self.session_dict['bin']['binning line view']['pos'] = formatted_binning_line_view_pos
         self.session_dict['bin']['binning line view']['adj'] = formatted_binning_line_view_adj
         self.session_dict['bin']['binning line view']['line color'] = binning_line_view_line_color

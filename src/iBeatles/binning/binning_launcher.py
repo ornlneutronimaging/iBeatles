@@ -10,7 +10,7 @@ from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ..fitting.fitting_handler import FittingHandler
 from ..fitting.filling_table_handler import FillingTableHandler
 from ..binning.binning_handler import BinningHandler
-from .. import load_ui, BINNING_LINE_COLOR
+from .. import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
 
 
 class BinningLauncher(object):
@@ -61,12 +61,12 @@ class BinningWindow(QMainWindow):
 
     def init_widgets(self):
         if self.parent.binning_roi:
-            [x0, y0, width, height, bin_size] = self.parent.binning_roi
+            [_, x0, y0, width, height, bin_size] = self.parent.binning_roi
             self.ui.selection_x0.setText(str(x0))
             self.ui.selection_y0.setText(str(y0))
             self.ui.selection_width.setText(str(width))
             self.ui.selection_height.setText(str(height))
-            self.ui.bin_size_horizontalSlider.setValue(bin_size)
+            self.ui.bin_size_horizontalSlider.setValue(int(bin_size))
 
     def bin_slider_value_changed(self, new_value):
         self.roi_selection_widgets_modified()
@@ -118,7 +118,23 @@ class BinningWindow(QMainWindow):
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         self.parent.binning_line_view['image_view'] = image_view
-        roi = pg.ROI([0, 0], [20, 20], pen=colors.pen_color['0'], scaleSnap=True)
+
+        if self.parent.binning_roi is None:
+            [_, x0, y0, width, height, _] = self.parent.list_roi[DataType.normalized][0]
+            self.parent.binning_roi = [DEFAULT_ROI[0], x0, y0, width, height, DEFAULT_BIN[-1]]
+
+        binning_roi = self.parent.binning_roi
+
+        x0 = binning_roi[1]
+        y0 = binning_roi[2]
+        width = binning_roi[3]
+        height = binning_roi[4]
+
+        roi = pg.ROI([int(x0), int(y0)],
+                     [int(width), int(height)],
+                     pen=colors.pen_color['0'],
+                     scaleSnap=True)
+
         roi.addScaleHandle([1, 1], [0, 0])
         roi.sigRegionChanged.connect(self.roi_changed)
         roi.sigRegionChangeFinished.connect(self.roi_changed_finished)
@@ -303,7 +319,7 @@ class BinningWindow(QMainWindow):
         width = int(str(self.ui.selection_width.text()))
         height = int(str(self.ui.selection_height.text()))
         bin_size = self.ui.bin_size_horizontalSlider.value()
-        self.parent.binning_roi = [x0, y0, width, height, bin_size]
+        self.parent.binning_roi = [DEFAULT_ROI[0], x0, y0, width, height, bin_size]
 
     def ok_button_clicked(self):
         self.close()

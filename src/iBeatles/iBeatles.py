@@ -94,7 +94,8 @@ class MainWindow(QMainWindow):
                          'pen': None,
                          'image_view': None,
                          'roi': None}
-    binning_roi = DEFAULT_BIN   # x0, x1, width, height, bin_size
+
+    binning_roi = None    # x0, x1, width, height, bin_size
     # binning_bin_size = 20
     binning_done = False
 
