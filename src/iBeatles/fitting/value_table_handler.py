@@ -56,9 +56,9 @@ class ValueTableHandler(object):
         menu.addSeparator()
 
         self.__export = menu.addAction("Export Table ...")
-        self.__export.setEnabled(False)
-        self.__import = menu.addAction("Import Table ...")
-        self.__import.setEnabled(False)
+        self.__export.setEnabled(True)
+        # self.__import = menu.addAction("Import Table ...")
+        # self.__import.setEnabled(False)
 
         menu.addSeparator()
 
@@ -87,7 +87,7 @@ class ValueTableHandler(object):
             self.__reset: self.reset,
             self.__unfixed: self.unfixed_variables,
             self.__export: self.export_table,
-            self.__import: self.import_table,
+            # self.__import: self.import_table,
             self.__export_fitting: self.export_fitting,
         }.get(action, lambda: None)()
 
@@ -96,12 +96,13 @@ class ValueTableHandler(object):
         o_export_fitting.run()
 
     def export_table(self):
-        o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
+        o_table = TableDictionaryHandler(grand_parent=self.grand_parent,
+                                         parent=self.parent)
         o_table.export_table()
 
-    def import_table(self):
-        o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
-        o_table.import_table()
+    # def import_table(self):
+    #     o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
+    #     o_table.import_table()
 
     def changed_fixed_variables_status(self, status=True):
         selection = self.parent.ui.value_table.selectedRanges()

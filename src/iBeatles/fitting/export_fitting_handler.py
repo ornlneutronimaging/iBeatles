@@ -12,8 +12,8 @@ class ExportFittingHandler(object):
     table = []
     x_axis = []
 
-    def __init__(self, parent=None):
-        self.parent = parent
+    def __init__(self, grand_parent=None):
+        self.grand_parent = grand_parent
 
     def run(self):
 
@@ -51,7 +51,7 @@ class ExportFittingHandler(object):
             a1 = _entry['a1']['val']
             a2 = _entry['a2']['val']
 
-            if self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked():
+            if self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked():
                 a5 = _entry['a5']['val']
                 a6 = _entry['a6']['val']
             else:
@@ -60,7 +60,7 @@ class ExportFittingHandler(object):
 
             fit_y_axis = []
             for _x in x_axis:
-                if self.parent.fitting_ui.ui.advanced_table_checkBox.isChecked():
+                if self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked():
                     _y = advanced_fit(_x, d_spacing, alpha, sigma, a1, a2, a5, a6)
                 else:
                     _y = basic_fit(_x, d_spacing, alpha, sigma, a1, a2)
@@ -106,39 +106,39 @@ class ExportFittingHandler(object):
                               'x1': x1,
                               'y1': y1}
 
-        data_2d = np.array(self.parent.data_metadata['normalized']['data'])
+        data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
         _data = data_2d[:, x0:x1, y0:y1]
         inter1 = np.nanmean(_data, axis=1)
         bragg_edge = np.nanmean(inter1, axis=1)
 
-        [left_index, right_index] = self.parent.fitting_bragg_edge_linear_selection
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         return bragg_edge[left_index: right_index]
 
     def retrieve_x_axis(self):
         # index of selection in bragg edge plot
-        [left_index, right_index] = self.parent.fitting_bragg_edge_linear_selection
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         # retrieve image
-        # data_2d = np.array(self.parent.data_metadata['normalized']['data'])
-        full_x_axis = self.parent.fitting_ui.bragg_edge_data['x_axis']
+        # data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
+        full_x_axis = self.grand_parent.fitting_ui.bragg_edge_data['x_axis']
         x_axis = np.array(full_x_axis[left_index: right_index], dtype=float)
 
         return x_axis
 
     def load_table(self):
-        self.table = self.parent.table_dictionary
+        self.table = self.grand_parent.table_dictionary
 
     def select_and_create_output_folder(self):
-        '''select where to create the output fitting folder'''
-        output_folder = self.parent.normalized_folder
-        new_output_folder = str(QFileDialog.getExistingDirectory(self.parent,
+        """select where to create the output fitting folder"""
+        output_folder = self.grand_parent.normalized_folder
+        new_output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
                                                                  "Select Where to Create all the Fitted Bin Files....",
                                                                  output_folder))
         if new_output_folder:
 
             # define name of output folder
-            default_folder_name = str(self.parent.ui.normalized_folder.text()) + '_bins_fit'
+            default_folder_name = str(self.grand_parent.ui.normalized_folder.text()) + '_bins_fit'
             full_folder_name = os.path.join(new_output_folder, default_folder_name)
             if os.path.exists(full_folder_name):
                 shutil.rmtree(full_folder_name)
