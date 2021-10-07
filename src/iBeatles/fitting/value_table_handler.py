@@ -220,7 +220,8 @@ class ValueTableHandler(object):
         # QApplication.restoreOverrideCursor()
 
     def advanced_selection(self):
-        AdvancedSelectionLauncher(grand_parent=self.grand_parent)
+        AdvancedSelectionLauncher(grand_parent=self.grand_parent,
+                                  parent=self.parent)
 
     def set_variables(self):
         SetFittingVariablesLauncher(grand_parent=self.grand_parent)

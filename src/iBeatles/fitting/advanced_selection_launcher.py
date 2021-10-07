@@ -9,24 +9,27 @@ from .. import load_ui
 
 class AdvancedSelectionLauncher(object):
 
-    def __init__(self, parent=None):
+    def __init__(self, grand_parent=None, parent=None):
+        self.grand_parent = grand_parent
         self.parent = parent
 
-        if self.parent.advanced_selection_ui is None:
-            advanced_window = AdvancedSelectionWindow(parent=parent)
-            self.parent.advanced_selection_ui = advanced_window
+        if self.grand_parent.advanced_selection_ui is None:
+            advanced_window = AdvancedSelectionWindow(grand_parent=grand_parent,
+                                                      parent=parent)
+            self.grand_parent.advanced_selection_ui = advanced_window
             advanced_window.show()
         else:
-            self.parent.advanced_selection_ui.setFocus()
-            self.parent.advanced_selection_ui.activateWindow()
+            self.grand_parent.advanced_selection_ui.setFocus()
+            self.grand_parent.advanced_selection_ui.activateWindow()
 
 
 class AdvancedSelectionWindow(QMainWindow):
 
-    def __init__(self, parent=None):
+    def __init__(self, grand_parent=None, parent=None):
 
+        self.grand_parent = grand_parent
         self.parent = parent
-        QMainWindow.__init__(self, parent=parent)
+        QMainWindow.__init__(self, parent=grand_parent)
         self.ui = load_ui('ui_advancedFittingSelection.ui', baseinstance=self)
         self.setWindowTitle("Graphical Selection Tool")
 
@@ -37,7 +40,7 @@ class AdvancedSelectionWindow(QMainWindow):
         self.ui.lock_table.blockSignals(False)
 
     def init_table(self):
-        fitting_selection = self.parent.fitting_selection
+        fitting_selection = self.grand_parent.fitting_selection
         nbr_row = fitting_selection['nbr_row']
         nbr_column = fitting_selection['nbr_column']
 
@@ -64,7 +67,7 @@ class AdvancedSelectionWindow(QMainWindow):
                           table_ui=self.ui.lock_table)
 
     def update_table(self, state_field='', table_ui=None):
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
         for _index in table_dictionary:
             _entry = table_dictionary[_index]
@@ -93,7 +96,7 @@ class AdvancedSelectionWindow(QMainWindow):
         selection = self.ui.selection_table.selectedRanges()
         nbr_row = self.ui.selection_table.rowCount()
 
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
         for _entry in table_dictionary.keys():
             table_dictionary[_entry]['active'] = False
@@ -110,21 +113,22 @@ class AdvancedSelectionWindow(QMainWindow):
                     _entry['active'] = True
                     table_dictionary[str(fitting_row)] = _entry
 
-        self.parent.table_dictionary = table_dictionary
-        o_filling_table = FillingTableHandler(parent=self.parent)
+        self.grand_parent.table_dictionary = table_dictionary
+        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
+                                              parent=self.parent)
 
-        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
-        self.parent.fitting_ui.ui.value_table.blockSignals(False)
-        self.parent.fitting_ui.update_image_view_selection()
-        self.parent.fitting_ui.update_bragg_edge_plot()
+        self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
+        self.grand_parent.fitting_ui.update_image_view_selection()
+        self.grand_parent.fitting_ui.update_bragg_edge_plot()
 
     def lock_table_selection_changed(self):
         # update table and then update GUI
         selection = self.ui.lock_table.selectedRanges()
         nbr_row = self.ui.lock_table.rowCount()
 
-        table_dictionary = self.parent.table_dictionary
+        table_dictionary = self.grand_parent.table_dictionary
 
         for _entry in table_dictionary.keys():
             table_dictionary[_entry]['lock'] = False
@@ -141,20 +145,21 @@ class AdvancedSelectionWindow(QMainWindow):
                     _entry['lock'] = True
                     table_dictionary[str(fitting_row)] = _entry
 
-        self.parent.table_dictionary = table_dictionary
-        o_filling_table = FillingTableHandler(parent=self.parent)
+        self.grand_parent.table_dictionary = table_dictionary
+        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
+                                              parent=self.parent)
 
-        self.parent.fitting_ui.ui.value_table.blockSignals(True)
+        self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
-        self.parent.fitting_ui.ui.value_table.blockSignals(False)
-        self.parent.fitting_ui.update_image_view_lock()
-        self.parent.fitting_ui.update_bragg_edge_plot()
+        self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
+        self.grand_parent.fitting_ui.update_image_view_lock()
+        self.grand_parent.fitting_ui.update_bragg_edge_plot()
 
-        if self.parent.fitting_set_variables_ui:
-            self.parent.fitting_set_variables_ui.update_table()
+        if self.grand_parent.fitting_set_variables_ui:
+            self.grand_parent.fitting_set_variables_ui.update_table()
 
     def closeEvent(self, event=None):
-        self.parent.advanced_selection_ui = None
+        self.grand_parent.advanced_selection_ui = None
 
     def apply_button_clicked(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)

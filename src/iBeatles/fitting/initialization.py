@@ -97,14 +97,12 @@ class Initialization:
         spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         buttons_layout.addItem(spacer)
         label = QLabel("Plot")
-        label.setEnabled(False)
         buttons_layout.addWidget(label)
 
         # all bins button
         active_button = QRadioButton()
         active_button.setText("Active Bins")
         active_button.setChecked(True)
-        # active_button.setEnabled(False)
         active_button.pressed.connect(self.parent.active_button_pressed)
         self.parent.ui.active_bins_button = active_button
 
@@ -113,7 +111,6 @@ class Initialization:
         locked_button = QRadioButton()
         locked_button.setText("Locked Bins")
         locked_button.setChecked(False)
-        # locked_button.setEnabled(False)
         locked_button.pressed.connect(self.parent.lock_button_pressed)
         self.parent.ui.locked_bins_button = locked_button
 
@@ -136,9 +133,9 @@ class Initialization:
         self.parent.ui.material_groupBox.setTitle(self.grand_parent.selected_element_name)
 
     def widgets(self):
-        '''
+        """
         such as material h,k,l list according to material selected in normalized tab
-        '''
+        """
         hkl_list = self.grand_parent.selected_element_hkl_array
         str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
         self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
