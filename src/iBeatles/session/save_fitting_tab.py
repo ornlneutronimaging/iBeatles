@@ -9,7 +9,6 @@ class SaveFittingTab(SaveTab):
         table_dictionary = self.parent.table_dictionary
 
         logging.info("Recording fitting table dictionary")
-        logging.info(table_dictionary)
 
         formatted_table_dictionary = {}
 

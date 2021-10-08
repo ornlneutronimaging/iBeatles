@@ -3,6 +3,7 @@ import numpy as np
 import os
 import pyqtgraph as pg
 import pandas as pd
+import logging
 
 from ..utilities.table_handler import TableHandler
 
@@ -23,15 +24,15 @@ class TableDictionaryHandler:
     lock_color = {'pen': (0, 0, 0, 30),
                   'brush': (255, 0, 0, 240)}
 
-    header = ['x0', 'y0', 'x1', 'y1', 'row_index', 'column_index', 'lock', 'active',
-              'fitting_confidence', 'd_spacing_value', 'd_spacing_err', 'd_spacing_fixed',
-              'sigma_value', 'sigma_err', 'sigma_fixed',
-              'intensity_value', 'intensity_err', 'intensity_fixed',
-              'alpha_value', 'alpha_err', 'alpha_fixed',
-              'a1_value', 'a1_err', 'a1_fixed',
-              'a2_value', 'a2_err', 'a2_fixed',
-              'a5_value', 'a5_err', 'a5_fixed',
-              'a6_value', 'a6_err', 'a6_fixed']
+    # header = ['x0', 'y0', 'x1', 'y1', 'row_index', 'column_index', 'lock', 'active',
+    #           'fitting_confidence', 'd_spacing_value', 'd_spacing_err', 'd_spacing_fixed',
+    #           'sigma_value', 'sigma_err', '',
+    #           'intensity_value', 'intensity_err', 'intensity_fixed',
+    #           'alpha_value', 'alpha_err', 'alpha_fixed',
+    #           'a1_value', 'a1_err', 'a1_fixed',
+    #           'a2_value', 'a2_err', 'a2_fixed',
+    #           'a5_value', 'a5_err', 'a5_fixed',
+    #           'a6_value', 'a6_err', 'a6_fixed']
 
     def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent
@@ -225,22 +226,12 @@ class TableDictionaryHandler:
 
         self.grand_parent.table_dictionary = table_dictionary
 
-        # self.grand_parent.fitting_ui.table_dictionary = table_dictionary
-
         self.grand_parent.fitting_selection['nbr_row'] = _index_row
         self.grand_parent.fitting_selection['nbr_column'] = _index_col
 
     def full_table_selection_tool(self, status=True):
         o_table = TableHandler(table_ui=self.value_table_ui)
         o_table.select_everything(status)
-
-        # table_dictionary = self.grand_parent.table_dictionary
-        # for _index in table_dictionary:
-        #     _item = table_dictionary[_index]
-        #     _item['active'] = status
-        #     table_dictionary[_index] = _item
-        #
-        # self.grand_parent.table_dictionary = table_dictionary
 
     def unselect_full_table(self):
         self.full_table_selection_tool(status=False)
@@ -320,20 +311,6 @@ class TableDictionaryHandler:
             o_fitting = fitting_handler.FittingHandler(grand_parent=self.grand_parent)
             o_fitting.fill_table()
 
-    def export_table(self):
-        default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + '_fitting_table.csv'
-        table_file = str(QFileDialog.getSaveFileName(self.grand_parent,
-                                                     'Select or Define Name of File!',
-                                                     default_file_name,
-                                                     "CSV (*.csv)"))
-
-        if table_file:
-            table_dictionary = self.grand_parent.table_dictionary
-            o_table_formatted = FormatTableForExport(table=table_dictionary)
-            pandas_data_frame = o_table_formatted.pandas_data_frame
-            header = self.header
-            pandas_data_frame.to_csv(table_file, header=header)
-
     def is_at_least_one_row_activated(self):
         nbr_row = self.value_table_ui.rowCount()
         for _row in np.arange(nbr_row):
@@ -344,80 +321,3 @@ class TableDictionaryHandler:
     def is_this_row_checked(self, row=0, column=2):
         widget = self.parent.ui.value_table.cellWidget(row, column)
         return widget.isChecked()
-
-
-class FormatTableForExport(object):
-    pandas_data_frame = []
-
-    def __init__(self, table={}):
-        pandas_table = []
-
-        for _key in table:
-            _entry = table[_key]
-
-            x0 = _entry['bin_coordinates']['x0']
-            y0 = _entry['bin_coordinates']['y0']
-            x1 = _entry['bin_coordinates']['x1']
-            y1 = _entry['bin_coordinates']['y1']
-
-            row_index = _entry['row_index']
-            column_index = _entry['column_index']
-
-            lock = _entry['lock']
-            active = _entry['active']
-
-            fitting_confidence = _entry['fitting_confidence']
-
-            [d_spacing_val,
-             d_spacing_err,
-             d_spacing_fixed] = self.get_val_err_fixed(_entry['d_spacing'])
-
-            [sigma_val,
-             sigma_err,
-             sigma_fixed] = self.get_val_err_fixed(_entry['sigma'])
-
-            [intensity_val,
-             intensity_err,
-             intensity_fixed] = self.get_val_err_fixed(_entry['intensity'])
-
-            [alpha_val,
-             alpha_err,
-             alpha_fixed] = self.get_val_err_fixed(_entry['alpha'])
-
-            [a1_val,
-             a1_err,
-             a1_fixed] = self.get_val_err_fixed(_entry['a1'])
-
-            [a2_val,
-             a2_err,
-             a2_fixed] = self.get_val_err_fixed(_entry['a2'])
-
-            [a5_val,
-             a5_err,
-             a5_fixed] = self.get_val_err_fixed(_entry['a5'])
-
-            [a6_val,
-             a6_err,
-             a6_fixed] = self.get_val_err_fixed(_entry['a6'])
-
-            _row = [x0, x1, y0, y1,
-                    row_index, column_index,
-                    lock, active,
-                    fitting_confidence,
-                    d_spacing_val, d_spacing_err, d_spacing_fixed,
-                    sigma_val, sigma_err, sigma_fixed,
-                    intensity_val, intensity_err, intensity_fixed,
-                    alpha_val, alpha_err, alpha_fixed,
-                    a1_val, a1_err, a1_fixed,
-                    a2_val, a2_err, a2_fixed,
-                    a5_val, a5_err, a5_fixed,
-                    a6_val, a6_err, a6_fixed,
-                    ]
-
-            pandas_table.append(_row)
-
-        pandas_data_frame = pd.DataFrame.from_dict(pandas_table)
-        self.pandas_data_frame = pandas_data_frame
-
-    def get_val_err_fixed(self, item):
-        return [item['val'], item['err'], item['fixed']]

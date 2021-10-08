@@ -1,5 +1,5 @@
-from qtpy.QtWidgets import QMenu, QApplication
-from qtpy import QtCore, QtGui
+from qtpy.QtWidgets import QMenu
+from qtpy import  QtGui
 import numpy as np
 
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
@@ -7,6 +7,7 @@ from .export_fitting_handler import ExportFittingHandler
 from .advanced_selection_launcher import AdvancedSelectionLauncher
 from .filling_table_handler import FillingTableHandler
 from .set_fitting_variables_launcher import SetFittingVariablesLauncher
+from ..table_dictionary.export import Export
 
 
 class ValueTableHandler(object):
@@ -96,13 +97,9 @@ class ValueTableHandler(object):
         o_export_fitting.run()
 
     def export_table(self):
-        o_table = TableDictionaryHandler(grand_parent=self.grand_parent,
-                                         parent=self.parent)
-        o_table.export_table()
-
-    # def import_table(self):
-    #     o_table = TableDictionaryHandler(grand_parent=self.grand_parent)
-    #     o_table.import_table()
+        o_export = Export(parent=self.parent,
+                          grand_parent=self.grand_parent)
+        o_export.run()
 
     def changed_fixed_variables_status(self, status=True):
         selection = self.parent.ui.value_table.selectedRanges()
