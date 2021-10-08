@@ -58,12 +58,11 @@ class ValueTableHandler(object):
 
         self.__export = menu.addAction("Export Table ...")
         self.__export.setEnabled(True)
-        # self.__import = menu.addAction("Import Table ...")
-        # self.__import.setEnabled(False)
 
         menu.addSeparator()
 
         self.__export_fitting = menu.addAction("Export Fitting ...")
+        self.__export_fitting.setEnabled(False)
 
         # _reset = menu.addAction("Full Reset")
         # _reset.setEnabled(status)
