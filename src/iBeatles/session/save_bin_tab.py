@@ -2,6 +2,7 @@ import logging
 
 from .save_tab import SaveTab
 from .. import BINNING_LINE_COLOR
+from .. import DEFAULT_ROI
 
 
 class SaveBinTab(SaveTab):
@@ -20,7 +21,11 @@ class SaveBinTab(SaveTab):
             else:
                 return None
 
+        if self.parent.binning_roi is None:
+            self.parent.binning_roi = DEFAULT_ROI
+
         [name, x0, y0, width, height, bin_size] = self.parent.binning_roi
+
         binning_line_view_pos = self.parent.binning_line_view['pos']
         formatted_binning_line_view_pos = format_numpy_array_into_list(binning_line_view_pos)
 

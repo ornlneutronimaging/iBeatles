@@ -6,7 +6,10 @@ import logging
 import versioneer
 
 from .config_handler import ConfigHandler
+
 from .all_steps.log_launcher import LogLauncher
+from .all_steps.event_handler import EventHandler as GeneralEventHandler
+
 from .step1.event_handler import EventHandler as Step1EventHandler
 from .step1.data_handler import DataHandler
 from .step1.gui_handler import Step1GuiHandler
@@ -54,6 +57,7 @@ class MainWindow(QMainWindow):
     """ Main FastGR window
     """
 
+    current_tab = 0   # this will be used in case user request to see a tab is not allowed yet
     session_dict = {}  # all the parameters to save to be able to recover the full session
 
     # log ui
@@ -361,23 +365,34 @@ class MainWindow(QMainWindow):
 
     # TAB 1, 2 and 3
     def tab_widget_changed(self, tab_selected):
-        if tab_selected == 1:  # normalization
 
-            # # if step1 threw some errors, nothing else to do
-            # if self.steps_error['step1']['status']:
-            #     print(self.steps_error['step1'])
-            #     return
+        general_event_handler = GeneralEventHandler(parent=self)
+        is_tab_selected_allowed = general_event_handler.is_tab_selected_allowed(tab_index_requested=tab_selected)
 
-            o_gui = Step2GuiHandler(parent=self)
-            o_gui.update_widgets()
-            time_spectra_data = self.data_metadata['time_spectra']['data']
-            if time_spectra_data == []:
-                o_gui.enable_xaxis_button(tof_flag=False)
-            else:
-                o_gui.enable_xaxis_button(tof_flag=True)
-            self.step2_file_index_radio_button_clicked()
-            o_plot = Step2Plot(parent=self)
-            o_plot.display_bragg_edge()
+        if is_tab_selected_allowed:
+
+            if tab_selected == 1:  # normalization
+
+                # # if step1 threw some errors, nothing else to do
+                # if self.steps_error['step1']['status']:
+                #     print(self.steps_error['step1'])
+                #     return
+
+                o_gui = Step2GuiHandler(parent=self)
+                o_gui.update_widgets()
+                time_spectra_data = self.data_metadata['time_spectra']['data']
+                if time_spectra_data == []:
+                    o_gui.enable_xaxis_button(tof_flag=False)
+                else:
+                    o_gui.enable_xaxis_button(tof_flag=True)
+                self.step2_file_index_radio_button_clicked()
+                o_plot = Step2Plot(parent=self)
+                o_plot.display_bragg_edge()
+
+            self.current_tab = tab_selected
+
+        else:
+            self.ui.tabWidget.setCurrentIndex(self.current_tab)
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
