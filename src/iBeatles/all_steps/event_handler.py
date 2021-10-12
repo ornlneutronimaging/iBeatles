@@ -57,6 +57,9 @@ class EventHandler:
             if self.parent.data_metadata[DataType.normalized]['data'] == []:
                 self._display_status_message_warning(message="Please load some normalized data!")
                 return False
+            if not self.parent.there_is_a_roi:
+                self._display_status_message_warning(message="Please select a region to bin first (step binning)!")
+                return False
             return True
 
         # strain mapping

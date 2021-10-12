@@ -11,6 +11,7 @@ class LoadBin:
         session_dict = self.session_dict
 
         self.parent.binning_roi = session_dict['bin']['roi']
+        self.parent.there_is_a_roi = True
 
         binning_line_view = session_dict['bin']['binning line view']
         self.parent.binning_line_view['pos'] = np.array(binning_line_view['pos'])

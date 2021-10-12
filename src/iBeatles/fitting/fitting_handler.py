@@ -38,7 +38,7 @@ class FittingHandler:
         if pos is None:
             return
 
-        self.parent.there_is_a_roi = True
+        self.grand_parent.there_is_a_roi = True
 
         # define new transparency of roi
         transparency = self.parent.slider.value()
@@ -60,10 +60,11 @@ class FittingHandler:
                                       pxMode=False)
 
     def fill_table(self):
+
         if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
             return
 
-        if not self.parent.there_is_a_roi:
+        if not self.grand_parent.there_is_a_roi:
             return
 
         o_table = TableDictionaryHandler(grand_parent=self.grand_parent,

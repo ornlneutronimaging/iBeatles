@@ -105,6 +105,7 @@ class MainWindow(QMainWindow):
 
     ## FITTING TAB
     # fitting window stuff
+    there_is_a_roi = False
     init_sigma_alpha_ui = None
     fitting_ui = None
     fitting_story_ui = None

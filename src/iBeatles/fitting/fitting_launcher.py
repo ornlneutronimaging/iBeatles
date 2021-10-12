@@ -43,7 +43,7 @@ class FittingWindow(QMainWindow):
     is_ready_to_fit = False
 
     data = []
-    there_is_a_roi = False
+    # there_is_a_roi = False
     bragg_edge_active_button_status = True  # to make sure active/lock button worked correctly
 
     list_bins_selected_item = []
