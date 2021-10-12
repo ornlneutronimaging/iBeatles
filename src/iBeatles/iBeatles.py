@@ -349,16 +349,24 @@ class MainWindow(QMainWindow):
         self.ui.tabWidget.setCurrentIndex(2)
 
     def menu_view_binning_clicked(self):
-        o_binning = BinningLauncher(parent=self)
+        o_event = GeneralEventHandler(parent=self)
+        if o_event.is_step_selected_allowed(step_index_requested=3):
+            o_binning = BinningLauncher(parent=self)
 
     def menu_view_fitting_clicked(self):
-        o_fitting = FittingLauncher(parent=self)
+        o_event = GeneralEventHandler(parent=self)
+        if o_event.is_step_selected_allowed(step_index_requested=4):
+            o_fitting = FittingLauncher(parent=self)
 
     def menu_view_strain_mapping_clicked(self):
-        o_strain = StrainMappingLauncher(parent=self)
+        o_event = GeneralEventHandler(parent=self)
+        if o_event.is_step_selected_allowed(step_index_requested=5):
+            o_strain = StrainMappingLauncher(parent=self)
 
     def rotate_normalized_images_clicked(self):
-        o_rotate = RotateImages(parent=self)
+        o_event = GeneralEventHandler(parent=self)
+        if o_event.is_step_selected_allowed(step_index_requested=6):
+            o_rotate = RotateImages(parent=self)
 
     def log_clicked(self):
         LogLauncher(parent=self)
@@ -367,16 +375,11 @@ class MainWindow(QMainWindow):
     def tab_widget_changed(self, tab_selected):
 
         general_event_handler = GeneralEventHandler(parent=self)
-        is_step_selected_allowed = general_event_handler.is_step_selected_allowed(tab_index_requested=tab_selected)
+        is_step_selected_allowed = general_event_handler.is_step_selected_allowed(step_index_requested=tab_selected)
 
         if is_step_selected_allowed:
 
             if tab_selected == 1:  # normalization
-
-                # # if step1 threw some errors, nothing else to do
-                # if self.steps_error['step1']['status']:
-                #     print(self.steps_error['step1'])
-                #     return
 
                 o_gui = Step2GuiHandler(parent=self)
                 o_gui.update_widgets()
