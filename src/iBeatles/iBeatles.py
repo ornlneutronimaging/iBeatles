@@ -367,9 +367,9 @@ class MainWindow(QMainWindow):
     def tab_widget_changed(self, tab_selected):
 
         general_event_handler = GeneralEventHandler(parent=self)
-        is_tab_selected_allowed = general_event_handler.is_tab_selected_allowed(tab_index_requested=tab_selected)
+        is_step_selected_allowed = general_event_handler.is_step_selected_allowed(tab_index_requested=tab_selected)
 
-        if is_tab_selected_allowed:
+        if is_step_selected_allowed:
 
             if tab_selected == 1:  # normalization
 
