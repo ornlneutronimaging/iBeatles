@@ -77,7 +77,6 @@ class SessionHandler:
         self.parent = parent
 
     def save_from_ui(self):
-
         self.session_dict['config version'] = self.parent.config["config version"]
 
         # Load data tab

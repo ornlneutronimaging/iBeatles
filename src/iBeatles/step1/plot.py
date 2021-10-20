@@ -70,22 +70,27 @@ class Step1Plot(object):
 
             _data = np.array(_data)
             if self.data_type == 'sample':
-                _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.image_view)
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.image_view,
                                             data_type=self.data_type)
+                _state, _view_box = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
+
+                print("plotting sample")
+                print(self.parent.image_view_settings[self.data_type]['histogram'])
+
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.image_view)
+
                 _view_box.setState(_state)
                 o_pyqt.reload_histogram_level()
 
             elif self.data_type == 'ob':
-                _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.ob_image_view)
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.ob_image_view,
                                             data_type=self.data_type)
+                _state, _view_box = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
                 self.parent.ui.ob_area.setVisible(True)
                 self.parent.ui.ob_image_view.setImage(_data)
@@ -94,10 +99,10 @@ class Step1Plot(object):
                 o_pyqt.reload_histogram_level()
 
             elif self.data_type == 'normalized':
-                _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.normalized_image_view)
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.normalized_image_view,
                                             data_type=self.data_type)
+                _state, _view_box = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)

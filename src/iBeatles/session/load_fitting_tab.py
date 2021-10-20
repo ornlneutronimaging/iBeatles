@@ -10,4 +10,8 @@ class LoadFitting:
     def table_dictionary(self):
         self.parent.session_dict['fitting'] = self.session_dict["fitting"]
         self.parent.table_loaded_from_session = True
-        
+
+        self.parent.image_view_settings[DataType.fitting]['state'] = \
+            self.parent.session_dict[DataType.fitting]['image view state']
+        self.parent.image_view_settings[DataType.fitting]['histogram'] = \
+            self.parent.session_dict[DataType.fitting]['image view histogram']

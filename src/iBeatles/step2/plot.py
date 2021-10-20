@@ -85,10 +85,10 @@ class Step2Plot:
     def display_image(self):
         _data = self.normalization
 
-        _state, _view_box = PyqtgraphUtilities.get_state(self.parent.step2_ui['image_view'])
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.step2_ui['image_view'],
                                     data_type=DataType.normalization)
+        _state, _view_box = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
         if _data == []:

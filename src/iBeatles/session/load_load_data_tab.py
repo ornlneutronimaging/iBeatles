@@ -20,6 +20,13 @@ class LoadLoadDataTab:
         list_sample_files = self.session_dict[DataType.sample]['list files']
         if list_sample_files:
             input_folder = session_dict[DataType.sample]['current folder']
+            self.parent.image_view_settings[DataType.sample]['state'] = session_dict[DataType.sample]['image view ' \
+                                                                                                      'state']
+            self.parent.image_view_settings[DataType.sample]['histogram'] = session_dict[DataType.sample][
+                'image view histogram']
+
+            print(session_dict[DataType.sample]['image view histogram'])
+
             o_data_handler = DataHandler(parent=self.parent,
                                          data_type=DataType.sample)
             list_sample_files_fullname = [os.path.join(input_folder, _file) for _file in list_sample_files]
@@ -47,6 +54,8 @@ class LoadLoadDataTab:
 
         session_dict = self.session_dict
 
+        self.parent.image_view_settings[DataType.ob]['state'] = session_dict[DataType.ob]['image view state']
+        self.parent.image_view_settings[DataType.ob]['histogram'] = session_dict[DataType.ob]['image view histogram']
         list_ob_files = session_dict[DataType.ob]['list files']
         if list_ob_files:
             input_folder = session_dict[DataType.ob]['current folder']
@@ -68,7 +77,7 @@ class LoadLoadDataTab:
 
         o_gui = GuiHandler(parent=self.parent)
         list_ui = {'distance': self.parent.ui.distance_source_detector,
-                   'beam'    : self.parent.ui.beam_rate,
+                   'beam': self.parent.ui.beam_rate,
                    'detector': self.parent.ui.detector_offset}
 
         for _key in list_ui.keys():

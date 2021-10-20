@@ -9,10 +9,10 @@ class BinningHandler(object):
 
     def display_image(self, data=[]):
 
-        _state, _view_box = PyqtgraphUtilities.get_state(self.parent.binning_line_view['image_view'])
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.binning_line_view['image_view'],
                                     data_type=self.data_type)
+        _state, _view_box = o_pyqt.get_state(self.parent.binning_line_view['image_view'])
         o_pyqt.save_histogram_level()
 
         if not (data == []):

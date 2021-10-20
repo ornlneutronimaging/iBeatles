@@ -1,5 +1,7 @@
 import numpy as np
 
+from .. import DataType
+
 
 class LoadBin:
 
@@ -12,6 +14,11 @@ class LoadBin:
 
         self.parent.binning_roi = session_dict['bin']['roi']
         self.parent.there_is_a_roi = True
+
+        self.parent.image_view_settings[DataType.bin]['state'] = \
+            session_dict[DataType.bin]['image view state']
+        self.parent.image_view_settings[DataType.bin]['histogram'] = \
+            session_dict[DataType.bin]['image view histogram']
 
         binning_line_view = session_dict['bin']['binning line view']
         self.parent.binning_line_view['pos'] = np.array(binning_line_view['pos'])

@@ -3,6 +3,7 @@ import logging
 from .. import DataType
 from .save_tab import SaveTab
 from ..utilities.gui_handler import GuiHandler
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class SaveLoadDataTab(SaveTab):
@@ -17,7 +18,10 @@ class SaveLoadDataTab(SaveTab):
         time_spectra_filename = self.parent.data_metadata[data_type]['time_spectra']['filename']
         list_files_selected = [int(index) for index in self.parent.list_file_selected[data_type]]
         list_roi = self.parent.list_roi[data_type]
-        state = self.parent.image_view_settings[data_type]['state']
+        o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                    image_view=self.parent.ui.image_view,
+                                    data_type=data_type)
+        state, _view_box = o_pyqt.get_state()
         histogram = self.parent.image_view_settings[data_type]['histogram']
 
         logging.info("Recording parameters of Load Data / Sample")
@@ -46,7 +50,10 @@ class SaveLoadDataTab(SaveTab):
         current_folder = self.parent.data_metadata[data_type]['folder']
         list_files_selected = [int(index) for index in self.parent.list_file_selected[data_type]]
         list_roi = self.parent.list_roi[data_type]
-        state = self.parent.image_view_settings[data_type]['state']
+        o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                    image_view=self.parent.ui.ob_image_view,
+                                    data_type=data_type)
+        state, _view_box = o_pyqt.get_state()
         histogram = self.parent.image_view_settings[data_type]['histogram']
 
         logging.info("Recording parameters of Load Data / OB")

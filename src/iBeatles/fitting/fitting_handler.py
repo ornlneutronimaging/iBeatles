@@ -15,10 +15,10 @@ class FittingHandler:
         self.grand_parent = grand_parent
 
     def display_image(self, data=[]):
-        _state, _view_box = PyqtgraphUtilities.get_state(self.parent.image_view)
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.image_view,
                                     data_type=self.data_type)
+        _state, _view_box = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
         if not (data == []):
