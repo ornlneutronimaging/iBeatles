@@ -61,6 +61,7 @@ class Step1Plot(object):
     def display_image(self):
 
         _data = self.data
+        _state = None
         self.parent.live_data = _data
 
         if _data == []:
@@ -125,6 +126,8 @@ class Step1Plot(object):
                 if not (self.parent.rotate_ui is None):
                     o_rotate = self.parent.rotate_ui
                     o_rotate.display_rotated_images()
+
+            self.parent.image_view_settings[self.data_type]['state'] = _state
 
     def initialize_default_roi(self):
         if self.data_type == 'sample':

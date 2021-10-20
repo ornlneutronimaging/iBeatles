@@ -3,6 +3,7 @@ import logging
 from .save_tab import SaveTab
 from .. import BINNING_LINE_COLOR
 from .. import DEFAULT_ROI
+from .. import DataType
 
 
 class SaveBinTab(SaveTab):
@@ -34,6 +35,9 @@ class SaveBinTab(SaveTab):
 
         binning_line_view_line_color = BINNING_LINE_COLOR
 
+        state = self.parent.image_view_settings[DataType.bin]['state']
+        histogram = self.parent.image_view_settings[DataType.bin]['histogram']
+
         logging.info("Recording parameters of bin tab")
         logging.info(f" x0:{x0}, y0:{y0}, width:{width}, height:{height}, bin_size:{bin_size}")
         if not (binning_line_view_pos is None):
@@ -47,8 +51,12 @@ class SaveBinTab(SaveTab):
             logging.info(f" binning_line_view_adj: None")
 
         logging.info(f" binning_line_view_line_color: {binning_line_view_line_color}")
+        logging.info(f" state: {state}")
+        logging.info(f" histogram: {histogram}")
 
         self.session_dict['bin']['roi'] = [name, x0, y0, width, height, bin_size]
         self.session_dict['bin']['binning line view']['pos'] = formatted_binning_line_view_pos
         self.session_dict['bin']['binning line view']['adj'] = formatted_binning_line_view_adj
         self.session_dict['bin']['binning line view']['line color'] = binning_line_view_line_color
+        self.session_dict[DataType.bin]['image view state'] = state
+        self.session_dict[DataType.bin]['image view histogram'] = histogram

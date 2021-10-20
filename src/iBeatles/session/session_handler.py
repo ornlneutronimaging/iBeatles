@@ -31,18 +31,24 @@ class SessionHandler:
                                       'time spectra filename': None,
                                       'list files selected': None,
                                       'list rois': None,
+                                      'image view state': None,
+                                      'image view histogram': None,
                                       },
-                    DataType.ob: {'list files'           : None,
-                                  'current folder'       : None,
-                                  'list files selected'  : None,
+                    DataType.ob: {'list files': None,
+                                  'current folder': None,
+                                  'list files selected': None,
                                   },
                     DataType.normalization: {'roi': None,
+                                             'image view state': None,
+                                             'image view histogram': None,
                                              },
                     DataType.normalized: {'list files': None,
                                           'current folder': None,
                                           'time spectra filename': None,
                                           'list files selected': None,
                                           'list rois': None,
+                                          'image view state': None,
+                                          'image view histogram': None,
                                           },
                     "instrument": {'distance source detector': None,
                                    'beam index': 0,
@@ -53,12 +59,16 @@ class SessionHandler:
                                                   'adj': None,
                                                   'line color': None,
                                                   },
+                            'image view state': None,
+                            'image view histogram': None,
                             },
                     "fitting": {"table dictionary": None,
                                 "lambda range index": None,
                                 "x_axis": None,
                                 "transparency": 50,
                                 "plot active row flag": True,
+                                'image view state': None,
+                                'image view histogram': None,
                                 }
                     }
 
@@ -161,7 +171,6 @@ class SessionHandler:
                                 status=StatusMessageStatus.error,
                                 duration_s=10)
             logging.info("Loading session aborted! ValueError raised!")
-
 
     def automatic_save(self):
         o_get = Get(parent=self.parent)
