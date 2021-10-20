@@ -9,7 +9,9 @@ from .save_normalization_tab import SaveNormalizationTab
 from .save_normalized_tab import SaveNormalizedTab
 from .save_bin_tab import SaveBinTab
 from .save_fitting_tab import SaveFittingTab
+from ..utilities.gui_handler import GuiHandler
 
+from .session_utilities import SessionUtilities
 from .load_load_data_tab import LoadLoadDataTab
 from .load_normalization_tab import LoadNormalization
 from .load_normalized_tab import LoadNormalized
@@ -152,6 +154,9 @@ class SessionHandler:
                 # load fitting
                 o_fit = LoadFitting(parent=self.parent)
                 o_fit.table_dictionary()
+
+            o_util = SessionUtilities(parent=self.parent)
+            o_util.jump_to_tab_of_data_type(tabs_to_load[0])
 
             show_status_message(parent=self.parent,
                                 message=f"Loaded {self.config_file_name}",
