@@ -202,13 +202,25 @@ class MainWindow(QMainWindow):
                        }
 
     # dictionary that will save the pan and zoom of each of the image view
-    image_view_state = {DataType.sample: None,
-                        DataType.ob: None,
-                        DataType.normalization: None,
-                        DataType.normalized: None,
-                        DataType.bin: None,
-                        DataType.fitting: None,
-                        }
+    image_view_settings = {DataType.sample: {'state': None,
+                                             'histogram': None,
+                                             },
+                           DataType.ob: {'state': None,
+                                         'histogram': None,
+                                         },
+                           DataType.normalization: {'state': None,
+                                                    'histogram': None,
+                                                    },
+                           DataType.normalized: {'state': None,
+                                                 'histogram': None,
+                                                 },
+                           DataType.bin: {'state': None,
+                                          'histogram': None,
+                                          },
+                           DataType.fitting: {'state': None,
+                                              'histogram': None,
+                                              }
+                           }
 
     # use to display lable that illustrate normalization process in tab2
     normalization_label = {'data_ob': '',

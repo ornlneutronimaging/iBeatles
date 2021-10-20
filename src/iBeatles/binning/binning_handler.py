@@ -1,4 +1,4 @@
-# import numpy as np
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class BinningHandler(object):
@@ -8,6 +8,8 @@ class BinningHandler(object):
         self.binning_ui = self.parent.binning_ui
 
     def display_image(self, data=[]):
+
+        _state, _view_box = PyqtgraphUtilities.get_state(self.parent.binning_line_view['image_view'])
         if not (data == []):
             self.binning_ui.data = data
             self.parent.binning_line_view['image_view'].setImage(data)
@@ -18,6 +20,8 @@ class BinningHandler(object):
             else:
                 self.parent.binning_line_view['image_view'].setImage(data)
                 self.binning_ui.data = data
+
+        _view_box.setState(_state)
 
     def display_selection(self):
         if self.parent.binning_line_view['ui']:

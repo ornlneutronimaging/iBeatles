@@ -4,9 +4,8 @@ import pyqtgraph as pg
 import src.iBeatles.step1.utilities as utilities
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ..utilities.colors import pen_color
-# from iBeatles.py.utilities.roi_handler import RoiHandler
 from ..utilities.gui_handler import GuiHandler
-
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 from ..binning.binning_handler import BinningHandler
 from ..fitting.fitting_handler import FittingHandler
 
@@ -60,6 +59,7 @@ class Step1Plot(object):
         self.display_bragg_edge()
 
     def display_image(self):
+
         _data = self.data
         self.parent.live_data = _data
 
@@ -69,25 +69,26 @@ class Step1Plot(object):
 
             _data = np.array(_data)
             if self.data_type == 'sample':
-                _view = self.parent.ui.image_view.getView()
-                _view_box = _view.getViewBox()
-                _state = _view_box.getState()
-
+                _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.image_view)
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.image_view)
-
                 _view_box.setState(_state)
 
             elif self.data_type == 'ob':
+                _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.ob_image_view)
                 self.parent.ui.ob_area.setVisible(True)
                 self.parent.ui.ob_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.ob_image_view)
+                _view_box.setState(_state)
+
             elif self.data_type == 'normalized':
+                _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.normalized_image_view)
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
                 self.parent.data_metadata['normalized']['data_live_selection'] = _data
+                _view_box.setState(_state)
 
                 # make sure that if we have the fitting window open, we have also at least the binning
                 if not (self.parent.fitting_ui is None) and \

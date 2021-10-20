@@ -4,14 +4,12 @@ import numpy as np
 import pyqtgraph as pg
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
-# from iBeatles.py.utilities.colors import pen_color
-# from iBeatles.py.utilities.roi_handler import RoiHandler
 from ..utilities.gui_handler import GuiHandler
 from .. import RegionType, DataType
 from .get import Get as Step2Get
 from ..utilities.colors import pen_color
 from . import roi_label_color
-from ..utilities.status_message_config import StatusMessageStatus, show_status_message
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class CustomAxis(pg.AxisItem):
@@ -88,12 +86,16 @@ class Step2Plot:
     def display_image(self):
         _data = self.normalization
 
+        _state, _view_box = PyqtgraphUtilities.get_state(self.parent.step2_ui['image_view'])
+
         if _data == []:
             self.clear_plots()
             self.parent.step2_ui['area'].setVisible(False)
         else:
             self.parent.step2_ui['area'].setVisible(True)
             self.parent.step2_ui['image_view'].setImage(_data)
+
+        _view_box.setState(_state)
 
     def display_roi(self):
         list_roi_id = self.parent.list_roi_id['normalization']

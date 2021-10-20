@@ -5,6 +5,7 @@ from ..utilities import colors
 from ..fitting.filling_table_handler import FillingTableHandler
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from .selected_bin_handler import SelectedBinsHandler
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class FittingHandler:
@@ -12,9 +13,10 @@ class FittingHandler:
     def __init__(self, grand_parent=None, parent=None):
         self.parent = parent
         self.grand_parent = grand_parent
-        # self.fitting_ui = self.parent.fitting_ui
 
     def display_image(self, data=[]):
+        _state, _view_box = PyqtgraphUtilities.get_state(self.parent.image_view)
+
         if not (data == []):
             self.parent.data = data
             self.parent.image_view.setImage(data)
@@ -26,6 +28,8 @@ class FittingHandler:
                 else:
                     self.parent.image_view.setImage(data)
                     self.parent.data = data
+
+        _view_box.setState(_state)
 
     def display_roi(self):
         if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:

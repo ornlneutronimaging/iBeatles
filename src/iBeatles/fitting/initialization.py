@@ -57,7 +57,7 @@ class Initialization:
         preview_widget.setLayout(vertical_layout)
 
         # image view (top plot)
-        image_view = pg.ImageView()
+        image_view = pg.ImageView(view=pg.PlotItem())
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         self.parent.image_view = image_view
