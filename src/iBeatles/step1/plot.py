@@ -66,11 +66,19 @@ class Step1Plot(object):
         if _data == []:
             self.clear_plots(data_type=self.data_type)
         else:
+
             _data = np.array(_data)
             if self.data_type == 'sample':
+                _view = self.parent.ui.image_view.getView()
+                _view_box = _view.getViewBox()
+                _state = _view_box.getState()
+
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.image_view)
+
+                _view_box.setState(_state)
+
             elif self.data_type == 'ob':
                 self.parent.ui.ob_area.setVisible(True)
                 self.parent.ui.ob_image_view.setImage(_data)
@@ -273,7 +281,6 @@ class Step1Plot(object):
             self.parent.ui.normalized_bragg_edge_plot.clear()
 
     def display_bragg_edge(self, mouse_selection=True):
-
         _data = self.data
         if _data == []:  # clear data if no data
             self.clear_bragg_edge_plot()

@@ -111,7 +111,7 @@ class Initialization:
         preview_widget.setLayout(vertical_layout)
 
         # image view
-        image_view = pg.ImageView()
+        image_view = pg.ImageView(view=pg.PlotItem())
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         roi = Roi.get_default_roi()
