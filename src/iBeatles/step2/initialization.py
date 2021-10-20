@@ -116,8 +116,12 @@ class Initialization:
 
         if self.parent.list_roi[DataType.normalization]:
 
-            list_roi = self.parent.list_roi[DataType.normalization]
+            for _roi_id in self.parent.list_roi_id[DataType.normalization]:
+                image_view.removeItem(_roi_id)
+            for _label_roi_id in self.parent.list_label_roi_id[DataType.normalization]:
+                image_view.removeItem(_label_roi_id)
 
+            list_roi = self.parent.list_roi[DataType.normalization]
             list_roi_id = []
             list_label_roi_id = []
 
@@ -148,8 +152,8 @@ class Initialization:
                 list_roi_id.append(roi)
                 list_label_roi_id.append(label_roi)
 
-            self.parent.list_roi_id['normalization'] = list_roi_id
-            self.parent.list_label_roi_id['normalization'] = list_label_roi_id
+            self.parent.list_roi_id[DataType.normalization] = list_roi_id
+            self.parent.list_label_roi_id[DataType.normalization] = list_label_roi_id
 
         else:
 
@@ -172,5 +176,5 @@ class Initialization:
                                     fill=(0, 0, 255, 50))
             label_roi.setPos(x0, y0)
             image_view.addItem(label_roi)
-            self.parent.list_roi_id['normalization'] = [roi]
-            self.parent.list_label_roi_id['normalization'] = [label_roi]
+            self.parent.list_roi_id[DataType.normalization] = [roi]
+            self.parent.list_label_roi_id[DataType.normalization] = [label_roi]

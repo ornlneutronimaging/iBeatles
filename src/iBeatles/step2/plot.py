@@ -80,6 +80,11 @@ class Step2Plot:
     def clear_image(self):
         self.parent.step2_ui['image_view'].clear()
 
+    def clear_roi_from_image(self):
+        list_roi_id = self.parent.list_roi_id['normalization']
+        for roi_id in list_roi_id:
+            self.parent.step2_ui['image_view'].removeItem(roi_id)
+
     def display_image(self):
         _data = self.normalization
 
@@ -97,6 +102,8 @@ class Step2Plot:
 
         if list_roi_id == []:
             return
+
+        self.clear_roi_from_image()
 
         for index, roi_id in enumerate(list_roi_id):
             [_, x0, y0, width, height, region_type] = roi[index]
@@ -280,17 +287,16 @@ class Step2Plot:
         return final_array
 
     def init_roi_table(self):
-        # if self.sample == []:
-        #     return
-
         # clear table
         for _row in np.arange(self.parent.ui.normalization_tableWidget.rowCount()):
             self.parent.ui.normalization_tableWidget.removeRow(0)
 
         list_roi = self.parent.list_roi['normalization']
+        self.parent.ui.normalization_tableWidget.blockSignals(True)
         for _row, _roi in enumerate(list_roi):
             self.parent.ui.normalization_tableWidget.insertRow(_row)
             self.set_row(_row, _roi)
+        self.parent.ui.normalization_tableWidget.blockSignals(False)
 
     def update_label_roi(self):
         list_roi = self.parent.list_roi['normalization']
