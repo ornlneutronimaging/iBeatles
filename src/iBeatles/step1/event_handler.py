@@ -1,4 +1,5 @@
 import logging
+import os
 
 from ..all_steps.event_handler import EventHandler as TopEventHandler
 from ..step1.data_handler import DataHandler
@@ -37,6 +38,7 @@ class EventHandler(TopEventHandler):
             self.parent.check_files_error()
             o_step2_gui = Step2Initialization(parent=self.parent)
             o_step2_gui.roi()
+            self.update_default_path(folder=_folder)
 
         else:
             logging.info(f"Import button clicked ... operation canceled!")
@@ -48,3 +50,14 @@ class EventHandler(TopEventHandler):
             self.parent.roi_image_view_changed(mouse_selection=False)
         else:
             self.parent.loading_flag = False
+
+    def update_default_path(self, folder="./"):
+
+        parent_folder = os.path.abspath(os.path.dirname(folder))
+        if self.data_type == DataType.sample:
+            self.parent.default_path[DataType.ob] = parent_folder
+            self.parent.default_path[DataType.normalization] = parent_folder
+        elif self.data_type == DataType.ob:
+            self.parent.default_path[DataType.normalization] = parent_folder
+        elif self.data_type == DataType.normalization:
+            self.parent.default_path[DataType.normalized] = parent_folder

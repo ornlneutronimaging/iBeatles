@@ -34,7 +34,6 @@ from .step3.event_handler import EventHandler as Step3EventHandler
 from .binning.binning_launcher import BinningLauncher
 
 from .fitting.fitting_launcher import FittingLauncher
-from .fitting.selected_bin_handler import SelectedBinsHandler
 
 from .step6.strain_mapping_launcher import StrainMappingLauncher
 
@@ -242,7 +241,7 @@ class MainWindow(QMainWindow):
         o_gui.connect_widgets()
 
         # init bragg edge element
-        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        BraggEdgeElementHandler(parent=self)
 
         o_gui_2 = Step2Initialization(parent=self)
         o_gui_2.pyqtgraph()
@@ -352,22 +351,22 @@ class MainWindow(QMainWindow):
     def menu_view_binning_clicked(self):
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=3):
-            o_binning = BinningLauncher(parent=self)
+            BinningLauncher(parent=self)
 
     def menu_view_fitting_clicked(self):
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=4):
-            o_fitting = FittingLauncher(parent=self)
+            FittingLauncher(parent=self)
 
     def menu_view_strain_mapping_clicked(self):
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=5):
-            o_strain = StrainMappingLauncher(parent=self)
+            StrainMappingLauncher(parent=self)
 
     def rotate_normalized_images_clicked(self):
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=6):
-            o_rotate = RotateImages(parent=self)
+            RotateImages(parent=self)
 
     def log_clicked(self):
         LogLauncher(parent=self)
@@ -533,7 +532,7 @@ class MainWindow(QMainWindow):
         self.ui.list_of_elements_2.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='load_data')
-        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='sample')
         o_plot.display_general_bragg_edge()
         self.ui.list_of_elements_2.blockSignals(False)
@@ -542,32 +541,32 @@ class MainWindow(QMainWindow):
         self.ui.list_of_elements.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='normalized')
-        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        BraggEdgeElementHandler(parent=self)
         self.ui.list_of_elements.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)
-        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
 
     def crystal_structure_2_index_changed(self, index):
         self.ui.crystal_structure.setCurrentIndex(index)
-        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
 
     def lattice_text_changed(self):
         _contain = str(self.ui.lattice_parameter.text())
         self.ui.lattice_parameter_2.setText(_contain)
-        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
 
     def lattice_2_text_changed(self):
         _contain = str(self.ui.lattice_parameter_2.text())
         self.ui.lattice_parameter.setText(_contain)
-        o_bragg_edge = BraggEdgeElementHandler(parent=self)
+        BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
 
@@ -729,8 +728,6 @@ class MainWindow(QMainWindow):
         o_plot.update_label_roi()
         o_plot.check_error_in_roi_table()
         o_plot.display_bragg_edge()
-        # o_normalization = Normalization(parent=self)
-        # o_normalization.run()
         self.ui.normalization_tableWidget.blockSignals(False)
 
     def normalization_row_status_changed(self):
@@ -778,33 +775,22 @@ class MainWindow(QMainWindow):
     def step2_file_index_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'file_index'
         o_plot = Step2Plot(parent=self)
-        # o_normalization = Normalization(parent=self)
-        # o_normalization.run()
-        # o_plot.display_roi()
         o_plot.display_bragg_edge()
 
     def step2_tof_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'tof'
         o_plot = Step2Plot(parent=self)
-        # o_normalization = Normalization(parent=self)
-        # o_normalization.run()
-        # o_plot.display_roi()
         o_plot.display_bragg_edge()
 
     def step2_lambda_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'lambda'
         o_plot = Step2Plot(parent=self)
-        # o_normalization = Normalization(parent=self)
-        # o_normalization.run()
-        # o_plot.display_roi()
         o_plot.display_bragg_edge()
 
     def normalization_tableWidget_cell_changed(self, row, col):
         o_roi = Step2RoiHandler(parent=self)
         o_roi.save_table()
         o_plot = Step2Plot(parent=self)
-        # o_normalization = Normalization(parent=self)
-        # o_normalization.run()
         o_plot.display_roi()
         o_plot.check_error_in_roi_table()
 

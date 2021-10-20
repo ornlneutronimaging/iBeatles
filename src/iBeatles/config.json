@@ -1,7 +1,7 @@
 {
   "config version": "1.0.0",
   "log_file_name": ".iBeatles.log",
-  "homepath": ["/Volumes/G-DRIVE/IPTS/IPTS-25793_bragg_edge_Si/"],
+  "homepath": ["/Volumes/G-DRIVE/IPTS/IPTS-26171-testing_ibeatles/"],
   "debugging": true,
   "session_file_name": ".ibeatles_session.json"
 }
