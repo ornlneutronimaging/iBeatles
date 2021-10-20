@@ -293,7 +293,7 @@ class MainWindow(QMainWindow):
         # self.time_spectra_path = current_folder
         # self.time_spectra_normalized_path = current_folder
 
-        self.data_metadata = {'sample': {'title': "Select folder or list of files",
+        self.data_metadata = {DataType.sample: {'title': "Select folder or list of files",
                                          'list_widget_ui': self.ui.list_sample,
                                          'folder': current_folder,
                                          'general_infos': None,
@@ -303,13 +303,13 @@ class MainWindow(QMainWindow):
                                                           'filename': '',
                                                           },
                                          },
-                              'ob': {'title': 'Select folder or list of files',
+                              DataType.ob: {'title': 'Select folder or list of files',
                                      'list_widget_ui': self.ui.list_open_beam,
                                      'folder': current_folder,
                                      'general_infos': None,
                                      'xaxis': 'file_index',
                                      'data': []},
-                              'normalized': {'title': 'Select folder or list of files',
+                              DataType.normalized: {'title': 'Select folder or list of files',
                                              'folder': current_folder,
                                              'general_infos': None,
                                              'data': [],
@@ -319,7 +319,7 @@ class MainWindow(QMainWindow):
                                                               'filename': '',
                                                               },
                                              },
-                              'normalization': {'data': []},
+                              DataType.normalization: {'data': []},
                               'time_spectra': {'title': 'Select file',
                                                'folder': current_folder,
                                                'normalized_folder': current_folder,
@@ -328,7 +328,12 @@ class MainWindow(QMainWindow):
                                                'lambda': [],
                                                'full_file_name': '',
                                                'normalized_data': [],
-                                               'normalized_lambda': []}}
+                                               'normalized_lambda': []},
+                              DataType.bin: {'ui_accessed': False,
+                                             },
+                              DataType.fitting: {'ui_accessed': False,
+                                                 }
+                              }
 
         self.range_files_to_normalized_step2 = {'file_index': [],
                                                 'tof': [],

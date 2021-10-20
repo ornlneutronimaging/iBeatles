@@ -28,10 +28,12 @@ class LoadPreviousSessionLauncherMultipleChoice(QDialog):
         if DataType.normalized in list_tabs_to_load:
             self.ui.normalized_checkBox.setEnabled(True)
             self.ui.normalized_checkBox.setChecked(True)
-            self.ui.bin_checkBox.setEnabled(True)
-            self.ui.bin_checkBox.setChecked(True)
-            self.ui.fitting_checkBox.setEnabled(True)
-            self.ui.fitting_checkBox.setChecked(True)
+            if self.parent.data_metadata[DataType.bin]['ui_accessed']:
+                self.ui.bin_checkBox.setEnabled(True)
+                self.ui.bin_checkBox.setChecked(True)
+            if self.parent.data_metadata[DataType.fitting]['ui_accessed']:
+                self.ui.fitting_checkBox.setEnabled(True)
+                self.ui.fitting_checkBox.setChecked(True)
 
     def _get_list_tabs_to_load(self):
         list_tabs_to_load = []

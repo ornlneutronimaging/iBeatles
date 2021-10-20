@@ -5,6 +5,7 @@ import logging
 
 from ..utilities.table_handler import TableHandler
 from .. import load_ui
+from .. import DataType
 
 from .fitting_handler import FittingHandler
 from .value_table_handler import ValueTableHandler
@@ -130,6 +131,7 @@ class FittingWindow(QMainWindow):
         o_init.run_all()
 
         self.check_status_widgets()
+        self.parent.data_metadata[DataType.fitting]['ui_accessed'] = True
 
     def re_fill_table(self):
         o_fitting = FittingHandler(parent=self,
