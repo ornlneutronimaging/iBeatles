@@ -49,7 +49,7 @@ from .utilities.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
-from . import DataType, RegionType, DEFAULT_ROI, DEFAULT_BIN
+from . import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
 
 
 class MainWindow(QMainWindow):
@@ -315,11 +315,13 @@ class MainWindow(QMainWindow):
 
         self.list_roi[DataType.sample] = [DEFAULT_ROI]
         self.list_roi[DataType.ob] = [DEFAULT_ROI]
-        self.list_roi[DataType.normalized] = [DEFAULT_ROI]
+        # self.list_roi[DataType.normalized] = [DEFAULT_ROI]
+        self.list_roi[DataType.normalization] = [DEFAULT_NORMALIZATION_ROI]
 
         self.old_list_roi[DataType.sample] = [DEFAULT_ROI]
         self.old_list_roi[DataType.ob] = [DEFAULT_ROI]
-        self.old_list_roi[DataType.normalized] = [DEFAULT_ROI]
+        # self.old_list_roi[DataType.normalized] = [DEFAULT_ROI]
+        self.old_list_roi[DataType.normalization] = [DEFAULT_NORMALIZATION_ROI]
 
     def automatic_load_of_previous_session(self):
         o_get = Get(parent=self)
