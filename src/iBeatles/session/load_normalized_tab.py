@@ -4,6 +4,7 @@ from .. import DataType
 from ..step1.data_handler import DataHandler
 from ..step1.gui_handler import Step1GuiHandler
 from ..step3.gui_handler import Step3GuiHandler
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class LoadNormalized:
@@ -39,3 +40,8 @@ class LoadNormalized:
             self.parent.retrieve_general_data_infos(data_type=data_type)
             o_gui = Step3GuiHandler(parent=self.parent)
             o_gui.check_widgets()
+
+            o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                        image_view=self.parent.ui.normalized_image_view,
+                                        data_type=DataType.normalized)
+            o_pyqt.set_state(session_dict[DataType.normalized]['image view state'])

@@ -1,6 +1,7 @@
 from .. import DataType
 from ..step2.initialization import Initialization as Step2Initialization
 from ..step2.gui_handler import Step2GuiHandler
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class LoadNormalization:
@@ -18,6 +19,11 @@ class LoadNormalization:
 
         o_step2 = Step2Initialization(parent=self.parent)
         o_step2.roi()
+
+        o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                    image_view=self.parent.step2_ui['image_view'],
+                                    data_type=DataType.normalization)
+        o_pyqt.set_state(session_dict[DataType.normalization]['image view state'])
 
     def check_widgets(self):
 

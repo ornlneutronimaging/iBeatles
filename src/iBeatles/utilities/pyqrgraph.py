@@ -10,14 +10,19 @@ class Pyqtgrah:
         self.first_update = False
         self.histo_widget = self.image_view.getHistogramWidget()
 
+    def set_state(self, state=None):
+        _view = self.image_view.getView()
+        _view_box = _view.getViewBox()
+        if not state:
+            state = self.parent.image_view_settings[self.data_type]['state']
+            if not state:
+                return
+        _view_box.setState(state)
+
     def get_state(self):
         _view = self.image_view.getView()
         _view_box = _view.getViewBox()
-        if self.parent.image_view_settings[self.data_type]['state']:
-            _state = self.parent.image_view_settings[self.data_type]['state']
-            self.parent.image_view_settings[self.data_type]['state'] = None
-        else:
-            _state = _view_box.getState()
+        _state = _view_box.getState()
         return _state, _view_box
 
     def save_histogram_level(self):

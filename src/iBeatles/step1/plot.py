@@ -76,9 +76,6 @@ class Step1Plot(object):
                 _state, _view_box = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
 
-                print("plotting sample")
-                print(self.parent.image_view_settings[self.data_type]['histogram'])
-
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.image_view)

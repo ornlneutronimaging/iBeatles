@@ -5,6 +5,7 @@ from ..step1.data_handler import DataHandler
 from ..step1.gui_handler import Step1GuiHandler
 from ..step2.plot import Step2Plot
 from ..utilities.gui_handler import GuiHandler
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class LoadLoadDataTab:
@@ -20,13 +21,8 @@ class LoadLoadDataTab:
         list_sample_files = self.session_dict[DataType.sample]['list files']
         if list_sample_files:
             input_folder = session_dict[DataType.sample]['current folder']
-            self.parent.image_view_settings[DataType.sample]['state'] = session_dict[DataType.sample]['image view ' \
-                                                                                                      'state']
-            self.parent.image_view_settings[DataType.sample]['histogram'] = session_dict[DataType.sample][
-                'image view histogram']
-
-            print(session_dict[DataType.sample]['image view histogram'])
-
+            self.parent.image_view_settings[DataType.sample]['state'] = \
+                session_dict[DataType.sample]['image view state']
             o_data_handler = DataHandler(parent=self.parent,
                                          data_type=DataType.sample)
             list_sample_files_fullname = [os.path.join(input_folder, _file) for _file in list_sample_files]
@@ -50,6 +46,11 @@ class LoadLoadDataTab:
             o_step2_plot.prepare_data()
             o_step2_plot.init_roi_table()
 
+            o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                        image_view=self.parent.ui.image_view,
+                                        data_type=DataType.sample)
+            o_pyqt.set_state(session_dict[DataType.sample]['image view state'])
+
     def ob(self):
 
         session_dict = self.session_dict
@@ -70,6 +71,11 @@ class LoadLoadDataTab:
         for _row_selected in list_files_selected:
             _item = self.parent.ui.list_open_beam.item(_row_selected)
             _item.setSelected(True)
+
+        o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                    image_view=self.parent.ui.ob_image_view,
+                                    data_type=DataType.ob)
+        o_pyqt.set_state(session_dict[DataType.ob]['image view state'])
 
     def instrument(self):
 
