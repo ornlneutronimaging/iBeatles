@@ -336,12 +336,12 @@ class MainWindow(QMainWindow):
 
         self.list_roi[DataType.sample] = [DEFAULT_ROI]
         self.list_roi[DataType.ob] = [DEFAULT_ROI]
-        # self.list_roi[DataType.normalized] = [DEFAULT_ROI]
+        self.list_roi[DataType.normalized] = [DEFAULT_ROI]
         self.list_roi[DataType.normalization] = [DEFAULT_NORMALIZATION_ROI]
 
         self.old_list_roi[DataType.sample] = [DEFAULT_ROI]
         self.old_list_roi[DataType.ob] = [DEFAULT_ROI]
-        # self.old_list_roi[DataType.normalized] = [DEFAULT_ROI]
+        self.old_list_roi[DataType.normalized] = [DEFAULT_ROI]
         self.old_list_roi[DataType.normalization] = [DEFAULT_NORMALIZATION_ROI]
 
     def automatic_load_of_previous_session(self):
