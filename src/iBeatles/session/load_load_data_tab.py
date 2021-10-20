@@ -17,21 +17,22 @@ class LoadLoadDataTab:
     def sample(self):
 
         session_dict = self.session_dict
+        data_type = DataType.sample
 
-        list_sample_files = self.session_dict[DataType.sample]['list files']
+        list_sample_files = self.session_dict[data_type]['list files']
         if list_sample_files:
-            input_folder = session_dict[DataType.sample]['current folder']
-            self.parent.image_view_settings[DataType.sample]['state'] = \
-                session_dict[DataType.sample]['image view state']
+            input_folder = session_dict[data_type]['current folder']
+            self.parent.image_view_settings[data_type]['state'] = \
+                session_dict[data_type]['image view state']
             o_data_handler = DataHandler(parent=self.parent,
-                                         data_type=DataType.sample)
+                                         data_type=data_type)
             list_sample_files_fullname = [os.path.join(input_folder, _file) for _file in list_sample_files]
             o_data_handler.load_files(list_of_files=list_sample_files_fullname)
-            time_spectra_file = session_dict[DataType.sample]['time spectra filename']
+            time_spectra_file = session_dict[data_type]['time spectra filename']
             o_data_handler.load_time_spectra(time_spectra_file=time_spectra_file)
-            list_files_selected = session_dict[DataType.sample]['list files selected']
-            self.parent.list_roi[DataType.sample] = session_dict[DataType.sample]['list rois']
-            o_gui = Step1GuiHandler(parent=self.parent, data_type=DataType.sample)
+            list_files_selected = session_dict[data_type]['list files selected']
+            self.parent.list_roi[data_type] = session_dict[data_type]['list rois']
+            o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
             o_gui.initialize_rois_and_labels()
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_sample.item(_row_selected)
@@ -39,8 +40,8 @@ class LoadLoadDataTab:
             o_gui.check_time_spectra_widgets()
             o_gui.check_step1_widgets()
             self.parent.check_files_error()
-            self.parent.retrieve_general_infos(data_type=DataType.sample)
-            self.parent.retrieve_general_data_infos(data_type=DataType.sample)
+            self.parent.retrieve_general_infos(data_type=data_type)
+            self.parent.retrieve_general_data_infos(data_type=data_type)
 
             o_step2_plot = Step2Plot(parent=self.parent)
             o_step2_plot.prepare_data()
@@ -48,27 +49,28 @@ class LoadLoadDataTab:
 
             o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                         image_view=self.parent.ui.image_view,
-                                        data_type=DataType.sample)
-            o_pyqt.set_state(session_dict[DataType.sample]['image view state'])
-            histogram_level = session_dict[DataType.sample]['image view histogram']
+                                        data_type=data_type)
+            o_pyqt.set_state(session_dict[data_type]['image view state'])
+            histogram_level = session_dict[data_type]['image view histogram']
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
     def ob(self):
 
         session_dict = self.session_dict
+        data_type = DataType.ob
 
-        self.parent.image_view_settings[DataType.ob]['state'] = session_dict[DataType.ob]['image view state']
-        self.parent.image_view_settings[DataType.ob]['histogram'] = session_dict[DataType.ob]['image view histogram']
-        list_ob_files = session_dict[DataType.ob]['list files']
+        self.parent.image_view_settings[data_type]['state'] = session_dict[data_type]['image view state']
+        self.parent.image_view_settings[data_type]['histogram'] = session_dict[data_type]['image view histogram']
+        list_ob_files = session_dict[data_type]['list files']
         if list_ob_files:
-            input_folder = session_dict[DataType.ob]['current folder']
+            input_folder = session_dict[data_type]['current folder']
             o_data_handler = DataHandler(parent=self.parent,
-                                         data_type=DataType.ob)
+                                         data_type=data_type)
             list_ob_files_fullname = [os.path.join(input_folder, _file) for _file in list_ob_files]
             o_data_handler.load_files(list_of_files=list_ob_files_fullname)
-        list_files_selected = session_dict[DataType.ob]['list files selected']
-        self.parent.list_roi[DataType.ob] = session_dict[DataType.ob]['list rois']
-        o_gui = Step1GuiHandler(parent=self.parent, data_type=DataType.ob)
+        list_files_selected = session_dict[data_type]['list files selected']
+        self.parent.list_roi[data_type] = session_dict[data_type]['list rois']
+        o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
         o_gui.initialize_rois_and_labels()
         for _row_selected in list_files_selected:
             _item = self.parent.ui.list_open_beam.item(_row_selected)
@@ -76,9 +78,11 @@ class LoadLoadDataTab:
 
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.ui.ob_image_view,
-                                    data_type=DataType.ob)
-        o_pyqt.set_state(session_dict[DataType.ob]['image view state'])
+                                    data_type=data_type)
+        o_pyqt.set_state(session_dict[data_type]['image view state'])
         o_pyqt.reload_histogram_level()
+        histogram_level = session_dict[data_type]['image view histogram']
+        o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
     def instrument(self):
 

@@ -26,6 +26,8 @@ class Pyqtgrah:
         return _state, _view_box
 
     def save_histogram_level(self):
+        if self.parent.data_metadata[self.data_type]['data'] == []:
+            return
         histogram_level = self.parent.image_view_settings[self.data_type]['histogram']
         if histogram_level is None:
             self.first_update = True
@@ -34,9 +36,11 @@ class Pyqtgrah:
 
     def reload_histogram_level(self):
         if not self.first_update:
-            self.histo_widget.setLevels(self.parent.image_view_settings[self.data_type]['histogram'][0],
-                                        self.parent.image_view_settings[self.data_type]['histogram'][1])
+            if self.parent.image_view_settings[self.data_type]['histogram']:
+                self.histo_widget.setLevels(self.parent.image_view_settings[self.data_type]['histogram'][0],
+                                            self.parent.image_view_settings[self.data_type]['histogram'][1])
 
     def set_histogram_level(self, histogram_level):
-        self.histo_widget.setLevels(histogram_level[0], histogram_level[1])
-        self.parent.image_view_settings[self.data_type]['histogram'] = histogram_level
+        if histogram_level:
+            self.histo_widget.setLevels(histogram_level[0], histogram_level[1])
+            self.parent.image_view_settings[self.data_type]['histogram'] = histogram_level

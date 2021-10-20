@@ -133,6 +133,7 @@ class SessionHandler:
                 o_norm = LoadNormalization(parent=self.parent)
                 o_norm.roi()
                 o_norm.check_widgets()
+                o_norm.image_settings()
 
             if DataType.normalized in tabs_to_load:
 
