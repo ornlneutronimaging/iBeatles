@@ -22,7 +22,7 @@ class SaveLoadDataTab(SaveTab):
                                     image_view=self.parent.ui.image_view,
                                     data_type=data_type)
         state, _view_box = o_pyqt.get_state()
-
+        o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]['histogram']
 
         logging.info("Recording parameters of Load Data / Sample")
@@ -55,6 +55,7 @@ class SaveLoadDataTab(SaveTab):
                                     image_view=self.parent.ui.ob_image_view,
                                     data_type=data_type)
         state, _view_box = o_pyqt.get_state()
+        o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]['histogram']
 
         logging.info("Recording parameters of Load Data / OB")

@@ -50,6 +50,8 @@ class LoadLoadDataTab:
                                         image_view=self.parent.ui.image_view,
                                         data_type=DataType.sample)
             o_pyqt.set_state(session_dict[DataType.sample]['image view state'])
+            histogram_level = session_dict[DataType.sample]['image view histogram']
+            o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
     def ob(self):
 
@@ -76,6 +78,7 @@ class LoadLoadDataTab:
                                     image_view=self.parent.ui.ob_image_view,
                                     data_type=DataType.ob)
         o_pyqt.set_state(session_dict[DataType.ob]['image view state'])
+        o_pyqt.reload_histogram_level()
 
     def instrument(self):
 

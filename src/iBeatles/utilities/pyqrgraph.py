@@ -36,3 +36,7 @@ class Pyqtgrah:
         if not self.first_update:
             self.histo_widget.setLevels(self.parent.image_view_settings[self.data_type]['histogram'][0],
                                         self.parent.image_view_settings[self.data_type]['histogram'][1])
+
+    def set_histogram_level(self, histogram_level):
+        self.histo_widget.setLevels(histogram_level[0], histogram_level[1])
+        self.parent.image_view_settings[self.data_type]['histogram'] = histogram_level
