@@ -70,25 +70,40 @@ class Step1Plot(object):
             _data = np.array(_data)
             if self.data_type == 'sample':
                 _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.image_view)
+                o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                            image_view=self.parent.ui.image_view,
+                                            data_type=self.data_type)
+                o_pyqt.save_histogram_level()
                 self.parent.ui.area.setVisible(True)
                 self.parent.ui.image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.image_view)
                 _view_box.setState(_state)
+                o_pyqt.reload_histogram_level()
 
             elif self.data_type == 'ob':
                 _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.ob_image_view)
+                o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                            image_view=self.parent.ui.ob_image_view,
+                                            data_type=self.data_type)
+                o_pyqt.save_histogram_level()
                 self.parent.ui.ob_area.setVisible(True)
                 self.parent.ui.ob_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.ob_image_view)
                 _view_box.setState(_state)
+                o_pyqt.reload_histogram_level()
 
             elif self.data_type == 'normalized':
                 _state, _view_box = PyqtgraphUtilities.get_state(self.parent.ui.normalized_image_view)
+                o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                            image_view=self.parent.ui.normalized_image_view,
+                                            data_type=self.data_type)
+                o_pyqt.save_histogram_level()
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
                 self.parent.data_metadata['normalized']['data_live_selection'] = _data
                 _view_box.setState(_state)
+                o_pyqt.reload_histogram_level()
 
                 # make sure that if we have the fitting window open, we have also at least the binning
                 if not (self.parent.fitting_ui is None) and \

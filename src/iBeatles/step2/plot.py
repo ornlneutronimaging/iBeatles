@@ -49,7 +49,6 @@ class Step2Plot:
         self.normalized = normalized
 
     def prepare_data(self):
-
         if self.sample == []:
             sample = self.parent.data_metadata['sample']['data']
 
@@ -87,6 +86,10 @@ class Step2Plot:
         _data = self.normalization
 
         _state, _view_box = PyqtgraphUtilities.get_state(self.parent.step2_ui['image_view'])
+        o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                    image_view=self.parent.step2_ui['image_view'],
+                                    data_type=DataType.normalization)
+        o_pyqt.save_histogram_level()
 
         if _data == []:
             self.clear_plots()
@@ -96,6 +99,7 @@ class Step2Plot:
             self.parent.step2_ui['image_view'].setImage(_data)
 
         _view_box.setState(_state)
+        o_pyqt.reload_histogram_level()
 
     def display_roi(self):
         list_roi_id = self.parent.list_roi_id['normalization']
