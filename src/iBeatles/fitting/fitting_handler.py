@@ -6,6 +6,7 @@ from ..fitting.filling_table_handler import FillingTableHandler
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from .selected_bin_handler import SelectedBinsHandler
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from .. import DataType
 
 
 class FittingHandler:
@@ -15,9 +16,9 @@ class FittingHandler:
         self.grand_parent = grand_parent
 
     def display_image(self, data=[]):
-        o_pyqt = PyqtgraphUtilities(parent=self.parent,
-                                    image_view=self.parent.image_view,
-                                    data_type=self.data_type)
+        o_pyqt = PyqtgraphUtilities(parent=self.grand_parent,
+                                    image_view=self.grand_parent.image_view,
+                                    data_type=DataType.normalized)
         _state, _view_box = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
@@ -69,7 +70,6 @@ class FittingHandler:
                                       pxMode=False)
 
     def fill_table(self):
-
         if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
             return
 

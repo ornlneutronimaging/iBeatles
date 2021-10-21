@@ -1,4 +1,5 @@
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from .. import DataType
 
 
 class BinningHandler(object):
@@ -11,8 +12,8 @@ class BinningHandler(object):
 
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.binning_line_view['image_view'],
-                                    data_type=self.data_type)
-        _state, _view_box = o_pyqt.get_state(self.parent.binning_line_view['image_view'])
+                                    data_type=DataType.normalized)
+        _state, _view_box = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
         if not (data == []):
