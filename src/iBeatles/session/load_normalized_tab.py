@@ -41,7 +41,13 @@ class LoadNormalized:
             o_gui = Step3GuiHandler(parent=self.parent)
             o_gui.check_widgets()
 
+            self.parent.image_view_settings[data_type]['state'] = session_dict[data_type]['image view state']
+            self.parent.image_view_settings[data_type]['histogram'] = session_dict[data_type]['image view histogram']
+
             o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                         image_view=self.parent.ui.normalized_image_view,
-                                        data_type=DataType.normalized)
-            o_pyqt.set_state(session_dict[DataType.normalized]['image view state'])
+                                        data_type=data_type)
+            o_pyqt.set_state(session_dict[data_type]['image view state'])
+            o_pyqt.reload_histogram_level()
+            histogram_level = session_dict[data_type]['image view histogram']
+            o_pyqt.set_histogram_level(histogram_level=histogram_level)
