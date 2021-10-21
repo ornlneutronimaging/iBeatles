@@ -2,6 +2,7 @@ import logging
 
 from .save_tab import SaveTab
 from .. import DataType
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class SaveFittingTab(SaveTab):
@@ -38,11 +39,18 @@ class SaveFittingTab(SaveTab):
                                                 'a5': a5,
                                                 'a6': a6}
         self.session_dict[DataType.fitting]["table dictionary"] = formatted_table_dictionary
-
         self.session_dict[DataType.fitting]['x_axis'] = [float(x) for x in self.parent.normalized_lambda_bragg_edge_x_axis]
 
-        state = self.parent.image_view_settings[DataType.fitting]['state']
-        histogram = self.parent.image_view_settings[DataType.fitting]['histogram']
+        if self.parent.fitting_image_view:
+            o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                        image_view=self.parent.fitting_image_view,
+                                        data_type=DataType.fitting)
+            state = o_pyqt.get_state()
+            o_pyqt.save_histogram_level(data_type_of_data=DataType.normalized)
+            histogram = self.parent.image_view_settings[DataType.fitting]['histogram']
+        else:
+            state = None
+            histogram = None
 
         fitting_bragg_edge_linear_selection = self.parent.fitting_bragg_edge_linear_selection
         if fitting_bragg_edge_linear_selection:

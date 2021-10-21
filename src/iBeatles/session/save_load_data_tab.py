@@ -21,7 +21,7 @@ class SaveLoadDataTab(SaveTab):
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.ui.image_view,
                                     data_type=data_type)
-        state, _view_box = o_pyqt.get_state()
+        state = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]['histogram']
 
@@ -54,7 +54,7 @@ class SaveLoadDataTab(SaveTab):
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.ui.ob_image_view,
                                     data_type=data_type)
-        state, _view_box = o_pyqt.get_state()
+        state = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]['histogram']
 

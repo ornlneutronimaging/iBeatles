@@ -19,7 +19,7 @@ class FittingHandler:
         o_pyqt = PyqtgraphUtilities(parent=self.grand_parent,
                                     image_view=self.grand_parent.image_view,
                                     data_type=DataType.normalized)
-        _state, _view_box = o_pyqt.get_state()
+        _state = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
         if not (data == []):
@@ -34,7 +34,7 @@ class FittingHandler:
                     self.parent.image_view.setImage(data)
                     self.parent.data = data
 
-        _view_box.setState(_state)
+        o_pyqt.set_state(_state)
         o_pyqt.reload_histogram_level()
 
     def display_roi(self):

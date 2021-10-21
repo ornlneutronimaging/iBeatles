@@ -4,6 +4,7 @@ from .save_tab import SaveTab
 from .. import BINNING_LINE_COLOR
 from .. import DEFAULT_ROI
 from .. import DataType
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class SaveBinTab(SaveTab):
@@ -35,8 +36,16 @@ class SaveBinTab(SaveTab):
 
         binning_line_view_line_color = BINNING_LINE_COLOR
 
-        state = self.parent.image_view_settings[DataType.bin]['state']
-        histogram = self.parent.image_view_settings[DataType.bin]['histogram']
+        if self.parent.binning_line_view['image_view']:
+            o_pyqt = PyqtgraphUtilities(parent=self.parent,
+                                        image_view=self.parent.binning_line_view['image_view'],
+                                        data_type=DataType.bin)
+            state = o_pyqt.get_state()
+            o_pyqt.save_histogram_level(data_type_of_data=DataType.normalized)
+            histogram = self.parent.image_view_settings[DataType.bin]['histogram']
+        else:
+            state = None
+            histogram = None
 
         logging.info("Recording parameters of bin tab")
         logging.info(f" x0:{x0}, y0:{y0}, width:{width}, height:{height}, bin_size:{bin_size}")

@@ -11,6 +11,10 @@ class Pyqtgrah:
         self.histo_widget = self.image_view.getHistogramWidget()
 
     def set_state(self, state=None):
+        if self.parent.image_view_settings[self.data_type]['first_time_using_state']:
+            self.parent.image_view_settings[self.data_type]['first_time_using_state'] = False
+            return
+
         _view = self.image_view.getView()
         _view_box = _view.getViewBox()
         if not state:
@@ -23,10 +27,17 @@ class Pyqtgrah:
         _view = self.image_view.getView()
         _view_box = _view.getViewBox()
         _state = _view_box.getState()
-        return _state, _view_box
+        return _state
 
-    def save_histogram_level(self):
-        if self.parent.data_metadata[self.data_type]['data'] == []:
+    def save_histogram_level(self, data_type_of_data=None):
+        if self.parent.image_view_settings[self.data_type]['first_time_using_histogram']:
+            # this is to make bin and fit tabs working
+            self.parent.image_view_settings[self.data_type]['first_time_using_histogram'] = False
+            return
+
+        if data_type_of_data is None:
+            data_type_of_data = self.data_type
+        if self.parent.data_metadata[data_type_of_data]['data'] == []:
             return
         histogram_level = self.parent.image_view_settings[self.data_type]['histogram']
         if histogram_level is None:

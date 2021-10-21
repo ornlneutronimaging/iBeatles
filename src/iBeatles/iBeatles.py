@@ -104,6 +104,7 @@ class MainWindow(QMainWindow):
 
     ## FITTING TAB
     # fitting window stuff
+    fitting_image_view = None
     there_is_a_roi = False
     init_sigma_alpha_ui = None
     fitting_ui = None
@@ -204,21 +205,33 @@ class MainWindow(QMainWindow):
     # dictionary that will save the pan and zoom of each of the image view
     image_view_settings = {DataType.sample: {'state': None,
                                              'histogram': None,
+                                             'first_time_using_histogram': False,
+                                             'first_time_using_state': False,
                                              },
                            DataType.ob: {'state': None,
                                          'histogram': None,
+                                         'first_time_using_histogram': False,
+                                         'first_time_using_state': False,
                                          },
                            DataType.normalization: {'state': None,
                                                     'histogram': None,
+                                                    'first_time_using_histogram': False,
+                                                    'first_time_using_state'     : False,
                                                     },
                            DataType.normalized: {'state': None,
                                                  'histogram': None,
+                                                 'first_time_using_histogram': False,
+                                                 'first_time_using_state'     : False,
                                                  },
                            DataType.bin: {'state': None,
                                           'histogram': None,
+                                          'first_time_using_histogram': True,
+                                          'first_time_using_state'     : True,
                                           },
                            DataType.fitting: {'state': None,
                                               'histogram': None,
+                                              'first_time_using_histogram': True,
+                                              'first_time_using_state': True,
                                               }
                            }
 

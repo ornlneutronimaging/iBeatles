@@ -61,6 +61,7 @@ class Initialization:
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         self.parent.image_view = image_view
+        self.grand_parent.fitting_image_view = image_view
         image_view.scene.sigMouseMoved.connect(self.parent.mouse_moved_in_image_view)
 
         top_widget = QWidget()

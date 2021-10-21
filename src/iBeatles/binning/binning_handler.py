@@ -9,12 +9,11 @@ class BinningHandler(object):
         self.binning_ui = self.parent.binning_ui
 
     def display_image(self, data=[]):
-
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.binning_line_view['image_view'],
-                                    data_type=DataType.normalized)
-        _state, _view_box = o_pyqt.get_state()
-        o_pyqt.save_histogram_level()
+                                    data_type=DataType.bin)
+        _state = o_pyqt.get_state()
+        o_pyqt.save_histogram_level(data_type_of_data=DataType.normalized)
 
         if not (data == []):
             self.binning_ui.data = data
@@ -27,7 +26,7 @@ class BinningHandler(object):
                 self.parent.binning_line_view['image_view'].setImage(data)
                 self.binning_ui.data = data
 
-        _view_box.setState(_state)
+        o_pyqt.setState(_state)
         o_pyqt.reload_histogram_level()
 
     def display_selection(self):

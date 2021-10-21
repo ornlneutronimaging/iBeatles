@@ -88,7 +88,7 @@ class Step2Plot:
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.step2_ui['image_view'],
                                     data_type=DataType.normalization)
-        _state, _view_box = o_pyqt.get_state()
+        _state = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
         if _data == []:
@@ -98,7 +98,7 @@ class Step2Plot:
             self.parent.step2_ui['area'].setVisible(True)
             self.parent.step2_ui['image_view'].setImage(_data)
 
-        _view_box.setState(_state)
+        o_pyqt.set_state(_state)
         o_pyqt.reload_histogram_level()
 
     def display_roi(self):
