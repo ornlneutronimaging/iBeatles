@@ -8,8 +8,11 @@ from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 class SaveFittingTab(SaveTab):
 
     def fitting(self):
-        table_dictionary = self.parent.table_dictionary
 
+        if not self.parent.data_metadata[DataType.fitting]['ui_accessed']:
+            return
+
+        table_dictionary = self.parent.table_dictionary
         logging.info("Recording fitting table dictionary")
 
         formatted_table_dictionary = {}
@@ -67,3 +70,4 @@ class SaveFittingTab(SaveTab):
         self.session_dict[DataType.fitting]['plot active row flag'] = self.parent.display_active_row_flag
         self.session_dict[DataType.fitting]['image view state'] = state
         self.session_dict[DataType.fitting]['image view histogram'] = histogram
+        self.session_dict[DataType.fitting]['ui accessed'] = self.parent.data_metadata[DataType.bin]['ui_accessed']

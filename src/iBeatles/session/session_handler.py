@@ -63,6 +63,7 @@ class SessionHandler:
                                                   },
                             'image view state': None,
                             'image view histogram': None,
+                            'ui accessed': False,
                             },
                     "fitting": {"table dictionary": None,
                                 "lambda range index": None,
@@ -71,6 +72,7 @@ class SessionHandler:
                                 "plot active row flag": True,
                                 'image view state': None,
                                 'image view histogram': None,
+                                'ui accessed': False,
                                 }
                     }
 
@@ -263,6 +265,9 @@ class SessionHandler:
             list_tabs_to_load.append(DataType.sample)
         if session_dict[DataType.normalized]['list files']:
             list_tabs_to_load.append(DataType.normalized)
+        if session_dict[DataType.bin]['ui accessed']:
             list_tabs_to_load.append(DataType.bin)
+        if session_dict[DataType.fitting]['ui accessed']:
+            list_tabs_to_load.append(DataType.fitting)
 
         return list_tabs_to_load

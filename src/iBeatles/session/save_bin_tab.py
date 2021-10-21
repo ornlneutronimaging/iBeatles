@@ -12,6 +12,9 @@ class SaveBinTab(SaveTab):
     def bin(self):
         """ record the ROI selected"""
 
+        if not self.parent.data_metadata[DataType.bin]['ui_accessed']:
+            return
+
         def format_numpy_array_into_list(numpy_array=None):
 
             if not (numpy_array is None):
@@ -69,3 +72,4 @@ class SaveBinTab(SaveTab):
         self.session_dict['bin']['binning line view']['line color'] = binning_line_view_line_color
         self.session_dict[DataType.bin]['image view state'] = state
         self.session_dict[DataType.bin]['image view histogram'] = histogram
+        self.session_dict[DataType.bin]['ui accessed'] = self.parent.data_metadata[DataType.bin]['ui_accessed']
