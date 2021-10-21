@@ -23,4 +23,5 @@ class SessionUtilities:
         elif data_type == DataType.fitting:
             o_event = GeneralEventHandler(parent=self.parent)
             if o_event.is_step_selected_allowed(step_index_requested=4):
+                BinningLauncher(parent=self.parent)
                 FittingLauncher(parent=self.parent)

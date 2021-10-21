@@ -116,8 +116,8 @@
    <slot>ok_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>266</x>
-     <y>134</y>
+     <x>643</x>
+     <y>353</y>
     </hint>
     <hint type="destinationlabel">
      <x>300</x>
@@ -132,8 +132,8 @@
    <slot>cancel_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>54</x>
-     <y>131</y>
+     <x>66</x>
+     <y>353</y>
     </hint>
     <hint type="destinationlabel">
      <x>156</x>
@@ -141,9 +141,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>bin_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>check_box_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>49</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>34</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fitting_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>check_box_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>24</x>
+     <y>168</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
   <slot>cancel_clicked()</slot>
+  <slot>check_box_clicked()</slot>
  </slots>
 </ui>

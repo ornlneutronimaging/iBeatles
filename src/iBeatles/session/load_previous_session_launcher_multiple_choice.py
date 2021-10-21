@@ -20,6 +20,7 @@ class LoadPreviousSessionLauncherMultipleChoice(QDialog):
         self.ui.ok_pushButton.setFocus(True)
 
         self.init_widgets(list_tabs_to_load=list_tabs_to_load)
+        self.check_box_clicked()
 
     def init_widgets(self, list_tabs_to_load=None):
         if DataType.sample in list_tabs_to_load:
@@ -32,8 +33,17 @@ class LoadPreviousSessionLauncherMultipleChoice(QDialog):
             self.ui.bin_checkBox.setEnabled(True)
             self.ui.bin_checkBox.setChecked(True)
         if DataType.fitting in list_tabs_to_load:
+            self.ui.bin_checkBox.setChecked(True)
             self.ui.fitting_checkBox.setEnabled(True)
             self.ui.fitting_checkBox.setChecked(True)
+
+    def check_box_clicked(self):
+        is_fitting_checked = self.ui.fitting_checkBox.isChecked()
+        if is_fitting_checked:
+            self.ui.bin_checkBox.setEnabled(False)
+            self.ui.bin_checkBox.setChecked(True)
+        else:
+            self.ui.bin_checkBox.setEnabled(True)
 
     def _get_list_tabs_to_load(self):
         list_tabs_to_load = []
