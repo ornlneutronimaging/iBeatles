@@ -9,7 +9,6 @@ class SessionUtilities:
     def __init__(self, parent=None):
         self.parent = parent
 
-
     def jump_to_tab_of_data_type(self, data_type=DataType.sample):
         if data_type == DataType.sample:
             return
