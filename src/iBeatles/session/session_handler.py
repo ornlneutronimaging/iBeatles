@@ -157,7 +157,7 @@ class SessionHandler:
 
             o_util = SessionUtilities(parent=self.parent)
             if tabs_to_load:
-                o_util.jump_to_tab_of_data_type(tabs_to_load[0])
+                o_util.jump_to_tab_of_data_type(tabs_to_load[-1])
 
             show_status_message(parent=self.parent,
                                 message=f"Loaded {self.config_file_name}",

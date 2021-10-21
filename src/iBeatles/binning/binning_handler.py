@@ -26,7 +26,7 @@ class BinningHandler(object):
                 self.parent.binning_line_view['image_view'].setImage(data)
                 self.binning_ui.data = data
 
-        o_pyqt.setState(_state)
+        o_pyqt.set_state(_state)
         o_pyqt.reload_histogram_level()
 
     def display_selection(self):
