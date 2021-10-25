@@ -807,9 +807,6 @@ class MainWindow(QMainWindow):
         o_gui.check_run_normalization_button()
         self.ui.normalization_tableWidget.blockSignals(False)
 
-    def scaling_coefficient_validated(self):
-        pass
-
     def normalization_button_clicked(self):
         o_norm = Normalization(parent=self)
         o_norm.run_and_export()

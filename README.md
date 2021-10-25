@@ -20,3 +20,28 @@ Because the current version is still under development, it can be a little bit s
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/67521112.svg)](https://zenodo.org/badge/latestdoi/67521112)
 [![Build Status](https://travis-ci.org/ornlneutronimaging/iBeatles.svg?branch=master)](https://travis-ci.org/ornlneutronimaging/iBeatles)
+
+Developers
+----------
+
+To install iBeatles
+
+$ conda create -n iBeatles python=3.7
+$ conda activate iBeatles
+$ git clone https://github.com/pyqtgraph/pyqtgraph.git
+$ cd pyqtgraph
+$ pip install -e .
+$ cd ~/git/iBeatles
+$ python -m iBeatles
+$ conda install qtpy
+$ conda install pandas
+$ conda install -y -c anaconda PyQt
+$ conda install astrapy
+$ conda install pillow
+$ conda install matplotlib
+$ pip install neutronbraggedge
+$ conda install -c Conda-forge qt=5.12.9
+$ conda install scipy
+$ conda install lmfit
+$ pip install NeuNorm
+$ python -m iBeatles

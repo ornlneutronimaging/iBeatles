@@ -23,16 +23,7 @@ class EventHandler(TopEventHandler):
         o_load.import_time_spectra()
 
         if self.parent.data_metadata[self.data_type]['data']:
-
-            self.parent.data_metadata[self.data_type]['folder'] = _folder
-            self.parent.select_load_data_row(data_type=self.data_type, row=0)
-            self.parent.retrieve_general_infos(data_type=self.data_type)
-            self.parent.retrieve_general_data_infos(data_type=self.data_type)
-            o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
-            o_plot.initialize_default_roi()
-            o_plot.display_bragg_edge(mouse_selection=False)
-            o_gui = Step3GuiHandler(parent=self.parent)
-            o_gui.check_widgets()
+            self.update_ui_after_loading_data(folder=_folder)
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:
@@ -41,3 +32,24 @@ class EventHandler(TopEventHandler):
             self.parent.roi_normalized_image_view_changed(mouse_selection=False)
         else:
             self.parent.loading_flag = False
+
+    def import_button_clicked_automatically(self, folder=None):
+
+        o_load = DataHandler(parent=self.parent,
+                             data_type=self.data_type)
+        o_load.import_files_from_folder(folder=folder, extension=[".tif", ".fits", ".tiff"])
+        o_load.import_time_spectra()
+
+        if self.parent.data_metadata[self.data_type]['data']:
+            self.update_ui_after_loading_data(folder=folder)
+
+    def update_ui_after_loading_data(self, folder=None):
+        self.parent.data_metadata[self.data_type]['folder'] = folder
+        self.parent.select_load_data_row(data_type=self.data_type, row=0)
+        self.parent.retrieve_general_infos(data_type=self.data_type)
+        self.parent.retrieve_general_data_infos(data_type=self.data_type)
+        o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
+        o_plot.initialize_default_roi()
+        o_plot.display_bragg_edge(mouse_selection=False)
+        o_gui = Step3GuiHandler(parent=self.parent)
+        o_gui.check_widgets()

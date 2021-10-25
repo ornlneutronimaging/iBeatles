@@ -7,6 +7,7 @@ from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
 
 from ..step2.roi_handler import Step2RoiHandler
+from ..step3.event_handler import EventHandler
 from ..utilities.file_handler import FileHandler
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 
@@ -47,8 +48,10 @@ class Normalization(object):
         self.saving_normalization_parameters(output_folder=full_output_folder)
         self.moving_time_spectra_to_normalizaton_folder(output_folder=full_output_folder)
 
-        # # perform normalization on all images selected
-        # self.normalize_full_set(output_folder=output_folder, base_folder_name=sample_name)
+        # repopulate ui with normalized data
+        o_step3 = EventHandler(parent=self.parent,
+                               data_type=DataType.normalized)
+        o_step3.import_button_clicked_automatically(folder=full_output_folder)
 
     def moving_time_spectra_to_normalizaton_folder(self, output_folder=None):
         logging.info("Copying time spectra file from input folder to output folder.")
