@@ -333,6 +333,30 @@
                       </item>
                      </layout>
                     </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_6">
+                      <item>
+                       <widget class="QLabel" name="time_spectra">
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_5">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
                    </layout>
                   </widget>
                  </item>
@@ -2754,6 +2778,7 @@ p, li { white-space: pre-wrap; }
   <slot>reset_crystal_structure_button_2_clicked()</slot>
   <slot>normalized_time_spectra_import_button_clicked()</slot>
   <slot>normalized_time_spectra_preview_button_clicked()</slot>
+  <slot>test_me_clicked()</slot>
   <slot>menu_view_load_data_clicked()</slot>
   <slot>menu_view_normalization_clicked()</slot>
   <slot>menu_view_normalized_clicked()</slot>
