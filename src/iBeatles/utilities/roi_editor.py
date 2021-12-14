@@ -42,14 +42,10 @@ class RoiEditorInterface(QMainWindow):
 
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_roiEditor.ui', baseinstance=self)
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
         self.setWindowTitle("{} ROI Editor".format(title))
 
         self.initialize_table()
         self.fill_table()
-
-        # QtCore.QObject.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int, int"), self.cell_changed)
 
     def initialize_table(self):
         for _index, _width in enumerate(self.col_width):

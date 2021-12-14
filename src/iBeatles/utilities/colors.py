@@ -1,15 +1,11 @@
 from qtpy import QtCore
 import numpy as np
 
-roi_group_color = [QtCore.Qt.blue,
+roi_group_color = [QtCore.Qt.darkBlue,
                    QtCore.Qt.darkRed,
                    QtCore.Qt.green,
                    QtCore.Qt.darkYellow]
 
-roi_group_color = [QtCore.Qt.darkYellow,
-                   QtCore.Qt.darkRed,
-                   QtCore.Qt.darkBlue,
-                   QtCore.Qt.darkGreen]
 
 pen_color = {'0': (62, 13, 244),  # blue
              '1': (139, 10, 19),  # dark red
