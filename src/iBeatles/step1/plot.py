@@ -1,9 +1,10 @@
 import numpy as np
 import pyqtgraph as pg
+from qtpy.QtGui import QBrush
 
 import src.iBeatles.step1.utilities as utilities
 from neutronbraggedge.experiment_handler.experiment import Experiment
-from ..utilities.colors import pen_color
+from ..utilities.colors import pen_color, roi_group_color
 from ..utilities.gui_handler import GuiHandler
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 from ..binning.binning_handler import BinningHandler
@@ -447,12 +448,6 @@ class Step1Plot(object):
 
             lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_selection_changed)
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
-
-            # FIXME (seems to work this way)
-
-            # if tof_flag:
-            # self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis
-
             self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis
 
     def display_images_and_bragg_edge(self, tof_array=[], lambda_array=[], bragg_edges=[]):
@@ -487,7 +482,9 @@ class Step1Plot(object):
                 plot_ui.addItem(curvePoint)
                 _text = pg.TextItem("Group {}".format(_key), anchor=(0.5, 0))
                 _text.setParentItem(curvePoint)
-                arrow = pg.ArrowItem(angle=0)
+                brush = QBrush()
+                brush.setColor(roi_group_color[int(_key)])
+                arrow = pg.ArrowItem(angle=0, brush=brush)
                 arrow.setParentItem(curvePoint)
                 curvePoint.setPos(x_axis[-1])
 
@@ -547,7 +544,9 @@ class Step1Plot(object):
                 plot_ui.addItem(curvePoint)
                 _text = pg.TextItem("Group {}".format(_key), anchor=(0.5, 0))
                 _text.setParentItem(curvePoint)
-                arrow = pg.ArrowItem(angle=0)
+                brush = QBrush()
+                brush.setColor(roi_group_color[int(_key)])
+                arrow = pg.ArrowItem(angle=0, brush=brush)
                 arrow.setParentItem(curvePoint)
 
                 if xaxis_choice == 'lambda':
