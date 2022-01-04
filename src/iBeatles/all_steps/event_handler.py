@@ -1,5 +1,7 @@
 from .. import DataType
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
+from qtpy.QtWidgets import QMessageBox
+import logging
 
 
 class EventHandler:
@@ -34,7 +36,11 @@ class EventHandler:
         if step_index_requested == 1:
 
             if self.parent.data_metadata[DataType.sample]['data'] == []:
-                self._display_status_message_warning(message="Please load some sample data!")
+                message = "Please load some sample data!"
+                self._display_status_message_warning(message=message)
+                self._display_message_box(message=message)
+                EventHandler._update_logging(step_requested=step_index_requested,
+                                             message=message)
                 return False
             return True
 
@@ -47,7 +53,11 @@ class EventHandler:
         # validate only if normalized data loaded
         if step_index_requested == 3:
             if self.parent.data_metadata[DataType.normalized]['data'] == []:
-                self._display_status_message_warning(message="Please load some normalized data!")
+                message = "Please load some normalized data!"
+                self._display_status_message_warning(message=message)
+                self._display_message_box(message=message)
+                EventHandler._update_logging(step_requested=step_index_requested,
+                                             message=message)
                 return False
             return True
 
@@ -55,10 +65,18 @@ class EventHandler:
         # validate if there is a bin region selected
         if step_index_requested == 4:
             if self.parent.data_metadata[DataType.normalized]['data'] == []:
-                self._display_status_message_warning(message="Please load some normalized data!")
+                message = "Please load some normalized data!"
+                self._display_status_message_warning(message=message)
+                self._display_message_box(message=message)
+                EventHandler._update_logging(step_requested=step_index_requested,
+                                             message=message)
                 return False
             if not self.parent.there_is_a_roi:
-                self._display_status_message_warning(message="Please select a region to bin first (step binning)!")
+                message = "Please select a region to bin first (step binning)!"
+                self._display_status_message_warning(message=message)
+                self._display_message_box(message=message)
+                EventHandler._update_logging(step_requested=step_index_requested,
+                                             message=message)
                 return False
             return True
 
@@ -66,8 +84,11 @@ class EventHandler:
         # validate if fitting has been performed
         if step_index_requested == 5:
             if self.parent.table_dictionary == {}:
-                self._display_status_message_warning(message="Please fit the data to be able to visualize the strain "
-                                                             "mapping!")
+                message = "Please fit the data to be able to visualize the strain mapping!"
+                self._display_status_message_warning(message=message)
+                self._display_message_box(message=message)
+                EventHandler._update_logging(step_requested=step_index_requested,
+                                             message=message)
                 return False
             return True
 
@@ -75,11 +96,28 @@ class EventHandler:
         # validate if normalized data loaded
         if step_index_requested == 6:
             if self.parent.data_metadata[DataType.normalized]['data'] == []:
-                self._display_status_message_warning(message="Please load some normalized data!")
+                message = "Please load some normalized data!"
+                self._display_status_message_warning(message=message)
+                self._display_message_box(message=message)
+                EventHandler._update_logging(step_requested=step_index_requested,
+                                             message=message)
                 return False
             return True
 
         return True
 
+    def _display_message_box(self, message=""):
+        dlg = QMessageBox(self.parent)
+        dlg.setWindowTitle("Unable to start this step!")
+        dlg.setText(message)
+        dlg.setStandardButtons(QMessageBox.Ok)
+        dlg.setIcon(QMessageBox.Warning)
+        button = dlg.exec()
 
+        if button == QMessageBox.Ok:
+            dlg.close()
 
+    @staticmethod
+    def _update_logging(step_requested=-1, message=""):
+        logging.info(f"Error requesting step #{step_requested}")
+        logging.info(message)
