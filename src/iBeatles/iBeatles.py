@@ -27,6 +27,7 @@ from .step2.gui_handler import Step2GuiHandler
 from .step2.roi_handler import Step2RoiHandler
 from .step2.plot import Step2Plot
 from .step2.normalization import Normalization
+from .step2.moving_average_settings_handler import MovingAverageSettingsHandler
 
 from .step3.gui_handler import Step3GuiHandler
 from .step3.event_handler import EventHandler as Step3EventHandler
@@ -845,6 +846,10 @@ class MainWindow(QMainWindow):
         left_index = find_nearest_index(array=x_axis, value=selection[0])
         right_index = find_nearest_index(array=x_axis, value=selection[1])
         self.range_files_to_normalized_step2['file_index'] = [left_index, right_index]
+
+    def normalization_moving_average_settings_clicked(self):
+        settings = MovingAverageSettingsHandler(parent=self)
+        settings.show()
 
     # TAB 3: Normalized Data Tab
 
