@@ -55,7 +55,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_7">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="dimension_groupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -100,7 +107,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_8">
+       <widget class="QGroupBox" name="size_groupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -321,7 +328,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_9">
+       <widget class="QGroupBox" name="type_groupBox">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -416,17 +423,100 @@
    <slot>ok_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>399</x>
-     <y>447</y>
+     <x>446</x>
+     <y>370</y>
     </hint>
     <hint type="destinationlabel">
      <x>282</x>
-     <y>444</y>
+     <y>399</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kernel_size_default_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>size_radio_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>67</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kernel_size_custom_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>size_radio_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>84</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>313</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kernel_dimension_2d_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>dimension_radio_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>82</x>
+     <y>118</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>115</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kernel_dimension_3d_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>dimension_radio_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>118</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>175</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>activate_moving_average_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>activate_moving_average_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>53</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
+  <slot>size_radio_button_clicked()</slot>
+  <slot>dimension_radio_button_clicked()</slot>
+  <slot>activate_moving_average_clicked()</slot>
  </slots>
 </ui>
