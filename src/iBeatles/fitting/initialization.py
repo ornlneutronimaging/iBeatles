@@ -125,6 +125,12 @@ class Initialization:
         vertical_layout.addWidget(area)
         self.parent.ui.widget.setLayout(vertical_layout)
 
+        # kropff
+        self.parent.ui.kropff_fitting = pg.PlotWidget(title="Fitting")
+        fitting_layout = QVBoxLayout()
+        fitting_layout.addWidget(self.parent.ui.kropff_fitting)
+        self.parent.ui.kropff_widget.setLayout(fitting_layout)
+
     def labels(self):
         self.parent.ui.lambda_min_label.setText(u"\u03BB<sub>min</sub>")
         self.parent.ui.lambda_max_label.setText(u"\u03BB<sub>max</sub>")

@@ -243,6 +243,9 @@ class MainWindow(QMainWindow):
                                                'ob': False},
                            }
 
+    # kropff
+    kropff_fitting = None  # pyqtgraph plot
+
     def __init__(self, parent=None):
         """ 
         Initialization
