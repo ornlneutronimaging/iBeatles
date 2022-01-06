@@ -44,6 +44,7 @@ class ReductionSettingsHandler(QDialog):
         self.ui.dimension_groupBox.setEnabled(state)
         self.ui.size_groupBox.setEnabled(state)
         self.ui.type_groupBox.setEnabled(state)
+        self.ui.processing_order_groupBox.setEnabled(state)
 
     def dimension_radio_button_clicked(self):
         is_3d_clicked = self.ui.kernel_dimension_3d_radioButton.isChecked()

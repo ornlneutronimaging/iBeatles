@@ -376,7 +376,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="processing_order_groupBox">
      <property name="title">
       <string>Processes order</string>
      </property>
