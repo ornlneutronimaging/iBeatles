@@ -144,21 +144,25 @@ class Normalization(object):
             logging.info("Not running moving average! Option has been turned off")
             return o_norm
 
+        show_status_message(parent=self.parent,
+                            message="Running moving average ...",
+                            status=StatusMessageStatus.working)
         logging.info("Running moving average:")
         reduction_settings = self.parent.session_dict["reduction"]
 
         if reduction_settings['size']['flag'] == 'default':
             x = ReductionSettingsHandler.default_kernel_size['x']
             y = ReductionSettingsHandler.default_kernel_size['y']
-            l = ReductionSettingsHandler.default_kernel_size['l']
+            lda = ReductionSettingsHandler.default_kernel_size['l']
+
         else:
             x = reduction_settings['size']['x']
             y = reduction_settings['size']['y']
-            l = reduction_settings['size']['l']
+            lda = reduction_settings['size']['l']
 
         kernel = [y, x]
         if reduction_settings['dimension'] == '3d':
-            kernel.append(l)
+            kernel.append(lda)
 
         _data = np.array(o_norm.data[DataType.sample]['data'])   # lambda, x, y
         _data_transposed = _data.transpose(2, 1, 0)    # x, y, lambda
@@ -187,6 +191,9 @@ class Normalization(object):
         logging.info(f"-> Done running moving average with sample data!")
         if sample_data is None:
             logging.info("Moving average failed!")
+            show_status_message(parent=self.parent,
+                                message="Running moving average ... Failed",
+                                status=StatusMessageStatus.error)
             return
         else:
             sample_data.transpose(2, 1, 0)  # lambda, x, y
@@ -212,6 +219,9 @@ class Normalization(object):
                 ob_data.transpose(2, 1, 0)  # lambda, x, y
             else:
                 logging.info("Moving average failed!")
+                show_status_message(parent=self.parent,
+                                    message="Running moving average ... Failed",
+                                    status=StatusMessageStatus.error)
                 return
 
             o_norm.data[DataType.ob]['data'] = ob_data

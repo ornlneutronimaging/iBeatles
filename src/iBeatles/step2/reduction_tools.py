@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.ndimage
+import logging
 
 from . import KernelType
 
@@ -9,10 +10,10 @@ def moving_average(data=None, kernel_type=KernelType.gaussian, kernel=None):
     if both box_kernel and gaussian_kernel are provided, box_kernel will be used by default
     Parameters
     ----------
-    input_array: if 3D, dimensions must be given as followed (x, y, tof)
-    box_kernel
-    gaussian_kernel
-    bool_log: display log messages (default False)
+    data: if 3D, dimensions must be given as followed (x, y, tof)
+    kernel_type: KernelType.box or KernelType.gaussian
+    kernel: size of kernel
+
     Raises
     ------
     ValueError if input_array is not a 2 or 3D array
@@ -40,9 +41,9 @@ def moving_average(data=None, kernel_type=KernelType.gaussian, kernel=None):
 
     # TOF data (3D), 2D kernel
     if len(np.shape(data)) == 3 and (len(kernel) == 2):
-        print(
-                'Data is 3D but filtering kernel is 2D. Applying filter to each slice of the data (third dimension).'
-        )
+        logging.info('-> Data is 3D but filtering kernel is 2D. Applying filter to each slice of the '
+                     'data (third dimension).')
+
         outsignal = np.zeros((np.shape(data)[0], np.shape(data)[1],
                               np.shape(data)[2]))
 
@@ -66,7 +67,7 @@ def moving_average(data=None, kernel_type=KernelType.gaussian, kernel=None):
 
     # TOF data (3D), 3D kernel
     elif len(np.shape(data)) == 3 and (len(kernel) == 3):
-        print('Data and filtering kernel are 3D. Applying 3D filter convolution.')
+        logging.info('-> Data and filtering kernel are 3D. Applying 3D filter convolution.')
 
         if kernel_type == KernelType.box:
             kernel = np.ones((kernel[0], kernel[1], kernel[2]))
@@ -83,7 +84,7 @@ def moving_average(data=None, kernel_type=KernelType.gaussian, kernel=None):
 
     # image data (2D), 2D kernel
     elif len(np.shape(data)) == 2 and (len(kernel) == 2):
-        print('Data and filtering kernel are 2D. Applying 2D filter convolution.')
+        logging.info('-> Data and filtering kernel are 2D. Applying 2D filter convolution.')
 
         if kernel_type == KernelType.box:
             kernel = np.ones((kernel[0], kernel[1]))
