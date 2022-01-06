@@ -35,4 +35,5 @@ class LoadPreviousSessionLauncher(QDialog):
             load_session_ui.show()
 
     def no_clicked(self):
+        self.parent.session_dict = SessionHandler.session_dict
         self.close()

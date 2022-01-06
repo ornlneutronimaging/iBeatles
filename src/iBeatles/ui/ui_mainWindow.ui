@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -2335,7 +2335,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1149</x>
-     <y>627</y>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2351,7 +2351,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1117</x>
-     <y>627</y>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2366,8 +2366,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1418</x>
-     <y>939</y>
+     <x>1362</x>
+     <y>932</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2766,8 +2766,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_moving_average_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1363</x>
-     <y>871</y>
+     <x>1446</x>
+     <y>919</y>
     </hint>
     <hint type="destinationlabel">
      <x>1538</x>

@@ -9,7 +9,6 @@ from .save_normalization_tab import SaveNormalizationTab
 from .save_normalized_tab import SaveNormalizedTab
 from .save_bin_tab import SaveBinTab
 from .save_fitting_tab import SaveFittingTab
-from ..utilities.gui_handler import GuiHandler
 
 from .session_utilities import SessionUtilities
 from .load_load_data_tab import LoadLoadDataTab
@@ -56,6 +55,15 @@ class SessionHandler:
                                    'beam index': 0,
                                    'detector value': None,
                                    },
+                    "reduction": {'activate': True,
+                                  'dimension': '2d',
+                                  'size': {'flag': 'default',
+                                           'y': 20,
+                                           'x': 20,
+                                           'l': 3,
+                                           },
+                                  'type': 'box',
+                                  },
                     "bin": {'roi': None,
                             'binning line view': {'pos': None,
                                                   'adj': None,
