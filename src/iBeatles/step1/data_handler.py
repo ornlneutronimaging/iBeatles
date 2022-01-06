@@ -4,11 +4,13 @@ from pathlib import PurePath
 import numpy as np
 from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 import logging
+import copy
 
 from ..utilities.load_files import LoadFiles
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 from ..utilities.file_handler import FileHandler
 from ..step1.time_spectra_handler import TimeSpectraHandler
+from .. import DataType
 
 TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
 
@@ -80,10 +82,9 @@ class DataHandler:
         self.load_files(list_of_files)
 
     def import_time_spectra(self):
-        if self.data_type == 'sample' and self.parent.data_metadata[self.data_type]['data']:
-            self.load_time_spectra()
-        elif self.data_type == 'normalized' and self.parent.data_metadata[self.data_type]['data']:
-            self.load_time_spectra()
+        if self.parent.data_metadata[self.data_type]['data']:
+            if (self.data_type == DataType.sample) or (self.data_type == DataType.normalized):
+                self.load_time_spectra()
 
     def get_list_of_files(self, folder='', file_ext='.fits'):
         """list of files in that folder with that extension"""
@@ -132,6 +133,7 @@ class DataHandler:
         logging.info(f"User manually selected time spectra file {time_spectra_file}")
 
         self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = time_spectra_file
+
         o_time_handler = TimeSpectraHandler(parent=self.parent,
                                             data_type=self.data_type)
         o_time_handler.load()
@@ -296,7 +298,7 @@ class GetTimeSpectraFilename(object):
     def retrieve_file_name(self):
         time_spectra = glob.glob(self.folder + '/' + TIME_SPECTRA_NAME_FORMAT)
         if time_spectra and os.path.exists(time_spectra[0]):
-            return time_spectra[0]
+            return f"{time_spectra[0]}"
 
         else:
-            return ''
+            return ""

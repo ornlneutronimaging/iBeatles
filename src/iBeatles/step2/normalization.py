@@ -3,6 +3,7 @@ import os
 import shutil
 import logging
 import numpy as np
+import copy
 
 from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
@@ -54,12 +55,12 @@ class Normalization(object):
 
         if self.parent.session_dict["reduction"]["processes order"] == "option1":
             # running moving average before running normalization
-            o_norm = self.running_moving_average(o_norm=o_norm)
-            o_norm = self.running_normalization(o_norm=o_norm)
+            o_norm = self.running_moving_average(o_norm=copy.deepcopy(o_norm))
+            o_norm = self.running_normalization(o_norm=copy.deepcopy(o_norm))
         else:
             # running normalization then moving average
-            o_norm = self.running_normalization(o_norm=o_norm)
-            o_norm = self.running_moving_average(o_norm=o_norm)
+            o_norm = self.running_normalization(o_norm=copy.deepcopy(o_norm))
+            o_norm = self.running_moving_average(o_norm=copy.deepcopy(o_norm))
 
         if not o_norm:
             logging.info("Normalization failed!")
@@ -132,7 +133,7 @@ class Normalization(object):
         self.parent.data_metadata[DataType.normalized]['data'] = o_norm.get_normalized_data()
         self.parent.data_metadata[DataType.normalized]['folder'] = output_folder
         self.parent.data_metadata[DataType.normalized]['time_spectra'] = \
-            self.parent.data_metadata[DataType.sample]['time_spectra']
+            copy.deepcopy(self.parent.data_metadata[DataType.sample]['time_spectra'])
 
     def running_moving_average(self, o_norm=None):
 
