@@ -41,3 +41,4 @@ class SaveNormalizedTab(SaveTab):
         self.session_dict[data_type]['list rois'] = list_roi
         self.session_dict[data_type]['image view state'] = state
         self.session_dict[data_type]['image view histogram'] = histogram
+        self.session_dict["reduction"] = self.parent.session_dict["reduction"]
