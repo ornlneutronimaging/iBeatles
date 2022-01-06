@@ -34,6 +34,10 @@ class ReductionSettingsHandler(QDialog):
         self.size_radio_button_clicked()
         if reduction_dict["type"] == "gaussian":
             self.ui.kernel_type_gaussian_radioButton.setChecked(True)
+        if reduction_dict["processes order"] == 'option1':
+            self.ui.processes_order_option1_radio_button.setChecked(True)
+        else:
+            self.ui.processes_order_option2_radio_button.setChecked(True)
 
     def activate_moving_average_clicked(self):
         state = self.ui.activate_moving_average_checkBox.isChecked()
@@ -70,6 +74,9 @@ class ReductionSettingsHandler(QDialog):
         reduction_dict["size"]["x"] = float(str(self.ui.kernel_size_custom_x_lineEdit.text()))
         reduction_dict["size"]["l"] = float(str(self.ui.kernel_size_custom_lambda_lineEdit.text()))
         reduction_dict["type"] = "box" if self.ui.kernel_type_box_radioButton.isChecked() else "gaussian"
+        reduction_dict["processes order"] = 'option1' if self.ui.processes_order_option1_radio_button.isChecked() \
+            else 'option2'
+
         self.parent.session_dict["reduction"] = reduction_dict
 
         self.close()

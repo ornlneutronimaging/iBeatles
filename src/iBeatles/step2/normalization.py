@@ -44,6 +44,7 @@ class Normalization(object):
         FileHandler.make_or_reset_folder(full_output_folder)
         logging.info(f" full output folder will be: {full_output_folder}")
 
+        # self.running_moving_average()
         self.running_normalization(output_folder=full_output_folder)
         self.saving_normalization_parameters(output_folder=full_output_folder)
         self.moving_time_spectra_to_normalizaton_folder(output_folder=full_output_folder)
@@ -68,6 +69,13 @@ class Normalization(object):
         self.parent.data_metadata[DataType.normalized]['folder'] = output_folder
         self.parent.data_metadata[DataType.normalized]['time_spectra'] = \
             self.parent.data_metadata[DataType.sample]['time_spectra']
+
+    def running_moving_average(self):
+        running_moving_average_settings = self.parent.session_dict["reduction"]
+        if not running_moving_average_settings["activate"]:
+            return
+
+
 
     def running_normalization(self, output_folder=None):
         logging.info(" running normalization!")

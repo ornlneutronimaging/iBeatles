@@ -63,6 +63,7 @@ class SessionHandler:
                                            'l': 3,
                                            },
                                   'type': 'box',
+                                  'processes order': 'option1',
                                   },
                     "bin": {'roi': None,
                             'binning line view': {'pos': None,
