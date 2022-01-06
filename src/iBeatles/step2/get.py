@@ -1,12 +1,18 @@
 import numpy as np
 
-from . import RegionType
+from . import RegionType, KernelType
 
 
 class Get:
 
     def __init__(self, parent=None):
         self.parent = parent
+
+    def kernel_type(self):
+        if self.parent.session_dict['reduction']['type'] == KernelType.box:
+            return KernelType.box
+        else:
+            return KernelType.gaussian
 
     def table_number_row(self):
         return self.parent.ui.normalization_tableWidget.rowCount()

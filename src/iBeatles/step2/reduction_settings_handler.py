@@ -6,8 +6,13 @@ from .. import load_ui
 
 class ReductionSettingsHandler(QDialog):
 
-    default_kernel_size_label = {'3d': u"y:3  x:3  \u03BB:3",
-                                 '2d': "y:3  x:3"}
+    default_kernel_size = {'x': 3,
+                           'y': 3,
+                           'l': 3}
+    default_kernel_size_label = {'3d': u"y:{}  x:{}  \u03BB:{}".format(default_kernel_size['y'],
+                                                                       default_kernel_size['x'],
+                                                                       default_kernel_size['l']),
+                                 '2d': f"y:{default_kernel_size['y']}  x:{default_kernel_size['x']}"}
 
     def __init__(self, parent=None):
         self.parent = parent

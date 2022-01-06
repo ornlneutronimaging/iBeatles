@@ -2,6 +2,7 @@ from qtpy.QtWidgets import QFileDialog
 import os
 import shutil
 import logging
+import numpy as np
 
 from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
@@ -10,6 +11,11 @@ from ..step2.roi_handler import Step2RoiHandler
 from ..step3.event_handler import EventHandler
 from ..utilities.file_handler import FileHandler
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
+from .reduction_settings_handler import ReductionSettingsHandler
+from .reduction_tools import moving_average
+from .moving_average import MovingAverage
+from . import KernelType
+from .get import Get
 
 from .. import DataType
 
@@ -117,6 +123,8 @@ class Normalization(object):
         filename = time_spectra['filename']
         folder = time_spectra['folder']
         full_time_spectra = os.path.join(folder, filename)
+        logging.info(f"-> time_spectra: {time_spectra}")
+        logging.info(f"-> full_time_spectra: {full_time_spectra}")
         shutil.copy(full_time_spectra, output_folder)
 
     def saving_normalization_parameters(self, o_norm=None, output_folder=None):
@@ -133,7 +141,85 @@ class Normalization(object):
 
         running_moving_average_settings = self.parent.session_dict["reduction"]
         if not running_moving_average_settings["activate"]:
+            logging.info("Not running moving average! Option has been turned off")
             return o_norm
+
+        logging.info("Running moving average:")
+        reduction_settings = self.parent.session_dict["reduction"]
+
+        if reduction_settings['size']['flag'] == 'default':
+            x = ReductionSettingsHandler.default_kernel_size['x']
+            y = ReductionSettingsHandler.default_kernel_size['y']
+            l = ReductionSettingsHandler.default_kernel_size['l']
+        else:
+            x = reduction_settings['size']['x']
+            y = reduction_settings['size']['y']
+            l = reduction_settings['size']['l']
+
+        kernel = [y, x]
+        if reduction_settings['dimension'] == '3d':
+            kernel.append(l)
+
+        _data = np.array(o_norm.data[DataType.sample]['data'])   # lambda, x, y
+        _data_transposed = _data.transpose(2, 1, 0)    # x, y, lambda
+
+        o_get = Get(parent=self.parent)
+        kernel_type = o_get.kernel_type()
+
+        logging.info(f"-> kernel dimension: {reduction_settings['dimension']}")
+        logging.info(f"-> kernel shape: {np.shape(kernel)}")
+        logging.info(f"-> len(sample): {len(_data_transposed)}")
+        logging.info(f"-> kernel: {kernel}")
+        logging.info(f"-> kernel type: {kernel_type}")
+
+        # o_moving_average = MovingAverage(parent=self.parent,
+        #                                  o_norm=o_norm)
+        # o_moving_average.run()
+        # o_norm = o_moving_average.o_norm
+
+        logging.info(f"-> Starting to run moving average with sample data")
+        show_status_message(parent=self.parent,
+                            message="Moving average of sample data ...",
+                            status=StatusMessageStatus.working)
+        sample_data = moving_average(data=_data,
+                                     kernel=kernel,
+                                     kernel_type=kernel_type)
+        logging.info(f"-> Done running moving average with sample data!")
+        if sample_data is None:
+            logging.info("Moving average failed!")
+            return
+        else:
+            sample_data.transpose(2, 1, 0)  # lambda, x, y
+
+        o_norm.data[DataType.sample]['data'] = sample_data
+        show_status_message(parent=self.parent,
+                            message="Moving average of sample data ... Done!",
+                            status=StatusMessageStatus.working,
+                            duration_s=5)
+
+        _ob = np.array(o_norm.data[DataType.ob]['data'])
+        if _ob is None:
+
+            show_status_message(parent=self.parent,
+                                message="Moving average of ob data ...",
+                                status=StatusMessageStatus.ready)
+            logging.info(f"-> Starting to run moving average with ob data")
+            ob_data = moving_average(data=_ob,
+                                     kernel=kernel,
+                                     kernel_type=kernel_type)
+            logging.info(f"-> Done running moving average with ob data!")
+            if ob_data:
+                ob_data.transpose(2, 1, 0)  # lambda, x, y
+            else:
+                logging.info("Moving average failed!")
+                return
+
+            o_norm.data[DataType.ob]['data'] = ob_data
+
+            show_status_message(parent=self.parent,
+                                message="Moving average of ob data ... Done!",
+                                status=StatusMessageStatus.ready,
+                                duration_s=5)
 
         return o_norm
 
@@ -258,3 +344,32 @@ class Normalization(object):
 
         logging.info(" running normalization with sample and ob data ... Done!")
         return o_norm
+
+    # def can_we_use_buffered_data(self, kernel_dimension=None, kernel_size=None, kernel_type=None):
+    #     if self.parent.moving_average_config is None:
+    #         return False
+    #
+    #     buffered_kernel_dimension = self.parent.moving_average_config.get('kernel_dimension', None)
+    #     if buffered_kernel_dimension is None:
+    #         return False
+    #     if not (kernel_dimension == buffered_kernel_dimension):
+    #         return False
+    #
+    #     buffered_kernel_size = self.parent.moving_average_config.get('kernel_size', None)
+    #     if buffered_kernel_size is None:
+    #         return False
+    #     if not (buffered_kernel_size['x'] == kernel_size['x']):
+    #         return False
+    #     if not (buffered_kernel_size['y'] == kernel_size['y']):
+    #         return False
+    #     if kernel_dimension == '3d':
+    #         if not (buffered_kernel_size['lambda'] == kernel_size['lambda']):
+    #             return False
+    #
+    #     buffered_kernel_type = self.parent.moving_average_config.get('kernel_type', None)
+    #     if buffered_kernel_type is None:
+    #         return False
+    #     if not (buffered_kernel_type == kernel_type):
+    #         return False
+    #
+    #     return True
