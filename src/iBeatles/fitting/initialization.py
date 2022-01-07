@@ -206,5 +206,9 @@ class Initialization:
 
             splitter_size = ui_dict['splitter']
             self.parent.ui.splitter.setSizes(splitter_size)
+
+            splitter_3_size = ui_dict['splitter_3']
+            self.parent.ui.splitter_3.setSizes(splitter_3_size)
+
         except TypeError:
             logging.info("Splitters have not been set due to log file format error! This should only show up once.")
