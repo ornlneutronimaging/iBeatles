@@ -49,6 +49,9 @@ class SaveFittingTab(SaveTab):
     def march_dollase(self):
         logging.info("Recording March-Dollase fitting parameters")
 
+        if self.parent.fitting_ui:
+            self.parent.fitting_ui.save_all_parameters()
+
         table_dictionary = self.parent.table_dictionary
 
         formatted_table_dictionary = {}

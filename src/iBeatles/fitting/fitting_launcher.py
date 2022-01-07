@@ -503,21 +503,45 @@ class FittingWindow(QMainWindow):
     def kropff_parameters_changed(self):
         a0 = self.ui.kropff_high_lda_a0_init.text()
         b0 = self.ui.kropff_high_lda_b0_init.text()
+        high_tof_graph = 'a0' if self.ui.kropff_a0_radioButton.isChecked() else 'b0'
+
         ahkl = self.ui.kropff_low_lda_ahkl_init.text()
         bhkl = self.ui.kropff_low_lda_bhkl_init.text()
+        low_tof_graph = 'ahkl' if self.ui.kropff_ahkl_radioButton.isChecked() else 'bhkl'
+
         lambda_hkl = self.ui.kropff_bragg_peak_ldahkl_init.text()
         tau = self.ui.kropff_bragg_peak_tau_init.text()
         sigma = self.ui.kropff_bragg_peak_sigma_comboBox.currentText()
+        if self.ui.kropff_lda_hkl_radioButton.isChecked():
+            bragg_peak_graph = 'lambda_hkl'
+        elif self.ui.kropff_tau_radioButton.isChecked():
+            bragg_peak_graph = 'tau'
+        else:
+            bragg_peak_graph = 'sigma'
+        if self.ui.kropff_bragg_peak_single_selection.isChecked():
+            bragg_peak_table_selection = 'single'
+        else:
+            bragg_peak_table_selection = 'multi'
 
         self.parent.session_dict[DataType.fitting]['kropff']['high tof']['a0'] = a0
         self.parent.session_dict[DataType.fitting]['kropff']['high tof']['b0'] = b0
+        self.parent.session_dict[DataType.fitting]['kropff']['high tof']['graph'] = high_tof_graph
+
         self.parent.session_dict[DataType.fitting]['kropff']['low tof']['ahkl'] = ahkl
         self.parent.session_dict[DataType.fitting]['kropff']['low tof']['bhkl'] = bhkl
+        self.parent.session_dict[DataType.fitting]['kropff']['low tof']['graph'] = low_tof_graph
+
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['lambda_hkl'] = lambda_hkl
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['tau'] = tau
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['sigma'] = sigma
+        self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['graph'] = bragg_peak_graph
+        self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['table selection'] = \
+            bragg_peak_table_selection
 
     def kropff_parameters_changed_with_string(self, string):
+        self.kropff_parameters_changed()
+
+    def save_all_parameters(self):
         self.kropff_parameters_changed()
 
     def closeEvent(self, event=None):

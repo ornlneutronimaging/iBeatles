@@ -150,20 +150,45 @@ class Initialization:
 
         # Kropff
         kropff_session_dict = self.grand_parent.session_dict[DataType.fitting]['kropff']
-        a0 = str(kropff_session_dict['high tof']['a0'])
-        b0 = str(kropff_session_dict['high tof']['b0'])
-        ahkl = str(kropff_session_dict['low tof']['ahkl'])
-        bhkl = str(kropff_session_dict['low tof']['bhkl'])
-        lambda_hkl = str(kropff_session_dict['bragg peak']['lambda_hkl'])
-        tau = str(kropff_session_dict['bragg peak']['tau'])
-        sigma = str(kropff_session_dict['bragg peak']['sigma'])
+        a0 = kropff_session_dict['high tof']['a0']
+        b0 = kropff_session_dict['high tof']['b0']
+        high_tof_graph = kropff_session_dict['high tof']['graph']
+
+        ahkl = kropff_session_dict['low tof']['ahkl']
+        bhkl = kropff_session_dict['low tof']['bhkl']
+        low_tof_graph = kropff_session_dict['low tof']['graph']
+
+        lambda_hkl = kropff_session_dict['bragg peak']['lambda_hkl']
+        tau = kropff_session_dict['bragg peak']['tau']
+        sigma = kropff_session_dict['bragg peak']['sigma']
+        bragg_peak_tof_graph = kropff_session_dict['bragg peak']['graph']
+        selection_table = kropff_session_dict['bragg peak']['table selection']
 
         self.parent.ui.kropff_high_lda_a0_init.setText(a0)
         self.parent.ui.kropff_high_lda_b0_init.setText(b0)
+        if high_tof_graph == 'a0':
+            self.parent.ui.kropff_a0_radioButton.setChecked(True)
+        else:
+            self.parent.ui.kropff_b0_radioButton.setChecked(True)
+
         self.parent.ui.kropff_low_lda_ahkl_init.setText(ahkl)
         self.parent.ui.kropff_low_lda_bhkl_init.setText(bhkl)
+        if low_tof_graph == 'ahkl':
+            self.parent.ui.kropff_ahkl_radioButton.setChecked(True)
+        else:
+            self.parent.ui.kropff_bhkl_radioButton.setChecked(True)
+
         self.parent.ui.kropff_bragg_peak_ldahkl_init.setText(lambda_hkl)
         self.parent.ui.kropff_bragg_peak_tau_init.setText(tau)
-
         index = self.parent.ui.kropff_bragg_peak_sigma_comboBox.findText(sigma)
         self.parent.ui.kropff_bragg_peak_sigma_comboBox.setCurrentIndex(index)
+        if bragg_peak_tof_graph == 'lambda_hkl':
+            self.parent.ui.kropff_lda_hkl_radioButton.setChecked(True)
+        elif bragg_peak_tof_graph == 'tau':
+            self.parent.ui.kropff_tau_radioButton.setChecked(True)
+        else:
+            self.parent.ui.kropff_sigma_radioButton.setChecked(True)
+        if selection_table == 'single':
+            self.parent.ui.kropff_bragg_peak_single_selection.setChecked(True)
+        else:
+            self.parent.ui.kropff_bragg_peak_multi_selection.setChecked(True)
