@@ -499,7 +499,29 @@ class FittingWindow(QMainWindow):
         CreateFittingStoryLauncher(parent=self,
                                    grand_parent=self.parent)
 
+    # kropff
+    def kropff_parameters_changed(self):
+        a0 = self.ui.kropff_high_lda_a0_init.text()
+        b0 = self.ui.kropff_high_lda_b0_init.text()
+        ahkl = self.ui.kropff_low_lda_ahkl_init.text()
+        bhkl = self.ui.kropff_low_lda_bhkl_init.text()
+        lambda_hkl = self.ui.kropff_bragg_peak_ldahkl_init.text()
+        tau = self.ui.kropff_bragg_peak_tau_init.text()
+        sigma = self.ui.kropff_bragg_peak_sigma_comboBox.currentText()
+
+        self.parent.session_dict[DataType.fitting]['kropff']['high tof']['a0'] = a0
+        self.parent.session_dict[DataType.fitting]['kropff']['high tof']['b0'] = b0
+        self.parent.session_dict[DataType.fitting]['kropff']['low tof']['ahkl'] = ahkl
+        self.parent.session_dict[DataType.fitting]['kropff']['low tof']['bhkl'] = bhkl
+        self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['lambda_hkl'] = lambda_hkl
+        self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['tau'] = tau
+        self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['sigma'] = sigma
+
+    def kropff_parameters_changed_with_string(self, string):
+        self.kropff_parameters_changed()
+
     def closeEvent(self, event=None):
+        self.kropff_parameters_changed()
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.close()
         if self.parent.fitting_set_variables_ui:

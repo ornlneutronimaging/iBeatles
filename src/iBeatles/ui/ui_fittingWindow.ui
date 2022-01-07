@@ -755,7 +755,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -1070,17 +1070,17 @@
                          </property>
                          <item>
                           <property name="text">
-                           <string>1e-05</string>
+                           <string>1e-5</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>1e-06</string>
+                           <string>1e-6</string>
                           </property>
                          </item>
                          <item>
                           <property name="text">
-                           <string>1e-07</string>
+                           <string>1e-7</string>
                           </property>
                          </item>
                         </widget>
@@ -1452,6 +1452,118 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>kropff_high_lda_a0_init</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_parameters_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>239</x>
+     <y>549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>609</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_high_lda_b0_init</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_parameters_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>585</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>680</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_low_lda_ahkl_init</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_parameters_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>385</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>643</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_low_lda_bhkl_init</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_parameters_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>545</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>572</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_bragg_peak_ldahkl_init</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_parameters_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>231</x>
+     <y>550</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>378</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_bragg_peak_tau_init</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_parameters_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>557</x>
+     <y>552</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>450</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_bragg_peak_sigma_comboBox</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_parameters_changed_with_string()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>876</x>
+     <y>555</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>600</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -1516,5 +1628,7 @@
   <slot>fit_table_active_cell_checked()</slot>
   <slot>create_fitting_story_checked()</slot>
   <slot>export_table_clicked()</slot>
+  <slot>kropff_parameters_changed()</slot>
+  <slot>kropff_parameters_changed_with_string()</slot>
  </slots>
 </ui>

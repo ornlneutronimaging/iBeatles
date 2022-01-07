@@ -86,14 +86,4 @@ class SaveFittingTab(SaveTab):
 
     def kropff(self):
         logging.info("Recording Kropff fitting parameters")
-
-        if self.parent.fitting_ui:
-            a0 = float(self.parent.fitting_ui.kropff_high_lda_a0_init.text())
-            b0 = float(self.parent.fitting_ui.kropff_high_lda_b0_init.text())
-            ahkl = float(self.parent.fitting_ui.kropff_low_lda_ahkl_init.text())
-            bhkl = float(self.parent.fitting_ui.kropff_low_lda_bhkl_init.text())
-            lambda_hkl = float(self.parent.fitting_ui.kropff_bragg_peak_ldahkl_init.text())
-            tau = float(self.parent.fitting_ui.kropff_bragg_peak_tau_init.text())
-            sigma = self.parent.fitting_ui.kropff_bragg_peak_sigma_comboBox.itemText()
-
-
+        self.session_dict[DataType.fitting]['kropff'] = self.parent.session_dict[DataType.fitting]['kropff']
