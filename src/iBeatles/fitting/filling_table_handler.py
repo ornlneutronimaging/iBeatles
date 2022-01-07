@@ -3,6 +3,8 @@ from qtpy.QtWidgets import QCheckBox, QTableWidgetItem
 from qtpy import QtGui
 # import pyqtgraph as pg
 
+from ..utilities.table_handler import TableHandler
+
 
 class FillingTableHandler(object):
     table_dictionary = {}
@@ -44,16 +46,78 @@ class FillingTableHandler(object):
             return 'lock'
 
     def fill_table(self):
+        self.fill_march_table()
+        self.fill_kropff_table()
+
+    def fill_kropff_table(self):
+        self.fill_kropff_high_tof_table()
+        self.fill_kropff_low_tof_table()
+        self.fill_kropff_bragg_peak_table()
+
+    def fill_kropff_high_tof_table(self):
+        o_table = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
+        o_table.remove_all_rows()
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        nbr_row = len(table_dictionary)
+        o_table.block_signals(True)
+
+        for _index in np.arange(nbr_row):
+            _str_index = str(_index)
+            _entry = table_dictionary[_str_index]
+
+            o_table.insert_empty_row(row=_index)
+
+            o_table.insert_item(row=_index,
+                                column=0,
+                                value=_entry['row_index'] + 1,
+                                editable=False)
+            o_table.insert_item(row=_index,
+                                column=1,
+                                value=_entry['column_index'] + 1,
+                                editable=False)
+
+            # from column 2 to 5
+            list_value = [_entry['a0']['val'],
+                          _entry['b0']['val'],
+                          _entry['a0']['err'],
+                          _entry['b0']['err']]
+            for _local_index, _value in enumerate(list_value):
+                o_table.insert_item(row=_index,
+                                    column=_local_index + 2,
+                                    value=_value,
+                                    editable=False)
+
+        o_table.block_signals(False)
+
+    def fill_kropff_low_tof_table(self):
+        o_table = TableHandler(table_ui=self.parent.ui.low_lda_tableWidget)
+        o_table.remove_all_rows()
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        nbr_row = len(table_dictionary)
+        o_table.block_signals(True)
+
+
+
+        o_table.block_signals(False)
+
+    def fill_kropff_bragg_peak_table(self):
+        o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+        o_table.remove_all_rows()
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        nbr_row = len(table_dictionary)
+        o_table.block_signals(True)
+
+
+
+        o_table.block_signals(False)
+
+    def fill_march_table(self):
+
         self.clear_table_ui()
         table_dictionary = self.grand_parent.march_table_dictionary
 
         row_to_show_state = self.get_row_to_show_state()
-
-        if table_dictionary is None:
-            table_dictionary = self.table_dictionary
         nbr_row = len(table_dictionary)
-
-        # nbr_column = grand_parent_ui.columnCount()
 
         self.parent.ui.value_table.blockSignals(True)
 

@@ -275,7 +275,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -486,7 +486,7 @@
                  <bool>true</bool>
                 </property>
                 <attribute name="horizontalHeaderVisible">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </attribute>
                 <attribute name="horizontalHeaderHighlightSections">
                  <bool>true</bool>
@@ -750,7 +750,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -809,7 +809,7 @@
                     <item>
                      <widget class="QTabWidget" name="tabWidget_3">
                       <property name="currentIndex">
-                       <number>1</number>
+                       <number>0</number>
                       </property>
                       <widget class="QWidget" name="tab_5">
                        <attribute name="title">
@@ -827,6 +827,36 @@
                           <property name="selectionBehavior">
                            <enum>QAbstractItemView::SelectRows</enum>
                           </property>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
                          </widget>
                         </item>
                        </layout>
@@ -943,7 +973,7 @@
                     <item>
                      <widget class="QTabWidget" name="tabWidget_4">
                       <property name="currentIndex">
-                       <number>1</number>
+                       <number>0</number>
                       </property>
                       <widget class="QWidget" name="tab_7">
                        <attribute name="title">
@@ -961,6 +991,36 @@
                           <property name="selectionBehavior">
                            <enum>QAbstractItemView::SelectRows</enum>
                           </property>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
                          </widget>
                         </item>
                        </layout>
@@ -1106,7 +1166,7 @@
                     <item>
                      <widget class="QTabWidget" name="tabWidget_5">
                       <property name="currentIndex">
-                       <number>1</number>
+                       <number>0</number>
                       </property>
                       <widget class="QWidget" name="tab_10">
                        <attribute name="title">
@@ -1166,6 +1226,46 @@
                           <property name="selectionBehavior">
                            <enum>QAbstractItemView::SelectRows</enum>
                           </property>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
+                          <column>
+                           <property name="text">
+                            <string>New Column</string>
+                           </property>
+                          </column>
                          </widget>
                         </item>
                        </layout>

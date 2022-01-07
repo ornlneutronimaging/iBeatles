@@ -40,17 +40,21 @@ class TableHandler:
         self.table_ui.setRangeSelected(selection_range, True)
 
     def remove_all_rows(self):
+        self.table_ui.blockSignals(True)
         nbr_row = self.table_ui.rowCount()
         for _ in np.arange(nbr_row):
             self.remove_row(row=0)
+        self.table_ui.blockSignals(False)
 
     def remove_row(self, row=-1):
         self.table_ui.removeRow(row)
 
     def remove_all_columns(self):
+        self.table_ui.blockSignals(True)
         nbr_column = self.table_ui.columnCount()
         for _ in np.arange(nbr_column):
             self.remove_column(column=0)
+        self.table_ui.blockSignals(False)
 
     def remove_column(self, column=-1):
         self.table_ui.removeColumn(column)
@@ -227,3 +231,6 @@ class TableHandler:
         if block_signal:
             WidgetsHandler.block_signals(ui=self.table_ui,
                                          status=False)
+
+    def block_signals(self, state=True):
+        self.table_ui.blockSignals(state)
