@@ -127,7 +127,7 @@ class ExportFittingHandler(object):
         return x_axis
 
     def load_table(self):
-        self.table = self.grand_parent.table_dictionary
+        self.table = self.grand_parent.march_table_dictionary
 
     def select_and_create_output_folder(self):
         """select where to create the output fitting folder"""

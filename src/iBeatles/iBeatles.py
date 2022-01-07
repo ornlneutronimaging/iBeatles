@@ -128,9 +128,12 @@ class MainWindow(QMainWindow):
     rotate_ui = None
 
     # table dictionary used in fitting/binning/advanced_selection/review
-    table_dictionary = {}
+    march_table_dictionary = {}
     table_fitting_story_dictionary = {}
     table_dictionary_from_session = None
+
+    # table dictionary for kropff
+    kropff_table_dictionary = {}
 
     # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
     local_bragg_edge_list = {}

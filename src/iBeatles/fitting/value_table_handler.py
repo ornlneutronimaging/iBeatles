@@ -107,7 +107,7 @@ class ValueTableHandler(object):
         o_fill_table = FillingTableHandler(grand_parent=self.grand_parent)
         row_to_show_status = o_fill_table.get_row_to_show_state()
 
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         column_variable_match = {5: 'd_spacing',
                                  7: 'sigma',
@@ -150,7 +150,7 @@ class ValueTableHandler(object):
                             _entry[name_variable]['fixed'] = status
                             table_dictionary[str(_index)] = _entry
 
-            self.grand_parent.table_dictionary = table_dictionary
+            self.grand_parent.march_table_dictionary = table_dictionary
 
             o_fitting = FillingTableHandler(grand_parent=self.grand_parent)
             o_fitting.fill_table()

@@ -82,15 +82,15 @@ class SetFittingVariablesHandler(object):
                 self.grand_parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
 
     def is_bin_fixed(self, bin_index=0, variable_name='d_spacing'):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         return table_dictionary[str(bin_index)][variable_name]['fixed']
 
     def is_bin_locked(self, bin_index=0):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         return table_dictionary[str(bin_index)]['lock']
 
     def is_bin_activated(self, bin_index=0):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         return table_dictionary[str(bin_index)]['active']
 
     def clear_colorscale_table(self):
@@ -150,7 +150,7 @@ class SetFittingVariablesHandler(object):
         return QtGui.QColor(0, _ratio * 255, 0, alpha=255)
 
     def create_array_of_variable(self, variable='d_spacing'):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         _table_selection = self.grand_parent.fitting_selection
         nbr_column = _table_selection['nbr_column']
@@ -171,7 +171,7 @@ class SetFittingVariablesHandler(object):
                                        variable_value=0,
                                        table_nbr_row=0):
 
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         nbr_row = table_nbr_row
 
         for _select in selection:
@@ -187,5 +187,5 @@ class SetFittingVariablesHandler(object):
                         table_dictionary[_index][variable_name]['err'] = np.NaN
             self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
         self.populate_table_with_variable(variable=variable_name)

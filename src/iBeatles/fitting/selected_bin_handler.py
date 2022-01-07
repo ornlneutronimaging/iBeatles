@@ -28,7 +28,7 @@ class SelectedBinsHandler(object):
 
     def update_bins_selected(self):
         self.clear_all_selected_bins()
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         list_bins_selected_item = []
         for _index in table_dictionary.keys():
             box = table_dictionary[_index]['selected_item']
@@ -67,7 +67,7 @@ class SelectedBinsHandler(object):
 
     def update_bins_locked(self, all_flag=True):
         self.clear_all_locked_bins()
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         list_bins_locked_item = []
         for _index in table_dictionary.keys():
             box = table_dictionary[_index]['locked_item']
@@ -113,7 +113,7 @@ class SelectedBinsHandler(object):
         # else:
         #     flag_name = 'lock'
 
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         for _index in table_dictionary:
             if table_dictionary[_index][flag_name]:
                 list_bin_selected.append(_index)
@@ -133,7 +133,7 @@ class SelectedBinsHandler(object):
         if list_bin_selected == []:
             return
 
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         # retrieve image
         data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])

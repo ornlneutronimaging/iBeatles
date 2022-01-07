@@ -170,7 +170,7 @@ class VariableTableHandler(object):
 
     def set_fixed_status_of_selection(self, state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
         o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
         variable_selected = o_handler.get_variable_selected()
@@ -188,7 +188,7 @@ class VariableTableHandler(object):
             # remove selection markers
             self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.fitting_set_variables_ui.update_table()
 
     def fixed_selection(self):
@@ -231,7 +231,7 @@ class VariableTableHandler(object):
 
     def change_state_of_bins(self, name='lock', state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
 
         for _select in selection:
@@ -247,7 +247,7 @@ class VariableTableHandler(object):
             # remove selection markers
             self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.fitting_set_variables_ui.update_table()
 
     def update_fitting_ui(self, name='active'):

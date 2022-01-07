@@ -31,7 +31,7 @@ class Export:
         if table_file[0]:
             table_file = table_file[0]
             logging.info(f" table file selected: {table_file}")
-            table_dictionary = self.grand_parent.table_dictionary
+            table_dictionary = self.grand_parent.march_table_dictionary
             o_table_formatted = FormatTableForExport(table=table_dictionary)
             pandas_data_frame = o_table_formatted.pandas_data_frame
             header = self.header

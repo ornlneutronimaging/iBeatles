@@ -257,11 +257,10 @@ class FittingWindow(QMainWindow):
                                          grand_parent=self.parent)
         is_at_least_one_row_activated = o_table.is_at_least_one_row_activated()
         self.ui.step3_button.setEnabled(is_at_least_one_row_activated)
-        self.ui.step3_label.setEnabled(is_at_least_one_row_activated)
+        self.ui.step2_instruction_label.setEnabled(is_at_least_one_row_activated)
 
     def check_state_of_step4_button(self):
         self.ui.step4_button.setEnabled(self.is_ready_to_fit)
-        self.ui.step4_label.setEnabled(self.is_ready_to_fit)
 
     def active_button_state_changed(self, status, row_clicked):
         '''
@@ -352,7 +351,7 @@ class FittingWindow(QMainWindow):
                                                                   column=column)
 
         for _row in list_row_selected:
-            self.parent.table_dictionary[str(_row)][label_column] = is_this_row_checked
+            self.parent.march_table_dictionary[str(_row)][label_column] = is_this_row_checked
             if _row == row_clicked:
                 continue
             _widget = o_table.get_widget(row=_row,

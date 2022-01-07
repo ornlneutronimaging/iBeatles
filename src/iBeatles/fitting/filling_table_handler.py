@@ -45,7 +45,7 @@ class FillingTableHandler(object):
 
     def fill_table(self):
         self.clear_table_ui()
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         row_to_show_state = self.get_row_to_show_state()
 

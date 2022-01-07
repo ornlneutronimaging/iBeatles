@@ -26,7 +26,7 @@ class FittingJobHandler(object):
 
     def run_story(self):
         table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         nbr_entry = len(table_fitting_story_dictionary)
 
         _advanced_fitting_mode = self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
@@ -177,7 +177,7 @@ class FittingJobHandler(object):
             self.grand_parent.fitting_story_ui.eventProgress.setValue(_entry_index + 1)
             QApplication.processEvents()
 
-            self.grand_parent.table_dictionary = table_dictionary
+            self.grand_parent.march_table_dictionary = table_dictionary
             self.grand_parent.fitting_ui.re_fill_table()
             self.grand_parent.fitting_ui.update_bragg_edge_plot(update_selection=False)
 

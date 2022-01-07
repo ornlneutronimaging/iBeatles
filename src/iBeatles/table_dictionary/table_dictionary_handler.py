@@ -40,17 +40,17 @@ class TableDictionaryHandler:
         self.value_table_ui = self.parent.ui.value_table
 
     def fill_table_with_variable(self, variable_name='d_spacing', value=np.NaN, list_keys=[], all_keys=False):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
         if all_keys:
             list_keys = table_dictionary.keys()
 
         for _key in list_keys:
             table_dictionary[_key][variable_name]['val'] = value
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
 
     def populate_table_dictionary_entry(self, index=0, array=[]):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         table_dictionary[str(index)] = {'bin_coordinates': {'x0': array[0],
                                                             'x1': array[2],
@@ -90,11 +90,11 @@ class TableDictionaryHandler:
                                                'fixed': array[32]},
                                         }
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
 
     def initialize_parameters_from_session(self):
         session_table_dictionary = self.grand_parent.session_dict["fitting"]['march dollase']["table dictionary"]
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         for _row in session_table_dictionary.keys():
             _entry = session_table_dictionary[_row]
@@ -129,7 +129,7 @@ class TableDictionaryHandler:
         self.parent.ui.active_bins_button.setChecked(self.grand_parent.display_active_row_flag)
         self.parent.ui.locked_bins_button.setChecked(not self.grand_parent.display_active_row_flag)
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.table_loaded_from_session = None
 
     def create_table_dictionary(self):
@@ -139,7 +139,7 @@ class TableDictionaryHandler:
         if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
             return
 
-        if not self.grand_parent.table_dictionary == {}:
+        if not self.grand_parent.march_table_dictionary == {}:
             return
 
         bin_size = self.grand_parent.binning_roi[-1]
@@ -154,7 +154,8 @@ class TableDictionaryHandler:
         from_y = min_max_xy['y']['min']
         to_y = min_max_xy['y']['max']
 
-        table_dictionary = {}
+        march_table_dictionary = {}
+        kropff_table_dictionary = {}
         _index = 0
         _index_col = 0
         for _x in np.arange(from_x, to_x, bin_size):
@@ -162,47 +163,47 @@ class TableDictionaryHandler:
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
 
-                table_dictionary[_str_index] = {'bin_coordinates': {'x0': np.NaN,
+                march_table_dictionary[_str_index] = {'bin_coordinates': {'x0': np.NaN,
                                                                     'x1': np.NaN,
                                                                     'y0': np.NaN,
                                                                     'y1': np.NaN},
-                                                'selected_item': None,
-                                                'locked_item': None,
-                                                'row_index': _index_row,
-                                                'column_index': _index_col,
-                                                'selected': False,
-                                                'lock': False,
-                                                'active': False,
-                                                'fitting_confidence': np.NaN,
-                                                'd_spacing': {'val': np.NaN,
+                                                    'selected_item': None,
+                                                    'locked_item': None,
+                                                    'row_index': _index_row,
+                                                    'column_index': _index_col,
+                                                    'selected': False,
+                                                    'lock': False,
+                                                    'active': False,
+                                                    'fitting_confidence': np.NaN,
+                                                    'd_spacing': {'val': np.NaN,
+                                                                  'err': np.NaN,
+                                                                  'fixed': False},
+                                                    'sigma': {'val': np.NaN,
                                                               'err': np.NaN,
                                                               'fixed': False},
-                                                'sigma': {'val': np.NaN,
-                                                          'err': np.NaN,
-                                                          'fixed': False},
-                                                'intensity': {'val': np.NaN,
+                                                    'intensity': {'val': np.NaN,
+                                                                  'err': np.NaN,
+                                                                  'fixed': False},
+                                                    'alpha': {'val': np.NaN,
                                                               'err': np.NaN,
                                                               'fixed': False},
-                                                'alpha': {'val': np.NaN,
-                                                          'err': np.NaN,
-                                                          'fixed': False},
-                                                'a1': {'val': np.NaN,
-                                                       'err': np.NaN,
-                                                       'fixed': False},
-                                                'a2': {'val': np.NaN,
-                                                       'err': np.NaN,
-                                                       'fixed': False},
-                                                'a5': {'val': np.NaN,
-                                                       'err': np.NaN,
-                                                       'fixed': False},
-                                                'a6': {'val': np.NaN,
-                                                       'err': np.NaN,
-                                                       'fixed': False},
-                                                }
-                table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
-                table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
-                table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
-                table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
+                                                    'a1': {'val': np.NaN,
+                                                           'err': np.NaN,
+                                                           'fixed': False},
+                                                    'a2': {'val': np.NaN,
+                                                           'err': np.NaN,
+                                                           'fixed': False},
+                                                    'a5': {'val': np.NaN,
+                                                           'err': np.NaN,
+                                                           'fixed': False},
+                                                    'a6': {'val': np.NaN,
+                                                           'err': np.NaN,
+                                                           'fixed': False},
+                                                    }
+                march_table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
+                march_table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
+                march_table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
+                march_table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
 
                 # create the box to show when bin is selected
                 selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
@@ -210,7 +211,7 @@ class TableDictionaryHandler:
                                                            bin_size)
                 selection_box.setPen(pg.mkPen(self.selected_color['pen']))
                 selection_box.setBrush(pg.mkBrush(self.selected_color['brush']))
-                table_dictionary[_str_index]['selected_item'] = selection_box
+                march_table_dictionary[_str_index]['selected_item'] = selection_box
 
                 # create the box to show when bin is locked
                 lock_box = pg.QtGui.QGraphicsRectItem(_x, _y,
@@ -218,14 +219,14 @@ class TableDictionaryHandler:
                                                       bin_size)
                 lock_box.setPen(pg.mkPen(self.lock_color['pen']))
                 lock_box.setBrush(pg.mkBrush(self.lock_color['brush']))
-                table_dictionary[_str_index]['locked_item'] = lock_box
+                march_table_dictionary[_str_index]['locked_item'] = lock_box
 
                 _index += 1
                 _index_row += 1
 
             _index_col += 1
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = march_table_dictionary
 
         self.grand_parent.fitting_selection['nbr_row'] = _index_row
         self.grand_parent.fitting_selection['nbr_column'] = _index_col
@@ -241,7 +242,7 @@ class TableDictionaryHandler:
         self.full_table_selection_tool(status=True)
 
     def get_average_parameters_activated(self):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         d_spacing = []
         alpha = []

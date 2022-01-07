@@ -67,7 +67,7 @@ class AdvancedSelectionWindow(QMainWindow):
                           table_ui=self.ui.lock_table)
 
     def update_table(self, state_field='', table_ui=None):
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         for _index in table_dictionary:
             _entry = table_dictionary[_index]
@@ -96,7 +96,7 @@ class AdvancedSelectionWindow(QMainWindow):
         selection = self.ui.selection_table.selectedRanges()
         nbr_row = self.ui.selection_table.rowCount()
 
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         for _entry in table_dictionary.keys():
             table_dictionary[_entry]['active'] = False
@@ -113,7 +113,7 @@ class AdvancedSelectionWindow(QMainWindow):
                     _entry['active'] = True
                     table_dictionary[str(fitting_row)] = _entry
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
         o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
                                               parent=self.parent)
 
@@ -128,7 +128,7 @@ class AdvancedSelectionWindow(QMainWindow):
         selection = self.ui.lock_table.selectedRanges()
         nbr_row = self.ui.lock_table.rowCount()
 
-        table_dictionary = self.grand_parent.table_dictionary
+        table_dictionary = self.grand_parent.march_table_dictionary
 
         for _entry in table_dictionary.keys():
             table_dictionary[_entry]['lock'] = False
@@ -145,7 +145,7 @@ class AdvancedSelectionWindow(QMainWindow):
                     _entry['lock'] = True
                     table_dictionary[str(fitting_row)] = _entry
 
-        self.grand_parent.table_dictionary = table_dictionary
+        self.grand_parent.march_table_dictionary = table_dictionary
         o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
                                               parent=self.parent)
 
