@@ -81,6 +81,7 @@ class SessionHandler:
                                 'image view histogram': None,
                                 'ui accessed': False,
                                 'ui': {'splitter_2': None,
+                                       'splitter': None,
                                        },
                                 'march dollase': {"table dictionary": None,
                                                   "plot active row flag": True,

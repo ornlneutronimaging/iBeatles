@@ -3,6 +3,8 @@ from qtpy.QtWidgets import (QMainWindow, QApplication, QTableWidgetSelectionRang
 from qtpy import QtCore
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
+import logging
+
 from .. import DataType
 
 
@@ -197,5 +199,12 @@ class Initialization:
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']
 
-        splitter_2_size = ui_dict['splitter_2']
-        self.parent.ui.splitter_2.setSizes(splitter_2_size)
+        # splitters
+        try:
+            splitter_2_size = ui_dict['splitter_2']
+            self.parent.ui.splitter_2.setSizes(splitter_2_size)
+
+            splitter_size = ui_dict['splitter']
+            self.parent.ui.splitter.setSizes(splitter_size)
+        except TypeError:
+            logging.info("Splitters have not been set due to log file format error! This should only show up once.")
