@@ -82,6 +82,16 @@ class SessionHandler:
                                 'image view state': None,
                                 'image view histogram': None,
                                 'ui accessed': False,
+                                'kropff': {'high tof': {'a0': 1,
+                                                        'b0': 1},
+                                           'low tof': {'ahkl': 1,
+                                                       'bhkl': 1,
+                                                       },
+                                           'bragg peak': {'lambda_hkl': 1e-8,
+                                                          'tau': 1,
+                                                          'sigma': 1e-7,
+                                                          },
+                                           }
                                 }
                     }
 
