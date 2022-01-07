@@ -17,6 +17,7 @@ class Initialization:
         self.table_behavior()
         self.labels()
         self.widgets()
+        self.ui()
 
     def table_behavior(self):
         for _column, _width in enumerate(self.parent.header_table_columns_width):
@@ -192,3 +193,9 @@ class Initialization:
             self.parent.ui.kropff_bragg_peak_single_selection.setChecked(True)
         else:
             self.parent.ui.kropff_bragg_peak_multi_selection.setChecked(True)
+
+    def ui(self):
+        ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']
+
+        splitter_2_size = ui_dict['splitter_2']
+        self.parent.ui.splitter_2.setSizes(splitter_2_size)

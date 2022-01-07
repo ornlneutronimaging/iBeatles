@@ -80,6 +80,8 @@ class SessionHandler:
                                 'image view state': None,
                                 'image view histogram': None,
                                 'ui accessed': False,
+                                'ui': {'splitter_2': None,
+                                       },
                                 'march dollase': {"table dictionary": None,
                                                   "plot active row flag": True,
                                                   },

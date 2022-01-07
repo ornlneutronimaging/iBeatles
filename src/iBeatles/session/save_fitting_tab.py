@@ -45,6 +45,7 @@ class SaveFittingTab(SaveTab):
         self.session_dict[DataType.fitting]['image view state'] = state
         self.session_dict[DataType.fitting]['image view histogram'] = histogram
         self.session_dict[DataType.fitting]['ui accessed'] = self.parent.data_metadata[DataType.bin]['ui_accessed']
+        self.session_dict[DataType.fitting]['ui'] = self.parent.session_dict[DataType.fitting]['ui']
 
     def march_dollase(self):
         logging.info("Recording March-Dollase fitting parameters")

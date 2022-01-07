@@ -541,11 +541,15 @@ class FittingWindow(QMainWindow):
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()
 
+    def windows_settings(self):
+        self.parent.session_dict[DataType.fitting]['ui']['splitter_2'] = self.ui.splitter_2.sizes()
+
     def save_all_parameters(self):
         self.kropff_parameters_changed()
+        self.windows_settings()
 
     def closeEvent(self, event=None):
-        self.kropff_parameters_changed()
+        self.save_all_parameters()
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.close()
         if self.parent.fitting_set_variables_ui:
