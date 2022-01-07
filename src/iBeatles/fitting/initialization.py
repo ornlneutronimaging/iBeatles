@@ -3,6 +3,7 @@ from qtpy.QtWidgets import (QMainWindow, QApplication, QTableWidgetSelectionRang
 from qtpy import QtCore
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
+from .. import DataType
 
 
 class Initialization:
@@ -146,3 +147,21 @@ class Initialization:
         hkl_list = self.grand_parent.selected_element_hkl_array
         str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
         self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
+
+        # Kropff
+        kropff_session_dict = self.grand_parent.session_dict[DataType.fitting]['kropff']
+        a0 = str(kropff_session_dict['high tof']['a0'])
+        b0 = str(kropff_session_dict['high tof']['b0'])
+        ahkl = str(kropff_session_dict['low tof']['ahkl'])
+        bhkl = str(kropff_session_dict['low tof']['bhkl'])
+        lambda_hkl = str(kropff_session_dict['bragg peak']['lambda_hkl'])
+        tau = str(kropff_session_dict['bragg peak']['tau'])
+        sigma = str(kropff_session_dict['bragg peak']['sigma'])
+
+        self.parent.ui.kropff_high_lda_a0_init.setText(a0)
+        self.parent.ui.kropff_high_lda_b0_init.setText(b0)
+        self.parent.ui.kropff_low_lda_ahkl_init.setText(ahkl)
+        self.parent.ui.kropff_low_lda_bhkl_init.setText(bhkl)
+        self.parent.ui.kropff_bragg_peak_ldahkl_init.setText(lambda_hkl)
+        self.parent.ui.kropff_bragg_peak_tau_init.setText(tau)
+

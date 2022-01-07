@@ -755,7 +755,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -1068,6 +1068,21 @@
                          <property name="editable">
                           <bool>true</bool>
                          </property>
+                         <item>
+                          <property name="text">
+                           <string>1e-05</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>1e-06</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>1e-07</string>
+                          </property>
+                         </item>
                         </widget>
                        </item>
                        <item>
@@ -1252,8 +1267,8 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1030</x>
-     <y>104</y>
+     <x>1369</x>
+     <y>86</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -1300,8 +1315,8 @@
    <slot>selection_in_value_table_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>765</x>
-     <y>574</y>
+     <x>814</x>
+     <y>968</y>
     </hint>
     <hint type="destinationlabel">
      <x>1216</x>
@@ -1316,8 +1331,8 @@
    <slot>advanced_table_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1143</x>
-     <y>471</y>
+     <x>567</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
      <x>1146</x>
@@ -1332,8 +1347,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>468</y>
+     <x>126</x>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>124</x>
@@ -1348,8 +1363,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>166</x>
-     <y>470</y>
+     <x>281</x>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>40</x>
@@ -1364,8 +1379,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>311</x>
-     <y>476</y>
+     <x>414</x>
+     <y>518</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
@@ -1380,8 +1395,8 @@
    <slot>initialize_all_parameters_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1028</x>
-     <y>172</y>
+     <x>1443</x>
+     <y>564</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -1396,8 +1411,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1121</x>
-     <y>200</y>
+     <x>1432</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -1412,8 +1427,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1105</x>
-     <y>226</y>
+     <x>1432</x>
+     <y>219</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -1428,8 +1443,8 @@
    <slot>create_fitting_story_checked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1087</x>
-     <y>286</y>
+     <x>1443</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>1210</x>
