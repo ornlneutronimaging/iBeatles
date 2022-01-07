@@ -163,47 +163,76 @@ class TableDictionaryHandler:
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
 
-                march_table_dictionary[_str_index] = {'bin_coordinates': {'x0': np.NaN,
-                                                                    'x1': np.NaN,
-                                                                    'y0': np.NaN,
-                                                                    'y1': np.NaN},
-                                                    'selected_item': None,
-                                                    'locked_item': None,
-                                                    'row_index': _index_row,
-                                                    'column_index': _index_col,
-                                                    'selected': False,
-                                                    'lock': False,
-                                                    'active': False,
-                                                    'fitting_confidence': np.NaN,
-                                                    'd_spacing': {'val': np.NaN,
-                                                                  'err': np.NaN,
-                                                                  'fixed': False},
-                                                    'sigma': {'val': np.NaN,
+                kropff_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
+                                                                    'x1': _x + bin_size,
+                                                                    'y0': _y,
+                                                                    'y1': _y + bin_size},
+                                                       'selected_item': None,
+                                                       'locked_item': None,
+                                                       'row_index': _index_row,
+                                                       'column_index': _index_col,
+                                                       'selected': False,
+                                                       'lock': False,
+                                                       'active': False,
+                                                       'a0': {'val': np.NaN,
+                                                              'err': np.NaN,
+                                                              },
+                                                       'b0': {'val': np.NaN,
+                                                              'err': np.NaN},
+                                                       'ahkl': {'val': np.NaN,
+                                                                'err': np.NaN},
+                                                       'bhkl': {'val': np.NaN,
+                                                                'err': np.NaN},
+                                                       'lambda_hkl': {'val': np.NaN,
+                                                                      'err': np.NaN},
+                                                       'tau': {'val': np.NaN,
+                                                               'err': np.NaN},
+                                                       'sigma': {'val': np.NaN,
+                                                                 'err': np.NaN},
+                                                      }
+
+                march_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
+                                                                          'x1': _x + bin_size,
+                                                                          'y0': _y,
+                                                                          'y1': _y + bin_size},
+                                                       'selected_item': None,
+                                                       'locked_item': None,
+                                                       'row_index': _index_row,
+                                                       'column_index': _index_col,
+                                                       'selected': False,
+                                                       'lock': False,
+                                                       'active': False,
+                                                       'fitting_confidence': np.NaN,
+                                                       'd_spacing': {'val': np.NaN,
+                                                                     'err': np.NaN,
+                                                                     'fixed': False},
+                                                       'sigma': {'val': np.NaN,
+                                                                 'err': np.NaN,
+                                                                 'fixed': False},
+                                                       'intensity': {'val': np.NaN,
+                                                                     'err': np.NaN,
+                                                                     'fixed': False},
+                                                       'alpha': {'val': np.NaN,
+                                                                 'err': np.NaN,
+                                                                 'fixed': False},
+                                                       'a1': {'val': np.NaN,
                                                               'err': np.NaN,
                                                               'fixed': False},
-                                                    'intensity': {'val': np.NaN,
-                                                                  'err': np.NaN,
-                                                                  'fixed': False},
-                                                    'alpha': {'val': np.NaN,
+                                                       'a2': {'val': np.NaN,
                                                               'err': np.NaN,
                                                               'fixed': False},
-                                                    'a1': {'val': np.NaN,
-                                                           'err': np.NaN,
-                                                           'fixed': False},
-                                                    'a2': {'val': np.NaN,
-                                                           'err': np.NaN,
-                                                           'fixed': False},
-                                                    'a5': {'val': np.NaN,
-                                                           'err': np.NaN,
-                                                           'fixed': False},
-                                                    'a6': {'val': np.NaN,
-                                                           'err': np.NaN,
-                                                           'fixed': False},
-                                                    }
-                march_table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
-                march_table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
-                march_table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
-                march_table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
+                                                       'a5': {'val': np.NaN,
+                                                              'err': np.NaN,
+                                                              'fixed': False},
+                                                       'a6': {'val': np.NaN,
+                                                              'err': np.NaN,
+                                                              'fixed': False},
+                                                      }
+
+                # march_table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
+                # march_table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
+                # march_table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
+                # march_table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
 
                 # create the box to show when bin is selected
                 selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
@@ -227,6 +256,7 @@ class TableDictionaryHandler:
             _index_col += 1
 
         self.grand_parent.march_table_dictionary = march_table_dictionary
+        self.grand_parent.kropff_table_dictionary = kropff_table_dictionary
 
         self.grand_parent.fitting_selection['nbr_row'] = _index_row
         self.grand_parent.fitting_selection['nbr_column'] = _index_col
