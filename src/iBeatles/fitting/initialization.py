@@ -6,6 +6,7 @@ import pyqtgraph as pg
 import logging
 
 from .. import DataType
+from ..utilities.table_handler import TableHandler
 
 
 class Initialization:
@@ -17,9 +18,33 @@ class Initialization:
     def run_all(self):
         self.pyqtgraph()
         self.table_behavior()
+        self.table_headers()
         self.labels()
         self.widgets()
         self.ui()
+
+    def table_headers(self):
+
+        o_kropff_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
+        column_names = [u'row #',
+                        u'column #',
+                        u'a\u2080',
+                        u'b\u2080',
+                        u'a\u2080_error',
+                        u'b\u2080_error']
+
+        column_sizes = [50, 50, 100, 100, 100, 100]
+        for _col_index, _col_name in enumerate(column_names):
+            o_kropff_high_tof.insert_column(_col_index)
+        o_kropff_high_tof.set_column_names(column_names=column_names)
+        o_kropff_high_tof.set_column_sizes(column_sizes=column_sizes)
+
+
+
+
+
+
+
 
     def table_behavior(self):
         for _column, _width in enumerate(self.parent.header_table_columns_width):

@@ -750,7 +750,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -827,36 +827,6 @@
                           <property name="selectionBehavior">
                            <enum>QAbstractItemView::SelectRows</enum>
                           </property>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
                          </widget>
                         </item>
                        </layout>
@@ -991,36 +961,6 @@
                           <property name="selectionBehavior">
                            <enum>QAbstractItemView::SelectRows</enum>
                           </property>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
                          </widget>
                         </item>
                        </layout>
@@ -1226,46 +1166,6 @@
                           <property name="selectionBehavior">
                            <enum>QAbstractItemView::SelectRows</enum>
                           </property>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
-                          <column>
-                           <property name="text">
-                            <string>New Column</string>
-                           </property>
-                          </column>
                          </widget>
                         </item>
                        </layout>
