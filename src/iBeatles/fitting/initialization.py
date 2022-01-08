@@ -33,18 +33,39 @@ class Initialization:
                         u'a\u2080_error',
                         u'b\u2080_error']
 
-        column_sizes = [50, 50, 100, 100, 100, 100]
+        column_sizes = [80, 80, 100, 100, 100, 100]
         for _col_index, _col_name in enumerate(column_names):
             o_kropff_high_tof.insert_column(_col_index)
         o_kropff_high_tof.set_column_names(column_names=column_names)
         o_kropff_high_tof.set_column_sizes(column_sizes=column_sizes)
 
+        o_kropff_low_tof = TableHandler(table_ui=self.parent.ui.low_lda_tableWidget)
+        column_names = [u'row #',
+                        u'column #',
+                        u'a\u2095\u2096\u2097',
+                        u'b\u2095\u2096\u2097',
+                        u'a\u2095\u2096\u2097_error',
+                        u'b\u2095\u2096\u2097_error']
+        column_sizes = [80, 80, 100, 100, 100, 100]
+        for _col_index, _col_name in enumerate(column_names):
+            o_kropff_low_tof.insert_column(_col_index)
+        o_kropff_low_tof.set_column_names(column_names=column_names)
+        o_kropff_low_tof.set_column_sizes(column_sizes=column_sizes)
 
-
-
-
-
-
+        o_kropff_bragg_edge = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+        column_names = [u'row #',
+                        u'column #',
+                        u'\u03BB\u2095\u2096\u2097',
+                        u'tau',
+                        u'sigma',
+                        u'\u03BB\u2095\u2096\u2097_error',
+                        u'tau_error',
+                        u'sigma_error']
+        column_sizes = [80, 80, 100, 100, 100, 100, 100, 100]
+        for _col_index, _col_name in enumerate(column_names):
+            o_kropff_bragg_edge.insert_column(_col_index)
+        o_kropff_bragg_edge.set_column_names(column_names=column_names)
+        o_kropff_bragg_edge.set_column_sizes(column_sizes=column_sizes)
 
     def table_behavior(self):
         for _column, _width in enumerate(self.parent.header_table_columns_width):
