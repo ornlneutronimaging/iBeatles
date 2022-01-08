@@ -70,11 +70,13 @@ class FillingTableHandler(object):
             o_table.insert_item(row=_index,
                                 column=0,
                                 value=_entry['row_index'] + 1,
-                                editable=False)
+                                editable=False,
+                                align_center=True)
             o_table.insert_item(row=_index,
                                 column=1,
                                 value=_entry['column_index'] + 1,
-                                editable=False)
+                                editable=False,
+                                align_center=True)
 
             # from column 2 to 5
             list_value = [_entry['a0']['val'],
@@ -85,7 +87,8 @@ class FillingTableHandler(object):
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,
                                     value=_value,
-                                    editable=False)
+                                    editable=False,
+                                    align_center=True)
 
         o_table.block_signals(False)
 
@@ -96,7 +99,34 @@ class FillingTableHandler(object):
         nbr_row = len(table_dictionary)
         o_table.block_signals(True)
 
+        for _index in np.arange(nbr_row):
+            _str_index = str(_index)
+            _entry = table_dictionary[_str_index]
 
+            o_table.insert_empty_row(row=_index)
+
+            o_table.insert_item(row=_index,
+                                column=0,
+                                value=_entry['row_index'] + 1,
+                                editable=False,
+                                align_center=True)
+            o_table.insert_item(row=_index,
+                                column=1,
+                                value=_entry['column_index'] + 1,
+                                editable=False,
+                                align_center=True)
+
+            # from column 2 to 5
+            list_value = [_entry['ahkl']['val'],
+                          _entry['bhkl']['val'],
+                          _entry['ahkl']['err'],
+                          _entry['bhkl']['err']]
+            for _local_index, _value in enumerate(list_value):
+                o_table.insert_item(row=_index,
+                                    column=_local_index + 2,
+                                    value=_value,
+                                    editable=False,
+                                    align_center=True)
 
         o_table.block_signals(False)
 
@@ -107,7 +137,36 @@ class FillingTableHandler(object):
         nbr_row = len(table_dictionary)
         o_table.block_signals(True)
 
+        for _index in np.arange(nbr_row):
+            _str_index = str(_index)
+            _entry = table_dictionary[_str_index]
 
+            o_table.insert_empty_row(row=_index)
+
+            o_table.insert_item(row=_index,
+                                column=0,
+                                value=_entry['row_index'] + 1,
+                                editable=False,
+                                align_center=True)
+            o_table.insert_item(row=_index,
+                                column=1,
+                                value=_entry['column_index'] + 1,
+                                editable=False,
+                                align_center=True)
+
+            # from column 2 to 7
+            list_value = [_entry['lambda_hkl']['val'],
+                          _entry['tau']['val'],
+                          _entry['sigma']['val'],
+                          _entry['lambda_hkl']['err'],
+                          _entry['tau']['err'],
+                          _entry['sigma']['err']]
+            for _local_index, _value in enumerate(list_value):
+                o_table.insert_item(row=_index,
+                                    column=_local_index + 2,
+                                    value=_value,
+                                    editable=False,
+                                    align_center=True)
 
         o_table.block_signals(False)
 
