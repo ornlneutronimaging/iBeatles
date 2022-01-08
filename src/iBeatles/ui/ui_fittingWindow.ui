@@ -750,7 +750,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -771,7 +771,20 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="kropff_high_lda_a0_init"/>
+                        <widget class="QLineEdit" name="kropff_high_lda_a0_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <widget class="QLabel" name="label_15">
@@ -781,7 +794,20 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="kropff_high_lda_b0_init"/>
+                        <widget class="QLineEdit" name="kropff_high_lda_b0_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <spacer name="horizontalSpacer_7">
@@ -905,7 +931,20 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="kropff_low_lda_ahkl_init"/>
+                        <widget class="QLineEdit" name="kropff_low_lda_ahkl_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <widget class="QLabel" name="label_19">
@@ -915,7 +954,20 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="kropff_low_lda_bhkl_init"/>
+                        <widget class="QLineEdit" name="kropff_low_lda_bhkl_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <spacer name="horizontalSpacer_9">
@@ -1039,7 +1091,20 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="kropff_bragg_peak_ldahkl_init"/>
+                        <widget class="QLineEdit" name="kropff_bragg_peak_ldahkl_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <widget class="QLabel" name="label_21">
@@ -1049,7 +1114,20 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="kropff_bragg_peak_tau_init"/>
+                        <widget class="QLineEdit" name="kropff_bragg_peak_tau_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
                        </item>
                        <item>
                         <widget class="QLabel" name="label_22">
@@ -1060,6 +1138,18 @@
                        </item>
                        <item>
                         <widget class="QComboBox" name="kropff_bragg_peak_sigma_comboBox">
+                         <property name="minimumSize">
+                          <size>
+                           <width>80</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>80</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
                          <property name="editable">
                           <bool>true</bool>
                          </property>
