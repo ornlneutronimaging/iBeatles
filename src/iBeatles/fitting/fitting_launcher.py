@@ -509,6 +509,7 @@ class FittingWindow(QMainWindow):
     # kropff
     def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
         self.update_kropff_fitting_plot()
+        self.update_selected_bins_plot()
 
     def kropff_parameters_changed(self):
         a0 = self.ui.kropff_high_lda_a0_init.text()
@@ -554,6 +555,11 @@ class FittingWindow(QMainWindow):
         else:
             self.ui.bragg_edge_tableWidget.setSelectionMode(2)
         self.update_kropff_fitting_plot()
+        self.update_selected_bins_plot()
+
+    def update_selected_bins_plot(self):
+        o_kropff = SelectedBinsHandler(parent=self, grand_parent=self.parent)
+        o_kropff.update_bins_selected()
 
     def update_kropff_fitting_plot(self):
         o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
@@ -564,12 +570,15 @@ class FittingWindow(QMainWindow):
 
     def kropff_high_tof_table_selection_changed(self):
         self.update_kropff_fitting_plot()
+        self.update_selected_bins_plot()
 
     def kropff_low_tof_table_selection_changed(self):
         self.update_kropff_fitting_plot()
+        self.update_selected_bins_plot()
 
     def kropff_bragg_peak_table_selection_changed(self):
         self.update_kropff_fitting_plot()
+        self.update_selected_bins_plot()
 
     def windows_settings(self):
         self.parent.session_dict[DataType.fitting]['ui']['splitter_2'] = self.ui.splitter_2.sizes()

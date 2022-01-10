@@ -30,42 +30,29 @@ class SelectedBinsHandler(object):
 
     def update_bins_selected(self):
         self.clear_all_selected_bins()
-        table_dictionary = self.grand_parent.march_table_dictionary
-        list_bins_selected_item = []
-        for _index in table_dictionary.keys():
-            box = table_dictionary[_index]['selected_item']
-            if table_dictionary[_index]['active']:
+        o_get = Get(parent=self.parent)
+        fitting_tab_selected = o_get.main_tab_selected()
+        if fitting_tab_selected == FittingTabSelected.march_dollase:
+            table_dictionary = self.grand_parent.march_table_dictionary
+            list_bins_selected_item = []
+            for _index in table_dictionary.keys():
+                box = table_dictionary[_index]['selected_item']
+                if table_dictionary[_index]['active']:
+                    self.parent.image_view.addItem(box)
+                    list_bins_selected_item.append(box)
+            self.parent.list_bins_selected_item = list_bins_selected_item
+        else:
+            # only display the bin of the row selected
+            o_get = Get(parent=self.parent)
+            row_selected = o_get.kropff_row_selected()
+            table_dictionary = self.grand_parent.kropff_table_dictionary
+            list_bins_selected_item = []
+            for _index in row_selected:
+                str_index = str(_index)
+                box = table_dictionary[str_index]['selected_item']
                 self.parent.image_view.addItem(box)
                 list_bins_selected_item.append(box)
-        self.parent.list_bins_selected_item = list_bins_selected_item
-
-        # self.clear_all_selected_bins()
-        # selection = self.parent.ui.value_table.selectedRanges()
-        # list_bin_selected = self.retrieve_list_bin_selected(selection)
-
-        # table_dictionary = self.parent.table_dictionary
-        # nbr_row = len(table_dictionary)
-        # bin_size = self.parent.binning_bin_size
-
-        # list_bins_selected_rect_item = []
-        # for _row in np.arange(nbr_row):
-        # table_entry = table_dictionary[str(_row)]
-        # if _row in list_bin_selected:
-        # _coordinates = table_entry['bin_coordinates']
-        # table_entry['selected'] = True
-        # x0 = _coordinates['x0']
-        # x1 = _coordinates['x1']
-        # y0 = _coordinates['y0']
-        # y1 = _coordinates['y1']
-        # box = table_entry['selected_item']
-        # self.parent.fitting_ui.image_view.addItem(box)
-        # list_bins_selected_rect_item.append(box)
-        # else:
-        # table_entry['selected'] = False
-        # table_dictionary[str(_row)] = table_entry
-
-        # self.parent.table_dictionary = table_dictionary
-        # self.parent.fitting_ui.list_bins_selected_item = list_bins_selected_rect_item
+            self.parent.list_bins_selected_item = list_bins_selected_item
 
     def update_bins_locked(self, all_flag=True):
         self.clear_all_locked_bins()

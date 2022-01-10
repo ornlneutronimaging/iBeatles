@@ -75,3 +75,9 @@ class Get:
         o_table = TableHandler(table_ui=table_ui)
         row_selected = o_table.get_rows_of_table_selected()
         return row_selected
+
+    def kropff_row_selected(self):
+        kropff_tab_ui_selected = self.kropff_tab_ui_selected()
+        o_table = TableHandler(table_ui=kropff_tab_ui_selected)
+        row_selected = o_table.get_rows_of_table_selected()
+        return row_selected

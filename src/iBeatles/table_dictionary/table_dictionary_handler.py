@@ -191,6 +191,14 @@ class TableDictionaryHandler:
                                                                  'err': np.NaN},
                                                       }
 
+                # create the box to show when bin is selected
+                selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
+                                                           bin_size,
+                                                           bin_size)
+                selection_box.setPen(pg.mkPen(self.selected_color['pen']))
+                selection_box.setBrush(pg.mkBrush(self.selected_color['brush']))
+                kropff_table_dictionary[_str_index]['selected_item'] = selection_box
+
                 march_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
                                                                           'x1': _x + bin_size,
                                                                           'y0': _y,
