@@ -92,6 +92,80 @@ class SelectedBinsHandler(object):
     def update_bragg_edge_plot(self):
         self.parent.bragg_edge_plot.clear()
 
+        o_get = Get(parent=self.parent)
+        fitting_tab_selected = o_get.main_tab_selected()
+        if fitting_tab_selected == FittingTabSelected.march_dollase:
+            self.update_march_dollase_bragg_edge_plot()
+        else:
+            self.update_kropff_bragg_edge_plot()
+
+    def update_kropff_bragg_edge_plot(self):
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+
+        x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
+        self.parent.bragg_edge_data['x_axis'] = x_axis
+
+        # retrieve image
+        data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
+
+        o_get = Get(parent=self.parent)
+        list_bin_selected = o_get.kropff_row_selected()
+
+        bragg_edge_data = []
+        # nbr_index_selected = len(list_bin_selected)
+        for _bin_selected in list_bin_selected:
+            _entry = table_dictionary[str(_bin_selected)]['bin_coordinates']
+            x0 = _entry['x0']
+            x1 = _entry['x1']
+            y0 = _entry['y0']
+            y1 = _entry['y1']
+            _data = data_2d[:, x0:x1, y0:y1]
+            inter1 = np.nanmean(_data, axis=1)
+            final = np.nanmean(inter1, axis=1)
+            bragg_edge_data.append(final)
+
+        bragg_edge_data = np.nanmean(bragg_edge_data, axis=0)
+        x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
+
+        self.parent.bragg_edge_plot.plot(x_axis, bragg_edge_data)
+        self.parent.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
+        self.parent.bragg_edge_plot.setLabel("left", "Average Counts")
+
+        if self.grand_parent.fitting_bragg_edge_linear_selection == []:
+            linear_region_left_index = 0
+            linear_region_right_index = len(x_axis) - 1
+            self.grand_parent.fitting_bragg_edge_linear_selection = [linear_region_left_index,
+                                                                     linear_region_right_index]
+
+        else:
+            [linear_region_left_index, linear_region_right_index] = \
+                self.grand_parent.fitting_bragg_edge_linear_selection
+
+        lr_left = x_axis[linear_region_left_index]
+        lr_right = x_axis[linear_region_right_index]
+
+        linear_region_range = [lr_left, lr_right]
+
+        if self.parent.fitting_lr is None:
+
+            lr = pg.LinearRegionItem(values=linear_region_range,
+                                     orientation='vertical',
+                                     brush=None,
+                                     movable=True,
+                                     bounds=None)
+            lr.setZValue(-10)
+            lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_linear_region_changed)
+            lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
+            self.parent.bragg_edge_plot.addItem(lr)
+            self.parent.fitting_lr = lr
+
+        else:
+
+            lr = self.parent.fitting_lr
+            lr.setRegion(linear_region_range)
+            self.parent.bragg_edge_plot.addItem(lr)
+
+    def update_march_dollase_bragg_edge_plot(self):
         if self.grand_parent.display_active_row_flag:
             flag_name = 'active'
         else:
