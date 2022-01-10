@@ -144,6 +144,8 @@ class FittingWindow(QMainWindow):
         o_fitting = FittingHandler(grand_parent=self.parent,
                                    parent=self)
         o_fitting.display_locked_active_bins()
+        if index_tab == 1:
+            self.update_kropff_fitting_plot()
 
     def column_value_table_clicked(self, column):
         '''
