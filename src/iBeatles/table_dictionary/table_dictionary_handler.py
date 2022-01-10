@@ -189,7 +189,9 @@ class TableDictionaryHandler:
                                                                'err': np.NaN},
                                                        'sigma': {'val': np.NaN,
                                                                  'err': np.NaN},
-                                                      }
+                                                       'bragg peak threshold': {'left': np.NaN,
+                                                                                'right': np.NaN},
+                                                       }
 
                 # create the box to show when bin is selected
                 selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,

@@ -453,17 +453,25 @@ class FittingWindow(QMainWindow):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
     def bragg_edge_linear_region_changing(self):
-        self.is_ready_to_fit = False
-        self.bragg_edge_linear_region_changed()
-        self.check_status_widgets()
-        self.update_kropff_fitting_plot()
-
-    def bragg_edge_linear_region_changed(self):
+        print("bragg edge linear region changing")
         self.is_ready_to_fit = False
         o_event = EventHandler(parent=self,
                                grand_parent=self.parent)
         o_event.bragg_edge_region_changed()
         self.check_status_widgets()
+
+    def bragg_edge_linear_region_changed(self):
+        print("bragg edge linear region changed")
+        self.is_ready_to_fit = False
+        o_event = EventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.bragg_edge_region_changed()
+        self.check_status_widgets()
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        QApplication.processEvents()
+        self.update_kropff_fitting_plot()
+        QApplication.restoreOverrideCursor()
+        QApplication.processEvents()
 
     def check_advanced_table_status(self):
         self.is_ready_to_fit = False
