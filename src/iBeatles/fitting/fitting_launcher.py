@@ -33,6 +33,7 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
+            o_fitting.display_locked_active_bins()
             fitting_window.check_advanced_table_status()
         else:
             self.parent.fitting_ui.setFocus()
@@ -138,6 +139,11 @@ class FittingWindow(QMainWindow):
         o_fitting = FittingHandler(parent=self,
                                    grand_parent=self.parent)
         o_fitting.fill_table()
+
+    def fitting_main_tab_widget_changed(self, index_tab):
+        o_fitting = FittingHandler(grand_parent=self.parent,
+                                   parent=self)
+        o_fitting.display_locked_active_bins()
 
     def column_value_table_clicked(self, column):
         '''
@@ -440,6 +446,7 @@ class FittingWindow(QMainWindow):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
     def bragg_edge_linear_region_changing(self):
+        print("bragg edge linear region changing")
         self.is_ready_to_fit = False
         self.bragg_edge_linear_region_changed()
         self.check_status_widgets()

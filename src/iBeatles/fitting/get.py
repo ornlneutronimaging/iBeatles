@@ -1,6 +1,6 @@
 import numpy as np
 
-from . import KropffTabSelected
+from . import KropffTabSelected, FittingTabSelected
 from ..utilities.table_handler import TableHandler
 
 
@@ -10,7 +10,16 @@ class Get:
         self.parent = parent
         self.grand_parent = grand_parent
 
-    def tab_selected(self):
+    def main_tab_selected(self):
+        tab_selected_index = self.parent.ui.tabWidget.currentIndex()
+        if tab_selected_index == 0:
+            return FittingTabSelected.march_dollase
+        elif tab_selected_index == 1:
+            return FittingTabSelected.kropff
+        else:
+            raise IndexError("Fitting algorithm not implemented")
+
+    def kropff_tab_selected(self):
         tab_selected_index = self.parent.ui.kropff_tabWidget.currentIndex()
         if tab_selected_index == 0:
             tab_selected = KropffTabSelected.high_tof
@@ -20,8 +29,8 @@ class Get:
             tab_selected = KropffTabSelected.bragg_peak
         return tab_selected
 
-    def table_ui_selected(self):
-        tab_selected = self.tab_selected()
+    def kropff_tab_ui_selected(self):
+        tab_selected = self.kropff_tab_selected()
         if tab_selected == KropffTabSelected.high_tof:
             return self.parent.ui.high_lda_tableWidget
         elif tab_selected == KropffTabSelected.low_tof:
@@ -32,7 +41,7 @@ class Get:
             raise ValueError("Tab Selected is invalid!")
 
     def y_axis_for_given_rows_selected(self):
-        table_ui_selected = self.table_ui_selected()
+        table_ui_selected = self.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
         data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])

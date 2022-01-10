@@ -157,7 +157,7 @@ class Initialization:
         active_button.pressed.connect(self.parent.active_button_pressed)
         self.parent.ui.active_bins_button = active_button
 
-        # indi bin button
+        # individual bin button
         buttons_layout.addWidget(active_button)
         locked_button = QRadioButton()
         locked_button.setText("Locked Bins")

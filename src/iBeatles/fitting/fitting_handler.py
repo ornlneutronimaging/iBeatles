@@ -80,20 +80,21 @@ class FittingHandler:
                                          parent=self.parent)
         o_table.create_table_dictionary()
 
-        refresh_image_view = False
         if self.grand_parent.table_loaded_from_session:
             o_table.initialize_parameters_from_session()
-            refresh_image_view = True
 
         o_fill_table = FillingTableHandler(grand_parent=self.grand_parent,
                                            parent=self.parent)
         o_fill_table.fill_table()
 
-        if refresh_image_view:
-            o_bin_handler = SelectedBinsHandler(parent=self.parent,
-                                                grand_parent=self.grand_parent)
-            o_bin_handler.update_bins_locked()
-            o_bin_handler.update_bins_selected()
-            o_bin_handler.update_bragg_edge_plot()
-            self.parent.min_or_max_lambda_manually_changed()
-            self.parent.check_status_widgets()
+        if self.grand_parent.table_loaded_from_session:
+            self.display_locked_active_bins()
+
+    def display_locked_active_bins(self):
+        o_bin_handler = SelectedBinsHandler(parent=self.parent,
+                                            grand_parent=self.grand_parent)
+        o_bin_handler.update_bins_locked()
+        o_bin_handler.update_bins_selected()
+        o_bin_handler.update_bragg_edge_plot()
+        self.parent.min_or_max_lambda_manually_changed()
+        self.parent.check_status_widgets()
