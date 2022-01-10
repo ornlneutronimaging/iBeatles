@@ -259,6 +259,11 @@ class FittingWindow(QMainWindow):
         self.check_state_of_step3_button()
         self.check_state_of_step4_button()
 
+        if self.ui.kropff_bragg_peak_single_selection.isChecked():
+            self.ui.bragg_edge_tableWidget.setSelectionMode(1)
+        else:
+            self.ui.bragg_edge_tableWidget.setSelectionMode(2)
+
     def check_state_of_step3_button(self):
         """The step1 button should be enabled if at least one row of the big table
         is activated and display in the 1D plot"""
