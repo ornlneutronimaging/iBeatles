@@ -1,3 +1,5 @@
+import numpy as np
+
 from . import KropffTabSelected
 from ..utilities.table_handler import TableHandler
 
@@ -33,13 +35,29 @@ class Get:
         table_ui_selected = self.table_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
+        data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
+
+        # index of selection in bragg edge plot
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
+
+        list_of_y_axis = []
         for _row in row_selected:
             _bin_entry = table_dictionary[str(_row)]
             _bin_x0 = _bin_entry['bin_coordinates']['x0']
             _bin_x1 = _bin_entry['bin_coordinates']['x1']
             _bin_y0 = _bin_entry['bin_coordinates']['y0']
             _bin_y1 = _bin_entry['bin_coordinates']['y1']
-            print(f"for _row:{_row} x0:{_bin_x0} x1:{_bin_x1} y0:{_bin_y0} y1:{_bin_y1}")
+
+            y_axis = data_2d[left_index: right_index,
+                     _bin_x0: _bin_x1,
+                     _bin_y0: _bin_y1,
+                     ]  # noqa: E124
+            y_axis = np.nanmean(y_axis, axis=1)
+            y_axis = np.array(np.nanmean(y_axis, axis=1), dtype=float)
+
+            list_of_y_axis.append(y_axis)
+
+        return list_of_y_axis
 
     def row_selected_for_this_table_ui(self, table_ui=None):
         if table_ui is None:

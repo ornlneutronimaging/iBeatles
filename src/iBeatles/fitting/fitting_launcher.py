@@ -555,6 +555,15 @@ class FittingWindow(QMainWindow):
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()
 
+    def kropff_high_tof_table_selection_changed(self):
+        self.update_kropff_fitting_plot()
+
+    def kropff_low_tof_table_selection_changed(self):
+        self.update_kropff_fitting_plot()
+
+    def kropff_bragg_peak_table_selection_changed(self):
+        self.update_kropff_fitting_plot()
+
     def windows_settings(self):
         self.parent.session_dict[DataType.fitting]['ui']['splitter_2'] = self.ui.splitter_2.sizes()
         self.parent.session_dict[DataType.fitting]['ui']['splitter'] = self.ui.splitter.sizes()

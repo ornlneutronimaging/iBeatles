@@ -750,7 +750,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -1809,6 +1809,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>high_lda_tableWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_high_tof_table_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>289</x>
+     <y>747</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>893</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>low_lda_tableWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_low_tof_table_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>195</x>
+     <y>748</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>91</x>
+     <y>1011</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bragg_edge_tableWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_table_selection_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>212</x>
+     <y>788</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>217</x>
+     <y>1010</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -1877,5 +1925,8 @@
   <slot>kropff_parameters_changed_with_string()</slot>
   <slot>kropff_bragg_peak_selection_mode_changed()</slot>
   <slot>kropff_high_low_bragg_peak_tabs_changed()</slot>
+  <slot>kropff_high_tof_table_selection_changed()</slot>
+  <slot>kropff_low_tof_table_selection_changed()</slot>
+  <slot>kropff_bragg_peak_table_selection_changed()</slot>
  </slots>
 </ui>
