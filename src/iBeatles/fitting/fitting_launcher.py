@@ -458,10 +458,6 @@ class FittingWindow(QMainWindow):
         self.check_status_widgets()
         self.update_kropff_fitting_plot()
 
-
-
-
-
     def bragg_edge_linear_region_changed(self):
         self.is_ready_to_fit = False
         o_event = EventHandler(parent=self,
@@ -522,6 +518,11 @@ class FittingWindow(QMainWindow):
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
 
+    def kropff_automatic_bragg_peak_threshold_finder_changed(self):
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.kropff_automatic_bragg_peak_threshold_finder_changed()
+
     def kropff_parameters_changed(self):
         a0 = self.ui.kropff_high_lda_a0_init.text()
         b0 = self.ui.kropff_high_lda_b0_init.text()
@@ -559,6 +560,9 @@ class FittingWindow(QMainWindow):
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['graph'] = bragg_peak_graph
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['table selection'] = \
             bragg_peak_table_selection
+
+        self.parent.session_dict[DataType.fitting]['kropff']['automatic bragg peak threshold finder'] = \
+            self.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.isChecked()
 
     def kropff_bragg_peak_selection_mode_changed(self):
         if self.ui.kropff_bragg_peak_single_selection.isChecked():

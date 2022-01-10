@@ -81,3 +81,6 @@ class Get:
         o_table = TableHandler(table_ui=kropff_tab_ui_selected)
         row_selected = o_table.get_rows_of_table_selected()
         return row_selected
+
+    def is_automatic_bragg_peak_threshold_finder_activated(self):
+        return self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.isChecked()

@@ -27,3 +27,11 @@ class KropffHandler:
         for _yaxis in yaxis:
             _yaxis = -np.log(_yaxis)
             self.parent.ui.kropff_fitting.plot(xaxis, _yaxis, symbol='o')
+
+    def kropff_automatic_bragg_peak_threshold_finder_changed(self):
+        o_get = Get(parent=self.parent)
+        if o_get.is_automatic_bragg_peak_threshold_finder_activated():
+            print("automatic calculation of bragg peak threshold")
+        else:
+            print("manual selection of bragg peak threshold")
+

@@ -193,12 +193,14 @@ class Initialization:
         """
         such as material h,k,l list according to material selected in normalized tab
         """
+
+        kropff_session_dict = self.grand_parent.session_dict[DataType.fitting]['kropff']
+
         hkl_list = self.grand_parent.selected_element_hkl_array
         str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
         self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
 
         # Kropff
-        kropff_session_dict = self.grand_parent.session_dict[DataType.fitting]['kropff']
         a0 = kropff_session_dict['high tof']['a0']
         b0 = kropff_session_dict['high tof']['b0']
         high_tof_graph = kropff_session_dict['high tof']['graph']
@@ -230,7 +232,9 @@ class Initialization:
         self.parent.ui.kropff_bragg_peak_ldahkl_init.setText(lambda_hkl)
         self.parent.ui.kropff_bragg_peak_tau_init.setText(tau)
         index = self.parent.ui.kropff_bragg_peak_sigma_comboBox.findText(sigma)
+        self.parent.ui.kropff_bragg_peak_sigma_comboBox.blockSignals(True)
         self.parent.ui.kropff_bragg_peak_sigma_comboBox.setCurrentIndex(index)
+        self.parent.ui.kropff_bragg_peak_sigma_comboBox.blockSignals(False)
         if bragg_peak_tof_graph == 'lambda_hkl':
             self.parent.ui.kropff_lda_hkl_radioButton.setChecked(True)
         elif bragg_peak_tof_graph == 'tau':
@@ -241,6 +245,11 @@ class Initialization:
             self.parent.ui.kropff_bragg_peak_single_selection.setChecked(True)
         else:
             self.parent.ui.kropff_bragg_peak_multi_selection.setChecked(True)
+
+        if kropff_session_dict['automatic bragg peak threshold finder']:
+            self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(True)
+        else:
+            self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(False)
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']

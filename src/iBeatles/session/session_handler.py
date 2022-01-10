@@ -102,6 +102,7 @@ class SessionHandler:
                                                           'table selection': 'single',
                                                           'graph': 'lambda_hkl',
                                                           },
+                                           'automatic bragg peak threshold finder': True,
                                            }
                                 }
                     }
