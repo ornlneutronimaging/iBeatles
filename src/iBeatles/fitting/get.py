@@ -44,15 +44,11 @@ class Get:
         table_ui_selected = self.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
-        print("#d")
         # data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
         data_2d = self.grand_parent.data_metadata['normalized']['data']
-        print(f"type(self.grand_parent.data_metadata['normalized']['data']): {type(self.grand_parent.data_metadata['normalized']['data'])}")
-        print("#ae")
 
         # index of selection in bragg edge plot
         [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
-        print("#af")
 
         list_of_y_axis = []
         for _row in row_selected:
@@ -62,16 +58,12 @@ class Get:
             _bin_y0 = _bin_entry['bin_coordinates']['y0']
             _bin_y1 = _bin_entry['bin_coordinates']['y1']
 
-            print("#a")
             y_axis = data_2d[left_index: right_index,
                              _bin_x0: _bin_x1,
                              _bin_y0: _bin_y1,
                              ]  # noqa: E124
-            print("#b")
             y_axis = np.nanmean(y_axis, axis=1)
-            print("#c")
             y_axis = np.array(np.nanmean(y_axis, axis=1), dtype=float)
-            print("#d")
 
             list_of_y_axis.append(y_axis)
 

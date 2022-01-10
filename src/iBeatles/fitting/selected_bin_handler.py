@@ -106,7 +106,7 @@ class SelectedBinsHandler(object):
         self.parent.bragg_edge_data['x_axis'] = x_axis
 
         # retrieve image
-        data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
+        data_2d = self.grand_parent.data_metadata['normalized']['data']
 
         o_get = Get(parent=self.parent)
         list_bin_selected = o_get.kropff_row_selected()
@@ -178,7 +178,7 @@ class SelectedBinsHandler(object):
         table_dictionary = self.grand_parent.march_table_dictionary
 
         # retrieve image
-        data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
+        data_2d = self.grand_parent.data_metadata['normalized']['data']
 
         # isolate data selected    data[x0:x1, y0:y1] for each bin selected
         bragg_edge_data = []

@@ -16,11 +16,9 @@ class KropffHandler:
         [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
         full_x_axis = self.parent.bragg_edge_data['x_axis']
         xaxis = np.array(full_x_axis[left_index: right_index], dtype=float)
-        print("#4")
 
         o_get = Get(parent=self.parent, grand_parent=self.grand_parent)
         yaxis = o_get.y_axis_for_given_rows_selected()
-        print("#5")
 
         self.parent.ui.kropff_fitting.setLabel("left", 'Cross Section (arbitrary units, -log(counts))')
         self.parent.ui.kropff_fitting.setLabel("bottom", u'\u03BB (\u212B)')
