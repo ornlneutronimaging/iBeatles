@@ -750,7 +750,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -1793,6 +1793,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>kropff_tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_high_low_bragg_peak_tabs_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>668</x>
+     <y>735</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>753</x>
+     <y>519</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -1860,5 +1876,6 @@
   <slot>kropff_parameters_changed()</slot>
   <slot>kropff_parameters_changed_with_string()</slot>
   <slot>kropff_bragg_peak_selection_mode_changed()</slot>
+  <slot>kropff_high_low_bragg_peak_tabs_changed()</slot>
  </slots>
 </ui>

@@ -16,6 +16,7 @@ from .fitting_initialization_handler import FittingInitializationHandler
 from .create_fitting_story_launcher import CreateFittingStoryLauncher
 from .initialization import Initialization
 from .event_handler import EventHandler
+from .kropff_handler import KropffHandler
 
 
 class FittingLauncher(object):
@@ -499,6 +500,9 @@ class FittingWindow(QMainWindow):
                                    grand_parent=self.parent)
 
     # kropff
+    def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
+        self.update_kropff_fitting_plot()
+
     def kropff_parameters_changed(self):
         a0 = self.ui.kropff_high_lda_a0_init.text()
         b0 = self.ui.kropff_high_lda_b0_init.text()
@@ -545,7 +549,8 @@ class FittingWindow(QMainWindow):
         self.update_kropff_fitting_plot()
 
     def update_kropff_fitting_plot(self):
-        pass
+        o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
+        o_kropff.update_fitting_plot()
 
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()
