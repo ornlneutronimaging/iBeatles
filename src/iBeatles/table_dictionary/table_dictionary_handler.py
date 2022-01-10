@@ -164,9 +164,9 @@ class TableDictionaryHandler:
                 _str_index = str(_index)
 
                 kropff_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
-                                                                    'x1': _x + bin_size,
-                                                                    'y0': _y,
-                                                                    'y1': _y + bin_size},
+                                                                           'x1': _x + bin_size,
+                                                                           'y0': _y,
+                                                                           'y1': _y + bin_size},
                                                        'selected_item': None,
                                                        'locked_item': None,
                                                        'row_index': _index_row,
