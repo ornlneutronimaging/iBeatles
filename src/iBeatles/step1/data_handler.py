@@ -106,7 +106,7 @@ class DataHandler:
     def record_data(self, o_load_image):
         self.parent.list_files[self.data_type] = o_load_image.list_of_files
         self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
-        self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
+        self.parent.data_metadata[self.data_type]['data'] = np.array(o_load_image.image_array)
 
     def get_time_spectra_file(self):
         o_time_spectra = GetTimeSpectraFilename(parent=self.parent,

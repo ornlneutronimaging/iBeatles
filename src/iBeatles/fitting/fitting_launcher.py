@@ -453,7 +453,6 @@ class FittingWindow(QMainWindow):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
     def bragg_edge_linear_region_changing(self):
-        print("bragg edge linear region changing")
         self.is_ready_to_fit = False
         o_event = EventHandler(parent=self,
                                grand_parent=self.parent)
@@ -461,7 +460,6 @@ class FittingWindow(QMainWindow):
         self.check_status_widgets()
 
     def bragg_edge_linear_region_changed(self):
-        print("bragg edge linear region changed")
         self.is_ready_to_fit = False
         o_event = EventHandler(parent=self,
                                grand_parent=self.parent)

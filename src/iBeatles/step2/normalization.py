@@ -130,7 +130,9 @@ class Normalization(object):
 
     def saving_normalization_parameters(self, o_norm=None, output_folder=None):
         logging.info("Internally saving normalization parameters (data, folder, time_spectra)")
-        self.parent.data_metadata[DataType.normalized]['data'] = o_norm.get_normalized_data()
+        self.parent.data_metadata[DataType.normalized]['data'] = np.array(o_norm.get_normalized_data())
+        print("in saving normalizatoin parameters")
+        print(f"type(self.parent.data_metadata[DataType.normalized]['data']) is {type(self.parent.data_metadata[DataType.normalized]['data'])}")
         self.parent.data_metadata[DataType.normalized]['folder'] = output_folder
         self.parent.data_metadata[DataType.normalized]['time_spectra'] = \
             copy.deepcopy(self.parent.data_metadata[DataType.sample]['time_spectra'])
