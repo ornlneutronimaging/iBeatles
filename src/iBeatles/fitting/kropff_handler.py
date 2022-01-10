@@ -21,7 +21,8 @@ class KropffHandler:
 
         o_get = Get(parent=self.parent, grand_parent=self.grand_parent)
         yaxis = o_get.y_axis_for_given_rows_selected()
-        self.parent.ui.kropff_fitting.setLabel("left", 'Cross Section (arbitrary units)')
+        self.parent.ui.kropff_fitting.setLabel("left", 'Cross Section (arbitrary units, -log(counts))')
+        self.parent.ui.kropff_fitting.setLabel("bottom", u'\u03BB (\u212B)')
 
         for _yaxis in yaxis:
             _yaxis = -np.log(_yaxis)
