@@ -537,6 +537,16 @@ class FittingWindow(QMainWindow):
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['table selection'] = \
             bragg_peak_table_selection
 
+    def kropff_bragg_peak_selection_mode_changed(self):
+        if self.ui.kropff_bragg_peak_single_selection.isChecked():
+            self.ui.bragg_edge_tableWidget.setSelectionMode(1)
+        else:
+            self.ui.bragg_edge_tableWidget.setSelectionMode(2)
+        self.update_kropff_fitting_plot()
+
+    def update_kropff_fitting_plot(self):
+        pass
+
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()
 
