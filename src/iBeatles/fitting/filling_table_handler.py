@@ -90,6 +90,9 @@ class FillingTableHandler(object):
                                     editable=False,
                                     align_center=True)
 
+        # select first row
+        o_table.select_row(0)
+
         o_table.block_signals(False)
 
     def fill_kropff_low_tof_table(self):
@@ -127,6 +130,9 @@ class FillingTableHandler(object):
                                     value=_value,
                                     editable=False,
                                     align_center=True)
+
+        # select first row
+        o_table.select_row(0)
 
         o_table.block_signals(False)
 
@@ -167,6 +173,9 @@ class FillingTableHandler(object):
                                     value=_value,
                                     editable=False,
                                     align_center=True)
+
+        # select first row
+        o_table.select_row(0)
 
         o_table.block_signals(False)
 
