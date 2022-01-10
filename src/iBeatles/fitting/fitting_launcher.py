@@ -453,10 +453,14 @@ class FittingWindow(QMainWindow):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
     def bragg_edge_linear_region_changing(self):
-        print("bragg edge linear region changing")
         self.is_ready_to_fit = False
         self.bragg_edge_linear_region_changed()
         self.check_status_widgets()
+        self.update_kropff_fitting_plot()
+
+
+
+
 
     def bragg_edge_linear_region_changed(self):
         self.is_ready_to_fit = False
