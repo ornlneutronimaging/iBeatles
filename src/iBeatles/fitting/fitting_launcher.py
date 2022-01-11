@@ -460,6 +460,9 @@ class FittingWindow(QMainWindow):
         self.check_status_widgets()
 
     def bragg_edge_linear_region_changed(self):
+        o_table = TableDictionaryHandler(parent=self,
+                                         grand_parent=self.parent)
+        o_table.clear_y_axis_and_x_axis_from_kropff_table_dictionary()
         self.is_ready_to_fit = False
         o_event = EventHandler(parent=self,
                                grand_parent=self.parent)

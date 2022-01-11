@@ -132,6 +132,12 @@ class TableDictionaryHandler:
         self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.table_loaded_from_session = None
 
+    def clear_y_axis_and_x_axis_from_kropff_table_dictionary(self):
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        for _row in kropff_table_dictionary.keys():
+            kropff_table_dictionary[_row]['yaxis'] = None
+            kropff_table_dictionary[_row]['xaxis'] = None
+
     def create_table_dictionary(self):
         '''
         this will define the corner position and index of each cell
@@ -167,6 +173,8 @@ class TableDictionaryHandler:
                                                                            'x1': _x + bin_size,
                                                                            'y0': _y,
                                                                            'y1': _y + bin_size},
+                                                       'yaxis': None,
+                                                       'xaxis': None,
                                                        'selected_item': None,
                                                        'locked_item': None,
                                                        'row_index': _index_row,

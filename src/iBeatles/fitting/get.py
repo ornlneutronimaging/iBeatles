@@ -40,7 +40,7 @@ class Get:
         else:
             raise ValueError("Tab Selected is invalid!")
 
-    def y_axis_for_given_rows_selected(self):
+    def y_axis_and_x_axis_for_given_rows_selected(self):
         table_ui_selected = self.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
@@ -50,24 +50,40 @@ class Get:
         # index of selection in bragg edge plot
         [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
-        list_of_y_axis = []
+        list_of_yaxis = []
         for _row in row_selected:
             _bin_entry = table_dictionary[str(_row)]
-            _bin_x0 = _bin_entry['bin_coordinates']['x0']
-            _bin_x1 = _bin_entry['bin_coordinates']['x1']
-            _bin_y0 = _bin_entry['bin_coordinates']['y0']
-            _bin_y1 = _bin_entry['bin_coordinates']['y1']
 
-            y_axis = data_2d[left_index: right_index,
-                             _bin_x0: _bin_x1,
-                             _bin_y0: _bin_y1,
-                             ]  # noqa: E124
-            y_axis = np.nanmean(y_axis, axis=1)
-            y_axis = np.array(np.nanmean(y_axis, axis=1), dtype=float)
+            if _bin_entry['yaxis'] is None:
 
-            list_of_y_axis.append(y_axis)
+                _bin_x0 = _bin_entry['bin_coordinates']['x0']
+                _bin_x1 = _bin_entry['bin_coordinates']['x1']
+                _bin_y0 = _bin_entry['bin_coordinates']['y0']
+                _bin_y1 = _bin_entry['bin_coordinates']['y1']
 
-        return list_of_y_axis
+                yaxis = data_2d[left_index: right_index,
+                                 _bin_x0: _bin_x1,
+                                 _bin_y0: _bin_y1,
+                                 ]  # noqa: E124
+                yaxis = np.nanmean(yaxis, axis=1)
+                yaxis = np.array(np.nanmean(yaxis, axis=1), dtype=float)
+                _bin_entry['yaxis'] = yaxis
+                self.grand_parent.kropff_table_dictionary[str(_row)] = _bin_entry
+
+                # index of selection in bragg edge plot
+                [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
+                full_x_axis = self.parent.bragg_edge_data['x_axis']
+                xaxis = np.array(full_x_axis[left_index: right_index], dtype=float)
+                _bin_entry['xaxis'] = xaxis
+
+            else:
+
+                yaxis = _bin_entry['yaxis']
+                xaxis = _bin_entry['xaxis']
+
+            list_of_yaxis.append(yaxis)
+
+        return list_of_yaxis, xaxis
 
     def row_selected_for_this_table_ui(self, table_ui=None):
         if table_ui is None:
