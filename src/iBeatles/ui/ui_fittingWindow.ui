@@ -750,13 +750,13 @@
                     <widget class="QCheckBox" name="kropff_automatic_bragg_peak_threshold_finder_checkBox">
                      <property name="minimumSize">
                       <size>
-                       <width>300</width>
+                       <width>260</width>
                        <height>0</height>
                       </size>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>300</width>
+                       <width>260</width>
                        <height>16777215</height>
                       </size>
                      </property>
@@ -764,6 +764,38 @@
                       <string>Automatic Bragg peak threshold finder</string>
                      </property>
                     </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_settings">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_4">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
                    </item>
                    <item>
                     <widget class="QPushButton" name="pushButton">
@@ -1607,8 +1639,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>202</x>
-     <y>570</y>
+     <x>154</x>
+     <y>559</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1623,8 +1655,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>275</x>
-     <y>570</y>
+     <x>154</x>
+     <y>559</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1719,8 +1751,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>695</y>
+     <x>190</x>
+     <y>598</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1735,8 +1767,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>193</x>
-     <y>694</y>
+     <x>214</x>
+     <y>598</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1767,8 +1799,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>235</x>
-     <y>695</y>
+     <x>217</x>
+     <y>709</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1783,8 +1815,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>320</x>
-     <y>694</y>
+     <x>217</x>
+     <y>709</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -1863,8 +1895,8 @@
    <slot>kropff_low_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>195</x>
-     <y>748</y>
+     <x>174</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -1917,6 +1949,22 @@
     <hint type="destinationlabel">
      <x>2</x>
      <y>501</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>automatic_bragg_peak_threshold_finder_settings</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>325</x>
+     <y>493</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>444</y>
     </hint>
    </hints>
   </connection>
@@ -1993,5 +2041,6 @@
   <slot>kropff_bragg_peak_table_selection_changed()</slot>
   <slot>fitting_main_tab_widget_changed()</slot>
   <slot>kropff_automatic_bragg_peak_threshold_finder_changed()</slot>
+  <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
  </slots>
 </ui>

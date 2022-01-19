@@ -6,6 +6,7 @@ import logging
 from ..utilities.table_handler import TableHandler
 from .. import load_ui
 from .. import DataType
+from . import KropffThresholdFinder
 
 from .fitting_handler import FittingHandler
 from .value_table_handler import ValueTableHandler
@@ -17,6 +18,7 @@ from .create_fitting_story_launcher import CreateFittingStoryLauncher
 from .initialization import Initialization
 from .event_handler import EventHandler
 from .kropff_handler import KropffHandler
+from .kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
 
 
 class FittingLauncher(object):
@@ -119,6 +121,8 @@ class FittingWindow(QMainWindow):
 
     bragg_edge_data = {'x_axis': [],
                        'y_axis': []}
+
+    kropff_automatic_threshold_finder_algorithm = KropffThresholdFinder.sliding_average
 
     def __init__(self, parent=None):
 
@@ -531,6 +535,10 @@ class FittingWindow(QMainWindow):
         o_event = KropffHandler(parent=self,
                                 grand_parent=self.parent)
         o_event.kropff_automatic_bragg_peak_threshold_finder_changed()
+
+    def kropff_automatic_bragg_peak_threshold_finder_settings_clicked(self):
+        o_kropff = KropffAutomaticSettingsLauncher(parent=self)
+        o_kropff.show()
 
     def kropff_parameters_changed(self):
         a0 = self.ui.kropff_high_lda_a0_init.text()

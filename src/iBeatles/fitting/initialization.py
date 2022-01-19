@@ -4,9 +4,11 @@ from qtpy import QtCore
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 import logging
+from qtpy.QtGui import QIcon
 
 from .. import DataType
 from ..utilities.table_handler import TableHandler
+from .. import settings_icon
 
 
 class Initialization:
@@ -250,6 +252,9 @@ class Initialization:
             self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(True)
         else:
             self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(False)
+
+        icon = QIcon(settings_icon)
+        self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']
