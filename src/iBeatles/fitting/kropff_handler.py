@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 
 from .get import Get
 
@@ -21,13 +22,12 @@ class KropffHandler:
         for _yaxis in yaxis:
             _yaxis = -np.log(_yaxis)
             self.parent.ui.kropff_fitting.plot(xaxis, _yaxis, symbol='o')
-            self.kropff_automatic_bragg_peak_threshold_finder_changed(xaxis=xaxis,
-                                                                      yaxis=_yaxis)
 
-    def kropff_automatic_bragg_peak_threshold_finder_changed(self, xaxis=None, yaxis=None):
-        o_get = Get(parent=self.parent)
-        if o_get.is_automatic_bragg_peak_threshold_finder_activated():
-            print("automatic calculation of bragg peak threshold")
+    def kropff_automatic_bragg_peak_threshold_finder_changed(self):
+        o_get = Get(parent=self.parent, grand_parent=self.grand_parent)
+        automatic_bragg_peak_threshold_finder_activated = o_get.is_automatic_bragg_peak_threshold_finder_activated()
+        if automatic_bragg_peak_threshold_finder_activated:
+            logging.info("Automatic calculation of Bragg peak threshold!")
+            logging.info(f"-> algorithm selected: {self.parent.kropff_automatic_threshold_finder_algorithm}")
         else:
-            print("manual selection of bragg peak threshold")
-
+            logging.info("Manual selection of Bragg peak threshold!")

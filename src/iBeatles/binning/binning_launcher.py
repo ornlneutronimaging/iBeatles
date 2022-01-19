@@ -213,6 +213,8 @@ class BinningWindow(QMainWindow):
         self.update_binning_bins()
 
         if self.parent.fitting_ui:
+
+            self.parent.fitting_ui.update_selected_bins_plot()
             self.parent.fitting_ui.check_status_widgets()
 
             o_table = TableDictionaryHandler(parent=self.parent.fitting_ui,
@@ -225,7 +227,8 @@ class BinningWindow(QMainWindow):
 
             self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
-            o_hanlder = FittingHandler(parent=self.parent)
+            o_hanlder = FittingHandler(parent=self.parent.fitting_ui,
+                                       grand_parent=self.parent)
 
             o_hanlder.display_roi()
 

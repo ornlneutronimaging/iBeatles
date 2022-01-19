@@ -35,8 +35,8 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-            o_fitting.display_locked_active_bins()
-            fitting_window.check_advanced_table_status()
+            # o_fitting.display_locked_active_bins()
+            # fitting_window.check_advanced_table_status()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -582,6 +582,7 @@ class FittingWindow(QMainWindow):
             self.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.isChecked()
 
     def kropff_bragg_peak_selection_mode_changed(self):
+        print("kropff bragg peak selection mode changed")
         if self.ui.kropff_bragg_peak_single_selection.isChecked():
             self.ui.bragg_edge_tableWidget.setSelectionMode(1)
         else:
@@ -590,12 +591,13 @@ class FittingWindow(QMainWindow):
         self.update_selected_bins_plot()
 
     def update_selected_bins_plot(self):
+        print("update selected bins plot")
         o_kropff = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_bins_selected()
         o_kropff.update_bragg_edge_plot()
-        print("calculate new bragg peak threshold!")
 
     def update_kropff_fitting_plot(self):
+        print("calculate new threshold because region changed")
         o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_fitting_plot()
 

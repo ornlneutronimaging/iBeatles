@@ -142,11 +142,13 @@ class TableDictionaryHandler:
         '''
         this will define the corner position and index of each cell
         '''
-        if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
-            return
+        # if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
+        #     return
+        #
+        # if not self.grand_parent.march_table_dictionary == {}:
+        #     return
 
-        if not self.grand_parent.march_table_dictionary == {}:
-            return
+        print("create table dictionary")
 
         bin_size = self.grand_parent.binning_roi[-1]
         pos = self.grand_parent.binning_line_view['pos']

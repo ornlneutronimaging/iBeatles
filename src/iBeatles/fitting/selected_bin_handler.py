@@ -32,6 +32,8 @@ class SelectedBinsHandler(object):
         self.clear_all_selected_bins()
         o_get = Get(parent=self.parent)
         fitting_tab_selected = o_get.main_tab_selected()
+
+        # March Dollase
         if fitting_tab_selected == FittingTabSelected.march_dollase:
             table_dictionary = self.grand_parent.march_table_dictionary
             list_bins_selected_item = []
@@ -41,7 +43,11 @@ class SelectedBinsHandler(object):
                     self.parent.image_view.addItem(box)
                     list_bins_selected_item.append(box)
             self.parent.list_bins_selected_item = list_bins_selected_item
+
+        # kropff
         else:
+            print("update bins selected")
+
             # only display the bin of the row selected
             o_get = Get(parent=self.parent)
             row_selected = o_get.kropff_row_selected()

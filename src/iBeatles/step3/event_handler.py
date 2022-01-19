@@ -22,7 +22,7 @@ class EventHandler(TopEventHandler):
         o_load.import_files_from_folder(folder=_folder, extension=[".tif", ".fits", ".tiff"])
         o_load.import_time_spectra()
 
-        if self.parent.data_metadata[self.data_type]['data']:
+        if not (self.parent.data_metadata[self.data_type]['data'] is None):
             self.update_ui_after_loading_data(folder=_folder)
 
     def sample_list_selection_changed(self):

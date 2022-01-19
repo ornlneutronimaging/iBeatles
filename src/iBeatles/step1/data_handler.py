@@ -82,7 +82,7 @@ class DataHandler:
         self.load_files(list_of_files)
 
     def import_time_spectra(self):
-        if self.parent.data_metadata[self.data_type]['data']:
+        if not (self.parent.data_metadata[self.data_type]['data'] is None):
             if (self.data_type == DataType.sample) or (self.data_type == DataType.normalized):
                 self.load_time_spectra()
 
