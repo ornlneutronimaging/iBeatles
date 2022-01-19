@@ -148,8 +148,6 @@ class TableDictionaryHandler:
         # if not self.grand_parent.march_table_dictionary == {}:
         #     return
 
-        print("create table dictionary")
-
         bin_size = self.grand_parent.binning_roi[-1]
         pos = self.grand_parent.binning_line_view['pos']
 

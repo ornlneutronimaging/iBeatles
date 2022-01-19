@@ -35,7 +35,7 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-            # o_fitting.display_locked_active_bins()
+            o_fitting.display_locked_active_bins()
             # fitting_window.check_advanced_table_status()
         else:
             self.parent.fitting_ui.setFocus()

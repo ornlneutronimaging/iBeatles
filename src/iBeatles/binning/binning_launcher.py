@@ -221,16 +221,16 @@ class BinningWindow(QMainWindow):
                                              grand_parent=self.parent)
             o_table.create_table_dictionary()
 
+            self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+
+            o_handler = FittingHandler(parent=self.parent.fitting_ui,
+                                       grand_parent=self.parent)
+            o_handler.display_roi()
+            o_handler.display_locked_active_bins()
+
             o_fitting = FillingTableHandler(parent=self.parent.fitting_ui,
                                             grand_parent=self.parent)
             o_fitting.fill_table()
-
-            self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
-
-            o_hanlder = FittingHandler(parent=self.parent.fitting_ui,
-                                       grand_parent=self.parent)
-
-            o_hanlder.display_roi()
 
         self.record_roi()
         QApplication.restoreOverrideCursor()
