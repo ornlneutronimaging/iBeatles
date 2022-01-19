@@ -215,10 +215,12 @@ class BinningWindow(QMainWindow):
         if self.parent.fitting_ui:
             self.parent.fitting_ui.check_status_widgets()
 
-            o_table = TableDictionaryHandler(parent=self.parent)
+            o_table = TableDictionaryHandler(parent=self.parent.fitting_ui,
+                                             grand_parent=self.parent)
             o_table.create_table_dictionary()
 
-            o_fitting = FillingTableHandler(parent=self.parent)
+            o_fitting = FillingTableHandler(parent=self.parent.fitting_ui,
+                                            grand_parent=self.parent)
             o_fitting.fill_table()
 
             self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)

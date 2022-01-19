@@ -35,8 +35,8 @@ class TableDictionaryHandler:
     #           'a6_value', 'a6_err', 'a6_fixed']
 
     def __init__(self, grand_parent=None, parent=None):
-        self.grand_parent = grand_parent
-        self.parent = parent
+        self.grand_parent = grand_parent  # iBeatles main
+        self.parent = parent   # fitting ui
         self.value_table_ui = self.parent.ui.value_table
 
     def fill_table_with_variable(self, variable_name='d_spacing', value=np.NaN, list_keys=[], all_keys=False):

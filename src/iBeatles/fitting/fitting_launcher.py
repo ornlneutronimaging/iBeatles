@@ -585,6 +585,7 @@ class FittingWindow(QMainWindow):
         o_kropff = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_bins_selected()
         o_kropff.update_bragg_edge_plot()
+        print("calculate new bragg peak threshold!")
 
     def update_kropff_fitting_plot(self):
         o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
