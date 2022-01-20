@@ -46,8 +46,6 @@ class SelectedBinsHandler(object):
 
         # kropff
         else:
-            print("update bins selected")
-
             # only display the bin of the row selected
             o_get = Get(parent=self.parent)
             row_selected = o_get.kropff_row_selected()
@@ -59,6 +57,7 @@ class SelectedBinsHandler(object):
                 self.parent.image_view.addItem(box)
                 list_bins_selected_item.append(box)
             self.parent.list_bins_selected_item = list_bins_selected_item
+            self.parent.update_kropff_fitting_plot()
 
     def update_bins_locked(self, all_flag=True):
         self.clear_all_locked_bins()

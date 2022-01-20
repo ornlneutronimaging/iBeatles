@@ -51,6 +51,10 @@ class Get:
         [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         list_of_yaxis = []
+
+        if row_selected == []:
+            return [], []
+
         for _row in row_selected:
             _bin_entry = table_dictionary[str(_row)]
 
@@ -77,7 +81,6 @@ class Get:
                 _bin_entry['xaxis'] = xaxis
 
             else:
-
                 yaxis = _bin_entry['yaxis']
                 xaxis = _bin_entry['xaxis']
 

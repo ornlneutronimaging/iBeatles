@@ -31,3 +31,16 @@ class KropffHandler:
             logging.info(f"-> algorithm selected: {self.parent.kropff_automatic_threshold_finder_algorithm}")
         else:
             logging.info("Manual selection of Bragg peak threshold!")
+            self.display_bragg_peak_threshold(is_manual=True)
+
+    def display_bragg_peak_threshold(self, is_manual=False):
+        pass
+
+        # clear all previously display bragg peak threshold
+
+        # get list of row selected
+
+        # create a vertical linear region range pg.LinearRegionItem (see selected_bin_handler.py line 156)
+        # for
+
+        # save

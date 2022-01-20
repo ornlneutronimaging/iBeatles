@@ -336,8 +336,8 @@ class FittingWindow(QMainWindow):
         #     self.parent.table_dictionary = table_dictionary
 
         # hide this row if status is False and user only wants to see locked items
-        o_filling_handler = FillingTableHandler(grand_parent=self.parent,
-                                                parent=self)
+        # o_filling_handler = FillingTableHandler(grand_parent=self.parent,
+        #                                         parent=self)
         # if (status is False) and (o_filling_handler.get_row_to_show_state() == 'active'):
         #     self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
@@ -591,15 +591,14 @@ class FittingWindow(QMainWindow):
         self.update_selected_bins_plot()
 
     def update_selected_bins_plot(self):
-        print("update selected bins plot")
         o_kropff = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_bins_selected()
         o_kropff.update_bragg_edge_plot()
 
     def update_kropff_fitting_plot(self):
-        print("calculate new threshold because region changed")
         o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_fitting_plot()
+        o_kropff.kropff_automatic_bragg_peak_threshold_finder_changed()
 
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()
