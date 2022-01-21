@@ -72,7 +72,7 @@ class KropffHandler:
             kropff_table_of_row_selected['bragg peak threshold']['left'] = left
             kropff_table_of_row_selected['bragg peak threshold']['right'] = right
         else:
-            print("left and right already defined!")
+            pass
 
         # display item and make it enabled or not according to is_manual mode or not
         lr = pg.LinearRegionItem(values=[left, right],
@@ -82,8 +82,8 @@ class KropffHandler:
                                  bounds=None)
         lr.setZValue(-10)
         if is_item_movable:
-            lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_linear_region_changed)
-            lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
+            lr.sigRegionChangeFinished.connect(self.parent.kropff_bragg_edge_threshold_changed)
+            # lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
         self.parent.ui.kropff_fitting.addItem(lr)
         self.parent.kropff_threshold_current_item = lr
 
@@ -102,3 +102,15 @@ class KropffHandler:
             right_index = nbr_x - 1
 
         return xaxis[left_index], xaxis[right_index]
+
+    def kropff_bragg_edge_threshold_changed(self):
+        lr = self.parent.kropff_threshold_current_item
+        [left, right] = lr.getRegion()
+
+        o_kropff = Get(parent=self.parent)
+        row_selected = str(o_kropff.kropff_row_selected()[0])
+
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        kropff_table_of_row_selected = kropff_table_dictionary[row_selected]
+        kropff_table_of_row_selected['bragg peak threshold']['left'] = left
+        kropff_table_of_row_selected['bragg peak threshold']['right'] = right

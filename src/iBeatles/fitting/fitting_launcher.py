@@ -554,6 +554,11 @@ class FittingWindow(QMainWindow):
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
 
+    def kropff_bragg_edge_threshold_changed(self):
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.kropff_bragg_edge_threshold_changed()
+
     def windows_settings(self):
         self.parent.session_dict[DataType.fitting]['ui']['splitter_2'] = self.ui.splitter_2.sizes()
         self.parent.session_dict[DataType.fitting]['ui']['splitter'] = self.ui.splitter.sizes()
