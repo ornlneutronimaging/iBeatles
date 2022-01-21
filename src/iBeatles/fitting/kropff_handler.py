@@ -4,6 +4,7 @@ import pyqtgraph as pg
 
 from .get import Get
 from .. import DataType
+from .kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
 
 
 class KropffHandler:
@@ -58,8 +59,10 @@ class KropffHandler:
 
         else:
             # calculate threshold for all rows
-            # then create item vertical linear region range pg.LinearRegionItem (see selected_bin_handler.py line 156)
             is_item_movable = False
+            o_calculator = KropffBraggPeakThresholdCalculator(parent=self.parent,
+                                                              grand_parent=self.grand_parent)
+            o_calculator.run_automatic_mode()
 
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         kropff_table_of_row_selected = kropff_table_dictionary[row_selected]

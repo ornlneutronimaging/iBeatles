@@ -24,6 +24,11 @@ class Initialization:
         self.labels()
         self.widgets()
         self.ui()
+        self.global_data()
+
+    def global_data(self):
+        x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
+        self.parent.bragg_edge_data['x_axis'] = x_axis
 
     def table_headers(self):
 
@@ -247,6 +252,9 @@ class Initialization:
             self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(True)
         else:
             self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(False)
+
+        self.parent.kropff_automatic_threshold_finder_algorithm = \
+            kropff_session_dict.get('automatic bragg peak threshold algorithm', True)
 
         icon = QIcon(settings_icon)
         self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)

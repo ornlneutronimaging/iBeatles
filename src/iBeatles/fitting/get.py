@@ -44,6 +44,7 @@ class Get:
         table_ui_selected = self.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
+
         # data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
         data_2d = self.grand_parent.data_metadata['normalized']['data']
 
