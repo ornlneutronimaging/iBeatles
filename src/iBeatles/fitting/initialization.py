@@ -30,6 +30,9 @@ class Initialization:
         x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
         self.parent.bragg_edge_data['x_axis'] = x_axis
 
+        self.parent.kropff_automatic_threshold_finder_algorithm = \
+            self.grand_parent.kropff_automatic_threshold_finder_algorithm
+
     def table_headers(self):
 
         o_kropff_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)

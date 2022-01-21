@@ -121,7 +121,7 @@ class FittingWindow(QMainWindow):
     bragg_edge_data = {'x_axis': [],
                        'y_axis': []}
 
-    kropff_automatic_threshold_finder_algorithm = KropffThresholdFinder.sliding_average
+    kropff_automatic_threshold_finder_algorithm = None
     kropff_threshold_current_item = None
 
     def __init__(self, parent=None):

@@ -35,6 +35,7 @@ from .step3.event_handler import EventHandler as Step3EventHandler
 from .binning.binning_launcher import BinningLauncher
 
 from .fitting.fitting_launcher import FittingLauncher
+from .fitting import KropffThresholdFinder
 
 from .step6.strain_mapping_launcher import StrainMappingLauncher
 
@@ -250,6 +251,7 @@ class MainWindow(QMainWindow):
     # kropff
     kropff_fitting = None  # pyqtgraph plot
     kropff_is_automatic_bragg_peak_threshold_finder = True
+    kropff_automatic_threshold_finder_algorithm = KropffThresholdFinder.sliding_average
 
     def __init__(self, parent=None):
         """ 
