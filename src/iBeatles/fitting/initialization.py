@@ -215,7 +215,6 @@ class Initialization:
         tau = kropff_session_dict['bragg peak']['tau']
         sigma = kropff_session_dict['bragg peak']['sigma']
         bragg_peak_tof_graph = kropff_session_dict['bragg peak']['graph']
-        selection_table = kropff_session_dict['bragg peak']['table selection']
 
         self.parent.ui.kropff_high_lda_a0_init.setText(a0)
         self.parent.ui.kropff_high_lda_b0_init.setText(b0)
@@ -243,10 +242,6 @@ class Initialization:
             self.parent.ui.kropff_tau_radioButton.setChecked(True)
         else:
             self.parent.ui.kropff_sigma_radioButton.setChecked(True)
-        if selection_table == 'single':
-            self.parent.ui.kropff_bragg_peak_single_selection.setChecked(True)
-        else:
-            self.parent.ui.kropff_bragg_peak_multi_selection.setChecked(True)
 
         if kropff_session_dict['automatic bragg peak threshold finder']:
             self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(True)

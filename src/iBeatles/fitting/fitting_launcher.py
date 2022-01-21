@@ -36,7 +36,6 @@ class FittingLauncher(object):
             o_fitting.display_roi()
             o_fitting.fill_table()
             o_fitting.display_locked_active_bins()
-            # fitting_window.check_advanced_table_status()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -149,7 +148,8 @@ class FittingWindow(QMainWindow):
                                    parent=self)
         o_fitting.display_locked_active_bins()
         if index_tab == 1:
-            self.update_kropff_fitting_plot()
+            self.bragg_edge_linear_region_changed()
+            # self.update_kropff_fitting_plot()
 
     def column_value_table_clicked(self, column):
         '''
@@ -184,9 +184,6 @@ class FittingWindow(QMainWindow):
         _item2 = self.parent.fitting_ui.ui.value_table.item(0, _value_table_column[-1])
 
         if _item1.isSelected() and _item2.isSelected():
-
-        # if self.parent.fitting_ui.ui.value_table.isItemSelected(_item1) and \
-        #         self.parent.fitting_ui.ui.value_table.isItemSelected(_item2):
             col_already_selected = True
 
         if column in [2, 3]:
@@ -263,11 +260,6 @@ class FittingWindow(QMainWindow):
         self.check_state_of_step3_button()
         self.check_state_of_step4_button()
 
-        if self.ui.kropff_bragg_peak_single_selection.isChecked():
-            self.ui.bragg_edge_tableWidget.setSelectionMode(1)
-        else:
-            self.ui.bragg_edge_tableWidget.setSelectionMode(2)
-
     def check_state_of_step3_button(self):
         """The step1 button should be enabled if at least one row of the big table
         is activated and display in the 1D plot"""
@@ -291,55 +283,8 @@ class FittingWindow(QMainWindow):
         if self.parent.advanced_selection_ui:
             self.parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
 
-        # if status == 0:
-        #     status = False
-        # else:
-        #     status = True
-
         self.mirror_state_of_widgets(column=3, row_clicked=row_clicked)
         self.check_state_of_step3_button()
-
-        # # perform same status on all rows
-        # _selection = self.ui.value_table.selectedRanges()
-        # _this_column_is_selected = False
-        # for _select in _selection:
-        #     if 3 in [_select.leftColumn(), _select.rightColumn()]:
-        #         _this_column_is_selected = True
-        #         break
-
-        # table_dictionary = self.parent.table_dictionary
-        # if _this_column_is_selected:
-        #     # update_selection_flag = True  # we change the state so we need to update the selection
-        #     for _index in table_dictionary:
-        #         table_dictionary[_index]['active'] = status
-        #         _widget_lock = self.ui.value_table.cellWidget(int(_index), 3)
-        #         _widget_lock.blockSignals(True)
-        #         _widget_lock.setChecked(status)
-        #         _widget_lock.blockSignals(False)
-        #         if status:
-        #             _widget = self.ui.value_table.cellWidget(int(_index), 2)
-        #             if _widget.isChecked():  # because we can not be active and locked at the same time
-        #                 table_dictionary[_index]['lock'] = False
-        #                 _widget.blockSignals(True)
-        #                 _widget.setChecked(False)
-        #                 _widget.blockSignals(False)
-        # else:
-        #     table_dictionary[str(row_clicked)]['active'] = status
-        #     if status:
-        #         _widget = self.ui.value_table.cellWidget(row_clicked, 2)
-        #         if _widget.isChecked():
-        #             table_dictionary[str(row_clicked)]['lock'] = False
-        #             _widget.blockSignals(True)
-        #             _widget.setChecked(False)
-        #             _widget.blockSignals(False)
-        #             update_lock_flag = True
-        #     self.parent.table_dictionary = table_dictionary
-
-        # hide this row if status is False and user only wants to see locked items
-        # o_filling_handler = FillingTableHandler(grand_parent=self.parent,
-        #                                         parent=self)
-        # if (status is False) and (o_filling_handler.get_row_to_show_state() == 'active'):
-        #     self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
 
         o_bin_handler = SelectedBinsHandler(parent=self,
                                             grand_parent=self.parent)
@@ -558,10 +503,6 @@ class FittingWindow(QMainWindow):
             bragg_peak_graph = 'tau'
         else:
             bragg_peak_graph = 'sigma'
-        if self.ui.kropff_bragg_peak_single_selection.isChecked():
-            bragg_peak_table_selection = 'single'
-        else:
-            bragg_peak_table_selection = 'multi'
 
         self.parent.session_dict[DataType.fitting]['kropff']['high tof']['a0'] = a0
         self.parent.session_dict[DataType.fitting]['kropff']['high tof']['b0'] = b0
@@ -575,14 +516,11 @@ class FittingWindow(QMainWindow):
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['tau'] = tau
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['sigma'] = sigma
         self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['graph'] = bragg_peak_graph
-        self.parent.session_dict[DataType.fitting]['kropff']['bragg peak']['table selection'] = \
-            bragg_peak_table_selection
 
         self.parent.session_dict[DataType.fitting]['kropff']['automatic bragg peak threshold finder'] = \
             self.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.isChecked()
 
     def kropff_bragg_peak_selection_mode_changed(self):
-        print("kropff bragg peak selection mode changed")
         if self.ui.kropff_bragg_peak_single_selection.isChecked():
             self.ui.bragg_edge_tableWidget.setSelectionMode(1)
         else:
