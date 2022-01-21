@@ -115,5 +115,7 @@ class SaveFittingTab(SaveTab):
                                                 'sigma': sigma,
                                                 'bragg_peak_threshold': bragg_peak_threshold}
         self.session_dict[DataType.fitting]['kropff']["table dictionary"] = formatted_table_dictionary
+        self.session_dict[DataType.fitting]['kropff']["automatic bragg peak threshold finder"] = \
+            self.parent.session_dict['fitting']['kropff']["automatic bragg peak threshold finder"]
 
         # self.session_dict[DataType.fitting]['kropff'] = self.parent.session_dict[DataType.fitting]['kropff']

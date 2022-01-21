@@ -249,6 +249,7 @@ class MainWindow(QMainWindow):
 
     # kropff
     kropff_fitting = None  # pyqtgraph plot
+    kropff_is_automatic_bragg_peak_threshold_finder = True
 
     def __init__(self, parent=None):
         """ 

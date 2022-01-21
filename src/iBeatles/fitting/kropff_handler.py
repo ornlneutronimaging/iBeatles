@@ -38,6 +38,7 @@ class KropffHandler:
             logging.info("Manual selection of Bragg peak threshold!")
             is_manual = True
         self.display_bragg_peak_threshold(is_manual=is_manual)
+        self.grand_parent.session_dict['fitting']['kropff']["automatic bragg peak threshold finder"] = not is_manual
 
     def display_bragg_peak_threshold(self, is_manual=False):
 
