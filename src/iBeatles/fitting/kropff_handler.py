@@ -1,10 +1,13 @@
 import numpy as np
 import logging
+import pyqtgraph as pg
 
 from .get import Get
 
 
 class KropffHandler:
+
+    default_threshold_width = 3
 
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
@@ -29,18 +32,69 @@ class KropffHandler:
         if automatic_bragg_peak_threshold_finder_activated:
             logging.info("Automatic calculation of Bragg peak threshold!")
             logging.info(f"-> algorithm selected: {self.parent.kropff_automatic_threshold_finder_algorithm}")
+            is_manual = False
         else:
             logging.info("Manual selection of Bragg peak threshold!")
-            self.display_bragg_peak_threshold(is_manual=True)
+            is_manual = True
+        self.display_bragg_peak_threshold(is_manual=is_manual)
 
     def display_bragg_peak_threshold(self, is_manual=False):
-        pass
 
         # clear all previously display bragg peak threshold
+        if not (self.parent.kropff_threshold_current_item is None):
+            self.parent.ui.kropff_fitting.removeItem(self.parent.kropff_threshold_current_item)
+            self.parent.kropff_threshold_current_item = None
 
         # get list of row selected
+        o_kropff = Get(parent=self.parent)
+        row_selected = str(o_kropff.kropff_row_selected()[0])
 
-        # create a vertical linear region range pg.LinearRegionItem (see selected_bin_handler.py line 156)
-        # for
+        if is_manual:
+            # retrieve item of selected row
+            # if item is None, make a default selection in the center
+            is_item_movable = True
 
-        # save
+        else:
+            # calculate threshold for all rows
+            # then create item vertical linear region range pg.LinearRegionItem (see selected_bin_handler.py line 156)
+            is_item_movable = False
+
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        kropff_table_of_row_selected = kropff_table_dictionary[row_selected]
+        # retrieve value of threshold range
+        left = kropff_table_of_row_selected['bragg peak threshold']['left']
+        right = kropff_table_of_row_selected['bragg peak threshold']['right']
+
+        if (not np.isfinite(left)) or (not np.isfinite(right)):
+            left, right = self.make_a_rough_estimate_of_threshold(table_of_row_selected=kropff_table_of_row_selected)
+            kropff_table_of_row_selected['bragg peak threshold']['left'] = left
+            kropff_table_of_row_selected['bragg peak threshold']['right'] = right
+
+        # display item and make it enabled or not according to is_manual mode or not
+        lr = pg.LinearRegionItem(values=[left, right],
+                                 orientation='vertical',
+                                 brush=None,
+                                 movable=is_item_movable,
+                                 bounds=None)
+        lr.setZValue(-10)
+        if is_item_movable:
+            lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_linear_region_changed)
+            lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
+        self.parent.ui.kropff_fitting.addItem(lr)
+        self.parent.kropff_threshold_current_item = lr
+
+    def make_a_rough_estimate_of_threshold(self, table_of_row_selected=None):
+        xaxis = table_of_row_selected['xaxis']
+        yaxis = table_of_row_selected['yaxis']
+
+        nbr_x = len(xaxis)
+        if nbr_x > self.default_threshold_width:
+            center_index = np.floor(nbr_x / 2)
+            left_index = int(center_index - np.floor(self.default_threshold_width/2))
+            right_index = int(center_index + np.floor(self.default_threshold_width/2))
+
+        else:
+            left_index = 0
+            right_index = nbr_x - 1
+
+        return xaxis[left_index], xaxis[right_index]

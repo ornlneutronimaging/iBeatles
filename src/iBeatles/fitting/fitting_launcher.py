@@ -122,6 +122,7 @@ class FittingWindow(QMainWindow):
                        'y_axis': []}
 
     kropff_automatic_threshold_finder_algorithm = KropffThresholdFinder.sliding_average
+    kropff_threshold_current_item = None
 
     def __init__(self, parent=None):
 
