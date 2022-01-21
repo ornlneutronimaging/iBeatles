@@ -3,6 +3,7 @@ import logging
 import pyqtgraph as pg
 
 from .get import Get
+from .. import DataType
 
 
 class KropffHandler:
@@ -69,6 +70,8 @@ class KropffHandler:
             left, right = self.make_a_rough_estimate_of_threshold(table_of_row_selected=kropff_table_of_row_selected)
             kropff_table_of_row_selected['bragg peak threshold']['left'] = left
             kropff_table_of_row_selected['bragg peak threshold']['right'] = right
+        else:
+            print("left and right already defined!")
 
         # display item and make it enabled or not according to is_manual mode or not
         lr = pg.LinearRegionItem(values=[left, right],

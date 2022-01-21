@@ -90,4 +90,30 @@ class SaveFittingTab(SaveTab):
 
     def kropff(self):
         logging.info("Recording Kropff fitting parameters")
-        self.session_dict[DataType.fitting]['kropff'] = self.parent.session_dict[DataType.fitting]['kropff']
+        table_dictionary = self.parent.kropff_table_dictionary
+
+        formatted_table_dictionary = {}
+
+        for _row in table_dictionary.keys():
+            _entry = table_dictionary[_row]
+
+            a0 = _entry['a0']
+            b0 = _entry['b0']
+            ahkl = _entry['ahkl']
+            bhkl = _entry['bhkl']
+            lambda_hkl = _entry['lambda_hkl']
+            tau = _entry['tau']
+            sigma = _entry['sigma']
+            bragg_peak_threshold = _entry['bragg peak threshold']
+
+            formatted_table_dictionary[_row] = {'a0': a0,
+                                                'b0': b0,
+                                                'ahkl': ahkl,
+                                                'bhkl': bhkl,
+                                                'lambda_hkl': lambda_hkl,
+                                                'tau': tau,
+                                                'sigma': sigma,
+                                                'bragg_peak_threshold': bragg_peak_threshold}
+        self.session_dict[DataType.fitting]['kropff']["table dictionary"] = formatted_table_dictionary
+
+        # self.session_dict[DataType.fitting]['kropff'] = self.parent.session_dict[DataType.fitting]['kropff']
