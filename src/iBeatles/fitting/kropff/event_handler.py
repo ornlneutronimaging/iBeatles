@@ -55,6 +55,9 @@ class EventHandler:
                 xaxis = np.array(full_x_axis[left_index: right_index], dtype=float)
                 _bin_entry['xaxis'] = xaxis
 
+    def update_bragg_edge_threshold(self):
+        pass
+
     def update_fitting_plot(self):
         self.parent.ui.kropff_fitting.clear()
 
@@ -93,6 +96,10 @@ class EventHandler:
         left = kropff_table_of_row_selected['bragg peak threshold']['left']
         right = kropff_table_of_row_selected['bragg peak threshold']['right']
 
+        print("in displya bragg peak threshold")
+        print(f"-> left: {left}")
+        print(f"-> right: {right}")
+
         # display item and make it enabled or not according to is_manual mode or not
         lr = pg.LinearRegionItem(values=[left, right],
                                  orientation='vertical',
@@ -100,9 +107,7 @@ class EventHandler:
                                  movable=is_item_movable,
                                  bounds=None)
         lr.setZValue(-10)
-        if is_item_movable:
-            lr.sigRegionChangeFinished.connect(self.parent.kropff_bragg_edge_threshold_changed)
-            # lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
+        lr.sigRegionChangeFinished.connect(self.parent.kropff_bragg_edge_threshold_changed)
         self.parent.ui.kropff_fitting.addItem(lr)
         self.parent.kropff_threshold_current_item = lr
 

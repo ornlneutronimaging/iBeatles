@@ -224,12 +224,12 @@ class Algorithms:
             _profile_data = table_dictionary[_row]['yaxis']
             delta_array = []
             _o_range = MeanRangeCalculation(data=_profile_data)
-            for _pixel in np.arange(0, nbr_pixels-5):
+            for _pixel in np.arange(0, nbr_pixels):
                 _o_range.calculate_left_right_mean(pixel=_pixel)
                 _o_range.calculate_delta_mean_square()
                 delta_array.append(_o_range.delta_square)
 
-            peak_value = delta_array.index(max(delta_array[0: nbr_pixels - 5]))
+            peak_value = delta_array.index(max(delta_array[0: nbr_pixels]))
             peak_sliding_average_data.append(peak_value)
 
             if self.progress_bar_ui:

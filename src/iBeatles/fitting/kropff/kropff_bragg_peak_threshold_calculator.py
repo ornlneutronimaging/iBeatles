@@ -19,16 +19,20 @@ class KropffBraggPeakThresholdCalculator:
 
         algorithm_selected = KropffThresholdFinder.sliding_average
 
-        for row_key in kropff_table_dictionary.keys():
-            print(f"row_key: {row_key}")
+        o_algo = Algorithms(kropff_table_dictionary=kropff_table_dictionary,
+                            algorithm_selected=algorithm_selected,
+                            progress_bar_ui=progress_bar_ui)
 
-            xaxis = kropff_table_dictionary[row_key]['xaxis']
-            yaxis = kropff_table_dictionary[row_key]['yaxis']
+        list_of_threshold_calculated = o_algo.get_peak_value_array(algorithm_selected)
+        for _row_index, _row in enumerate(kropff_table_dictionary.keys()):
+            x_axis = kropff_table_dictionary[_row]['xaxis']
+            left_index = list_of_threshold_calculated[_row_index] - 3
+            right_index = list_of_threshold_calculated[_row_index] + 3
+            if right_index >= len(x_axis):
+                right_index = len(x_axis) - 1
+            kropff_table_dictionary[_row]['bragg peak threshold']['left'] = x_axis[left_index]
+            kropff_table_dictionary[_row]['bragg peak threshold']['right'] = x_axis[right_index]
 
-            print(f"-> xaxis: {xaxis}")
-            print(f"-> yaxis: {yaxis}")
+        self.grand_parent.kropff_table_dictionary = kropff_table_dictionary
 
-        # o_algo = Algorithms(kropff_table_dictionary=kropff_table_dictionary,
-        #                     algorithm_selected=algorithm_selected,
-        #                     progress_bar_ui=progress_bar_ui)
-        # print(f"o_algo.get_peak_value_array: {o_algo.get_peak_value_array(algorithm_selected)}")
+        print(f"o_algo.get_peak_value_array: {o_algo.get_peak_value_array(algorithm_selected)}")
