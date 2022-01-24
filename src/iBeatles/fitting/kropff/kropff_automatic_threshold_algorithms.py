@@ -93,23 +93,25 @@ class Algorithms:
             return False
 
     def calculate_change_point(self):
-        list_data = self.list_data
-        nbr_files = len(list_data)
+        table_dictionary = self.table_dictionary
+        x_axis = table_dictionary['0']['xaxis']
+        nbr_pixels = len(x_axis)
+        nbr_files = len(table_dictionary.keys())
 
         _start_file = 0
         _end_file = nbr_files
 
         if self.progress_bar_ui:
-            self.progress_bar_ui.setMaximum(len(list_data))
+            self.progress_bar_ui.setMaximum(nbr_files)
             self.progress_bar_ui.setVisible(True)
             QtGui.QGuiApplication.processEvents()
 
         water_intake_peaks = []
         water_intake_deltatime = []
-        for _index_file in np.arange(_start_file, _end_file):
-            ydata = list_data[_index_file]
-            var = np.mean(ydata)
-            result = pelt(normal_var(ydata, var), len(ydata))
+        for _index_file, _row in enumerate(table_dictionary.keys()):
+            _profile_data = table_dictionary[_row]['yaxis']
+            var = np.mean(_profile_data)
+            result = pelt(normal_var(_profile_data, var), nbr_pixels)
             if len(result) > 2:
                 peak = np.mean(result[2:])
             else:

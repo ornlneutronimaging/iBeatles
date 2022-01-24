@@ -9,6 +9,7 @@ from qtpy.QtGui import QIcon
 from .. import DataType
 from ..utilities.table_handler import TableHandler
 from .. import settings_icon
+from src.iBeatles.fitting import KropffThresholdFinder
 
 
 class Initialization:
@@ -39,9 +40,9 @@ class Initialization:
         x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
         self.parent.bragg_edge_data['x_axis'] = x_axis
 
-        self.parent.kropff_automatic_threshold_finder_algorithm = \
-            self.grand_parent.kropff_automatic_threshold_finder_algorithm
-
+        # self.parent.kropff_automatic_threshold_finder_algorithm = \
+        #     self.grand_parent.kropff_automatic_threshold_finder_algorithm
+    
     def table_headers(self):
 
         o_kropff_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
@@ -261,7 +262,7 @@ class Initialization:
             self.parent.ui.kropff_sigma_radioButton.setChecked(True)
 
         self.parent.kropff_automatic_threshold_finder_algorithm = \
-            kropff_session_dict.get('automatic bragg peak threshold algorithm', True)
+            kropff_session_dict.get('automatic bragg peak threshold algorithm', KropffThresholdFinder.sliding_average)
 
         icon = QIcon(settings_icon)
         self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)

@@ -1,5 +1,4 @@
 from qtpy.QtWidgets import QDialog
-import logging
 
 from src.iBeatles import load_ui
 from src.iBeatles.fitting import KropffThresholdFinder
@@ -11,7 +10,6 @@ class KropffAutomaticSettingsLauncher(QDialog):
         self.parent = parent
         super(QDialog, self).__init__(parent)
         self.ui = load_ui('ui_automatic_bragg_peak_settings.ui', baseinstance=self)
-
         self.init_widgets()
 
     def init_widgets(self):
