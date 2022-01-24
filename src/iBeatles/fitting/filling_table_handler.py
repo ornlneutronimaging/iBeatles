@@ -1,4 +1,5 @@
 import numpy as np
+from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QCheckBox, QTableWidgetItem
 from qtpy import QtGui
 # import pyqtgraph as pg
@@ -284,6 +285,7 @@ class FillingTableHandler(object):
         item = QTableWidgetItem(str(value))
         if fixed_flag:
             item.setTextColor(QtGui.QColor(255, 0, 0, alpha=255))
+        item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
 
         table_ui.setItem(row, col, item)
 

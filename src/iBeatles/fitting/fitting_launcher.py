@@ -247,7 +247,8 @@ class FittingWindow(QMainWindow):
 
 
     def selection_in_value_table_changed(self):
-        self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
+        pass
+        # self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
     def bragg_edge_linear_region_changing(self):
         self.is_ready_to_fit = False
