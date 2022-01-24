@@ -275,7 +275,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -747,19 +747,7 @@
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_3">
                    <item>
-                    <widget class="QCheckBox" name="kropff_automatic_bragg_peak_threshold_finder_checkBox">
-                     <property name="minimumSize">
-                      <size>
-                       <width>260</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>260</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
+                    <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_pushButton">
                      <property name="text">
                       <string>Automatic Bragg peak threshold finder</string>
                      </property>
@@ -1402,22 +1390,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>value_table</sender>
-   <signal>itemSelectionChanged()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>selection_in_value_table_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>814</x>
-     <y>968</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1216</x>
-     <y>598</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>advanced_table_checkBox</sender>
    <signal>clicked(bool)</signal>
    <receiver>MainWindow</receiver>
@@ -1850,34 +1822,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>kropff_automatic_bragg_peak_threshold_finder_checkBox</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_automatic_bragg_peak_threshold_finder_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>67</x>
-     <y>487</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>2</x>
-     <y>501</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>automatic_bragg_peak_threshold_finder_settings</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
+     <x>341</x>
      <y>493</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
      <y>444</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>automatic_bragg_peak_threshold_finder_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>106</x>
+     <y>490</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>512</y>
     </hint>
    </hints>
   </connection>
@@ -1953,7 +1925,7 @@
   <slot>kropff_low_tof_table_selection_changed()</slot>
   <slot>kropff_bragg_peak_table_selection_changed()</slot>
   <slot>fitting_main_tab_widget_changed()</slot>
-  <slot>kropff_automatic_bragg_peak_threshold_finder_changed()</slot>
+  <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
   <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
  </slots>
 </ui>

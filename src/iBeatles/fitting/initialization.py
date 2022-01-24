@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import (QMainWindow, QApplication, QTableWidgetSelectionRange, QVBoxLayout, QHBoxLayout, QWidget,
+from qtpy.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget,QProgressBar,
                             QLabel, QSpacerItem, QSlider, QRadioButton, QSizePolicy)
 from qtpy import QtCore
 from pyqtgraph.dockarea import DockArea, Dock
@@ -25,6 +25,15 @@ class Initialization:
         self.widgets()
         self.ui()
         self.global_data()
+        self.statusbar()
+
+    def statusbar(self):
+        self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
+        self.parent.eventProgress.setMinimumSize(20, 14)
+        self.parent.eventProgress.setMaximumSize(540, 100)
+        self.parent.eventProgress.setVisible(False)
+        self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
+        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
     def global_data(self):
         x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
@@ -250,11 +259,6 @@ class Initialization:
             self.parent.ui.kropff_tau_radioButton.setChecked(True)
         else:
             self.parent.ui.kropff_sigma_radioButton.setChecked(True)
-
-        if kropff_session_dict['automatic bragg peak threshold finder']:
-            self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(True)
-        else:
-            self.parent.ui.kropff_automatic_bragg_peak_threshold_finder_checkBox.setChecked(False)
 
         self.parent.kropff_automatic_threshold_finder_algorithm = \
             kropff_session_dict.get('automatic bragg peak threshold algorithm', True)

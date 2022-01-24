@@ -38,7 +38,4 @@ class KropffAutomaticSettingsLauncher(QDialog):
 
     def ok_clicked(self):
         self.save_algorithm_selected()
-        logging.info("Kropff Bragg peak threshold finder will now use the algorithm {"
-                     "self.parent.kropff_automatic_threshold_finder_algorithm}")
-        self.parent.kropff_automatic_bragg_peak_threshold_finder_changed()
         self.close()

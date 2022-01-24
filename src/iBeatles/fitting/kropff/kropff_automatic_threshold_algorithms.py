@@ -5,12 +5,7 @@ from changepy import pelt
 from changepy.costs import normal_var
 from qtpy import QtGui
 
-
-class ListAlgorithm:
-    sliding_average = "sliding average"
-    error_function = "error function"
-    change_point = "change_point"
-    all = "all"
+from src.iBeatles.fitting import KropffThresholdFinder
 
 
 class MeanRangeCalculation(object):
@@ -38,7 +33,11 @@ class Algorithms:
 
     # dict_profiles = {}   # {'0': {'data': [], 'delta_time': 45455}, '1': {...} ...}
 
-    list_data = None
+    # {'0': {'xaxis': [], 'yaxis': [], ... },
+    #  '1': {'xaxis': [], 'yaxis': [], ... },
+    #  '2': {'xaxis': [], 'yaxis': [], ... },
+    #  }
+    table_dictionary = None
 
     data_have_been_reversed_in_calculation = False
 
@@ -58,20 +57,18 @@ class Algorithms:
 
     progress_bar_ui = None  # progress bar ui
 
-    def __init__(self, list_data=None,
-                 ignore_first_dataset=True,
-                 algorithm_selected='sliding_average',
-                 progress_bar_ui=None):
+    def __init__(self, kropff_table_dictionary=None,
+                       algorithm_selected='sliding_average',
+                       progress_bar_ui=None):
 
-        self.list_data = list_data
-        self.ignore_first_dataset = ignore_first_dataset
+        self.table_dictionary = kropff_table_dictionary
         self.progress_bar_ui = progress_bar_ui
 
-        if algorithm_selected == ListAlgorithm.sliding_average:
+        if algorithm_selected == KropffThresholdFinder.sliding_average:
             self.calculate_using_sliding_average()
-        elif algorithm_selected == ListAlgorithm.error_function:
+        elif algorithm_selected == KropffThresholdFinder.error_function:
             self.calculate_using_erf()
-        elif algorithm_selected == ListAlgorithm.change_point:
+        elif algorithm_selected == KropffThresholdFinder.change_point:
             self.calculate_change_point()
         else:
             raise ValueError("algorithm not implemented yet!")
@@ -99,12 +96,8 @@ class Algorithms:
         list_data = self.list_data
         nbr_files = len(list_data)
 
-        if self.ignore_first_dataset:
-            _start_file = 1
-            _end_file = nbr_files+1
-        else:
-            _start_file = 0
-            _end_file = nbr_files
+        _start_file = 0
+        _end_file = nbr_files
 
         if self.progress_bar_ui:
             self.progress_bar_ui.setMaximum(len(list_data))
@@ -138,12 +131,8 @@ class Algorithms:
         list_data = self.list_data
         nbr_files = len(list_data)
 
-        if self.ignore_first_dataset:
-            _start_file = 1
-            _end_file = nbr_files + 1
-        else:
-            _start_file = 0
-            _end_file = nbr_files
+        _start_file = 0
+        _end_file = nbr_files
 
         if self.progress_bar_ui:
             self.progress_bar_ui.setMaximum(len(list_data))
@@ -216,25 +205,23 @@ class Algorithms:
         return (popt, pcov)
 
     def calculate_using_sliding_average(self):
-        list_data = self.list_data
-        nbr_pixels = len(list_data[0])
-        nbr_files = len(list_data)
+        table_dictionary = self.table_dictionary
 
-        if self.ignore_first_dataset:
-            _start_file = 1
-            _end_file = nbr_files+1
-        else:
-            _start_file = 0
-            _end_file = nbr_files
+        x_axis = table_dictionary['0']['xaxis']
+        nbr_pixels = len(x_axis)
+        nbr_files = len(table_dictionary.keys())
+
+        _start_file = 0
+        _end_file = nbr_files
 
         if self.progress_bar_ui:
-            self.progress_bar_ui.setMaximum(len(list_data))
+            self.progress_bar_ui.setMaximum(nbr_files)
             self.progress_bar_ui.setVisible(True)
             QtGui.QGuiApplication.processEvents()
 
         peak_sliding_average_data = []
-        for _index_file in np.arange(_start_file, _end_file):
-            _profile_data = list_data[_index_file]
+        for _index_file, _row in enumerate(table_dictionary.keys()):
+            _profile_data = table_dictionary[_row]['yaxis']
             delta_array = []
             _o_range = MeanRangeCalculation(data=_profile_data)
             for _pixel in np.arange(0, nbr_pixels-5):
@@ -255,11 +242,11 @@ class Algorithms:
             QtGui.QGuiApplication.processEvents()
 
     def get_peak_value_array(self, algorithm_selected='sliding_average'):
-        if algorithm_selected == ListAlgorithm.sliding_average:
+        if algorithm_selected == KropffThresholdFinder.sliding_average:
             return self.peak_sliding_average_data
-        elif algorithm_selected == ListAlgorithm.change_point:
+        elif algorithm_selected == KropffThresholdFinder.change_point:
             return self.peak_change_point_data
-        elif algorithm_selected == ListAlgorithm.error_function:
+        elif algorithm_selected == KropffThresholdFinder.error_function:
             return self.peak_error_function_data
         else:
             raise ValueError("algorithm not implemented yet!")
