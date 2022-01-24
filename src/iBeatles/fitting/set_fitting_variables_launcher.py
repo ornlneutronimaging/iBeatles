@@ -5,6 +5,7 @@ import numpy as np
 from ..fitting.set_fitting_variables_handler import SetFittingVariablesHandler
 from ..fitting.filling_table_handler import FillingTableHandler
 from .. import load_ui
+from src.iBeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class SetFittingVariablesLauncher(object):
@@ -251,10 +252,12 @@ class VariableTableHandler(object):
         self.grand_parent.fitting_set_variables_ui.update_table()
 
     def update_fitting_ui(self, name='active'):
+        o_event = EventHandler(parent=self.parent,
+                               grand_parent=self.grand_parent)
         if name == 'lock':
-            self.grand_parent.fitting_ui.update_image_view_lock()
+            o_event.update_image_view_lock()
         elif name == 'active':
-            self.grand_parent.fitting_ui.update_image_view_selection()
+            o_event.update_image_view_selection()
 
         o_filling_table = FillingTableHandler(grand_parent=self.grand_parent)
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)

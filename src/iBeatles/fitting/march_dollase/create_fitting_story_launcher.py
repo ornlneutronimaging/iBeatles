@@ -3,11 +3,11 @@ from qtpy.QtWidgets import (QMainWindow, QProgressBar, QTableWidgetItem,
 from qtpy import QtGui
 import numpy as np
 
-from ..table_dictionary.table_fitting_story_dictionary_handler import TableFittingStoryDictionaryHandler
-from ..fitting.fitting_job_handler import FittingJobHandler
+from src.iBeatles.table_dictionary.table_fitting_story_dictionary_handler import TableFittingStoryDictionaryHandler
+from src.iBeatles.fitting.fitting_job_handler import FittingJobHandler
 # from iBeatles.py.utilities.status import Status
-from .. import load_ui
-from .. import up_icon, down_icon
+from src.iBeatles import load_ui
+from src.iBeatles import up_icon, down_icon
 
 
 class CreateFittingStoryLauncher(object):

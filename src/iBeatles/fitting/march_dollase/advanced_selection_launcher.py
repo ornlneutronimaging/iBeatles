@@ -3,8 +3,9 @@ from qtpy import QtCore
 import numpy as np
 
 # from iBeatles.py.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
-from ..fitting.filling_table_handler import FillingTableHandler
-from .. import load_ui
+from src.iBeatles.fitting.filling_table_handler import FillingTableHandler
+from src.iBeatles import load_ui
+from src.iBeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class AdvancedSelectionLauncher(object):
@@ -120,7 +121,11 @@ class AdvancedSelectionWindow(QMainWindow):
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
-        self.grand_parent.fitting_ui.update_image_view_selection()
+
+        o_event = EventHandler(parent=self.parent,
+                               grand_parent=self.grand_parent)
+        o_event.update_image_view_selection()
+
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
 
     def lock_table_selection_changed(self):
@@ -152,7 +157,11 @@ class AdvancedSelectionWindow(QMainWindow):
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
-        self.grand_parent.fitting_ui.update_image_view_lock()
+
+        o_event = EventHandler(parent=self.parent,
+                               grand_parent=self.grand_parent)
+        o_event.update_image_view_lock()
+
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
 
         if self.grand_parent.fitting_set_variables_ui:

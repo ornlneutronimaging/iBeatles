@@ -2,9 +2,8 @@ import numpy as np
 import logging
 import pyqtgraph as pg
 
-from .get import Get
-from .. import DataType
-from .kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
+from src.iBeatles.fitting.get import Get
+from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
 
 
 class KropffHandler:

@@ -1403,22 +1403,6 @@
   </connection>
   <connection>
    <sender>value_table</sender>
-   <signal>cellClicked(int,int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>614</x>
-     <y>705</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>610</x>
-     <y>385</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>value_table</sender>
    <signal>itemSelectionChanged()</signal>
    <receiver>MainWindow</receiver>
    <slot>selection_in_value_table_changed()</slot>

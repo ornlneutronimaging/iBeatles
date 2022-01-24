@@ -8,7 +8,6 @@ import logging
 from ..utilities.table_handler import TableHandler
 
 from ..fitting import fitting_handler
-from ..utilities.array_utilities import get_min_max_xy
 # from iBeatles.py.utilities.math_tools import get_random_value
 
 
@@ -92,45 +91,45 @@ class TableDictionaryHandler:
 
         self.grand_parent.march_table_dictionary = table_dictionary
 
-    def initialize_parameters_from_session(self):
-        session_table_dictionary = self.grand_parent.session_dict["fitting"]['march dollase']["table dictionary"]
-        table_dictionary = self.grand_parent.march_table_dictionary
-
-        for _row in session_table_dictionary.keys():
-            _entry = session_table_dictionary[_row]
-            table_dictionary[_row]['lock'] = _entry['lock']
-            table_dictionary[_row]['active'] = _entry['active']
-            table_dictionary[_row]['fitting_confidence'] = _entry['fitting_confidence']
-            table_dictionary[_row]['d_spacing'] = _entry['d_spacing']
-            table_dictionary[_row]['sigma'] = _entry['sigma']
-            table_dictionary[_row]['alpha'] = _entry['alpha']
-            table_dictionary[_row]['a1'] = _entry['a1']
-            table_dictionary[_row]['a2'] = _entry['a2']
-            table_dictionary[_row]['a5'] = _entry['a5']
-            table_dictionary[_row]['a6'] = _entry['a6']
-
-        lambda_range = self.grand_parent.session_dict["fitting"]["lambda range index"]
-        if lambda_range:
-            [lambda_min_index, lambda_max_index] = self.grand_parent.session_dict["fitting"]["lambda range index"]
-            x_axis = self.grand_parent.session_dict["fitting"]["x_axis"]
-
-            lambda_min = x_axis[lambda_min_index]
-            lambda_max = x_axis[lambda_max_index]
-
-            self.parent.ui.lambda_min_lineEdit.setText("{:4.2f}".format(lambda_min))
-            self.parent.ui.lambda_max_lineEdit.setText("{:4.2f}".format(lambda_max))
-            self.grand_parent.fitting_bragg_edge_linear_selection = [lambda_min_index, lambda_max_index]
-
-        transparency = self.grand_parent.session_dict['fitting']['transparency']
-        self.parent.ui.slider.setValue(transparency)
-
-        self.grand_parent.display_active_row_flag = \
-            self.grand_parent.session_dict['fitting']['march dollase']['plot active row flag']
-        self.parent.ui.active_bins_button.setChecked(self.grand_parent.display_active_row_flag)
-        self.parent.ui.locked_bins_button.setChecked(not self.grand_parent.display_active_row_flag)
-
-        self.grand_parent.march_table_dictionary = table_dictionary
-        self.grand_parent.table_loaded_from_session = None
+    # def initialize_parameters_from_session(self):
+    #     session_table_dictionary = self.grand_parent.session_dict["fitting"]['march dollase']["table dictionary"]
+    #     table_dictionary = self.grand_parent.march_table_dictionary
+    #
+    #     for _row in session_table_dictionary.keys():
+    #         _entry = session_table_dictionary[_row]
+    #         table_dictionary[_row]['lock'] = _entry['lock']
+    #         table_dictionary[_row]['active'] = _entry['active']
+    #         table_dictionary[_row]['fitting_confidence'] = _entry['fitting_confidence']
+    #         table_dictionary[_row]['d_spacing'] = _entry['d_spacing']
+    #         table_dictionary[_row]['sigma'] = _entry['sigma']
+    #         table_dictionary[_row]['alpha'] = _entry['alpha']
+    #         table_dictionary[_row]['a1'] = _entry['a1']
+    #         table_dictionary[_row]['a2'] = _entry['a2']
+    #         table_dictionary[_row]['a5'] = _entry['a5']
+    #         table_dictionary[_row]['a6'] = _entry['a6']
+    #
+    #     lambda_range = self.grand_parent.session_dict["fitting"]["lambda range index"]
+    #     if lambda_range:
+    #         [lambda_min_index, lambda_max_index] = self.grand_parent.session_dict["fitting"]["lambda range index"]
+    #         x_axis = self.grand_parent.session_dict["fitting"]["x_axis"]
+    #
+    #         lambda_min = x_axis[lambda_min_index]
+    #         lambda_max = x_axis[lambda_max_index]
+    #
+    #         self.parent.ui.lambda_min_lineEdit.setText("{:4.2f}".format(lambda_min))
+    #         self.parent.ui.lambda_max_lineEdit.setText("{:4.2f}".format(lambda_max))
+    #         self.grand_parent.fitting_bragg_edge_linear_selection = [lambda_min_index, lambda_max_index]
+    #
+    #     transparency = self.grand_parent.session_dict['fitting']['transparency']
+    #     self.parent.ui.slider.setValue(transparency)
+    #
+    #     self.grand_parent.display_active_row_flag = \
+    #         self.grand_parent.session_dict['fitting']['march dollase']['plot active row flag']
+    #     self.parent.ui.active_bins_button.setChecked(self.grand_parent.display_active_row_flag)
+    #     self.parent.ui.locked_bins_button.setChecked(not self.grand_parent.display_active_row_flag)
+    #
+    #     self.grand_parent.march_table_dictionary = table_dictionary
+    #     self.grand_parent.table_loaded_from_session = None
 
     def clear_y_axis_and_x_axis_from_kropff_table_dictionary(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
@@ -138,145 +137,145 @@ class TableDictionaryHandler:
             kropff_table_dictionary[_row]['yaxis'] = None
             kropff_table_dictionary[_row]['xaxis'] = None
 
-    def create_table_dictionary(self):
-        '''
-        this will define the corner position and index of each cell
-        '''
-        # if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
-        #     return
-        #
-        # if not self.grand_parent.march_table_dictionary == {}:
-        #     return
-
-        bin_size = self.grand_parent.binning_roi[-1]
-        pos = self.grand_parent.binning_line_view['pos']
-
-        # calculate outside real edges of bins
-        min_max_xy = get_min_max_xy(pos)
-
-        from_x = min_max_xy['x']['min']
-        to_x = min_max_xy['x']['max']
-
-        from_y = min_max_xy['y']['min']
-        to_y = min_max_xy['y']['max']
-
-        march_table_dictionary = {}
-        kropff_table_dictionary = {}
-        _index = 0
-        _index_col = 0
-        for _x in np.arange(from_x, to_x, bin_size):
-            _index_row = 0
-            for _y in np.arange(from_y, to_y, bin_size):
-                _str_index = str(_index)
-
-                kropff_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
-                                                                           'x1': _x + bin_size,
-                                                                           'y0': _y,
-                                                                           'y1': _y + bin_size},
-                                                       'yaxis': None,
-                                                       'xaxis': None,
-                                                       'selected_item': None,
-                                                       'locked_item': None,
-                                                       'row_index': _index_row,
-                                                       'column_index': _index_col,
-                                                       'selected': False,
-                                                       'lock': False,
-                                                       'active': False,
-                                                       'a0': {'val': np.NaN,
-                                                              'err': np.NaN},
-                                                       'b0': {'val': np.NaN,
-                                                              'err': np.NaN},
-                                                       'ahkl': {'val': np.NaN,
-                                                                'err': np.NaN},
-                                                       'bhkl': {'val': np.NaN,
-                                                                'err': np.NaN},
-                                                       'lambda_hkl': {'val': np.NaN,
-                                                                      'err': np.NaN},
-                                                       'tau': {'val': np.NaN,
-                                                               'err': np.NaN},
-                                                       'sigma': {'val': np.NaN,
-                                                                 'err': np.NaN},
-                                                       'bragg peak threshold': {'left': np.NaN,
-                                                                                'right': np.NaN},
-                                                       }
-
-                # create the box to show when bin is selected
-                selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
-                                                           bin_size,
-                                                           bin_size)
-                selection_box.setPen(pg.mkPen(self.selected_color['pen']))
-                selection_box.setBrush(pg.mkBrush(self.selected_color['brush']))
-                kropff_table_dictionary[_str_index]['selected_item'] = selection_box
-
-                march_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
-                                                                          'x1': _x + bin_size,
-                                                                          'y0': _y,
-                                                                          'y1': _y + bin_size},
-                                                       'selected_item': None,
-                                                       'locked_item': None,
-                                                       'row_index': _index_row,
-                                                       'column_index': _index_col,
-                                                       'selected': False,
-                                                       'lock': False,
-                                                       'active': False,
-                                                       'fitting_confidence': np.NaN,
-                                                       'd_spacing': {'val': np.NaN,
-                                                                     'err': np.NaN,
-                                                                     'fixed': False},
-                                                       'sigma': {'val': np.NaN,
-                                                                 'err': np.NaN,
-                                                                 'fixed': False},
-                                                       'intensity': {'val': np.NaN,
-                                                                     'err': np.NaN,
-                                                                     'fixed': False},
-                                                       'alpha': {'val': np.NaN,
-                                                                 'err': np.NaN,
-                                                                 'fixed': False},
-                                                       'a1': {'val': np.NaN,
-                                                              'err': np.NaN,
-                                                              'fixed': False},
-                                                       'a2': {'val': np.NaN,
-                                                              'err': np.NaN,
-                                                              'fixed': False},
-                                                       'a5': {'val': np.NaN,
-                                                              'err': np.NaN,
-                                                              'fixed': False},
-                                                       'a6': {'val': np.NaN,
-                                                              'err': np.NaN,
-                                                              'fixed': False},
-                                                      }
-
-                # march_table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
-                # march_table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
-                # march_table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
-                # march_table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
-
-                # create the box to show when bin is selected
-                selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
-                                                           bin_size,
-                                                           bin_size)
-                selection_box.setPen(pg.mkPen(self.selected_color['pen']))
-                selection_box.setBrush(pg.mkBrush(self.selected_color['brush']))
-                march_table_dictionary[_str_index]['selected_item'] = selection_box
-
-                # create the box to show when bin is locked
-                lock_box = pg.QtGui.QGraphicsRectItem(_x, _y,
-                                                      bin_size,
-                                                      bin_size)
-                lock_box.setPen(pg.mkPen(self.lock_color['pen']))
-                lock_box.setBrush(pg.mkBrush(self.lock_color['brush']))
-                march_table_dictionary[_str_index]['locked_item'] = lock_box
-
-                _index += 1
-                _index_row += 1
-
-            _index_col += 1
-
-        self.grand_parent.march_table_dictionary = march_table_dictionary
-        self.grand_parent.kropff_table_dictionary = kropff_table_dictionary
-
-        self.grand_parent.fitting_selection['nbr_row'] = _index_row
-        self.grand_parent.fitting_selection['nbr_column'] = _index_col
+    # def create_table_dictionary(self):
+    #     '''
+    #     this will define the corner position and index of each cell
+    #     '''
+    #     # if len(np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])) == 0:
+    #     #     return
+    #     #
+    #     # if not self.grand_parent.march_table_dictionary == {}:
+    #     #     return
+    #
+    #     bin_size = self.grand_parent.binning_roi[-1]
+    #     pos = self.grand_parent.binning_line_view['pos']
+    #
+    #     # calculate outside real edges of bins
+    #     min_max_xy = get_min_max_xy(pos)
+    #
+    #     from_x = min_max_xy['x']['min']
+    #     to_x = min_max_xy['x']['max']
+    #
+    #     from_y = min_max_xy['y']['min']
+    #     to_y = min_max_xy['y']['max']
+    #
+    #     march_table_dictionary = {}
+    #     kropff_table_dictionary = {}
+    #     _index = 0
+    #     _index_col = 0
+    #     for _x in np.arange(from_x, to_x, bin_size):
+    #         _index_row = 0
+    #         for _y in np.arange(from_y, to_y, bin_size):
+    #             _str_index = str(_index)
+    #
+    #             kropff_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
+    #                                                                        'x1': _x + bin_size,
+    #                                                                        'y0': _y,
+    #                                                                        'y1': _y + bin_size},
+    #                                                    'yaxis': None,
+    #                                                    'xaxis': None,
+    #                                                    'selected_item': None,
+    #                                                    'locked_item': None,
+    #                                                    'row_index': _index_row,
+    #                                                    'column_index': _index_col,
+    #                                                    'selected': False,
+    #                                                    'lock': False,
+    #                                                    'active': False,
+    #                                                    'a0': {'val': np.NaN,
+    #                                                           'err': np.NaN},
+    #                                                    'b0': {'val': np.NaN,
+    #                                                           'err': np.NaN},
+    #                                                    'ahkl': {'val': np.NaN,
+    #                                                             'err': np.NaN},
+    #                                                    'bhkl': {'val': np.NaN,
+    #                                                             'err': np.NaN},
+    #                                                    'lambda_hkl': {'val': np.NaN,
+    #                                                                   'err': np.NaN},
+    #                                                    'tau': {'val': np.NaN,
+    #                                                            'err': np.NaN},
+    #                                                    'sigma': {'val': np.NaN,
+    #                                                              'err': np.NaN},
+    #                                                    'bragg peak threshold': {'left': np.NaN,
+    #                                                                             'right': np.NaN},
+    #                                                    }
+    #
+    #             # create the box to show when bin is selected
+    #             selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
+    #                                                        bin_size,
+    #                                                        bin_size)
+    #             selection_box.setPen(pg.mkPen(self.selected_color['pen']))
+    #             selection_box.setBrush(pg.mkBrush(self.selected_color['brush']))
+    #             kropff_table_dictionary[_str_index]['selected_item'] = selection_box
+    #
+    #             march_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
+    #                                                                       'x1': _x + bin_size,
+    #                                                                       'y0': _y,
+    #                                                                       'y1': _y + bin_size},
+    #                                                    'selected_item': None,
+    #                                                    'locked_item': None,
+    #                                                    'row_index': _index_row,
+    #                                                    'column_index': _index_col,
+    #                                                    'selected': False,
+    #                                                    'lock': False,
+    #                                                    'active': False,
+    #                                                    'fitting_confidence': np.NaN,
+    #                                                    'd_spacing': {'val': np.NaN,
+    #                                                                  'err': np.NaN,
+    #                                                                  'fixed': False},
+    #                                                    'sigma': {'val': np.NaN,
+    #                                                              'err': np.NaN,
+    #                                                              'fixed': False},
+    #                                                    'intensity': {'val': np.NaN,
+    #                                                                  'err': np.NaN,
+    #                                                                  'fixed': False},
+    #                                                    'alpha': {'val': np.NaN,
+    #                                                              'err': np.NaN,
+    #                                                              'fixed': False},
+    #                                                    'a1': {'val': np.NaN,
+    #                                                           'err': np.NaN,
+    #                                                           'fixed': False},
+    #                                                    'a2': {'val': np.NaN,
+    #                                                           'err': np.NaN,
+    #                                                           'fixed': False},
+    #                                                    'a5': {'val': np.NaN,
+    #                                                           'err': np.NaN,
+    #                                                           'fixed': False},
+    #                                                    'a6': {'val': np.NaN,
+    #                                                           'err': np.NaN,
+    #                                                           'fixed': False},
+    #                                                   }
+    #
+    #             # march_table_dictionary[_str_index]['bin_coordinates']['x0'] = _x
+    #             # march_table_dictionary[_str_index]['bin_coordinates']['x1'] = _x + bin_size
+    #             # march_table_dictionary[_str_index]['bin_coordinates']['y0'] = _y
+    #             # march_table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
+    #
+    #             # create the box to show when bin is selected
+    #             selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
+    #                                                        bin_size,
+    #                                                        bin_size)
+    #             selection_box.setPen(pg.mkPen(self.selected_color['pen']))
+    #             selection_box.setBrush(pg.mkBrush(self.selected_color['brush']))
+    #             march_table_dictionary[_str_index]['selected_item'] = selection_box
+    #
+    #             # create the box to show when bin is locked
+    #             lock_box = pg.QtGui.QGraphicsRectItem(_x, _y,
+    #                                                   bin_size,
+    #                                                   bin_size)
+    #             lock_box.setPen(pg.mkPen(self.lock_color['pen']))
+    #             lock_box.setBrush(pg.mkBrush(self.lock_color['brush']))
+    #             march_table_dictionary[_str_index]['locked_item'] = lock_box
+    #
+    #             _index += 1
+    #             _index_row += 1
+    #
+    #         _index_col += 1
+    #
+    #     self.grand_parent.march_table_dictionary = march_table_dictionary
+    #     self.grand_parent.kropff_table_dictionary = kropff_table_dictionary
+    #
+    #     self.grand_parent.fitting_selection['nbr_row'] = _index_row
+    #     self.grand_parent.fitting_selection['nbr_column'] = _index_col
 
     def full_table_selection_tool(self, status=True):
         o_table = TableHandler(table_ui=self.value_table_ui)
@@ -288,58 +287,58 @@ class TableDictionaryHandler:
     def select_full_table(self):
         self.full_table_selection_tool(status=True)
 
-    def get_average_parameters_activated(self):
-        table_dictionary = self.grand_parent.march_table_dictionary
+    # def get_average_parameters_activated(self):
+    #     table_dictionary = self.grand_parent.march_table_dictionary
+    #
+    #     d_spacing = []
+    #     alpha = []
+    #     sigma = []
+    #     a1 = []
+    #     a2 = []
+    #     a5 = []
+    #     a6 = []
+    #
+    #     for _index in table_dictionary.keys():
+    #         _entry = table_dictionary[_index]
+    #
+    #         if _entry['active']:
+    #             _d_spacing = _entry['d_spacing']['val']
+    #             _alpha = _entry['alpha']['val']
+    #             _sigma = _entry['sigma']['val']
+    #             _a1 = _entry['a1']['val']
+    #             _a2 = _entry['a2']['val']
+    #             _a5 = _entry['a5']['val']
+    #             _a6 = _entry['a6']['val']
+    #
+    #             d_spacing.append(_d_spacing)
+    #             alpha.append(_alpha)
+    #             sigma.append(_sigma)
+    #             a1.append(_a1)
+    #             a2.append(_a2)
+    #             a5.append(_a5)
+    #             a6.append(_a6)
+    #
+    #     mean_d_spacing = self.get_mean_value(d_spacing)
+    #     mean_alpha = self.get_mean_value(alpha)
+    #     mean_sigma = self.get_mean_value(sigma)
+    #     mean_a1 = self.get_mean_value(a1)
+    #     mean_a2 = self.get_mean_value(a2)
+    #     mean_a5 = self.get_mean_value(a5)
+    #     mean_a6 = self.get_mean_value(a6)
+    #
+    #     return {'d_spacing': mean_d_spacing,
+    #             'alpha': mean_alpha,
+    #             'sigma': mean_sigma,
+    #             'a1': mean_a1,
+    #             'a2': mean_a2,
+    #             'a5': mean_a5,
+    #             'a6': mean_a6}
 
-        d_spacing = []
-        alpha = []
-        sigma = []
-        a1 = []
-        a2 = []
-        a5 = []
-        a6 = []
-
-        for _index in table_dictionary.keys():
-            _entry = table_dictionary[_index]
-
-            if _entry['active']:
-                _d_spacing = _entry['d_spacing']['val']
-                _alpha = _entry['alpha']['val']
-                _sigma = _entry['sigma']['val']
-                _a1 = _entry['a1']['val']
-                _a2 = _entry['a2']['val']
-                _a5 = _entry['a5']['val']
-                _a6 = _entry['a6']['val']
-
-                d_spacing.append(_d_spacing)
-                alpha.append(_alpha)
-                sigma.append(_sigma)
-                a1.append(_a1)
-                a2.append(_a2)
-                a5.append(_a5)
-                a6.append(_a6)
-
-        mean_d_spacing = self.get_mean_value(d_spacing)
-        mean_alpha = self.get_mean_value(alpha)
-        mean_sigma = self.get_mean_value(sigma)
-        mean_a1 = self.get_mean_value(a1)
-        mean_a2 = self.get_mean_value(a2)
-        mean_a5 = self.get_mean_value(a5)
-        mean_a6 = self.get_mean_value(a6)
-
-        return {'d_spacing': mean_d_spacing,
-                'alpha': mean_alpha,
-                'sigma': mean_sigma,
-                'a1': mean_a1,
-                'a2': mean_a2,
-                'a5': mean_a5,
-                'a6': mean_a6}
-
-    def get_mean_value(self, array=[]):
-        if array == []:
-            return np.NaN
-        else:
-            return np.mean(array)
+    # def get_mean_value(self, array=[]):
+    #     if array == []:
+    #         return np.NaN
+    #     else:
+    #         return np.mean(array)
 
     def import_table(self):
         default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + '_fitting_table.csv'

@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import QMainWindow, QApplication, QTableWidgetSelectionRange
+from qtpy.QtWidgets import QMainWindow, QApplication
 from qtpy import QtCore
 import numpy as np
 import logging
@@ -6,19 +6,19 @@ import logging
 from ..utilities.table_handler import TableHandler
 from .. import load_ui
 from .. import DataType
-from . import KropffThresholdFinder
 
 from .fitting_handler import FittingHandler
 from .value_table_handler import ValueTableHandler
 from .selected_bin_handler import SelectedBinsHandler
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from .filling_table_handler import FillingTableHandler
-from .fitting_initialization_handler import FittingInitializationHandler
-from .create_fitting_story_launcher import CreateFittingStoryLauncher
+from src.iBeatles.fitting.march_dollase.fitting_initialization_handler import FittingInitializationHandler
+from src.iBeatles.fitting.march_dollase.create_fitting_story_launcher import CreateFittingStoryLauncher
 from .initialization import Initialization
 from .event_handler import EventHandler
-from .kropff_handler import KropffHandler
-from .kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
+from src.iBeatles.fitting.kropff.kropff_handler import KropffHandler
+from src.iBeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
+from src.iBeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
 
 
 class FittingLauncher(object):
@@ -153,82 +153,27 @@ class FittingWindow(QMainWindow):
         o_fitting.display_locked_active_bins()
         if index_tab == 1:
             self.bragg_edge_linear_region_changed()
-            # self.update_kropff_fitting_plot()
 
+    # March-Dollase
     def column_value_table_clicked(self, column):
-        '''
-        to make sure that if the val or err column is selected, or unselected, the other
-        column behave the same
-        '''
-        if column < 5:
-            return
-
-        _item0 = self.parent.fitting_ui.ui.value_table.item(0, column)
-        state_column_clicked = self.parent.fitting_ui.ui.value_table.isItemSelected(_item0)
-
-        if column % 2 == 0:
-            col1 = column - 1
-            col2 = column
-        else:
-            col1 = column
-            col2 = column + 1
-
-        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
-        range_selected = QTableWidgetSelectionRange(0, col1, nbr_row - 1, col2)
-        self.parent.fitting_ui.ui.value_table.setRangeSelected(range_selected,
-                                                               state_column_clicked)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.column_value_table_clicked(column)
 
     def column_header_table_clicked(self, column):
-        _value_table_column = self.header_value_tables_match.get(column, -1)
-        nbr_row = self.parent.fitting_ui.ui.value_table.rowCount()
-
-        # if both col already selected, unselect them
-        col_already_selected = False
-        _item1 = self.parent.fitting_ui.ui.value_table.item(0, _value_table_column[0])
-        _item2 = self.parent.fitting_ui.ui.value_table.item(0, _value_table_column[-1])
-
-        if _item1.isSelected() and _item2.isSelected():
-            col_already_selected = True
-
-        if column in [2, 3]:
-            selection = self.parent.fitting_ui.ui.value_table.selectedRanges()
-            col_already_selected = False
-            for _select in selection:
-                if column in [_select.leftColumn(), _select.rightColumn()]:
-                    col_already_selected = True
-                    break
-
-        from_col = _value_table_column[0]
-        to_col = _value_table_column[-1]
-
-        range_selected = QTableWidgetSelectionRange(0, from_col,
-                                                    nbr_row - 1, to_col)
-        self.parent.fitting_ui.ui.value_table.setRangeSelected(range_selected,
-                                                               not col_already_selected)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.column_header_table_clicked(column)
 
     def resizing_header_table(self, index_column, old_size, new_size):
-        if index_column < 5:
-            self.ui.value_table.setColumnWidth(index_column, new_size)
-        else:
-            new_half_size = np.int(new_size / 2)
-            index1 = (index_column - 5) * 2 + 5
-            index2 = index1 + 1
-            self.ui.value_table.setColumnWidth(index1, new_half_size)
-            self.ui.value_table.setColumnWidth(index2, new_half_size)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.resizing_header_table(index_column, new_size)
 
     def resizing_value_table(self, index_column, old_size, new_size):
-        if index_column < 5:
-            self.ui.header_table.setColumnWidth(index_column, new_size)
-        else:
-            if (index_column % 2) == 1:
-                right_new_size = self.ui.value_table.columnWidth(index_column + 1)
-                index_header = np.int(index_column - 5) / 2 + 5
-                self.ui.header_table.setColumnWidth(index_header, new_size + right_new_size)
-
-            else:
-                left_new_size = self.ui.value_table.columnWidth(index_column - 1)
-                index_header = np.int(index_column - 6) / 2 + 5
-                self.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.resizing_value_table(index_column, new_size)
 
     def active_button_pressed(self):
         self.parent.display_active_row_flag = True
@@ -238,143 +183,57 @@ class FittingWindow(QMainWindow):
         self.parent.display_active_row_flag = False
         self.update_bragg_edge_plot()
 
-    def mouse_moved_in_image_view(self):
-        self.image_view.setFocus(True)
-
-    def hkl_list_changed(self, hkl):
-        bragg_edges_array = self.parent.selected_element_bragg_edges_array
-        if bragg_edges_array:
-            if str(hkl) == '':
-                value = "N/A"
-            else:
-                hkl_array = self.parent.selected_element_hkl_array
-                str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_array]
-                hkl_bragg_edges = dict(zip(str_hkl_list, bragg_edges_array))
-                value = "{:04.3f}".format(hkl_bragg_edges[str(hkl)])
-        else:
-            value = "N/A"
-        self.ui.bragg_edge_calculated.setText(value)
-
-    def slider_changed(self):
-        o_fitting_handler = FittingHandler(parent=self,
-                                           grand_parent=self.parent)
-        o_fitting_handler.display_roi()
-
     def check_status_widgets(self):
         self.check_state_of_step3_button()
         self.check_state_of_step4_button()
 
     def check_state_of_step3_button(self):
-        """The step1 button should be enabled if at least one row of the big table
-        is activated and display in the 1D plot"""
-        o_table = TableDictionaryHandler(parent=self,
-                                         grand_parent=self.parent)
-        is_at_least_one_row_activated = o_table.is_at_least_one_row_activated()
-        self.ui.step3_button.setEnabled(is_at_least_one_row_activated)
-        self.ui.step2_instruction_label.setEnabled(is_at_least_one_row_activated)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.check_state_of_step3_button()
 
     def check_state_of_step4_button(self):
-        self.ui.step4_button.setEnabled(self.is_ready_to_fit)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.check_state_of_step4_button()
 
     def active_button_state_changed(self, status, row_clicked):
-        '''
-        status: 0: off
-                2: on
-        '''
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
-        update_lock_flag = False
-        if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(True)
-
-        self.mirror_state_of_widgets(column=3, row_clicked=row_clicked)
-        self.check_state_of_step3_button()
-
-        o_bin_handler = SelectedBinsHandler(parent=self,
-                                            grand_parent=self.parent)
-        o_bin_handler.update_bins_selected()
-        self.update_bragg_edge_plot()
-        o_bin_handler.update_bins_locked()
-
-        if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.update_selection_table()
-            if update_lock_flag:
-                self.parent.advanced_selection_ui.update_lock_table()
-            self.parent.advanced_selection_ui.ui.selection_table.blockSignals(False)
-
-        QApplication.restoreOverrideCursor()
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.active_button_state_changed(row_clicked)
 
     def mirror_state_of_widgets(self, column=2, row_clicked=0):
-        # perform same status on all rows and save it in table_dictionary
-        label_column = 'active' if column == 3 else 'lock'
-
-        o_table = TableHandler(table_ui=self.ui.value_table)
-        o_table.add_this_row_to_selection(row=row_clicked)
-        list_row_selected = o_table.get_rows_of_table_selected()
-
-        o_table_handler = TableDictionaryHandler(grand_parent=self.parent,
-                                                 parent=self)
-        is_this_row_checked = o_table_handler.is_this_row_checked(row=row_clicked,
-                                                                  column=column)
-
-        for _row in list_row_selected:
-            self.parent.march_table_dictionary[str(_row)][label_column] = is_this_row_checked
-            if _row == row_clicked:
-                continue
-            _widget = o_table.get_widget(row=_row,
-                                         column=column)
-            _widget.blockSignals(True)
-            _widget.setChecked(is_this_row_checked)
-            _widget.blockSignals(False)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.mirror_state_of_widgets(column=column, row_clicked=row_clicked)
 
     def lock_button_state_changed(self, status, row_clicked):
-        """
-        All the row selected should mirror the state of this button
-
-        status: 0: off
-                2: on
-        """
-        update_selection_flag = False
-
-        if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.ui.lock_table.blockSignals(True)
-
-        if status == 0:
-            status = False
-        else:
-            status = True
-
-        self.mirror_state_of_widgets(column=2, row_clicked=row_clicked)
-
-        # hide this row if status is False and user only wants to see locked items
-        o_filling_handler = FillingTableHandler(grand_parent=self.parent,
-                                                parent=self)
-        if (status is False) and (o_filling_handler.get_row_to_show_state() == 'lock'):
-            self.parent.fitting_ui.ui.value_table.hideRow(row_clicked)
-
-        o_bin_handler = SelectedBinsHandler(parent=self,
-                                            grand_parent=self.parent)
-        o_bin_handler.update_bins_locked()
-        self.update_bragg_edge_plot()
-        o_bin_handler.update_bins_selected()
-
-        if self.parent.advanced_selection_ui:
-            self.parent.advanced_selection_ui.update_lock_table()
-            if update_selection_flag:
-                self.parent.advanced_selection_ui.update_selection_table()
-            self.parent.advanced_selection_ui.ui.lock_table.blockSignals(False)
+        o_event = MarchDollaseEventHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_event.lock_button_state_changed(status, row_clicked)
 
     def value_table_right_click(self, position):
         o_table_handler = ValueTableHandler(grand_parent=self.parent, parent=self)
         o_table_handler.right_click(position=position)
 
-    def update_image_view_selection(self):
-        o_bin_handler = SelectedBinsHandler(parent=self, grand_parent=self.parent)
-        o_bin_handler.update_bins_selected()
+    # def update_image_view_selection(self):
+    #     o_bin_handler = SelectedBinsHandler(parent=self, grand_parent=self.parent)
+    #     o_bin_handler.update_bins_selected()
 
-    def update_image_view_lock(self):
-        o_bin_handler = SelectedBinsHandler(parent=self, grand_parent=self.parent)
-        o_bin_handler.update_bins_locked()
+    # general fitting events
+
+    def mouse_moved_in_image_view(self):
+        self.image_view.setFocus(True)
+
+    def hkl_list_changed(self, hkl):
+        o_event = EventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.hkl_list_changed(hkl)
+
+    def slider_changed(self):
+        o_fitting_handler = FittingHandler(parent=self,
+                                           grand_parent=self.parent)
+        o_fitting_handler.display_roi()
 
     def update_bragg_edge_plot(self, update_selection=True):
         o_bin_handler = SelectedBinsHandler(parent=self, grand_parent=self.parent)
@@ -383,24 +242,9 @@ class FittingWindow(QMainWindow):
             self.bragg_edge_linear_region_changing()
         self.check_state_of_step3_button()
 
-    def selection_in_value_table_of_rows_cell_clicked(self, row, column):
-        pass
-        # # make sure the selection is right (val and err selected at the same time)
-        # if column > 4:
-        #     _item0 = self.ui.value_table.item(0, column)
-        #     _is_selected = self.ui.value_table.isItemSelected(_item0)
-        #     if (column % 2) == 0:
-        #         left_column = column - 1
-        #         right_column = column
-        #     else:
-        #         left_column = column
-        #         right_column = column + 1
-        #     nbr_row = self.ui.value_table.rowCount()
-        #     _selection = QTableWidgetSelectionRange(0, left_column,
-        #                                             nbr_row - 1, right_column)
-        #     self.ui.value_table.setRangeSelected(_selection, _is_selected)
-        #
-        # self.update_bragg_edge_plot()
+
+
+
 
     def selection_in_value_table_changed(self):
         self.selection_in_value_table_of_rows_cell_clicked(-1, -1)
