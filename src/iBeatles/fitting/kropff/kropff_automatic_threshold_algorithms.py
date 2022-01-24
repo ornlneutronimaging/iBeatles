@@ -113,9 +113,9 @@ class Algorithms:
             var = np.mean(_profile_data)
             result = pelt(normal_var(_profile_data, var), nbr_pixels)
             if len(result) > 2:
-                peak = np.mean(result[2:])
+                peak = np.int(np.mean(result[2:]))
             else:
-                peak = np.mean(result[1:])
+                peak = np.int(np.mean(result[1:]))
             water_intake_peaks.append(peak)
 
             if self.progress_bar_ui:

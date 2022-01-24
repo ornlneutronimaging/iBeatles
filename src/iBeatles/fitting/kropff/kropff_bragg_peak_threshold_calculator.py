@@ -22,6 +22,8 @@ class KropffBraggPeakThresholdCalculator:
                             progress_bar_ui=progress_bar_ui)
 
         list_of_threshold_calculated = o_algo.get_peak_value_array(algorithm_selected)
+        logging.info(f"-> list of threshold found: {list_of_threshold_calculated}")
+
         for _row_index, _row in enumerate(kropff_table_dictionary.keys()):
             x_axis = kropff_table_dictionary[_row]['xaxis']
             left_index = list_of_threshold_calculated[_row_index] - 3
@@ -33,4 +35,3 @@ class KropffBraggPeakThresholdCalculator:
 
         self.grand_parent.kropff_table_dictionary = kropff_table_dictionary
 
-        print(f"o_algo.get_peak_value_array: {o_algo.get_peak_value_array(algorithm_selected)}")

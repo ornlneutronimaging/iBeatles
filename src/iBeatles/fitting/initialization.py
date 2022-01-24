@@ -42,7 +42,7 @@ class Initialization:
 
         # self.parent.kropff_automatic_threshold_finder_algorithm = \
         #     self.grand_parent.kropff_automatic_threshold_finder_algorithm
-    
+
     def table_headers(self):
 
         o_kropff_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
