@@ -128,14 +128,15 @@ class Algorithms:
             QtGui.QGuiApplication.processEvents()
 
     def calculate_using_erf(self):
-        list_data = self.list_data
-        nbr_files = len(list_data)
+        table_dictionary = self.table_dictionary
+
+        nbr_files = len(table_dictionary.keys())
 
         _start_file = 0
         _end_file = nbr_files
 
         if self.progress_bar_ui:
-            self.progress_bar_ui.setMaximum(len(list_data))
+            self.progress_bar_ui.setMaximum(nbr_files)
             self.progress_bar_ui.setVisible(True)
             QtGui.QGuiApplication.processEvents()
 
@@ -147,11 +148,8 @@ class Algorithms:
         peak_error_function_data = []
         peak_error_function_data_error = []
         dict_error_function_parameters = dict()
-        for _index_file in np.arange(_start_file, _end_file):
-            ydata = list_data[_index_file]
-            # ydata = _profile['data']
-            # xdata = _profile['delta_time']
-
+        for _index_file, _row in enumerate(table_dictionary.keys()):
+            ydata = table_dictionary[_row]['yaxis']
             is_data_from_max_to_min = self.are_data_from_max_to_min(ydata)
             self.is_data_from_max_to_min = is_data_from_max_to_min
             if not is_data_from_max_to_min:

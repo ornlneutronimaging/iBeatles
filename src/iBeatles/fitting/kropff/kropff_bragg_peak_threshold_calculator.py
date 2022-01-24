@@ -17,8 +17,6 @@ class KropffBraggPeakThresholdCalculator:
         logging.info(f"-> algorithm selected: {algorithm_selected}")
         progress_bar_ui = self.parent.eventProgress
 
-        algorithm_selected = KropffThresholdFinder.sliding_average
-
         o_algo = Algorithms(kropff_table_dictionary=kropff_table_dictionary,
                             algorithm_selected=algorithm_selected,
                             progress_bar_ui=progress_bar_ui)
