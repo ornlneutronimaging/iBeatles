@@ -1,11 +1,11 @@
 import numpy as np
-import logging
 import pyqtgraph as pg
 
 from src.iBeatles.fitting.get import Get
 from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
 from src.iBeatles import DataType
 from src.iBeatles.utilities.table_handler import TableHandler
+from src.iBeatles.fitting.kropff.fit_regions import FitRegions
 
 
 class EventHandler:
@@ -157,3 +157,8 @@ class EventHandler:
 
         self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak threshold width'] = \
             self.parent.ui.kropff_threshold_width_slider.value()
+
+    def fit_regions(self):
+        o_fit = FitRegions(parent=self.parent,
+                           grand_parent=self.grand_parent)
+        o_fit.all_regions()

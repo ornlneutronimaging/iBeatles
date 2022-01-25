@@ -1680,7 +1680,7 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>192</x>
+     <x>321</x>
      <y>601</y>
     </hint>
     <hint type="destinationlabel">
@@ -1728,7 +1728,7 @@
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>424</x>
+     <x>454</x>
      <y>618</y>
     </hint>
     <hint type="destinationlabel">
@@ -1776,8 +1776,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>134</x>
-     <y>607</y>
+     <x>137</x>
+     <y>716</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1792,8 +1792,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>607</y>
+     <x>166</x>
+     <y>716</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1888,8 +1888,8 @@
    <slot>kropff_low_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>174</x>
-     <y>607</y>
+     <x>177</x>
+     <y>717</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -1936,7 +1936,7 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>356</x>
+     <x>609</x>
      <y>515</y>
     </hint>
     <hint type="destinationlabel">
@@ -1974,6 +1974,22 @@
     <hint type="destinationlabel">
      <x>1500</x>
      <y>565</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_fit_allregions_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_fit_all_regions()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1165</x>
+     <y>512</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1501</x>
+     <y>651</y>
     </hint>
    </hints>
   </connection>
@@ -2052,5 +2068,6 @@
   <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
   <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
   <slot>kropff_threshold_width_slider_changed()</slot>
+  <slot>kropff_fit_all_regions()</slot>
  </slots>
 </ui>

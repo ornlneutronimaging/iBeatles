@@ -392,6 +392,11 @@ class FittingWindow(QMainWindow):
     def kropff_threshold_width_slider_changed(self, new_value):
         self.ui.kropff_threshold_width_value.setText(str(new_value))
 
+    def kropff_fit_all_regions(self):
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.fit_regions()
+
     # general settings
 
     def windows_settings(self):
