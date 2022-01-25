@@ -160,6 +160,10 @@ class FittingWindow(QMainWindow):
                                     grand_parent=self.parent)
             o_event.display_bragg_peak_threshold()
 
+        o_fitting_window_event = EventHandler(parent=self,
+                                              grand_parent=self.parent)
+        o_fitting_window_event.check_widgets()
+
     # general fitting events
 
     def mouse_moved_in_image_view(self):

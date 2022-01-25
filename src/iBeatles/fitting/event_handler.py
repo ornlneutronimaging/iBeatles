@@ -63,3 +63,14 @@ class EventHandler:
         else:
             value = "N/A"
         self.parent.ui.bragg_edge_calculated.setText(value)
+
+    def check_widgets(self):
+        tab_index = self.parent.ui.tabWidget.currentIndex()
+        if tab_index == 0:
+            show_plot_radio_buttons = True
+        else:
+            show_plot_radio_buttons = False
+
+        self.parent.ui.plot_label.setVisible(show_plot_radio_buttons)
+        self.parent.ui.active_bins_button.setVisible(show_plot_radio_buttons)
+        self.parent.ui.locked_bins_button.setVisible(show_plot_radio_buttons)

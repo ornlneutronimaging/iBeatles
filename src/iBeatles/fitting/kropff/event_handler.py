@@ -94,8 +94,6 @@ class EventHandler:
         left = kropff_table_of_row_selected['bragg peak threshold']['left']
         right = kropff_table_of_row_selected['bragg peak threshold']['right']
 
-        print(f"row_selected: {row_selected} -> left: {left} and right:{right}")
-
         # display item and make it enabled or not according to is_manual mode or not
         lr = pg.LinearRegionItem(values=[left, right],
                                  orientation='vertical',

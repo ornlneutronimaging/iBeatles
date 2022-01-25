@@ -117,8 +117,8 @@ class Initialization:
         d1 = Dock("Image Preview", size=(200, 300))
         d2 = Dock("Bragg Edge", size=(200, 100))
 
-        area.addDock(d1, 'top')
-        area.addDock(d2, 'bottom')
+        area.addDock(d1, 'left')
+        area.addDock(d2, 'right')
 
         preview_widget = pg.GraphicsLayoutWidget()
         pg.setConfigOptions(antialias=True)  # this improve display
@@ -169,6 +169,7 @@ class Initialization:
         buttons_layout.addItem(spacer)
         label = QLabel("Plot")
         buttons_layout.addWidget(label)
+        self.parent.ui.plot_label = label
 
         # all bins button
         active_button = QRadioButton()
