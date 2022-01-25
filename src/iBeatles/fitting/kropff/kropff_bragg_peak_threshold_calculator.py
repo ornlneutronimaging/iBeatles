@@ -1,4 +1,5 @@
 import logging
+import numpy as np
 
 from src.iBeatles.fitting.kropff.kropff_automatic_threshold_algorithms import Algorithms
 from src.iBeatles.fitting import KropffThresholdFinder
@@ -24,10 +25,12 @@ class KropffBraggPeakThresholdCalculator:
         list_of_threshold_calculated = o_algo.get_peak_value_array(algorithm_selected)
         logging.info(f"-> list of threshold found: {list_of_threshold_calculated}")
 
+        threshold_width = np.int(self.parent.ui.kropff_threshold_width_slider.value())
+
         for _row_index, _row in enumerate(kropff_table_dictionary.keys()):
             x_axis = kropff_table_dictionary[_row]['xaxis']
-            left_index = list_of_threshold_calculated[_row_index] - 3
-            right_index = list_of_threshold_calculated[_row_index] + 3
+            left_index = list_of_threshold_calculated[_row_index] - threshold_width
+            right_index = list_of_threshold_calculated[_row_index] + threshold_width
             if right_index >= len(x_axis):
                 right_index = len(x_axis) - 1
             kropff_table_dictionary[_row]['bragg peak threshold']['left'] = x_axis[left_index]
