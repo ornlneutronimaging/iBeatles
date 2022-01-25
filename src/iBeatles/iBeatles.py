@@ -115,7 +115,6 @@ class MainWindow(QMainWindow):
     fitting_set_variables_ui = None
     fitting_selection = {'nbr_column': -1,
                          'nbr_row': -1}
-    #    fitting_bragg_edge_x_axis = []
     fitting_bragg_edge_linear_selection = []   # [left lambda, right lambda]
     fitting_transparency_slider_value = 50      # from 0 to 100
     display_active_row_flag = True

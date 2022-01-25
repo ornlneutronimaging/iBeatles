@@ -16,6 +16,9 @@ class EventHandler:
         self.parent = parent
         self.grand_parent = grand_parent
 
+    def check_widgets_helper(self):
+        pass
+
     def save_all_profiles(self, force=False):
         o_table = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
         nbr_row = o_table.row_count()

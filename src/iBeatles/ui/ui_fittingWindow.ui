@@ -854,7 +854,19 @@
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton">
+                    <widget class="QPushButton" name="kropff_fit_allregions_pushButton">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>16777215</width>
+                       <height>40</height>
+                      </size>
+                     </property>
                      <property name="text">
                       <string>Fit All Regions (High, Low, Bragg Peak)</string>
                      </property>

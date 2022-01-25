@@ -319,6 +319,13 @@ class FittingWindow(QMainWindow):
         self.update_bragg_edge_plot()
 
     # kropff
+
+    def kropff_check_widgets_helper(self):
+        """highlight in green the next button to use"""
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.check_widgets_helper()
+
     def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
@@ -340,14 +347,6 @@ class FittingWindow(QMainWindow):
                                  grand_parent=self.parent)
         o_kropff.parameters_changed()
 
-    # def kropff_bragg_peak_selection_mode_changed(self):
-    #     if self.ui.kropff_bragg_peak_single_selection.isChecked():
-    #         self.ui.bragg_edge_tableWidget.setSelectionMode(1)
-    #     else:
-    #         self.ui.bragg_edge_tableWidget.setSelectionMode(2)
-    #     self.update_kropff_fitting_plot()
-    #     self.update_selected_bins_plot()
-
     def update_selected_bins_plot(self):
         o_kropff = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_bins_selected()
@@ -357,7 +356,6 @@ class FittingWindow(QMainWindow):
         o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_fitting_plot()
         o_kropff.update_bragg_edge_threshold()
-        # o_kropff.kropff_automatic_bragg_peak_threshold_finder_changed()
 
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()

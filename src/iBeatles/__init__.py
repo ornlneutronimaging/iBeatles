@@ -17,6 +17,10 @@ DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', 'background']
 DEFAULT_BIN = [0, 0, 20, 20, 10]
 BINNING_LINE_COLOR = (255, 0, 0, 255, 1.)
 
+interact_me_style = "background-color: lime"
+error_style = "background-color: red"
+normal_style = ""
+
 
 class DataType:
     sample = 'sample'

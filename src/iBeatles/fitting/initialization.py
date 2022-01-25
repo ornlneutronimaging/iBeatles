@@ -6,7 +6,7 @@ import pyqtgraph as pg
 import logging
 from qtpy.QtGui import QIcon
 
-from .. import DataType
+from .. import DataType, interact_me_style
 from ..utilities.table_handler import TableHandler
 from .. import settings_icon
 from src.iBeatles.fitting import KropffThresholdFinder
@@ -271,6 +271,9 @@ class Initialization:
         self.parent.ui.kropff_bragg_peak_lambda_label.setText(u"\u03BB<sub>hkl</sub>")
         self.parent.ui.kropff_bragg_peak_tau_label.setText(u"\u03c4")
         self.parent.ui.kropff_bragg_peak_sigma_label.setText(u"\u03c3")
+
+        self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
+        self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(interact_me_style)
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']
