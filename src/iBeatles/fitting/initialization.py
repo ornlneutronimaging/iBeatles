@@ -281,5 +281,8 @@ class Initialization:
             splitter_3_size = ui_dict['splitter_3']
             self.parent.ui.splitter_3.setSizes(splitter_3_size)
 
+            threshold_width = self.grand_parent.session_dict[DataType.fitting]['kropff']["bragg peak threshold width"]
+            self.parent.ui.kropff_threshold_width_slider.setValue(threshold_width)
+
         except TypeError:
             logging.info("Splitters have not been set due to log file format error! This should only show up once.")

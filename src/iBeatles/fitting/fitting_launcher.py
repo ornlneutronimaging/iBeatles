@@ -152,6 +152,9 @@ class FittingWindow(QMainWindow):
         o_fitting.display_locked_active_bins()
         if index_tab == 1:
             self.bragg_edge_linear_region_changed()
+            o_event = KropffHandler(parent=self,
+                                    grand_parent=self.parent)
+            o_event.display_bragg_peak_threshold()
 
     # general fitting events
 
@@ -376,6 +379,11 @@ class FittingWindow(QMainWindow):
         o_event = KropffHandler(parent=self,
                                 grand_parent=self.parent)
         o_event.kropff_bragg_edge_threshold_changed()
+
+    def kropff_threshold_width_slider_changed(self, new_value):
+        self.ui.kropff_threshold_width_value.setText(str(new_value))
+
+    # general settings
 
     def windows_settings(self):
         self.parent.session_dict[DataType.fitting]['ui']['splitter_2'] = self.ui.splitter_2.sizes()

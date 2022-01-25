@@ -215,15 +215,19 @@ class SelectedBinsHandler(object):
         self.parent.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
         self.parent.bragg_edge_plot.setLabel("left", "Average Counts")
 
-        if self.grand_parent.fitting_bragg_edge_linear_selection == []:
-            linear_region_left_index = 0
-            linear_region_right_index = len(x_axis) - 1
-            self.grand_parent.fitting_bragg_edge_linear_selection = [linear_region_left_index,
-                                                                     linear_region_right_index]
+        o_get = Get(parent=self.parent,
+                    grand_parent=self.grand_parent)
+        [linear_region_left_index, linear_region_right_index] = o_get.fitting_bragg_edge_linear_selection()
 
-        else:
-            [linear_region_left_index, linear_region_right_index] = \
-                self.grand_parent.fitting_bragg_edge_linear_selection
+        # if self.grand_parent.fitting_bragg_edge_linear_selection == []:
+        #     linear_region_left_index = 0
+        #     linear_region_right_index = len(x_axis) - 1
+        #     self.grand_parent.fitting_bragg_edge_linear_selection = [linear_region_left_index,
+        #                                                              linear_region_right_index]
+        #
+        # else:
+        #     [linear_region_left_index, linear_region_right_index] = \
+        #         self.grand_parent.fitting_bragg_edge_linear_selection
 
         lr_left = x_axis[linear_region_left_index]
         lr_right = x_axis[linear_region_right_index]

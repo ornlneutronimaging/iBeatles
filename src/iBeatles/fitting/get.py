@@ -40,6 +40,18 @@ class Get:
         else:
             raise ValueError("Tab Selected is invalid!")
 
+    def fitting_bragg_edge_linear_selection(self):
+        if self.grand_parent.fitting_bragg_edge_linear_selection == []:
+            linear_region_left_index = 0
+            x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
+            linear_region_right_index = len(x_axis) - 1
+            self.grand_parent.fitting_bragg_edge_linear_selection = [linear_region_left_index,
+                                                                     linear_region_right_index]
+            return [linear_region_left_index, linear_region_right_index]
+
+        else:
+            return self.grand_parent.fitting_bragg_edge_linear_selection
+
     def y_axis_and_x_axis_for_given_rows_selected(self):
         table_ui_selected = self.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
@@ -49,7 +61,7 @@ class Get:
         data_2d = self.grand_parent.data_metadata['normalized']['data']
 
         # index of selection in bragg edge plot
-        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
+        [left_index, right_index] = self.fitting_bragg_edge_linear_selection()
 
         list_of_yaxis = []
 

@@ -34,4 +34,3 @@ class KropffBraggPeakThresholdCalculator:
             kropff_table_dictionary[_row]['bragg peak threshold']['right'] = x_axis[right_index]
 
         self.grand_parent.kropff_table_dictionary = kropff_table_dictionary
-

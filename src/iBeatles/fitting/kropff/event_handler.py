@@ -153,3 +153,6 @@ class EventHandler:
 
         self.grand_parent.session_dict[DataType.fitting]['kropff']['automatic bragg peak threshold algorithm'] = \
             self.parent.kropff_automatic_threshold_finder_algorithm
+
+        self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak threshold width'] = \
+            self.parent.ui.kropff_threshold_width_slider.value()
