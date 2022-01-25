@@ -314,6 +314,9 @@ class FittingWindow(QMainWindow):
     def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.display_bragg_peak_threshold()
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
         o_event = KropffHandler(parent=self,
