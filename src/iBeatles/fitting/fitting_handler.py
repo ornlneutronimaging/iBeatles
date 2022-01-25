@@ -6,6 +6,7 @@ from ..fitting.filling_table_handler import FillingTableHandler
 from .selected_bin_handler import SelectedBinsHandler
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 from .. import DataType
+from . import FittingTabSelected
 from ..utilities.array_utilities import get_min_max_xy
 from src.iBeatles.fitting import selected_color, lock_color
 
@@ -99,6 +100,28 @@ class FittingHandler:
         self.parent.check_status_widgets()
 
     def initialize_parameters_from_session(self):
+        self.initialize_marche_dollase_parameters_from_session()
+        self.initialize_kropff_parameters_from_session()
+
+    def initialize_kropff_parameters_from_session(self):
+        session_table_dictionary = \
+            self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["table dictionary"]
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+
+        for _row in session_table_dictionary.keys():
+            _entry = session_table_dictionary[_row]
+            table_dictionary[_row]["bragg peak threshold"] = _entry["bragg_peak_threshold"]
+            table_dictionary[_row]["a0"] = _entry["a0"]
+            table_dictionary[_row]["b0"] = _entry["b0"]
+            table_dictionary[_row]["ahkl"] = _entry["ahkl"]
+            table_dictionary[_row]["bhkl"] = _entry["bhkl"]
+            table_dictionary[_row]["lambda_hkl"] = _entry["lambda_hkl"]
+            table_dictionary[_row]["tau"] = _entry["tau"]
+            table_dictionary[_row]["sigma"] = _entry["sigma"]
+
+        self.grand_parent.kropff_table_dictionary = table_dictionary
+
+    def initialize_marche_dollase_parameters_from_session(self):
         session_table_dictionary = self.grand_parent.session_dict["fitting"]['march dollase']["table dictionary"]
         table_dictionary = self.grand_parent.march_table_dictionary
 

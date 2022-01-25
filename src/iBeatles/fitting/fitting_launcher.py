@@ -34,7 +34,8 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-            o_fitting.display_locked_active_bins()
+
+            fitting_window.fitting_main_tab_widget_changed()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -146,7 +147,10 @@ class FittingWindow(QMainWindow):
                                    grand_parent=self.parent)
         o_fitting.fill_table()
 
-    def fitting_main_tab_widget_changed(self, index_tab):
+    def fitting_main_tab_widget_changed(self, index_tab=-1):
+        if index_tab == -1:
+            index_tab = self.ui.tabWidget.currentIndex()
+
         o_fitting = FittingHandler(grand_parent=self.parent,
                                    parent=self)
         o_fitting.display_locked_active_bins()
