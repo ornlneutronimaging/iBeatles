@@ -76,11 +76,11 @@ class Initialization:
         column_names = [u'row #',
                         u'column #',
                         u'\u03BB\u2095\u2096\u2097',
-                        u'tau',
-                        u'sigma',
+                        u'\u03c4',
+                        u'\u03c3',
                         u'\u03BB\u2095\u2096\u2097_error',
-                        u'tau_error',
-                        u'sigma_error']
+                        u'\u03c4_error',
+                        u'\u03c3_error']
         column_sizes = [80, 80, 100, 100, 100, 100, 100, 100]
         for _col_index, _col_name in enumerate(column_names):
             o_kropff_bragg_edge.insert_column(_col_index)
@@ -267,6 +267,10 @@ class Initialization:
 
         icon = QIcon(settings_icon)
         self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)
+
+        self.parent.ui.kropff_bragg_peak_lambda_label.setText(u"\u03BB<sub>hkl</sub>")
+        self.parent.ui.kropff_bragg_peak_tau_label.setText(u"\u03c4")
+        self.parent.ui.kropff_bragg_peak_sigma_label.setText(u"\u03c3")
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']

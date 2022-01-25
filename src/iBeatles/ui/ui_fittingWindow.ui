@@ -906,6 +906,13 @@
                         </widget>
                        </item>
                        <item>
+                        <widget class="Line" name="line_3">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
                         <widget class="QLabel" name="label_15">
                          <property name="text">
                           <string>b0</string>
@@ -1066,6 +1073,13 @@
                         </widget>
                        </item>
                        <item>
+                        <widget class="Line" name="line_4">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
                         <widget class="QLabel" name="label_19">
                          <property name="text">
                           <string>bhkl</string>
@@ -1203,7 +1217,7 @@
                       </property>
                       <layout class="QHBoxLayout" name="horizontalLayout_15">
                        <item>
-                        <widget class="QLabel" name="label_20">
+                        <widget class="QLabel" name="kropff_bragg_peak_lambda_label">
                          <property name="text">
                           <string>lambda_hkl</string>
                          </property>
@@ -1226,7 +1240,14 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="label_21">
+                        <widget class="Line" name="line">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="kropff_bragg_peak_tau_label">
                          <property name="text">
                           <string>tau</string>
                          </property>
@@ -1249,7 +1270,14 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLabel" name="label_22">
+                        <widget class="Line" name="line_2">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="kropff_bragg_peak_sigma_label">
                          <property name="text">
                           <string>sigma</string>
                          </property>
