@@ -1,10 +1,8 @@
-import logging
-import numpy as np
-
 from src.iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 import src.iBeatles.utilities.error as fitting_error
-from src.iBeatles.fitting.kropff import FittingRegions
 from src.iBeatles.fitting.kropff.get import Get
+from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
+from src.iBeatles.fitting.kropff.display import Display
 
 
 class FitRegions:
@@ -17,6 +15,14 @@ class FitRegions:
 
     def all_regions(self):
         type_error = ""
+
+        # o_event = KropffBraggPeakThresholdCalculator(parent=self.parent,
+        #                                              grand_parent=self.grand_parent)
+        # o_event.save_all_profiles()
+
+        # o_display = Display(parent=self.parent,
+        #                     grand_parent=self.grand_parent)
+        # o_display.display_bragg_peak_threshold()
 
         try:
             self.high_lambda()
@@ -41,7 +47,11 @@ class FitRegions:
 
         table_dictionary = self.table_dictionary
         for _key in table_dictionary.keys():
-            print(f"_key is {_key}")
+            xaxis = table_dictionary[_key]['xaxis']
+            yaxis = table_dictionary[_key]['yaxis']
+
+            print(f"xaxis: {xaxis}")
+            print(f"yaxis: {yaxis}")
 
 
     def low_lambda(self):

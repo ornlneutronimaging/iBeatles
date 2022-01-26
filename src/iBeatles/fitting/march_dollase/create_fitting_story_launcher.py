@@ -7,7 +7,7 @@ from src.iBeatles.table_dictionary.table_fitting_story_dictionary_handler import
 from src.iBeatles.fitting.fitting_job_handler import FittingJobHandler
 # from iBeatles.py.utilities.status import Status
 from src.iBeatles import load_ui
-from src.iBeatles import up_icon, down_icon
+from src.iBeatles import up_image, down_image
 
 
 class CreateFittingStoryLauncher(object):
@@ -66,11 +66,11 @@ class FittingStoryWindow(QMainWindow):
         self.ui.statusbar.addPermanentWidget(self.eventProgress)
 
     def init_widgets(self):
-        icon_up = QtGui.QIcon(up_icon)
+        icon_up = QtGui.QIcon(up_image)
         self.ui.up_button.setIcon(icon_up)
         self.ui.up_button.setEnabled(False)
 
-        icon_down = QtGui.QIcon(down_icon)
+        icon_down = QtGui.QIcon(down_image)
         self.ui.down_button.setIcon(icon_down)
         self.ui.down_button.setEnabled(False)
 

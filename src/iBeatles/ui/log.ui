@@ -45,6 +45,25 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="settings_pushButton">
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -80,7 +99,7 @@
      <x>0</x>
      <y>0</y>
      <width>797</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
@@ -141,10 +160,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>settings_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>launch_settings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>155</x>
+     <y>801</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>277</x>
+     <y>802</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>save_as_clicked()</slot>
   <slot>loading_logging_file()</slot>
   <slot>clear_clicked()</slot>
+  <slot>launch_settings()</slot>
  </slots>
 </ui>

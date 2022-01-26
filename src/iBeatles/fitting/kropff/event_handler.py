@@ -4,8 +4,8 @@ import pyqtgraph as pg
 from src.iBeatles.fitting.get import Get
 from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
 from src.iBeatles import DataType
-from src.iBeatles.utilities.table_handler import TableHandler
 from src.iBeatles.fitting.kropff.fit_regions import FitRegions
+from src.iBeatles.fitting.kropff.display import Display
 
 
 class EventHandler:
@@ -18,45 +18,6 @@ class EventHandler:
 
     def check_widgets_helper(self):
         pass
-
-    def save_all_profiles(self, force=False):
-        o_table = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
-        nbr_row = o_table.row_count()
-        table_dictionary = self.grand_parent.kropff_table_dictionary
-        data_2d = self.grand_parent.data_metadata['normalized']['data']
-
-        # index of selection in bragg edge plot
-        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
-
-        run_calculation = False
-        for _row in np.arange(nbr_row):
-            _bin_entry = table_dictionary[str(_row)]
-
-            if force:
-                run_calculation = True
-            elif _bin_entry['yaxis'] is None:
-                run_calculation = True
-
-            if run_calculation:
-                _bin_x0 = _bin_entry['bin_coordinates']['x0']
-                _bin_x1 = _bin_entry['bin_coordinates']['x1']
-                _bin_y0 = _bin_entry['bin_coordinates']['y0']
-                _bin_y1 = _bin_entry['bin_coordinates']['y1']
-
-                yaxis = data_2d[left_index: right_index,
-                                _bin_x0: _bin_x1,
-                                _bin_y0: _bin_y1,
-                                ]  # noqa: E124
-                yaxis = np.nanmean(yaxis, axis=1)
-                yaxis = np.array(np.nanmean(yaxis, axis=1), dtype=float)
-                _bin_entry['yaxis'] = yaxis
-                self.grand_parent.kropff_table_dictionary[str(_row)] = _bin_entry
-
-                # index of selection in bragg edge plot
-                [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
-                full_x_axis = self.parent.bragg_edge_data['x_axis']
-                xaxis = np.array(full_x_axis[left_index: right_index], dtype=float)
-                _bin_entry['xaxis'] = xaxis
 
     def update_bragg_edge_threshold(self):
         pass
@@ -75,38 +36,15 @@ class EventHandler:
             self.parent.ui.kropff_fitting.plot(xaxis, _yaxis, symbol='o')
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
-        self.save_all_profiles()
         o_kropff = KropffBraggPeakThresholdCalculator(parent=self.parent,
                                                       grand_parent=self.grand_parent)
+        o_kropff.save_all_profiles()
         o_kropff.run_automatic_mode()
-        self.display_bragg_peak_threshold()
 
-    def display_bragg_peak_threshold(self):
-        # clear all previously display bragg peak threshold
-        if not (self.parent.kropff_threshold_current_item is None):
-            self.parent.ui.kropff_fitting.removeItem(self.parent.kropff_threshold_current_item)
-            self.parent.kropff_threshold_current_item = None
-
-        # get list of row selected
-        o_kropff = Get(parent=self.parent)
-        row_selected = str(o_kropff.kropff_row_selected()[0])
-
-        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
-        kropff_table_of_row_selected = kropff_table_dictionary[row_selected]
-        # retrieve value of threshold range
-        left = kropff_table_of_row_selected['bragg peak threshold']['left']
-        right = kropff_table_of_row_selected['bragg peak threshold']['right']
-
-        # display item and make it enabled or not according to is_manual mode or not
-        lr = pg.LinearRegionItem(values=[left, right],
-                                 orientation='vertical',
-                                 brush=None,
-                                 movable=True,
-                                 bounds=None)
-        lr.setZValue(-10)
-        lr.sigRegionChangeFinished.connect(self.parent.kropff_bragg_edge_threshold_changed)
-        self.parent.ui.kropff_fitting.addItem(lr)
-        self.parent.kropff_threshold_current_item = lr
+        o_display = Display(parent=self.parent,
+                            grand_parent=self.grand_parent)
+        o_display.display_bragg_peak_threshold()
+        self.parent.ui.kropff_fit_allregions_pushButton.setEnabled(True)
 
     def kropff_bragg_edge_threshold_changed(self):
         lr = self.parent.kropff_threshold_current_item

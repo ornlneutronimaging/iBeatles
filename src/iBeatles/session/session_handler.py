@@ -1,6 +1,7 @@
 from qtpy.QtWidgets import QFileDialog, QApplication
 import json
 import logging
+import copy
 
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
 from ..utilities.get import Get
@@ -16,6 +17,7 @@ from .load_normalization_tab import LoadNormalization
 from .load_normalized_tab import LoadNormalized
 from .load_bin_tab import LoadBin
 from .load_fitting_tab import LoadFitting
+from .general import General
 
 
 from .. import DataType
@@ -27,6 +29,7 @@ class SessionHandler:
     load_successful = True
 
     session_dict = {'config version': None,
+                    'log buffer size': 500,
                     DataType.sample: {'list files': None,
                                       'current folder': None,
                                       'time spectra filename': None,
@@ -74,38 +77,40 @@ class SessionHandler:
                             'image view histogram': None,
                             'ui accessed': False,
                             },
-                    "fitting": {"lambda range index": None,
-                                "x_axis": None,
-                                "transparency": 50,
-                                'image view state': None,
-                                'image view histogram': None,
-                                'ui accessed': False,
-                                'ui': {'splitter_2': None,
-                                       'splitter': None,
-                                       'splitter_3': None,
-                                       },
-                                'march dollase': {"table dictionary": None,
-                                                  "plot active row flag": True,
-                                                  },
-                                'kropff': {'table dictionary': None,
-                                           'high tof': {'a0': '1',
-                                                        'b0': '1',
-                                                        'graph': 'a0',
-                                                        },
-                                           'low tof': {'ahkl': '1',
-                                                       'bhkl': '1',
-                                                       'graph': 'ahkl',
-                                                       },
-                                           'bragg peak': {'lambda_hkl': '1e-8',
-                                                          'tau': '1',
-                                                          'sigma': '1e-7',
-                                                          'table selection': 'single',
-                                                          'graph': 'lambda_hkl',
+                    DataType.fitting: {"lambda range index": None,
+                                        "x_axis": None,
+                                        "transparency": 50,
+                                        'image view state': None,
+                                        'image view histogram': None,
+                                        'ui accessed': False,
+                                        'ui': {'splitter_2': None,
+                                               'splitter': None,
+                                               'splitter_3': None,
+                                               },
+                                        'march dollase': {"table dictionary": None,
+                                                          "plot active row flag": True,
                                                           },
-                                           'automatic bragg peak threshold finder': True,
-                                           }
-                                }
+                                        'kropff': {'table dictionary': None,
+                                                   'high tof': {'a0': '1',
+                                                                'b0': '1',
+                                                                'graph': 'a0',
+                                                                },
+                                                   'low tof': {'ahkl': '1',
+                                                               'bhkl': '1',
+                                                               'graph': 'ahkl',
+                                                               },
+                                                   'bragg peak': {'lambda_hkl': '1e-8',
+                                                                  'tau': '1',
+                                                                  'sigma': '1e-7',
+                                                                  'table selection': 'single',
+                                                                  'graph': 'lambda_hkl',
+                                                                  },
+                                                   'automatic bragg peak threshold finder': True,
+                                                   }
+                                        }
                     }
+
+    default_session_dict = copy.deepcopy(session_dict)
 
     def __init__(self, parent=None):
         logging.info("-> Saving current session before leaving the application")
@@ -113,6 +118,7 @@ class SessionHandler:
 
     def save_from_ui(self):
         self.session_dict['config version'] = self.parent.config["config version"]
+        self.session_dict['log buffer size'] = self.parent.session_dict['log buffer size']
 
         # Load data tab
         o_save_load_data_tab = SaveLoadDataTab(parent=self.parent,
@@ -155,6 +161,9 @@ class SessionHandler:
         logging.info(f"Automatic session tabs to load: {tabs_to_load}")
 
         try:
+
+            o_general = General(parent=self.parent)
+            o_general.settings()
 
             if DataType.sample in tabs_to_load:
 

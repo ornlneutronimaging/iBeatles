@@ -18,6 +18,7 @@ from .event_handler import EventHandler
 from src.iBeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
 from src.iBeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
 from src.iBeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
+from src.iBeatles.fitting.kropff.display import Display
 
 
 class FittingLauncher(object):
@@ -156,8 +157,8 @@ class FittingWindow(QMainWindow):
         o_fitting.display_locked_active_bins()
         if index_tab == 1:
             self.bragg_edge_linear_region_changed()
-            o_event = KropffHandler(parent=self,
-                                    grand_parent=self.parent)
+            o_event = Display(parent=self,
+                              grand_parent=self.parent)
             o_event.display_bragg_peak_threshold()
 
         o_fitting_window_event = EventHandler(parent=self,
@@ -329,8 +330,8 @@ class FittingWindow(QMainWindow):
     def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
@@ -364,24 +365,24 @@ class FittingWindow(QMainWindow):
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_low_tof_table_selection_changed(self):
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_bragg_peak_table_selection_changed(self):
         self.update_selected_bins_plot()
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_bragg_edge_threshold_changed(self):

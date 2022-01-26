@@ -310,7 +310,6 @@ class BinningWindow(QMainWindow):
             self.record_roi()
 
         else:
-
             # reset everything if we quit with no data plotted
             binning_line_view = {'ui': None,
                                  'pos': None,

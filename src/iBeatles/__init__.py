@@ -8,9 +8,9 @@ del get_versions
 
 root = os.path.dirname(os.path.realpath(__file__))
 refresh_image = os.path.join(root, "icons/refresh.png")
-up_icon = os.path.join(root, "icons/up_arrow.png")
-down_icon = os.path.join(root, "icons/down_arrow.png")
-settings_icon = os.path.join(root, "icons/plotSettings.png")
+up_image = os.path.join(root, "icons/up_arrow.png")
+down_image = os.path.join(root, "icons/down_arrow.png")
+settings_image = os.path.join(root, "icons/plotSettings.png")
 
 DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
 DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', 'background']
