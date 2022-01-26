@@ -6,6 +6,7 @@ import src.iBeatles.utilities.error as fitting_error
 from src.iBeatles.fitting.kropff.get import Get
 from src.iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
 from src.iBeatles.fitting import KropffTabSelected
+from src.iBeatles.utilities.array_utilities import find_nearest_index
 
 
 class FitRegions:
@@ -54,6 +55,14 @@ class FitRegions:
         for _key in table_dictionary.keys():
             xaxis = table_dictionary[_key]['xaxis']
             yaxis = table_dictionary[_key]['yaxis']
+
+            right = table_dictionary[_key]['bragg peak threshold']['right']
+
+            nearest_index = find_nearest_index(xaxis, right)
+
+            yaxis = yaxis[nearest_index:-1]
+            xaxis = xaxis[nearest_index:-1]
+
             yaxis = -np.log(yaxis)
             _result = gmodel.fit(yaxis, lda=xaxis, a0=a0, b0=b0)
             a0 = _result.params['a0'].value
@@ -66,7 +75,12 @@ class FitRegions:
                                             'err': a0_error}
             table_dictionary[_key]['b0'] = {'val': b0,
                                             'err': b0_error}
-            table_dictionary[_key]['yaxis_fitted'][KropffTabSelected.high_tof] = yaxis_fitted
+            table_dictionary[_key]['fitted'][KropffTabSelected.high_tof] = {'xaxis': xaxis,
+                                                                            'yaxis': yaxis_fitted}
+
+            # import pprint
+            # pprint.pprint(table_dictionary[_key])
+
 
     def low_lambda(self):
         ahkl = self.o_get.ahkl()

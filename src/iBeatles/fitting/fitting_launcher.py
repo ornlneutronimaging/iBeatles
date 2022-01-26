@@ -35,7 +35,6 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-
             fitting_window.fitting_main_tab_widget_changed()
         else:
             self.parent.fitting_ui.setFocus()
@@ -397,6 +396,10 @@ class FittingWindow(QMainWindow):
         o_event = KropffHandler(parent=self,
                                 grand_parent=self.parent)
         o_event.fit_regions()
+        o_event.update_fitting_plot()
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
+        o_event.display_bragg_peak_threshold()
 
     # general settings
 

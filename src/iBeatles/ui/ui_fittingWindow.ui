@@ -856,7 +856,7 @@
                    <item>
                     <widget class="QPushButton" name="kropff_fit_allregions_pushButton">
                      <property name="enabled">
-                      <bool>false</bool>
+                      <bool>true</bool>
                      </property>
                      <property name="minimumSize">
                       <size>
