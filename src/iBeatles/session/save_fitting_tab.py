@@ -3,6 +3,7 @@ import logging
 from .save_tab import SaveTab
 from .. import DataType
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from src.iBeatles.fitting import KropffTabSelected
 
 
 class SaveFittingTab(SaveTab):
@@ -105,6 +106,12 @@ class SaveFittingTab(SaveTab):
             tau = _entry['tau']
             sigma = _entry['sigma']
             bragg_peak_threshold = _entry['bragg peak threshold']
+            xaxis = _entry['xaxis']
+            yaxis = _entry['yaxis']
+            fitted = {KropffTabSelected.high_tof: _entry['fitted'][KropffTabSelected.high_tof],
+                      KropffTabSelected.low_tof: _entry['fitted'][KropffTabSelected.low_tof],
+                      KropffTabSelected.bragg_peak: _entry['fitted'][KropffTabSelected.bragg_peak],
+                      }
 
             formatted_table_dictionary[_row] = {'a0': a0,
                                                 'b0': b0,
@@ -113,7 +120,11 @@ class SaveFittingTab(SaveTab):
                                                 'lambda_hkl': lambda_hkl,
                                                 'tau': tau,
                                                 'sigma': sigma,
-                                                'bragg_peak_threshold': bragg_peak_threshold}
+                                                'bragg_peak_threshold': bragg_peak_threshold,
+                                                'xaxis': xaxis,
+                                                'yaxis': yaxis,
+                                                'fitted': fitted,
+                                                }
         self.session_dict[DataType.fitting]['kropff']["table dictionary"] = formatted_table_dictionary
         self.session_dict[DataType.fitting]['kropff']["automatic bragg peak threshold finder"] = \
             self.parent.session_dict['fitting']['kropff']["automatic bragg peak threshold finder"]
