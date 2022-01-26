@@ -44,6 +44,8 @@ class Log(QMainWindow):
 
         o_get = Get(parent=self.parent)
         self.log_file_name = o_get.get_log_file_name()
+
+        self.check_log_size()
         self.loading_logging_file()
 
         # jump to end of file
@@ -68,7 +70,17 @@ class Log(QMainWindow):
 
     def check_log_size(self):
         log_buffer_size = self.parent.session_dict['log buffer size']
-        # FIXME
+        # check current size of log file
+        log_text = read_ascii(self.log_file_name)
+        log_text_split_by_cr = log_text.split("\n")
+        log_file_size = len(log_text_split_by_cr)
+        if log_file_size <= log_buffer_size:
+            return
+        else:
+            new_log_text = log_text_split_by_cr[-log_buffer_size:]
+            new_log_text = "\n".join(new_log_text)
+            write_ascii(text=new_log_text, filename=self.log_file_name)
+            logging.info("log file has been truncated to fit buffer size limit")
 
     def launch_settings(self):
         log_id = LogSettings(parent=self,
@@ -96,4 +108,5 @@ class LogSettings(QDialog):
     def accept(self):
         self.grand_parent.session_dict['log buffer size'] = self.ui.buffer_size_spinBox.value()
         self.parent.check_log_size()
+        self.parent.loading_logging_file()
         self.close()
