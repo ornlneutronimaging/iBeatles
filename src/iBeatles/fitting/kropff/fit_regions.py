@@ -1,8 +1,10 @@
+import numpy as np
+from lmfit import Model, Parameter
+
 from src.iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 import src.iBeatles.utilities.error as fitting_error
 from src.iBeatles.fitting.kropff.get import Get
-from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
-from src.iBeatles.fitting.kropff.display import Display
+from src.iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
 
 
 class FitRegions:
@@ -42,6 +44,8 @@ class FitRegions:
                                 duration_s=5)
 
     def high_lambda(self):
+        gmodel = Model(kropff_high_lambda, missing='drop', independent_vars=['lda'])
+
         a0 = self.o_get.a0()
         b0 = self.o_get.b0()
 
@@ -49,10 +53,19 @@ class FitRegions:
         for _key in table_dictionary.keys():
             xaxis = table_dictionary[_key]['xaxis']
             yaxis = table_dictionary[_key]['yaxis']
+            yaxis = -np.log(yaxis)
+            _result = gmodel.fit(yaxis, lda=xaxis, a0=a0, b0=b0)
+            a0 = _result.params['a0'].value
+            a0_error = _result.params['a0'].stderr
+            b0 = _result.params['b0'].value
+            b0_error = _result.params['b0'].stderr
+            yaxis_fitted = kropff_high_lambda(xaxis, a0, b0)
 
-            print(f"xaxis: {xaxis}")
-            print(f"yaxis: {yaxis}")
-
+            table_dictionary[_key]['a0'] = {'val': a0,
+                                            'err': a0_error}
+            table_dictionary[_key]['b0'] = {'val': b0,
+                                            'err': b0_error}
+            table_dictionary[_key]['yaxis_fitted'] = yaxis_fitted
 
     def low_lambda(self):
         ahkl = self.o_get.ahkl()

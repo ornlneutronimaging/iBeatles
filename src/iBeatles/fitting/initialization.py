@@ -214,11 +214,6 @@ class Initialization:
         """
         such as material h,k,l list according to material selected in normalized tab
         """
-
-        import pprint
-        pprint.pprint("initialization of fitting")
-        pprint.pprint(self.grand_parent.session_dict)
-
         kropff_session_dict = self.grand_parent.session_dict[DataType.fitting]['kropff']
 
         hkl_list = self.grand_parent.selected_element_hkl_array

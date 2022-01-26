@@ -198,6 +198,7 @@ class FittingHandler:
                                                                            'y1': _y + bin_size},
                                                        'yaxis': None,
                                                        'xaxis': None,
+                                                       'yaxis_fitted': None,
                                                        'selected_item': None,
                                                        'locked_item': None,
                                                        'row_index': _index_row,
