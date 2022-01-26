@@ -7,7 +7,7 @@ import versioneer
 
 from .config_handler import ConfigHandler
 
-from .all_steps.log_launcher import LogLauncher
+from .all_steps.log_launcher import LogLauncher, LogHandler
 from .all_steps.event_handler import EventHandler as GeneralEventHandler
 
 from .step1.event_handler import EventHandler as Step1EventHandler
@@ -268,6 +268,7 @@ class MainWindow(QMainWindow):
         # configuration of config
         o_get = Get(parent=self)
         log_file_name = o_get.get_log_file_name()
+        self.log_file_name = log_file_name
         logging.basicConfig(filename=log_file_name,
                             filemode='a',
                             format='[%(levelname)s] - %(asctime)s - %(message)s',
@@ -276,6 +277,11 @@ class MainWindow(QMainWindow):
         logging.info(f" Version: {versioneer.get_version()}")
 
         self.automatic_load_of_previous_session()
+
+    def check_log_file_size(self):
+        o_handler = LogHandler(parent=self,
+                               log_file_name=self.log_file_name)
+        o_handler.cut_log_size_if_bigger_than_buffer()
 
     def init_interface(self):
         o_gui = Initialization(parent=self)

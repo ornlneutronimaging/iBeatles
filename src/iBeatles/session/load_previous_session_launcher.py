@@ -33,7 +33,9 @@ class LoadPreviousSessionLauncher(QDialog):
             load_session_ui = LoadPreviousSessionLauncherMultipleChoice(parent=self.parent,
                                                                         list_tabs_to_load=list_tabs_to_load)
             load_session_ui.show()
+        self.parent.check_log_file_size()
 
     def no_clicked(self):
         self.parent.session_dict = SessionHandler.session_dict
         self.close()
+        self.parent.check_log_file_size()
