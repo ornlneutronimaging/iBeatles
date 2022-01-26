@@ -5,6 +5,7 @@ from src.iBeatles.utilities.status_message_config import StatusMessageStatus, sh
 import src.iBeatles.utilities.error as fitting_error
 from src.iBeatles.fitting.kropff.get import Get
 from src.iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
+from src.iBeatles.fitting import KropffTabSelected
 
 
 class FitRegions:
@@ -65,7 +66,7 @@ class FitRegions:
                                             'err': a0_error}
             table_dictionary[_key]['b0'] = {'val': b0,
                                             'err': b0_error}
-            table_dictionary[_key]['yaxis_fitted'] = yaxis_fitted
+            table_dictionary[_key]['yaxis_fitted'][KropffTabSelected.high_tof] = yaxis_fitted
 
     def low_lambda(self):
         ahkl = self.o_get.ahkl()

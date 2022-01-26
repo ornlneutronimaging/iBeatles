@@ -9,6 +9,7 @@ from .. import DataType
 from . import FittingTabSelected
 from ..utilities.array_utilities import get_min_max_xy
 from src.iBeatles.fitting import selected_color, lock_color
+from . import KropffTabSelected
 
 
 class FittingHandler:
@@ -198,7 +199,10 @@ class FittingHandler:
                                                                            'y1': _y + bin_size},
                                                        'yaxis': None,
                                                        'xaxis': None,
-                                                       'yaxis_fitted': None,
+                                                       'yaxis_fitted': {KropffTabSelected.high_tof: None,
+                                                                        KropffTabSelected.low_tof: None,
+                                                                        KropffTabSelected.bragg_peak: None,
+                                                                        },
                                                        'selected_item': None,
                                                        'locked_item': None,
                                                        'row_index': _index_row,

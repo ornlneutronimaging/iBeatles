@@ -929,6 +929,7 @@ class MainWindow(QMainWindow):
         o_session = SessionHandler(parent=self)
         o_session.save_from_ui()
         o_session.automatic_save()
+        self.check_log_file_size()
         logging.info(" #### Leaving iBeatles ####")
         self.close()
 

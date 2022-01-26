@@ -7,6 +7,8 @@ from src.iBeatles import DataType
 from src.iBeatles.fitting.kropff.fit_regions import FitRegions
 from src.iBeatles.fitting.kropff.display import Display
 
+fit_rgb = (0, 255, 0)
+
 
 class EventHandler:
 
@@ -34,6 +36,13 @@ class EventHandler:
         for _yaxis in yaxis:
             _yaxis = -np.log(_yaxis)
             self.parent.ui.kropff_fitting.plot(xaxis, _yaxis, symbol='o')
+
+        yaxis_fitted = o_get.y_axis_fitted_for_given_rows_selected()
+        if yaxis_fitted:
+            for _yaxis in yaxis_fitted:
+                self.parent.ui.kropff_fitting.plot(xaxis,
+                                                   _yaxis,
+                                                   pen=fit_rgb)
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
         o_kropff = KropffBraggPeakThresholdCalculator(parent=self.parent,

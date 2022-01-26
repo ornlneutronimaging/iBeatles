@@ -52,6 +52,27 @@ class Get:
         else:
             return self.grand_parent.fitting_bragg_edge_linear_selection
 
+    def y_axis_fitted_for_given_rows_selected(self):
+        table_ui_selected = self.kropff_tab_ui_selected()
+        row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        kropff_tab_selected = self.kropff_tab_selected()
+
+        if row_selected == []:
+            return []
+
+        list_of_yaxis_fitted = []
+        for _row in row_selected:
+            _bin_entry = table_dictionary[str(_row)]
+
+            if _bin_entry['yaxis_fitted'][kropff_tab_selected] is None:
+                return []
+
+            else:
+                list_of_yaxis_fitted.append(_bin_entry['yaxis_fitted'][kropff_tab_selected])
+
+        return list_of_yaxis_fitted
+
     def y_axis_and_x_axis_for_given_rows_selected(self):
         table_ui_selected = self.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
