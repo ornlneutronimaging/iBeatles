@@ -52,35 +52,36 @@ class FitRegions:
         b0 = self.o_get.b0()
 
         table_dictionary = self.table_dictionary
+        common_xaxis = None
+        nearest_index = -1
         for _key in table_dictionary.keys():
-            xaxis = table_dictionary[_key]['xaxis']
+
+            if nearest_index == -1:
+                xaxis = table_dictionary[_key]['xaxis']
+
+                right = table_dictionary[_key]['bragg peak threshold']['right']
+
+                nearest_index = find_nearest_index(xaxis, right)
+                xaxis = xaxis[nearest_index:-1]
+                common_xaxis = xaxis
+
             yaxis = table_dictionary[_key]['yaxis']
-
-            right = table_dictionary[_key]['bragg peak threshold']['right']
-
-            nearest_index = find_nearest_index(xaxis, right)
-
             yaxis = yaxis[nearest_index:-1]
-            xaxis = xaxis[nearest_index:-1]
-
             yaxis = -np.log(yaxis)
-            _result = gmodel.fit(yaxis, lda=xaxis, a0=a0, b0=b0)
+
+            _result = gmodel.fit(yaxis, lda=common_xaxis, a0=a0, b0=b0)
             a0 = _result.params['a0'].value
             a0_error = _result.params['a0'].stderr
             b0 = _result.params['b0'].value
             b0_error = _result.params['b0'].stderr
-            yaxis_fitted = kropff_high_lambda(xaxis, a0, b0)
+            yaxis_fitted = kropff_high_lambda(common_xaxis, a0, b0)
 
             table_dictionary[_key]['a0'] = {'val': a0,
                                             'err': a0_error}
             table_dictionary[_key]['b0'] = {'val': b0,
                                             'err': b0_error}
-            table_dictionary[_key]['fitted'][KropffTabSelected.high_tof] = {'xaxis': xaxis,
+            table_dictionary[_key]['fitted'][KropffTabSelected.high_tof] = {'xaxis': common_xaxis,
                                                                             'yaxis': yaxis_fitted}
-
-            # import pprint
-            # pprint.pprint(table_dictionary[_key])
-
 
     def low_lambda(self):
         ahkl = self.o_get.ahkl()
