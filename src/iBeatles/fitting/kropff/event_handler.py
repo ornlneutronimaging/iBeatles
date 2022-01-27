@@ -41,9 +41,6 @@ class EventHandler:
             if kropff_table_of_second_row['yaxis'] is None:
                 return False
 
-        # if kropff_table_of_second_row['xaxis'] is None:
-        #     return False
-
         return True
 
     def _we_are_ready_to_fit_all_regions(self):
@@ -104,12 +101,7 @@ class EventHandler:
         xaxis_fitted, yaxis_fitted = o_get.y_axis_fitted_for_given_rows_selected()
 
         if yaxis_fitted:
-
             for _yaxis in yaxis_fitted:
-
-                print(f"xaxis_fitted: {xaxis_fitted}")
-                print(f"_yaxis: {_yaxis}")
-
                 self.parent.ui.kropff_fitting.plot(xaxis_fitted,
                                                    _yaxis,
                                                    pen=(fit_rgb[0],

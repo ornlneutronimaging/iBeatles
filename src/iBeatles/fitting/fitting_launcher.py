@@ -205,9 +205,14 @@ class FittingWindow(QMainWindow):
         o_event.bragg_edge_region_changed()
         self.check_status_widgets()
 
+        # we need to reset all kropff fitting parameters and plot
         o_kropff_event = KropffHandler(parent=self,
                                        grand_parent=self.parent)
         o_kropff_event.reset_fitting_parameters()
+        self.kropff_check_widgets_helper()
+        o_table = FillingTableHandler(parent=self,
+                                      grand_parent=self.parent)
+        o_table.fill_kropff_table()
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         QApplication.processEvents()
@@ -418,6 +423,9 @@ class FittingWindow(QMainWindow):
         o_event = Display(parent=self,
                           grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
+        o_table = FillingTableHandler(parent=self,
+                                      grand_parent=self.parent)
+        o_table.fill_kropff_table()
 
     # general settings
 
