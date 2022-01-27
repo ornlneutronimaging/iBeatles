@@ -25,6 +25,9 @@ class Display:
         left = kropff_table_of_row_selected['bragg peak threshold']['left']
         right = kropff_table_of_row_selected['bragg peak threshold']['right']
 
+        if left is None:
+            return
+
         # display item and make it enabled or not according to is_manual mode or not
         lr = pg.LinearRegionItem(values=[left, right],
                                  orientation='vertical',

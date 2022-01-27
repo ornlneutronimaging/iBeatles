@@ -36,6 +36,8 @@ class FittingLauncher(object):
             o_fitting.display_roi()
             o_fitting.fill_table()
             fitting_window.fitting_main_tab_widget_changed()
+            fitting_window.record_all_xaxis_and_yaxis()
+            fitting_window.kropff_check_widgets_helper()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -326,6 +328,11 @@ class FittingWindow(QMainWindow):
                                 grand_parent=self.parent)
         o_event.check_widgets_helper()
 
+    def record_all_xaxis_and_yaxis(self):
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.record_all_xaxis_and_yaxis()
+
     def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
@@ -337,6 +344,9 @@ class FittingWindow(QMainWindow):
         o_event = KropffHandler(parent=self,
                                 grand_parent=self.parent)
         o_event.kropff_automatic_bragg_peak_threshold_finder_clicked()
+        self.kropff_check_widgets_helper()
+
+    def kropff_check_widgets_helper(self):
         o_event = KropffHandler(parent=self,
                                 grand_parent=self.parent)
         o_event.check_widgets_helper()
@@ -358,7 +368,6 @@ class FittingWindow(QMainWindow):
     def update_kropff_fitting_plot(self):
         o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_fitting_plot()
-        o_kropff.update_bragg_edge_threshold()
 
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()

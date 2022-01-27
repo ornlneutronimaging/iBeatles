@@ -225,8 +225,8 @@ class FittingHandler:
                                                                'err': np.NaN},
                                                        'sigma': {'val': np.NaN,
                                                                  'err': np.NaN},
-                                                       'bragg peak threshold': {'left': np.NaN,
-                                                                                'right': np.NaN},
+                                                       'bragg peak threshold': {'left': None,
+                                                                                'right': None},
                                                        }
 
                 # create the box to show when bin is selected

@@ -107,20 +107,20 @@ class SaveFittingTab(SaveTab):
             sigma = _entry['sigma']
             bragg_peak_threshold = _entry['bragg peak threshold']
 
-            if not (_entry['xaxis'] is None):
-                xaxis = list(_entry['xaxis'])
-            else:
-                xaxis = None
+            # if not (_entry['xaxis'] is None):
+            #     xaxis = list(_entry['xaxis'])
+            # else:
+            #     xaxis = None
+            #
+            # if not (_entry['yaxis'] is None):
+            #     yaxis = list(_entry['yaxis'])
+            # else:
+            #     yaxis = None
 
-            if not (_entry['yaxis'] is None):
-                yaxis = list(_entry['yaxis'])
-            else:
-                yaxis = None
-
-            fitted = {KropffTabSelected.high_tof: _entry['fitted'][KropffTabSelected.high_tof],
-                      KropffTabSelected.low_tof: _entry['fitted'][KropffTabSelected.low_tof],
-                      KropffTabSelected.bragg_peak: _entry['fitted'][KropffTabSelected.bragg_peak],
-                      }
+            # fitted = {KropffTabSelected.high_tof: _entry['fitted'][KropffTabSelected.high_tof],
+            #           KropffTabSelected.low_tof: _entry['fitted'][KropffTabSelected.low_tof],
+            #           KropffTabSelected.bragg_peak: _entry['fitted'][KropffTabSelected.bragg_peak],
+            #           }
 
             formatted_table_dictionary[_row] = {'a0': a0,
                                                 'b0': b0,
@@ -130,9 +130,9 @@ class SaveFittingTab(SaveTab):
                                                 'tau': tau,
                                                 'sigma': sigma,
                                                 'bragg_peak_threshold': bragg_peak_threshold,
-                                                'xaxis': xaxis,
-                                                'yaxis': yaxis,
-                                                'fitted': fitted,
+                                                # 'xaxis': xaxis,
+                                                # 'yaxis': yaxis,
+                                                # 'fitted': fitted,
                                                 }
         self.session_dict[DataType.fitting]['kropff']["table dictionary"] = formatted_table_dictionary
         self.session_dict[DataType.fitting]['kropff']["automatic bragg peak threshold finder"] = \

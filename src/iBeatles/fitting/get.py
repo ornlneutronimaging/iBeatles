@@ -109,7 +109,7 @@ class Get:
                 self.grand_parent.kropff_table_dictionary[str(_row)] = _bin_entry
 
                 # index of selection in bragg edge plot
-                [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
+                # [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
                 full_x_axis = self.parent.bragg_edge_data['x_axis']
                 xaxis = np.array(full_x_axis[left_index: right_index], dtype=float)
                 _bin_entry['xaxis'] = xaxis

@@ -212,6 +212,7 @@ class SessionHandler:
                                 status=StatusMessageStatus.error,
                                 duration_s=10)
             logging.info("Loading session aborted! FileNotFoundError raised!")
+            self.parent.session_dict = SessionHandler.session_dict
 
         except ValueError:
             show_status_message(parent=self.parent,
@@ -219,6 +220,7 @@ class SessionHandler:
                                 status=StatusMessageStatus.error,
                                 duration_s=10)
             logging.info("Loading session aborted! ValueError raised!")
+            self.parent.session_dict = SessionHandler.session_dict
 
     def automatic_save(self):
         o_get = Get(parent=self.parent)

@@ -20,11 +20,20 @@ class EventHandler:
 
     def _is_first_row_has_threshold_defined(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
-        kropff_table_of_row_selected = kropff_table_dictionary['0']
+        kropff_table_of_second_row = kropff_table_dictionary['1']
 
-        if kropff_table_of_row_selected['bragg peak threshold']['left']:
-            return True
-        return False
+        print(f"kropff_table_of_second_row['bragg peak threshold']['left']: {kropff_table_of_second_row['bragg peak threshold']['left']}")
+
+        if kropff_table_of_second_row['bragg peak threshold']['left'] is None:
+            return False
+
+        if kropff_table_of_second_row['yaxis'] is None:
+            return False
+
+        if kropff_table_of_second_row['xaxis'] is None:
+            return False
+
+        return True
 
     def _we_are_ready_to_fit_all_regions(self):
         return self._is_first_row_has_threshold_defined()
@@ -40,8 +49,33 @@ class EventHandler:
             self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(normal_style)
             self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
 
-    def update_bragg_edge_threshold(self):
-        pass
+    def record_all_xaxis_and_yaxis(self):
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        nbr_row = len(table_dictionary.keys())
+        data_2d = self.grand_parent.data_metadata['normalized']['data']
+
+        # index of selection in bragg edge plot
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
+        full_x_axis = self.parent.bragg_edge_data['x_axis']
+        xaxis = np.array(full_x_axis[left_index: right_index], dtype=float)
+
+        for _row in np.arange(nbr_row):
+
+            _bin_entry = table_dictionary[str(_row)]
+
+            _bin_x0 = _bin_entry['bin_coordinates']['x0']
+            _bin_x1 = _bin_entry['bin_coordinates']['x1']
+            _bin_y0 = _bin_entry['bin_coordinates']['y0']
+            _bin_y1 = _bin_entry['bin_coordinates']['y1']
+
+            yaxis = data_2d[left_index: right_index,
+                    _bin_x0: _bin_x1,
+                    _bin_y0: _bin_y1,
+                    ]  # noqa: E124
+            yaxis = np.nanmean(yaxis, axis=1)
+            yaxis = np.array(np.nanmean(yaxis, axis=1), dtype=float)
+            _bin_entry['yaxis'] = yaxis
+            _bin_entry['xaxis'] = xaxis
 
     def update_fitting_plot(self):
         self.parent.ui.kropff_fitting.clear()
