@@ -4,6 +4,8 @@ import sys
 import os
 import logging
 import versioneer
+import warnings
+warnings.filterwarnings("ignore")
 
 from .config_handler import ConfigHandler
 

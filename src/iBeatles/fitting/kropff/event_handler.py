@@ -3,7 +3,7 @@ import pyqtgraph as pg
 
 from src.iBeatles.fitting.get import Get
 from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
-from src.iBeatles import DataType
+from src.iBeatles import DataType, interact_me_style, normal_style
 from src.iBeatles.fitting.kropff.fit_regions import FitRegions
 from src.iBeatles.fitting.kropff.display import Display
 
@@ -18,8 +18,27 @@ class EventHandler:
         self.parent = parent
         self.grand_parent = grand_parent
 
+    def _is_first_row_has_threshold_defined(self):
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        kropff_table_of_row_selected = kropff_table_dictionary['0']
+
+        if kropff_table_of_row_selected['bragg peak threshold']['left']:
+            return True
+        return False
+
+    def _we_are_ready_to_fit_all_regions(self):
+        return self._is_first_row_has_threshold_defined()
+
     def check_widgets_helper(self):
-        pass
+
+        if self._we_are_ready_to_fit_all_regions():
+            self.parent.ui.kropff_fit_allregions_pushButton.setEnabled(True)
+            self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(interact_me_style)
+            self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(normal_style)
+        else:
+            self.parent.ui.kropff_fit_allregions_pushButton.setEnabled(False)
+            self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(normal_style)
+            self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
 
     def update_bragg_edge_threshold(self):
         pass
@@ -40,7 +59,6 @@ class EventHandler:
         xaxis_fitted, yaxis_fitted = o_get.y_axis_fitted_for_given_rows_selected()
 
         if yaxis_fitted:
-
 
             for _yaxis in yaxis_fitted:
                 self.parent.ui.kropff_fitting.plot(xaxis_fitted,

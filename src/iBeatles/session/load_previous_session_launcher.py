@@ -45,4 +45,3 @@ class LoadPreviousSessionLauncher(QDialog):
 
     def closeEvent(self, event):
         self.close()
-        

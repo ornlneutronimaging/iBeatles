@@ -35,7 +35,7 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-            # fitting_window.fitting_main_tab_widget_changed()
+            fitting_window.fitting_main_tab_widget_changed()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -337,6 +337,9 @@ class FittingWindow(QMainWindow):
         o_event = KropffHandler(parent=self,
                                 grand_parent=self.parent)
         o_event.kropff_automatic_bragg_peak_threshold_finder_clicked()
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.check_widgets_helper()
 
     def kropff_automatic_bragg_peak_threshold_finder_settings_clicked(self):
         o_kropff = KropffAutomaticSettingsLauncher(parent=self)
