@@ -16,4 +16,3 @@ class LoadFitting:
             self.parent.session_dict[DataType.fitting]['image view state']
         self.parent.image_view_settings[DataType.fitting]['histogram'] = \
             self.parent.session_dict[DataType.fitting]['image view histogram']
-

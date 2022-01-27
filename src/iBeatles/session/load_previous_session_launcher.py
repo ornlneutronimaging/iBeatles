@@ -39,3 +39,10 @@ class LoadPreviousSessionLauncher(QDialog):
         self.parent.session_dict = SessionHandler.session_dict
         self.close()
         self.parent.check_log_file_size()
+
+    def reject(self):
+        self.no_clicked()
+
+    def closeEvent(self, event):
+        self.close()
+        

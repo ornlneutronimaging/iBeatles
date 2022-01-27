@@ -35,7 +35,7 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-            fitting_window.fitting_main_tab_widget_changed()
+            # fitting_window.fitting_main_tab_widget_changed()
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()

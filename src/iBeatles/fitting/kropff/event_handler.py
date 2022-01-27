@@ -38,9 +38,6 @@ class EventHandler:
             self.parent.ui.kropff_fitting.plot(xaxis, _yaxis, symbol='o')
 
         xaxis_fitted, yaxis_fitted = o_get.y_axis_fitted_for_given_rows_selected()
-        print(f"in update fitting plot")
-        print(f"-> xaxis: {xaxis_fitted}")
-        print(f"-> yaxis: {yaxis_fitted}")
 
         if yaxis_fitted:
 

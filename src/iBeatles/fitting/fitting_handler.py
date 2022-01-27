@@ -6,10 +6,9 @@ from ..fitting.filling_table_handler import FillingTableHandler
 from .selected_bin_handler import SelectedBinsHandler
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 from .. import DataType
-from . import FittingTabSelected
+from . import FittingTabSelected, KropffTabSelected
 from ..utilities.array_utilities import get_min_max_xy
 from src.iBeatles.fitting import selected_color, lock_color
-from . import KropffTabSelected
 
 
 class FittingHandler:
@@ -200,15 +199,11 @@ class FittingHandler:
                                                        'yaxis': None,
                                                        'xaxis': None,
                                                        'fitted': {KropffTabSelected.high_tof: {'xaxis': None,
-                                                                                               'yaxis': None,
-                                                                                               },
+                                                                                               'yaxis': None},
                                                                   KropffTabSelected.low_tof: {'xaxis': None,
-                                                                                              'yaxis': None,
-                                                                                              },
+                                                                                              'yaxis': None},
                                                                   KropffTabSelected.bragg_peak: {'xaxis': None,
-                                                                                                 'yaxis': None,
-                                                                                                 },
-                                                                  },
+                                                                                                 'yaxis': None}},
                                                        'selected_item': None,
                                                        'locked_item': None,
                                                        'row_index': _index_row,

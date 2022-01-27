@@ -58,9 +58,6 @@ class Get:
         table_dictionary = self.grand_parent.kropff_table_dictionary
         kropff_tab_selected = self.kropff_tab_selected()
 
-        if row_selected == []:
-            return [], []
-
         list_of_yaxis_fitted = []
         xaxis = None
         for _row in row_selected:

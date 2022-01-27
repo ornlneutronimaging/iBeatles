@@ -86,7 +86,7 @@ class SaveFittingTab(SaveTab):
         self.session_dict[DataType.fitting]['march dollase']['plot active row flag'] = \
             self.parent.display_active_row_flag
 
-        logging.info(f" x_axis: {self.session_dict[DataType.fitting]['x_axis']}")
+        logging.info(f" len(x_axis): {len(self.session_dict[DataType.fitting]['x_axis'])}")
         logging.info(f" lambda range index: {self.session_dict['fitting']['lambda range index']}")
 
     def kropff(self):
@@ -106,8 +106,17 @@ class SaveFittingTab(SaveTab):
             tau = _entry['tau']
             sigma = _entry['sigma']
             bragg_peak_threshold = _entry['bragg peak threshold']
-            xaxis = _entry['xaxis']
-            yaxis = _entry['yaxis']
+
+            if not (_entry['xaxis'] is None):
+                xaxis = list(_entry['xaxis'])
+            else:
+                xaxis = None
+
+            if not (_entry['yaxis'] is None):
+                yaxis = list(_entry['yaxis'])
+            else:
+                yaxis = None
+
             fitted = {KropffTabSelected.high_tof: _entry['fitted'][KropffTabSelected.high_tof],
                       KropffTabSelected.low_tof: _entry['fitted'][KropffTabSelected.low_tof],
                       KropffTabSelected.bragg_peak: _entry['fitted'][KropffTabSelected.bragg_peak],
