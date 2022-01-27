@@ -69,8 +69,6 @@ class FillingTableHandler(object):
 
             _entry = table_dictionary[_str_index]
 
-            print(f"{_index}: _entry['a0']['val']: {_entry['a0']['val']}")
-
             o_table.insert_empty_row(row=_index)
 
             o_table.insert_item(row=_index,

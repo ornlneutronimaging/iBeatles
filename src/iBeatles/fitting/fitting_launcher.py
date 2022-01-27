@@ -209,7 +209,6 @@ class FittingWindow(QMainWindow):
 
         # we need to reset all kropff fitting parameters and plot
         if full_reset_of_fitting_table:
-            print(f"full reset is : {full_reset_of_fitting_table}")
             o_kropff_event = KropffHandler(parent=self,
                                            grand_parent=self.parent)
             o_kropff_event.reset_fitting_parameters()
