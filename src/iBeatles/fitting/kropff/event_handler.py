@@ -1,11 +1,14 @@
 import numpy as np
 import pyqtgraph as pg
+import copy
 
 from src.iBeatles.fitting.get import Get
 from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
 from src.iBeatles import DataType, interact_me_style, normal_style
 from src.iBeatles.fitting.kropff.fit_regions import FitRegions
 from src.iBeatles.fitting.kropff.display import Display
+from src.iBeatles.fitting.fitting_handler import FittingHandler
+
 
 fit_rgb = (255, 0, 0)
 
@@ -18,20 +21,28 @@ class EventHandler:
         self.parent = parent
         self.grand_parent = grand_parent
 
+    def reset_fitting_parameters(self):
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+
+        kropff_table_dictionary_tempate = FittingHandler.kropff_table_dictionary_template
+        for _row in table_dictionary.keys():
+            for _template_key in kropff_table_dictionary_tempate.keys():
+                table_dictionary[_row][_template_key] = copy.deepcopy(kropff_table_dictionary_tempate[_template_key])
+
     def _is_first_row_has_threshold_defined(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         kropff_table_of_second_row = kropff_table_dictionary['1']
-
-        print(f"kropff_table_of_second_row['bragg peak threshold']['left']: {kropff_table_of_second_row['bragg peak threshold']['left']}")
 
         if kropff_table_of_second_row['bragg peak threshold']['left'] is None:
             return False
 
         if kropff_table_of_second_row['yaxis'] is None:
-            return False
+            self.record_all_xaxis_and_yaxis()
+            if kropff_table_of_second_row['yaxis'] is None:
+                return False
 
-        if kropff_table_of_second_row['xaxis'] is None:
-            return False
+        # if kropff_table_of_second_row['xaxis'] is None:
+        #     return False
 
         return True
 

@@ -204,8 +204,14 @@ class FittingWindow(QMainWindow):
                                grand_parent=self.parent)
         o_event.bragg_edge_region_changed()
         self.check_status_widgets()
+
+        o_kropff_event = KropffHandler(parent=self,
+                                       grand_parent=self.parent)
+        o_kropff_event.reset_fitting_parameters()
+
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         QApplication.processEvents()
+
         self.update_kropff_fitting_plot()
         QApplication.restoreOverrideCursor()
         QApplication.processEvents()

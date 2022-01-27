@@ -1,5 +1,6 @@
 import numpy as np
 import pyqtgraph as pg
+import copy
 
 from ..utilities import colors
 from ..fitting.filling_table_handler import FillingTableHandler
@@ -12,6 +13,37 @@ from src.iBeatles.fitting import selected_color, lock_color
 
 
 class FittingHandler:
+
+    kropff_table_dictionary_template = {'yaxis': None,
+                                        'xaxis': None,
+                                        'fitted': {KropffTabSelected.high_tof: {'xaxis': None,
+                                                                                'yaxis': None},
+                                                   KropffTabSelected.low_tof: {'xaxis': None,
+                                                                               'yaxis': None},
+                                                   KropffTabSelected.bragg_peak: {'xaxis': None,
+                                                                                  'yaxis': None}},
+                                        'selected_item': None,
+                                        'locked_item': None,
+                                        'selected': False,
+                                        'lock': False,
+                                        'active': False,
+                                        'a0': {'val': np.NaN,
+                                               'err': np.NaN},
+                                        'b0': {'val': np.NaN,
+                                               'err': np.NaN},
+                                        'ahkl': {'val': np.NaN,
+                                                 'err': np.NaN},
+                                        'bhkl': {'val': np.NaN,
+                                                 'err': np.NaN},
+                                        'lambda_hkl': {'val': np.NaN,
+                                                       'err': np.NaN},
+                                        'tau': {'val': np.NaN,
+                                                'err': np.NaN},
+                                        'sigma': {'val': np.NaN,
+                                                  'err': np.NaN},
+                                        'bragg peak threshold': {'left': None,
+                                                                 'right': None},
+                                        }
 
     def __init__(self, grand_parent=None, parent=None):
         self.parent = parent
@@ -192,42 +224,50 @@ class FittingHandler:
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
 
-                kropff_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
-                                                                           'x1': _x + bin_size,
-                                                                           'y0': _y,
-                                                                           'y1': _y + bin_size},
-                                                       'yaxis': None,
-                                                       'xaxis': None,
-                                                       'fitted': {KropffTabSelected.high_tof: {'xaxis': None,
-                                                                                               'yaxis': None},
-                                                                  KropffTabSelected.low_tof: {'xaxis': None,
-                                                                                              'yaxis': None},
-                                                                  KropffTabSelected.bragg_peak: {'xaxis': None,
-                                                                                                 'yaxis': None}},
-                                                       'selected_item': None,
-                                                       'locked_item': None,
-                                                       'row_index': _index_row,
-                                                       'column_index': _index_col,
-                                                       'selected': False,
-                                                       'lock': False,
-                                                       'active': False,
-                                                       'a0': {'val': np.NaN,
-                                                              'err': np.NaN},
-                                                       'b0': {'val': np.NaN,
-                                                              'err': np.NaN},
-                                                       'ahkl': {'val': np.NaN,
-                                                                'err': np.NaN},
-                                                       'bhkl': {'val': np.NaN,
-                                                                'err': np.NaN},
-                                                       'lambda_hkl': {'val': np.NaN,
-                                                                      'err': np.NaN},
-                                                       'tau': {'val': np.NaN,
-                                                               'err': np.NaN},
-                                                       'sigma': {'val': np.NaN,
-                                                                 'err': np.NaN},
-                                                       'bragg peak threshold': {'left': None,
-                                                                                'right': None},
-                                                       }
+                kropff_table_dictionary[_str_index] = copy.deepcopy(self.kropff_table_dictionary_template)
+                kropff_table_dictionary[_str_index]['bin_coordinates'] = {'x0': _x,
+                                                                          'x1': _x + bin_size,
+                                                                          'y0': _y,
+                                                                          'y1': _y + bin_size}
+                kropff_table_dictionary[_str_index]['row_index'] = _index_row
+                kropff_table_dictionary[_str_index]['column_index'] = _index_col
+
+                # kropff_table_dictionary[_str_index] = {'bin_coordinates': {'x0': _x,
+                #                                                            'x1': _x + bin_size,
+                #                                                            'y0': _y,
+                #                                                            'y1': _y + bin_size},
+                #                                        'yaxis': None,
+                #                                        'xaxis': None,
+                #                                        'fitted': {KropffTabSelected.high_tof: {'xaxis': None,
+                #                                                                                'yaxis': None},
+                #                                                   KropffTabSelected.low_tof: {'xaxis': None,
+                #                                                                               'yaxis': None},
+                #                                                   KropffTabSelected.bragg_peak: {'xaxis': None,
+                #                                                                                  'yaxis': None}},
+                #                                        'selected_item': None,
+                #                                        'locked_item': None,
+                #                                        'row_index': _index_row,
+                #                                        'column_index': _index_col,
+                #                                        'selected': False,
+                #                                        'lock': False,
+                #                                        'active': False,
+                #                                        'a0': {'val': np.NaN,
+                #                                               'err': np.NaN},
+                #                                        'b0': {'val': np.NaN,
+                #                                               'err': np.NaN},
+                #                                        'ahkl': {'val': np.NaN,
+                #                                                 'err': np.NaN},
+                #                                        'bhkl': {'val': np.NaN,
+                #                                                 'err': np.NaN},
+                #                                        'lambda_hkl': {'val': np.NaN,
+                #                                                       'err': np.NaN},
+                #                                        'tau': {'val': np.NaN,
+                #                                                'err': np.NaN},
+                #                                        'sigma': {'val': np.NaN,
+                #                                                  'err': np.NaN},
+                #                                        'bragg peak threshold': {'left': None,
+                #                                                                 'right': None},
+                #                                        }
 
                 # create the box to show when bin is selected
                 selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
