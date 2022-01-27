@@ -107,6 +107,9 @@ class EventHandler:
 
             for _yaxis in yaxis_fitted:
 
+                print(f"xaxis_fitted: {xaxis_fitted}")
+                print(f"_yaxis: {_yaxis}")
+
                 self.parent.ui.kropff_fitting.plot(xaxis_fitted,
                                                    _yaxis,
                                                    pen=(fit_rgb[0],

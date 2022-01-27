@@ -59,12 +59,9 @@ class Get:
         kropff_tab_selected = self.kropff_tab_selected()
 
         list_of_yaxis_fitted = []
-        xaxis = None
         for _row in row_selected:
             _bin_entry = table_dictionary[str(_row)]
-
-            if _row == 0:
-                xaxis = _bin_entry['fitted'][kropff_tab_selected]['xaxis']
+            xaxis = _bin_entry['fitted'][kropff_tab_selected]['xaxis']
 
             if _bin_entry['fitted'][kropff_tab_selected]['yaxis'] is None:
                 return [], []
