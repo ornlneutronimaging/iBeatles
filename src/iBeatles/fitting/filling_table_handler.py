@@ -57,14 +57,19 @@ class FillingTableHandler(object):
 
     def fill_kropff_high_tof_table(self):
         o_table = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
+        o_table.block_signals(True)
+
         o_table.remove_all_rows()
         table_dictionary = self.grand_parent.kropff_table_dictionary
         nbr_row = len(table_dictionary)
-        o_table.block_signals(True)
 
         for _index in np.arange(nbr_row):
+
             _str_index = str(_index)
+
             _entry = table_dictionary[_str_index]
+
+            print(f"{_index}: _entry['a0']['val']: {_entry['a0']['val']}")
 
             o_table.insert_empty_row(row=_index)
 
@@ -84,6 +89,7 @@ class FillingTableHandler(object):
                           _entry['b0']['val'],
                           _entry['a0']['err'],
                           _entry['b0']['err']]
+
             for _local_index, _value in enumerate(list_value):
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,

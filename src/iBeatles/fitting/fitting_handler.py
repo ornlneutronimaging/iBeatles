@@ -141,6 +141,7 @@ class FittingHandler:
 
         for _row in session_table_dictionary.keys():
             _entry = session_table_dictionary[_row]
+
             table_dictionary[_row]["bragg peak threshold"] = _entry["bragg_peak_threshold"]
             table_dictionary[_row]["a0"] = _entry["a0"]
             table_dictionary[_row]["b0"] = _entry["b0"]

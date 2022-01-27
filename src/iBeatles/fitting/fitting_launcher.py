@@ -35,9 +35,11 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-            fitting_window.fitting_main_tab_widget_changed()
             fitting_window.record_all_xaxis_and_yaxis()
+            fitting_window.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
             fitting_window.kropff_check_widgets_helper()
+            fitting_window.filling_kropff_table()
+
         else:
             self.parent.fitting_ui.setFocus()
             self.parent.fitting_ui.activateWindow()
@@ -157,7 +159,7 @@ class FittingWindow(QMainWindow):
                                    parent=self)
         o_fitting.display_locked_active_bins()
         if index_tab == 1:
-            self.bragg_edge_linear_region_changed()
+            self.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
             o_event = Display(parent=self,
                               grand_parent=self.parent)
             o_event.display_bragg_peak_threshold()
@@ -195,7 +197,7 @@ class FittingWindow(QMainWindow):
         o_event.bragg_edge_region_changed()
         self.check_status_widgets()
 
-    def bragg_edge_linear_region_changed(self):
+    def bragg_edge_linear_region_changed(self, full_reset_of_fitting_table=True):
         o_table = TableDictionaryHandler(parent=self,
                                          grand_parent=self.parent)
         o_table.clear_y_axis_and_x_axis_from_kropff_table_dictionary()
@@ -206,9 +208,12 @@ class FittingWindow(QMainWindow):
         self.check_status_widgets()
 
         # we need to reset all kropff fitting parameters and plot
-        o_kropff_event = KropffHandler(parent=self,
-                                       grand_parent=self.parent)
-        o_kropff_event.reset_fitting_parameters()
+        if full_reset_of_fitting_table:
+            print(f"full reset is : {full_reset_of_fitting_table}")
+            o_kropff_event = KropffHandler(parent=self,
+                                           grand_parent=self.parent)
+            o_kropff_event.reset_fitting_parameters()
+
         self.kropff_check_widgets_helper()
         o_table = FillingTableHandler(parent=self,
                                       grand_parent=self.parent)
@@ -332,6 +337,11 @@ class FittingWindow(QMainWindow):
         self.update_bragg_edge_plot()
 
     # kropff
+
+    def filling_kropff_table(self):
+        o_table = FillingTableHandler(parent=self,
+                                      grand_parent=self.parent)
+        o_table.fill_kropff_table()
 
     def kropff_check_widgets_helper(self):
         """highlight in green the next button to use"""
