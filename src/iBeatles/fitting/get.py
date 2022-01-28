@@ -2,6 +2,8 @@ import numpy as np
 
 from . import KropffTabSelected, FittingTabSelected
 from ..utilities.table_handler import TableHandler
+from src.iBeatles.utilities.array_utilities import find_nearest_index
+from src.iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
 
 
 class Get:
@@ -59,16 +61,58 @@ class Get:
         kropff_tab_selected = self.kropff_tab_selected()
 
         list_of_yaxis_fitted = []
+
         for _row in row_selected:
-            _bin_entry = table_dictionary[str(_row)]
-            xaxis = _bin_entry['fitted'][kropff_tab_selected]['xaxis']
+            _row = str(_row)
+            _bin_entry = table_dictionary[_row]
 
             if _bin_entry['fitted'][kropff_tab_selected]['yaxis'] is None:
-                return [], []
+                xaxis, _yaxis_fitted = self.calculate_yaxis_fitted_using_fitted_parameters(
+                        kropff_tab_selected=kropff_tab_selected,
+                        row=_row)
+
+                if _yaxis_fitted is None:
+                    return [], []
+
+                else:
+                    table_dictionary[_row]['fitted'][kropff_tab_selected]['xaxis'] = xaxis
+                    table_dictionary[_row]['fitted'][kropff_tab_selected]['yaxis'] = _yaxis_fitted
+                    list_of_yaxis_fitted.append(_yaxis_fitted)
+
             else:
+                xaxis = _bin_entry['fitted'][kropff_tab_selected]['xaxis']
                 list_of_yaxis_fitted.append(_bin_entry['fitted'][kropff_tab_selected]['yaxis'])
 
         return xaxis, list_of_yaxis_fitted
+
+    def calculate_yaxis_fitted_using_fitted_parameters(self, kropff_tab_selected=KropffTabSelected.high_tof,
+                                                       row='0'):
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        full_xaxis = table_dictionary[row]['xaxis']
+
+        if kropff_tab_selected == KropffTabSelected.high_tof:
+            a0 = table_dictionary[row]['a0']['val']
+            b0 = table_dictionary[row]['b0']['val']
+            if np.isnan(a0):
+                return [], []
+
+            right = table_dictionary[row]['bragg peak threshold']['right']
+            nearest_index = find_nearest_index(full_xaxis, right)
+            xaxis = full_xaxis[nearest_index:-1]
+            common_xaxis = xaxis
+            yaxis_fitted = kropff_high_lambda(common_xaxis, a0, b0)
+
+            return common_xaxis, yaxis_fitted
+
+        elif kropff_tab_selected == KropffTabSelected.low_tof:
+            return [], []
+
+        elif kropff_tab_selected == KropffTabSelected.bragg_peak:
+            return [], []
+
+        else:
+            raise NotImplementedError
+
 
     def y_axis_and_x_axis_for_given_rows_selected(self):
         table_ui_selected = self.kropff_tab_ui_selected()
