@@ -90,28 +90,49 @@ class Get:
         table_dictionary = self.grand_parent.kropff_table_dictionary
         full_xaxis = table_dictionary[row]['xaxis']
 
+        a0 = table_dictionary[row]['a0']['val']
+        b0 = table_dictionary[row]['b0']['val']
+        if np.isnan(a0):
+            return [], []
+
         if kropff_tab_selected == KropffTabSelected.high_tof:
-            a0 = table_dictionary[row]['a0']['val']
-            b0 = table_dictionary[row]['b0']['val']
-            if np.isnan(a0):
-                return [], []
 
             right = table_dictionary[row]['bragg peak threshold']['right']
             nearest_index = find_nearest_index(full_xaxis, right)
             xaxis = full_xaxis[nearest_index:-1]
-            common_xaxis = xaxis
-            yaxis_fitted = kropff_high_lambda(common_xaxis, a0, b0)
+            yaxis_fitted = kropff_high_lambda(xaxis, a0, b0)
 
-            return common_xaxis, yaxis_fitted
-
-        elif kropff_tab_selected == KropffTabSelected.low_tof:
-            return [], []
-
-        elif kropff_tab_selected == KropffTabSelected.bragg_peak:
-            return [], []
+            return xaxis, yaxis_fitted
 
         else:
-            raise NotImplementedError
+
+            ahkl = table_dictionary[row]['ahkl']['val']
+            bhkl = table_dictionary[row]['bhkl']['val']
+            if np.isnan(ahkl):
+                return [], []
+
+            if kropff_tab_selected == KropffTabSelected.low_tof:
+
+                left = table_dictionary[row]['bragg peak threshold']['left']
+                nearest_index = find_nearest_index(full_xaxis, left)
+                xaxis = full_xaxis[: nearest_index+1]
+                yaxis_fitted = kropff_low_lambda(xaxis, a0, b0, ahkl, bhkl)
+
+                return xaxis, yaxis_fitted
+
+            elif kropff_tab_selected == KropffTabSelected.bragg_peak:
+
+                lambda_hkl = table_dictionary[row]['lambda_hkl']['val']
+                tau = table_dictionary[row]['tau']['val']
+                sigma = table_dictionary[row]['sigma']['val']
+
+                xaxis = full_xaxis
+                yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, lambda_hkl, sigma, tau)
+
+                return xaxis, yaxis_fitted
+
+            else:
+                raise NotImplementedError
 
 
     def y_axis_and_x_axis_for_given_rows_selected(self):
