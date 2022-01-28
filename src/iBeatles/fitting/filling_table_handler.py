@@ -92,6 +92,7 @@ class FillingTableHandler(object):
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,
                                     value=_value,
+                                    format_str="{:.4f}",
                                     editable=False,
                                     align_center=True)
 
@@ -133,6 +134,7 @@ class FillingTableHandler(object):
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,
                                     value=_value,
+                                    format_str="{:.4f}",
                                     editable=False,
                                     align_center=True)
 
@@ -176,6 +178,7 @@ class FillingTableHandler(object):
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,
                                     value=_value,
+                                    format_str="{:.4f}",
                                     editable=False,
                                     align_center=True)
 
