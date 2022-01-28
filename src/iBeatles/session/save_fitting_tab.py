@@ -3,7 +3,7 @@ import logging
 from .save_tab import SaveTab
 from .. import DataType
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.iBeatles.fitting import KropffTabSelected
+from src.iBeatles.fitting import FittingTabSelected
 
 
 class SaveFittingTab(SaveTab):
@@ -107,21 +107,6 @@ class SaveFittingTab(SaveTab):
             sigma = _entry['sigma']
             bragg_peak_threshold = _entry['bragg peak threshold']
 
-            # if not (_entry['xaxis'] is None):
-            #     xaxis = list(_entry['xaxis'])
-            # else:
-            #     xaxis = None
-            #
-            # if not (_entry['yaxis'] is None):
-            #     yaxis = list(_entry['yaxis'])
-            # else:
-            #     yaxis = None
-
-            # fitted = {KropffTabSelected.high_tof: _entry['fitted'][KropffTabSelected.high_tof],
-            #           KropffTabSelected.low_tof: _entry['fitted'][KropffTabSelected.low_tof],
-            #           KropffTabSelected.bragg_peak: _entry['fitted'][KropffTabSelected.bragg_peak],
-            #           }
-
             formatted_table_dictionary[_row] = {'a0': a0,
                                                 'b0': b0,
                                                 'ahkl': ahkl,
@@ -130,14 +115,18 @@ class SaveFittingTab(SaveTab):
                                                 'tau': tau,
                                                 'sigma': sigma,
                                                 'bragg_peak_threshold': bragg_peak_threshold,
-                                                # 'xaxis': xaxis,
-                                                # 'yaxis': yaxis,
-                                                # 'fitted': fitted,
                                                 }
-        self.session_dict[DataType.fitting]['kropff']["table dictionary"] = formatted_table_dictionary
-        self.session_dict[DataType.fitting]['kropff']["automatic bragg peak threshold finder"] = \
-            self.parent.session_dict['fitting']['kropff']["automatic bragg peak threshold finder"]
-        self.session_dict[DataType.fitting]['kropff']["automatic bragg peak threshold algorithm"] = \
-            self.parent.session_dict['fitting']['kropff']["automatic bragg peak threshold algorithm"]
-        self.session_dict[DataType.fitting]['kropff']["bragg peak threshold width"] = \
-            self.parent.session_dict['fitting']['kropff']["bragg peak threshold width"]
+
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["table dictionary"] = formatted_table_dictionary
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold finder"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold finder"]
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold algorithm"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold algorithm"]
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak threshold width"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak threshold width"]
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["high tof"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["high tof"]
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["low tof"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["low tof"]
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak"]
