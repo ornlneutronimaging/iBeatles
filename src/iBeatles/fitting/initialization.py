@@ -274,6 +274,10 @@ class Initialization:
         self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
         # self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(interact_me_style)
 
+        self.parent.ui.kropff_fit_high_lambda_button.setVisible(False)
+        self.parent.ui.kropff_fit_low_lambda_button.setVisible(False)
+        self.parent.ui.kropff_fit_bragg_peak_button.setVisible(False)
+
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']
 
