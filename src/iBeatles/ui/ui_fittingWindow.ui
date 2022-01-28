@@ -892,7 +892,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -1749,118 +1749,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>kropff_a0_radioButton</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>130</x>
-     <y>717</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>5</x>
-     <y>776</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_b0_radioButton</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>166</x>
-     <y>717</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>6</x>
-     <y>825</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_ahkl_radioButton</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>137</x>
-     <y>716</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>2</x>
-     <y>709</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_bhkl_radioButton</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>166</x>
-     <y>716</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>9</x>
-     <y>765</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_lda_hkl_radioButton</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>127</x>
-     <y>718</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>5</x>
-     <y>803</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_tau_radioButton</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>147</x>
-     <y>718</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>9</x>
-     <y>857</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_sigma_radioButton</sender>
-   <signal>pressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>166</x>
-     <y>718</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>8</x>
-     <y>910</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>kropff_tabWidget</sender>
    <signal>currentChanged(int)</signal>
    <receiver>MainWindow</receiver>
@@ -1947,7 +1835,7 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>609</x>
+     <x>616</x>
      <y>515</y>
     </hint>
     <hint type="destinationlabel">
@@ -2001,6 +1889,118 @@
     <hint type="destinationlabel">
      <x>1501</x>
      <y>651</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_a0_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_high_tof_graph_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>147</x>
+     <y>729</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>10</x>
+     <y>810</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_b0_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_high_tof_graph_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>729</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>866</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_ahkl_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_low_tof_graph_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>729</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>765</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_bhkl_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_low_tof_graph_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>202</x>
+     <y>729</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>846</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_lda_hkl_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>152</x>
+     <y>731</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>797</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_tau_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>245</x>
+     <y>732</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>838</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_sigma_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>313</x>
+     <y>735</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>921</y>
     </hint>
    </hints>
   </connection>
@@ -2080,5 +2080,8 @@
   <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
   <slot>kropff_threshold_width_slider_changed()</slot>
   <slot>kropff_fit_all_regions()</slot>
+  <slot>kropff_high_tof_graph_radioButton_changed()</slot>
+  <slot>kropff_low_tof_graph_radioButton_changed()</slot>
+  <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
  </slots>
 </ui>

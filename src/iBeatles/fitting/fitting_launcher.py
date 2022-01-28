@@ -436,6 +436,15 @@ class FittingWindow(QMainWindow):
                                       grand_parent=self.parent)
         o_table.fill_kropff_table()
 
+    def kropff_high_tof_graph_radioButton_changed(self):
+        pass
+
+    def kropff_low_tof_graph_radioButton_changed(self):
+        pass
+
+    def kropff_bragg_peak_graph_radioButton_changed(self):
+        pass
+
     # general settings
 
     def windows_settings(self):

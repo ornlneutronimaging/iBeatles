@@ -61,6 +61,7 @@ class Get:
         kropff_tab_selected = self.kropff_tab_selected()
 
         list_of_yaxis_fitted = []
+        xaxis = []
 
         for _row in row_selected:
             _row = str(_row)

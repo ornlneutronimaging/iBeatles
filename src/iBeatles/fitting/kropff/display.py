@@ -17,7 +17,10 @@ class Display:
 
         # get list of row selected
         o_kropff = Get(parent=self.parent)
-        row_selected = str(o_kropff.kropff_row_selected()[0])
+        if o_kropff.kropff_row_selected():
+            row_selected = str(o_kropff.kropff_row_selected()[0])
+        else:
+            return
 
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         kropff_table_of_row_selected = kropff_table_dictionary[row_selected]
