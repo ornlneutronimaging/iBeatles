@@ -84,8 +84,52 @@ class FitRegions:
                                                                             'yaxis': yaxis_fitted}
 
     def low_lambda(self):
+        gmodel = Model(kropff_low_lambda, missing='drop', independent_vars=['lda'])
+
         ahkl = self.o_get.ahkl()
         bhkl = self.o_get.bhkl()
+
+        table_dictionary = self.table_dictionary
+        common_xaxis = None
+        nearest_index = -1
+        for _key in table_dictionary.keys():
+
+            table_entry = table_dictionary[_key]
+
+            if nearest_index == -1:
+                xaxis = table_entry['xaxis']
+                a0 = table_entry['a0']['val']
+                b0 = table_entry['b0']['val']
+
+                left = table_entry['bragg peak threshold']['left']
+
+                nearest_index = find_nearest_index(xaxis, left)
+                xaxis = xaxis[: nearest_index+1]
+                common_xaxis = xaxis
+
+            yaxis = table_entry['yaxis']
+            yaxis = yaxis[: nearest_index+1]
+            yaxis = -np.log(yaxis)
+
+            _result = gmodel.fit(yaxis,
+                                 lda=common_xaxis,
+                                 a0=Parameter('a0', value=a0, vary=False),
+                                 b0=Parameter('b0', value=b0, vary=False),
+                                 ahkl=ahkl,
+                                 bhkl=bhkl)
+
+            ahkl = _result.params['ahkl'].value
+            ahkl_error = _result.params['ahkl'].stderr
+            bhkl = _result.params['bhkl'].value
+            bhkl_error = _result.params['bhkl'].stderr
+            yaxis_fitted = kropff_low_lambda(common_xaxis, a0, b0, ahkl, bhkl)
+
+            table_dictionary[_key]['ahkl'] = {'val': ahkl,
+                                              'err': ahkl_error}
+            table_dictionary[_key]['bhkl'] = {'val': bhkl,
+                                              'err': bhkl_error}
+            table_dictionary[_key]['fitted'][KropffTabSelected.low_tof] = {'xaxis': common_xaxis,
+                                                                           'yaxis': yaxis_fitted}
 
     def bragg_peak(self):
         lambda_hkl = self.o_get.lambda_hkl()
