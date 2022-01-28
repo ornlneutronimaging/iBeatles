@@ -1,5 +1,6 @@
 import numpy as np
 from lmfit import Model, Parameter
+import copy
 
 from src.iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 import src.iBeatles.utilities.error as fitting_error
@@ -70,15 +71,15 @@ class FitRegions:
             yaxis = -np.log(yaxis)
 
             _result = gmodel.fit(yaxis, lda=common_xaxis, a0=a0, b0=b0)
-            a0 = _result.params['a0'].value
+            a0_value = _result.params['a0'].value
             a0_error = _result.params['a0'].stderr
-            b0 = _result.params['b0'].value
+            b0_value = _result.params['b0'].value
             b0_error = _result.params['b0'].stderr
-            yaxis_fitted = kropff_high_lambda(common_xaxis, a0, b0)
+            yaxis_fitted = kropff_high_lambda(common_xaxis, a0_value, b0_value)
 
-            table_dictionary[_key]['a0'] = {'val': a0,
+            table_dictionary[_key]['a0'] = {'val': a0_value,
                                             'err': a0_error}
-            table_dictionary[_key]['b0'] = {'val': b0,
+            table_dictionary[_key]['b0'] = {'val': b0_value,
                                             'err': b0_error}
             table_dictionary[_key]['fitted'][KropffTabSelected.high_tof] = {'xaxis': common_xaxis,
                                                                             'yaxis': yaxis_fitted}
@@ -98,14 +99,15 @@ class FitRegions:
 
             if nearest_index == -1:
                 xaxis = table_entry['xaxis']
-                a0 = table_entry['a0']['val']
-                b0 = table_entry['b0']['val']
 
                 left = table_entry['bragg peak threshold']['left']
 
                 nearest_index = find_nearest_index(xaxis, left)
                 xaxis = xaxis[: nearest_index+1]
                 common_xaxis = xaxis
+
+            a0 = table_entry['a0']['val']
+            b0 = table_entry['b0']['val']
 
             yaxis = table_entry['yaxis']
             yaxis = yaxis[: nearest_index+1]
@@ -118,19 +120,65 @@ class FitRegions:
                                  ahkl=ahkl,
                                  bhkl=bhkl)
 
-            ahkl = _result.params['ahkl'].value
+            ahkl_value = _result.params['ahkl'].value
             ahkl_error = _result.params['ahkl'].stderr
-            bhkl = _result.params['bhkl'].value
+            bhkl_value = _result.params['bhkl'].value
             bhkl_error = _result.params['bhkl'].stderr
-            yaxis_fitted = kropff_low_lambda(common_xaxis, a0, b0, ahkl, bhkl)
+            yaxis_fitted = kropff_low_lambda(common_xaxis, a0, b0, ahkl_value, bhkl_value)
 
-            table_dictionary[_key]['ahkl'] = {'val': ahkl,
+            table_dictionary[_key]['ahkl'] = {'val': ahkl_value,
                                               'err': ahkl_error}
-            table_dictionary[_key]['bhkl'] = {'val': bhkl,
+            table_dictionary[_key]['bhkl'] = {'val': bhkl_value,
                                               'err': bhkl_error}
             table_dictionary[_key]['fitted'][KropffTabSelected.low_tof] = {'xaxis': common_xaxis,
                                                                            'yaxis': yaxis_fitted}
 
     def bragg_peak(self):
+        gmodel = Model(kropff_bragg_peak_tof, nan_policy='propagate', independent_vars=['lda'])
+
         lambda_hkl = self.o_get.lambda_hkl()
         tau = self.o_get.tau()
+        sigma = self.o_get.sigma()
+
+        table_dictionary = self.table_dictionary
+
+        for _key in table_dictionary.keys():
+
+            table_entry = table_dictionary[_key]
+
+            xaxis = copy.deepcopy(table_entry['xaxis'])
+
+            a0 = table_entry['a0']['val']
+            b0 = table_entry['b0']['val']
+            ahkl = table_entry['ahkl']['val']
+            bhkl = table_entry['bhkl']['val']
+
+            yaxis = copy.deepcopy(table_entry['yaxis'])
+            yaxis = -np.log(yaxis)
+
+            _result = gmodel.fit(yaxis,
+                                 lda=xaxis,
+                                 a0=Parameter('a0', value=a0, vary=False),
+                                 b0=Parameter('b0', value=b0, vary=False),
+                                 ahkl=Parameter('ahkl', value=ahkl, vary=False),
+                                 bhkl=Parameter('bhkl', value=bhkl, vary=False),
+                                 ldahkl=lambda_hkl,
+                                 sigma=sigma,
+                                 tau=tau)
+
+            ldahkl_value = _result.params['ldahkl'].value
+            ldahkl_error = _result.params['ldahkl'].stderr
+            sigma_value = _result.params['sigma'].value
+            sigma_error = _result.params['sigma'].stderr
+            tau_value = _result.params['tau'].value
+            tau_error = _result.params['tau'].stderr
+            yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value)
+
+            table_dictionary[_key]['lambda_hkl'] = {'val': ldahkl_value,
+                                                    'err': ldahkl_error}
+            table_dictionary[_key]['tau'] = {'val': tau_value,
+                                             'err': tau_error}
+            table_dictionary[_key]['sigma'] = {'val': sigma_value,
+                                               'err': sigma_error}
+            table_dictionary[_key]['fitted'][KropffTabSelected.bragg_peak] = {'xaxis': xaxis,
+                                                                              'yaxis': yaxis_fitted}

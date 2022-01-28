@@ -174,11 +174,16 @@ class FillingTableHandler(object):
                           _entry['lambda_hkl']['err'],
                           _entry['tau']['err'],
                           _entry['sigma']['err']]
+
             for _local_index, _value in enumerate(list_value):
+
+                format_str = ""
+                if _value:
+                    format_str = "{:.4f}"
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,
                                     value=_value,
-                                    format_str="{:.4f}",
+                                    format_str=format_str,
                                     editable=False,
                                     align_center=True)
 

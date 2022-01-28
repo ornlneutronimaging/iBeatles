@@ -62,3 +62,12 @@ class Get:
             raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
                                                       message=u"Wrong \u03c4 format!")
         return tau
+
+    def sigma(self):
+        sigma = self.parent.ui.kropff_bragg_peak_sigma_comboBox.currentText()
+        try:
+            sigma = np.float(sigma)
+        except ValueError:
+            raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
+                                                      message=u"Wrong sigma format!")
+        return sigma
