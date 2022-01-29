@@ -5,11 +5,15 @@ from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 import logging
 from qtpy.QtGui import QIcon
+import matplotlib
+matplotlib.use('Qt5Agg')
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 from .. import DataType, interact_me_style
 from ..utilities.table_handler import TableHandler
 from .. import settings_image
 from src.iBeatles.fitting import KropffThresholdFinder
+from src.iBeatles.fitting.mplcanvas import MplCanvas
 
 
 class Initialization:
@@ -27,6 +31,7 @@ class Initialization:
         self.ui()
         self.global_data()
         self.statusbar()
+        self.matplotlib()
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
@@ -297,3 +302,22 @@ class Initialization:
 
         except TypeError:
             logging.info("Splitters have not been set due to log file format error! This should only show up once.")
+
+    def matplotlib(self):
+
+        def _matplotlib(parent=None, widget=None):
+            sc = MplCanvas(parent, width=5, height=2, dpi=100)
+            # sc.axes.plot([0,1,2,3,4,5], [10, 1, 20 ,3, 40, 50])
+            toolbar = NavigationToolbar(sc, parent)
+            layout = QVBoxLayout()
+            layout.addWidget(toolbar)
+            layout.addWidget(sc)
+            widget.setLayout(layout)
+            return sc
+
+        self.parent.kropff_high_plot = _matplotlib(parent=self.parent,
+                                                   widget=self.parent.ui.high_widget)
+        self.parent.kropff_low_plot = _matplotlib(parent=self.parent,
+                                                  widget=self.parent.ui.low_widget)
+        self.parent.kropff_bragg_peak_plot = _matplotlib(parent=self.parent,
+                                                         widget=self.parent.ui.bragg_peak_widget)
