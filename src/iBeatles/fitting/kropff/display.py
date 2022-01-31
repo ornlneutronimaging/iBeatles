@@ -2,7 +2,6 @@ import pyqtgraph as pg
 import numpy as np
 
 from src.iBeatles.fitting.get import Get
-from src.iBeatles.utilities.array_utilities import exclude_y_value_when_error_is_nan
 
 
 class Display:
@@ -64,10 +63,6 @@ class Display:
             parameter_array.append(_value)
             parameter_error_array.append(_error)
 
-        # cleaned_parameter_array, cleaned_parameter_error_array = \
-        #     exclude_y_value_when_error_is_nan(parameter_array,
-        #                                       parameter_error_array)
-
         x_array = np.arange(len(parameter_array))
         matplotlib_ui.axes.cla()
         # if fit_region == 'bragg_peak':
@@ -82,6 +77,6 @@ class Display:
             matplotlib_ui.axes.plot(x_array,
                                     parameter_array,
                                     marker='s')
-        
+
         matplotlib_ui.axes.set_xlabel("Row # (see Table tab)")
         matplotlib_ui.draw()
