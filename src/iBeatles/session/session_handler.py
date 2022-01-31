@@ -58,6 +58,13 @@ class SessionHandler:
                                    'beam index': 0,
                                    'detector value': None,
                                    },
+                    "material": {'selected element': {'name': None,
+                                                      'index': 0},
+                                 'lattice': None,
+                                 'crystal structure': {'name': 'fcc',
+                                                       'index': 0,
+                                                       },
+                                 },
                     "reduction": {'activate': True,
                                   'dimension': '2d',
                                   'size': {'flag': 'default',
@@ -126,6 +133,7 @@ class SessionHandler:
         o_save_load_data_tab.sample()
         o_save_load_data_tab.ob()
         o_save_load_data_tab.instrument()
+        o_save_load_data_tab.material()
         self.session_dict = o_save_load_data_tab.session_dict
 
         # save normalization

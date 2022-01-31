@@ -94,3 +94,21 @@ class SaveLoadDataTab(SaveTab):
         self.session_dict["instrument"]["detector value"] = detector_value
         self.session_dict["instrument"]["beam index"] = beam_index
 
+    def material(self):
+        """record the material settings (element selected, full list, crystal structure, lattice"""
+        selected_index = self.parent.ui.list_of_elements.currentIndex()
+        selected_element = self.parent.ui.list_of_elements.currentText()
+        lattice = self.parent.ui.lattice_parameter.text()
+        crystal_structure_index = self.parent.ui.crystal_structure.currentIndex()
+        crystal_structure_name = self.parent.ui.crystal_structure.currentText()
+
+        logging.info("Recording Material")
+        logging.info(f" selected element:{selected_element} at index:{selected_index}")
+        logging.info(f" lattice: {lattice}")
+        logging.info(f" crystal structure:{crystal_structure_name} at index: {crystal_structure_index}")
+
+        self.session_dict["material"]["selected element"] = {'name': selected_element,
+                                                             'index': selected_index}
+        self.session_dict["material"]["lattice"] = lattice
+        self.session_dict["material"]["crystal structure"] = {'name': crystal_structure_name,
+                                                              'index': crystal_structure_index}
