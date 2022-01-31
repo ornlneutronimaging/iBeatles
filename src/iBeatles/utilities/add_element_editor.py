@@ -30,25 +30,33 @@ class AddElementInterface(QDialog):
         self.ui.element_name_error.setVisible(False)
 
     def element_name_changed(self, current_value):
-        list_element_root = self.parent.ui.list_of_elements.findText(current_value,
+        self.check_add_widget_state()
+
+    def lattice_changed(self, current_value):
+        self.check_add_widget_state()
+
+    def check_add_widget_state(self):
+        lattice_value = self.ui.lattice.text()
+        if lattice_value.strip() == "":
+            self.ui.add.setEnabled(False)
+            return
+
+        if not is_float(lattice_value):
+            self.ui.add.setEnabled(False)
+            return
+
+        current_element_name = str(self.ui.element_name.text())
+        list_element_root = self.parent.ui.list_of_elements.findText(current_element_name,
                                                                      QtCore.Qt.MatchCaseSensitive)
         if not (list_element_root == -1):  # element already there
             self.ui.element_name_error.setVisible(True)
             self.ui.add.setEnabled(False)
+            return
+
         else:
             self.ui.element_name_error.setVisible(False)
             self.ui.add.setEnabled(True)
-
-    def lattice_changed(self, current_value):
-        if current_value == '':
-            self.ui.add.setEnabled(False)
             return
-
-        if not is_float(current_value):
-            self.ui.add.setEnabled(False)
-            return
-
-        self.ui.add.setEnabled(True)
 
     def retrieve_metadata(self):
         o_gui = GuiHandler(parent=self)
@@ -82,9 +90,3 @@ class AddElementInterface(QDialog):
         self.save_new_element_to_local_list()
         self.add_element_to_list_of_elements_widgets()
         self.close()
-
-    def cancel_clicked(self):
-        self.close()
-
-    def closeEvent(self, event=None):
-        self.parent.add_element_editor_ui = None

@@ -208,13 +208,6 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="cancel">
-       <property name="text">
-        <string>Cancel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -251,22 +244,6 @@
    <hints>
     <hint type="sourcelabel">
      <x>321</x>
-     <y>225</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>183</x>
-     <y>126</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cancel</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>cancel_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>52</x>
      <y>225</y>
     </hint>
     <hint type="destinationlabel">
