@@ -103,3 +103,16 @@ class LoadLoadDataTab:
             list_ui[_key].blockSignals(False)
 
         o_gui.set_text(value=session_dict["instrument"]["detector value"], ui=list_ui['detector'])
+
+    def material(self):
+
+        session_dict = self.session_dict
+
+        selected_element_index = session_dict["material"]["selected element"]['index']
+        lattice = session_dict["material"]["lattice"]
+        crystal_structure_index = session_dict["material"]["crystal structure"]['index']
+
+        self.parent.ui.list_of_elements.setCurrentIndex(selected_element_index)
+        self.parent.ui.lattice_parameter.setText(lattice)
+        self.parent.ui.crystal_structure.setCurrentIndex(crystal_structure_index)
+        

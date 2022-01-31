@@ -180,6 +180,7 @@ class SessionHandler:
                 o_load.sample()
                 o_load.ob()
                 o_load.instrument()
+                o_load.material()
 
                 # load normalization tab
                 o_norm = LoadNormalization(parent=self.parent)
