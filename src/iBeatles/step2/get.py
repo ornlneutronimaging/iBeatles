@@ -63,7 +63,7 @@ class Get:
          - if no ob, have at least one ENABLED Background ROI
          """
         data = self.parent.data_metadata['sample']['data']
-        if not data:
+        if not data.any():
             return False
 
         ob = self.parent.data_metadata['ob']['data']

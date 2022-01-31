@@ -216,7 +216,7 @@ class SessionHandler:
 
         except ValueError:
             show_status_message(parent=self.parent,
-                                message=f"One of the data file could not be located. Aborted loading session!",
+                                message=f"One of the data file raised an error. Aborted loading session!",
                                 status=StatusMessageStatus.error,
                                 duration_s=10)
             logging.info("Loading session aborted! ValueError raised!")
