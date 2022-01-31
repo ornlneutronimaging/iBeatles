@@ -50,6 +50,12 @@ class Display:
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         fitting_parameter_to_plot = o_get.kropff_fitting_parameters_radioButton_selected()
 
+        def use_error_bar_plot(array):
+            for _value in array:
+                if _value is None:
+                    return False
+            return True
+
         parameter_array = []
         parameter_error_array = []
         for _row in kropff_table_dictionary.keys():
@@ -66,9 +72,16 @@ class Display:
         matplotlib_ui.axes.cla()
         # if fit_region == 'bragg_peak':
         #     plot_ui.axes.set_yscale("log")
-        matplotlib_ui.axes.errorbar(x_array,
-                              parameter_array,
-                              parameter_error_array,
-                              marker='s')
+
+        if use_error_bar_plot(parameter_error_array):
+            matplotlib_ui.axes.errorbar(x_array,
+                                        parameter_array,
+                                        parameter_error_array,
+                                        marker='s')
+        else:
+            matplotlib_ui.axes.plot(x_array,
+                                    parameter_array,
+                                    marker='s')
+        
         matplotlib_ui.axes.set_xlabel("Row # (see Table tab)")
         matplotlib_ui.draw()

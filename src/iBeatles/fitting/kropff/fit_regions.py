@@ -166,6 +166,7 @@ class FitRegions:
                                  sigma=sigma,
                                  tau=tau)
 
+
             ldahkl_value = _result.params['ldahkl'].value
             ldahkl_error = _result.params['ldahkl'].stderr
             sigma_value = _result.params['sigma'].value
