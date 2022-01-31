@@ -23,7 +23,7 @@ class EventHandler(TopEventHandler):
         _folder = o_load.select_folder()
         o_load.import_files_from_folder(folder=_folder)
 
-        if self.parent.data_metadata[self.data_type]['data']:
+        if self.parent.data_metadata[self.data_type]['data'].any():
 
             o_load.import_time_spectra()
             self.parent.select_load_data_row(data_type=self.data_type, row=0)

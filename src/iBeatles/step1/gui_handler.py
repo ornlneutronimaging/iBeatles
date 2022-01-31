@@ -222,7 +222,7 @@ class Step1GuiHandler(object):
         self.parent.ui.delta_lambda_value_2.setText("{:.2f}".format(delta_lambda))
 
     def check_step1_widgets(self):
-        if self.parent.data_metadata[self.data_type]['data']:
+        if self.parent.data_metadata[self.data_type]['data'].any():
             self.parent.ui.toolBox.setItemEnabled(1, True)
             self.parent.ui.tabWidget.setTabEnabled(1, True)
 
