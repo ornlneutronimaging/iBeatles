@@ -201,6 +201,7 @@ class FittingWindow(QMainWindow):
         o_table = TableDictionaryHandler(parent=self,
                                          grand_parent=self.parent)
         o_table.clear_y_axis_and_x_axis_from_kropff_table_dictionary()
+
         self.is_ready_to_fit = False
         o_event = EventHandler(parent=self,
                                grand_parent=self.parent)
@@ -222,6 +223,9 @@ class FittingWindow(QMainWindow):
         QApplication.processEvents()
 
         self.update_kropff_fitting_plot()
+
+        o_event.automatically_select_best_lambda_0_for_that_range()
+
         QApplication.restoreOverrideCursor()
         QApplication.processEvents()
 
@@ -234,6 +238,10 @@ class FittingWindow(QMainWindow):
     def create_fitting_story_checked(self):
         CreateFittingStoryLauncher(parent=self,
                                    grand_parent=self.parent)
+
+    def automatic_hkl0_selection_clicked(self):
+        o_event = EventHandler(parent=self)
+        o_event.automatic_hkl0_selection_clicked()
 
     # March-Dollase
     def column_value_table_clicked(self, column):

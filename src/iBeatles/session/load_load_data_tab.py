@@ -126,4 +126,3 @@ class LoadLoadDataTab:
 
         o_gui = Step1GuiHandler(parent=self.parent)
         o_gui.update_lattice_and_crystal_when_index_selected()
-        

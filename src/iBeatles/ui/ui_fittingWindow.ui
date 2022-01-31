@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1507</width>
-    <height>1064</height>
+    <width>1847</width>
+    <height>1218</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -99,6 +99,9 @@
                  </item>
                  <item>
                   <widget class="QComboBox" name="hkl_list_ui">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
                    <property name="minimumSize">
                     <size>
                      <width>100</width>
@@ -126,26 +129,36 @@
                    </property>
                   </spacer>
                  </item>
+                 <item>
+                  <widget class="QCheckBox" name="automatic_hkl0_checkBox">
+                   <property name="text">
+                    <string>Auto</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                  <item>
-                  <widget class="QLabel" name="label_2">
+                  <widget class="QLabel" name="bragg_edge_infos_lambda_0_label">
                    <property name="minimumSize">
                     <size>
-                     <width>75</width>
+                     <width>30</width>
                      <height>0</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>75</width>
+                     <width>30</width>
                      <height>16777215</height>
                     </size>
                    </property>
                    <property name="text">
-                    <string>calculated</string>
+                    <string>l0</string>
                    </property>
                   </widget>
                  </item>
@@ -275,7 +288,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -892,7 +905,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>2</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -984,7 +997,7 @@
                     <item>
                      <widget class="QTabWidget" name="tabWidget_3">
                       <property name="currentIndex">
-                       <number>0</number>
+                       <number>1</number>
                       </property>
                       <widget class="QWidget" name="tab_5">
                        <attribute name="title">
@@ -1151,7 +1164,7 @@
                     <item>
                      <widget class="QTabWidget" name="tabWidget_4">
                       <property name="currentIndex">
-                       <number>0</number>
+                       <number>1</number>
                       </property>
                       <widget class="QWidget" name="tab_7">
                        <attribute name="title">
@@ -1366,7 +1379,7 @@
                     <item>
                      <widget class="QTabWidget" name="tabWidget_5">
                       <property name="currentIndex">
-                       <number>0</number>
+                       <number>1</number>
                       </property>
                       <widget class="QWidget" name="tab_10">
                        <attribute name="title">
@@ -1483,8 +1496,8 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1369</x>
-     <y>86</y>
+     <x>1711</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -1500,7 +1513,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>614</x>
-     <y>705</y>
+     <y>764</y>
     </hint>
     <hint type="destinationlabel">
      <x>610</x>
@@ -1516,7 +1529,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>567</x>
-     <y>632</y>
+     <y>691</y>
     </hint>
     <hint type="destinationlabel">
      <x>1146</x>
@@ -1532,7 +1545,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>126</x>
-     <y>634</y>
+     <y>693</y>
     </hint>
     <hint type="destinationlabel">
      <x>124</x>
@@ -1548,7 +1561,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>281</x>
-     <y>634</y>
+     <y>693</y>
     </hint>
     <hint type="destinationlabel">
      <x>40</x>
@@ -1564,7 +1577,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>414</x>
-     <y>634</y>
+     <y>693</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
@@ -1580,7 +1593,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>717</x>
-     <y>545</y>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -1595,8 +1608,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1432</x>
-     <y>188</y>
+     <x>1774</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -1611,8 +1624,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1432</x>
-     <y>219</y>
+     <x>1774</x>
+     <y>220</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -1627,8 +1640,8 @@
    <slot>create_fitting_story_checked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1194</x>
-     <y>545</y>
+     <x>1365</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>1210</x>
@@ -1644,7 +1657,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>193</x>
-     <y>612</y>
+     <y>671</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1660,7 +1673,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>286</x>
-     <y>611</y>
+     <y>670</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1676,7 +1689,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>176</x>
-     <y>601</y>
+     <y>660</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1692,7 +1705,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>321</x>
-     <y>601</y>
+     <y>660</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1708,7 +1721,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>226</x>
-     <y>613</y>
+     <y>672</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1724,7 +1737,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>328</x>
-     <y>615</y>
+     <y>674</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1740,7 +1753,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>454</x>
-     <y>618</y>
+     <y>677</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1772,7 +1785,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>289</x>
-     <y>747</y>
+     <y>806</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -1788,7 +1801,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>177</x>
-     <y>717</y>
+     <y>776</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -1835,8 +1848,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>616</x>
-     <y>515</y>
+     <x>762</x>
+     <y>574</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1852,7 +1865,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>121</x>
-     <y>512</y>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -1867,8 +1880,8 @@
    <slot>kropff_threshold_width_slider_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>507</x>
-     <y>509</y>
+     <x>566</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>1500</x>
@@ -1883,8 +1896,8 @@
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1165</x>
-     <y>512</y>
+     <x>1311</x>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
      <x>1501</x>
@@ -1900,7 +1913,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>147</x>
-     <y>729</y>
+     <y>788</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -1916,7 +1929,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>185</x>
-     <y>729</y>
+     <y>788</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1932,7 +1945,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>135</x>
-     <y>729</y>
+     <y>788</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -1948,7 +1961,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>202</x>
-     <y>729</y>
+     <y>788</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1964,7 +1977,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>152</x>
-     <y>731</y>
+     <y>790</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1980,7 +1993,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>245</x>
-     <y>732</y>
+     <y>791</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -1996,11 +2009,27 @@
    <hints>
     <hint type="sourcelabel">
      <x>313</x>
-     <y>735</y>
+     <y>794</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
      <y>921</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>automatic_hkl0_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>automatic_hkl0_selection_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1754</x>
+     <y>76</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1839</x>
+     <y>100</y>
     </hint>
    </hints>
   </connection>
@@ -2083,5 +2112,6 @@
   <slot>kropff_high_tof_graph_radioButton_changed()</slot>
   <slot>kropff_low_tof_graph_radioButton_changed()</slot>
   <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
+  <slot>automatic_hkl0_selection_clicked()</slot>
  </slots>
 </ui>

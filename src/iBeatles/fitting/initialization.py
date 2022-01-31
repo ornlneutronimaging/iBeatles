@@ -214,6 +214,7 @@ class Initialization:
         self.parent.ui.lambda_max_units.setText(u"\u212B")
         self.parent.ui.bragg_edge_units.setText(u"\u212B")
         self.parent.ui.material_groupBox.setTitle(self.grand_parent.selected_element_name)
+        self.parent.ui.bragg_edge_infos_lambda_0_label.setText(u"\u03BB<sub>0</sub>")
 
     def widgets(self):
         """

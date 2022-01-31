@@ -1,6 +1,7 @@
 import numpy as np
 from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QTableWidgetItem, QTableWidgetSelectionRange
+from qtpy.QtWidgets import QApplication
 
 from .widgets_handler import WidgetsHandler
 
@@ -236,3 +237,5 @@ class TableHandler:
 
     def block_signals(self, state=True):
         self.table_ui.blockSignals(state)
+        QApplication.processEvents()
+

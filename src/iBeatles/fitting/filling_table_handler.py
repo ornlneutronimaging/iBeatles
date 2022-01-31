@@ -97,6 +97,7 @@ class FillingTableHandler(object):
                                     align_center=True)
 
         # select first row
+        o_table.block_signals(True)
         o_table.select_row(0)
 
         o_table.block_signals(False)
