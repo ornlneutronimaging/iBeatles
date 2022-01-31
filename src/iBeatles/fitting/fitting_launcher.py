@@ -437,13 +437,19 @@ class FittingWindow(QMainWindow):
         o_table.fill_kropff_table()
 
     def kropff_high_tof_graph_radioButton_changed(self):
-        pass
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
+        o_event.update_fitting_parameters_matplotlib()
 
     def kropff_low_tof_graph_radioButton_changed(self):
-        pass
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
+        o_event.update_fitting_parameters_matplotlib()
 
     def kropff_bragg_peak_graph_radioButton_changed(self):
-        pass
+        o_event = Display(parent=self,
+                          grand_parent=self.parent)
+        o_event.update_fitting_parameters_matplotlib()
 
     # general settings
 

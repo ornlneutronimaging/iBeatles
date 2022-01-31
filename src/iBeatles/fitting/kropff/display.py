@@ -1,6 +1,8 @@
 import pyqtgraph as pg
+import numpy as np
 
 from src.iBeatles.fitting.get import Get
+from src.iBeatles.utilities.array_utilities import exclude_y_value_when_error_is_nan
 
 
 class Display:
@@ -41,3 +43,32 @@ class Display:
         lr.sigRegionChangeFinished.connect(self.parent.kropff_bragg_edge_threshold_changed)
         self.parent.ui.kropff_fitting.addItem(lr)
         self.parent.kropff_threshold_current_item = lr
+
+    def update_fitting_parameters_matplotlib(self):
+        o_get = Get(parent=self.parent)
+        matplotlib_ui = o_get.kropff_matplotlib_ui_selected()
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        fitting_parameter_to_plot = o_get.kropff_fitting_parameters_radioButton_selected()
+
+        parameter_array = []
+        parameter_error_array = []
+        for _row in kropff_table_dictionary.keys():
+            _value = kropff_table_dictionary[_row][fitting_parameter_to_plot]['val']
+            _error = kropff_table_dictionary[_row][fitting_parameter_to_plot]['err']
+            parameter_array.append(_value)
+            parameter_error_array.append(_error)
+
+        # cleaned_parameter_array, cleaned_parameter_error_array = \
+        #     exclude_y_value_when_error_is_nan(parameter_array,
+        #                                       parameter_error_array)
+
+        x_array = np.arange(len(parameter_array))
+        matplotlib_ui.axes.cla()
+        # if fit_region == 'bragg_peak':
+        #     plot_ui.axes.set_yscale("log")
+        matplotlib_ui.axes.errorbar(x_array,
+                              parameter_array,
+                              parameter_error_array,
+                              marker='s')
+        matplotlib_ui.axes.set_xlabel("Row # (see Table tab)")
+        matplotlib_ui.draw()

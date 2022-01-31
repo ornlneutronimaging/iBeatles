@@ -42,6 +42,46 @@ class Get:
         else:
             raise ValueError("Tab Selected is invalid!")
 
+    def kropff_matplotlib_ui_selected(self):
+        tab_selected = self.kropff_tab_selected()
+        if tab_selected == KropffTabSelected.high_tof:
+            return self.parent.kropff_high_plot
+        elif tab_selected == KropffTabSelected.low_tof:
+            return self.parent.kropff_low_plot
+        elif tab_selected == KropffTabSelected.bragg_peak:
+            return self.parent.kropff_bragg_peak_plot
+        else:
+            raise ValueError("Tab selected is invalid!")
+
+    def kropff_fitting_parameters_radioButton_selected(self):
+        tab_selected = self.kropff_tab_selected()
+        if tab_selected == KropffTabSelected.high_tof:
+            if self.parent.ui.kropff_a0_radioButton.isChecked():
+                return 'a0'
+            elif self.parent.ui.kropff_b0_radioButton.isChecked():
+                return 'b0'
+            else:
+                raise ValueError("fitting parameters is invalid!")
+        elif tab_selected == KropffTabSelected.low_tof:
+            if self.parent.ui.kropff_ahkl_radioButton.isChecked():
+                return 'ahkl'
+            elif self.parent.ui.kropff_bhkl_radioButton.isChecked():
+                return 'bhkl'
+            else:
+                raise ValueError("fitting parameters is invalid!")
+        elif tab_selected == KropffTabSelected.bragg_peak:
+            if self.parent.ui.kropff_lda_hkl_radioButton.isChecked():
+                return 'lambda_hkl'
+            elif self.parent.ui.kropff_tau_radioButton.isChecked():
+                return 'tau'
+            elif self.parent.ui.kropff_sigma_radioButton.isChecked():
+                return 'sigma'
+            else:
+                raise ValueError("fitting parameters is invalid!")
+        else:
+            raise ValueError("Tab selected is invalid!")
+
+
     def fitting_bragg_edge_linear_selection(self):
         if self.grand_parent.fitting_bragg_edge_linear_selection == []:
             linear_region_left_index = 0
