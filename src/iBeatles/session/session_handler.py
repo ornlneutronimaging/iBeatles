@@ -188,6 +188,10 @@ class SessionHandler:
                 o_norm.check_widgets()
                 o_norm.image_settings()
 
+            o_load = LoadLoadDataTab(parent=self.parent)
+            o_load.instrument()
+            o_load.material()
+
             if DataType.normalized in tabs_to_load:
 
                 # load normalized tab

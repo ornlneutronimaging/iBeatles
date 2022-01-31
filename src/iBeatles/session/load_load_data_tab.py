@@ -116,7 +116,14 @@ class LoadLoadDataTab:
         if selected_element_index >= count:
            selected_element_name = session_dict["material"]["selected element"]['name']
            self.parent.ui.list_of_elements.addItem(selected_element_name)
+           # only 1 lattice user defined value can be saved between sessions
+           self.parent.ui.list_of_elements.setCurrentIndex(count)
+        else:
+            self.parent.ui.list_of_elements.setCurrentIndex(selected_element_index)
 
-        self.parent.ui.list_of_elements.setCurrentIndex(selected_element_index)
         self.parent.ui.lattice_parameter.setText(lattice)
         self.parent.ui.crystal_structure.setCurrentIndex(crystal_structure_index)
+
+        o_gui = Step1GuiHandler(parent=self.parent)
+        o_gui.update_lattice_and_crystal_when_index_selected()
+        

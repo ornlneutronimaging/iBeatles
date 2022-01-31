@@ -182,11 +182,31 @@ class Step1GuiHandler(object):
             _lattice = str(_handler.metadata['lattice'][_element])
 
         except KeyError:
+            # new element
 
-            # look for element in local list of element
-            _handler = self.retrieve_handler_from_local_bragg_edge_list(material=_element)
-            _crystal_structure = _handler['crystal_structure']
-            _lattice = _handler['lattice']
+            if source == 'load_data':
+
+                _lattice = str(self.parent.ui.lattice_parameter.text())
+                _index = self.parent.ui.list_of_elements.currentIndex()
+                self.parent.ui.list_of_elements_2.addItem(_element)
+                self.parent.ui.list_of_elements_2.setCurrentIndex(_index)
+                self.parent.ui.lattice_parameter_2.setText(_lattice)
+
+            else:
+                _lattice = str(self.parent.ui.lattice_parameter_2.text())
+                _index = self.parent.ui.list_of_elements_2.currentIndex()
+                self.parent.ui.list_of_elements.addItem(_element)
+                self.parent.ui.list_of_elements.setCurrentIndex(_index)
+                self.parent.ui.lattice_parameter.setText(_lattice)
+
+            return
+
+        # except KeyError:
+        #
+        #     # look for element in local list of element
+        #     _handler = self.retrieve_handler_from_local_bragg_edge_list(material=_element)
+        #     _crystal_structure = _handler['crystal_structure']
+        #     _lattice = _handler['lattice']
 
         if source == 'load_data':
             _index = self.parent.ui.list_of_elements.currentIndex()

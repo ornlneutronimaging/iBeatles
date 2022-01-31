@@ -76,6 +76,8 @@ class AddElementInterface(QDialog):
         self.parent.ui.list_of_elements.setCurrentIndex(nbr_element - 1)
         self.parent.ui.list_of_elements_2.addItem(_element['element_name'])
         self.parent.ui.list_of_elements_2.setCurrentIndex(nbr_element - 1)
+        self.parent.ui.lattice_parameter.setText(_element['lattice'])
+        self.parent.ui.lattice_parameter_2.setText(_element['lattice'])
 
     def save_new_element_to_local_list(self):
         _new_element = self.new_element
