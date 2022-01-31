@@ -1,7 +1,6 @@
 from qtpy import QtCore
-from qtpy.QtWidgets import QMainWindow
+from qtpy.QtWidgets import QDialog
 
-# from .py.interfaces.ui_addElement import Ui_MainWindow as UiMainWindow
 from ..utilities.gui_handler import GuiHandler
 from ..utilities.math_tools import is_float
 from .. import load_ui
@@ -14,26 +13,19 @@ class AddElement(object):
 
     def run(self):
 
-        _interface = self.parent.add_element_editor_ui
-        if _interface is None:
-            _interface = AddElementInterface(parent=self.parent)
-            _interface.show()
-            self.parent.add_element_editor_ui = _interface
-
-        else:
-            _interface.activateWindow()
+        _interface = AddElementInterface(parent=self.parent)
+        _interface.show()
+        self.parent.add_element_editor_ui = _interface
 
 
-class AddElementInterface(QMainWindow):
+class AddElementInterface(QDialog):
     new_element = {}
 
     def __init__(self, parent=None):
         self.parent = parent
 
-        QMainWindow.__init__(self, parent=parent)
+        QDialog.__init__(self, parent=parent)
         self.ui = load_ui('ui_addElement.ui', baseinstance=self)
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
         self.setWindowTitle("Add Element Editor")
         self.ui.element_name_error.setVisible(False)
 

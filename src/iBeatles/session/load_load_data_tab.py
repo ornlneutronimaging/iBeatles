@@ -111,8 +111,12 @@ class LoadLoadDataTab:
         selected_element_index = session_dict["material"]["selected element"]['index']
         lattice = session_dict["material"]["lattice"]
         crystal_structure_index = session_dict["material"]["crystal structure"]['index']
+        count = self.parent.ui.list_of_elements.count()
+
+        if selected_element_index >= count:
+           selected_element_name = session_dict["material"]["selected element"]['name']
+           self.parent.ui.list_of_elements.addItem(selected_element_name)
 
         self.parent.ui.list_of_elements.setCurrentIndex(selected_element_index)
         self.parent.ui.lattice_parameter.setText(lattice)
         self.parent.ui.crystal_structure.setCurrentIndex(crystal_structure_index)
-        
