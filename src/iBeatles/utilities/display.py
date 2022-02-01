@@ -19,6 +19,7 @@ class Display:
         new_item = pg.InfiniteLine(pos=x_position,
                                    movable=False,
                                    pen=pen,
+                                   labelOpts={'position': 0.9},
                                    label=u"\u03BB0")
         self.ui.addItem(new_item)
 
