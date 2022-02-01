@@ -5,6 +5,7 @@ import logging
 
 from .. import load_ui
 from .. import DataType
+from . import FittingTabSelected
 
 from .fitting_handler import FittingHandler
 from .value_table_handler import ValueTableHandler
@@ -20,6 +21,7 @@ from src.iBeatles.fitting.kropff.kropff_automatic_settings_launcher import Kropf
 from src.iBeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
 from src.iBeatles.fitting.kropff.display import Display as KropffDisplay
 from src.iBeatles.fitting.display import Display as FittingDisplay
+from src.iBeatles.fitting.get import Get
 
 
 class FittingLauncher(object):
@@ -52,6 +54,8 @@ class FittingWindow(QMainWindow):
 
     lambda_0_item_in_bragg_edge_plot = None
     lambda_0_item_in_kropff_fitting_plot = None
+    lambda_calculated_item_in_bragg_edge_plot = None
+    lambda_calculated_item_in_kropff_fitting_plot = None
 
     data = []
     # there_is_a_roi = False
@@ -207,27 +211,32 @@ class FittingWindow(QMainWindow):
         o_event.bragg_edge_region_changed()
         self.check_status_widgets()
 
-        # we need to reset all kropff fitting parameters and plot
-        if full_reset_of_fitting_table:
-            o_kropff_event = KropffHandler(parent=self, grand_parent=self.parent)
-            o_kropff_event.reset_fitting_parameters()
+        o_get = Get(parent=self, grand_parent=self.parent)
+        main_tab_selected = o_get.main_tab_selected()
 
-        self.kropff_check_widgets_helper()
-        o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
-        o_table.fill_kropff_table()
+        if main_tab_selected == FittingTabSelected.kropff:
+            # we need to reset all kropff fitting parameters and plot
+            if full_reset_of_fitting_table:
+                o_kropff_event = KropffHandler(parent=self, grand_parent=self.parent)
+                o_kropff_event.reset_fitting_parameters()
 
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        QApplication.processEvents()
+            self.kropff_check_widgets_helper()
+            o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
+            o_table.fill_kropff_table()
 
-        self.update_kropff_fitting_plot()
+            QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+            QApplication.processEvents()
 
-        o_event.automatically_select_best_lambda_0_for_that_range()
+            self.update_kropff_fitting_plot()
 
-        o_kropff_display = KropffDisplay(parent=self, grand_parent=self.parent)
-        o_kropff_display.display_lambda_0()
+            o_event.automatically_select_best_lambda_0_for_that_range()
 
-        o_fitting_display = FittingDisplay(parent=self, grand_parent=self.parent)
-        o_fitting_display.display_lambda_0()
+            o_kropff_display = KropffDisplay(parent=self, grand_parent=self.parent)
+            o_kropff_display.display_lambda_0()
+            o_kropff_display.display_lambda_calculated()
+
+            o_fitting_display = FittingDisplay(parent=self, grand_parent=self.parent)
+            o_fitting_display.display_lambda_0()
 
         QApplication.restoreOverrideCursor()
         QApplication.processEvents()

@@ -45,6 +45,7 @@ class Display:
         self.parent.kropff_threshold_current_item = lr
 
         self.display_lambda_0()
+        self.display_lambda_calculated()
 
     def update_fitting_parameters_matplotlib(self):
         o_get = Get(parent=self.parent)
@@ -75,13 +76,27 @@ class Display:
             matplotlib_ui.axes.errorbar(x_array,
                                         parameter_array,
                                         parameter_error_array,
-                                        marker='s')
+                                        marker='s',
+                                        label=u"\u03BB_calculated")
         else:
             matplotlib_ui.axes.plot(x_array,
                                     parameter_array,
-                                    marker='s')
+                                    marker='s',
+                                    label=u"\u03BB_calculated")
 
         matplotlib_ui.axes.set_xlabel("Row # (see Table tab)")
+        matplotlib_ui.axes.set_ylabel(fitting_parameter_to_plot)
+
+        # for the lambda_hkl, display the lambda_0 as a reference
+        if fitting_parameter_to_plot == 'lambda_hkl':
+            lambda_0 = np.float(str(self.parent.ui.bragg_edge_calculated.text()))
+            matplotlib_ui.axes.hlines(lambda_0,
+                                      xmin=0,
+                                      xmax=len(x_array),
+                                      colors='b', linestyles='dotted',
+                                      label=u"\u03BB\u2080")
+            matplotlib_ui.axes.legend(loc="upper center")
+
         matplotlib_ui.draw()
 
     def display_lambda_0(self):
@@ -93,3 +108,19 @@ class Display:
         new_item = o_utility_display.vertical_line(item=item,
                                                    x_position=lambda_position)
         self.parent.lambda_0_item_in_kropff_fitting_plot = new_item
+
+    def display_lambda_calculated(self):
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        item = self.parent.lambda_calculated_item_in_bragg_edge_plot
+        o_kropff = Get(parent=self.parent)
+        row_selected = str(o_kropff.kropff_row_selected()[0])
+
+        kropff_table_of_row_selected = kropff_table_dictionary[row_selected]
+        lambda_value = kropff_table_of_row_selected['lambda_hkl']['val']
+
+        o_utility_display = UtilitiesDisplay(ui=self.parent.bragg_edge_plot)
+        new_item = o_utility_display.vertical_line(item=item,
+                                                   x_position=lambda_value,
+                                                   label=u"\u03BB_calculated",
+                                                   pen=pg.mkPen(color='g', width=1.5))
+        self.parent.lambda_calculated_item_in_bragg_edge_plot = new_item

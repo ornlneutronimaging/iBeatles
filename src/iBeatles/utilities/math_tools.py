@@ -11,6 +11,13 @@ def is_int(value):
     return is_number
 
 
+def is_nan(value):
+    if np.isnan(value):
+        return True
+
+    return False
+
+
 def is_float(value):
     is_number = True
     try:
