@@ -54,7 +54,7 @@ class DataHandler:
         logging.info(f"importing files from folder with extension: {extension}")
         if folder == '':
             self.user_canceled = True
-            return ''
+            return False
 
         if type(extension) is list:
             for _ext in extension:
@@ -70,7 +70,7 @@ class DataHandler:
                                 message=f"Folder selected is empty or contains the wrong file formats!",
                                 status=StatusMessageStatus.error,
                                 duration_s=5)
-            return
+            return False
 
         logging.info(f" len(list_of_files) = {len(list_of_files)}")
         if len(list_of_files) > 2:
@@ -80,6 +80,7 @@ class DataHandler:
         else:
             logging.info(f"  list_of_files = {list_of_files}")
         self.load_files(list_of_files)
+        return True
 
     def import_time_spectra(self):
         if not (self.parent.data_metadata[self.data_type]['data'] is None):

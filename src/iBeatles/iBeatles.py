@@ -595,6 +595,7 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='sample')
         o_plot.display_general_bragg_edge()
+        self.roi_image_view_changed()
         self.ui.list_of_elements_2.blockSignals(False)
 
     def list_of_element_2_index_changed(self, index):

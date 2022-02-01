@@ -32,6 +32,11 @@ class Initialization:
         self.global_data()
         self.statusbar()
         self.matplotlib()
+        self.tab()
+
+    def tab(self):
+        self.parent.ui.tabWidget.setTabIndex(1)
+        self.parent.ui.tabWidget.setTabEnabled(0, False)
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
