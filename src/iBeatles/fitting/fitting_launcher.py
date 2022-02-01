@@ -182,6 +182,14 @@ class FittingWindow(QMainWindow):
                                grand_parent=self.parent)
         o_event.hkl_list_changed(hkl)
 
+        o_kropff_display = KropffDisplay(parent=self,
+                                         grand_parent=self.parent)
+        o_kropff_display.display_lambda_0()
+
+        o_fitting_display = FittingDisplay(parent=self,
+                                           grand_parent=self.parent)
+        o_fitting_display.display_lambda_0()
+
     def slider_changed(self):
         o_fitting_handler = FittingHandler(parent=self,
                                            grand_parent=self.parent)
@@ -252,8 +260,18 @@ class FittingWindow(QMainWindow):
                                    grand_parent=self.parent)
 
     def automatic_hkl0_selection_clicked(self):
-        o_event = EventHandler(parent=self)
+        o_event = EventHandler(parent=self,
+                               grand_parent=self.parent)
         o_event.automatic_hkl0_selection_clicked()
+        o_event.automatically_select_best_lambda_0_for_that_range()
+
+        o_kropff_display = KropffDisplay(parent=self,
+                                         grand_parent=self.parent)
+        o_kropff_display.display_lambda_0()
+
+        o_fitting_display = FittingDisplay(parent=self,
+                                           grand_parent=self.parent)
+        o_fitting_display.display_lambda_0()
 
     # March-Dollase
     def column_value_table_clicked(self, column):
