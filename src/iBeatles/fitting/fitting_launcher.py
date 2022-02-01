@@ -31,8 +31,7 @@ class FittingLauncher(object):
             fitting_window = FittingWindow(parent=parent)
             fitting_window.show()
             self.parent.fitting_ui = fitting_window
-            o_fitting = FittingHandler(grand_parent=self.parent,
-                                       parent=self.parent.fitting_ui)
+            o_fitting = FittingHandler(grand_parent=self.parent, parent=self.parent.fitting_ui)
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
@@ -140,8 +139,7 @@ class FittingWindow(QMainWindow):
         self.ui = load_ui('ui_fittingWindow.ui', baseinstance=self)
         self.setWindowTitle("5. Fitting")
 
-        o_init = Initialization(parent=self,
-                                grand_parent=self.parent)
+        o_init = Initialization(parent=self, grand_parent=self.parent)
         o_init.run_all()
 
         self.check_status_widgets()
@@ -151,25 +149,21 @@ class FittingWindow(QMainWindow):
         self.bragg_edge_data['x_axis'] = x_axis
 
     def re_fill_table(self):
-        o_fitting = FittingHandler(parent=self,
-                                   grand_parent=self.parent)
+        o_fitting = FittingHandler(parent=self, grand_parent=self.parent)
         o_fitting.fill_table()
 
     def fitting_main_tab_widget_changed(self, index_tab=-1):
         if index_tab == -1:
             index_tab = self.ui.tabWidget.currentIndex()
 
-        o_fitting = FittingHandler(grand_parent=self.parent,
-                                   parent=self)
+        o_fitting = FittingHandler(grand_parent=self.parent, parent=self)
         o_fitting.display_locked_active_bins()
         if index_tab == 1:
             self.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
-            o_event = KropffDisplay(parent=self,
-                              grand_parent=self.parent)
+            o_event = KropffDisplay(parent=self, grand_parent=self.parent)
             o_event.display_bragg_peak_threshold()
 
-        o_fitting_window_event = EventHandler(parent=self,
-                                              grand_parent=self.parent)
+        o_fitting_window_event = EventHandler(parent=self, grand_parent=self.parent)
         o_fitting_window_event.check_widgets()
 
     # general fitting events
@@ -178,21 +172,17 @@ class FittingWindow(QMainWindow):
         self.image_view.setFocus(True)
 
     def hkl_list_changed(self, hkl):
-        o_event = EventHandler(parent=self,
-                               grand_parent=self.parent)
+        o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.hkl_list_changed(hkl)
 
-        o_kropff_display = KropffDisplay(parent=self,
-                                         grand_parent=self.parent)
+        o_kropff_display = KropffDisplay(parent=self, grand_parent=self.parent)
         o_kropff_display.display_lambda_0()
 
-        o_fitting_display = FittingDisplay(parent=self,
-                                           grand_parent=self.parent)
+        o_fitting_display = FittingDisplay(parent=self, grand_parent=self.parent)
         o_fitting_display.display_lambda_0()
 
     def slider_changed(self):
-        o_fitting_handler = FittingHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_fitting_handler = FittingHandler(parent=self, grand_parent=self.parent)
         o_fitting_handler.display_roi()
 
     def update_bragg_edge_plot(self, update_selection=True):
@@ -204,31 +194,26 @@ class FittingWindow(QMainWindow):
 
     def bragg_edge_linear_region_changing(self):
         self.is_ready_to_fit = False
-        o_event = EventHandler(parent=self,
-                               grand_parent=self.parent)
+        o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_edge_region_changed()
         self.check_status_widgets()
 
     def bragg_edge_linear_region_changed(self, full_reset_of_fitting_table=True):
-        o_table = TableDictionaryHandler(parent=self,
-                                         grand_parent=self.parent)
+        o_table = TableDictionaryHandler(parent=self, grand_parent=self.parent)
         o_table.clear_y_axis_and_x_axis_from_kropff_table_dictionary()
 
         self.is_ready_to_fit = False
-        o_event = EventHandler(parent=self,
-                               grand_parent=self.parent)
+        o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_edge_region_changed()
         self.check_status_widgets()
 
         # we need to reset all kropff fitting parameters and plot
         if full_reset_of_fitting_table:
-            o_kropff_event = KropffHandler(parent=self,
-                                           grand_parent=self.parent)
+            o_kropff_event = KropffHandler(parent=self, grand_parent=self.parent)
             o_kropff_event.reset_fitting_parameters()
 
         self.kropff_check_widgets_helper()
-        o_table = FillingTableHandler(parent=self,
-                                      grand_parent=self.parent)
+        o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
         o_table.fill_kropff_table()
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
@@ -238,26 +223,21 @@ class FittingWindow(QMainWindow):
 
         o_event.automatically_select_best_lambda_0_for_that_range()
 
-        o_kropff_display = KropffDisplay(parent=self,
-                                         grand_parent=self.parent)
+        o_kropff_display = KropffDisplay(parent=self, grand_parent=self.parent)
         o_kropff_display.display_lambda_0()
 
-        o_fitting_display = FittingDisplay(parent=self,
-                                           grand_parent=self.parent)
+        o_fitting_display = FittingDisplay(parent=self, grand_parent=self.parent)
         o_fitting_display.display_lambda_0()
 
         QApplication.restoreOverrideCursor()
         QApplication.processEvents()
 
     def min_or_max_lambda_manually_changed(self):
-        o_event = EventHandler(parent=self,
-                               grand_parent=self.parent)
+        o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.min_or_max_lambda_manually_changed()
 
-
     def create_fitting_story_checked(self):
-        CreateFittingStoryLauncher(parent=self,
-                                   grand_parent=self.parent)
+        CreateFittingStoryLauncher(parent=self, grand_parent=self.parent)
 
     def automatic_hkl0_selection_clicked(self):
         o_event = EventHandler(parent=self,
@@ -265,33 +245,27 @@ class FittingWindow(QMainWindow):
         o_event.automatic_hkl0_selection_clicked()
         o_event.automatically_select_best_lambda_0_for_that_range()
 
-        o_kropff_display = KropffDisplay(parent=self,
-                                         grand_parent=self.parent)
+        o_kropff_display = KropffDisplay(parent=self, grand_parent=self.parent)
         o_kropff_display.display_lambda_0()
 
-        o_fitting_display = FittingDisplay(parent=self,
-                                           grand_parent=self.parent)
+        o_fitting_display = FittingDisplay(parent=self, grand_parent=self.parent)
         o_fitting_display.display_lambda_0()
 
     # March-Dollase
     def column_value_table_clicked(self, column):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.column_value_table_clicked(column)
 
     def column_header_table_clicked(self, column):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.column_header_table_clicked(column)
 
     def resizing_header_table(self, index_column, old_size, new_size):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.resizing_header_table(index_column, new_size)
 
     def resizing_value_table(self, index_column, old_size, new_size):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.resizing_value_table(index_column, new_size)
 
     def active_button_pressed(self):
@@ -307,28 +281,23 @@ class FittingWindow(QMainWindow):
         self.check_state_of_step4_button()
 
     def check_state_of_step3_button(self):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.check_state_of_step3_button()
 
     def check_state_of_step4_button(self):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.check_state_of_step4_button()
 
     def active_button_state_changed(self, status, row_clicked):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.active_button_state_changed(row_clicked)
 
     def mirror_state_of_widgets(self, column=2, row_clicked=0):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.mirror_state_of_widgets(column=column, row_clicked=row_clicked)
 
     def lock_button_state_changed(self, status, row_clicked):
-        o_event = MarchDollaseEventHandler(parent=self,
-                                           grand_parent=self.parent)
+        o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.lock_button_state_changed(status, row_clicked)
 
     def value_table_right_click(self, position):
@@ -344,27 +313,23 @@ class FittingWindow(QMainWindow):
     def advanced_table_clicked(self, status):
         self.is_ready_to_fit = False
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        o_table_handler = FillingTableHandler(grand_parent=self.parent,
-                                              parent=self)
+        o_table_handler = FillingTableHandler(grand_parent=self.parent, parent=self)
         o_table_handler.set_mode(advanced_mode=status)
         self.check_status_widgets()
         QApplication.restoreOverrideCursor()
 
     def update_table(self):
-        o_filling_table = FillingTableHandler(grand_parent=self.parent,
-                                              parent=self)
+        o_filling_table = FillingTableHandler(grand_parent=self.parent, parent=self)
         self.parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def initialize_all_parameters_button_clicked(self):
-        o_initialization = FittingInitializationHandler(parent=self,
-                                                        grand_parent=self.parent)
+        o_initialization = FittingInitializationHandler(parent=self, grand_parent=self.parent)
         o_initialization.run()
 
     def initialize_all_parameters_step2(self):
-        o_initialization = FittingInitializationHandler(parent=self,
-                                                        grand_parent=self.parent)
+        o_initialization = FittingInitializationHandler(parent=self, grand_parent=self.parent)
         o_initialization.finished_up_initialization()
 
         # activate or not step4 (yes if we were able to initialize correctly all variables)
@@ -376,40 +341,32 @@ class FittingWindow(QMainWindow):
     # kropff
 
     def filling_kropff_table(self):
-        o_table = FillingTableHandler(parent=self,
-                                      grand_parent=self.parent)
+        o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
         o_table.fill_kropff_table()
 
     def kropff_check_widgets_helper(self):
         """highlight in green the next button to use"""
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.check_widgets_helper()
 
     def record_all_xaxis_and_yaxis(self):
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.record_all_xaxis_and_yaxis()
 
     def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
-        o_event = KropffDisplay(parent=self,
-                          grand_parent=self.parent)
-        o_event.display_bragg_peak_threshold()
-        o_display = Display(parent=self,
-                            grand_parent=self.parent)
+        o_display = KropffDisplay(parent=self, grand_parent=self.parent)
+        o_display.display_bragg_peak_threshold()
         o_display.update_fitting_parameters_matplotlib()
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.kropff_automatic_bragg_peak_threshold_finder_clicked()
         self.kropff_check_widgets_helper()
 
     def kropff_check_widgets_helper(self):
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.check_widgets_helper()
 
     def kropff_automatic_bragg_peak_threshold_finder_settings_clicked(self):
@@ -417,8 +374,7 @@ class FittingWindow(QMainWindow):
         o_kropff.show()
 
     def kropff_parameters_changed(self):
-        o_kropff = KropffHandler(parent=self,
-                                 grand_parent=self.parent)
+        o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
         o_kropff.parameters_changed()
 
     def update_selected_bins_plot(self):
@@ -437,60 +393,50 @@ class FittingWindow(QMainWindow):
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
-        o_event = KropffDisplay(parent=self,
-                          grand_parent=self.parent)
+        o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_low_tof_table_selection_changed(self):
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
         self.update_selected_bins_plot()
-        o_event = KropffDisplay(parent=self,
-                          grand_parent=self.parent)
+        o_event = KropffDisplay(parent=self,  grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_bragg_peak_table_selection_changed(self):
         self.update_selected_bins_plot()
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
-        o_event = KropffDisplay(parent=self,
-                          grand_parent=self.parent)
+        o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_bragg_edge_threshold_changed(self):
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.kropff_bragg_edge_threshold_changed()
 
     def kropff_threshold_width_slider_changed(self, new_value):
         self.ui.kropff_threshold_width_value.setText(str(new_value))
 
     def kropff_fit_all_regions(self):
-        o_event = KropffHandler(parent=self,
-                                grand_parent=self.parent)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.fit_regions()
         o_event.update_fitting_plot()
-        o_display = KropffDisplay(parent=self,
-                               grand_parent=self.parent)
+        o_display = KropffDisplay(parent=self, grand_parent=self.parent)
         o_display.display_bragg_peak_threshold()
-        o_table = FillingTableHandler(parent=self,
-                                      grand_parent=self.parent)
+        o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
         o_table.fill_kropff_table()
         o_display.update_fitting_parameters_matplotlib()
 
     def kropff_high_tof_graph_radioButton_changed(self):
-        o_event = KropffDisplay(parent=self,
-                          grand_parent=self.parent)
+        o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.update_fitting_parameters_matplotlib()
 
     def kropff_low_tof_graph_radioButton_changed(self):
-        o_event = KropffDisplay(parent=self,
-                          grand_parent=self.parent)
+        o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.update_fitting_parameters_matplotlib()
 
     def kropff_bragg_peak_graph_radioButton_changed(self):
-        o_event = KropffDisplay(parent=self,
-                          grand_parent=self.parent)
+        o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.update_fitting_parameters_matplotlib()
 
     # general settings
