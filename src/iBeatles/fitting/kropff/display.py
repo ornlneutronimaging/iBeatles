@@ -111,16 +111,25 @@ class Display:
 
     def display_lambda_calculated(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
-        item = self.parent.lambda_calculated_item_in_bragg_edge_plot
         o_kropff = Get(parent=self.parent)
         row_selected = str(o_kropff.kropff_row_selected()[0])
-
         kropff_table_of_row_selected = kropff_table_dictionary[row_selected]
         lambda_value = kropff_table_of_row_selected['lambda_hkl']['val']
 
+        # in bragg edge plot (top plot)
+        item = self.parent.lambda_calculated_item_in_bragg_edge_plot
         o_utility_display = UtilitiesDisplay(ui=self.parent.bragg_edge_plot)
         new_item = o_utility_display.vertical_line(item=item,
                                                    x_position=lambda_value,
                                                    label=u"\u03BB_calculated",
                                                    pen=pg.mkPen(color='g', width=1.5))
         self.parent.lambda_calculated_item_in_bragg_edge_plot = new_item
+
+        # in kropff fitting plot (bottom right)
+        item = self.parent.lambda_calculated_item_in_kropff_fitting_plot
+        o_utility_display = UtilitiesDisplay(ui=self.parent.ui.kropff_fitting)
+        new_item = o_utility_display.vertical_line(item=item,
+                                                   x_position=lambda_value,
+                                                   label=u"\u03BB_calculated",
+                                                   pen=pg.mkPen(color='g', width=1.5))
+        self.parent.lambda_calculated_item_in_kropff_fitting_plot = new_item
