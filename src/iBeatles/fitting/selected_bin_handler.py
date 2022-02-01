@@ -4,6 +4,7 @@ import pyqtgraph as pg
 from ..fitting.fitting_functions import basic_fit, advanced_fit
 from .get import Get
 from . import FittingTabSelected
+from src.iBeatles.fitting.display import Display as FittingDisplay
 
 
 class SelectedBinsHandler(object):
@@ -163,6 +164,10 @@ class SelectedBinsHandler(object):
             lr = self.parent.fitting_lr
             lr.setRegion(linear_region_range)
             self.parent.bragg_edge_plot.addItem(lr)
+
+        o_display = FittingDisplay(parent=self.parent,
+                                   grand_parent=self.grand_parent)
+        o_display.display_lambda_0()
 
     def update_march_dollase_bragg_edge_plot(self):
         if self.grand_parent.display_active_row_flag:

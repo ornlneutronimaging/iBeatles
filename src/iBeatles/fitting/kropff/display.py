@@ -43,6 +43,8 @@ class Display:
         self.parent.ui.kropff_fitting.addItem(lr)
         self.parent.kropff_threshold_current_item = lr
 
+        self.display_lambda_0()
+
     def update_fitting_parameters_matplotlib(self):
         o_get = Get(parent=self.parent)
         matplotlib_ui = o_get.kropff_matplotlib_ui_selected()
@@ -80,3 +82,8 @@ class Display:
 
         matplotlib_ui.axes.set_xlabel("Row # (see Table tab)")
         matplotlib_ui.draw()
+
+    def display_lambda_0(self):
+        pyqtgraph_ui = self.parent.ui.kropff_fitting
+        item = self.parent.lambda_0_item_in_kropff_fitting_plot
+        
