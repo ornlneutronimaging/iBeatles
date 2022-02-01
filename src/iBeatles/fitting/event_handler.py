@@ -84,13 +84,7 @@ class EventHandler:
         lambda_max_selected = np.float(self.parent.ui.lambda_max_lineEdit.text())
         mid_lambda = np.mean([lambda_min_selected, lambda_max_selected])
 
-        # hkl_list = self.grand_parent.selected_element_hkl_array
-        # str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
-        # self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
-
         bragg_edges_array = self.grand_parent.selected_element_bragg_edges_array
-        # hkl_bragg_edges = dict(zip(str_hkl_list, bragg_edges_array))
-        # value = "{:04.3f}".format(hkl_bragg_edges[str(hkl)])
 
         nearest_index = find_nearest_index(bragg_edges_array, mid_lambda)
         self.parent.ui.hkl_list_ui.setCurrentIndex(nearest_index)
