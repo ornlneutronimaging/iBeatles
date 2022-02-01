@@ -20,7 +20,7 @@ class Display:
                                    movable=False,
                                    pen=pen,
                                    labelOpts={'position': 0.9},
-                                   label=u"\u03BB0")
+                                   label=u"\u03BB\u2080")
         self.ui.addItem(new_item)
 
         return new_item

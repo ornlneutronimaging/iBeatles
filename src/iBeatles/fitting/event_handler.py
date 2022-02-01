@@ -2,6 +2,7 @@ import logging
 import numpy as np
 
 from ..utilities.array_utilities import find_nearest_index
+from src.iBeatles.utilities.math_tools import is_float
 from .selected_bin_handler import SelectedBinsHandler
 
 
@@ -80,8 +81,11 @@ class EventHandler:
         if not self.parent.ui.automatic_hkl0_checkBox.isChecked():
             return
 
-        lambda_min_selected = np.float(self.parent.ui.lambda_min_lineEdit.text())
-        lambda_max_selected = np.float(self.parent.ui.lambda_max_lineEdit.text())
+        if not (str(self.parent.ui.lambda_min_lineEdit.text())):
+            return
+
+        lambda_min_selected = np.float(str(self.parent.ui.lambda_min_lineEdit.text()))
+        lambda_max_selected = np.float(str(self.parent.ui.lambda_max_lineEdit.text()))
         mid_lambda = np.mean([lambda_min_selected, lambda_max_selected])
 
         bragg_edges_array = self.grand_parent.selected_element_bragg_edges_array
