@@ -67,7 +67,11 @@ class Get:
             return False
 
         ob = self.parent.data_metadata['ob']['data']
-        if not ob:
+        if type(ob) == list:
+            if not ob:
+                return False
+
+        elif not ob.any():
             number_row = self.table_number_row()
             for _row in np.arange(number_row):
                 _roi = self.roi_table_row(row=_row)
@@ -75,7 +79,7 @@ class Get:
                 if (status is True) and (region_type == RegionType.background):
                     return True
 
-        if ob:
+        if ob.any():
             return True
 
         return False

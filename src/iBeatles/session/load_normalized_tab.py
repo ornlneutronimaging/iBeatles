@@ -35,11 +35,11 @@ class LoadNormalized:
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_normalized.item(_row_selected)
                 _item.setSelected(True)
-            o_gui.check_time_spectra_widgets()
             self.parent.retrieve_general_infos(data_type=data_type)
             self.parent.retrieve_general_data_infos(data_type=data_type)
             o_gui = Step3GuiHandler(parent=self.parent)
             o_gui.check_widgets()
+            o_gui.check_time_spectra_widgets()
 
             self.parent.image_view_settings[data_type]['state'] = session_dict[data_type]['image view state']
             self.parent.image_view_settings[data_type]['histogram'] = session_dict[data_type]['image view histogram']

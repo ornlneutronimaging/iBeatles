@@ -304,6 +304,7 @@ class Step1Plot(object):
 
     def display_bragg_edge(self, mouse_selection=True):
         _data = self.data
+
         if _data == []:  # clear data if no data
             self.clear_bragg_edge_plot()
 
@@ -332,6 +333,8 @@ class Step1Plot(object):
             for _index, roi in enumerate(list_roi_id):
 
                 if mouse_selection:
+                    if type(self.parent.live_data) == type(list()):
+                        self.parent.live_data = np.array(self.parent.live_data)
                     region = roi.getArraySlice(self.parent.live_data,
                                                _image_view_item)
 

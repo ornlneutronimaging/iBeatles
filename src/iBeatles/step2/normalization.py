@@ -95,7 +95,7 @@ class Normalization(object):
                             status=StatusMessageStatus.working,
                             duration_s=5)
 
-        if _ob:
+        if _ob.any():
 
             show_status_message(parent=self.parent,
                                 message="Loading ob data ...",
@@ -131,8 +131,6 @@ class Normalization(object):
     def saving_normalization_parameters(self, o_norm=None, output_folder=None):
         logging.info("Internally saving normalization parameters (data, folder, time_spectra)")
         self.parent.data_metadata[DataType.normalized]['data'] = np.array(o_norm.get_normalized_data())
-        print("in saving normalizatoin parameters")
-        print(f"type(self.parent.data_metadata[DataType.normalized]['data']) is {type(self.parent.data_metadata[DataType.normalized]['data'])}")
         self.parent.data_metadata[DataType.normalized]['folder'] = output_folder
         self.parent.data_metadata[DataType.normalized]['time_spectra'] = \
             copy.deepcopy(self.parent.data_metadata[DataType.sample]['time_spectra'])

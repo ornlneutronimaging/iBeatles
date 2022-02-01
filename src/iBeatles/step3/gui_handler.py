@@ -28,14 +28,9 @@ class Step3GuiHandler:
     def select_normalized_row(self, row=0):
         self.parent.ui.list_normalized.setCurrentRow(row)
 
-    #        o_step1_plot = Step1Plot(parent = self.parent)
-    #        o_step1_plot.display_2d_preview()
-
     def check_time_spectra_widgets(self):
         time_spectra_data = self.parent.data_metadata['time_spectra']['normalized_folder']
         if self.parent.ui.material_display_checkbox_2.isChecked():
-            print(f"time_spectra_data: {time_spectra_data}")
-
             if time_spectra_data == []:
                 _display_error_label = True
             else:

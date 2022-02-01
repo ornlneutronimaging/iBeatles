@@ -603,6 +603,9 @@ class MainWindow(QMainWindow):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='normalized')
         BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot.display_general_bragg_edge()
+        self.roi_image_view_changed()
         self.ui.list_of_elements.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
