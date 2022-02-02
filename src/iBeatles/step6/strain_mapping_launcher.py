@@ -39,10 +39,20 @@ class StrainMappingWindow(QMainWindow):
         o_init = Initialization(parent=self, grand_parent=self.parent)
         o_init.all()
 
-        # self.init_labels()
-        # # self.init_widgets()
-        # self.display_images_and_selection()
+    def fitting_algorithm_changed(self):
+        print("fitting_algorithm_changed")
 
+    def parameters_to_display_changed(self):
+        print("parameters_to_display_changed")
+
+    def d0_to_use_changed(self):
+        print("d0_to_use_changed")
+
+    def transparency_slider_changed(self, new_value):
+        print("transparency changed")
+
+    def export_clicked(self):
+        print("export clicked")
 
 
 

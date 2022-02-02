@@ -495,5 +495,157 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>march_dollase_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fitting_algorithm_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fitting_algorithm_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>198</x>
+     <y>187</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>parameters_to_display_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>351</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>parameters_to_display_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>393</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>403</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>d0_value</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>d0_to_use_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>675</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>993</x>
+     <y>258</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>d0_to_use_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>746</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1001</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>d0_user_value</sender>
+   <signal>returnPressed()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>d0_to_use_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>824</x>
+     <y>182</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>998</x>
+     <y>195</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>transparency_slider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>transparency_slider_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>742</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>742</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>910</x>
+     <y>748</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>995</x>
+     <y>736</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>fitting_algorithm_changed()</slot>
+  <slot>parameters_to_display_changed()</slot>
+  <slot>d0_to_use_changed()</slot>
+  <slot>transparency_slider_changed()</slot>
+  <slot>export_clicked()</slot>
+ </slots>
 </ui>
