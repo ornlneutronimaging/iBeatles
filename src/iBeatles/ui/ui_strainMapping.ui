@@ -37,7 +37,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_9">
+             <widget class="QLabel" name="from_lambda">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -76,7 +76,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_11">
+             <widget class="QLabel" name="to_lambda">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -127,7 +127,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_7">
+             <widget class="QLabel" name="material_name">
               <property name="minimumSize">
                <size>
                 <width>100</width>
@@ -163,7 +163,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="hkl_value">
               <property name="minimumSize">
                <size>
                 <width>50</width>
@@ -199,7 +199,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="lambda_0">
               <property name="minimumSize">
                <size>
                 <width>50</width>
@@ -342,7 +342,7 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QRadioButton" name="radioButton_3">
+           <widget class="QRadioButton" name="d0_value">
             <property name="text">
              <string>N/A</string>
             </property>
@@ -366,7 +366,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="d0_user_value"/>
           </item>
           <item>
            <widget class="QLabel" name="d0_units2_label">
