@@ -5,6 +5,7 @@ import numpy as np
 
 from .. import load_ui
 from src.iBeatles.step6.initialization import Initialization
+from src.iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 
 
 class StrainMappingLauncher(object):
@@ -12,13 +13,15 @@ class StrainMappingLauncher(object):
     def __init__(self, parent=None):
         self.parent = parent
 
-        # if self.parent.strain_mapping_ui is None:
-        strain_mapping_window = StrainMappingWindow(parent=parent)
-        strain_mapping_window.show()
-        self.parent.strain_mapping_ui = strain_mapping_window
-        # else:
-        #     self.parent.strain_mapping_ui.setFocus()
-        #     self.parent.strain_mapping_ui.activateWindow()
+        if self.parent.fitting_ui is None:
+            show_status_message(parent=self.parent,
+                                message="Strain Mapping requiere to first launch the fitting window!",
+                                status=StatusMessageStatus.error,
+                                duration_s=10)
+        else:
+            strain_mapping_window = StrainMappingWindow(parent=parent)
+            strain_mapping_window.show()
+            self.parent.strain_mapping_ui = strain_mapping_window
 
 
 class StrainMappingWindow(QMainWindow):
