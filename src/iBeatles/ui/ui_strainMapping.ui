@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1003</width>
-    <height>803</height>
+    <width>839</width>
+    <height>855</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -166,13 +166,13 @@
              <widget class="QLabel" name="hkl_value">
               <property name="minimumSize">
                <size>
-                <width>50</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>50</width>
+                <width>100</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -202,13 +202,13 @@
              <widget class="QLabel" name="lambda_0">
               <property name="minimumSize">
                <size>
-                <width>50</width>
+                <width>100</width>
                 <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>50</width>
+                <width>100</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -271,6 +271,19 @@
            </widget>
           </item>
           <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>13</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QRadioButton" name="kropff_radioButton">
             <property name="text">
              <string>Kropff</string>
@@ -279,19 +292,6 @@
              <bool>true</bool>
             </property>
            </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>61</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </widget>
@@ -313,6 +313,19 @@
            </widget>
           </item>
           <item>
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QRadioButton" name="radioButton_2">
             <property name="text">
              <string>Strain mapping (d-d0)/d0</string>
@@ -326,7 +339,7 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
+              <width>1</width>
               <height>20</height>
              </size>
             </property>
@@ -359,6 +372,19 @@
            </widget>
           </item>
           <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QRadioButton" name="radioButton_4">
             <property name="text">
              <string/>
@@ -382,7 +408,7 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
+              <width>0</width>
               <height>20</height>
              </size>
             </property>
@@ -395,7 +421,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="widget_2" native="true">
+     <widget class="QWidget" name="strain_mapping_widget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>0</horstretch>
@@ -464,7 +490,7 @@
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>322</width>
+           <width>240</width>
            <height>16</height>
           </size>
          </property>
@@ -487,7 +513,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1003</width>
+     <width>839</width>
      <height>24</height>
     </rect>
    </property>

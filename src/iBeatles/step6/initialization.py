@@ -1,6 +1,12 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Qt5Agg')
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from qtpy.QtWidgets import QVBoxLayout
 
 from src.iBeatles import ANGSTROMS, LAMBDA, SUB_0
+from src.iBeatles.utilities.mplcanvas import MplCanvas
+from src.iBeatles import DataType
 
 
 class Initialization:
@@ -12,6 +18,8 @@ class Initialization:
     def all(self):
         self.labels()
         self.parameters()
+        self.matplotlib()
+        self.data()
 
     def labels(self):
         self.parent.ui.range_selected_from_units_label.setText(ANGSTROMS)
@@ -36,3 +44,24 @@ class Initialization:
         self.parent.ui.material_name.setText(element)
         self.parent.ui.lambda_0.setText("{:.03f}".format(lambda_0))
         self.parent.ui.d0_user_value.setText("{:.03f}".format(lambda_0 / 2.))
+
+    def matplotlib(self):
+
+        def _matplotlib(parent=None, widget=None):
+            sc = MplCanvas(parent, width=4, height=2, dpi=300)
+            # sc.axes.plot([0,1,2,3,4,5], [10, 1, 20 ,3, 40, 50])
+            toolbar = NavigationToolbar(sc, parent)
+            layout = QVBoxLayout()
+            layout.addWidget(toolbar)
+            layout.addWidget(sc)
+            widget.setLayout(layout)
+            return sc
+
+        self.parent.strain_mapping_plot = _matplotlib(parent=self.parent,
+                                                      widget=self.parent.ui.strain_mapping_widget)
+
+    def data(self):
+        live_data = self.grand_parent.data_metadata[DataType.normalized]['data']
+        integrated_image = np.mean(live_data, 0)
+        self.parent.integrated_image = np.transpose(integrated_image)
+        [self.parent.image_size['height'], self.parent.image_size['width']] = np.shape(integrated_image)

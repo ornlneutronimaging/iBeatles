@@ -13,7 +13,7 @@ from .. import DataType, interact_me_style
 from ..utilities.table_handler import TableHandler
 from .. import settings_image
 from src.iBeatles.fitting import KropffThresholdFinder
-from src.iBeatles.fitting.mplcanvas import MplCanvas
+from src.iBeatles.utilities.mplcanvas import MplCanvas
 
 
 class Initialization:
