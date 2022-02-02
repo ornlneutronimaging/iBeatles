@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>839</width>
-    <height>855</height>
+    <width>1077</width>
+    <height>857</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -303,7 +303,7 @@
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QRadioButton" name="radioButton">
+           <widget class="QRadioButton" name="display_d_radioButton">
             <property name="text">
              <string>d</string>
             </property>
@@ -326,9 +326,9 @@
            </spacer>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton_2">
+           <widget class="QRadioButton" name="display_strain_mapping_radioButton">
             <property name="text">
-             <string>Strain mapping (d-d0)/d0</string>
+             <string>Strain mapping</string>
             </property>
            </widget>
           </item>
@@ -339,11 +339,18 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>1</width>
+              <width>30</width>
               <height>20</height>
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="display_integrated_image_radioButton">
+            <property name="text">
+             <string>Integrated image</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -385,7 +392,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QRadioButton" name="radioButton_4">
+           <widget class="QRadioButton" name="d0_user_radioButton">
             <property name="text">
              <string/>
             </property>
@@ -408,7 +415,7 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>0</width>
+              <width>34</width>
               <height>20</height>
              </size>
             </property>
@@ -455,42 +462,13 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QLabel" name="label">
-         <property name="minimumSize">
-          <size>
-           <width>140</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>140</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Fitting Transparency</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSlider" name="transparency_slider">
-         <property name="value">
-          <number>50</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>240</width>
+           <width>881</width>
            <height>16</height>
           </size>
          </property>
@@ -513,7 +491,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>839</width>
+     <width>1077</width>
      <height>24</height>
     </rect>
    </property>
@@ -555,13 +533,13 @@
    </hints>
   </connection>
   <connection>
-   <sender>radioButton</sender>
+   <sender>display_d_radioButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>parameters_to_display_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>351</x>
+     <x>287</x>
      <y>185</y>
     </hint>
     <hint type="destinationlabel">
@@ -571,7 +549,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>radioButton_2</sender>
+   <sender>display_strain_mapping_radioButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>parameters_to_display_changed()</slot>
@@ -593,7 +571,7 @@
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>675</x>
+     <x>716</x>
      <y>184</y>
     </hint>
     <hint type="destinationlabel">
@@ -603,13 +581,13 @@
    </hints>
   </connection>
   <connection>
-   <sender>radioButton_4</sender>
+   <sender>d0_user_radioButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>746</x>
+     <x>833</x>
      <y>185</y>
     </hint>
     <hint type="destinationlabel">
@@ -625,28 +603,12 @@
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>824</x>
+     <x>911</x>
      <y>182</y>
     </hint>
     <hint type="destinationlabel">
      <x>998</x>
      <y>195</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>transparency_slider</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>transparency_slider_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>331</x>
-     <y>742</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>6</x>
-     <y>742</y>
     </hint>
    </hints>
   </connection>
@@ -657,12 +619,28 @@
    <slot>export_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>910</x>
-     <y>748</y>
+     <x>984</x>
+     <y>802</y>
     </hint>
     <hint type="destinationlabel">
      <x>995</x>
      <y>736</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>display_integrated_image_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>parameters_to_display_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>555</x>
+     <y>189</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>481</y>
     </hint>
    </hints>
   </connection>

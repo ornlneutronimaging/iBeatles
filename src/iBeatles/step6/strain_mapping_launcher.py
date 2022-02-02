@@ -48,7 +48,7 @@ class StrainMappingWindow(QMainWindow):
         print("fitting_algorithm_changed")
 
     def parameters_to_display_changed(self):
-        print("parameters_to_display_changed")
+        self.update_display()
 
     def d0_to_use_changed(self):
         print("d0_to_use_changed")
@@ -62,5 +62,4 @@ class StrainMappingWindow(QMainWindow):
     def update_display(self):
         o_display = Display(parent=self,
                             grand_parent=self.parent)
-        # o_display.integrated_image()
-        o_display.d_array()
+        o_display.run()
