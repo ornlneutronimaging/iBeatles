@@ -21,6 +21,11 @@ interact_me_style = "background-color: lime"
 error_style = "background-color: red"
 normal_style = ""
 
+ANGSTROMS = u"\u212B"
+LAMBDA = u"\u03BB"
+MICRO = u"\u00B5"
+SUB_0 = u"\u2080"
+
 
 class DataType:
     sample = 'sample'

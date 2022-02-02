@@ -1,11 +1,10 @@
 from qtpy.QtWidgets import QTableWidgetItem, QHBoxLayout, QMainWindow
 from qtpy.QtGui import QColor
 from qtpy import QtCore
-# from pyqtgraph.dockarea import *
-import pyqtgraph as pg
 import numpy as np
 
 from .. import load_ui
+from src.iBeatles.step6.initialization import Initialization
 
 
 class StrainMappingLauncher(object):
@@ -34,10 +33,26 @@ class StrainMappingWindow(QMainWindow):
         self.ui = load_ui('ui_strainMapping.ui', baseinstance=self)
         self.setWindowTitle("6. Strain Mapping")
 
-        # self.init_pyqtgraph()
+        o_init = Initialization(parent=self, grand_parent=self.parent)
+        o_init.all()
+
         # self.init_labels()
         # # self.init_widgets()
         # self.display_images_and_selection()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def display_images_and_selection(self):
         self.display_images()
