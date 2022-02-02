@@ -83,7 +83,7 @@ class EventHandler:
         # strain mapping
         # validate if fitting has been performed
         if step_index_requested == 5:
-            if self.parent.march_table_dictionary == {}:
+            if (self.parent.march_table_dictionary == {}) and (self.parent.kropff_table_dictionary == {}):
                 message = "Please fit the data to be able to visualize the strain mapping!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)

@@ -13,13 +13,13 @@ class StrainMappingLauncher(object):
     def __init__(self, parent=None):
         self.parent = parent
 
-        if self.parent.strain_mapping_ui is None:
-            strain_mapping_window = StrainMappingWindow(parent=parent)
-            strain_mapping_window.show()
-            self.parent.strain_mapping_ui = strain_mapping_window
-        else:
-            self.parent.strain_mapping_ui.setFocus()
-            self.parent.strain_mapping_ui.activateWindow()
+        # if self.parent.strain_mapping_ui is None:
+        strain_mapping_window = StrainMappingWindow(parent=parent)
+        strain_mapping_window.show()
+        self.parent.strain_mapping_ui = strain_mapping_window
+        # else:
+        #     self.parent.strain_mapping_ui.setFocus()
+        #     self.parent.strain_mapping_ui.activateWindow()
 
 
 class StrainMappingWindow(QMainWindow):
@@ -32,17 +32,12 @@ class StrainMappingWindow(QMainWindow):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_strainMapping.ui', baseinstance=self)
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
         self.setWindowTitle("6. Strain Mapping")
 
-        self.init_pyqtgraph()
-        self.init_labels()
-        # self.init_widgets()
-        self.display_images_and_selection()
-
-    def tab_index_changed(self, index):
-        self.ui.stackedWidget.setCurrentIndex(index)
+        # self.init_pyqtgraph()
+        # self.init_labels()
+        # # self.init_widgets()
+        # self.display_images_and_selection()
 
     def display_images_and_selection(self):
         self.display_images()
@@ -174,25 +169,6 @@ class StrainMappingWindow(QMainWindow):
         return {'layout': hori_layout,
                 'image_view': image_view,
                 }
-
-    def init_pyqtgraph(self):
-
-        pg.setConfigOptions(antialias=True)
-
-        # tab1
-        _dict = self.set_tab_widgets()
-        self.ui.strain_mapping_image = _dict['image_view']
-        self.ui.strain_mapping_tab.setLayout(_dict['layout'])
-
-        # tab2
-        _dict = self.set_tab_widgets()
-        self.ui.sigma_image = _dict['image_view']
-        self.ui.sigma_tab.setLayout(_dict['layout'])
-
-        # tab1
-        _dict = self.set_tab_widgets()
-        self.ui.alpha_image = _dict['image_view']
-        self.ui.alpha_tab.setLayout(_dict['layout'])
 
     def init_labels(self):
         self.ui.d0_label.setText(u"d<sub>0</sub>")
