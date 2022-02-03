@@ -96,7 +96,7 @@ class EventHandler:
 
         for _yaxis in yaxis:
             _yaxis = -np.log(_yaxis)
-            self.parent.ui.kropff_fitting.plot(xaxis, _yaxis, symbol='o')
+            self.parent.ui.kropff_fitting.plot(xaxis, _yaxis, symbol='o', pen=None)
 
         xaxis_fitted, yaxis_fitted = o_get.y_axis_fitted_for_given_rows_selected()
 
