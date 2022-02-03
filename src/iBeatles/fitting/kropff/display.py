@@ -76,12 +76,19 @@ class Display:
             matplotlib_ui.axes.errorbar(x_array,
                                         parameter_array,
                                         parameter_error_array,
-                                        marker='s',
-                                        label=u"\u03BB_calculated")
+                                        marker='o',
+                                        linestyle='',
+                                        markeredgecolor='red',
+                                        markerfacecolor='green',
+                                        label=u"\u03BB_calculated",
+                                        ecolor='red')
         else:
             matplotlib_ui.axes.plot(x_array,
                                     parameter_array,
-                                    marker='s',
+                                    marker='o',
+                                    linestyle='',
+                                    markeredgecolor='red',
+                                    markerfacecolor='green',
                                     label=u"\u03BB_calculated")
 
         matplotlib_ui.axes.set_xlabel("Row # (see Table tab)")

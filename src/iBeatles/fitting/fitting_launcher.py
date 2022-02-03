@@ -374,7 +374,11 @@ class FittingWindow(QMainWindow):
         o_display.update_fitting_parameters_matplotlib()
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
+        self.bragg_edge_linear_region_changed(full_reset_of_fitting_table=True)
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
+        # o_event.reset_fitting_parameters()
+        # o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
+        # o_table.fill_kropff_table()
         o_event.kropff_automatic_bragg_peak_threshold_finder_clicked()
         self.kropff_check_widgets_helper()
 
