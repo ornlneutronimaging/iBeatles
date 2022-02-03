@@ -23,3 +23,15 @@ class Get:
             return ParametersToDisplay.integrated_image
         else:
             raise NotImplementedError("Parameters to display not implemented!")
+
+    def strain_mapping(self):
+        d_array = self.parent.d_array
+        d0 = self.active_d0()
+        strain_mapping = (d_array - d0) / d0
+        return strain_mapping
+
+    def d_array(self):
+        return self.parent.d_array
+
+    def integrated_image(self):
+        return self.parent.integrated_image

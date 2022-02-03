@@ -42,21 +42,19 @@ class Display:
         self.parent.previous_parameters_displayed = self.parameters_to_display
 
     def integrated_image(self):
-        integrated_image = self.parent.integrated_image
-
+        o_get = Get(parent=self.parent)
+        integrated_image = o_get.integrated_image()
         self.image_view.setImage(np.transpose(integrated_image))
-
         self.parent.previous_parameters_displayed = ParametersToDisplay.integrated_image
 
     def d_array(self):
-        d_array = self.parent.d_array
+        o_get = Get(parent=self.parent)
+        d_array = o_get.d_array()
         self.image_view.setImage(np.transpose(d_array))
 
     def strain_mapping(self):
-        d_array = self.parent.d_array
         o_get = Get(parent=self.parent)
-        d0 = o_get.active_d0()
-        strain_mapping = (d_array - d0) / d0
+        strain_mapping = o_get.strain_mapping()
         self.image_view.setImage(np.transpose(strain_mapping))
 
     def _get_view_box(self):

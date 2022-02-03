@@ -6,6 +6,7 @@ from src.iBeatles.utilities.status_message_config import StatusMessageStatus, sh
 from src.iBeatles.step6.display import Display
 from src.iBeatles.step6.event_handler import EventHandler
 from src.iBeatles.step6.get import Get
+from src.iBeatles.step6.export import Export
 from src.iBeatles.step6 import ParametersToDisplay
 
 
@@ -65,7 +66,8 @@ class StrainMappingWindow(QMainWindow):
         self.update_display()
 
     def export_clicked(self):
-        print("export clicked")
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.export()
 
     def update_display(self):
         o_display = Display(parent=self,
