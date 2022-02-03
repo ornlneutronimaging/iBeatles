@@ -45,16 +45,13 @@ class StrainMappingWindow(QMainWindow):
         self.update_display()
 
     def fitting_algorithm_changed(self):
-        print("fitting_algorithm_changed")
+        self.update_display()
 
     def parameters_to_display_changed(self):
         self.update_display()
 
     def d0_to_use_changed(self):
-        print("d0_to_use_changed")
-
-    def transparency_slider_changed(self, new_value):
-        print("transparency changed")
+        self.update_display()
 
     def export_clicked(self):
         print("export clicked")

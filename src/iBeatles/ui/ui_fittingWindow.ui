@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1453</width>
-    <height>1218</height>
+    <width>1428</width>
+    <height>1161</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1484,6 +1484,31 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1428</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSteps">
+    <property name="title">
+     <string>Steps</string>
+    </property>
+    <addaction name="action6_Strain_Mapping"/>
+   </widget>
+   <addaction name="menuSteps"/>
+  </widget>
+  <action name="action6_Strain_Mapping">
+   <property name="text">
+    <string>6. Strain Mapping</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+6</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../icons/icons.qrc"/>
@@ -1496,7 +1521,7 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1711</x>
+     <x>1315</x>
      <y>87</y>
     </hint>
     <hint type="destinationlabel">
@@ -1512,8 +1537,8 @@
    <slot>value_table_right_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>614</x>
-     <y>764</y>
+     <x>643</x>
+     <y>1147</y>
     </hint>
     <hint type="destinationlabel">
      <x>610</x>
@@ -1608,7 +1633,7 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1774</x>
+     <x>1378</x>
      <y>189</y>
     </hint>
     <hint type="destinationlabel">
@@ -1624,7 +1649,7 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1774</x>
+     <x>1378</x>
      <y>220</y>
     </hint>
     <hint type="destinationlabel">
@@ -1657,7 +1682,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>193</x>
-     <y>671</y>
+     <y>696</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1672,8 +1697,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>286</x>
-     <y>670</y>
+     <x>303</x>
+     <y>696</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1688,8 +1713,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>176</x>
-     <y>660</y>
+     <x>175</x>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1704,8 +1729,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>321</x>
-     <y>660</y>
+     <x>198</x>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1720,8 +1745,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>226</x>
-     <y>672</y>
+     <x>172</x>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1736,8 +1761,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>328</x>
-     <y>674</y>
+     <x>189</x>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1752,8 +1777,8 @@
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>454</x>
-     <y>677</y>
+     <x>222</x>
+     <y>673</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1800,8 +1825,8 @@
    <slot>kropff_low_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>177</x>
-     <y>776</y>
+     <x>174</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -1816,8 +1841,8 @@
    <slot>kropff_bragg_peak_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>212</x>
-     <y>788</y>
+     <x>174</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
      <x>217</x>
@@ -1848,8 +1873,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>762</x>
-     <y>574</y>
+     <x>638</x>
+     <y>596</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1880,8 +1905,8 @@
    <slot>kropff_threshold_width_slider_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>566</x>
-     <y>568</y>
+     <x>538</x>
+     <y>595</y>
     </hint>
     <hint type="destinationlabel">
      <x>1500</x>
@@ -1896,8 +1921,8 @@
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1311</x>
-     <y>571</y>
+     <x>1233</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>1501</x>
@@ -1912,8 +1937,8 @@
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>147</x>
-     <y>788</y>
+     <x>137</x>
+     <y>791</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -1928,8 +1953,8 @@
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>788</y>
+     <x>166</x>
+     <y>791</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1944,8 +1969,8 @@
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>788</y>
+     <x>134</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -1960,8 +1985,8 @@
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>202</x>
-     <y>788</y>
+     <x>163</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1976,8 +2001,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
-     <y>790</y>
+     <x>124</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1992,8 +2017,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>245</x>
-     <y>791</y>
+     <x>144</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2008,8 +2033,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>313</x>
-     <y>794</y>
+     <x>163</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2024,12 +2049,28 @@
    <slot>automatic_hkl0_selection_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1754</x>
-     <y>76</y>
+     <x>1397</x>
+     <y>83</y>
     </hint>
     <hint type="destinationlabel">
      <x>1839</x>
      <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action6_Strain_Mapping</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>action_strain_mapping_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>713</x>
+     <y>580</y>
     </hint>
    </hints>
   </connection>
@@ -2113,5 +2154,6 @@
   <slot>kropff_low_tof_graph_radioButton_changed()</slot>
   <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
   <slot>automatic_hkl0_selection_clicked()</slot>
+  <slot>action_strain_mapping_clicked()</slot>
  </slots>
 </ui>

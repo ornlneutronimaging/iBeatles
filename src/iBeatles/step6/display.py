@@ -1,5 +1,6 @@
 import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+from qtpy.QtWidgets import QApplication
 
 from src.iBeatles.step6.get import Get
 
@@ -11,6 +12,8 @@ class Display:
         self.grand_parent = grand_parent
 
     def run(self):
+        self.parent.strain_mapping_plot.axes.cla()
+        QApplication.processEvents()
         if self.parent.ui.display_d_radioButton.isChecked():
             self.d_array()
         elif self.parent.ui.display_strain_mapping_radioButton.isChecked():
@@ -29,9 +32,9 @@ class Display:
         img.set_cmap('viridis')
         self.parent.strain_mapping_plot.axes.axis('off')
 
-        divider = make_axes_locatable(self.parent.strain_mapping_plot.axes)
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-        self.parent.strain_mapping_plot.fig.colorbar(img, cax=cax)
+        # divider = make_axes_locatable(self.parent.strain_mapping_plot.axes)
+        # cax = divider.append_axes("right", size="5%", pad=0.05)
+        # self.parent.strain_mapping_plot.fig.colorbar(img, cax=cax)
 
     def d_array(self):
         d_array = self.parent.d_array
@@ -63,6 +66,6 @@ class Display:
         img.set_cmap('viridis')
         self.parent.strain_mapping_plot.axes.axis('off')
 
-        divider = make_axes_locatable(self.parent.strain_mapping_plot.axes)
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-        self.parent.strain_mapping_plot.fig.colorbar(img, cax=cax)
+        # divider = make_axes_locatable(self.parent.strain_mapping_plot.axes)
+        # cax = divider.append_axes("right", size="5%", pad=0.05)
+        # self.parent.strain_mapping_plot.fig.colorbar(img, cax=cax)

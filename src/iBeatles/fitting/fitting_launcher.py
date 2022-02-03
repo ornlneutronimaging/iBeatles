@@ -22,6 +22,7 @@ from src.iBeatles.fitting.march_dollase.event_handler import EventHandler as Mar
 from src.iBeatles.fitting.kropff.display import Display as KropffDisplay
 from src.iBeatles.fitting.display import Display as FittingDisplay
 from src.iBeatles.fitting.get import Get
+from src.iBeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
 
 class FittingLauncher(object):
@@ -151,6 +152,9 @@ class FittingWindow(QMainWindow):
 
         x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         self.bragg_edge_data['x_axis'] = x_axis
+
+    def action_strain_mapping_clicked(self):
+        StrainMappingLauncher(parent=self.parent)
 
     def re_fill_table(self):
         o_fitting = FittingHandler(parent=self, grand_parent=self.parent)
