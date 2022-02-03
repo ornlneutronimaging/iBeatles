@@ -12,6 +12,7 @@ class Display:
         self.grand_parent = grand_parent
 
     def run(self):
+        return
         self.parent.strain_mapping_plot.axes.cla()
         QApplication.processEvents()
         if self.parent.ui.display_d_radioButton.isChecked():

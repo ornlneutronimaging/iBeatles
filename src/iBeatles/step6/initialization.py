@@ -3,6 +3,7 @@ import matplotlib
 matplotlib.use('Qt5Agg')
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from qtpy.QtWidgets import QVBoxLayout
+import pyqtgraph as pg
 
 from src.iBeatles import ANGSTROMS, LAMBDA, SUB_0
 from src.iBeatles.utilities.mplcanvas import MplCanvas
@@ -18,7 +19,8 @@ class Initialization:
     def all(self):
         self.labels()
         self.parameters()
-        self.matplotlib()
+        # self.matplotlib()
+        self.pyqtgraph()
         self.data()
 
     def labels(self):
@@ -65,3 +67,12 @@ class Initialization:
         integrated_image = np.mean(live_data, 0)
         self.parent.integrated_image = np.transpose(integrated_image)
         [self.parent.image_size['height'], self.parent.image_size['width']] = np.shape(integrated_image)
+
+    def pyqtgraph(self):
+        image_view = pg.ImageView(view=pg.PlotItem())
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+        self.parent.image_view = image_view
+        layout = QVBoxLayout()
+        layout.addWidget(image_view)
+        self.parent.ui.strain_mapping_widget.setLayout(layout)
