@@ -5,6 +5,8 @@ from src.iBeatles.step6.initialization import Initialization
 from src.iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from src.iBeatles.step6.display import Display
 from src.iBeatles.step6.event_handler import EventHandler
+from src.iBeatles.step6.get import Get
+from src.iBeatles.step6 import ParametersToDisplay
 
 
 class StrainMappingLauncher(object):
@@ -29,6 +31,12 @@ class StrainMappingWindow(QMainWindow):
     image_size = {'width': None,
                   'height': None}
 
+    histogram = {'d': None,
+                 'strain_mapping': None,
+                 'integrated_image': None}
+
+    previous_parameters_displayed = ParametersToDisplay.d
+
     def __init__(self, parent=None):
 
         self.parent = parent
@@ -43,6 +51,9 @@ class StrainMappingWindow(QMainWindow):
         o_event.calculate_d_array()
 
         self.update_display()
+
+        o_get = Get(parent=self)
+        self.previous_parameter_displayed = o_get.parameter_to_display()
 
     def fitting_algorithm_changed(self):
         self.update_display()
