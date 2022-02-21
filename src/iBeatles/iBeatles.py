@@ -387,6 +387,9 @@ class MainWindow(QMainWindow):
         if os.path.exists(full_config_file_name):
             load_session_ui = LoadPreviousSessionLauncher(parent=self)
             load_session_ui.show()
+        else:
+            o_session = SessionHandler(parent=self)
+            self.session_dict = o_session.session_dict
 
     # Menu
     def load_session_clicked(self):
