@@ -335,8 +335,12 @@ class Step1Plot(object):
                 if mouse_selection:
                     if type(self.parent.live_data) == type(list()):
                         self.parent.live_data = np.array(self.parent.live_data)
-                    region = roi.getArraySlice(self.parent.live_data,
-                                               _image_view_item)
+
+                    try:
+                        region = roi.getArraySlice(self.parent.live_data,
+                                                   _image_view_item)
+                    except IndexError:
+                        return
 
                     label = list_roi[_index][0]
                     x0 = region[0][0].start
@@ -364,6 +368,7 @@ class Step1Plot(object):
                                                                                    _index)
                         except ValueError:
                             return
+
                     x1 = x0 + w
                     y1 = y0 + h
                     roi.setPos([x0, y0], update=False, finish=False)
