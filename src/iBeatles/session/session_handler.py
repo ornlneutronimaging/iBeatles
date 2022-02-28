@@ -245,7 +245,7 @@ class SessionHandler:
         if config_file_name is None:
             config_file_name = QFileDialog.getSaveFileName(self.parent,
                                                            caption="Select session file name ...",
-                                                           directory=self.parent.homepath,
+                                                           directory=self.parent.default_path[DataType.sample],
                                                            filter="session (*.json)",
                                                            initialFilter="session")
 
@@ -270,7 +270,7 @@ class SessionHandler:
 
         if config_file_name is None:
             config_file_name = QFileDialog.getOpenFileName(self.parent,
-                                                           directory=self.parent.homepath,
+                                                           directory=self.parent.default_path[DataType.sample],
                                                            caption="Select session file ...",
                                                            filter="session (*.json)",
                                                            initialFilter="session")
