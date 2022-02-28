@@ -55,6 +55,7 @@ class FitRegions:
         table_dictionary = self.table_dictionary
         common_xaxis = None
         nearest_index = -1
+
         for _key in table_dictionary.keys():
 
             if nearest_index == -1:
