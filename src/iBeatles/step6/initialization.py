@@ -9,6 +9,8 @@ import pyqtgraph as pg
 from src.iBeatles import ANGSTROMS, LAMBDA, SUB_0
 from src.iBeatles import DataType
 from src.iBeatles.utilities.mplcanvas import MplCanvas
+from src.iBeatles.step6 import ParametersToDisplay
+from src.iBeatles.step6.get import Get
 
 
 class Initialization:
@@ -61,7 +63,7 @@ class Initialization:
         self.parent.image_view = image_view
         layout = QVBoxLayout()
         layout.addWidget(image_view)
-        self.parent.ui.strain_mapping_widget.setLayout(layout)
+        self.parent.ui.integrated_widget.setLayout(layout)
 
     def matplotlib(self):
 
@@ -77,3 +79,14 @@ class Initialization:
 
         self.parent.matplotlib_plot = _matplotlib(parent=self.parent,
                                                   widget=self.parent.ui.matplotlib_widget)
+
+    def min_max_values(self):
+        d_array = self.parent.d_array
+        self.parent.min_max[ParametersToDisplay.d] = {'min': np.min(d_array),
+                                                      'max': np.max(d_array)}
+
+        o_get = Get(parent=self.parent)
+        strain_mapping = o_get.strain_mapping()
+
+        self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.min(strain_mapping),
+                                                                   'max': np.max(strain_mapping)}

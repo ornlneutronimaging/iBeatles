@@ -32,6 +32,14 @@ class StrainMappingWindow(QMainWindow):
     image_size = {'width': None,
                   'height': None}
 
+    # min_max = {'d': {min: -1,
+    #                  max: -1},
+    #            'strain_mapping': {min: -1,
+    #                               max: -1},
+    #            }
+    min_max = {ParametersToDisplay.d: None,
+               ParametersToDisplay.strain_mapping: None}
+
     histogram = {'d': None,
                  'strain_mapping': None,
                  'integrated_image': None}
@@ -50,6 +58,7 @@ class StrainMappingWindow(QMainWindow):
 
         o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.calculate_d_array()
+        o_init.min_max_values()
 
         self.update_display()
 
@@ -60,6 +69,7 @@ class StrainMappingWindow(QMainWindow):
         self.update_display()
 
     def parameters_to_display_changed(self):
+        self.update_min_max_values()
         self.update_display()
 
     def d0_to_use_changed(self):
@@ -73,7 +83,23 @@ class StrainMappingWindow(QMainWindow):
         o_export = Export(parent=self, grand_parent=self.parent)
         o_export.export_table()
 
+    def min_max_value_changed(self):
+        o_event = EventHandler(parent=self)
+        o_event.min_max_changed()
+
     def update_display(self):
         o_display = Display(parent=self,
                             grand_parent=self.parent)
         o_display.run()
+
+    def update_min_max_values(self):
+        o_get = Get(parent=self)
+        parameter_displayed = o_get.parameter_to_display()
+        if parameter_displayed == ParametersToDisplay.integrated_image:
+            return
+
+        min_value = self.min_max[parameter_displayed]['min']
+        max_value = self.min_max[parameter_displayed]['max']
+
+        self.ui.max_value_lineEdit.setText(f"{max_value:.8f}")
+        self.ui.min_value_lineEdit.setText(f"{min_value:.8f}")

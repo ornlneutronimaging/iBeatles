@@ -53,16 +53,22 @@ class Display:
     def d_array(self):
         o_get = Get(parent=self.parent)
         d_array = o_get.d_array()
-        self.parent.ui.matplotlib_plot.axes.imshow(d_array)
+
+        min_value = self.parent.min_max['d']['min']
+        max_value = self.parent.min_max['d']['max']
+
+        self.parent.ui.matplotlib_plot.axes.imshow(d_array, vmin=min_value, vmax=max_value)
         self.parent.ui.matplotlib_plot.draw()
-        # self.image_view.setImage(np.transpose(d_array))
 
     def strain_mapping(self):
         o_get = Get(parent=self.parent)
         strain_mapping = o_get.strain_mapping()
-        self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping)
+
+        min_value = self.parent.min_max['strain_mapping']['min']
+        max_value = self.parent.min_max['strain_mapping']['max']
+
+        self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping, vmin=min_value, vmax=max_value)
         self.parent.ui.matplotlib_plot.draw()
-        #self.image_view.setImage(np.transpose(strain_mapping))
 
     def _get_view_box(self):
         _view = self.image_view.getView()

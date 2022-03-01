@@ -28,6 +28,11 @@ class Get:
         d_array = self.parent.d_array
         d0 = self.active_d0()
         strain_mapping = (d_array - d0) / d0
+
+        if self.parent.min_max['strain_mapping'] is None:
+            self.parent.min_max['strain_mapping'] = {'min': np.min(strain_mapping),
+                                                     'max': np.max(strain_mapping)}
+
         return strain_mapping
 
     def d_array(self):
