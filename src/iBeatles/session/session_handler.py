@@ -106,7 +106,7 @@ class SessionHandler:
                                                                'bhkl': '1',
                                                                'graph': 'ahkl',
                                                                },
-                                                   'bragg peak': {'lambda_hkl': '1e-8',
+                                                   'bragg peak': {'lambda_hkl': '5e-8',
                                                                   'tau': '1',
                                                                   'sigma': '1e-7',
                                                                   'table selection': 'single',

@@ -127,7 +127,11 @@ class SelectedBinsHandler(object):
         bragg_edge_data = np.nanmean(bragg_edge_data, axis=0)
         x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
 
-        self.parent.bragg_edge_plot.plot(x_axis, bragg_edge_data)
+        try:
+            self.parent.bragg_edge_plot.plot(x_axis, bragg_edge_data)
+        except Exception:
+            return
+
         self.parent.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
         self.parent.bragg_edge_plot.setLabel("left", "Average Counts")
 

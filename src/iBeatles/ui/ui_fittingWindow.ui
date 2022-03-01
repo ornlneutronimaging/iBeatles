@@ -288,7 +288,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -905,7 +905,7 @@
                    <enum>QTabWidget::West</enum>
                   </property>
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>2</number>
                   </property>
                   <widget class="QWidget" name="tab_3">
                    <attribute name="title">
@@ -1402,6 +1402,40 @@
                           </property>
                          </widget>
                         </item>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_21">
+                          <item>
+                           <spacer name="horizontalSpacer_4">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="label_2">
+                            <property name="text">
+                             <string>Number of digits</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QSpinBox" name="kropff_bragg_peak_number_of_digits_spinBox">
+                            <property name="maximum">
+                             <number>10</number>
+                            </property>
+                            <property name="value">
+                             <number>4</number>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
                        </layout>
                       </widget>
                       <widget class="QWidget" name="tab_11">
@@ -1521,8 +1555,8 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1315</x>
-     <y>87</y>
+     <x>1290</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -1537,8 +1571,8 @@
    <slot>value_table_right_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>643</x>
-     <y>1147</y>
+     <x>672</x>
+     <y>1090</y>
     </hint>
     <hint type="destinationlabel">
      <x>610</x>
@@ -1633,8 +1667,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1378</x>
-     <y>189</y>
+     <x>1353</x>
+     <y>213</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -1649,8 +1683,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1378</x>
-     <y>220</y>
+     <x>1353</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -1665,8 +1699,8 @@
    <slot>create_fitting_story_checked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1365</x>
-     <y>604</y>
+     <x>1354</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>1210</x>
@@ -1682,7 +1716,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>193</x>
-     <y>696</y>
+     <y>687</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1698,7 +1732,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>303</x>
-     <y>696</y>
+     <y>687</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1714,7 +1748,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>175</x>
-     <y>675</y>
+     <y>666</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1730,7 +1764,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>198</x>
-     <y>675</y>
+     <y>666</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1745,8 +1779,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>172</x>
-     <y>675</y>
+     <x>247</x>
+     <y>687</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1761,8 +1795,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>189</x>
-     <y>675</y>
+     <x>360</x>
+     <y>687</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1777,8 +1811,8 @@
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>222</x>
-     <y>673</y>
+     <x>507</x>
+     <y>692</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1826,7 +1860,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>174</x>
-     <y>681</y>
+     <y>672</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -1841,8 +1875,8 @@
    <slot>kropff_bragg_peak_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>174</x>
-     <y>681</y>
+     <x>232</x>
+     <y>1008</y>
     </hint>
     <hint type="destinationlabel">
      <x>217</x>
@@ -1873,8 +1907,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>638</x>
-     <y>596</y>
+     <x>627</x>
+     <y>587</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1905,8 +1939,8 @@
    <slot>kropff_threshold_width_slider_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>538</x>
-     <y>595</y>
+     <x>533</x>
+     <y>586</y>
     </hint>
     <hint type="destinationlabel">
      <x>1500</x>
@@ -1921,8 +1955,8 @@
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1233</x>
-     <y>602</y>
+     <x>1211</x>
+     <y>593</y>
     </hint>
     <hint type="destinationlabel">
      <x>1501</x>
@@ -1938,7 +1972,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>137</x>
-     <y>791</y>
+     <y>782</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -1954,7 +1988,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>166</x>
-     <y>791</y>
+     <y>782</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1970,7 +2004,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>134</x>
-     <y>681</y>
+     <y>672</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -1986,7 +2020,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>163</x>
-     <y>681</y>
+     <y>672</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2001,8 +2035,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>681</y>
+     <x>182</x>
+     <y>806</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2017,8 +2051,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>144</x>
-     <y>681</y>
+     <x>267</x>
+     <y>806</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2033,8 +2067,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>681</y>
+     <x>339</x>
+     <y>806</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2049,8 +2083,8 @@
    <slot>automatic_hkl0_selection_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1397</x>
-     <y>83</y>
+     <x>1372</x>
+     <y>107</y>
     </hint>
     <hint type="destinationlabel">
      <x>1839</x>
@@ -2071,6 +2105,22 @@
     <hint type="destinationlabel">
      <x>713</x>
      <y>580</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_bragg_peak_number_of_digits_spinBox</sender>
+   <signal>editingFinished()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1158</x>
+     <y>1029</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1424</x>
+     <y>1117</y>
     </hint>
    </hints>
   </connection>
@@ -2155,5 +2205,6 @@
   <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
   <slot>automatic_hkl0_selection_clicked()</slot>
   <slot>action_strain_mapping_clicked()</slot>
+  <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
  </slots>
 </ui>

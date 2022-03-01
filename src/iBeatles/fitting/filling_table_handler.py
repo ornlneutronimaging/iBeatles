@@ -180,7 +180,8 @@ class FillingTableHandler(object):
 
                 format_str = ""
                 if _value:
-                    format_str = "{:.4f}"
+                    number_of_digits = self.parent.ui.kropff_bragg_peak_number_of_digits_spinBox.value()
+                    format_str = "{:." + str(number_of_digits) + "f}"
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,
                                     value=_value,

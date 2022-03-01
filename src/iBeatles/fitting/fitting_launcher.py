@@ -421,6 +421,7 @@ class FittingWindow(QMainWindow):
         o_event.display_bragg_peak_threshold()
 
     def kropff_bragg_peak_table_selection_changed(self):
+        print("here")
         self.update_selected_bins_plot()
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
@@ -455,6 +456,10 @@ class FittingWindow(QMainWindow):
     def kropff_bragg_peak_graph_radioButton_changed(self):
         o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.update_fitting_parameters_matplotlib()
+
+    def kropff_bragg_peak_number_of_digits_changed(self):
+        o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
+        o_table.fill_kropff_bragg_peak_table()
 
     # general settings
 
