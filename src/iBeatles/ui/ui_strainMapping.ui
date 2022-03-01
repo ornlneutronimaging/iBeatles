@@ -431,13 +431,31 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="strain_mapping_widget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <property name="currentIndex">
+       <number>1</number>
       </property>
+      <widget class="QWidget" name="page">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QWidget" name="strain_mapping_widget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QWidget" name="matplotlib_widget" native="true"/>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item>
@@ -465,7 +483,7 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="export_table_pushButton">
          <property name="text">
           <string>Export Table ...</string>
          </property>
@@ -485,7 +503,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="export_image_pushButton">
          <property name="text">
           <string>Export Image ...</string>
          </property>
@@ -623,7 +641,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>export_image_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>export_clicked()</slot>
@@ -655,7 +673,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>export_table_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>export_table()</slot>

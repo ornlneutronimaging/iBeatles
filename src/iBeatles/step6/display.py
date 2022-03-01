@@ -25,10 +25,13 @@ class Display:
         self.image_view.clear()
         if self.parameters_to_display == ParametersToDisplay.d:
             self.d_array()
+            self.parent.ui.stackedWidget.setCurrentIndex(1)
         elif self.parameters_to_display == ParametersToDisplay.strain_mapping:
             self.strain_mapping()
+            self.parent.ui.stackedWidget.setCurrentIndex(1)
         elif self.parameters_to_display == ParametersToDisplay.integrated_image:
             self.integrated_image()
+            self.parent.ui.stackedWidget.setCurrentIndex(0)
         else:
             raise NotImplementedError("Display not implemented!")
 
@@ -50,12 +53,16 @@ class Display:
     def d_array(self):
         o_get = Get(parent=self.parent)
         d_array = o_get.d_array()
-        self.image_view.setImage(np.transpose(d_array))
+        self.parent.ui.matplotlib_plot.axes.imshow(d_array)
+        self.parent.ui.matplotlib_plot.draw()
+        # self.image_view.setImage(np.transpose(d_array))
 
     def strain_mapping(self):
         o_get = Get(parent=self.parent)
         strain_mapping = o_get.strain_mapping()
-        self.image_view.setImage(np.transpose(strain_mapping))
+        self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping)
+        self.parent.ui.matplotlib_plot.draw()
+        #self.image_view.setImage(np.transpose(strain_mapping))
 
     def _get_view_box(self):
         _view = self.image_view.getView()

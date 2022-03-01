@@ -1,10 +1,14 @@
 import numpy as np
 import matplotlib
+matplotlib.use('Qt5Agg')
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+
 from qtpy.QtWidgets import QVBoxLayout
 import pyqtgraph as pg
 
 from src.iBeatles import ANGSTROMS, LAMBDA, SUB_0
 from src.iBeatles import DataType
+from src.iBeatles.utilities.mplcanvas import MplCanvas
 
 
 class Initialization:
@@ -17,6 +21,7 @@ class Initialization:
         self.labels()
         self.parameters()
         self.pyqtgraph()
+        self.matplotlib()
         self.data()
 
     def labels(self):
@@ -57,3 +62,18 @@ class Initialization:
         layout = QVBoxLayout()
         layout.addWidget(image_view)
         self.parent.ui.strain_mapping_widget.setLayout(layout)
+
+    def matplotlib(self):
+
+        def _matplotlib(parent=None, widget=None):
+            sc = MplCanvas(parent, width=5, height=2, dpi=100)
+            # sc.axes.plot([0,1,2,3,4,5], [10, 1, 20 ,3, 40, 50])
+            toolbar = NavigationToolbar(sc, parent)
+            layout = QVBoxLayout()
+            layout.addWidget(toolbar)
+            layout.addWidget(sc)
+            widget.setLayout(layout)
+            return sc
+
+        self.parent.matplotlib_plot = _matplotlib(parent=self.parent,
+                                                  widget=self.parent.ui.matplotlib_widget)
