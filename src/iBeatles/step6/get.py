@@ -35,3 +35,18 @@ class Get:
 
     def integrated_image(self):
         return self.parent.integrated_image
+
+    def strain_mapping_dictionary(self):
+        d_dict = self.parent.d_dict
+        strain_mapping_dict = {}
+        for _row in d_dict.keys():
+            d0 = self.active_d0()
+            d = d_dict[_row]['val']
+            d_error = d_dict[_row]['err']
+            strain_mapping = (d - d0) / d0
+            strain_mapping_err = d_error + np.sqrt(d0)
+
+            strain_mapping_dict[_row] = {'val': strain_mapping,
+                                         'err': strain_mapping_err}
+
+        return strain_mapping_dict

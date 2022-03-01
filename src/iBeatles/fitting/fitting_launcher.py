@@ -421,7 +421,6 @@ class FittingWindow(QMainWindow):
         o_event.display_bragg_peak_threshold()
 
     def kropff_bragg_peak_table_selection_changed(self):
-        print("here")
         self.update_selected_bins_plot()
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()

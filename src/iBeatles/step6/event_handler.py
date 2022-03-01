@@ -13,6 +13,7 @@ class EventHandler:
 
         d_array = np.zeros((height, width))
         # d_array[:] = np.NaN
+        d_dict = {}
 
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         for _row_index in kropff_table_dictionary.keys():
@@ -26,7 +27,13 @@ class EventHandler:
             y1 = bin_coordinates['y1']
 
             lambda_hkl = _row_entry['lambda_hkl']['val']
+            lambda_hkl_err = _row_entry['lambda_hkl']['err']
+            if lambda_hkl_err is None:
+                lambda_hkl_err = np.sqrt(lambda_hkl)
 
             d_array[y0:y1, x0:x1] = np.float(lambda_hkl)/2.
+            d_dict[_row_index] = {'val': np.float(lambda_hkl)/2.,
+                                  'err': np.float(lambda_hkl_err)/2.}
 
         self.parent.d_array = d_array
+        self.parent.d_dict = d_dict

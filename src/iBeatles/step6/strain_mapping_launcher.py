@@ -67,7 +67,11 @@ class StrainMappingWindow(QMainWindow):
 
     def export_clicked(self):
         o_export = Export(parent=self, grand_parent=self.parent)
-        o_export.export()
+        o_export.export_image()
+
+    def export_table(self):
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.export_table()
 
     def update_display(self):
         o_display = Display(parent=self,

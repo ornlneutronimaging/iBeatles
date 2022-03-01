@@ -465,6 +465,13 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>Export Table ...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -526,8 +533,8 @@
    <slot>fitting_algorithm_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>198</x>
-     <y>187</y>
+     <x>238</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -638,12 +645,28 @@
    <slot>parameters_to_display_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>555</x>
-     <y>189</y>
+     <x>660</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
      <y>481</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>89</x>
+     <y>799</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>11</x>
+     <y>761</y>
     </hint>
    </hints>
   </connection>
@@ -654,5 +677,6 @@
   <slot>d0_to_use_changed()</slot>
   <slot>transparency_slider_changed()</slot>
   <slot>export_clicked()</slot>
+  <slot>export_table()</slot>
  </slots>
 </ui>
