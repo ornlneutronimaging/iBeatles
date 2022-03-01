@@ -64,6 +64,7 @@ class StrainMappingWindow(QMainWindow):
 
         o_get = Get(parent=self)
         self.previous_parameter_displayed = o_get.parameter_to_display()
+        self.update_min_max_values()
 
     def fitting_algorithm_changed(self):
         self.update_display()
