@@ -9,7 +9,7 @@ from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 from .. import DataType
 from . import FittingTabSelected, KropffTabSelected
 from ..utilities.array_utilities import get_min_max_xy
-from src.iBeatles.fitting import selected_color, lock_color
+from iBeatles.fitting import selected_color, lock_color
 
 
 class FittingHandler:

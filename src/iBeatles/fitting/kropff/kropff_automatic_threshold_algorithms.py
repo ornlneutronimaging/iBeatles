@@ -5,7 +5,7 @@ from changepy import pelt
 from changepy.costs import normal_var
 from qtpy import QtGui
 
-from src.iBeatles.fitting import KropffThresholdFinder
+from iBeatles.fitting import KropffThresholdFinder
 
 
 class MeanRangeCalculation(object):

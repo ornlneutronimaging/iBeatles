@@ -2,10 +2,10 @@ from qtpy.QtWidgets import QTableWidgetSelectionRange, QApplication
 from qtpy import QtCore
 import numpy as np
 
-from src.iBeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
-from src.iBeatles.fitting.selected_bin_handler import SelectedBinsHandler
-from src.iBeatles.utilities.table_handler import TableHandler
-from src.iBeatles.fitting.filling_table_handler import FillingTableHandler
+from iBeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from iBeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from iBeatles.utilities.table_handler import TableHandler
+from iBeatles.fitting.filling_table_handler import FillingTableHandler
 
 
 class EventHandler:

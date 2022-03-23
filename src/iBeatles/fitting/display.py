@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.iBeatles.utilities.display import Display as UtilitiesDisplay
+from iBeatles.utilities.display import Display as UtilitiesDisplay
 
 
 class Display:

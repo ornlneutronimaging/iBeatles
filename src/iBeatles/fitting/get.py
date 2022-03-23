@@ -2,8 +2,8 @@ import numpy as np
 
 from . import KropffTabSelected, FittingTabSelected
 from ..utilities.table_handler import TableHandler
-from src.iBeatles.utilities.array_utilities import find_nearest_index
-from src.iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
+from iBeatles.utilities.array_utilities import find_nearest_index
+from iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
 
 
 class Get:

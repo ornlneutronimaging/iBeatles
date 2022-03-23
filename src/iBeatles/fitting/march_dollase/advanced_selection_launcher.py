@@ -3,9 +3,9 @@ from qtpy import QtCore
 import numpy as np
 
 # from iBeatles.py.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
-from src.iBeatles.fitting.filling_table_handler import FillingTableHandler
-from src.iBeatles import load_ui
-from src.iBeatles.fitting.march_dollase.event_handler import EventHandler
+from iBeatles.fitting.filling_table_handler import FillingTableHandler
+from iBeatles import load_ui
+from iBeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class AdvancedSelectionLauncher(object):

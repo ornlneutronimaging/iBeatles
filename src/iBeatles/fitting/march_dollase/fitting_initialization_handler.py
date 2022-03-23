@@ -2,8 +2,8 @@ from qtpy import QtCore
 from qtpy.QtWidgets import QApplication
 import numpy as np
 
-from src.iBeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
-from src.iBeatles.fitting.initialization_sigma_alpha import InitializationSigmaAlpha
+from iBeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
+from iBeatles.fitting.initialization_sigma_alpha import InitializationSigmaAlpha
 
 
 # from iBeatles.py.utilities.math_tools import calculate_inflection_point

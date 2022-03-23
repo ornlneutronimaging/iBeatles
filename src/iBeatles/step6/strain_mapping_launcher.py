@@ -1,13 +1,13 @@
 from qtpy.QtWidgets import QMainWindow
 
 from .. import load_ui
-from src.iBeatles.step6.initialization import Initialization
-from src.iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
-from src.iBeatles.step6.display import Display
-from src.iBeatles.step6.event_handler import EventHandler
-from src.iBeatles.step6.get import Get
-from src.iBeatles.step6.export import Export
-from src.iBeatles.step6 import ParametersToDisplay
+from iBeatles.step6.initialization import Initialization
+from iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from iBeatles.step6.display import Display
+from iBeatles.step6.event_handler import EventHandler
+from iBeatles.step6.get import Get
+from iBeatles.step6.export import Export
+from iBeatles.step6 import ParametersToDisplay
 
 
 class StrainMappingLauncher(object):

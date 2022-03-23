@@ -2,7 +2,7 @@ import logging
 import numpy as np
 
 from ..utilities.array_utilities import find_nearest_index
-from src.iBeatles.utilities.math_tools import is_float
+from iBeatles.utilities.math_tools import is_float
 from .selected_bin_handler import SelectedBinsHandler
 
 

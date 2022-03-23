@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QDialog
 
-from src.iBeatles import load_ui
-from src.iBeatles.fitting import KropffThresholdFinder
+from iBeatles import load_ui
+from iBeatles.fitting import KropffThresholdFinder
 
 
 class KropffAutomaticSettingsLauncher(QDialog):

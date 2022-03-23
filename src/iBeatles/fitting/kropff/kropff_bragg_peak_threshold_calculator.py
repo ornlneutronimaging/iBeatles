@@ -1,8 +1,8 @@
 import logging
 import numpy as np
 
-from src.iBeatles.fitting.kropff.kropff_automatic_threshold_algorithms import Algorithms
-from src.iBeatles.utilities.table_handler import TableHandler
+from iBeatles.fitting.kropff.kropff_automatic_threshold_algorithms import Algorithms
+from iBeatles.utilities.table_handler import TableHandler
 
 
 class KropffBraggPeakThresholdCalculator:

@@ -4,10 +4,10 @@ import logging
 
 from NeuNorm.normalization import Normalization
 
-from src.iBeatles import DataType
-from src.iBeatles.step6 import ParametersToDisplay
-from src.iBeatles.step6.get import Get
-from src.iBeatles.utilities.file_handler import FileHandler
+from iBeatles import DataType
+from iBeatles.step6 import ParametersToDisplay
+from iBeatles.step6.get import Get
+from iBeatles.utilities.file_handler import FileHandler
 
 
 class Export:

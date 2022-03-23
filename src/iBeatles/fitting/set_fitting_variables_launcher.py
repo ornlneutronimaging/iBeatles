@@ -5,7 +5,7 @@ import numpy as np
 from ..fitting.set_fitting_variables_handler import SetFittingVariablesHandler
 from ..fitting.filling_table_handler import FillingTableHandler
 from .. import load_ui
-from src.iBeatles.fitting.march_dollase.event_handler import EventHandler
+from iBeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class SetFittingVariablesLauncher(object):

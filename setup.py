@@ -20,5 +20,6 @@ setup(name="iBeatles",
           'matplotlib',
           'numpy',
           'lmfit',
+          'versioneer',
         ],
       )

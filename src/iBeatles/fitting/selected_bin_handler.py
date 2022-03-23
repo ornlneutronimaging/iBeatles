@@ -4,7 +4,7 @@ import pyqtgraph as pg
 from ..fitting.fitting_functions import basic_fit, advanced_fit
 from .get import Get
 from . import FittingTabSelected
-from src.iBeatles.fitting.display import Display as FittingDisplay
+from iBeatles.fitting.display import Display as FittingDisplay
 
 
 class SelectedBinsHandler(object):

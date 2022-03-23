@@ -2,12 +2,12 @@ import numpy as np
 from lmfit import Model, Parameter
 import copy
 
-from src.iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
-import src.iBeatles.utilities.error as fitting_error
-from src.iBeatles.fitting.kropff.get import Get
-from src.iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
-from src.iBeatles.fitting import KropffTabSelected
-from src.iBeatles.utilities.array_utilities import find_nearest_index
+from iBeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+import iBeatles.utilities.error as fitting_error
+from iBeatles.fitting.kropff.get import Get
+from iBeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
+from iBeatles.fitting import KropffTabSelected
+from iBeatles.utilities.array_utilities import find_nearest_index
 
 
 class FitRegions:

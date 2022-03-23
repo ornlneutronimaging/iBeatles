@@ -12,8 +12,8 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 from .. import DataType, interact_me_style
 from ..utilities.table_handler import TableHandler
 from .. import settings_image
-from src.iBeatles.fitting import KropffThresholdFinder
-from src.iBeatles.utilities.mplcanvas import MplCanvas
+from iBeatles.fitting import KropffThresholdFinder
+from iBeatles.utilities.mplcanvas import MplCanvas
 
 
 class Initialization:

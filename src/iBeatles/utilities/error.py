@@ -1,4 +1,4 @@
-from src.iBeatles.fitting.kropff import FittingRegions
+from iBeatles.fitting.kropff import FittingRegions
 
 
 class FittingErrorException(Exception):

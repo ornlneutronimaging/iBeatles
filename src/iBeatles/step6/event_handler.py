@@ -1,8 +1,8 @@
 import numpy as np
 
-from src.iBeatles.step6.get import Get
-from src.iBeatles.step6 import ParametersToDisplay
-from src.iBeatles.step6.display import Display
+from iBeatles.step6.get import Get
+from iBeatles.step6 import ParametersToDisplay
+from iBeatles.step6.display import Display
 
 
 class EventHandler:

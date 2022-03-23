@@ -2,7 +2,7 @@ import numpy as np
 import pyqtgraph as pg
 from qtpy.QtGui import QBrush
 
-import src.iBeatles.step1.utilities as utilities
+import iBeatles.step1.utilities as utilities
 from neutronbraggedge.experiment_handler.experiment import Experiment
 from ..utilities.colors import pen_color, roi_group_color
 from ..utilities.gui_handler import GuiHandler

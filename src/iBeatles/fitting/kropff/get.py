@@ -1,7 +1,7 @@
 import numpy as np
 
-from src.iBeatles.fitting.kropff import FittingRegions
-import src.iBeatles.utilities.error as fitting_error
+from iBeatles.fitting.kropff import FittingRegions
+import iBeatles.utilities.error as fitting_error
 
 
 class Get:

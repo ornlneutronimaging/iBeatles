@@ -1,6 +1,6 @@
 import pyqtgraph as pg
 
-from src.iBeatles.utilities.math_tools import is_float, is_nan
+from iBeatles.utilities.math_tools import is_float, is_nan
 
 
 class Display:

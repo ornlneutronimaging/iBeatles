@@ -6,11 +6,11 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 from qtpy.QtWidgets import QVBoxLayout
 import pyqtgraph as pg
 
-from src.iBeatles import ANGSTROMS, LAMBDA, SUB_0
-from src.iBeatles import DataType
-from src.iBeatles.utilities.mplcanvas import MplCanvas
-from src.iBeatles.step6 import ParametersToDisplay
-from src.iBeatles.step6.get import Get
+from iBeatles import ANGSTROMS, LAMBDA, SUB_0
+from iBeatles import DataType
+from iBeatles.utilities.mplcanvas import MplCanvas
+from iBeatles.step6 import ParametersToDisplay
+from iBeatles.step6.get import Get
 
 
 class Initialization:

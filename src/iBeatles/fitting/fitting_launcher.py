@@ -12,17 +12,17 @@ from .value_table_handler import ValueTableHandler
 from .selected_bin_handler import SelectedBinsHandler
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from .filling_table_handler import FillingTableHandler
-from src.iBeatles.fitting.march_dollase.fitting_initialization_handler import FittingInitializationHandler
-from src.iBeatles.fitting.march_dollase.create_fitting_story_launcher import CreateFittingStoryLauncher
+from iBeatles.fitting.march_dollase.fitting_initialization_handler import FittingInitializationHandler
+from iBeatles.fitting.march_dollase.create_fitting_story_launcher import CreateFittingStoryLauncher
 from .initialization import Initialization
 from .event_handler import EventHandler
-from src.iBeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
-from src.iBeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
-from src.iBeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
-from src.iBeatles.fitting.kropff.display import Display as KropffDisplay
-from src.iBeatles.fitting.display import Display as FittingDisplay
-from src.iBeatles.fitting.get import Get
-from src.iBeatles.step6.strain_mapping_launcher import StrainMappingLauncher
+from iBeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
+from iBeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
+from iBeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
+from iBeatles.fitting.kropff.display import Display as KropffDisplay
+from iBeatles.fitting.display import Display as FittingDisplay
+from iBeatles.fitting.get import Get
+from iBeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
 
 class FittingLauncher(object):

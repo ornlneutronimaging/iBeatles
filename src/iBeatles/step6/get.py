@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.iBeatles.step6 import ParametersToDisplay
+from iBeatles.step6 import ParametersToDisplay
 
 
 class Get:

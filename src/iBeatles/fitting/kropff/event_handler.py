@@ -2,12 +2,12 @@ import numpy as np
 import pyqtgraph as pg
 import copy
 
-from src.iBeatles.fitting.get import Get
-from src.iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
-from src.iBeatles import DataType, interact_me_style, normal_style
-from src.iBeatles.fitting.kropff.fit_regions import FitRegions
-from src.iBeatles.fitting.kropff.display import Display
-from src.iBeatles.fitting.fitting_handler import FittingHandler
+from iBeatles.fitting.get import Get
+from iBeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
+from iBeatles import DataType, interact_me_style, normal_style
+from iBeatles.fitting.kropff.fit_regions import FitRegions
+from iBeatles.fitting.kropff.display import Display
+from iBeatles.fitting.fitting_handler import FittingHandler
 
 
 fit_rgb = (255, 0, 0)

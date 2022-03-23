@@ -1,8 +1,8 @@
 import pyqtgraph as pg
 import numpy as np
 
-from src.iBeatles.fitting.get import Get
-from src.iBeatles.utilities.display import Display as UtilitiesDisplay
+from iBeatles.fitting.get import Get
+from iBeatles.utilities.display import Display as UtilitiesDisplay
 
 
 class Display:

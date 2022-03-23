@@ -3,7 +3,7 @@ import logging
 from .save_tab import SaveTab
 from .. import DataType
 from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.iBeatles.fitting import FittingTabSelected
+from iBeatles.fitting import FittingTabSelected
 
 
 class SaveFittingTab(SaveTab):

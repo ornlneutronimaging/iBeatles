@@ -4,7 +4,7 @@ import numpy as np
 
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from .export_fitting_handler import ExportFittingHandler
-from src.iBeatles.fitting.march_dollase.advanced_selection_launcher import AdvancedSelectionLauncher
+from iBeatles.fitting.march_dollase.advanced_selection_launcher import AdvancedSelectionLauncher
 from .filling_table_handler import FillingTableHandler
 from .set_fitting_variables_launcher import SetFittingVariablesLauncher
 from ..table_dictionary.export import Export
