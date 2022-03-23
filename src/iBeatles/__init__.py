@@ -1,6 +1,6 @@
 import os
 from qtpy.uic import loadUi
-from src.iBeatles import ui
+from iBeatles import ui
 from ._version import get_versions
 
 __version__ = get_versions()['version']
