@@ -6,7 +6,6 @@ import numpy as np
 
 from ..utilities import colors
 
-from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ..fitting.fitting_handler import FittingHandler
 from ..fitting.filling_table_handler import FillingTableHandler
 from ..binning.binning_handler import BinningHandler

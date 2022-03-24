@@ -1,0 +1,39 @@
+{% set data = load_setup_py_data() %}
+
+package:
+  name: "ibeatles"
+  version: "1.0.8"
+
+source:
+  path: ..
+
+build:
+  string: py{{py}}
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - setuptools
+    - numpy
+    - matplotlib
+    - qtpy
+
+test:
+  imports:
+    - ibeatles
+
+about:
+  home: https://github.com/neutronimaging/iBeatles
+  license: GPL (version 3)
+  license_family: GPL3
+  license_file:
+  summary: Bragg edge analysis
+
+extra:
+  recipe-maintainers:
+    - JeanBilheux

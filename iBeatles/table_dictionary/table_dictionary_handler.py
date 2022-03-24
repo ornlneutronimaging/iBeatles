@@ -1,9 +1,7 @@
 from qtpy.QtWidgets import QFileDialog
 import numpy as np
 import os
-import pyqtgraph as pg
 import pandas as pd
-import logging
 
 from ..utilities.table_handler import TableHandler
 
