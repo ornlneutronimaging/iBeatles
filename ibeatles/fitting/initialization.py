@@ -28,11 +28,15 @@ class Initialization:
         self.table_headers()
         self.labels()
         self.widgets()
+        self.splitter()
         self.ui()
         self.global_data()
         self.statusbar()
         self.matplotlib()
         self.tab()
+
+    def splitter(self):
+        self.parent.ui.splitter.setSizes([500, 500])
 
     def tab(self):
         pass
@@ -205,7 +209,7 @@ class Initialization:
         d2.addWidget(bottom_widget)
 
         vertical_layout.addWidget(area)
-        self.parent.ui.widget.setLayout(vertical_layout)
+        self.parent.ui.widget_kropff.setLayout(vertical_layout)
 
         # kropff
         self.parent.ui.kropff_fitting = pg.PlotWidget(title="Fitting")
