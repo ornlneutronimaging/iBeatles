@@ -39,6 +39,40 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="2">
+      <widget class="QLabel" name="t_error_label">
+       <property name="text">
+        <string>t_error</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLabel" name="sigma_error_label">
+       <property name="text">
+        <string>sigma_error</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="l_hkl_error_label">
+       <property name="text">
+        <string>l_hkl_error</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
       <widget class="QLabel" name="t_label">
        <property name="text">
         <string>&lt;</string>
@@ -48,7 +82,7 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="3">
+     <item row="0" column="4">
       <widget class="QDoubleSpinBox" name="lambda_hkl_doubleSpinBox">
        <property name="decimals">
         <number>3</number>
@@ -58,7 +92,7 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
+     <item row="0" column="3">
       <widget class="QLabel" name="l_hkl_label">
        <property name="text">
         <string>&lt;</string>
@@ -68,7 +102,7 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
+     <item row="0" column="1">
       <widget class="QCheckBox" name="lambda_hkl_checkBox">
        <property name="minimumSize">
         <size>
@@ -90,7 +124,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
+     <item row="2" column="4">
       <widget class="QDoubleSpinBox" name="sigma_doubleSpinBox">
        <property name="decimals">
         <number>3</number>
@@ -100,7 +134,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="1" column="1">
       <widget class="QCheckBox" name="tau_checkBox">
        <property name="text">
         <string/>
@@ -110,7 +144,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
+     <item row="2" column="3">
       <widget class="QLabel" name="sigma_label">
        <property name="text">
         <string>&lt;</string>
@@ -120,7 +154,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="2" column="1">
       <widget class="QCheckBox" name="sigma_checkBox">
        <property name="text">
         <string/>
@@ -130,7 +164,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
+     <item row="1" column="4">
       <widget class="QDoubleSpinBox" name="tau_doubleSpinBox">
        <property name="decimals">
         <number>3</number>
@@ -140,26 +174,18 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="l_hkl_error_label">
-       <property name="text">
-        <string>l_hkl_error</string>
+     <item row="1" column="5">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="t_error_label">
-       <property name="text">
-        <string>t_error</string>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
        </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="sigma_error_label">
-       <property name="text">
-        <string>sigma_error</string>
-       </property>
-      </widget>
+      </spacer>
      </item>
     </layout>
    </item>

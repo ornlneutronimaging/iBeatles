@@ -138,6 +138,14 @@ class FittingWindow(QMainWindow):
     kropff_automatic_threshold_finder_algorithm = None
     kropff_threshold_current_item = None
 
+    kropff_bragg_peak_good_fit_conditions = {'l_hkl_error': {'state': True,
+                                                             'value': 0.01},
+                                             't_error'    : {'state': True,
+                                                             'value': 0.01},
+                                             'sigma_error': {'state': True,
+                                                             'value': 0.01},
+                                             }
+
     def __init__(self, parent=None):
 
         logging.info("Launching fitting tab!")
