@@ -37,11 +37,12 @@ class FittingLauncher(object):
             o_fitting = FittingHandler(grand_parent=self.parent, parent=self.parent.fitting_ui)
             o_fitting.display_image()
             o_fitting.display_roi()
-            # o_fitting.fill_table()
-            # fitting_window.record_all_xaxis_and_yaxis()
-            # fitting_window.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
-            # fitting_window.kropff_check_widgets_helper()
-            # fitting_window.filling_kropff_table()
+            o_fitting.fill_table()
+            fitting_window.record_all_xaxis_and_yaxis()
+            fitting_window.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
+            fitting_window.kropff_check_widgets_helper()
+            fitting_window.filling_kropff_table()
+            fitting_window.kropff_high_tof_table_selection_changed()
 
         else:
             self.parent.fitting_ui.setFocus()
