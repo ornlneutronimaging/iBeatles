@@ -455,6 +455,7 @@ class FittingWindow(QMainWindow):
         o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
         o_table.fill_kropff_table()
         o_display.update_fitting_parameters_matplotlib()
+        self.update_locked_rows_in_bragg_peak_table()
 
     def kropff_high_tof_graph_radioButton_changed(self):
         o_event = KropffDisplay(parent=self, grand_parent=self.parent)
