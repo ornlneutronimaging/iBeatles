@@ -1,5 +1,4 @@
 import numpy as np
-import pyqtgraph as pg
 import copy
 from qtpy.QtWidgets import QMenu
 from qtpy import QtGui
@@ -11,6 +10,9 @@ from ibeatles.fitting.kropff.fit_regions import FitRegions
 from ibeatles.fitting.kropff.display import Display
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.utilities.table_handler import TableHandler
+
+from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND
+from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns
 
 fit_rgb = (255, 0, 0)
 
@@ -185,13 +187,53 @@ class EventHandler:
         action = menu.exec_(QtGui.QCursor.pos())
 
         if action == lock_all_good_cells:
-            print("lock all good cells")
+            self.bragg_peak_auto_lock_clicked()
         elif action == unlock_all_rows:
-            print("unlock all cells")
+            self.unlock_all_bragg_peak_rows()
+
+    def unlock_all_bragg_peak_rows(self):
+        o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+        nbr_row = o_table.row_count()
+        background_color = UNLOCK_ROW_BACKGROUND
+        for _row in np.arange(nbr_row):
+            o_table.set_background_color_of_row(row=_row,
+                                                qcolor=background_color)
 
     def bragg_peak_auto_lock_clicked(self):
         o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
         nbr_row = o_table.row_count()
 
         for _row in np.arange(nbr_row):
-            pass
+            if self._we_can_not_lock_this_row(row=_row):
+                background_color = UNLOCK_ROW_BACKGROUND
+            else:
+                background_color = LOCK_ROW_BACKGROUND
+            o_table.set_background_color_of_row(row=_row,
+                                                qcolor=background_color)
+
+    def _we_can_not_lock_this_row(self, row=0):
+        fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
+        o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+
+        # l_hkl_error
+        if fit_conditions['l_hkl_error']['state']:
+            max_l_hkl_error_value = fit_conditions['l_hkl_error']['value']
+            table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.l_hkl_error)
+            if table_value > max_l_hkl_error_value:
+                return False
+
+        # t_error
+        if fit_conditions['t_error']['state']:
+            max_t_error_value = fit_conditions['t_error']['value']
+            table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.tau_error)
+            if table_value > max_t_error_value:
+                return False
+
+        # sigma_error
+        if fit_conditions['sigma_error']['state']:
+            max_sigma_error_value = fit_conditions['sigma_error']['value']
+            table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.sigma_error)
+            if table_value > max_sigma_error_value:
+                return False
+
+        return True

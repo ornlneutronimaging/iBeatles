@@ -487,6 +487,9 @@ class FittingWindow(QMainWindow):
         o_kropff = KropffGoodFitSettingsLauncher(parent=self)
         o_kropff.show()
 
+    def update_locked_rows_in_bragg_peak_table(self):
+        o_event = KropffHandler(parent=self)
+        o_event.bragg_peak_auto_lock_clicked()
 
     # general settings
 

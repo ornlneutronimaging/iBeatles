@@ -42,6 +42,7 @@ class KropffGoodFitSettingsLauncher(QDialog):
         self.parent.kropff_bragg_peak_good_fit_conditions['l_hkl_error'] = l_hkl_error
         self.parent.kropff_bragg_peak_good_fit_conditions['t_error'] = t_error
         self.parent.kropff_bragg_peak_good_fit_conditions['sigma_error'] = sigma_error
+        self.update_locked_rows_in_bragg_peak_table()
         self.close()
 
     def lambda_hkl_clicked(self):

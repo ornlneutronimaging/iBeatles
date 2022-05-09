@@ -117,6 +117,14 @@ class TableHandler:
         item_selected = self.table_ui.item(row, column).text()
         return str(item_selected)
 
+    def get_item_float_from_cell(self, row=-1, column=-1):
+        item_selected = self.table_ui.item(row, column).text()
+        try:
+            float_item = float(item_selected)
+        except ValueError:
+            return np.NaN
+        return float_item
+
     def select_cell(self, row=0, column=0):
         self.select_everything(False)
         range_selected = QTableWidgetSelectionRange(row, column, row, column)
@@ -203,6 +211,13 @@ class TableHandler:
     def set_background_color(self, row=0, column=0, qcolor=QtGui.QColor(0, 255, 255)):
         _item = self.table_ui.item(row, column)
         _item.setBackground(qcolor)
+
+    def set_background_color_of_row(self, row=0, qcolor=QtGui.QColor(0, 255, 255)):
+        nbr_column = self.column_count()
+        for _col in np.arange(nbr_column):
+            self.set_background_color(row=row,
+                                      column=_col,
+                                      qcolor=qcolor)
 
     def fill_table_with(self, list_items=None, editable_columns_boolean=None, block_signal=False):
         """
