@@ -35,8 +35,8 @@ class FittingLauncher(object):
             fitting_window.show()
             self.parent.fitting_ui = fitting_window
             o_fitting = FittingHandler(grand_parent=self.parent, parent=self.parent.fitting_ui)
-            # o_fitting.display_image()
-            # o_fitting.display_roi()
+            o_fitting.display_image()
+            o_fitting.display_roi()
             # o_fitting.fill_table()
             # fitting_window.record_all_xaxis_and_yaxis()
             # fitting_window.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)

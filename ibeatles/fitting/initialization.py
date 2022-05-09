@@ -39,9 +39,8 @@ class Initialization:
         self.parent.ui.splitter.setSizes([500, 500])
 
     def tab(self):
-        pass
-        # self.parent.ui.tabWidget.setCurrentIndex(1)
-        # self.parent.ui.tabWidget.setTabEnabled(0, False)
+        self.parent.ui.tabWidget.setCurrentIndex(1)
+        self.parent.ui.tabWidget.setTabEnabled(0, False)
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
