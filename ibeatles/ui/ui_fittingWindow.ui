@@ -1075,7 +1075,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="tab_3">
                 <attribute name="title">
@@ -1415,134 +1415,179 @@
                 <attribute name="title">
                  <string>Bragg Peak</string>
                 </attribute>
-                <layout class="QVBoxLayout" name="verticalLayout_10">
+                <layout class="QVBoxLayout" name="verticalLayout_6">
                  <item>
-                  <widget class="QGroupBox" name="groupBox_6">
-                   <property name="title">
-                    <string>Initial Guess</string>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_15">
-                    <item>
-                     <widget class="QLabel" name="kropff_bragg_peak_lambda_label">
-                      <property name="text">
-                       <string>lambda_hkl</string>
+                  <layout class="QHBoxLayout" name="horizontalLayout_25">
+                   <item>
+                    <widget class="QGroupBox" name="groupBox_6">
+                     <property name="title">
+                      <string>Initial Guess</string>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_15">
+                      <item>
+                       <widget class="QLabel" name="kropff_bragg_peak_lambda_label">
+                        <property name="text">
+                         <string>lambda_hkl</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLineEdit" name="kropff_bragg_peak_ldahkl_init">
+                        <property name="minimumSize">
+                         <size>
+                          <width>60</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>60</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line">
+                        <property name="orientation">
+                         <enum>Qt::Vertical</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="kropff_bragg_peak_tau_label">
+                        <property name="text">
+                         <string>tau</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLineEdit" name="kropff_bragg_peak_tau_init">
+                        <property name="minimumSize">
+                         <size>
+                          <width>60</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>60</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="Line" name="line_2">
+                        <property name="orientation">
+                         <enum>Qt::Vertical</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="kropff_bragg_peak_sigma_label">
+                        <property name="text">
+                         <string>sigma</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="kropff_bragg_peak_sigma_comboBox">
+                        <property name="minimumSize">
+                         <size>
+                          <width>80</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>80</width>
+                          <height>16777215</height>
+                         </size>
+                        </property>
+                        <property name="editable">
+                         <bool>true</bool>
+                        </property>
+                        <item>
+                         <property name="text">
+                          <string>1e-5</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>1e-6</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>1e-7</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QGroupBox" name="groupBox_14">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>150</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="title">
+                      <string>Lock Settings</string>
+                     </property>
+                     <widget class="QCheckBox" name="checkBox">
+                      <property name="geometry">
+                       <rect>
+                        <x>20</x>
+                        <y>40</y>
+                        <width>300</width>
+                        <height>20</height>
+                       </rect>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="kropff_bragg_peak_ldahkl_init">
                       <property name="minimumSize">
                        <size>
-                        <width>60</width>
+                        <width>150</width>
                         <height>0</height>
                        </size>
                       </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>60</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="Line" name="line">
-                      <property name="orientation">
-                       <enum>Qt::Vertical</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="kropff_bragg_peak_tau_label">
                       <property name="text">
-                       <string>tau</string>
+                       <string>Auto lock rows with good fits</string>
                       </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="kropff_bragg_peak_tau_init">
-                      <property name="minimumSize">
-                       <size>
-                        <width>60</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>60</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="Line" name="line_2">
-                      <property name="orientation">
-                       <enum>Qt::Vertical</enum>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="kropff_bragg_peak_sigma_label">
-                      <property name="text">
-                       <string>sigma</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QComboBox" name="kropff_bragg_peak_sigma_comboBox">
-                      <property name="minimumSize">
-                       <size>
-                        <width>80</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>80</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="editable">
+                      <property name="checked">
                        <bool>true</bool>
                       </property>
-                      <item>
-                       <property name="text">
-                        <string>1e-5</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>1e-6</string>
-                       </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>1e-7</string>
-                       </property>
-                      </item>
                      </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_11">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </widget>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_11">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
                  </item>
                  <item>
                   <widget class="QPushButton" name="kropff_fit_bragg_peak_button">
                    <property name="text">
-                    <string>Fit All Rows</string>
+                    <string>Fit all unlock rows</string>
                    </property>
                   </widget>
                  </item>
@@ -1722,8 +1767,8 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1290</x>
-     <y>111</y>
+     <x>900</x>
+     <y>142</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -1754,8 +1799,8 @@
    <slot>advanced_table_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>567</x>
-     <y>691</y>
+     <x>554</x>
+     <y>784</y>
     </hint>
     <hint type="destinationlabel">
      <x>1146</x>
@@ -1770,8 +1815,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>126</x>
-     <y>693</y>
+     <x>50</x>
+     <y>786</y>
     </hint>
     <hint type="destinationlabel">
      <x>124</x>
@@ -1786,8 +1831,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>281</x>
-     <y>693</y>
+     <x>137</x>
+     <y>786</y>
     </hint>
     <hint type="destinationlabel">
      <x>40</x>
@@ -1802,8 +1847,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>414</x>
-     <y>693</y>
+     <x>401</x>
+     <y>786</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
@@ -1818,8 +1863,8 @@
    <slot>initialize_all_parameters_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>717</x>
-     <y>604</y>
+     <x>929</x>
+     <y>697</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -1834,8 +1879,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1353</x>
-     <y>213</y>
+     <x>963</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -1850,8 +1895,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1353</x>
-     <y>244</y>
+     <x>963</x>
+     <y>275</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -1866,8 +1911,8 @@
    <slot>create_fitting_story_checked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1354</x>
-     <y>611</y>
+     <x>1400</x>
+     <y>697</y>
     </hint>
     <hint type="destinationlabel">
      <x>1210</x>
@@ -1882,8 +1927,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>193</x>
-     <y>687</y>
+     <x>121</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1898,8 +1943,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>303</x>
-     <y>687</y>
+     <x>231</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1914,8 +1959,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>175</x>
-     <y>666</y>
+     <x>103</x>
+     <y>273</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1930,8 +1975,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>198</x>
-     <y>666</y>
+     <x>126</x>
+     <y>273</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1946,8 +1991,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>687</y>
+     <x>176</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -1962,8 +2007,8 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>360</x>
-     <y>687</y>
+     <x>339</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1978,8 +2023,8 @@
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>507</x>
-     <y>692</y>
+     <x>495</x>
+     <y>311</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2026,8 +2071,8 @@
    <slot>kropff_low_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>174</x>
-     <y>672</y>
+     <x>102</x>
+     <y>279</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -2074,8 +2119,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>627</x>
-     <y>587</y>
+     <x>640</x>
+     <y>194</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2090,8 +2135,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>571</y>
+     <x>58</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2107,10 +2152,10 @@
    <hints>
     <hint type="sourcelabel">
      <x>533</x>
-     <y>586</y>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1500</x>
+     <x>1460</x>
      <y>565</y>
     </hint>
    </hints>
@@ -2122,11 +2167,11 @@
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1211</x>
-     <y>593</y>
+     <x>1251</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1501</x>
+     <x>1460</x>
      <y>651</y>
     </hint>
    </hints>
@@ -2138,8 +2183,8 @@
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>137</x>
-     <y>782</y>
+     <x>105</x>
+     <y>389</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2154,8 +2199,8 @@
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>166</x>
-     <y>782</y>
+     <x>135</x>
+     <y>389</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2170,8 +2215,8 @@
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>134</x>
-     <y>672</y>
+     <x>102</x>
+     <y>279</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2186,8 +2231,8 @@
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>672</y>
+     <x>132</x>
+     <y>279</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2202,8 +2247,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>182</x>
-     <y>806</y>
+     <x>105</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2218,8 +2263,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>267</x>
-     <y>806</y>
+     <x>125</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2234,8 +2279,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>339</x>
-     <y>806</y>
+     <x>153</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2250,11 +2295,11 @@
    <slot>automatic_hkl0_selection_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1372</x>
-     <y>107</y>
+     <x>982</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1839</x>
+     <x>1460</x>
      <y>100</y>
     </hint>
    </hints>
@@ -2282,12 +2327,44 @@
    <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1158</x>
-     <y>1029</y>
+     <x>1226</x>
+     <y>1111</y>
     </hint>
     <hint type="destinationlabel">
      <x>1424</x>
      <y>1117</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_fit_bragg_peak_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_fit_bragg_peak_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>800</x>
+     <y>346</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1455</x>
+     <y>602</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bragg_edge_tableWidget</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_table_right_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>886</x>
+     <y>700</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1456</x>
+     <y>843</y>
     </hint>
    </hints>
   </connection>
@@ -2373,5 +2450,7 @@
   <slot>automatic_hkl0_selection_clicked()</slot>
   <slot>action_strain_mapping_clicked()</slot>
   <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
+  <slot>kropff_fit_bragg_peak_button_clicked()</slot>
+  <slot>kropff_bragg_peak_table_right_clicked()</slot>
  </slots>
 </ui>

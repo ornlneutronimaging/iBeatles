@@ -462,6 +462,14 @@ class FittingWindow(QMainWindow):
         o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
         o_table.fill_kropff_bragg_peak_table()
 
+    def kropff_fit_bragg_peak_button_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.bragg_peak_rigth_click()
+
+    def kropff_bragg_peak_table_right_clicked(self, position):
+        o_event = KropffHandler(parent=self)
+        o_event.bragg_peak_rigth_click()
+
     # general settings
 
     def windows_settings(self):

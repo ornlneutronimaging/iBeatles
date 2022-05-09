@@ -1,6 +1,8 @@
 import numpy as np
 import pyqtgraph as pg
 import copy
+from qtpy.QtWidgets import QMenu
+from qtpy import QtGui
 
 from ibeatles.fitting.get import Get
 from ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
@@ -173,3 +175,16 @@ class EventHandler:
         o_fit = FitRegions(parent=self.parent,
                            grand_parent=self.grand_parent)
         o_fit.all_regions()
+
+    def bragg_peak_rigth_click(self):
+        menu = QMenu(self.parent)
+
+        lock_all_good_cells = menu.addAction("Lock all rows with good fits")
+        unlock_all_rows = menu.addAction("Unlock all rows")
+
+        action = menu.exec_(QtGui.QCursor.pos())
+
+        if action == lock_all_good_cells:
+            print("lock all good cells")
+        elif action == unlock_all_rows:
+            print("unlock all cells")
