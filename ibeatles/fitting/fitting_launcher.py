@@ -44,6 +44,7 @@ class FittingLauncher(object):
             fitting_window.kropff_check_widgets_helper()
             fitting_window.filling_kropff_table()
             fitting_window.kropff_high_tof_table_selection_changed()
+            fitting_window.kropff_bragg_peak_auto_lock_rows_clicked()
 
         else:
             self.parent.fitting_ui.setFocus()

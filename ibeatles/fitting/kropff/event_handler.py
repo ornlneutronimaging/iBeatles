@@ -203,15 +203,22 @@ class EventHandler:
         o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
         nbr_row = o_table.row_count()
 
-        for _row in np.arange(nbr_row):
-            if self._we_can_not_lock_this_row(row=_row):
-                background_color = UNLOCK_ROW_BACKGROUND
-            else:
-                background_color = LOCK_ROW_BACKGROUND
-            o_table.set_background_color_of_row(row=_row,
-                                                qcolor=background_color)
+        if self.parent.ui.checkBox.isChecked():
+            for _row in np.arange(nbr_row):
+                if self._lets_lock_this_row(row=_row):
+                    background_color = LOCK_ROW_BACKGROUND
+                else:
+                    background_color = UNLOCK_ROW_BACKGROUND
+                o_table.set_background_color_of_row(row=_row,
+                                                    qcolor=background_color)
 
-    def _we_can_not_lock_this_row(self, row=0):
+        else:
+            for _row in np.arange(nbr_row):
+                background_color = UNLOCK_ROW_BACKGROUND
+                o_table.set_background_color_of_row(row=_row,
+                                                    qcolor=background_color)
+
+    def _lets_lock_this_row(self, row=0):
         fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
         o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
 
@@ -219,6 +226,8 @@ class EventHandler:
         if fit_conditions['l_hkl_error']['state']:
             max_l_hkl_error_value = fit_conditions['l_hkl_error']['value']
             table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.l_hkl_error)
+            if not np.isfinite(table_value):
+                return False
             if table_value > max_l_hkl_error_value:
                 return False
 
@@ -226,6 +235,8 @@ class EventHandler:
         if fit_conditions['t_error']['state']:
             max_t_error_value = fit_conditions['t_error']['value']
             table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.tau_error)
+            if not np.isfinite(table_value):
+                return False
             if table_value > max_t_error_value:
                 return False
 
@@ -233,6 +244,8 @@ class EventHandler:
         if fit_conditions['sigma_error']['state']:
             max_sigma_error_value = fit_conditions['sigma_error']['value']
             table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.sigma_error)
+            if not np.isfinite(table_value):
+                return False
             if table_value > max_sigma_error_value:
                 return False
 

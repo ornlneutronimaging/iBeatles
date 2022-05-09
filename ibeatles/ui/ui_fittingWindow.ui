@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1461</width>
-    <height>1216</height>
+    <width>1514</width>
+    <height>1266</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1622,7 +1622,7 @@
                         <enum>Qt::CustomContextMenu</enum>
                        </property>
                        <property name="alternatingRowColors">
-                        <bool>true</bool>
+                        <bool>false</bool>
                        </property>
                        <property name="selectionMode">
                         <enum>QAbstractItemView::SingleSelection</enum>
@@ -1750,7 +1750,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1461</width>
+     <width>1514</width>
      <height>24</height>
     </rect>
    </property>
