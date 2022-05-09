@@ -10,7 +10,7 @@ from ibeatles import DataType, interact_me_style, normal_style
 from ibeatles.fitting.kropff.fit_regions import FitRegions
 from ibeatles.fitting.kropff.display import Display
 from ibeatles.fitting.fitting_handler import FittingHandler
-
+from ibeatles.utilities.table_handler import TableHandler
 
 fit_rgb = (255, 0, 0)
 
@@ -188,3 +188,10 @@ class EventHandler:
             print("lock all good cells")
         elif action == unlock_all_rows:
             print("unlock all cells")
+
+    def bragg_peak_auto_lock_clicked(self):
+        o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+        nbr_row = o_table.row_count()
+
+        for _row in np.arange(nbr_row):
+            pass

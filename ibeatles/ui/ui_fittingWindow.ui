@@ -1538,49 +1538,64 @@
                      </property>
                      <property name="minimumSize">
                       <size>
-                       <width>150</width>
+                       <width>200</width>
                        <height>0</height>
                       </size>
                      </property>
                      <property name="title">
                       <string>Lock Settings</string>
                      </property>
-                     <widget class="QCheckBox" name="checkBox">
-                      <property name="geometry">
-                       <rect>
-                        <x>20</x>
-                        <y>40</y>
-                        <width>300</width>
-                        <height>20</height>
-                       </rect>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>150</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>Auto lock rows with good fits</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
+                     <layout class="QHBoxLayout" name="horizontalLayout_26">
+                      <item>
+                       <widget class="QCheckBox" name="checkBox">
+                        <property name="minimumSize">
+                         <size>
+                          <width>150</width>
+                          <height>0</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string>Auto lock rows with good fit</string>
+                        </property>
+                        <property name="checked">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_11">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="bragg_peak_good_fit_settings">
+                        <property name="minimumSize">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_11">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
                    </item>
                   </layout>
                  </item>
@@ -1991,7 +2006,7 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>176</x>
+     <x>199</x>
      <y>306</y>
     </hint>
     <hint type="destinationlabel">
@@ -2007,7 +2022,7 @@
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>339</x>
+     <x>434</x>
      <y>306</y>
     </hint>
     <hint type="destinationlabel">
@@ -2023,7 +2038,7 @@
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>495</x>
+     <x>646</x>
      <y>311</y>
     </hint>
     <hint type="destinationlabel">
@@ -2368,6 +2383,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_auto_lock_rows_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>740</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1458</x>
+     <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bragg_peak_good_fit_settings</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1230</x>
+     <y>302</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1455</x>
+     <y>417</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -2452,5 +2499,7 @@
   <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
   <slot>kropff_fit_bragg_peak_button_clicked()</slot>
   <slot>kropff_bragg_peak_table_right_clicked()</slot>
+  <slot>kropff_bragg_peak_auto_lock_rows_clicked()</slot>
+  <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
  </slots>
 </ui>

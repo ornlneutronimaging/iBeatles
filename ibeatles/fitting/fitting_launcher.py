@@ -23,6 +23,7 @@ from ibeatles.fitting.kropff.display import Display as KropffDisplay
 from ibeatles.fitting.display import Display as FittingDisplay
 from ibeatles.fitting.get import Get
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
+from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
 
 
 class FittingLauncher(object):
@@ -469,6 +470,15 @@ class FittingWindow(QMainWindow):
     def kropff_bragg_peak_table_right_clicked(self, position):
         o_event = KropffHandler(parent=self)
         o_event.bragg_peak_rigth_click()
+
+    def kropff_bragg_peak_auto_lock_rows_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.bragg_peak_auto_lock_clicked()
+
+    def kropff_bragg_peak_good_fit_settings_clicked(self):
+        o_kropff = KropffGoodFitSettingsLauncher(parent=self)
+        o_kropff.show()
+
 
     # general settings
 

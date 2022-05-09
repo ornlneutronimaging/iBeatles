@@ -281,6 +281,7 @@ class Initialization:
 
         icon = QIcon(settings_image)
         self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)
+        self.parent.ui.bragg_peak_good_fit_settings.setIcon(icon)
 
         self.parent.ui.kropff_bragg_peak_lambda_label.setText(u"\u03BB<sub>hkl</sub>")
         self.parent.ui.kropff_bragg_peak_tau_label.setText(u"\u03c4")
