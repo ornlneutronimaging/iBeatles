@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1514</width>
-    <height>1266</height>
+    <width>1461</width>
+    <height>1216</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1538,6 +1538,25 @@ p, li { white-space: pre-wrap; }
                        </widget>
                       </item>
                       <item>
+                       <widget class="QPushButton" name="lambda_hkl_settings">
+                        <property name="minimumSize">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
                        <widget class="Line" name="line">
                         <property name="orientation">
                          <enum>Qt::Vertical</enum>
@@ -1705,7 +1724,7 @@ p, li { white-space: pre-wrap; }
                  <item>
                   <widget class="QPushButton" name="kropff_fit_bragg_peak_button">
                    <property name="text">
-                    <string>Fit (only unlock rows)</string>
+                    <string>Fit (locked rows will be skipped)</string>
                    </property>
                   </widget>
                  </item>
@@ -1853,7 +1872,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1514</width>
+     <width>1461</width>
      <height>24</height>
     </rect>
    </property>
@@ -2045,8 +2064,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>294</y>
+     <x>122</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2061,8 +2080,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>231</x>
-     <y>294</y>
+     <x>232</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2077,8 +2096,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>273</y>
+     <x>131</x>
+     <y>298</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2093,8 +2112,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>126</x>
-     <y>273</y>
+     <x>250</x>
+     <y>298</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2125,7 +2144,7 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>434</x>
+     <x>357</x>
      <y>306</y>
     </hint>
     <hint type="destinationlabel">
@@ -2141,7 +2160,7 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>646</x>
+     <x>513</x>
      <y>311</y>
     </hint>
     <hint type="destinationlabel">
@@ -2189,8 +2208,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>102</x>
-     <y>279</y>
+     <x>105</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -2302,7 +2321,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>105</x>
-     <y>389</y>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2318,7 +2337,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>135</x>
-     <y>389</y>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2333,8 +2352,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>102</x>
-     <y>279</y>
+     <x>105</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2349,8 +2368,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>279</y>
+     <x>135</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2518,6 +2537,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>lambda_hkl_settings</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_lambda_settings_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>247</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>333</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>signal1()</signal>
@@ -2604,5 +2639,6 @@ p, li { white-space: pre-wrap; }
   <slot>kropff_bragg_peak_table_right_clicked()</slot>
   <slot>kropff_bragg_peak_auto_lock_rows_clicked()</slot>
   <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
+  <slot>kropff_bragg_peak_lambda_settings_clicked()</slot>
  </slots>
 </ui>

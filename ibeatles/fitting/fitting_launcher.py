@@ -24,6 +24,7 @@ from ibeatles.fitting.display import Display as FittingDisplay
 from ibeatles.fitting.get import Get
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
+from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import KropffLambdaHKLSettings
 
 
 class FittingLauncher(object):
@@ -147,6 +148,9 @@ class FittingWindow(QMainWindow):
                                                              'value': 0.01},
                                              }
 
+    kropff_lambda_settings = {'state': 'fix',
+                              'fix': 5e-8,
+                              'range': [1e-8, 1e-7, 1e-8]}
 
     def __init__(self, parent=None):
 
@@ -493,6 +497,10 @@ class FittingWindow(QMainWindow):
     def update_locked_rows_in_bragg_peak_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_peak_auto_lock_clicked()
+
+    def kropff_bragg_peak_lambda_settings_clicked(self):
+        o_lambda = KropffLambdaHKLSettings(parent=self, grand_parent=self.parent)
+        o_lambda.show()
 
     # general settings
 

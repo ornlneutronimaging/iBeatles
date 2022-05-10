@@ -282,6 +282,7 @@ class Initialization:
         icon = QIcon(settings_image)
         self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)
         self.parent.ui.bragg_peak_good_fit_settings.setIcon(icon)
+        self.parent.ui.lambda_hkl_settings.setIcon(icon)
 
         self.parent.ui.kropff_bragg_peak_lambda_label.setText(u"\u03BB<sub>hkl</sub>")
         self.parent.ui.kropff_bragg_peak_tau_label.setText(u"\u03c4")
@@ -292,7 +293,7 @@ class Initialization:
 
         self.parent.ui.kropff_fit_high_lambda_button.setVisible(False)
         self.parent.ui.kropff_fit_low_lambda_button.setVisible(False)
-        # self.parent.ui.kropff_fit_bragg_peak_button.setVisible(False)
+        self.parent.ui.kropff_fit_bragg_peak_button.setVisible(False)
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']

@@ -59,9 +59,8 @@ class FitRegions:
         for _key in table_dictionary.keys():
 
             # if row is locked, continue
-
-
-
+            if table_dictionary[_key]['lock']:
+                continue
 
             if nearest_index == -1:
                 xaxis = table_dictionary[_key]['xaxis']
@@ -100,6 +99,10 @@ class FitRegions:
         common_xaxis = None
         nearest_index = -1
         for _key in table_dictionary.keys():
+
+            # if row is locked, continue
+            if table_dictionary[_key]['lock']:
+                continue
 
             table_entry = table_dictionary[_key]
 
@@ -149,6 +152,10 @@ class FitRegions:
         table_dictionary = self.table_dictionary
 
         for _key in table_dictionary.keys():
+
+            # if row is locked, continue
+            if table_dictionary[_key]['lock']:
+                continue
 
             table_entry = table_dictionary[_key]
 
