@@ -200,8 +200,12 @@ class EventHandler:
                                                 qcolor=background_color)
 
     def bragg_peak_auto_lock_clicked(self):
-        o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
-        nbr_row = o_table.row_count()
+        """if the condition found in the Bragg Edge table are met, the row of all the table will be locked"""
+
+        o_table_bragg_peak = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+        o_table_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
+        o_table_low_tof = TableHandler(table_ui=self.parent.ui.low_lda_tableWidget)
+        nbr_row = o_table_bragg_peak.row_count()
 
         if self.parent.ui.checkBox.isChecked():
             for _row in np.arange(nbr_row):
@@ -209,13 +213,21 @@ class EventHandler:
                     background_color = LOCK_ROW_BACKGROUND
                 else:
                     background_color = UNLOCK_ROW_BACKGROUND
-                o_table.set_background_color_of_row(row=_row,
+                o_table_bragg_peak.set_background_color_of_row(row=_row,
+                                                    qcolor=background_color)
+                o_table_high_tof.set_background_color_of_row(row=_row,
+                                                    qcolor=background_color)
+                o_table_low_tof.set_background_color_of_row(row=_row,
                                                     qcolor=background_color)
 
         else:
             for _row in np.arange(nbr_row):
                 background_color = UNLOCK_ROW_BACKGROUND
-                o_table.set_background_color_of_row(row=_row,
+                o_table_bragg_peak.set_background_color_of_row(row=_row,
+                                                    qcolor=background_color)
+                o_table_high_tof.set_background_color_of_row(row=_row,
+                                                    qcolor=background_color)
+                o_table_low_tof.set_background_color_of_row(row=_row,
                                                     qcolor=background_color)
 
     def _lets_lock_this_row(self, row=0):
