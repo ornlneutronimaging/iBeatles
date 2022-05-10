@@ -147,6 +147,7 @@ class FittingWindow(QMainWindow):
                                                              'value': 0.01},
                                              }
 
+
     def __init__(self, parent=None):
 
         logging.info("Launching fitting tab!")
@@ -474,15 +475,15 @@ class FittingWindow(QMainWindow):
         o_table.fill_kropff_bragg_peak_table()
 
     def kropff_fit_bragg_peak_button_clicked(self):
-        o_event = KropffHandler(parent=self)
-        o_event.bragg_peak_rigth_click()
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
+        o_event.fit_bragg_peak()
 
     def kropff_bragg_peak_table_right_clicked(self, position):
-        o_event = KropffHandler(parent=self)
-        o_event.bragg_peak_rigth_click()
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
+        o_event.bragg_peak_right_click()
 
     def kropff_bragg_peak_auto_lock_rows_clicked(self):
-        o_event = KropffHandler(parent=self)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_peak_auto_lock_clicked()
 
     def kropff_bragg_peak_good_fit_settings_clicked(self):
@@ -490,7 +491,7 @@ class FittingWindow(QMainWindow):
         o_kropff.show()
 
     def update_locked_rows_in_bragg_peak_table(self):
-        o_event = KropffHandler(parent=self)
+        o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_peak_auto_lock_clicked()
 
     # general settings

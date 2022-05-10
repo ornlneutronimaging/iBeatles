@@ -58,6 +58,11 @@ class FitRegions:
 
         for _key in table_dictionary.keys():
 
+            # if row is locked, continue
+
+
+
+
             if nearest_index == -1:
                 xaxis = table_dictionary[_key]['xaxis']
 

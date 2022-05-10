@@ -178,7 +178,12 @@ class EventHandler:
                            grand_parent=self.grand_parent)
         o_fit.all_regions()
 
-    def bragg_peak_rigth_click(self):
+    def fit_bragg_peak(self):
+        o_fit = FitRegions(parent=self.parent,
+                           grand_parent=self.grand_parent)
+        o_fit.bragg_peak()
+
+    def bragg_peak_right_click(self):
         menu = QMenu(self.parent)
 
         lock_all_good_cells = menu.addAction("Lock all rows with good fits")
@@ -199,6 +204,12 @@ class EventHandler:
             o_table.set_background_color_of_row(row=_row,
                                                 qcolor=background_color)
 
+    def unlock_all_rows_in_table_dictionary(self):
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        for _key in table_dictionary.keys():
+            table_dictionary[_key]['lock'] = False
+        self.grand_parent.kropff_table_dictionary = table_dictionary
+
     def bragg_peak_auto_lock_clicked(self):
         """if the condition found in the Bragg Edge table are met, the row of all the table will be locked"""
 
@@ -208,17 +219,24 @@ class EventHandler:
         nbr_row = o_table_bragg_peak.row_count()
 
         if self.parent.ui.checkBox.isChecked():
+
+            table_dictionary = self.grand_parent.kropff_table_dictionary
+
             for _row in np.arange(nbr_row):
                 if self._lets_lock_this_row(row=_row):
                     background_color = LOCK_ROW_BACKGROUND
+                    table_dictionary[str(_row)]['lock'] = True
                 else:
                     background_color = UNLOCK_ROW_BACKGROUND
+                    table_dictionary[str(_row)]['lock'] = False
                 o_table_bragg_peak.set_background_color_of_row(row=_row,
                                                     qcolor=background_color)
                 o_table_high_tof.set_background_color_of_row(row=_row,
                                                     qcolor=background_color)
                 o_table_low_tof.set_background_color_of_row(row=_row,
                                                     qcolor=background_color)
+
+
 
         else:
             for _row in np.arange(nbr_row):
@@ -229,6 +247,8 @@ class EventHandler:
                                                     qcolor=background_color)
                 o_table_low_tof.set_background_color_of_row(row=_row,
                                                     qcolor=background_color)
+
+            self.unlock_all_rows_in_table_dictionary()
 
     def _lets_lock_this_row(self, row=0):
         fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
