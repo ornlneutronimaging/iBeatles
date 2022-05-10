@@ -33,8 +33,6 @@ class TimeSpectraHandler(object):
     def load(self):
         if self.full_file_name.is_file():
 
-            print(f"time spectra file: {self.full_file_name}")
-
             _tof_handler = TOF(filename=str(self.full_file_name))
             _tof_array_s = _tof_handler.tof_array
             # self.tof_array = _tof_array_s * 1e6

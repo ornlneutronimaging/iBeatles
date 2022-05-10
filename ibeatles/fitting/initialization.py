@@ -263,7 +263,6 @@ class Initialization:
         else:
             self.parent.ui.kropff_bhkl_radioButton.setChecked(True)
 
-        self.parent.ui.kropff_bragg_peak_ldahkl_init.setText(lambda_hkl)
         self.parent.ui.kropff_bragg_peak_tau_init.setText(tau)
         index = self.parent.ui.kropff_bragg_peak_sigma_comboBox.findText(sigma)
         self.parent.ui.kropff_bragg_peak_sigma_comboBox.blockSignals(True)

@@ -1075,7 +1075,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>2</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tab_3">
                 <attribute name="title">
@@ -1518,22 +1518,6 @@ p, li { white-space: pre-wrap; }
                        <widget class="QLabel" name="kropff_bragg_peak_lambda_label">
                         <property name="text">
                          <string>lambda_hkl</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="kropff_bragg_peak_ldahkl_init">
-                        <property name="minimumSize">
-                         <size>
-                          <width>60</width>
-                          <height>0</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>60</width>
-                          <height>16777215</height>
-                         </size>
                         </property>
                        </widget>
                       </item>
@@ -2118,22 +2102,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>4</x>
      <y>572</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_bragg_peak_ldahkl_init</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_parameters_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>199</x>
-     <y>306</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>9</x>
-     <y>378</y>
     </hint>
    </hints>
   </connection>

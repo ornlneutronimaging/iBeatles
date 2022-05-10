@@ -46,7 +46,7 @@ class Get:
         return bhkl
 
     def lambda_hkl(self):
-        lambda_hkl = self.parent.ui.kropff_bragg_peak_ldahkl_init.text()
+        lambda_hkl = self.parent.kropff_lambda_settings['fix']
         try:
             lambda_hkl = np.float(lambda_hkl)
         except ValueError:

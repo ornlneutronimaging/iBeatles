@@ -13,12 +13,13 @@ from ibeatles.utilities.table_handler import TableHandler
 
 from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND
 from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns
+from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
+from ibeatles.utilities.status_message_config import show_status_message, StatusMessageStatus
 
 fit_rgb = (255, 0, 0)
 
 
 class EventHandler:
-
     default_threshold_width = 3
 
     def __init__(self, parent=None, grand_parent=None):
@@ -72,7 +73,6 @@ class EventHandler:
         xaxis = np.array(full_x_axis[left_index: right_index], dtype=float)
 
         for _row in np.arange(nbr_row):
-
             _bin_entry = table_dictionary[str(_row)]
 
             _bin_x0 = _bin_entry['bin_coordinates']['x0']
@@ -144,7 +144,7 @@ class EventHandler:
         bhkl = self.parent.ui.kropff_low_lda_bhkl_init.text()
         low_tof_graph = 'ahkl' if self.parent.ui.kropff_ahkl_radioButton.isChecked() else 'bhkl'
 
-        lambda_hkl = self.parent.ui.kropff_bragg_peak_ldahkl_init.text()
+        lambda_hkl = self.parent.kropff_lambda_settings['fix']
         tau = self.parent.ui.kropff_bragg_peak_tau_init.text()
         sigma = self.parent.ui.kropff_bragg_peak_sigma_comboBox.currentText()
         if self.parent.ui.kropff_lda_hkl_radioButton.isChecked():
@@ -230,23 +230,21 @@ class EventHandler:
                     background_color = UNLOCK_ROW_BACKGROUND
                     table_dictionary[str(_row)]['lock'] = False
                 o_table_bragg_peak.set_background_color_of_row(row=_row,
-                                                    qcolor=background_color)
+                                                               qcolor=background_color)
                 o_table_high_tof.set_background_color_of_row(row=_row,
-                                                    qcolor=background_color)
+                                                             qcolor=background_color)
                 o_table_low_tof.set_background_color_of_row(row=_row,
-                                                    qcolor=background_color)
-
-
+                                                            qcolor=background_color)
 
         else:
             for _row in np.arange(nbr_row):
                 background_color = UNLOCK_ROW_BACKGROUND
                 o_table_bragg_peak.set_background_color_of_row(row=_row,
-                                                    qcolor=background_color)
+                                                               qcolor=background_color)
                 o_table_high_tof.set_background_color_of_row(row=_row,
-                                                    qcolor=background_color)
+                                                             qcolor=background_color)
                 o_table_low_tof.set_background_color_of_row(row=_row,
-                                                    qcolor=background_color)
+                                                            qcolor=background_color)
 
             self.unlock_all_rows_in_table_dictionary()
 
@@ -254,31 +252,29 @@ class EventHandler:
         fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
         o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
 
-        # l_hkl_error
-        if fit_conditions['l_hkl_error']['state']:
-            max_l_hkl_error_value = fit_conditions['l_hkl_error']['value']
-            table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.l_hkl_error)
-            if not np.isfinite(table_value):
-                return False
-            if table_value > max_l_hkl_error_value:
-                return False
+        o_checking = CheckingFittingConditions(fit_conditions=fit_conditions)
+        l_hkl_error = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.l_hkl_error)
+        t_error = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.tau_error)
+        sigma_error = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.sigma_error)
 
-        # t_error
-        if fit_conditions['t_error']['state']:
-            max_t_error_value = fit_conditions['t_error']['value']
-            table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.tau_error)
-            if not np.isfinite(table_value):
-                return False
-            if table_value > max_t_error_value:
-                return False
+        return o_checking.is_fitting_ok(l_hkl_error=l_hkl_error,
+                                        t_error=t_error,
+                                        sigma_error=sigma_error)
 
-        # sigma_error
-        if fit_conditions['sigma_error']['state']:
-            max_sigma_error_value = fit_conditions['sigma_error']['value']
-            table_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.sigma_error)
-            if not np.isfinite(table_value):
-                return False
-            if table_value > max_sigma_error_value:
-                return False
+    def check_how_many_fitting_are_locked(self):
+        table_dictionary = self.grand_parent.kropff_table_dictionary
 
-        return True
+        total_number_of_fitting = len(table_dictionary.keys())
+        total_number_of_good_fitting = 0
+        for _key in table_dictionary.keys():
+            lock_state = table_dictionary[_key]['lock']
+            if lock_state:
+                total_number_of_good_fitting += 1
+
+        percentage = 100 * (total_number_of_good_fitting / total_number_of_fitting)
+        message = f"Percentage of Bragg peak fitted: {percentage:.2f}%"
+
+        show_status_message(parent=self.parent,
+                            message=message,
+                            status=StatusMessageStatus.ready)
+        

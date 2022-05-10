@@ -1,6 +1,8 @@
 import numpy as np
 from lmfit import Model, Parameter
 import copy
+from qtpy import QtGui
+import logging
 
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 import ibeatles.utilities.error as fitting_error
@@ -8,6 +10,7 @@ from ibeatles.fitting.kropff.get import Get
 from ibeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
 from ibeatles.fitting import KropffTabSelected
 from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
 
 
 class FitRegions:
@@ -143,18 +146,108 @@ class FitRegions:
                                                                            'yaxis': yaxis_fitted}
 
     def bragg_peak(self):
+        if self.parent.kropff_lambda_settings['state'] == 'fix':
+            self.bragg_peak_fix_lambda()
+        else:
+            self.bragg_peak_range_lambda()
+
+    def bragg_peak_range_lambda(self):
+        """we need to try to fit until the fit worked or we exhausted the full range defined"""
+        logging.info("Fitting bragg peak with a range of lambda_hkl:")
+        gmodel = Model(kropff_bragg_peak_tof, nan_policy='propagate', independent_vars=['lda'])
+
+        # lambda_hkl = self.o_get.lambda_hkl()
+        tau = self.o_get.tau()
+        sigma = self.o_get.sigma()
+
+        table_dictionary = self.table_dictionary
+        fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
+        o_checking = CheckingFittingConditions(fit_conditions=fit_conditions)
+
+        lambda_hkl_range = np.arange(self.parent.kropff_lambda_settings['range'][0],
+                                     self.parent.kropff_lambda_settings['range'][1],
+                                     self.parent.kropff_lambda_settings['range'][2])
+        logging.info(f"-> lambda_hkl_range: {lambda_hkl_range}")
+
+        self.parent.eventProgress.setMaximum(len(table_dictionary.keys()))
+        self.parent.eventProgress.setValue(0)
+        self.parent.eventProgress.setVisible(True)
+        QtGui.QGuiApplication.processEvents()
+
+        for _index, _key in enumerate(table_dictionary.keys()):
+
+            # if row is locked, continue
+            if table_dictionary[_key]['lock']:
+                continue
+
+            table_entry = table_dictionary[_key]
+
+            xaxis = copy.deepcopy(table_entry['xaxis'])
+
+            a0 = table_entry['a0']['val']
+            b0 = table_entry['b0']['val']
+            ahkl = table_entry['ahkl']['val']
+            bhkl = table_entry['bhkl']['val']
+
+            yaxis = copy.deepcopy(table_entry['yaxis'])
+            yaxis = -np.log(yaxis)
+
+            for _lambda_hkl in lambda_hkl_range:
+
+                _result = gmodel.fit(yaxis,
+                                     lda=xaxis,
+                                     a0=Parameter('a0', value=a0, vary=False),
+                                     b0=Parameter('b0', value=b0, vary=False),
+                                     ahkl=Parameter('ahkl', value=ahkl, vary=False),
+                                     bhkl=Parameter('bhkl', value=bhkl, vary=False),
+                                     ldahkl=_lambda_hkl,
+                                     sigma=sigma,
+                                     tau=tau)
+
+                ldahkl_error = _result.params['ldahkl'].stderr
+                sigma_error = _result.params['sigma'].stderr
+                tau_error = _result.params['tau'].stderr
+                ldahkl_value = _result.params['ldahkl'].value
+                sigma_value = _result.params['sigma'].value
+                tau_value = _result.params['tau'].value
+                yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value)
+
+                if o_checking.is_fitting_ok(l_hkl_error=ldahkl_error,
+                                            t_error=tau_error,
+                                            sigma_error=sigma_error):
+                    break
+
+                self.parent.eventProgress.setValue(_index)
+                QtGui.QGuiApplication.processEvents()
+
+            table_dictionary[_key]['lambda_hkl'] = {'val': ldahkl_value,
+                                                    'err': ldahkl_error}
+            table_dictionary[_key]['tau'] = {'val': tau_value,
+                                             'err': tau_error}
+            table_dictionary[_key]['sigma'] = {'val': sigma_value,
+                                               'err': sigma_error}
+            table_dictionary[_key]['fitted'][KropffTabSelected.bragg_peak] = {'xaxis': xaxis,
+                                                                              'yaxis': yaxis_fitted}
+            self.parent.eventProgress.setVisible(False)
+
+    def bragg_peak_fix_lambda(self):
+        logging.info("Fitting bragg peak with a fixed initial lambda_hkl:")
+
         gmodel = Model(kropff_bragg_peak_tof, nan_policy='propagate', independent_vars=['lda'])
 
         lambda_hkl = self.o_get.lambda_hkl()
+        logging.info(f"-> lambda_hkl: {lambda_hkl}")
         tau = self.o_get.tau()
         sigma = self.o_get.sigma()
 
         table_dictionary = self.table_dictionary
 
+        list_key_locked = []
         for _key in table_dictionary.keys():
 
             # if row is locked, continue
             if table_dictionary[_key]['lock']:
+                list_key_locked.append(int(_key)+1)
                 continue
 
             table_entry = table_dictionary[_key]
@@ -179,7 +272,6 @@ class FitRegions:
                                  sigma=sigma,
                                  tau=tau)
 
-
             ldahkl_value = _result.params['ldahkl'].value
             ldahkl_error = _result.params['ldahkl'].stderr
             sigma_value = _result.params['sigma'].value
@@ -196,3 +288,5 @@ class FitRegions:
                                                'err': sigma_error}
             table_dictionary[_key]['fitted'][KropffTabSelected.bragg_peak] = {'xaxis': xaxis,
                                                                               'yaxis': yaxis_fitted}
+
+        logging.info(f"-> list of locked keys: {list_key_locked}")

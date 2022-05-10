@@ -26,7 +26,27 @@ class KropffLambdaHKLSettings(QDialog):
             self.ui.range_radioButton.setChecked(True)
         self.radio_button_changed()
 
+    def done(self, value):
+        self.ok_clicked()
+        QDialog.done(self, value)
+
     def ok_clicked(self):
+        if self.ui.fix_radioButton.isChecked():
+            self.parent.kropff_lambda_settings['state'] = 'fix'
+        else:
+            self.parent.kropff_lambda_settings['state'] = 'range'
+
+        try:
+            fix_value = float(str(self.ui.fix_lineEdit.text()))
+            from_value = float(str(self.ui.from_lineEdit.text()))
+            to_value = float(str(self.ui.to_lineEdit.text()))
+            step_value = float(str(self.ui.step_lineEdit.text()))
+        except ValueError:
+            self.init_widgets()
+            return
+
+        self.parent.kropff_lambda_settings['fix'] = fix_value
+        self.parent.kropff_lambda_settings['range'] = [from_value, to_value, step_value]
         self.close()
 
     def radio_button_changed(self):

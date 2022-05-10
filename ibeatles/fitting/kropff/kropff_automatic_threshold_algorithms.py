@@ -107,7 +107,6 @@ class Algorithms:
             QtGui.QGuiApplication.processEvents()
 
         water_intake_peaks = []
-        water_intake_deltatime = []
         for _index_file, _row in enumerate(table_dictionary.keys()):
             _profile_data = table_dictionary[_row]['yaxis']
             var = np.mean(_profile_data)
@@ -123,7 +122,6 @@ class Algorithms:
                 QtGui.QGuiApplication.processEvents()
 
         self.peak_change_point_data = water_intake_peaks
-        # self.water_intake_deltatime = water_intake_deltatime
 
         if self.progress_bar_ui:
             self.progress_bar_ui.setVisible(False)

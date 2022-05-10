@@ -481,10 +481,12 @@ class FittingWindow(QMainWindow):
     def kropff_fit_bragg_peak_button_clicked(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.fit_bragg_peak()
+        o_event.check_how_many_fitting_are_locked()
 
     def kropff_bragg_peak_table_right_clicked(self, position):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_peak_right_click()
+        o_event.check_how_many_fitting_are_locked()
 
     def kropff_bragg_peak_auto_lock_rows_clicked(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
@@ -497,6 +499,7 @@ class FittingWindow(QMainWindow):
     def update_locked_rows_in_bragg_peak_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_peak_auto_lock_clicked()
+        o_event.check_how_many_fitting_are_locked()
 
     def kropff_bragg_peak_lambda_settings_clicked(self):
         o_lambda = KropffLambdaHKLSettings(parent=self, grand_parent=self.parent)
