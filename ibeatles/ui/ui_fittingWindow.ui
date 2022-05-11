@@ -1075,7 +1075,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="tab_3">
                 <attribute name="title">
@@ -1601,6 +1601,21 @@ p, li { white-space: pre-wrap; }
                         <property name="editable">
                          <bool>true</bool>
                         </property>
+                        <item>
+                         <property name="text">
+                          <string>1e-2</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>1e-3</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>1e-4</string>
+                         </property>
+                        </item>
                         <item>
                          <property name="text">
                           <string>1e-5</string>

@@ -40,12 +40,16 @@ class FittingLauncher(object):
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
-            fitting_window.record_all_xaxis_and_yaxis()
+            try:
+                fitting_window.record_all_xaxis_and_yaxis()
+            except ValueError:
+                pass
             fitting_window.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
             fitting_window.kropff_check_widgets_helper()
             fitting_window.filling_kropff_table()
             fitting_window.kropff_high_tof_table_selection_changed()
             fitting_window.kropff_bragg_peak_auto_lock_rows_clicked()
+            fitting_window.kropff_high_low_bragg_peak_tabs_changed(0)
 
         else:
             self.parent.fitting_ui.setFocus()

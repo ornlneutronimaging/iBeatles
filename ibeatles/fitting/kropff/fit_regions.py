@@ -272,6 +272,9 @@ class FitRegions:
                                  sigma=sigma,
                                  tau=tau)
 
+            if _key in  ['2', '3']:
+                logging.info(f"_key: {_key} -> _result.fit_report: {_result.fit_report()}")
+
             ldahkl_value = _result.params['ldahkl'].value
             ldahkl_error = _result.params['ldahkl'].stderr
             sigma_value = _result.params['sigma'].value

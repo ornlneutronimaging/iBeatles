@@ -272,9 +272,8 @@ class EventHandler:
                 total_number_of_good_fitting += 1
 
         percentage = 100 * (total_number_of_good_fitting / total_number_of_fitting)
-        message = f"Percentage of Bragg peak fitted: {percentage:.2f}%"
+        message = f"Percentage of Bragg peak fitted showing uncertainties: {percentage:.2f}%"
 
         show_status_message(parent=self.parent,
                             message=message,
                             status=StatusMessageStatus.ready)
-        
