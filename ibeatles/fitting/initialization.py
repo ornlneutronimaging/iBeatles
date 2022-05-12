@@ -1,5 +1,6 @@
 from qtpy.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget,QProgressBar,
                             QLabel, QSpacerItem, QSlider, QRadioButton, QSizePolicy)
+import numpy as np
 from qtpy import QtCore
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
@@ -100,6 +101,26 @@ class Initialization:
             o_kropff_bragg_edge.insert_column(_col_index)
         o_kropff_bragg_edge.set_column_names(column_names=column_names)
         o_kropff_bragg_edge.set_column_sizes(column_sizes=column_sizes)
+
+        # kropff table summary
+        o_kropff_summary = TableHandler(table_ui=self.parent.ui.kropff_summary_tableWidget)
+        for _col in np.arange(3):
+            o_kropff_summary.insert_empty_column(column=0)
+
+        kropff_column_names = ['',
+                               u'\u03BB\u2095\u2096\u2097',
+                               u'\u03BB\u2095\u2096\u2097_error']
+        kropff_column_sizes = [400, 200]
+        for _col_index, _col_name in enumerate(kropff_column_names):
+            o_kropff_summary.insert_column(_col_index)
+        o_kropff_summary.set_column_names(kropff_column_names)
+        o_kropff_summary.set_column_sizes(kropff_column_sizes)
+
+        kropff_row_names = ['mean', 'median', 'std', '% of cells with a value']
+
+        for _row_index, _row_name in enumerate(kropff_row_names):
+            o_kropff_summary.insert_empty_row(row=_row_index)
+            o_kropff_summary.insert_item(row=_row_index, column=0, value=_row_name)
 
     def table_behavior(self):
         for _column, _width in enumerate(self.parent.header_table_columns_width):

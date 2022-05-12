@@ -1075,7 +1075,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>2</number>
+                <number>0</number>
                </property>
                <widget class="QWidget" name="tab_3">
                 <attribute name="title">
@@ -1848,6 +1848,16 @@ p, li { white-space: pre-wrap; }
                     </layout>
                    </widget>
                   </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="Summary">
+                <attribute name="title">
+                 <string>Summary</string>
+                </attribute>
+                <layout class="QHBoxLayout" name="horizontalLayout_29">
+                 <item>
+                  <widget class="QTableWidget" name="kropff_summary_tableWidget"/>
                  </item>
                 </layout>
                </widget>
