@@ -285,9 +285,12 @@ class EventHandler:
         list_hkl = []
         list_hkl_error = []
 
+        number_of_fits_locked = 0
         for _key in table_dictionary.keys():
             list_hkl.append(table_dictionary[_key]['lambda_hkl']['val'])
             list_hkl_error.append(table_dictionary[_key]['lambda_hkl']['err'])
+            if table_dictionary[_key]['lock']:
+                number_of_fits_locked += 1
 
         # import pprint
         # pprint.pprint(f"list_hkl: {list_hkl}")
@@ -311,14 +314,17 @@ class EventHandler:
         hkl_error_value_std = np.std(list_hkl_error_without_none)
         hkl_error_value_percentage_with_fit = 100 * (number_of_fittings_with_error / total_number_of_bins)
 
+        percentage_of_fits_locked = 100 * (number_of_fits_locked / total_number_of_bins)
+
         o_table = TableHandler(table_ui=self.parent.ui.kropff_summary_tableWidget)
         o_table.insert_item(row=0, column=1, value=hkl_value_mean, format_str="{:0.4f}", editable=False)
         o_table.insert_item(row=1, column=1, value=hkl_value_median, format_str="{:0.4f}", editable=False)
         o_table.insert_item(row=2, column=1, value=hkl_value_std, format_str="{:0.4f}", editable=False)
-        o_table.insert_item(row=3, column=1, value=hkl_value_percentage_with_fit, format_str="{:0.4f}", editable=False)
+        o_table.insert_item(row=3, column=1, value=hkl_value_percentage_with_fit, format_str="{:0.2f}", editable=False)
+        o_table.insert_item(row=4, column=1, value=percentage_of_fits_locked, format_str="{:0.2f}", editable=False)
 
         o_table.insert_item(row=0, column=2, value=hkl_error_value_mean, format_str="{:0.4f}", editable=False)
         o_table.insert_item(row=1, column=2, value=hkl_error_value_median, format_str="{:0.4f}", editable=False)
         o_table.insert_item(row=2, column=2, value=hkl_error_value_std, format_str="{:0.4f}", editable=False)
-        o_table.insert_item(row=3, column=2, value=hkl_error_value_percentage_with_fit, format_str="{:0.4f}",
+        o_table.insert_item(row=3, column=2, value=hkl_error_value_percentage_with_fit, format_str="{:0.2f}",
                             editable=False)

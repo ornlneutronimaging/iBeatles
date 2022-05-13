@@ -116,7 +116,8 @@ class Initialization:
         o_kropff_summary.set_column_names(kropff_column_names)
         o_kropff_summary.set_column_sizes(kropff_column_sizes)
 
-        kropff_row_names = ['mean', 'median', 'std', '% of cells with a value']
+        kropff_row_names = ['mean', 'median', 'std', '% of cells with a value',
+                            '% of cells locked (error within constraints range)']
 
         for _row_index, _row_name in enumerate(kropff_row_names):
             o_kropff_summary.insert_empty_row(row=_row_index)
