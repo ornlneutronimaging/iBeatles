@@ -25,6 +25,7 @@ class FittingHandler:
                                         'locked_item': None,
                                         'selected': False,
                                         'lock': False,
+                                        'rejected': False,
                                         'active': False,
                                         'a0': {'val': np.NaN,
                                                'err': np.NaN},
@@ -233,6 +234,7 @@ class FittingHandler:
                 kropff_table_dictionary[_str_index]['column_index'] = _index_col
                 kropff_table_dictionary[_str_index]['selected_item'] = None
                 kropff_table_dictionary[_str_index]['lock'] = False
+                kropff_table_dictionary[_str_index]['rejected'] = False
 
                 # create the box to show when bin is selected
                 selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,

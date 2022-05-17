@@ -106,6 +106,8 @@ class SaveFittingTab(SaveTab):
             tau = _entry['tau']
             sigma = _entry['sigma']
             bragg_peak_threshold = _entry['bragg peak threshold']
+            lock = _entry['lock']
+            rejected = _entry['rejected']
 
             formatted_table_dictionary[_row] = {'a0': a0,
                                                 'b0': b0,
@@ -115,6 +117,8 @@ class SaveFittingTab(SaveTab):
                                                 'tau': tau,
                                                 'sigma': sigma,
                                                 'bragg_peak_threshold': bragg_peak_threshold,
+                                                'lock': lock,
+                                                'rejected': rejected,
                                                 }
 
         self.session_dict[DataType.fitting][FittingTabSelected.kropff]["table dictionary"] = formatted_table_dictionary

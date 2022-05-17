@@ -60,6 +60,7 @@ class TableDictionaryHandler:
                                         'selected': False,
                                         'lock': array[6],
                                         'active': array[7],
+                                        'rejected': False,  # use when bin is outside of the sample
                                         'fitting_confidence': array[8],
                                         'd_spacing': {'val': array[9],
                                                       'err': array[10],

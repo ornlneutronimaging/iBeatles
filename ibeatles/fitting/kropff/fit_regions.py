@@ -78,7 +78,12 @@ class FitRegions:
             yaxis = yaxis[nearest_index:-1]
             yaxis = -np.log(yaxis)
 
-            _result = gmodel.fit(yaxis, lda=common_xaxis, a0=a0, b0=b0)
+            try:
+                _result = gmodel.fit(yaxis, lda=common_xaxis, a0=a0, b0=b0)
+            except ValueError:
+                table_dictionary[_key]['rejected'] = True
+                continue
+
             a0_value = _result.params['a0'].value
             a0_error = _result.params['a0'].stderr
             b0_value = _result.params['b0'].value
@@ -105,6 +110,9 @@ class FitRegions:
 
             # if row is locked, continue
             if table_dictionary[_key]['lock']:
+                continue
+
+            if table_dictionary[_key]['rejected']:
                 continue
 
             table_entry = table_dictionary[_key]
@@ -178,6 +186,13 @@ class FitRegions:
 
             # if row is locked, continue
             if table_dictionary[_key]['lock']:
+                self.parent.eventProgress.setValue(_index)
+                QtGui.QGuiApplication.processEvents()
+                continue
+
+            if table_dictionary[_key]['rejected']:
+                self.parent.eventProgress.setValue(_index)
+                QtGui.QGuiApplication.processEvents()
                 continue
 
             table_entry = table_dictionary[_key]
@@ -250,6 +265,9 @@ class FitRegions:
                 list_key_locked.append(int(_key)+1)
                 continue
 
+            if table_dictionary[_key]['rejected']:
+                continue
+
             table_entry = table_dictionary[_key]
 
             xaxis = copy.deepcopy(table_entry['xaxis'])
@@ -272,7 +290,7 @@ class FitRegions:
                                  sigma=sigma,
                                  tau=tau)
 
-            if _key in  ['2', '3']:
+            if _key in ['2', '3']:
                 logging.info(f"_key: {_key} -> _result.fit_report: {_result.fit_report()}")
 
             ldahkl_value = _result.params['ldahkl'].value

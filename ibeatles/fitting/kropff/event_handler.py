@@ -11,7 +11,7 @@ from ibeatles.fitting.kropff.display import Display
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.utilities.table_handler import TableHandler
 
-from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND
+from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND, REJECTED_ROW_BACKGROUND
 from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns
 from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
 from ibeatles.utilities.status_message_config import show_status_message, StatusMessageStatus
@@ -29,10 +29,10 @@ class EventHandler:
     def reset_fitting_parameters(self):
         table_dictionary = self.grand_parent.kropff_table_dictionary
 
-        kropff_table_dictionary_tempate = FittingHandler.kropff_table_dictionary_template
+        kropff_table_dictionary_template = FittingHandler.kropff_table_dictionary_template
         for _row in table_dictionary.keys():
-            for _template_key in kropff_table_dictionary_tempate.keys():
-                table_dictionary[_row][_template_key] = copy.deepcopy(kropff_table_dictionary_tempate[_template_key])
+            for _template_key in kropff_table_dictionary_template.keys():
+                table_dictionary[_row][_template_key] = copy.deepcopy(kropff_table_dictionary_template[_template_key])
 
     def _is_first_row_has_threshold_defined(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
@@ -218,12 +218,15 @@ class EventHandler:
         o_table_low_tof = TableHandler(table_ui=self.parent.ui.low_lda_tableWidget)
         nbr_row = o_table_bragg_peak.row_count()
 
+        table_dictionary = self.grand_parent.kropff_table_dictionary
         if self.parent.ui.checkBox.isChecked():
 
-            table_dictionary = self.grand_parent.kropff_table_dictionary
-
             for _row in np.arange(nbr_row):
-                if self._lets_lock_this_row(row=_row):
+
+                if table_dictionary[str(_row)]['rejected']:
+                    background_color = REJECTED_ROW_BACKGROUND
+
+                elif self._lets_lock_this_row(row=_row):
                     background_color = LOCK_ROW_BACKGROUND
                     table_dictionary[str(_row)]['lock'] = True
                 else:
@@ -238,7 +241,12 @@ class EventHandler:
 
         else:
             for _row in np.arange(nbr_row):
-                background_color = UNLOCK_ROW_BACKGROUND
+
+                if table_dictionary[str(_row)]['rejected']:
+                    background_color = REJECTED_ROW_BACKGROUND
+                else:
+                    background_color = UNLOCK_ROW_BACKGROUND
+
                 o_table_bragg_peak.set_background_color_of_row(row=_row,
                                                                qcolor=background_color)
                 o_table_high_tof.set_background_color_of_row(row=_row,
