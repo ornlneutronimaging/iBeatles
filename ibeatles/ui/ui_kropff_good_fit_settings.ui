@@ -9,19 +9,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>309</width>
+    <width>350</width>
     <height>240</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>309</width>
+    <width>350</width>
     <height>240</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>309</width>
+    <width>350</width>
     <height>240</height>
    </size>
   </property>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>The fitting of a row is considered acceptable if:</string>
+      <string>The fitting of a row is considered acceptable if errors:</string>
      </property>
     </widget>
    </item>

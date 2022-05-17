@@ -133,12 +133,16 @@ class FitRegions:
             yaxis = yaxis[: nearest_index+1]
             yaxis = -np.log(yaxis)
 
-            _result = gmodel.fit(yaxis,
-                                 lda=common_xaxis,
-                                 a0=Parameter('a0', value=a0, vary=False),
-                                 b0=Parameter('b0', value=b0, vary=False),
-                                 ahkl=ahkl,
-                                 bhkl=bhkl)
+            try:
+                _result = gmodel.fit(yaxis,
+                                     lda=common_xaxis,
+                                     a0=Parameter('a0', value=a0, vary=False),
+                                     b0=Parameter('b0', value=b0, vary=False),
+                                     ahkl=ahkl,
+                                     bhkl=bhkl)
+            except ValueError:
+                table_dictionary[_key]['rejected'] = True
+                continue
 
             ahkl_value = _result.params['ahkl'].value
             ahkl_error = _result.params['ahkl'].stderr

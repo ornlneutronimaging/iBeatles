@@ -18,7 +18,6 @@ class Display:
 
         if not is_float(x_position):
             return
-
         new_item = pg.InfiniteLine(pos=x_position,
                                    movable=False,
                                    pen=pen,
