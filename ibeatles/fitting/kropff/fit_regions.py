@@ -50,8 +50,12 @@ class FitRegions:
                                 status=StatusMessageStatus.error,
                                 duration_s=5)
 
-    def error_outside_of_tolerance(self, list_error):
+    @staticmethod
+    def error_outside_of_tolerance(list_error):
         for _error in list_error:
+            if not _error:
+                return True
+
             if _error > ERROR_TOLERANCE:
                 return True
         return False
@@ -96,7 +100,7 @@ class FitRegions:
             b0_value = _result.params['b0'].value
             b0_error = _result.params['b0'].stderr
 
-            if self.error_outside_of_tolerance([a0_error, b0_error]):
+            if FitRegions.error_outside_of_tolerance([a0_error, b0_error]):
                 table_dictionary[_key]['rejected'] = True
                 continue
 
