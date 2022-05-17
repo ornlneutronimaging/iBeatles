@@ -175,7 +175,6 @@ class Get:
             else:
                 raise NotImplementedError
 
-
     def y_axis_and_x_axis_for_given_rows_selected(self):
         table_ui_selected = self.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)

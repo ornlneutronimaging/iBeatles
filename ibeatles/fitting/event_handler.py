@@ -13,8 +13,11 @@ class EventHandler:
         self.grand_parent = grand_parent
 
     def bragg_edge_region_changed(self):
+        """Updating the x-axis in all units (file index, tof and lambda"""
+
         # current xaxis is
         x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
+
         _lr = self.parent.fitting_lr
         if _lr is None:
             return

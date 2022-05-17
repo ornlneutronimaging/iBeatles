@@ -11,6 +11,7 @@ from ibeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff
 from ibeatles.fitting import KropffTabSelected
 from ibeatles.utilities.array_utilities import find_nearest_index
 from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
+from ibeatles.fitting.kropff import ERROR_TOLERANCE
 
 
 class FitRegions:
@@ -48,6 +49,12 @@ class FitRegions:
                                 message=f"Error fitting {type_error}",
                                 status=StatusMessageStatus.error,
                                 duration_s=5)
+
+    def error_outside_of_tolerance(self, list_error):
+        for _error in list_error:
+            if _error > ERROR_TOLERANCE:
+                return True
+        return False
 
     def high_lambda(self):
         gmodel = Model(kropff_high_lambda, missing='drop', independent_vars=['lda'])
@@ -88,6 +95,11 @@ class FitRegions:
             a0_error = _result.params['a0'].stderr
             b0_value = _result.params['b0'].value
             b0_error = _result.params['b0'].stderr
+
+            if self.error_outside_of_tolerance([a0_error, b0_error]):
+                table_dictionary[_key]['rejected'] = True
+                continue
+
             yaxis_fitted = kropff_high_lambda(common_xaxis, a0_value, b0_value)
 
             table_dictionary[_key]['a0'] = {'val': a0_value,

@@ -4,6 +4,8 @@ LOCK_ROW_BACKGROUND = QtGui.QColor(75, 150, 150)
 UNLOCK_ROW_BACKGROUND = QtGui.QColor(255, 255, 255)
 REJECTED_ROW_BACKGROUND = QtGui.QColor(255, 255, 150)
 
+ERROR_TOLERANCE = 100
+
 
 class FittingKropffBraggPeakColumns:
 
