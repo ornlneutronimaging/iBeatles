@@ -254,6 +254,14 @@ class MainWindow(QMainWindow):
     kropff_is_automatic_bragg_peak_threshold_finder = True
     kropff_automatic_threshold_finder_algorithm = KropffThresholdFinder.sliding_average
 
+    kropff_bragg_peak_good_fit_conditions = {'l_hkl_error': {'state': True,
+                                                             'value': 0.01},
+                                             't_error'    : {'state': True,
+                                                             'value': 0.01},
+                                             'sigma_error': {'state': True,
+                                                             'value': 0.01},
+                                             }
+
     def __init__(self, parent=None):
         """ 
         Initialization

@@ -2,6 +2,7 @@ from qtpy.QtWidgets import QMainWindow, QApplication
 from qtpy import QtCore
 import numpy as np
 import logging
+import copy
 
 from .. import load_ui
 from .. import DataType
@@ -146,13 +147,14 @@ class FittingWindow(QMainWindow):
     kropff_automatic_threshold_finder_algorithm = None
     kropff_threshold_current_item = None
 
-    kropff_bragg_peak_good_fit_conditions = {'l_hkl_error': {'state': True,
-                                                             'value': 0.01},
-                                             't_error'    : {'state': True,
-                                                             'value': 0.01},
-                                             'sigma_error': {'state': True,
-                                                             'value': 0.01},
-                                             }
+    # kropff_bragg_peak_good_fit_conditions = {'l_hkl_error': {'state': True,
+    #                                                          'value': 0.01},
+    #                                          't_error'    : {'state': True,
+    #                                                          'value': 0.01},
+    #                                          'sigma_error': {'state': True,
+    #                                                          'value': 0.01},
+    #                                          }
+    kropff_bragg_peak_good_fit_conditions = None
 
     kropff_lambda_settings = {'state': 'fix',
                               'fix': 5e-8,
@@ -174,6 +176,8 @@ class FittingWindow(QMainWindow):
 
         x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         self.bragg_edge_data['x_axis'] = x_axis
+        self.kropff_bragg_peak_good_fit_conditions = \
+            copy.deepcopy(self.parent.session_dict[DataType.fitting]['kropff']['kropff bragg peak good fit conditions'])
 
     def action_strain_mapping_clicked(self):
         StrainMappingLauncher(parent=self.parent)

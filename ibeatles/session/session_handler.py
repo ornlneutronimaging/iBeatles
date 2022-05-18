@@ -19,12 +19,10 @@ from .load_bin_tab import LoadBin
 from .load_fitting_tab import LoadFitting
 from .general import General
 
-
 from .. import DataType
 
 
 class SessionHandler:
-
     config_file_name = ""
     load_successful = True
 
@@ -85,36 +83,44 @@ class SessionHandler:
                             'ui accessed': False,
                             },
                     DataType.fitting: {"lambda range index": None,
-                                        "x_axis": None,
-                                        "transparency": 50,
-                                        'image view state': None,
-                                        'image view histogram': None,
-                                        'ui accessed': False,
-                                        'ui': {'splitter_2': None,
-                                               'splitter': None,
-                                               'splitter_3': None,
-                                               },
-                                        'march dollase': {"table dictionary": None,
-                                                          "plot active row flag": True,
-                                                          },
-                                        'kropff': {'table dictionary': None,
-                                                   'high tof': {'a0': '1',
-                                                                'b0': '1',
-                                                                'graph': 'a0',
-                                                                },
-                                                   'low tof': {'ahkl': '1',
-                                                               'bhkl': '1',
-                                                               'graph': 'ahkl',
+                                       "x_axis": None,
+                                       "transparency": 50,
+                                       'image view state': None,
+                                       'image view histogram': None,
+                                       'ui accessed': False,
+                                       'ui': {'splitter_2': None,
+                                              'splitter': None,
+                                              'splitter_3': None,
+                                              },
+                                       'march dollase': {"table dictionary": None,
+                                                         "plot active row flag": True,
+                                                         },
+                                       'kropff': {'table dictionary': None,
+                                                  'high tof': {'a0': '1',
+                                                               'b0': '1',
+                                                               'graph': 'a0',
                                                                },
-                                                   'bragg peak': {'lambda_hkl': '5e-8',
-                                                                  'tau': '1',
-                                                                  'sigma': '1e-7',
-                                                                  'table selection': 'single',
-                                                                  'graph': 'lambda_hkl',
-                                                                  },
-                                                   'automatic bragg peak threshold finder': True,
-                                                   }
-                                        }
+                                                  'low tof': {'ahkl': '1',
+                                                              'bhkl': '1',
+                                                              'graph': 'ahkl',
+                                                              },
+                                                  'bragg peak': {'lambda_hkl': '5e-8',
+                                                                 'tau': '1',
+                                                                 'sigma': '1e-7',
+                                                                 'table selection': 'single',
+                                                                 'graph': 'lambda_hkl',
+                                                                 },
+                                                  'automatic bragg peak threshold finder': True,
+                                                  'kropff bragg peak good fit conditions':
+                                                      {'l_hkl_error': {'state': True,
+                                                                       'value': 0.01},
+                                                       't_error': {'state': True,
+                                                                   'value': 0.01},
+                                                       'sigma_error': {'state': True,
+                                                                       'value': 0.01},
+                                                       },
+                                                  }
+                                       }
                     }
 
     default_session_dict = copy.deepcopy(session_dict)
@@ -152,17 +158,17 @@ class SessionHandler:
         o_save_bin = SaveBinTab(parent=self.parent,
                                 session_dict=self.session_dict)
         o_save_bin.bin()
-        self.session_dict = o_save_normalized.session_dict
+        self.session_dict = o_save_bin.session_dict
 
         # save fitting
         o_save_fitting = SaveFittingTab(parent=self.parent,
                                         session_dict=self.session_dict)
         o_save_fitting.fitting()
+        self.session_dict = o_save_fitting.session_dict
 
         self.parent.session_dict = self.session_dict
 
     def load_to_ui(self, tabs_to_load=None):
-
         if not self.load_successful:
             return
 
@@ -174,7 +180,6 @@ class SessionHandler:
             o_general.settings()
 
             if DataType.sample in tabs_to_load:
-
                 # load data tab
                 o_load = LoadLoadDataTab(parent=self.parent)
                 o_load.sample()
@@ -193,19 +198,16 @@ class SessionHandler:
             o_load.material()
 
             if DataType.normalized in tabs_to_load:
-
                 # load normalized tab
                 o_normalized = LoadNormalized(parent=self.parent)
                 o_normalized.all()
 
             if DataType.bin in tabs_to_load:
-
                 # load bin tab
                 o_bin = LoadBin(parent=self.parent)
                 o_bin.all()
 
             if DataType.fitting in tabs_to_load:
-
                 # load fitting
                 o_fit = LoadFitting(parent=self.parent)
                 o_fit.table_dictionary()
@@ -241,7 +243,6 @@ class SessionHandler:
         self.save_to_file(config_file_name=full_config_file_name)
 
     def save_to_file(self, config_file_name=None):
-
         if config_file_name is None:
             config_file_name = QFileDialog.getSaveFileName(self.parent,
                                                            caption="Select session file name ...",

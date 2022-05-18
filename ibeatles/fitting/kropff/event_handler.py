@@ -173,6 +173,9 @@ class EventHandler:
         self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak threshold width'] = \
             self.parent.ui.kropff_threshold_width_slider.value()
 
+        self.grand_parent.session_dict[DataType.fitting]['kropff']['kropff bragg peak good fit conditions'] = \
+            self.parent.kropff_bragg_peak_good_fit_conditions
+
     def fit_regions(self):
         o_fit = FitRegions(parent=self.parent,
                            grand_parent=self.grand_parent)
@@ -188,7 +191,7 @@ class EventHandler:
 
         lock_all_good_cells = None
         unlock_all_rows = None
-        
+
         # lock_all_good_cells = menu.addAction("Lock all rows with good fits")
         unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
 
