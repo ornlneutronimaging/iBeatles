@@ -261,6 +261,7 @@ class MainWindow(QMainWindow):
                                              'sigma_error': {'state': True,
                                                              'value': 0.01},
                                              }
+    kropff_lambda_settings = None
 
     def __init__(self, parent=None):
         """ 

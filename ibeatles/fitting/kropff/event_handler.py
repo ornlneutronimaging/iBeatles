@@ -176,6 +176,9 @@ class EventHandler:
         self.grand_parent.session_dict[DataType.fitting]['kropff']['kropff bragg peak good fit conditions'] = \
             self.parent.kropff_bragg_peak_good_fit_conditions
 
+        self.grand_parent.session_dict[DataType.fitting]['kropff']['kropff lambda settings'] = \
+            self.parent.kropff_lambda_settings
+
     def fit_regions(self):
         o_fit = FitRegions(parent=self.parent,
                            grand_parent=self.grand_parent)

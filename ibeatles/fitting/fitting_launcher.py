@@ -156,9 +156,11 @@ class FittingWindow(QMainWindow):
     #                                          }
     kropff_bragg_peak_good_fit_conditions = None
 
-    kropff_lambda_settings = {'state': 'fix',
-                              'fix': 5e-8,
-                              'range': [1e-8, 1e-7, 1e-8]}
+    # kropff_lambda_settings = {'state': 'fix',
+    #                            'fix'  : 5e-8,
+    #                            'range': [1e-8, 1e-7, 1e-8],
+    #                            }
+    kropff_lambda_settings = None
 
     def __init__(self, parent=None):
 
@@ -177,7 +179,8 @@ class FittingWindow(QMainWindow):
         x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         self.bragg_edge_data['x_axis'] = x_axis
         self.kropff_bragg_peak_good_fit_conditions = \
-            copy.deepcopy(self.parent.session_dict[DataType.fitting]['kropff']['kropff bragg peak good fit conditions'])
+            self.parent.session_dict[DataType.fitting]['kropff']['kropff bragg peak good fit conditions']
+        self.kropff_lambda_settings = self.parent.session_dict[DataType.fitting]['kropff']['kropff lambda settings']
 
     def action_strain_mapping_clicked(self):
         StrainMappingLauncher(parent=self.parent)

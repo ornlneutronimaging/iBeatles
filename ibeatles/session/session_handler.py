@@ -119,8 +119,12 @@ class SessionHandler:
                                                        'sigma_error': {'state': True,
                                                                        'value': 0.01},
                                                        },
-                                                  }
-                                       }
+                                                  'kropff lambda settings': {'state': 'fix',
+                                                                             'fix'  : 5e-8,
+                                                                             'range': [1e-8, 1e-7, 1e-8],
+                                                                             },
+                                                  },
+                                       },
                     }
 
     default_session_dict = copy.deepcopy(session_dict)
