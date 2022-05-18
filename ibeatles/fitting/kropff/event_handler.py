@@ -186,8 +186,11 @@ class EventHandler:
     def bragg_peak_right_click(self):
         menu = QMenu(self.parent)
 
-        lock_all_good_cells = menu.addAction("Lock all rows with good fits")
-        unlock_all_rows = menu.addAction("Unlock all rows")
+        lock_all_good_cells = None
+        unlock_all_rows = None
+        
+        # lock_all_good_cells = menu.addAction("Lock all rows with good fits")
+        unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
 
         action = menu.exec_(QtGui.QCursor.pos())
 
