@@ -54,7 +54,6 @@ class KropffGoodFitSettingsLauncher(QDialog):
         self.parent.kropff_bragg_peak_good_fit_conditions['l_hkl_error'] = l_hkl_error
         self.parent.kropff_bragg_peak_good_fit_conditions['t_error'] = t_error
         self.parent.kropff_bragg_peak_good_fit_conditions['sigma_error'] = sigma_error
-        self.parent.update_locked_rows_in_bragg_peak_table()
 
         l_hkl_less_than = {'state': self.ui.l_hkl_less_than_checkBox.isChecked(),
                            'value': self.ui.l_hkl_less_than_doubleSpinBox.value()}
@@ -65,6 +64,7 @@ class KropffGoodFitSettingsLauncher(QDialog):
                                                                              },
                                                                    }
 
+        self.parent.update_locked_and_rejected_rows_in_bragg_peak_table()
         self.close()
 
     def lambda_hkl_clicked(self):
@@ -98,13 +98,14 @@ class KropffGoodFitSettingsLauncher(QDialog):
         self.ui.l_hkl_more_than_doubleSpinBox.setEnabled(state)
 
     def check_ok_button(self):
-        state1 = self.ui.lambda_hkl_checkBox.isChecked()
-        state2 = self.ui.tau_checkBox.isChecked()
-        state3 = self.ui.sigma_checkBox.isChecked()
-
-        if (not state1) and (not state2) and (not state3):
-            button_state = False
-        else:
-            button_state = True
-
-        self.ui.ok_pushButton.setEnabled(button_state)
+        pass
+        # state1 = self.ui.lambda_hkl_checkBox.isChecked()
+        # state2 = self.ui.tau_checkBox.isChecked()
+        # state3 = self.ui.sigma_checkBox.isChecked()
+        #
+        # if (not state1) and (not state2) and (not state3):
+        #     button_state = False
+        # else:
+        #     button_state = True
+        #
+        # self.ui.ok_pushButton.setEnabled(button_state)

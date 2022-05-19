@@ -241,9 +241,11 @@ class EventHandler:
                 elif self._lets_lock_this_row(row=_row):
                     background_color = LOCK_ROW_BACKGROUND
                     table_dictionary[str(_row)]['lock'] = True
+
                 else:
                     background_color = UNLOCK_ROW_BACKGROUND
                     table_dictionary[str(_row)]['lock'] = False
+
                 o_table_bragg_peak.set_background_color_of_row(row=_row,
                                                                qcolor=background_color)
                 o_table_high_tof.set_background_color_of_row(row=_row,
@@ -254,10 +256,10 @@ class EventHandler:
         else:
             for _row in np.arange(nbr_row):
 
-                if table_dictionary[str(_row)]['rejected']:
-                    background_color = REJECTED_ROW_BACKGROUND
-                else:
-                    background_color = UNLOCK_ROW_BACKGROUND
+                # if table_dictionary[str(_row)]['rejected']:
+                #     background_color = REJECTED_ROW_BACKGROUND
+                # else:
+                background_color = UNLOCK_ROW_BACKGROUND
 
                 o_table_bragg_peak.set_background_color_of_row(row=_row,
                                                                qcolor=background_color)

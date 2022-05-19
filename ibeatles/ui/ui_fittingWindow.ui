@@ -254,7 +254,7 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
              <widget class="QGroupBox" name="groupBox_8">
@@ -1664,7 +1664,7 @@ p, li { white-space: pre-wrap; }
                       </size>
                      </property>
                      <property name="title">
-                      <string>Lock Settings</string>
+                      <string>Lock &amp; Rejected Settings</string>
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_26">
                       <item>
@@ -1676,7 +1676,7 @@ p, li { white-space: pre-wrap; }
                          </size>
                         </property>
                         <property name="text">
-                         <string>Auto lock rows with good fit</string>
+                         <string>Auto lock and reject rows</string>
                         </property>
                         <property name="checked">
                          <bool>true</bool>

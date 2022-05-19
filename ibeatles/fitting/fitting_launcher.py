@@ -48,7 +48,7 @@ class FittingLauncher(object):
             fitting_window.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
             fitting_window.kropff_check_widgets_helper()
             fitting_window.filling_kropff_table()
-            fitting_window.update_locked_rows_in_bragg_peak_table()
+            fitting_window.update_locked_and_rejected_rows_in_bragg_peak_table()
             fitting_window.kropff_high_tof_table_selection_changed()
             fitting_window.kropff_bragg_peak_auto_lock_rows_clicked()
             fitting_window.kropff_high_low_bragg_peak_tabs_changed(0)
@@ -483,7 +483,7 @@ class FittingWindow(QMainWindow):
         o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
         o_table.fill_kropff_table()
         o_display.update_fitting_parameters_matplotlib()
-        self.update_locked_rows_in_bragg_peak_table()
+        self.update_locked_and_rejected_rows_in_bragg_peak_table()
         self.update_summary_table()
 
     def update_summary_table(self):
@@ -524,7 +524,7 @@ class FittingWindow(QMainWindow):
         o_kropff = KropffGoodFitSettingsLauncher(parent=self)
         o_kropff.show()
 
-    def update_locked_rows_in_bragg_peak_table(self):
+    def update_locked_and_rejected_rows_in_bragg_peak_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_peak_auto_lock_clicked()
         o_event.check_how_many_fitting_are_locked()
