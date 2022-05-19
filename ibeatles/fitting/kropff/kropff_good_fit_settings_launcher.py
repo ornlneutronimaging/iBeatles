@@ -12,12 +12,16 @@ class KropffGoodFitSettingsLauncher(QDialog):
         super(QDialog, self).__init__(parent)
         self.ui = load_ui('ui_kropff_good_fit_settings.ui', baseinstance=self)
         self.fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
+        self.rejection_conditions = self.parent.kropff_bragg_peak_row_rejections_conditions
         self.init_widgets()
 
     def init_widgets(self):
         self.ui.l_hkl_error_label.setText(u"\u03BB<sub>hkl</sub>")
         self.ui.t_error_label.setText(u"\u03c4")
         self.ui.sigma_error_label.setText(u"\u03c3")
+
+        self.ui.l_hkl_less_than_label.setText(u"\u03BB<sub>hkl</sub>")
+        self.ui.l_hkl_more_than_label.setText(u"\u03BB<sub>hkl</sub>")
 
         fit_conditions = self.fit_conditions
         self.ui.lambda_hkl_checkBox.setChecked(fit_conditions['l_hkl_error']['state'])
@@ -27,9 +31,17 @@ class KropffGoodFitSettingsLauncher(QDialog):
         self.ui.sigma_checkBox.setChecked(fit_conditions['sigma_error']['state'])
         self.ui.sigma_doubleSpinBox.setValue(fit_conditions['sigma_error']['value'])
 
+        rejection_conditions = self.rejection_conditions
+        self.ui.l_hkl_less_than_checkBox.setChecked(rejection_conditions['l_hkl']['less_than']['state'])
+        self.ui.l_hkl_less_than_doubleSpinBox.setValue(rejection_conditions['l_hkl']['less_than']['value'])
+        self.ui.l_hkl_more_than_checkBox.setChecked(rejection_conditions['l_hkl']['more_than']['state'])
+        self.ui.l_hkl_more_than_doubleSpinBox.setValue(rejection_conditions['l_hkl']['more_than']['value'])
+
         self.lambda_hkl_clicked()
         self.tau_clicked()
         self.sigma_clicked()
+        self.l_hkl_less_than_clicked()
+        self.l_hkl_more_than_clicked()
 
     def ok_clicked(self):
         l_hkl_error = {'state': self.ui.lambda_hkl_checkBox.isChecked(),
@@ -43,6 +55,16 @@ class KropffGoodFitSettingsLauncher(QDialog):
         self.parent.kropff_bragg_peak_good_fit_conditions['t_error'] = t_error
         self.parent.kropff_bragg_peak_good_fit_conditions['sigma_error'] = sigma_error
         self.parent.update_locked_rows_in_bragg_peak_table()
+
+        l_hkl_less_than = {'state': self.ui.l_hkl_less_than_checkBox.isChecked(),
+                           'value': self.ui.l_hkl_less_than_doubleSpinBox.value()}
+        l_hkl_more_than = {'state': self.ui.l_hkl_more_than_checkBox.isChecked(),
+                           'value': self.ui.l_hkl_more_than_doubleSpinBox.value()}
+        self.parent.kropff_bragg_peak_row_rejections_conditions = {'l_hkl': {'less_than': l_hkl_less_than,
+                                                                             'more_than': l_hkl_more_than,
+                                                                             },
+                                                                   }
+
         self.close()
 
     def lambda_hkl_clicked(self):
@@ -62,6 +84,18 @@ class KropffGoodFitSettingsLauncher(QDialog):
         self.ui.sigma_label.setEnabled(state)
         self.ui.sigma_doubleSpinBox.setEnabled(state)
         self.check_ok_button()
+
+    def l_hkl_less_than_clicked(self):
+        state = self.ui.l_hkl_less_than_checkBox.isChecked()
+        self.ui.l_hkl_less_than_label.setEnabled(state)
+        self.ui.l_hkl_label_2.setEnabled(state)
+        self.ui.l_hkl_less_than_doubleSpinBox.setEnabled(state)
+
+    def l_hkl_more_than_clicked(self):
+        state = self.ui.l_hkl_more_than_checkBox.isChecked()
+        self.ui.l_hkl_more_than_label.setEnabled(state)
+        self.ui.l_hkl_label_3.setEnabled(state)
+        self.ui.l_hkl_more_than_doubleSpinBox.setEnabled(state)
 
     def check_ok_button(self):
         state1 = self.ui.lambda_hkl_checkBox.isChecked()

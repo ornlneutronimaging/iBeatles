@@ -162,6 +162,14 @@ class FittingWindow(QMainWindow):
     #                            }
     kropff_lambda_settings = None
 
+    # kropff_bragg_peak_row_rejections_conditions = {'l_hkl': {'less_than': {'state': True,
+    #                                                                        'value': 0,},
+    #                                                          'more_than': {'state': True,
+    #                                                                        'value': 10,},
+    #                                                          },
+    #                                                }
+    kropff_bragg_peak_row_rejections_conditions = None
+
     def __init__(self, parent=None):
 
         logging.info("Launching fitting tab!")
@@ -181,6 +189,8 @@ class FittingWindow(QMainWindow):
         self.kropff_bragg_peak_good_fit_conditions = \
             self.parent.session_dict[DataType.fitting]['kropff']['kropff bragg peak good fit conditions']
         self.kropff_lambda_settings = self.parent.session_dict[DataType.fitting]['kropff']['kropff lambda settings']
+        self.kropff_bragg_peak_row_rejections_conditions = \
+            self.parent.session_dict[DataType.fitting]['kropff']['bragg peak row rejections conditions']
 
     def action_strain_mapping_clicked(self):
         StrainMappingLauncher(parent=self.parent)

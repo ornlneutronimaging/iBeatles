@@ -136,3 +136,7 @@ class SaveFittingTab(SaveTab):
             self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak"]
         self.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff bragg peak good fit conditions"] = \
             self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff bragg peak good fit conditions"]
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff lambda settings"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff lambda settings"]
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak row rejections conditions"] = \
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak row rejections conditions"]
