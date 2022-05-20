@@ -12,7 +12,8 @@ from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.utilities.table_handler import TableHandler
 
 from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND, REJECTED_ROW_BACKGROUND
-from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns
+from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns, FittingKropffHighLambdaColumns, \
+    FittingKropffLowLambdaColumns
 from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
 from ibeatles.utilities.status_message_config import show_status_message, StatusMessageStatus
 
@@ -235,14 +236,17 @@ class EventHandler:
 
             for _row in np.arange(nbr_row):
 
-                if table_dictionary[str(_row)]['rejected']:
+                if self._lets_reject_this_row(row=_row):
                     background_color = REJECTED_ROW_BACKGROUND
+                    table_dictionary[str(_row)]['rejected'] = True
 
                 elif self._lets_lock_this_row(row=_row):
+                    table_dictionary[str(_row)]['rejected'] = False
                     background_color = LOCK_ROW_BACKGROUND
                     table_dictionary[str(_row)]['lock'] = True
 
                 else:
+                    table_dictionary[str(_row)]['rejected'] = False
                     background_color = UNLOCK_ROW_BACKGROUND
                     table_dictionary[str(_row)]['lock'] = False
 
@@ -269,6 +273,35 @@ class EventHandler:
                                                             qcolor=background_color)
 
             self.unlock_all_rows_in_table_dictionary()
+
+    def _lets_reject_this_row(self, row=0):
+        o_table = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
+
+        # high lambda
+        # if a0 or b0 are nan -> yes, reject this row
+        a0_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffHighLambdaColumns.a0)
+        if not np.isfinite(a0_value):
+            return True
+
+        b0_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffHighLambdaColumns.b0)
+        if not np.isfinite(b0_value):
+            return True
+
+        # low lambda
+        # if ahkl, bhkl are nan -> yes, reject this row
+        ahkl_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffLowLambdaColumns.ahkl)
+        if not np.isfinite(ahkl_value):
+            return True
+
+        bhkl_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffLowLambdaColumns.bhkl)
+        if not np.isfinite(bhkl_value):
+            return True
+
+        # bragg peak
+        # if l_hkl is nan -> yes, reject this row
+        # if l_hkl is outside of range defined in settings -> reject this row
+
+        return False
 
     def _lets_lock_this_row(self, row=0):
         fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions

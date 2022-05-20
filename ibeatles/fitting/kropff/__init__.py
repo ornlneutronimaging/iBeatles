@@ -14,6 +14,18 @@ class FittingKropffBraggPeakColumns:
     sigma_error = 7
 
 
+class FittingKropffHighLambdaColumns:
+
+    a0 = 2
+    b0 = 3
+
+
+class FittingKropffLowLambdaColumns:
+
+    ahkl = 2
+    bhkl = 3
+
+
 class FittingRegions:
 
     high_lambda = "high_lambda"
