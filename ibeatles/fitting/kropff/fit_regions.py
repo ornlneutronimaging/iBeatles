@@ -70,27 +70,28 @@ class FitRegions:
         common_xaxis = None
         nearest_index = -1
 
+        xaxis_common = table_dictionary['0']['xaxis']
+
         for _key in table_dictionary.keys():
 
             # if row is locked, continue
             if table_dictionary[_key]['lock']:
                 continue
 
-            if nearest_index == -1:
-                xaxis = table_dictionary[_key]['xaxis']
+            right = table_dictionary[_key]['bragg peak threshold']['right']
 
-                right = table_dictionary[_key]['bragg peak threshold']['right']
-
-                nearest_index = find_nearest_index(xaxis, right)
-                xaxis = xaxis[nearest_index:-1]
-                common_xaxis = xaxis
+            nearest_index = find_nearest_index(xaxis_common, right)
+            xaxis = xaxis_common[nearest_index:-1]
+            if len(xaxis) == 0:
+                table_dictionary[_key]['rejected'] = True
+                continue
 
             yaxis = table_dictionary[_key]['yaxis']
             yaxis = yaxis[nearest_index:-1]
             yaxis = -np.log(yaxis)
 
             try:
-                _result = gmodel.fit(yaxis, lda=common_xaxis, a0=a0, b0=b0)
+                _result = gmodel.fit(yaxis, lda=xaxis, a0=a0, b0=b0)
             except ValueError:
                 table_dictionary[_key]['rejected'] = True
                 continue
@@ -104,13 +105,13 @@ class FitRegions:
                 table_dictionary[_key]['rejected'] = True
                 continue
 
-            yaxis_fitted = kropff_high_lambda(common_xaxis, a0_value, b0_value)
+            yaxis_fitted = kropff_high_lambda(xaxis, a0_value, b0_value)
 
             table_dictionary[_key]['a0'] = {'val': a0_value,
                                             'err': a0_error}
             table_dictionary[_key]['b0'] = {'val': b0_value,
                                             'err': b0_error}
-            table_dictionary[_key]['fitted'][KropffTabSelected.high_tof] = {'xaxis': common_xaxis,
+            table_dictionary[_key]['fitted'][KropffTabSelected.high_tof] = {'xaxis': xaxis,
                                                                             'yaxis': yaxis_fitted}
 
     def low_lambda(self):

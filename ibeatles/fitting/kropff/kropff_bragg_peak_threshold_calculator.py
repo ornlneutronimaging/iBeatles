@@ -12,6 +12,7 @@ class KropffBraggPeakThresholdCalculator:
         self.grand_parent = grand_parent
 
     def run_automatic_mode(self):
+        print(f"in run automatic_mode")
         logging.info(f"Automatic Bragg peak threshold calculator")
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         algorithm_selected = self.parent.kropff_automatic_threshold_finder_algorithm
@@ -28,7 +29,10 @@ class KropffBraggPeakThresholdCalculator:
         threshold_width = np.int(self.parent.ui.kropff_threshold_width_slider.value())
 
         for _row_index, _row in enumerate(kropff_table_dictionary.keys()):
+            print(f"-> _row_index: {_row_index}")
+            print(f"-> _row: {_row}")
             x_axis = kropff_table_dictionary[_row]['xaxis']
+            print(f"-> x_axis: {x_axis}")
             left_index = list_of_threshold_calculated[_row_index] - threshold_width
             right_index = list_of_threshold_calculated[_row_index] + threshold_width
             if right_index >= len(x_axis):
