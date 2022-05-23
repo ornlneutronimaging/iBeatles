@@ -200,23 +200,31 @@ class EventHandler:
         lock_all_good_cells = None
         unlock_all_rows = None
 
-        # lock_all_good_cells = menu.addAction("Lock all rows with good fits")
         unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
 
         action = menu.exec_(QtGui.QCursor.pos())
 
-        if action == lock_all_good_cells:
-            self.bragg_peak_auto_lock_clicked()
-        elif action == unlock_all_rows:
+        if action == unlock_all_rows:
             self.unlock_all_bragg_peak_rows()
 
     def unlock_all_bragg_peak_rows(self):
+        background_color = UNLOCK_ROW_BACKGROUND
+
         o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
         nbr_row = o_table.row_count()
-        background_color = UNLOCK_ROW_BACKGROUND
         for _row in np.arange(nbr_row):
             o_table.set_background_color_of_row(row=_row,
                                                 qcolor=background_color)
+
+        o_table_high = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
+        for _row in np.arange(nbr_row):
+            o_table_high.set_background_color_of_row(row=_row,
+                                                     qcolor=background_color)
+
+        o_table_low = TableHandler(table_ui=self.parent.ui.low_lda_tableWidget)
+        for _row in np.arange(nbr_row):
+            o_table_low.set_background_color_of_row(row=_row,
+                                                    qcolor=background_color)
 
     def unlock_all_rows_in_table_dictionary(self):
         table_dictionary = self.grand_parent.kropff_table_dictionary
