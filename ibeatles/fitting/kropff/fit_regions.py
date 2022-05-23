@@ -95,6 +95,9 @@ class FitRegions:
             except ValueError:
                 table_dictionary[_key]['rejected'] = True
                 continue
+            except TypeError:
+                table_dictionary[_key]['rejected'] = True
+                continue
 
             a0_value = _result.params['a0'].value
             a0_error = _result.params['a0'].stderr

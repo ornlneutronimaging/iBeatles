@@ -98,14 +98,13 @@ class KropffGoodFitSettingsLauncher(QDialog):
         self.ui.l_hkl_more_than_doubleSpinBox.setEnabled(state)
 
     def check_ok_button(self):
-        pass
-        # state1 = self.ui.lambda_hkl_checkBox.isChecked()
-        # state2 = self.ui.tau_checkBox.isChecked()
-        # state3 = self.ui.sigma_checkBox.isChecked()
-        #
-        # if (not state1) and (not state2) and (not state3):
-        #     button_state = False
-        # else:
-        #     button_state = True
-        #
-        # self.ui.ok_pushButton.setEnabled(button_state)
+        state1 = self.ui.lambda_hkl_checkBox.isChecked()
+        state2 = self.ui.tau_checkBox.isChecked()
+        state3 = self.ui.sigma_checkBox.isChecked()
+
+        if (not state1) and (not state2) and (not state3):
+            button_state = False
+        else:
+            button_state = True
+
+        self.ui.ok_pushButton.setEnabled(button_state)

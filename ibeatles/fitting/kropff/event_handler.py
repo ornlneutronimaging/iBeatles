@@ -33,7 +33,8 @@ class EventHandler:
         kropff_table_dictionary_template = FittingHandler.kropff_table_dictionary_template
         for _row in table_dictionary.keys():
             for _template_key in kropff_table_dictionary_template.keys():
-                table_dictionary[_row][_template_key] = copy.deepcopy(kropff_table_dictionary_template[_template_key])
+                table_dictionary[_row][_template_key] = \
+                    copy.deepcopy(kropff_table_dictionary_template[_template_key])
 
     def _is_first_row_has_threshold_defined(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
