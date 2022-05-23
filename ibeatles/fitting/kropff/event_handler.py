@@ -299,7 +299,22 @@ class EventHandler:
 
         # bragg peak
         # if l_hkl is nan -> yes, reject this row
+        l_hkl_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.l_hkl_value)
+        if not np.isfinite(l_hkl_value):
+            return True
+
         # if l_hkl is outside of range defined in settings -> reject this row
+        less_than_state = self.parent.kropff_bragg_peak_row_rejections_conditions['l_hkl']['less_than']['state']
+        if less_than_state:
+            less_than_value = self.parent.kropff_bragg_peak_row_rejections_conditions['l_hkl']['less_than']['value']
+            if l_hkl_value < less_than_value:
+                return True
+
+        more_than_state = self.parent.kropff_bragg_peak_row_rejections_conditions['l_hkl']['more_than']['state']
+        if more_than_state:
+            more_than_value = self.parent.kropff_bragg_peak_row_rejections_conditions['l_hkl']['more_than']['value']
+            if l_hkl_value > more_than_value:
+                return True
 
         return False
 

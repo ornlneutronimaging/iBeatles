@@ -1075,7 +1075,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="tab_3">
                 <attribute name="title">
@@ -1664,7 +1664,7 @@ p, li { white-space: pre-wrap; }
                       </size>
                      </property>
                      <property name="title">
-                      <string>Lock &amp; Rejected Settings</string>
+                      <string>Locked and Rejected Settings</string>
                      </property>
                      <layout class="QHBoxLayout" name="horizontalLayout_26">
                       <item>

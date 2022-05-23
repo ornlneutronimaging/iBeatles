@@ -9,6 +9,9 @@ ERROR_TOLERANCE = 100
 
 class FittingKropffBraggPeakColumns:
 
+    l_hkl_value = 2
+    tau_value = 3
+    sigma_value = 4
     l_hkl_error = 5
     tau_error = 6
     sigma_error = 7
