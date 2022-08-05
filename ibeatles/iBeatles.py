@@ -57,7 +57,7 @@ from . import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
 
 
 class MainWindow(QMainWindow):
-    """ Main FastGR window
+    """
     """
 
     current_tab = 0   # this will be used in case user request to see a tab is not allowed yet
@@ -273,6 +273,7 @@ class MainWindow(QMainWindow):
         super(MainWindow, self).__init__(parent)
 
         self.ui = load_ui('ui_mainWindow.ui', baseinstance=self)
+        self.setWindowTitle("iBeatles")
         self.setup()
         self.init_interface()
 

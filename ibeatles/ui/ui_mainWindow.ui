@@ -190,8 +190,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1383</width>
-                      <height>369</height>
+                      <width>148</width>
+                      <height>147</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -443,7 +443,7 @@
                      <item row="0" column="1">
                       <widget class="QLineEdit" name="distance_source_detector">
                        <property name="text">
-                        <string>15</string>
+                        <string>19.855</string>
                        </property>
                       </widget>
                      </item>
@@ -1476,7 +1476,7 @@ p, li { white-space: pre-wrap; }
                      <item row="0" column="1">
                       <widget class="QLineEdit" name="distance_source_detector_2">
                        <property name="text">
-                        <string>15</string>
+                        <string>19.855</string>
                        </property>
                       </widget>
                      </item>

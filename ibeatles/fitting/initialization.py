@@ -1,4 +1,4 @@
-from qtpy.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget,QProgressBar,
+from qtpy.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget, QProgressBar,
                             QLabel, QSpacerItem, QSlider, QRadioButton, QSizePolicy)
 import numpy as np
 from qtpy import QtCore
