@@ -192,24 +192,12 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="kernel_size_custom_y_lineEdit">
-               <property name="enabled">
-                <bool>false</bool>
+              <widget class="QSpinBox" name="kernel_size_custom_y_spinBox">
+               <property name="minimum">
+                <number>1</number>
                </property>
-               <property name="minimumSize">
-                <size>
-                 <width>50</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>50</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>20</string>
+               <property name="value">
+                <number>3</number>
                </property>
               </widget>
              </item>
@@ -239,24 +227,12 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="kernel_size_custom_x_lineEdit">
-               <property name="enabled">
-                <bool>false</bool>
+              <widget class="QSpinBox" name="kernel_size_custom_x_spinBox">
+               <property name="minimum">
+                <number>1</number>
                </property>
-               <property name="minimumSize">
-                <size>
-                 <width>50</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>50</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>20</string>
+               <property name="value">
+                <number>3</number>
                </property>
               </widget>
              </item>
@@ -286,24 +262,12 @@
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="kernel_size_custom_lambda_lineEdit">
-               <property name="enabled">
-                <bool>false</bool>
+              <widget class="QSpinBox" name="kernel_size_custom_lambda_spinBox">
+               <property name="minimum">
+                <number>1</number>
                </property>
-               <property name="minimumSize">
-                <size>
-                 <width>50</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>50</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>3</string>
+               <property name="value">
+                <number>3</number>
                </property>
               </widget>
              </item>
