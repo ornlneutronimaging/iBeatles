@@ -129,7 +129,8 @@ class LoadLoadDataTab:
         if selected_element_index >= count:
            selected_element_name = session_dict["material"]["selected element"]['name']
            self.parent.ui.list_of_elements.addItem(selected_element_name)
-           self.parent.ui.list_of_elements_2.addItems(selected_element_name)
+           self.parent.ui.list_of_elements_2.addItem(selected_element_name)
+
            # only 1 lattice user defined value can be saved between sessions
            self.parent.ui.list_of_elements.setCurrentIndex(count)
            self.parent.ui.list_of_elements_2.setCurrentIndex(count)
