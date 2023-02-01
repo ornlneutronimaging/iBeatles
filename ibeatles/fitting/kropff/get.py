@@ -12,7 +12,7 @@ class Get:
     def a0(self):
         a0 = self.parent.ui.kropff_high_lda_a0_init.text()
         try:
-            a0 = np.float(a0)
+            a0 = float(a0)
         except ValueError:
             raise fitting_error.HighLambdaFittingError(fitting_region=FittingRegions.high_lambda,
                                                        message=u"Wrong a\u2080 format!")
@@ -21,7 +21,7 @@ class Get:
     def b0(self):
         b0 = self.parent.ui.kropff_high_lda_b0_init.text()
         try:
-            b0 = np.float(b0)
+            b0 = float(b0)
         except ValueError:
             raise fitting_error.HighLambdaFittingError(fitting_region=FittingRegions.high_lambda,
                                                        message=u"Wrong b\u2080 format!")
@@ -30,7 +30,7 @@ class Get:
     def ahkl(self):
         ahkl = self.parent.ui.kropff_low_lda_ahkl_init.text()
         try:
-            ahkl = np.float(ahkl)
+            ahkl = float(ahkl)
         except ValueError:
             raise fitting_error.LowLambdaFittingError(fitting_region=FittingRegions.low_lambda,
                                                       message=u"Wrong a\u2095\u2096\u2097 format!")
@@ -39,7 +39,7 @@ class Get:
     def bhkl(self):
         bhkl = self.parent.ui.kropff_low_lda_bhkl_init.text()
         try:
-            bhkl = np.float(bhkl)
+            bhkl = float(bhkl)
         except ValueError:
             raise fitting_error.LowLambdaFittingError(fitting_region=FittingRegions.low_lambda,
                                                       message="Wrong b\u2095\u2096\u2097 format!")
@@ -48,7 +48,7 @@ class Get:
     def lambda_hkl(self):
         lambda_hkl = self.parent.kropff_lambda_settings['fix']
         try:
-            lambda_hkl = np.float(lambda_hkl)
+            lambda_hkl = float(lambda_hkl)
         except ValueError:
             raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
                                                       message=u"Wrong \u03BB\u2095\u2096\u2097 format!")
@@ -57,7 +57,7 @@ class Get:
     def tau(self):
         tau = self.parent.ui.kropff_bragg_peak_tau_init.text()
         try:
-            tau = np.float(tau)
+            tau = float(tau)
         except ValueError:
             raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
                                                       message=u"Wrong \u03c4 format!")
@@ -66,7 +66,7 @@ class Get:
     def sigma(self):
         sigma = self.parent.ui.kropff_bragg_peak_sigma_comboBox.currentText()
         try:
-            sigma = np.float(sigma)
+            sigma = float(sigma)
         except ValueError:
             raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
                                                       message=u"Wrong sigma format!")

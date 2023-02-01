@@ -10,9 +10,9 @@ class Get:
 
     def active_d0(self):
         if self.parent.ui.d0_value.isChecked():
-            return np.float(self.parent.ui.d0_value.text())
+            return float(self.parent.ui.d0_value.text())
         else:
-            return np.float(self.parent.ui.d0_user_value.text())
+            return float(self.parent.ui.d0_user_value.text())
 
     def parameter_to_display(self):
         if self.parent.ui.display_d_radioButton.isChecked():

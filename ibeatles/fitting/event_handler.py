@@ -87,8 +87,8 @@ class EventHandler:
         if not (str(self.parent.ui.lambda_min_lineEdit.text())):
             return
 
-        lambda_min_selected = np.float(str(self.parent.ui.lambda_min_lineEdit.text()))
-        lambda_max_selected = np.float(str(self.parent.ui.lambda_max_lineEdit.text()))
+        lambda_min_selected = float(str(self.parent.ui.lambda_min_lineEdit.text()))
+        lambda_max_selected = float(str(self.parent.ui.lambda_max_lineEdit.text()))
         mid_lambda = np.mean([lambda_min_selected, lambda_max_selected])
 
         bragg_edges_array = self.grand_parent.selected_element_bragg_edges_array

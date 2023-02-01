@@ -103,7 +103,7 @@ class SetFittingVariablesHandler(object):
 
         nbr_row = self.colorscale_nbr_row
         step = (float(max_value) - float(min_value)) / (nbr_row - 1)
-        mid_point = np.int(nbr_row / 2)
+        mid_point = int(nbr_row / 2)
         _row = 0
 
         if (min_value == max_value):

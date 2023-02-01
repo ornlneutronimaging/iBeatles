@@ -37,6 +37,7 @@ class ReductionSettingsHandler(QDialog):
         self.ui.kernel_size_custom_x_spinBox.setValue(int(reduction_dict["size"]["x"]))
         self.ui.kernel_size_custom_lambda_spinBox.setValue(int(reduction_dict["size"]["l"]))
         self.size_radio_button_clicked()
+        self.dimension_radio_button_clicked()
         if reduction_dict["type"] == "gaussian":
             self.ui.kernel_type_gaussian_radioButton.setChecked(True)
         if reduction_dict["processes order"] == 'option1':
@@ -59,7 +60,7 @@ class ReductionSettingsHandler(QDialog):
             kernel_size = '2d'
         self.ui.kernel_size_default_label.setText(self.default_kernel_size_label[kernel_size])
         self.ui.kernel_size_custom_lambda_label.setVisible(is_3d_clicked)
-        self.ui.kernel_size_custom_lambda_lineEdit.setVisible(is_3d_clicked)
+        self.ui.kernel_size_custom_lambda_spinBox.setVisible(is_3d_clicked)
 
     def size_radio_button_clicked(self):
         is_default_clicked = self.ui.kernel_size_default_radioButton.isChecked()
@@ -77,8 +78,8 @@ class ReductionSettingsHandler(QDialog):
         reduction_dict["dimension"] = "2d" if self.ui.kernel_dimension_2d_radioButton.isChecked() else "3d"
         reduction_dict["size"]["flag"] = "default" if self.ui.kernel_size_default_radioButton.isChecked() else "custom"
         reduction_dict["size"]["y"] = self.ui.kernel_size_custom_y_spinBox.value()
-        reduction_dict["size"]["x"] = self.ui.kernel_size_custom_x_spinBox.text()
-        reduction_dict["size"]["l"] = self.ui.kernel_size_custom_lambda_spinBox.text()
+        reduction_dict["size"]["x"] = self.ui.kernel_size_custom_x_spinBox.value()
+        reduction_dict["size"]["l"] = self.ui.kernel_size_custom_lambda_spinBox.value()
         reduction_dict["type"] = "box" if self.ui.kernel_type_box_radioButton.isChecked() else "gaussian"
         reduction_dict["processes order"] = 'option1' if self.ui.processes_order_option1_radio_button.isChecked() \
             else 'option2'

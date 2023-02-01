@@ -14,7 +14,7 @@ pen_color = {'0': (62, 13, 244),  # blue
 
 
 def set_alpha_value(lines=[], transparency=50):
-    new_a = np.int((np.float(transparency) / 100.) * 255)
+    new_a = int((float(transparency) / 100.) * 255)
 
     new_lines = []
     for _line in lines:

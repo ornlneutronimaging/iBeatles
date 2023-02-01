@@ -150,7 +150,7 @@ class FittingInitializationHandler(object):
         # print(y_axis[inflection_point_index + left_index])
 
         # for now inflection is only calculated by using center of selection
-        inflection_point_index = np.int(np.mean([left_index, right_index]))
+        inflection_point_index = int(np.mean([left_index, right_index]))
         self.selection_range['left_range']['y_axis'] = full_y_axis[left_index: inflection_point_index]
         self.selection_range['left_range']['x_axis'] = full_x_axis[left_index: inflection_point_index]
         self.selection_range['right_range']['y_axis'] = full_y_axis[inflection_point_index:]
@@ -167,7 +167,7 @@ class FittingInitializationHandler(object):
         else:
             left_range = self.selection_range['left_range']['y_axis']
             nbr_data = len(left_range)
-            nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
+            nbr_data_to_remove = int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
             a1 = np.mean(left_range[0: -nbr_data_to_remove])
             self.a1 = a1
             return a1
@@ -178,7 +178,7 @@ class FittingInitializationHandler(object):
             y_axis = self.selection_range['left_range']['y_axis']
 
             nbr_data = len(x_axis)
-            nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
+            nbr_data_to_remove = int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
 
             x_axis_to_use = x_axis[0: nbr_data_to_remove]
             y_axis_to_use = y_axis[0: nbr_data_to_remove]
@@ -192,7 +192,7 @@ class FittingInitializationHandler(object):
             _mean_left_side = self.a1
             right_range = self.selection_range['right_range']['y_axis']
             nbr_data = len(right_range)
-            nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
+            nbr_data_to_remove = int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
             _mean_right_side = np.mean(right_range[nbr_data_to_remove:])
             a2 = np.abs(_mean_right_side - _mean_left_side)
             return a2
@@ -202,7 +202,7 @@ class FittingInitializationHandler(object):
         y_axis = self.selection_range['right_range']['y_axis']
 
         nbr_data = len(x_axis)
-        nbr_data_to_remove = np.int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
+        nbr_data_to_remove = int((self.percentage_of_data_to_remove_on_side / 100.) * nbr_data)
 
         x_axis_to_use = x_axis[nbr_data_to_remove:]
         y_axis_to_use = y_axis[nbr_data_to_remove:]
@@ -235,8 +235,8 @@ class FittingInitializationHandler(object):
         2* d_spacing = lambda
         """
         print(f"self.parent.ui.lambda_min_lineEdit.text(): {self.parent.ui.lambda_min_lineEdit.text()}")
-        lambda_min = np.float(str(self.parent.ui.lambda_min_lineEdit.text()))
-        lambda_max = np.float(str(self.parent.ui.lambda_max_lineEdit.text()))
+        lambda_min = float(str(self.parent.ui.lambda_min_lineEdit.text()))
+        lambda_max = float(str(self.parent.ui.lambda_max_lineEdit.text()))
 
         average_lambda = np.mean([lambda_min, lambda_max])
         d_spacing = average_lambda / 2.

@@ -9,7 +9,11 @@ pyqtgraph==0.12.1
 pytest
 scikit-image
 scipy
-neutronbraggedge
+neutronbraggedge   # pip
 lmfit
 qtpy
-lmfit
+qt
+pyqt
+matplotlib
+changepy   # pip
+NeuNorm # pip

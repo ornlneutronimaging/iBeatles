@@ -39,7 +39,7 @@ class Initialization:
         from_lambda = self.grand_parent.fitting_ui.ui.lambda_min_lineEdit.text()
         to_lambda = self.grand_parent.fitting_ui.ui.lambda_max_lineEdit.text()
         hkl_selected = self.grand_parent.fitting_ui.ui.hkl_list_ui.currentText()
-        lambda_0 = np.float(self.grand_parent.fitting_ui.ui.bragg_edge_calculated.text())
+        lambda_0 = float(self.grand_parent.fitting_ui.ui.bragg_edge_calculated.text())
         element = self.grand_parent.fitting_ui.ui.material_groupBox.title()
 
         self.parent.ui.from_lambda.setText(from_lambda)

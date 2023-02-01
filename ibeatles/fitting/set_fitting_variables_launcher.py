@@ -60,7 +60,7 @@ class SetFittingVariablesWindow(QMainWindow):
         self.ui.variable_table.setRowCount(nbr_row)
 
         # set size of cells
-        value = np.int(self.ui.advanced_selection_cell_size_slider.value())
+        value = int(self.ui.advanced_selection_cell_size_slider.value())
         self.selection_cell_size_changed(value)
 
     def init_widgets(self):
@@ -117,7 +117,7 @@ class SetFittingVariablesWindow(QMainWindow):
         variable_selected = self.get_variable_selected()
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
-        new_variable = np.float(str(self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
+        new_variable = float(str(self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
         o_handler.set_new_value_to_selected_bins(selection=selection,
                                                  variable_name=variable_selected,
                                                  variable_value=new_variable,

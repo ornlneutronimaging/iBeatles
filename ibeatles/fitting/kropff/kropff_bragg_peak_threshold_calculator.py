@@ -25,7 +25,7 @@ class KropffBraggPeakThresholdCalculator:
         list_of_threshold_calculated = o_algo.get_peak_value_array(algorithm_selected)
         logging.info(f"-> list of threshold found: {list_of_threshold_calculated}")
 
-        threshold_width = np.int(self.parent.ui.kropff_threshold_width_slider.value())
+        threshold_width = int(self.parent.ui.kropff_threshold_width_slider.value())
 
         for _row_index, _row in enumerate(kropff_table_dictionary.keys()):
             x_axis = kropff_table_dictionary[_row]['xaxis']

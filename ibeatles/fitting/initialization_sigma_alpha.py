@@ -46,14 +46,14 @@ class InitializeWindow(QMainWindow):
 
         _sigma_status = True
         try:
-            _sigma = np.float(_sigma)
+            _sigma = float(_sigma)
         except ValueError:
             _sigma = np.NaN
             _sigma_status = False
 
         _alpha_status = True
         try:
-            _alpha = np.float(_alpha)
+            _alpha = float(_alpha)
         except ValueError:
             _alpha = np.NaN
             _alpha_status = False

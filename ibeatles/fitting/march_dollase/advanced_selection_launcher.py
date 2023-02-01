@@ -56,7 +56,7 @@ class AdvancedSelectionWindow(QMainWindow):
         self.update_lock_table()
 
         # set size of cells
-        value = np.int(self.ui.advanced_selection_cell_size_slider.value())
+        value = int(self.ui.advanced_selection_cell_size_slider.value())
         self.selection_cell_size_changed(value)
 
     def update_selection_table(self):

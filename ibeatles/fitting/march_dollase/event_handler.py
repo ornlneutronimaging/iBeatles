@@ -69,7 +69,7 @@ class EventHandler:
         if index_column < 5:
             self.parent.ui.value_table.setColumnWidth(index_column, new_size)
         else:
-            new_half_size = np.int(new_size / 2)
+            new_half_size = int(new_size / 2)
             index1 = (index_column - 5) * 2 + 5
             index2 = index1 + 1
             self.parent.ui.value_table.setColumnWidth(index1, new_half_size)
@@ -81,12 +81,12 @@ class EventHandler:
         else:
             if (index_column % 2) == 1:
                 right_new_size = self.parent.ui.value_table.columnWidth(index_column + 1)
-                index_header = np.int(index_column - 5) / 2 + 5
+                index_header = int(index_column - 5) / 2 + 5
                 self.parent.ui.header_table.setColumnWidth(index_header, new_size + right_new_size)
 
             else:
                 left_new_size = self.parent.ui.value_table.columnWidth(index_column - 1)
-                index_header = np.int(index_column - 6) / 2 + 5
+                index_header = int(index_column - 6) / 2 + 5
                 self.parent.ui.header_table.setColumnWidth(index_header, new_size + left_new_size)
 
     def check_state_of_step3_button(self):

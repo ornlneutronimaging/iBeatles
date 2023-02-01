@@ -96,7 +96,7 @@ class Display:
 
         # for the lambda_hkl, display the lambda_0 as a reference
         if fitting_parameter_to_plot == 'lambda_hkl':
-            lambda_0 = np.float(str(self.parent.ui.bragg_edge_calculated.text()))
+            lambda_0 = float(str(self.parent.ui.bragg_edge_calculated.text()))
             matplotlib_ui.axes.hlines(lambda_0,
                                       xmin=0,
                                       xmax=len(x_array),
@@ -109,7 +109,7 @@ class Display:
     def display_lambda_0(self):
         pyqtgraph_ui = self.parent.ui.kropff_fitting
         item = self.parent.lambda_0_item_in_kropff_fitting_plot
-        lambda_position = np.float(str(self.parent.ui.bragg_edge_calculated.text()))
+        lambda_position = float(str(self.parent.ui.bragg_edge_calculated.text()))
 
         o_utility_display = UtilitiesDisplay(ui=pyqtgraph_ui)
         new_item = o_utility_display.vertical_line(item=item,

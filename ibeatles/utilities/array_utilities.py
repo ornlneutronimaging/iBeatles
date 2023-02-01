@@ -83,7 +83,7 @@ def exclude_y_value_when_error_is_nan(axis, error_axis):
             axis_cleaned.append(np.NaN)
             error_axis_cleaned.append(np.NaN)
         else:
-            axis_cleaned.append(np.float(_x))
-            error_axis_cleaned.append(np.float(_error))
+            axis_cleaned.append(float(_x))
+            error_axis_cleaned.append(float(_error))
 
     return axis_cleaned, error_axis_cleaned

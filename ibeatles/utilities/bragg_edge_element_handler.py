@@ -12,7 +12,7 @@ class BraggEdgeElementHandler(object):
 
         o_gui = GuiHandler(parent=self.parent)
         element_name = str(o_gui.get_text_selected(ui=self.parent.ui.list_of_elements))
-        lattice_value = np.float(o_gui.get_text(ui=self.parent.ui.lattice_parameter))
+        lattice_value = float(o_gui.get_text(ui=self.parent.ui.lattice_parameter))
         crystal_structure = str(o_gui.get_text_selected(ui=self.parent.ui.crystal_structure))
 
         _element_dictionary = {'name': element_name,
