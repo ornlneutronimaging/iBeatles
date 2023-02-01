@@ -5,7 +5,7 @@ numpy
 pandas
 Pillow
 progressbar2
-pyqtgraph==0.12.1
+pyqtgraph
 pytest
 scikit-image
 scipy
