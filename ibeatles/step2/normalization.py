@@ -48,7 +48,7 @@ class Normalization(object):
 
         logging.info(f" output folder selected: {output_folder}")
         full_output_folder = os.path.join(output_folder, sample_name + "_normalized")
-        FileHandler.make_or_reset_folder(full_output_folder)
+        full_output_folder = FileHandler.make_or_append_date_time_to_folder(full_output_folder)
         logging.info(f" full output folder will be: {full_output_folder}")
 
         o_norm = self.create_o_norm()

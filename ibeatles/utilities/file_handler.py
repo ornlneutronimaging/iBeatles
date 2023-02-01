@@ -3,6 +3,7 @@ from astropy.io import fits
 import numpy as np
 import os
 import shutil
+from datetime import datetime
 
 
 class FileHandler(object):
@@ -86,6 +87,22 @@ class FileHandler(object):
             shutil.rmtree(folder_name)
         os.makedirs(folder_name)
 
+    @staticmethod
+    def make_or_append_date_time_to_folder(folder_name):
+        if os.path.exists(folder_name):
+            _current_date_time = FileHandler.get_current_timestamp()
+            folder_name += f"_{_current_date_time}"
+        os.makedirs(folder_name)
+        return folder_name
+
+    @staticmethod
+    def get_current_timestamp():
+        """Convert the unix time stamp into a human-readable time format
+
+        Format return will look like  "y2018_m01_d29_h10_mn30"
+        """
+        now = datetime.now()
+        return now.strftime("y%Y_m%m_d%d_h%H_mn%M")
 
 def read_ascii(filename=''):
     '''return contain of an ascii file'''
