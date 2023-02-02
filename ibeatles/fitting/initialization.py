@@ -40,8 +40,8 @@ class Initialization:
         self.parent.ui.splitter.setSizes([500, 500])
 
     def tab(self):
-        self.parent.ui.tabWidget.setCurrentIndex(1)
-        self.parent.ui.tabWidget.setTabEnabled(0, False)
+        self.parent.ui.tabWidget.setCurrentIndex(1)   # show by default Kropff
+        self.parent.ui.tabWidget.setTabEnabled(0, False)   # disable March-Dollase
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
@@ -157,7 +157,7 @@ class Initialization:
         area.addDock(d2, 'right')
 
         preview_widget = pg.GraphicsLayoutWidget()
-        pg.setConfigOptions(antialias=True)  # this improve display
+        pg.setConfigOptions(antialias=True)  # this improves display
 
         vertical_layout = QVBoxLayout()
         preview_widget.setLayout(vertical_layout)

@@ -150,24 +150,19 @@ class SelectedBinsHandler(object):
 
         linear_region_range = [lr_left, lr_right]
 
-        if self.parent.fitting_lr is None:
+        if self.parent.fitting_lr:
+            self.parent.bragg_edge_plot.removeItem(self.parent.fitting_lr)
 
-            lr = pg.LinearRegionItem(values=linear_region_range,
-                                     orientation='vertical',
-                                     brush=None,
-                                     movable=True,
-                                     bounds=None)
-            lr.setZValue(-10)
-            lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_linear_region_changed)
-            lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
-            self.parent.bragg_edge_plot.addItem(lr)
-            self.parent.fitting_lr = lr
-
-        else:
-
-            lr = self.parent.fitting_lr
-            lr.setRegion(linear_region_range)
-            self.parent.bragg_edge_plot.addItem(lr)
+        lr = pg.LinearRegionItem(values=linear_region_range,
+                                 orientation='vertical',
+                                 brush=None,
+                                 movable=True,
+                                 bounds=None)
+        lr.setZValue(-10)
+        lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_linear_region_changed)
+        lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
+        self.parent.bragg_edge_plot.addItem(lr)
+        self.parent.fitting_lr = lr
 
         o_display = FittingDisplay(parent=self.parent,
                                    grand_parent=self.grand_parent)

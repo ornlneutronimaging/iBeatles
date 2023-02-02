@@ -92,6 +92,7 @@ class EventHandler:
             _bin_entry['xaxis'] = xaxis
 
     def update_fitting_plot(self):
+        print(f"update fitting plot")
         self.parent.ui.kropff_fitting.clear()
 
         o_get = Get(parent=self.parent, grand_parent=self.grand_parent)
@@ -113,6 +114,11 @@ class EventHandler:
                                                    pen=(fit_rgb[0],
                                                         fit_rgb[1],
                                                         fit_rgb[2]))
+
+        o_display = Display(parent=self.parent,
+                            grand_parent=self.grand_parent)
+        o_display.display_bragg_peak_threshold()
+
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
         o_kropff = KropffBraggPeakThresholdCalculator(parent=self.parent,
