@@ -548,6 +548,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <widget class="QPushButton" name="export_table_pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="text">
           <string>Export Table ...</string>
          </property>
@@ -568,6 +574,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="export_image_pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
          <property name="text">
           <string>Export Image ...</string>
          </property>
@@ -584,7 +596,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
   </widget>
