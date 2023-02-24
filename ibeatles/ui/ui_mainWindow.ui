@@ -191,7 +191,7 @@
                       <x>0</x>
                       <y>0</y>
                       <width>148</width>
-                      <height>147</height>
+                      <height>142</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -2775,6 +2775,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAbout</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>about_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>766</x>
+     <y>500</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2832,5 +2848,6 @@ p, li { white-space: pre-wrap; }
   <slot>save_session_clicked()</slot>
   <slot>test_button_clicked()</slot>
   <slot>normalization_moving_average_settings_clicked()</slot>
+  <slot>about_clicked()</slot>
  </slots>
 </ui>

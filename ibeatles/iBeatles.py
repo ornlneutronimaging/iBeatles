@@ -445,6 +445,9 @@ class MainWindow(QMainWindow):
     def log_clicked(self):
         LogLauncher(parent=self)
 
+    def about_clicked(self):
+        print("about clicked")
+
     # TAB 1, 2 and 3
     def tab_widget_changed(self, tab_selected):
 
