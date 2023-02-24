@@ -6,7 +6,7 @@ import shutil
 from datetime import datetime
 
 
-class FileHandler(object):
+class FileHandler():
 
     @classmethod
     def get_parent_folder(cls, full_folder):
@@ -104,6 +104,7 @@ class FileHandler(object):
         now = datetime.now()
         return now.strftime("y%Y_m%m_d%d_h%H_mn%M")
 
+
 def read_ascii(filename=''):
     '''return contain of an ascii file'''
     with open(filename, 'r') as f:
@@ -114,3 +115,20 @@ def read_ascii(filename=''):
 def write_ascii(text="", filename=''):
     with open(filename, 'w') as f:
         f.write(text)
+
+
+def get_current_timestamp():
+    """Convert the unix time stamp into a human-readable time format
+
+    Format return will look like  "y2018_m01_d29_h10_mn30"
+    """
+    now = datetime.now()
+    return now.strftime("y%Y_m%m_d%d_h%H_mn%M")
+
+
+def create_full_export_file_name(base_name, ext):
+    '''
+    Create the name of the file to export all tabs
+    '''
+    file_name = f"{base_name}_{get_current_timestamp()}.{ext}"
+    return file_name

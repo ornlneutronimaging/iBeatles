@@ -7,7 +7,7 @@ from NeuNorm.normalization import Normalization
 from ibeatles import DataType
 from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
-from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.file_handler import FileHandler, create_full_export_file_name
 
 
 class Export:
@@ -67,7 +67,9 @@ class Export:
         if output_folder:
 
             output_folder = os.path.abspath(output_folder)
-            output_file_name = os.path.join(output_folder, "strain_mapping_table.txt")
+            # output_file_name = os.path.join(output_folder, "strain_mapping_table.txt")
+            output_file_name = create_full_export_file_name(os.path.join(output_folder, "strain_mapping_table"),
+                                                            'txt')
 
             kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
             d_dict = self.parent.d_dict
