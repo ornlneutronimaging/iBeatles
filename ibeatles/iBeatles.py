@@ -49,7 +49,7 @@ from .utilities.roi_editor import RoiEditor
 from .utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
 from .utilities.bragg_edge_element_handler import BraggEdgeElementHandler
 from .utilities.gui_handler import GuiHandler
-from .utilities.add_element_editor import AddElement
+from ibeatles.add_element.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui

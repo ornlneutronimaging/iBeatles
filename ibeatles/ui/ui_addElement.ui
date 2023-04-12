@@ -9,14 +9,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>407</width>
-    <height>255</height>
+    <width>304</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
@@ -54,141 +54,243 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QRadioButton" name="method1_radioButton">
+     <property name="text">
+      <string>Method 1</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="QLabel" name="label_2">
-       <property name="minimumSize">
-        <size>
-         <width>110</width>
-         <height>0</height>
-        </size>
+      <widget class="QGroupBox" name="method1_groupBox">
+       <property name="title">
+        <string/>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>110</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string>Lattice:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="minimumSize">
+             <size>
+              <width>110</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>110</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Lattice:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lattice">
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>80</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="angstroms_label">
+            <property name="text">
+             <string>A</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="minimumSize">
+             <size>
+              <width>110</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>110</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Crystal Structure:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="crystal_structure">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>80</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>80</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <item>
+             <property name="text">
+              <string>FCC</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>BCC</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lattice">
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>80</width>
-         <height>16777215</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="angstroms_label">
-       <property name="text">
-        <string>A</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <widget class="QRadioButton" name="method2_radioButton">
+     <property name="text">
+      <string>Method 2</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
-      <widget class="QLabel" name="label_3">
-       <property name="minimumSize">
-        <size>
-         <width>110</width>
-         <height>0</height>
-        </size>
+      <widget class="QGroupBox" name="method2_groupBox">
+       <property name="enabled">
+        <bool>false</bool>
        </property>
-       <property name="maximumSize">
-        <size>
-         <width>110</width>
-         <height>16777215</height>
-        </size>
+       <property name="title">
+        <string/>
        </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <property name="text">
-        <string>Crystal Structure:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>d0</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="d0">
+          <property name="minimumSize">
+           <size>
+            <width>80</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="angstroms_label_2">
+          <property name="text">
+           <string>A</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>113</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="crystal_structure">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>80</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>80</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <item>
-        <property name="text">
-         <string>FCC</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>BCC</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
      </item>
     </layout>
    </item>
@@ -200,7 +302,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>83</height>
+       <height>37</height>
       </size>
      </property>
     </spacer>
@@ -243,8 +345,8 @@
    <slot>add_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>321</x>
-     <y>225</y>
+     <x>291</x>
+     <y>392</y>
     </hint>
     <hint type="destinationlabel">
      <x>183</x>
@@ -259,8 +361,8 @@
    <slot>lattice_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>170</x>
-     <y>59</y>
+     <x>226</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
      <x>183</x>
@@ -275,12 +377,60 @@
    <slot>element_name_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>179</x>
-     <y>92</y>
+     <x>165</x>
+     <y>33</y>
     </hint>
     <hint type="destinationlabel">
      <x>183</x>
      <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>method1_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>method_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>23</x>
+     <y>52</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>method2_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>method_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>32</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>42</x>
+     <y>339</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>d0</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>Dialog</receiver>
+   <slot>d0_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>87</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>216</x>
+     <y>311</y>
     </hint>
    </hints>
   </connection>
@@ -290,5 +440,7 @@
   <slot>element_name_changed()</slot>
   <slot>cancel_clicked()</slot>
   <slot>add_clicked()</slot>
+  <slot>method_changed()</slot>
+  <slot>d0_changed()</slot>
  </slots>
 </ui>

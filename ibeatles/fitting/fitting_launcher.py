@@ -447,7 +447,6 @@ class FittingWindow(QMainWindow):
         self.kropff_parameters_changed()
 
     def kropff_high_tof_table_selection_changed(self):
-
         kropff_table_dictionary = self.parent.kropff_table_dictionary
         self.update_bragg_edge_plot()
         self.update_kropff_fitting_plot()
