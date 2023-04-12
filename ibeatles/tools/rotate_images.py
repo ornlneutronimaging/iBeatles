@@ -125,7 +125,7 @@ class RotateImagesWindow(QMainWindow):
         logging.info("Rotating normalized images")
 
         # select folder
-        folder = self.parent.data_metadata[DataType.normalized]['folder']
+        folder = os.path.dirname(self.parent.data_metadata[DataType.normalized]['folder'])
         output_folder = str(QFileDialog.getExistingDirectory(caption='Select Folder for Rotated Images ...',
                                                              directory=folder))
 
@@ -192,6 +192,9 @@ class RotateImagesWindow(QMainWindow):
 
         basefolder = os.path.basename(os.path.abspath(target_folder))
         self.parent.ui.normalized_folder.setText(basefolder)
+
+        logging.info(f"-> base folder: {basefolder}")
+        logging.info(f"-> target folder: {target_folder}")
 
         list_new_filename = []
         for _index, _data in enumerate(normalized_array):
