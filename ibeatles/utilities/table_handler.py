@@ -114,11 +114,10 @@ class TableHandler:
         return row, col
 
     def get_item_str_from_cell(self, row=-1, column=-1):
-        item_selected = self.table_ui.item(row, column).text()
-        return str(item_selected)
-
-    def get_item_from_cell(self, row=-1, column=-1):
-        return self.table_ui.item(row, column)
+        if self.table_ui.item(row, column):
+            return str(self.table_ui.item(row, column).text())
+        else:
+            return None
 
     def get_item_float_from_cell(self, row=-1, column=-1):
         item_selected = self.table_ui.item(row, column).text()

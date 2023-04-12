@@ -30,6 +30,7 @@ class AddElementInterface(QDialog):
         self.ui = load_ui('ui_addElement.ui', baseinstance=self)
         self.setWindowTitle("Add Element Editor")
         self.ui.element_name_error.setVisible(False)
+        self.check_add_widget_state()
 
     def element_name_changed(self, current_value):
         self.check_add_widget_state()
@@ -39,20 +40,24 @@ class AddElementInterface(QDialog):
 
     def check_add_widget_state(self):
 
-        print("in check_add_widget state")
+        self.ui.error_message.setText("")
         current_element_name = str(self.ui.element_name.text())
         if current_element_name.strip() == "":
             self.ui.add.setEnabled(False)
+            self.ui.error_message.setText("Provide an element name!")
+            return
 
         if self.ui.method1_radioButton.isChecked():  # method 1
 
             lattice_value = self.ui.lattice.text()
             if lattice_value.strip() == "":
                 self.ui.add.setEnabled(False)
+                self.ui.error_message.setText("Lattice value is missing!")
                 return
 
             if not is_float(lattice_value):
                 self.ui.add.setEnabled(False)
+                self.ui.error_message.setText("Lattice must be a number")
                 return
 
             list_element_root = self.parent.ui.list_of_elements.findText(current_element_name,
@@ -60,6 +65,7 @@ class AddElementInterface(QDialog):
             if not (list_element_root == -1):  # element already there
                 self.ui.element_name_error.setVisible(True)
                 self.ui.add.setEnabled(False)
+                self.ui.error_message.setText("Element name already used!")
                 return
 
             else:
@@ -72,56 +78,69 @@ class AddElementInterface(QDialog):
             # at least one entry in the table
             o_table = TableHandler(table_ui=self.ui.tableWidget)
             nbr_row = o_table.row_count()
-            print(f"{nbr_row =}")
             at_least_one_row_valid = False
             for _row in np.arange(nbr_row):
-                h = o_table.get_item_from_cell(row=_row, column=0)
-                if h is None:
+
+                h = o_table.get_item_str_from_cell(row=_row, column=0)
+                k = o_table.get_item_str_from_cell(row=_row, column=1)
+                l = o_table.get_item_str_from_cell(row=_row, column=2)
+                d0 = o_table.get_item_str_from_cell(row=_row, column=3)
+
+                if ((h is None) or h == "") and \
+                        ((k is None) or k == "") and \
+                        ((l is None) or l == "") and \
+                        ((d0 is None) or d0 == ""):
+                    continue
+
+                elif (h is None):
                     self.ui.add.setEnabled(False)
+                    self.ui.error_message.setText("missing h value!")
                     return
 
-                k = o_table.get_item_from_cell(row=_row, column=1)
-                if k is None:
+                elif k is None:
                     self.ui.add.setEnabled(False)
+                    self.ui.error_message.setText("missing k value!")
                     return
 
-                l = o_table.get_item_from_cell(row=_row, column=2)
-                if l is None:
+                elif l is None:
                     self.ui.add.setEnabled(False)
+                    self.ui.error_message.setText("missing l value!")
                     return
-                d0 = o_table.get_item_from_cell(row=_row, column=3)
-                if d0 is None:
+
+                elif d0 is None:
                     self.ui.add.setEnabled(False)
+                    self.ui.error_message.setText("missing d0 value!")
                     return
 
                 if (h.strip() == "") and (k.strip() == "") and (l.strip() == "") and (d0.strip() == ""):
-                    print(f"here in row {_row}")
                     continue
 
                 if not is_int(h):
                     self.ui.add.setEnabled(False)
-                    print(f"{h =}")
+                    self.ui.error_message.setText("h must be an integer!")
                     return
 
                 if not is_int(k):
                     self.ui.add.setEnabled(False)
-                    print(f"{k =}")
+                    self.ui.error_message.setText("k must be an integer!")
                     return
 
                 if not is_int(l):
                     self.ui.add.setEnabled(False)
-                    print(f"{l =}")
+                    self.ui.error_message.setText("l must be an integer!")
                     return
 
                 if not is_float(d0):
                     self.ui.add.setEnabled(False)
-                    print(f"{d0 =}")
+                    self.ui.error_message.setText("d0 must be an integer!")
                     return
 
                 at_least_one_row_valid = True
 
-            print("I should be here")
             self.ui.add.setEnabled(at_least_one_row_valid)
+
+            if not at_least_one_row_valid:
+                self.ui.error_message.setText("Define at least 1 row of entries!")
 
     def method2_table_changed(self):
         self.check_add_widget_state()
