@@ -1,9 +1,11 @@
 from qtpy import QtCore
 from qtpy.QtWidgets import QDialog
+import numpy as np
 
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles import load_ui
-from ibeatles.utilities.check import is_float
+from ibeatles.utilities.check import is_float, is_int
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class AddElement(object):
@@ -37,18 +39,22 @@ class AddElementInterface(QDialog):
 
     def check_add_widget_state(self):
 
-        lattice_value = self.ui.lattice.text()
-        if lattice_value.strip() == "":
+        print("in check_add_widget state")
+        current_element_name = str(self.ui.element_name.text())
+        if current_element_name.strip() == "":
             self.ui.add.setEnabled(False)
-            return
 
         if self.ui.method1_radioButton.isChecked():  # method 1
+
+            lattice_value = self.ui.lattice.text()
+            if lattice_value.strip() == "":
+                self.ui.add.setEnabled(False)
+                return
 
             if not is_float(lattice_value):
                 self.ui.add.setEnabled(False)
                 return
 
-            current_element_name = str(self.ui.element_name.text())
             list_element_root = self.parent.ui.list_of_elements.findText(current_element_name,
                                                                          QtCore.Qt.MatchCaseSensitive)
             if not (list_element_root == -1):  # element already there
@@ -63,14 +69,61 @@ class AddElementInterface(QDialog):
 
         else:  # method 2
 
-            d0 = str(self.ui.d0.text())
-            if is_float(d0):
-                self.ui.add.setEnabled(True)
-            else:
-                self.ui.add.setEnabled(False)
-                return
+            # at least one entry in the table
+            o_table = TableHandler(table_ui=self.ui.tableWidget)
+            nbr_row = o_table.row_count()
+            print(f"{nbr_row =}")
+            at_least_one_row_valid = False
+            for _row in np.arange(nbr_row):
+                h = o_table.get_item_from_cell(row=_row, column=0)
+                if h is None:
+                    self.ui.add.setEnabled(False)
+                    return
 
-    def d0_changed(self, current_value):
+                k = o_table.get_item_from_cell(row=_row, column=1)
+                if k is None:
+                    self.ui.add.setEnabled(False)
+                    return
+
+                l = o_table.get_item_from_cell(row=_row, column=2)
+                if l is None:
+                    self.ui.add.setEnabled(False)
+                    return
+                d0 = o_table.get_item_from_cell(row=_row, column=3)
+                if d0 is None:
+                    self.ui.add.setEnabled(False)
+                    return
+
+                if (h.strip() == "") and (k.strip() == "") and (l.strip() == "") and (d0.strip() == ""):
+                    print(f"here in row {_row}")
+                    continue
+
+                if not is_int(h):
+                    self.ui.add.setEnabled(False)
+                    print(f"{h =}")
+                    return
+
+                if not is_int(k):
+                    self.ui.add.setEnabled(False)
+                    print(f"{k =}")
+                    return
+
+                if not is_int(l):
+                    self.ui.add.setEnabled(False)
+                    print(f"{l =}")
+                    return
+
+                if not is_float(d0):
+                    self.ui.add.setEnabled(False)
+                    print(f"{d0 =}")
+                    return
+
+                at_least_one_row_valid = True
+
+            print("I should be here")
+            self.ui.add.setEnabled(at_least_one_row_valid)
+
+    def method2_table_changed(self):
         self.check_add_widget_state()
 
     def retrieve_metadata(self):
@@ -106,6 +159,7 @@ class AddElementInterface(QDialog):
         is_method1_activated = self.ui.method1_radioButton.isChecked()
         self.ui.method1_groupBox.setEnabled(is_method1_activated)
         self.ui.method2_groupBox.setEnabled(not is_method1_activated)
+        self.check_add_widget_state()
 
     def add_clicked(self):
         self.retrieve_metadata()
