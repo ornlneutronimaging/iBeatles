@@ -1,4 +1,5 @@
 from qtpy import QtCore
+from qtpy.QtGui import QIcon
 from qtpy.QtWidgets import QApplication, QMainWindow
 import sys
 import os
@@ -54,6 +55,8 @@ from .utilities.add_element_editor import AddElement
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
 from . import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
+
+from ibeatles.about.about_launcher import AboutLauncher
 
 
 class MainWindow(QMainWindow):
@@ -446,7 +449,8 @@ class MainWindow(QMainWindow):
         LogLauncher(parent=self)
 
     def about_clicked(self):
-        print("about clicked")
+        o_about = AboutLauncher(parent=self)
+        o_about.show()
 
     # TAB 1, 2 and 3
     def tab_widget_changed(self, tab_selected):
@@ -965,7 +969,8 @@ def main(args):
     app.setStyle("Fusion")
     app.aboutToQuit.connect(clean_up)
     app.setApplicationDisplayName("iBeatles")
-    # app.setWindowIcon(PyQt4.QtGui.QIcon(":/icon.png"))
+    app.setApplicationName("iBeatles")
+    # app.setWindowIcon(QIcon(":/icon.png"))
     application = MainWindow()
     application.show()
     sys.exit(app.exec_())
