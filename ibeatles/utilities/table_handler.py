@@ -197,12 +197,20 @@ class TableHandler:
         self.table_ui.setItem(row, column, _item)
 
     def insert_item(self, row=0, column=0, value="", format_str="{}", editable=True, align_center=False):
-        _str_value = format_str.format(value)
+        if type(value) is str:
+            _str_value = value
+        elif value is None:
+            _str_value = str(np.nan)
+        else:
+            _str_value = format_str.format(value)
+
         _item = QTableWidgetItem(_str_value)
+
         if not editable:
             _item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
         if align_center:
             _item.setTextAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+
         self.table_ui.setItem(row, column, _item)
 
     def insert_widget(self, row=0, column=0, widget=None):
