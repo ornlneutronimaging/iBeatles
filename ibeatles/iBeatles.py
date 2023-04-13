@@ -969,11 +969,18 @@ def main(args):
     app.setStyle("Fusion")
     app.aboutToQuit.connect(clean_up)
     app.setApplicationDisplayName("iBeatles")
+    app.setOrganizationName("iBeatles")
+    app.setOrganizationDomain("N/A")
     app.setApplicationName("iBeatles")
-    # app.setWindowIcon(QIcon(":/icon.png"))
+
+    # root = os.path.dirname(os.path.realpath(__file__))
+    # refresh_image = os.path.join(root, "icons/refresh.png")
+    # app.setWindowIcon(QIcon(refresh_image))
+
     application = MainWindow()
     application.show()
-    sys.exit(app.exec_())
+    # sys.exit(app.exec_())
+    app.exec_()
 
 
 def clean_up():
