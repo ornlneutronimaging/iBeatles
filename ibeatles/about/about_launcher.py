@@ -25,7 +25,7 @@ class AboutLauncher(QDialog):
         for _line in content_formatted:
             if _line.strip().startswith("version"):
                 _tag, _version = _line.strip().split("=")
-                m = re.match('"(\d*_\d*_\d*)",', _version)
+                m = re.match('"(\d*.\d*.\d*)",', _version)
                 if m:
                     _version = m.group(1)
                 break
