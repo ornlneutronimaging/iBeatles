@@ -156,8 +156,15 @@ class AddElementInterface(QDialog):
             crystal_structure = o_gui.get_text_selected(ui=self.ui.crystal_structure)
 
             # calculate the hkl and d0 here
+            pass
+
+
+
             # FIXME
             hkl_d0_dict = None
+
+
+
 
         else:
             lattice = None
