@@ -51,3 +51,11 @@ def load_ui(ui_filename, baseinstance):
     filename = os.path.join(ui_path, ui_filename)
 
     return loadUi(filename, baseinstance=baseinstance)
+
+
+class Material:
+
+    element_name = "name of the element"
+    lattice = "lattice"
+    crystal_structure = "structure of the crystal"
+    hkl_d0 = "list of h,k and l and respective d0 value"

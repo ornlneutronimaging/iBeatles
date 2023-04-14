@@ -1,7 +1,9 @@
 from qtpy import QtCore
 from qtpy.QtWidgets import QDialog
 import numpy as np
+from collections import OrderedDict
 
+from ibeatles import Material
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles import load_ui
 from ibeatles.utilities.check import is_float, is_int
@@ -147,32 +149,55 @@ class AddElementInterface(QDialog):
 
     def retrieve_metadata(self):
         o_gui = GuiHandler(parent=self)
-
         element_name = o_gui.get_text(ui=self.ui.element_name)
-        lattice = o_gui.get_text(ui=self.ui.lattice)
-        crystal_structure = o_gui.get_text_selected(ui=self.ui.crystal_structure)
 
-        self.new_element = {'element_name': element_name,
-                            'lattice': lattice,
-                            'crystal_structure': crystal_structure}
+        if self.ui.method1_radioButton.isChecked():  # method 1
+            lattice = o_gui.get_text(ui=self.ui.lattice)
+            crystal_structure = o_gui.get_text_selected(ui=self.ui.crystal_structure)
+
+            # calculate the hkl and d0 here
+            # FIXME
+            hkl_d0_dict = None
+
+        else:
+            lattice = None
+            crystal_structure = None
+
+            o_table = TableHandler(table_ui=self.ui.tableWidget)
+            nbr_row = o_table.row_count()
+            hkl_d0_dict = OrderedDict()
+            for _row in np.arange(nbr_row):
+                h = o_table.get_item_str_from_cell(row=_row, column=0)
+                k = o_table.get_item_str_from_cell(row=_row, column=1)
+                l = o_table.get_item_str_from_cell(row=_row, column=2)
+                d0 = o_table.get_item_str_from_cell(row=_row, column=3)
+                hkl_d0_dict[_row] = {'h': h,
+                                     'k': k,
+                                     'l': l,
+                                     'd0': d0}
+
+        self.new_element = {Material.element_name: element_name,
+                            Material.lattice: lattice,
+                            Material.crystal_structure: crystal_structure,
+                            Material.hkl_d0: hkl_d0_dict}
 
     def add_element_to_list_of_elements_widgets(self):
         _element = self.new_element
-        self.parent.ui.list_of_elements.addItem(_element['element_name'])
+        self.parent.ui.list_of_elements.addItem(_element[Material.element_name])
         nbr_element = self.parent.ui.list_of_elements.count()
         self.parent.ui.list_of_elements.setCurrentIndex(nbr_element - 1)
-        self.parent.ui.list_of_elements_2.addItem(_element['element_name'])
+        self.parent.ui.list_of_elements_2.addItem(_element[Material.element_name])
         self.parent.ui.list_of_elements_2.setCurrentIndex(nbr_element - 1)
-        self.parent.ui.lattice_parameter.setText(_element['lattice'])
-        self.parent.ui.lattice_parameter_2.setText(_element['lattice'])
+        self.parent.ui.lattice_parameter.setText(_element[Material.lattice])
+        self.parent.ui.lattice_parameter_2.setText(_element[Material.lattice])
 
     def save_new_element_to_local_list(self):
         _new_element = self.new_element
 
-        _new_entry = {'lattice': _new_element['lattice'],
-                      'crystal_structure': _new_element['crystal_structure']}
+        _new_entry = {Material.lattice: _new_element[Material.lattice],
+                      Material.crystal_structure: _new_element[Material.crystal_structure]}
 
-        self.parent.local_bragg_edge_list[_new_element['element_name']] = _new_entry
+        self.parent.local_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
 
     def method_changed(self):
         is_method1_activated = self.ui.method1_radioButton.isChecked()
@@ -184,4 +209,6 @@ class AddElementInterface(QDialog):
         self.retrieve_metadata()
         self.save_new_element_to_local_list()
         self.add_element_to_list_of_elements_widgets()
+        self.parent.update_hkl_d0_table()
+
         self.close()

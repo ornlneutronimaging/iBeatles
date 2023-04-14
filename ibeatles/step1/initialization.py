@@ -28,6 +28,7 @@ class Initialization:
         self.widgets()
 
     def widgets(self):
+        # folder path of time spectra
         self.parent.ui.time_spectra_folder_2.setVisible(False)
         self.parent.ui.time_spectra_folder.setVisible(False)
 

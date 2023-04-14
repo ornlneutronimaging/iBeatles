@@ -618,6 +618,7 @@ class MainWindow(QMainWindow):
         o_plot.display_general_bragg_edge()
         self.roi_image_view_changed()
         self.ui.list_of_elements_2.blockSignals(False)
+        self.update_hkl_d0_table()
 
     def list_of_element_2_index_changed(self, index):
         self.ui.list_of_elements.blockSignals(True)
@@ -628,6 +629,16 @@ class MainWindow(QMainWindow):
         o_plot.display_general_bragg_edge()
         self.roi_image_view_changed()
         self.ui.list_of_elements.blockSignals(False)
+        self.update_hkl_d0_table()
+
+    def update_hkl_d0_table(self):
+        """
+        if the element is already defined, calculate the hkl and d0 and display in the table
+        if the element is custom made, display the hkl and d0 defined by the user
+        """
+        #FIXME
+        print("updating hkl d0 table")
+
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)

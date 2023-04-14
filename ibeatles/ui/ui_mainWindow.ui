@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -804,6 +804,45 @@
                         </spacer>
                        </item>
                       </layout>
+                     </item>
+                     <item>
+                      <widget class="QTableWidget" name="custom_element_tableWidget">
+                       <property name="enabled">
+                        <bool>true</bool>
+                       </property>
+                       <property name="alternatingRowColors">
+                        <bool>true</bool>
+                       </property>
+                       <property name="rowCount">
+                        <number>0</number>
+                       </property>
+                       <attribute name="horizontalHeaderStretchLastSection">
+                        <bool>true</bool>
+                       </attribute>
+                       <attribute name="verticalHeaderVisible">
+                        <bool>false</bool>
+                       </attribute>
+                       <column>
+                        <property name="text">
+                         <string>h</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>k</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>l</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>d0</string>
+                        </property>
+                       </column>
+                      </widget>
                      </item>
                      <item>
                       <spacer name="verticalSpacer_3">
@@ -1804,6 +1843,42 @@ p, li { white-space: pre-wrap; }
                         </spacer>
                        </item>
                       </layout>
+                     </item>
+                     <item>
+                      <widget class="QTableWidget" name="custom_element_tableWidget_2">
+                       <property name="alternatingRowColors">
+                        <bool>true</bool>
+                       </property>
+                       <property name="rowCount">
+                        <number>0</number>
+                       </property>
+                       <attribute name="horizontalHeaderStretchLastSection">
+                        <bool>true</bool>
+                       </attribute>
+                       <attribute name="verticalHeaderVisible">
+                        <bool>false</bool>
+                       </attribute>
+                       <column>
+                        <property name="text">
+                         <string>h</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>k</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>l</string>
+                        </property>
+                       </column>
+                       <column>
+                        <property name="text">
+                         <string>d0</string>
+                        </property>
+                       </column>
+                      </widget>
                      </item>
                      <item>
                       <spacer name="verticalSpacer">
