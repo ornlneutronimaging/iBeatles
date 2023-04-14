@@ -13,8 +13,6 @@ class Display:
 
     def display_bragg_peak_threshold(self):
 
-        print("in display_bragg_peak_threshold")
-
         # clear all previously display bragg peak threshold
         if not (self.parent.kropff_threshold_current_item is None):
             self.parent.ui.kropff_fitting.removeItem(self.parent.kropff_threshold_current_item)

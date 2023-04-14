@@ -12,7 +12,7 @@ dependencies:
   - pip
   - pyparsing
   - pyqt=5.9.2
-  - python=3.7
+  - python
   - python-dateutil
   - pytz
   - qt

@@ -81,7 +81,6 @@ class Get:
         else:
             raise ValueError("Tab selected is invalid!")
 
-
     def fitting_bragg_edge_linear_selection(self):
         if self.grand_parent.fitting_bragg_edge_linear_selection == []:
             linear_region_left_index = 0
@@ -182,6 +181,10 @@ class Get:
 
         # data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
         data_2d = self.grand_parent.data_metadata['normalized']['data']
+        if not (type(data_2d) is type(np.array)):
+            data_2d = np.array(data_2d)
+
+        self.grand_parent.data_metadata['normalized']['data'] = data_2d
 
         # index of selection in bragg edge plot
         [left_index, right_index] = self.fitting_bragg_edge_linear_selection()
@@ -196,15 +199,16 @@ class Get:
 
             if _bin_entry['yaxis'] is None:
 
-                _bin_x0 = _bin_entry['bin_coordinates']['x0']
-                _bin_x1 = _bin_entry['bin_coordinates']['x1']
-                _bin_y0 = _bin_entry['bin_coordinates']['y0']
-                _bin_y1 = _bin_entry['bin_coordinates']['y1']
+                _bin_x0 = int(_bin_entry['bin_coordinates']['x0'])
+                _bin_x1 = int(_bin_entry['bin_coordinates']['x1'])
+                _bin_y0 = int(_bin_entry['bin_coordinates']['y0'])
+                _bin_y1 = int(_bin_entry['bin_coordinates']['y1'])
 
                 yaxis = data_2d[left_index: right_index,
                                  _bin_x0: _bin_x1,
                                  _bin_y0: _bin_y1,
                                  ]  # noqa: E124
+
                 yaxis = np.nanmean(yaxis, axis=1)
                 yaxis = np.array(np.nanmean(yaxis, axis=1), dtype=float)
                 _bin_entry['yaxis'] = yaxis

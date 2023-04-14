@@ -1,4 +1,5 @@
 from qtpy import QtCore
+from qtpy.QtGui import QIcon
 from qtpy.QtWidgets import QApplication, QMainWindow
 import sys
 import os
@@ -54,6 +55,8 @@ from ibeatles.add_element.add_element_editor import AddElement
 from .utilities.array_utilities import find_nearest_index
 from . import load_ui
 from . import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
+
+from ibeatles.about.about_launcher import AboutLauncher
 
 
 class MainWindow(QMainWindow):
@@ -446,7 +449,8 @@ class MainWindow(QMainWindow):
         LogLauncher(parent=self)
 
     def about_clicked(self):
-        print("about clicked")
+        o_about = AboutLauncher(parent=self)
+        o_about.show()
 
     # TAB 1, 2 and 3
     def tab_widget_changed(self, tab_selected):
@@ -889,7 +893,7 @@ class MainWindow(QMainWindow):
 
     def normalized_time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent=self, data_type='normalized')
-        o_load.retrieve_time_spectra(auto_load=False)
+        o_load.retrieve_time_spectra()
         o_gui = Step3GuiHandler(parent=self)
         o_gui.check_time_spectra_widgets()
 
@@ -965,10 +969,18 @@ def main(args):
     app.setStyle("Fusion")
     app.aboutToQuit.connect(clean_up)
     app.setApplicationDisplayName("iBeatles")
-    # app.setWindowIcon(PyQt4.QtGui.QIcon(":/icon.png"))
+    app.setOrganizationName("iBeatles")
+    app.setOrganizationDomain("N/A")
+    app.setApplicationName("iBeatles")
+
+    # root = os.path.dirname(os.path.realpath(__file__))
+    # refresh_image = os.path.join(root, "icons/refresh.png")
+    # app.setWindowIcon(QIcon(refresh_image))
+
     application = MainWindow()
     application.show()
-    sys.exit(app.exec_())
+    # sys.exit(app.exec_())
+    app.exec_()
 
 
 def clean_up():

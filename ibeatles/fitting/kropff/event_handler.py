@@ -92,7 +92,6 @@ class EventHandler:
             _bin_entry['xaxis'] = xaxis
 
     def update_fitting_plot(self):
-        print(f"update fitting plot")
         self.parent.ui.kropff_fitting.clear()
 
         o_get = Get(parent=self.parent, grand_parent=self.grand_parent)

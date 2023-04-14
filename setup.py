@@ -29,7 +29,7 @@ setup_args = dict(
 
 setup(name="ibeatles",
       #      version=versioneer.get_version(),
-      version="23_02_01_beta",
+      version="23.04.13",
       description="Bragg Edge Fitting and Strain Calculator",
       author="Jean Bilheux",
       author_email="bilheuxjm@ornl.gov",

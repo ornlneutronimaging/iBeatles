@@ -1,5 +1,6 @@
 import numpy as np
 import pyqtgraph as pg
+from qtpy.QtWidgets import QGraphicsRectItem
 import copy
 
 from ..utilities import colors
@@ -237,9 +238,9 @@ class FittingHandler:
                 kropff_table_dictionary[_str_index]['rejected'] = False
 
                 # create the box to show when bin is selected
-                selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
-                                                           bin_size,
-                                                           bin_size)
+                selection_box = QGraphicsRectItem(_x, _y,
+                                                  bin_size,
+                                                  bin_size)
                 selection_box.setPen(pg.mkPen(selected_color['pen']))
                 selection_box.setBrush(pg.mkBrush(selected_color['brush']))
                 kropff_table_dictionary[_str_index]['selected_item'] = selection_box
@@ -288,17 +289,17 @@ class FittingHandler:
                 # march_table_dictionary[_str_index]['bin_coordinates']['y1'] = _y + bin_size
 
                 # create the box to show when bin is selected
-                selection_box = pg.QtGui.QGraphicsRectItem(_x, _y,
-                                                           bin_size,
-                                                           bin_size)
+                selection_box = QGraphicsRectItem(_x, _y,
+                                                  bin_size,
+                                                  bin_size)
                 selection_box.setPen(pg.mkPen(selected_color['pen']))
                 selection_box.setBrush(pg.mkBrush(selected_color['brush']))
                 march_table_dictionary[_str_index]['selected_item'] = selection_box
 
                 # create the box to show when bin is locked
-                lock_box = pg.QtGui.QGraphicsRectItem(_x, _y,
-                                                      bin_size,
-                                                      bin_size)
+                lock_box = QGraphicsRectItem(_x, _y,
+                                             bin_size,
+                                             bin_size)
                 lock_box.setPen(pg.mkPen(lock_color['pen']))
                 lock_box.setBrush(pg.mkBrush(lock_color['brush']))
                 march_table_dictionary[_str_index]['locked_item'] = lock_box

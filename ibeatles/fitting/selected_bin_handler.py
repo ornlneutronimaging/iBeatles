@@ -119,6 +119,7 @@ class SelectedBinsHandler(object):
             x1 = _entry['x1']
             y0 = _entry['y0']
             y1 = _entry['y1']
+
             _data = data_2d[:, x0:x1, y0:y1]
             inter1 = np.nanmean(_data, axis=1)
             final = np.nanmean(inter1, axis=1)

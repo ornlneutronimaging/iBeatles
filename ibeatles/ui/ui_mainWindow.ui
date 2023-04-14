@@ -190,8 +190,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>148</width>
-                      <height>142</height>
+                      <width>1383</width>
+                      <height>369</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -306,6 +306,13 @@
                        </widget>
                       </item>
                       <item>
+                       <widget class="QLabel" name="time_spectra">
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
                        <spacer name="horizontalSpacer_4">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
@@ -330,30 +337,6 @@
                          <string>Preview ...</string>
                         </property>
                        </widget>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_6">
-                      <item>
-                       <widget class="QLabel" name="time_spectra">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_5">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
                       </item>
                      </layout>
                     </item>
@@ -1314,9 +1297,22 @@ p, li { white-space: pre-wrap; }
                       </item>
                       <item>
                        <widget class="QLabel" name="time_spectra_folder_2">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="autoFillBackground">
                          <bool>false</bool>
                         </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="time_spectra_2">
                         <property name="text">
                          <string/>
                         </property>
@@ -1350,30 +1346,6 @@ p, li { white-space: pre-wrap; }
                       </item>
                      </layout>
                     </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_12">
-                      <item>
-                       <widget class="QLabel" name="time_spectra_2">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_7">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
                    </layout>
                   </widget>
                  </item>
@@ -1387,7 +1359,7 @@ p, li { white-space: pre-wrap; }
                  </size>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="tab_6">
                  <attribute name="title">
@@ -1846,13 +1818,6 @@ p, li { white-space: pre-wrap; }
                        </property>
                       </spacer>
                      </item>
-                     <item>
-                      <widget class="QLabel" name="label_22">
-                       <property name="text">
-                        <string>NB: those widgets are also used to define material in the Fitting (step 5) window.</string>
-                       </property>
-                      </widget>
-                     </item>
                     </layout>
                    </widget>
                   </item>
@@ -2222,8 +2187,8 @@ p, li { white-space: pre-wrap; }
    <slot>crystal_structure_2_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>122</x>
-     <y>562</y>
+     <x>123</x>
+     <y>555</y>
     </hint>
     <hint type="destinationlabel">
      <x>653</x>
@@ -2239,7 +2204,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>124</x>
-     <y>567</y>
+     <y>560</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2287,7 +2252,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>130</x>
-     <y>569</y>
+     <y>562</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2302,8 +2267,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>455</y>
+     <x>134</x>
+     <y>448</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2318,8 +2283,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1269</x>
-     <y>455</y>
+     <x>1318</x>
+     <y>448</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2463,7 +2428,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>88</x>
-     <y>569</y>
+     <y>562</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -2479,7 +2444,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>88</x>
-     <y>563</y>
+     <y>556</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2495,7 +2460,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>155</x>
-     <y>564</y>
+     <y>557</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2527,7 +2492,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>130</x>
-     <y>565</y>
+     <y>558</y>
     </hint>
     <hint type="destinationlabel">
      <x>-6</x>
@@ -2575,7 +2540,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>146</x>
-     <y>583</y>
+     <y>576</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2591,7 +2556,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>145</x>
-     <y>580</y>
+     <y>573</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>

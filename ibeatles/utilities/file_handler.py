@@ -1,5 +1,6 @@
 from pathlib import Path
 from astropy.io import fits
+from PIL import Image
 import numpy as np
 import os
 import shutil
@@ -61,6 +62,11 @@ class FileHandler():
     @classmethod
     def make_fits(cls, data=[], filename=''):
         fits.writeto(filename, data, overwrite=True)
+
+    @classmethod
+    def make_tiff(cls, data=[], filename=''):
+        new_image = Image.fromarray(data)
+        new_image.save(filename)
 
     @classmethod
     def make_ascii_file(cls, metadata=[], data=[], output_file_name='', sep=','):

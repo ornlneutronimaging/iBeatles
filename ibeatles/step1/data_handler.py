@@ -46,7 +46,8 @@ class DataHandler:
 
     def select_folder(self):
         _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
-                                                       directory=self.parent.default_path[self.data_type],
+                                                       directory=os.path.dirname(self.parent.default_path[
+                                                           self.data_type]),
                                                        options=QFileDialog.ShowDirsOnly))
         return _folder
 
