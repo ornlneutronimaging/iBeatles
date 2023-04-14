@@ -893,7 +893,7 @@ class MainWindow(QMainWindow):
 
     def normalized_time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent=self, data_type='normalized')
-        o_load.retrieve_time_spectra(auto_load=False)
+        o_load.retrieve_time_spectra()
         o_gui = Step3GuiHandler(parent=self)
         o_gui.check_time_spectra_widgets()
 
