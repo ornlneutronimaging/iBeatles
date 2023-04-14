@@ -25,6 +25,11 @@ class Initialization:
         self.statusbar()
         self.pyqtgraph()
         self.icons()
+        self.widgets()
+
+    def widgets(self):
+        self.parent.ui.time_spectra_folder_2.setVisible(False)
+        self.parent.ui.time_spectra_folder.setVisible(False)
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)

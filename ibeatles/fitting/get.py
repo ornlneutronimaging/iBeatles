@@ -81,7 +81,6 @@ class Get:
         else:
             raise ValueError("Tab selected is invalid!")
 
-
     def fitting_bragg_edge_linear_selection(self):
         if self.grand_parent.fitting_bragg_edge_linear_selection == []:
             linear_region_left_index = 0
