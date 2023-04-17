@@ -95,8 +95,8 @@ class Initialization:
         self.parent.ui.angstroms_label_2.setText(u"\u212B")
 
         # list hkl, lambda and d0 ... buttons
-        self.parent.ui.list_hkl_pushButton.setText(u"h, k, l, \u03bb and d\u2090 ...")
-        self.parent.ui.list_hkl_pushButton_2.setText(u"h, k, l, \u03bb and  d\u2090 ...")
+        self.parent.ui.list_hkl_pushButton.setText(u"(h, k, l), \u03bb and d\u2090 ...")
+        self.parent.ui.list_hkl_pushButton_2.setText(u"(h, k, l), \u03bb and  d\u2090 ...")
 
     def general_init_pyqtgrpah(self, roi_function,
                                base_widget,

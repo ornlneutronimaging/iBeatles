@@ -6,6 +6,7 @@ from collections import OrderedDict
 from ibeatles import Material
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles import load_ui
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class ListHKLLambdaD0Handler:
@@ -30,10 +31,62 @@ class ListHKLLambdaD0(QDialog):
         self.ui = load_ui('ui_list_hkl.ui', baseinstance=self)
         self.setWindowTitle("List of h, k, l, lambda and d0")
 
+        self.init_table()
+        self.populate_table()
+
+    def init_table(self):
+        o_table = TableHandler(table_ui=self.ui.tableWidget)
+        column_sizes = [70, 70, 70, 70, 70]
+        o_table.set_column_sizes(column_sizes=column_sizes)
+
+        column_names = ["h", "k", "l", u"\u03bb", u"d\u2090"]
+        o_table.set_column_names(column_names=column_names)
+
+    def populate_table(self):
+        """
+        Take the self.parent.selected_element_bragg_edges_array, self.parent.selected_element_hkl_array
+        and the current selected element to populate the corresponding infos
+        """
+        o_gui = GuiHandler(parent=self.parent)
+        element_name = str(o_gui.get_text_selected(ui=self.parent.ui.list_of_elements))
+        self.ui.selected_element_value.setText(element_name)
+
+        selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
+        selected_element_hkl_array = self.parent.selected_element_hkl_array
+
+        nbr_row = len(selected_element_hkl_array)
+        o_table = TableHandler(table_ui=self.ui.tableWidget)
+        for _row in np.arange(nbr_row):
+            o_table.insert_empty_row(row=_row)
+            [_h, _k, _l] = selected_element_hkl_array[_row]
+            _lambda = selected_element_bragg_edges_array[_row]
+
+            o_table.insert_item(row=_row,
+                                column=0,
+                                value=_h)
+
+            o_table.insert_item(row=_row,
+                                column=1,
+                                value=_k)
+
+            o_table.insert_item(row=_row,
+                                column=2,
+                                value=_l)
+
+            o_table.insert_item(row=_row,
+                                column=3,
+                                value=_lambda,
+                                format_str="{:.3f}")
+
+            o_table.insert_item(row=_row,
+                                column=4,
+                                value=_lambda/2.,
+                                format_str="{:.3f}")
+
     def closeEvent(self, ev):
         self.parent.list_hkl_lambda_d0_ui = None
 
     def close_clicked(self):
         self.parent.list_hkl_lambda_d0_ui = None
         self.close()
-        
+
