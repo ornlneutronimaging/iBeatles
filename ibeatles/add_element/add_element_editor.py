@@ -8,6 +8,7 @@ from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles import load_ui
 from ibeatles.utilities.check import is_float, is_int
 from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
 
 
 class AddElement(object):
@@ -156,15 +157,27 @@ class AddElementInterface(QDialog):
             crystal_structure = o_gui.get_text_selected(ui=self.ui.crystal_structure)
 
             # calculate the hkl and d0 here
-            pass
+            o_calculator = BraggEdgeElementCalculator(element_name=element_name,
+                                                      lattice_value=lattice,
+                                                      crystal_structure=crystal_structure)
+            o_calculator.run()
+            selected_element_bragg_edges_array = o_calculator.lambda_array
+            selected_element_hkl_array = o_calculator.hkl_array
 
+            hkl_d0_dict = OrderedDict()
+            for _row_index in np.arange(len(selected_element_hkl_array)):
+                hkl_list = selected_element_hkl_array[_row_index]
+                h = hkl_list[0]
+                k = hkl_list[1]
+                l = hkl_list[2]
 
+                _lambda_value = selected_element_bragg_edges_array[_row_index]
+                d0 = _lambda_value / 2.
 
-            # FIXME
-            hkl_d0_dict = None
-
-
-
+                hkl_d0_dict[_row_index] = {'h': h,
+                                           'k': k,
+                                           'l': l,
+                                           'd0': d0}
 
         else:
             lattice = None
@@ -173,15 +186,20 @@ class AddElementInterface(QDialog):
             o_table = TableHandler(table_ui=self.ui.tableWidget)
             nbr_row = o_table.row_count()
             hkl_d0_dict = OrderedDict()
+            _row_index = 0
             for _row in np.arange(nbr_row):
                 h = o_table.get_item_str_from_cell(row=_row, column=0)
+                if h == "":
+                    continue
+
                 k = o_table.get_item_str_from_cell(row=_row, column=1)
                 l = o_table.get_item_str_from_cell(row=_row, column=2)
                 d0 = o_table.get_item_str_from_cell(row=_row, column=3)
-                hkl_d0_dict[_row] = {'h': h,
-                                     'k': k,
-                                     'l': l,
-                                     'd0': d0}
+                hkl_d0_dict[_row_index] = {'h': h,
+                                           'k': k,
+                                           'l': l,
+                                           'd0': d0}
+                _row_index += 1
 
         self.new_element = {Material.element_name: element_name,
                             Material.lattice: lattice,

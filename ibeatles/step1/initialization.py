@@ -7,10 +7,11 @@ import pyqtgraph as pg
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
 
-from .gui_handler import Step1GuiHandler as GuiHandler
-from .. import DataType
-from .roi import Roi
-from .. import refresh_image
+from ibeatles import DataType
+from ibeatles import refresh_image
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
+from ibeatles.step1.roi import Roi
 
 
 class Initialization:
@@ -64,6 +65,13 @@ class Initialization:
         self.parent.ui.action4_Fitting.setShortcut('Ctrl+5')
         self.parent.ui.action5_Results.setShortcut('Ctrl+6')
 
+        # size of columns of tables (element recap)
+        column_size = [70, 70, 70, 70]
+        o_table = TableHandler(table_ui=self.parent.ui.custom_element_tableWidget_2)
+        o_table.set_column_sizes(column_sizes=column_size)
+        o_table = TableHandler(table_ui=self.parent.ui.custom_element_tableWidget)
+        o_table.set_column_sizes(column_sizes=column_size)
+
     def material_widgets(self):
         retrieve_material = RetrieveMaterialMetadata(material='all')
         list_returned = retrieve_material.full_list_material()
@@ -80,7 +88,7 @@ class Initialization:
         o_gui.set_crystal_structure(_crystal_structure)
 
     def labels(self):
-        # micross
+        # micros
         self.parent.ui.micro_s.setText(u"\u00B5s")
         self.parent.ui.micro_s_2.setText(u"\u00B5s")
         # distance source detector

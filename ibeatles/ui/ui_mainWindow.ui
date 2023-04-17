@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -190,8 +190,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1383</width>
-                      <height>369</height>
+                      <width>148</width>
+                      <height>142</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -1944,7 +1944,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1534</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
    <property name="sizePolicy">
