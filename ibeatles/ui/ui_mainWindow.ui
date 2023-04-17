@@ -190,8 +190,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>148</width>
-                      <height>142</height>
+                      <width>1383</width>
+                      <height>369</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -806,42 +806,10 @@
                       </layout>
                      </item>
                      <item>
-                      <widget class="QTableWidget" name="custom_element_tableWidget">
-                       <property name="enabled">
-                        <bool>true</bool>
+                      <widget class="QPushButton" name="list_hkl_pushButton">
+                       <property name="text">
+                        <string>List hkl, lambda, d0</string>
                        </property>
-                       <property name="alternatingRowColors">
-                        <bool>true</bool>
-                       </property>
-                       <property name="rowCount">
-                        <number>0</number>
-                       </property>
-                       <attribute name="horizontalHeaderStretchLastSection">
-                        <bool>true</bool>
-                       </attribute>
-                       <attribute name="verticalHeaderVisible">
-                        <bool>false</bool>
-                       </attribute>
-                       <column>
-                        <property name="text">
-                         <string>h</string>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>k</string>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>l</string>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>d0</string>
-                        </property>
-                       </column>
                       </widget>
                      </item>
                      <item>
@@ -1845,53 +1813,11 @@ p, li { white-space: pre-wrap; }
                       </layout>
                      </item>
                      <item>
-                      <widget class="QTableWidget" name="custom_element_tableWidget_2">
-                       <property name="alternatingRowColors">
-                        <bool>true</bool>
+                      <widget class="QPushButton" name="list_hkl_pushButton_2">
+                       <property name="text">
+                        <string>List hkl, lambda, d0 ...</string>
                        </property>
-                       <property name="rowCount">
-                        <number>0</number>
-                       </property>
-                       <attribute name="horizontalHeaderStretchLastSection">
-                        <bool>true</bool>
-                       </attribute>
-                       <attribute name="verticalHeaderVisible">
-                        <bool>false</bool>
-                       </attribute>
-                       <column>
-                        <property name="text">
-                         <string>h</string>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>k</string>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>l</string>
-                        </property>
-                       </column>
-                       <column>
-                        <property name="text">
-                         <string>d0</string>
-                        </property>
-                       </column>
                       </widget>
-                     </item>
-                     <item>
-                      <spacer name="verticalSpacer">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
                      </item>
                     </layout>
                    </widget>
@@ -1944,7 +1870,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1534</width>
-     <height>37</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -2103,7 +2029,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>161</x>
-     <y>581</y>
+     <y>614</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -2199,7 +2125,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1417</x>
-     <y>581</y>
+     <y>614</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -2246,8 +2172,8 @@ p, li { white-space: pre-wrap; }
    <slot>crystal_structure_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>977</x>
-     <y>891</y>
+     <x>980</x>
+     <y>860</y>
     </hint>
     <hint type="destinationlabel">
      <x>730</x>
@@ -2262,8 +2188,8 @@ p, li { white-space: pre-wrap; }
    <slot>crystal_structure_2_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>555</y>
+     <x>850</x>
+     <y>858</y>
     </hint>
     <hint type="destinationlabel">
      <x>653</x>
@@ -2278,8 +2204,8 @@ p, li { white-space: pre-wrap; }
    <slot>lattice_2_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>560</y>
+     <x>854</x>
+     <y>769</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2294,8 +2220,8 @@ p, li { white-space: pre-wrap; }
    <slot>lattice_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1030</x>
-     <y>845</y>
+     <x>1033</x>
+     <y>823</y>
     </hint>
     <hint type="destinationlabel">
      <x>1522</x>
@@ -2326,8 +2252,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_display_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>130</x>
-     <y>562</y>
+     <x>741</x>
+     <y>526</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2342,8 +2268,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>134</x>
-     <y>448</y>
+     <x>160</x>
+     <y>385</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2358,8 +2284,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1318</x>
-     <y>448</y>
+     <x>1293</x>
+     <y>385</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2502,8 +2428,8 @@ p, li { white-space: pre-wrap; }
    <slot>distance_source_detector_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>562</y>
+     <x>231</x>
+     <y>501</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -2518,8 +2444,8 @@ p, li { white-space: pre-wrap; }
    <slot>detector_offset_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>556</y>
+     <x>231</x>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2534,8 +2460,8 @@ p, li { white-space: pre-wrap; }
    <slot>beam_rate_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>155</x>
-     <y>557</y>
+     <x>262</x>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2566,8 +2492,8 @@ p, li { white-space: pre-wrap; }
    <slot>add_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>130</x>
-     <y>558</y>
+     <x>780</x>
+     <y>695</y>
     </hint>
     <hint type="destinationlabel">
      <x>-6</x>
@@ -2582,8 +2508,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_lattice_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1073</x>
-     <y>835</y>
+     <x>1080</x>
+     <y>829</y>
     </hint>
     <hint type="destinationlabel">
      <x>1524</x>
@@ -2598,8 +2524,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_crystal_structure_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>997</x>
-     <y>880</y>
+     <x>1005</x>
+     <y>862</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2614,8 +2540,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_lattice_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
-     <y>576</y>
+     <x>1017</x>
+     <y>771</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2630,8 +2556,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_crystal_structure_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>145</x>
-     <y>573</y>
+     <x>922</x>
+     <y>853</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2831,6 +2757,38 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>list_hkl_pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>material_list_hkl_lambda_d0_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1061</x>
+     <y>902</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1156</x>
+     <y>967</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_hkl_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>material_list_hkl_lambda_d0_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1140</x>
+     <y>887</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1014</x>
+     <y>967</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2889,5 +2847,6 @@ p, li { white-space: pre-wrap; }
   <slot>test_button_clicked()</slot>
   <slot>normalization_moving_average_settings_clicked()</slot>
   <slot>about_clicked()</slot>
+  <slot>material_list_hkl_lambda_d0_clicked()</slot>
  </slots>
 </ui>

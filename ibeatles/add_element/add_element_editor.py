@@ -220,7 +220,8 @@ class AddElementInterface(QDialog):
         _new_element = self.new_element
 
         _new_entry = {Material.lattice: _new_element[Material.lattice],
-                      Material.crystal_structure: _new_element[Material.crystal_structure]}
+                      Material.crystal_structure: _new_element[Material.crystal_structure],
+                      Material.hkl_d0: _new_element[Material.hkl_d0]}
 
         self.parent.local_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
 
@@ -234,6 +235,5 @@ class AddElementInterface(QDialog):
         self.retrieve_metadata()
         self.save_new_element_to_local_list()
         self.add_element_to_list_of_elements_widgets()
-        self.parent.update_hkl_d0_table()
 
         self.close()

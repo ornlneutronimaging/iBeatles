@@ -65,13 +65,6 @@ class Initialization:
         self.parent.ui.action4_Fitting.setShortcut('Ctrl+5')
         self.parent.ui.action5_Results.setShortcut('Ctrl+6')
 
-        # size of columns of tables (element recap)
-        column_size = [70, 70, 70, 70]
-        o_table = TableHandler(table_ui=self.parent.ui.custom_element_tableWidget_2)
-        o_table.set_column_sizes(column_sizes=column_size)
-        o_table = TableHandler(table_ui=self.parent.ui.custom_element_tableWidget)
-        o_table.set_column_sizes(column_sizes=column_size)
-
     def material_widgets(self):
         retrieve_material = RetrieveMaterialMetadata(material='all')
         list_returned = retrieve_material.full_list_material()
@@ -100,6 +93,10 @@ class Initialization:
         # Angstroms
         self.parent.ui.angstroms_label.setText(u"\u212B")
         self.parent.ui.angstroms_label_2.setText(u"\u212B")
+
+        # list hkl, lambda and d0 ... buttons
+        self.parent.ui.list_hkl_pushButton.setText(u"h, k, l, \u03bb and d\u2090 ...")
+        self.parent.ui.list_hkl_pushButton_2.setText(u"h, k, l, \u03bb and  d\u2090 ...")
 
     def general_init_pyqtgrpah(self, roi_function,
                                base_widget,

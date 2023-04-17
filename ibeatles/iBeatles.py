@@ -9,6 +9,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 from .config_handler import ConfigHandler
+from ibeatles import Material
 
 from .all_steps.log_launcher import LogLauncher, LogHandler
 from .all_steps.event_handler import EventHandler as GeneralEventHandler
@@ -50,6 +51,7 @@ from .utilities.roi_editor import RoiEditor
 from .utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
 from .utilities.bragg_edge_element_handler import BraggEdgeElementHandler
 from .utilities.gui_handler import GuiHandler
+from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.add_element.add_element_editor import AddElement
 
 from .utilities.array_utilities import find_nearest_index
@@ -636,9 +638,54 @@ class MainWindow(QMainWindow):
         if the element is already defined, calculate the hkl and d0 and display in the table
         if the element is custom made, display the hkl and d0 defined by the user
         """
-        #FIXME
-        print("updating hkl d0 table")
+        element_name = self.ui.list_of_elements.currentText()
+        hkl_d0_dict = self.local_bragg_edge_list[element_name][Material.hkl_d0]
 
+        o_table = TableHandler(table_ui=self.ui.custom_element_tableWidget)
+        o_table.remove_all_rows()
+        for _row, _key in enumerate(hkl_d0_dict.keys()):
+            _entry = hkl_d0_dict[_key]
+            o_table.insert_empty_row(row=_row)
+            o_table.insert_item(row=_row,
+                                column=0,
+                                value=_entry['h'],
+                                editable=False)
+            o_table.insert_item(row=_row,
+                                column=1,
+                                value=_entry['k'],
+                                editable=False)
+            o_table.insert_item(row=_row,
+                                column=2,
+                                value=_entry['l'],
+                                editable=False)
+            o_table.insert_item(row=_row,
+                                column=3,
+                                value=float(_entry['d0']),
+                                format_str="{:.3f}",
+                                editable=False)
+
+        o_table = TableHandler(table_ui=self.ui.custom_element_tableWidget_2)
+        o_table.remove_all_rows()
+        for _row, _key in enumerate(hkl_d0_dict.keys()):
+            _entry = hkl_d0_dict[_key]
+            o_table.insert_empty_row(row=_row)
+            o_table.insert_item(row=_row,
+                                column=0,
+                                value=_entry['h'],
+                                editable=False)
+            o_table.insert_item(row=_row,
+                                column=1,
+                                value=_entry['k'],
+                                editable=False)
+            o_table.insert_item(row=_row,
+                                column=2,
+                                value=_entry['l'],
+                                editable=False)
+            o_table.insert_item(row=_row,
+                                column=3,
+                                value=_entry['d0'],
+                                format_str="{:.3f}",
+                                editable=False)
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)
