@@ -13,6 +13,7 @@ from ibeatles import Material
 
 from .all_steps.log_launcher import LogLauncher, LogHandler
 from .all_steps.event_handler import EventHandler as GeneralEventHandler
+from ibeatles.all_steps.list_hkl_lambda_d0 import ListHKLLambdaD0Handler
 
 from .step1.event_handler import EventHandler as Step1EventHandler
 from .step1.data_handler import DataHandler
@@ -110,6 +111,9 @@ class MainWindow(QMainWindow):
     binning_roi = None    # x0, x1, width, height, bin_size
     # binning_bin_size = 20
     binning_done = False
+
+    # list hkl, lambda and d0
+    list_hkl_lambda_d0_ui = None
 
     ## FITTING TAB
     # fitting window stuff
@@ -747,6 +751,9 @@ class MainWindow(QMainWindow):
 
     def check_files_error(self):
         CheckError(parent=self)
+
+    def material_list_hkl_lambda_d0_clicked(self):
+        ListHKLLambdaD0Handler(parent=self)
 
     # TAB 1: Load Data Tab
 

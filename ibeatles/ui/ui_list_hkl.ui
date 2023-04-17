@@ -80,5 +80,25 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>412</x>
+     <y>418</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>422</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>close_clicked()</slot>
+ </slots>
 </ui>
