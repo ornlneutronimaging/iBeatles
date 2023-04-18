@@ -211,7 +211,6 @@ class AddElementInterface(QDialog):
         self.parent.ui.list_of_elements.addItem(_element[Material.element_name])
         nbr_element = self.parent.ui.list_of_elements.count()
         self.parent.ui.list_of_elements.setCurrentIndex(nbr_element - 1)
-        self.parent.ui.list_of_elements_2.addItem(_element[Material.element_name])
         self.parent.ui.list_of_elements_2.setCurrentIndex(nbr_element - 1)
         self.parent.ui.lattice_parameter.setText(_element[Material.lattice])
         self.parent.ui.lattice_parameter_2.setText(_element[Material.lattice])
@@ -235,5 +234,6 @@ class AddElementInterface(QDialog):
         self.retrieve_metadata()
         self.save_new_element_to_local_list()
         self.add_element_to_list_of_elements_widgets()
+        self.parent.update_hkl_lambda_d0()
 
         self.close()

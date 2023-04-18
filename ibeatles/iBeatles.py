@@ -623,7 +623,7 @@ class MainWindow(QMainWindow):
         # o_plot = Step1Plot(parent=self, data_type='sample')
         # o_plot.display_general_bragg_edge()
         # self.roi_image_view_changed()
-        self.update_hkl_lambda_d0()
+        # self.update_hkl_lambda_d0()
         self.ui.list_of_elements_2.blockSignals(False)
 
     def list_of_element_2_index_changed(self, index):
@@ -634,7 +634,7 @@ class MainWindow(QMainWindow):
         # o_plot = Step1Plot(parent=self, data_type='normalized')
         # o_plot.display_general_bragg_edge()
         # self.roi_image_view_changed()
-        self.update_hkl_lambda_d0()
+        # self.update_hkl_lambda_d0()
         self.ui.list_of_elements.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
@@ -716,8 +716,9 @@ class MainWindow(QMainWindow):
         self.update_hkl_lambda_d0()
 
     def update_hkl_lambda_d0(self):
-        if self.list_hkl_lambda_d0_ui:
-            self.list_hkl_lambda_d0_ui.refresh_populate_table()
+        pass
+        # if self.list_hkl_lambda_d0_ui:
+        #     self.list_hkl_lambda_d0_ui.refresh_populate_table()
 
     # TAB 1: Load Data Tab
 

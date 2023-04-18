@@ -1359,6 +1359,12 @@ p, li { white-space: pre-wrap; }
                 </layout>
                </widget>
                <widget class="QTabWidget" name="tabWidget_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
@@ -1369,6 +1375,12 @@ p, li { white-space: pre-wrap; }
                  <number>1</number>
                 </property>
                 <widget class="QWidget" name="tab_6">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <attribute name="title">
                   <string>Infos</string>
                  </attribute>
@@ -1396,6 +1408,12 @@ p, li { white-space: pre-wrap; }
                     </item>
                     <item>
                      <widget class="QTextEdit" name="normalized_general_infos">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
@@ -1409,6 +1427,12 @@ p, li { white-space: pre-wrap; }
                  </layout>
                 </widget>
                 <widget class="QWidget" name="tab_7">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <attribute name="title">
                   <string>Settings</string>
                  </attribute>
@@ -1419,6 +1443,72 @@ p, li { white-space: pre-wrap; }
                      <string>Instrument</string>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_4">
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="label_10">
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>100</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Detector offset</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <widget class="QLabel" name="label_11">
+                       <property name="text">
+                        <string>m</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="2">
+                      <widget class="QLabel" name="label_9">
+                       <property name="text">
+                        <string>Hz</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="0">
+                      <widget class="QLabel" name="delta_lambda_label_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>20</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>20</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>delta_lambda:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="QLineEdit" name="detector_offset_2">
+                       <property name="text">
+                        <string>5000</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="2">
+                      <widget class="QLabel" name="micro_s_2">
+                       <property name="text">
+                        <string>micros</string>
+                       </property>
+                      </widget>
+                     </item>
                      <item row="1" column="1">
                       <widget class="QComboBox" name="beam_rate_2">
                        <property name="minimumSize">
@@ -1445,95 +1535,10 @@ p, li { white-space: pre-wrap; }
                        </item>
                       </widget>
                      </item>
-                     <item row="1" column="2">
-                      <widget class="QLabel" name="label_9">
-                       <property name="text">
-                        <string>Hz</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QLineEdit" name="distance_source_detector_2">
-                       <property name="text">
-                        <string>19.855</string>
-                       </property>
-                      </widget>
-                     </item>
                      <item row="3" column="1">
                       <widget class="QLabel" name="delta_lambda_value_2">
                        <property name="text">
                         <string>N/A</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_10">
-                       <property name="minimumSize">
-                        <size>
-                         <width>100</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>100</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Detector offset</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QLineEdit" name="detector_offset_2">
-                       <property name="text">
-                        <string>5000</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="0">
-                      <widget class="QLabel" name="delta_lambda_label_2">
-                       <property name="minimumSize">
-                        <size>
-                         <width>20</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>20</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>delta_lambda:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="2">
-                      <widget class="QLabel" name="label_11">
-                       <property name="text">
-                        <string>m</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_15">
-                       <property name="minimumSize">
-                        <size>
-                         <width>75</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>75</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Beam Rate</string>
                        </property>
                       </widget>
                      </item>
@@ -1556,10 +1561,29 @@ p, li { white-space: pre-wrap; }
                        </property>
                       </widget>
                      </item>
-                     <item row="2" column="2">
-                      <widget class="QLabel" name="micro_s_2">
+                     <item row="0" column="1">
+                      <widget class="QLineEdit" name="distance_source_detector_2">
                        <property name="text">
-                        <string>micros</string>
+                        <string>19.855</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_15">
+                       <property name="minimumSize">
+                        <size>
+                         <width>75</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>75</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Beam Rate</string>
                        </property>
                       </widget>
                      </item>

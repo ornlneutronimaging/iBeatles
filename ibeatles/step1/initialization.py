@@ -9,7 +9,6 @@ from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles import DataType
 from ibeatles import refresh_image
-from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
 from ibeatles.step1.roi import Roi
 
@@ -27,6 +26,10 @@ class Initialization:
         self.pyqtgraph()
         self.icons()
         self.widgets()
+        self.splitters()
+
+    def splitters(self):
+        self.parent.ui.splitter_2.setSizes([800, 300])
 
     def widgets(self):
         # folder path of time spectra
