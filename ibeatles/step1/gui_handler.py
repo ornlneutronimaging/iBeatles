@@ -175,6 +175,10 @@ class Step1GuiHandler(object):
     def update_lattice_and_crystal_when_index_selected(self, source='load_data',
                                                        fill_lattice_flag=True,
                                                        fill_crystal_structure_flag=True):
+
+        self.parent.ui.list_of_elements_2.blockSignals(True)
+        self.parent.ui.list_of_elements.blockSignals(True)
+
         _element = self.get_element_selected(source=source)
         try:
             _handler = BraggEdge(material=_element)
@@ -199,6 +203,9 @@ class Step1GuiHandler(object):
                 self.parent.ui.list_of_elements.setCurrentIndex(_index)
                 self.parent.ui.lattice_parameter.setText(_lattice)
 
+            self.parent.ui.list_of_elements_2.blockSignals(False)
+            self.parent.ui.list_of_elements.blockSignals(False)
+
             return
 
         # except KeyError:
@@ -221,6 +228,9 @@ class Step1GuiHandler(object):
 
         if fill_crystal_structure_flag:
             self.set_crystal_structure(_crystal_structure)
+
+        self.parent.ui.list_of_elements_2.blockSignals(False)
+        self.parent.ui.list_of_elements.blockSignals(False)
 
     def select_load_data_row(self, data_type='sample', row=0):
         if data_type == 'sample':

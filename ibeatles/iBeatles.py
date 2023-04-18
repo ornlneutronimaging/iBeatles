@@ -146,11 +146,17 @@ class MainWindow(QMainWindow):
     # table dictionary for kropff
     kropff_table_dictionary = {}
 
-    # new entry will be local_bragg_edge_list['new_name'] = {'lattice': value, 'crystal_structure': 'FCC'}
+    # new entry will be local_bragg_edge_list['new_name'] = {Material.lattice: value,
+    #                                                        Material.crystal_structure: 'FCC',
+    #                                                        Material.hkl_d0: None',
+    #                                                        Material.user_defined: False}
     local_bragg_edge_list = {}
     selected_element_bragg_edges_array = []
     selected_element_hkl_array = []
     selected_element_name = ''
+
+    # just like above but for user defined ones
+    user_defined_bragg_edge_list = {}
 
     # # [['label', 'x0', 'y0', 'width', 'height', 'group'], ...]
     # init_array = ['label_roi', '0', '0', '20', '20', '0']
@@ -616,6 +622,10 @@ class MainWindow(QMainWindow):
         _add_ele.run()
 
     def list_of_element_index_changed(self, index):
+        if type(index) == int:
+            return
+
+        self.ui.list_of_elements.blockSignals(True)
         self.ui.list_of_elements_2.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='load_data')
@@ -624,10 +634,16 @@ class MainWindow(QMainWindow):
         # o_plot.display_general_bragg_edge()
         # self.roi_image_view_changed()
         # self.update_hkl_lambda_d0()
+        self.check_status_of_material_widgets()
+        self.ui.list_of_elements.blockSignals(False)
         self.ui.list_of_elements_2.blockSignals(False)
 
     def list_of_element_2_index_changed(self, index):
+        if type(index) == int:
+            return
+
         self.ui.list_of_elements.blockSignals(True)
+        self.ui.list_of_elements_2.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='normalized')
         BraggEdgeElementHandler(parent=self)
@@ -635,7 +651,9 @@ class MainWindow(QMainWindow):
         # o_plot.display_general_bragg_edge()
         # self.roi_image_view_changed()
         # self.update_hkl_lambda_d0()
+        self.check_status_of_material_widgets()
         self.ui.list_of_elements.blockSignals(False)
+        self.ui.list_of_elements_2.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)
@@ -715,10 +733,12 @@ class MainWindow(QMainWindow):
     def list_element_changed(self, new_index):
         self.update_hkl_lambda_d0()
 
+    def check_status_of_material_widgets(self):
+        print("check if lattice and crystal should be visible as well")
+
     def update_hkl_lambda_d0(self):
-        pass
-        # if self.list_hkl_lambda_d0_ui:
-        #     self.list_hkl_lambda_d0_ui.refresh_populate_table()
+        if self.list_hkl_lambda_d0_ui:
+            self.list_hkl_lambda_d0_ui.refresh_populate_table()
 
     # TAB 1: Load Data Tab
 

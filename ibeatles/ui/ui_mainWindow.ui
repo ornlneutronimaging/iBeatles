@@ -2831,7 +2831,7 @@ p, li { white-space: pre-wrap; }
   </connection>
   <connection>
    <sender>list_of_elements_2</sender>
-   <signal>currentIndexChanged(int)</signal>
+   <signal>currentIndexChanged(QString)</signal>
    <receiver>MainWindow</receiver>
    <slot>list_of_element_2_index_changed()</slot>
    <hints>
@@ -2904,7 +2904,5 @@ p, li { white-space: pre-wrap; }
   <slot>normalization_moving_average_settings_clicked()</slot>
   <slot>about_clicked()</slot>
   <slot>material_list_hkl_lambda_d0_clicked()</slot>
-  <slot>list_element_changed()</slot>
-  <slot>list_element_2_changed()</slot>
  </slots>
 </ui>

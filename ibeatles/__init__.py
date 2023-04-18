@@ -54,8 +54,12 @@ def load_ui(ui_filename, baseinstance):
 
 
 class Material:
-
+    """
+    keys to use when retrieving or saving the h, k, l, lambda and d0 value, as well as the
+    lattice, crystal structure and if the user defined or not that entry.
+    """
     element_name = "name of the element"
     lattice = "lattice"
     crystal_structure = "structure of the crystal"
     hkl_d0 = "list of h,k and l and respective d0 value"
+    user_defined = "is this user defined?"

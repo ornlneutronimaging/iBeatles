@@ -71,8 +71,12 @@ class Initialization:
     def material_widgets(self):
         retrieve_material = RetrieveMaterialMetadata(material='all')
         list_returned = retrieve_material.full_list_material()
+        self.parent.ui.list_of_elements.blockSignals(True)
+        self.parent.ui.list_of_elements_2.blockSignals(True)
         self.parent.ui.list_of_elements.addItems(list_returned)
         self.parent.ui.list_of_elements_2.addItems(list_returned)
+        self.parent.ui.list_of_elements.blockSignals(False)
+        self.parent.ui.list_of_elements_2.blockSignals(False)
 
         o_gui = GuiHandler(parent=self.parent,
                            data_type=DataType.sample)
