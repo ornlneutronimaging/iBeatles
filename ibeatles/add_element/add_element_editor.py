@@ -154,6 +154,7 @@ class AddElementInterface(QDialog):
 
         if self.ui.method1_radioButton.isChecked():  # method 1
             user_defined = False
+            method_used = Material.via_lattice_and_crystal_structure
             lattice = o_gui.get_text(ui=self.ui.lattice)
             crystal_structure = o_gui.get_text_selected(ui=self.ui.crystal_structure)
 
@@ -182,6 +183,7 @@ class AddElementInterface(QDialog):
 
         else:
             lattice = None
+            method_used = Material.via_d0
             user_defined = True
             crystal_structure = None
 
@@ -207,7 +209,8 @@ class AddElementInterface(QDialog):
                             Material.lattice: lattice,
                             Material.crystal_structure: crystal_structure,
                             Material.hkl_d0: hkl_d0_dict,
-                            Material.user_defined: user_defined}
+                            Material.user_defined: user_defined,
+                            Material.method_used: method_used}
 
     def add_element_to_list_of_elements_widgets(self):
         _element = self.new_element
@@ -228,10 +231,10 @@ class AddElementInterface(QDialog):
 
         _new_entry = {Material.lattice: _new_element[Material.lattice],
                       Material.crystal_structure: _new_element[Material.crystal_structure],
-                      Material.hkl_d0: _new_element[Material.hkl_d0]}
+                      Material.hkl_d0: _new_element[Material.hkl_d0],
+                      Material.method_used: _new_element[Material.method_used]}
 
-        if _new_element[Material.user_defined]:
-            self.parent.user_defined_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
+        self.parent.user_defined_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
         self.parent.local_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
 
     def method_changed(self):

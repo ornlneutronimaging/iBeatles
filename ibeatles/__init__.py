@@ -63,3 +63,6 @@ class Material:
     crystal_structure = "structure of the crystal"
     hkl_d0 = "list of h,k and l and respective d0 value"
     user_defined = "is this user defined?"
+    via_lattice_and_crystal_structure = "using method 1 of add_element"
+    via_d0 = "using method 2"
+    method_used = "either via_lattice or via_d0"

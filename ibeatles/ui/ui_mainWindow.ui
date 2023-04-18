@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1534</width>
-    <height>1001</height>
+    <width>1520</width>
+    <height>1140</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -37,8 +37,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1508</width>
-         <height>950</height>
+         <width>1494</width>
+         <height>1063</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -100,8 +100,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1383</width>
-                      <height>369</height>
+                      <width>1369</width>
+                      <height>482</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -1608,7 +1608,7 @@ p, li { white-space: pre-wrap; }
                     <property name="title">
                      <string>Material</string>
                     </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_16">
+                    <layout class="QVBoxLayout" name="verticalLayout">
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_23">
                        <item>
@@ -1692,147 +1692,123 @@ p, li { white-space: pre-wrap; }
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_20">
                        <item>
-                        <widget class="QLabel" name="label_16">
-                         <property name="minimumSize">
-                          <size>
-                           <width>110</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>110</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
+                        <widget class="QGroupBox" name="lattice_2_groupBox">
+                         <property name="title">
                           <string>Lattice</string>
                          </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_6">
+                          <item>
+                           <widget class="QLineEdit" name="lattice_parameter_2">
+                            <property name="maximumSize">
+                             <size>
+                              <width>150</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="angstroms_label_2">
+                            <property name="text">
+                             <string>A</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="reset_lattice_button_2">
+                            <property name="minimumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="text">
+                             <string/>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_13">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QLineEdit" name="lattice_parameter_2">
-                         <property name="maximumSize">
-                          <size>
-                           <width>150</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="angstroms_label_2">
-                         <property name="text">
-                          <string>A</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="reset_lattice_button_2">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_13">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_21">
-                       <item>
-                        <widget class="QLabel" name="label_17">
-                         <property name="minimumSize">
-                          <size>
-                           <width>110</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>110</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
+                        <widget class="QGroupBox" name="crystal_structure_2_groupBox">
+                         <property name="title">
                           <string>Crystal Structure</string>
                          </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_12">
+                          <item>
+                           <widget class="QComboBox" name="crystal_structure_2">
+                            <property name="maximumSize">
+                             <size>
+                              <width>100</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                            <item>
+                             <property name="text">
+                              <string>FCC</string>
+                             </property>
+                            </item>
+                            <item>
+                             <property name="text">
+                              <string>BCC</string>
+                             </property>
+                            </item>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="reset_crystal_structure_button_2">
+                            <property name="minimumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="text">
+                             <string/>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_9">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
                         </widget>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="crystal_structure_2">
-                         <property name="maximumSize">
-                          <size>
-                           <width>100</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <item>
-                          <property name="text">
-                           <string>FCC</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>BCC</string>
-                          </property>
-                         </item>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="reset_crystal_structure_button_2">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_9">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
                        </item>
                       </layout>
                      </item>
@@ -1893,7 +1869,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1534</width>
+     <width>1520</width>
      <height>24</height>
     </rect>
    </property>
