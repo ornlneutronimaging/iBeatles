@@ -4,13 +4,14 @@ from ..utilities.gui_handler import GuiHandler
 from neutronbraggedge.braggedge import BraggEdge
 
 
-class BraggEdgeElementHandler(object):
+class BraggEdgeElementHandler:
     bragg_edges_array = []
 
     def __init__(self, parent=None):
         self.parent = parent
 
         o_gui = GuiHandler(parent=self.parent)
+
         element_name = str(o_gui.get_text_selected(ui=self.parent.ui.list_of_elements))
         lattice_value = float(o_gui.get_text(ui=self.parent.ui.lattice_parameter))
         crystal_structure = str(o_gui.get_text_selected(ui=self.parent.ui.crystal_structure))

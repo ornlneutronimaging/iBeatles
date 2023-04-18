@@ -620,88 +620,36 @@ class MainWindow(QMainWindow):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='load_data')
         BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self, data_type='sample')
-        o_plot.display_general_bragg_edge()
-        self.roi_image_view_changed()
+        # o_plot = Step1Plot(parent=self, data_type='sample')
+        # o_plot.display_general_bragg_edge()
+        # self.roi_image_view_changed()
+        self.update_hkl_lambda_d0()
         self.ui.list_of_elements_2.blockSignals(False)
-        self.update_hkl_d0_table()
 
     def list_of_element_2_index_changed(self, index):
         self.ui.list_of_elements.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='normalized')
         BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self, data_type='normalized')
-        o_plot.display_general_bragg_edge()
-        self.roi_image_view_changed()
+        # o_plot = Step1Plot(parent=self, data_type='normalized')
+        # o_plot.display_general_bragg_edge()
+        # self.roi_image_view_changed()
+        self.update_hkl_lambda_d0()
         self.ui.list_of_elements.blockSignals(False)
-        self.update_hkl_d0_table()
-
-    def update_hkl_d0_table(self):
-        """
-        if the element is already defined, calculate the hkl and d0 and display in the table
-        if the element is custom made, display the hkl and d0 defined by the user
-        """
-        element_name = self.ui.list_of_elements.currentText()
-        hkl_d0_dict = self.local_bragg_edge_list[element_name][Material.hkl_d0]
-
-        o_table = TableHandler(table_ui=self.ui.custom_element_tableWidget)
-        o_table.remove_all_rows()
-        for _row, _key in enumerate(hkl_d0_dict.keys()):
-            _entry = hkl_d0_dict[_key]
-            o_table.insert_empty_row(row=_row)
-            o_table.insert_item(row=_row,
-                                column=0,
-                                value=_entry['h'],
-                                editable=False)
-            o_table.insert_item(row=_row,
-                                column=1,
-                                value=_entry['k'],
-                                editable=False)
-            o_table.insert_item(row=_row,
-                                column=2,
-                                value=_entry['l'],
-                                editable=False)
-            o_table.insert_item(row=_row,
-                                column=3,
-                                value=float(_entry['d0']),
-                                format_str="{:.3f}",
-                                editable=False)
-
-        o_table = TableHandler(table_ui=self.ui.custom_element_tableWidget_2)
-        o_table.remove_all_rows()
-        for _row, _key in enumerate(hkl_d0_dict.keys()):
-            _entry = hkl_d0_dict[_key]
-            o_table.insert_empty_row(row=_row)
-            o_table.insert_item(row=_row,
-                                column=0,
-                                value=_entry['h'],
-                                editable=False)
-            o_table.insert_item(row=_row,
-                                column=1,
-                                value=_entry['k'],
-                                editable=False)
-            o_table.insert_item(row=_row,
-                                column=2,
-                                value=_entry['l'],
-                                editable=False)
-            o_table.insert_item(row=_row,
-                                column=3,
-                                value=_entry['d0'],
-                                format_str="{:.3f}",
-                                editable=False)
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def crystal_structure_2_index_changed(self, index):
         self.ui.crystal_structure.setCurrentIndex(index)
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def lattice_text_changed(self):
         _contain = str(self.ui.lattice_parameter.text())
@@ -709,6 +657,7 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def lattice_2_text_changed(self):
         _contain = str(self.ui.lattice_parameter_2.text())
@@ -716,6 +665,7 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def reset_lattice_button_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
@@ -724,6 +674,7 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='sample')
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def reset_lattice_button_2_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
@@ -732,6 +683,7 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='normalized')
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def reset_crystal_structure_button_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
@@ -740,6 +692,7 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='sample')
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def reset_crystal_structure_button_2_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
@@ -748,12 +701,23 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='normalized')
         o_plot.display_general_bragg_edge()
+        self.update_hkl_lambda_d0()
 
     def check_files_error(self):
         CheckError(parent=self)
 
     def material_list_hkl_lambda_d0_clicked(self):
         ListHKLLambdaD0Handler(parent=self)
+
+    def list_element_2_changed(self, new_index):
+        self.update_hkl_lambda_d0()
+
+    def list_element_changed(self, new_index):
+        self.update_hkl_lambda_d0()
+
+    def update_hkl_lambda_d0(self):
+        if self.list_hkl_lambda_d0_ui:
+            self.list_hkl_lambda_d0_ui.refresh_populate_table()
 
     # TAB 1: Load Data Tab
 

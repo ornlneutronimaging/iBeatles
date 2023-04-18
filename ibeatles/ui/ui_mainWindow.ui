@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -2789,6 +2789,38 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>list_of_elements</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>list_of_element_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1209</x>
+     <y>746</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1476</x>
+     <y>972</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>list_of_elements_2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>list_of_element_2_index_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1152</x>
+     <y>587</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1473</x>
+     <y>965</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2848,5 +2880,7 @@ p, li { white-space: pre-wrap; }
   <slot>normalization_moving_average_settings_clicked()</slot>
   <slot>about_clicked()</slot>
   <slot>material_list_hkl_lambda_d0_clicked()</slot>
+  <slot>list_element_changed()</slot>
+  <slot>list_element_2_changed()</slot>
  </slots>
 </ui>

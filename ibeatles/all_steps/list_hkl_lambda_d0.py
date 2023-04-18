@@ -90,3 +90,8 @@ class ListHKLLambdaD0(QDialog):
         self.parent.list_hkl_lambda_d0_ui = None
         self.close()
 
+    def refresh_populate_table(self):
+
+        o_table = TableHandler(table_ui=self.ui.tableWidget)
+        o_table.remove_all_rows()
+        self.populate_table()
