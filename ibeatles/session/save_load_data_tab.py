@@ -5,7 +5,7 @@ from ibeatles.session.save_tab import SaveTab
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
-from ibeatles.session import SessionKeys
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class SaveLoadDataTab(SaveTab):
@@ -68,12 +68,12 @@ class SaveLoadDataTab(SaveTab):
         logging.info(f" state: {state}")
         logging.info(f" histogram: {histogram}")
 
-        self.session_dict[data_type]['list files'] = list_files
-        self.session_dict[data_type]['current folder'] = current_folder
-        self.session_dict[data_type]['list files selected'] = list_files_selected
-        self.session_dict[data_type]['list rois'] = list_roi
-        self.session_dict[data_type]['image view state'] = state
-        self.session_dict[data_type]['image view histogram'] = histogram
+        self.session_dict[data_type][SessionSubKeys.list_files] = list_files
+        self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder
+        self.session_dict[data_type][SessionSubKeys.list_files_selected] = list_files_selected
+        self.session_dict[data_type][SessionSubKeys.list_rois] = list_roi
+        self.session_dict[data_type][SessionSubKeys.image_view_state] = state
+        self.session_dict[data_type][SessionSubKeys.image_view_histogram] = histogram
 
     def instrument(self):
         """record the settings of the instrument such as offset, distance source/detector ..."""
@@ -92,9 +92,9 @@ class SaveLoadDataTab(SaveTab):
         logging.info(f" detector value: {detector_value}")
         logging.info(f" beam index: {beam_index}")
 
-        self.session_dict["instrument"]["distance source detector"] = distance_value
-        self.session_dict["instrument"]["detector value"] = detector_value
-        self.session_dict["instrument"]["beam index"] = beam_index
+        self.session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector] = distance_value
+        self.session_dict[SessionKeys.instrument][SessionSubKeys.detector_value] = detector_value
+        self.session_dict[SessionKeys.instrument][SessionSubKeys.beam_index] = beam_index
 
     def material(self):
         """record the material settings (element selected, full list, crystal structure, lattice"""
@@ -109,11 +109,11 @@ class SaveLoadDataTab(SaveTab):
         logging.info(f" lattice: {lattice}")
         logging.info(f" crystal structure:{crystal_structure_name} at index: {crystal_structure_index}")
 
-        self.session_dict[SessionKeys.material]["selected element"] = {'name': selected_element,
-                                                             'index': selected_index}
-        self.session_dict[SessionKeys.material]["lattice"] = lattice
-        self.session_dict[SessionKeys.material]["crystal structure"] = {'name': crystal_structure_name,
-                                                              'index': crystal_structure_index}
+        self.session_dict[SessionKeys.material][SessionSubKeys.selected_element] = {'name': selected_element,
+                                                                                    'index': selected_index}
+        self.session_dict[SessionKeys.material][SessionSubKeys.lattice] = lattice
+        self.session_dict[SessionKeys.material][SessionSubKeys.crystal_structure] = {'name': crystal_structure_name,
+                                                                                     'index': crystal_structure_index}
 
         self.session_dict[SessionKeys.material][Material.user_defined_bragg_edge_list] = \
             self.parent.user_defined_bragg_edge_list
