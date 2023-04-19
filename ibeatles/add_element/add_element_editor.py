@@ -176,10 +176,10 @@ class AddElementInterface(QDialog):
                 _lambda_value = selected_element_bragg_edges_array[_row_index]
                 d0 = _lambda_value / 2.
 
-                hkl_d0_dict[_row_index] = {'h': h,
-                                           'k': k,
-                                           'l': l,
-                                           'd0': d0}
+                hkl_d0_dict[int(_row_index)] = {'h': h,
+                                                'k': k,
+                                                'l': l,
+                                                'd0': d0}
 
         else:
             lattice = None
@@ -199,10 +199,10 @@ class AddElementInterface(QDialog):
                 k = o_table.get_item_str_from_cell(row=_row, column=1)
                 l = o_table.get_item_str_from_cell(row=_row, column=2)
                 d0 = o_table.get_item_str_from_cell(row=_row, column=3)
-                hkl_d0_dict[_row_index] = {'h': h,
-                                           'k': k,
-                                           'l': l,
-                                           'd0': d0}
+                hkl_d0_dict[int(_row_index)] = {'h': h,
+                                                'k': k,
+                                                'l': l,
+                                                'd0': d0}
                 _row_index += 1
 
         self.new_element = {Material.element_name: element_name,

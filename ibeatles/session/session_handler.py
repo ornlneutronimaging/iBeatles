@@ -19,7 +19,7 @@ from .load_bin_tab import LoadBin
 from .load_fitting_tab import LoadFitting
 from .general import General
 
-from .. import DataType
+from ibeatles import DataType, Material
 
 
 class SessionHandler:
@@ -57,11 +57,14 @@ class SessionHandler:
                                    'detector value': None,
                                    },
                     "material": {'selected element': {'name': None,
+                                                      'user_defined': False,
                                                       'index': 0},
                                  'lattice': None,
+                                 Material.hkl_d0: None,
                                  'crystal structure': {'name': 'fcc',
                                                        'index': 0,
                                                        },
+                                 Material.user_defined_bragg_edge_list: None,
                                  },
                     "reduction": {'activate': True,
                                   'dimension': '2d',

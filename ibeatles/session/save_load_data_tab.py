@@ -1,9 +1,9 @@
 import logging
 
-from .. import DataType
-from .save_tab import SaveTab
-from ..utilities.gui_handler import GuiHandler
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles import DataType, Material
+from ibeatles.session.save_tab import SaveTab
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class SaveLoadDataTab(SaveTab):
@@ -112,3 +112,6 @@ class SaveLoadDataTab(SaveTab):
         self.session_dict["material"]["lattice"] = lattice
         self.session_dict["material"]["crystal structure"] = {'name': crystal_structure_name,
                                                               'index': crystal_structure_index}
+
+        self.session_dict["material"][Material.user_defined_bragg_edge_list] = \
+            self.parent.user_defined_bragg_edge_list
