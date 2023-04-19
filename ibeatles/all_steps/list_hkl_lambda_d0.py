@@ -51,37 +51,79 @@ class ListHKLLambdaD0(QDialog):
         element_name = str(o_gui.get_text_selected(ui=self.parent.ui.list_of_elements))
         self.ui.selected_element_value.setText(element_name)
 
-        selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
-        selected_element_hkl_array = self.parent.selected_element_hkl_array
+        if element_name in self.parent.user_defined_bragg_edge_list.keys():
+            user_defined_bragg_edge_list = self.parent.user_defined_bragg_edge_list[element_name]
+            list_hkl_d0 = user_defined_bragg_edge_list[Material.hkl_d0]
+            o_table = TableHandler(table_ui=self.ui.tableWidget)
+            _row = 0
+            for _key in list_hkl_d0.keys():
+                _entry = list_hkl_d0[_key]
+                if _entry['h'] is None:
+                    continue
+                o_table.insert_empty_row(row=_row)
 
-        nbr_row = len(selected_element_hkl_array)
-        o_table = TableHandler(table_ui=self.ui.tableWidget)
-        for _row in np.arange(nbr_row):
-            o_table.insert_empty_row(row=_row)
-            [_h, _k, _l] = selected_element_hkl_array[_row]
-            _lambda = selected_element_bragg_edges_array[_row]
+                _h = _entry['h']
+                _k = _entry['k']
+                _l = _entry['l']
+                _d0 = _entry['d0']
+                _lambda = 2*float(_d0)
 
-            o_table.insert_item(row=_row,
-                                column=0,
-                                value=_h)
+                o_table.insert_item(row=_row,
+                                    column=0,
+                                    value=_h)
 
-            o_table.insert_item(row=_row,
-                                column=1,
-                                value=_k)
+                o_table.insert_item(row=_row,
+                                    column=1,
+                                    value=_k)
 
-            o_table.insert_item(row=_row,
-                                column=2,
-                                value=_l)
+                o_table.insert_item(row=_row,
+                                    column=2,
+                                    value=_l)
 
-            o_table.insert_item(row=_row,
-                                column=3,
-                                value=_lambda,
-                                format_str="{:.3f}")
+                o_table.insert_item(row=_row,
+                                    column=3,
+                                    value=_lambda,
+                                    format_str="{:.3f}")
 
-            o_table.insert_item(row=_row,
-                                column=4,
-                                value=_lambda/2.,
-                                format_str="{:.3f}")
+                o_table.insert_item(row=_row,
+                                    column=4,
+                                    value=_d0,
+                                    format_str="{:.3f}")
+
+                _row += 1
+
+        else:  # element found in the default list
+            selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
+            selected_element_hkl_array = self.parent.selected_element_hkl_array
+
+            nbr_row = len(selected_element_hkl_array)
+            o_table = TableHandler(table_ui=self.ui.tableWidget)
+            for _row in np.arange(nbr_row):
+                o_table.insert_empty_row(row=_row)
+                [_h, _k, _l] = selected_element_hkl_array[_row]
+                _lambda = selected_element_bragg_edges_array[_row]
+
+                o_table.insert_item(row=_row,
+                                    column=0,
+                                    value=_h)
+
+                o_table.insert_item(row=_row,
+                                    column=1,
+                                    value=_k)
+
+                o_table.insert_item(row=_row,
+                                    column=2,
+                                    value=_l)
+
+                o_table.insert_item(row=_row,
+                                    column=3,
+                                    value=_lambda,
+                                    format_str="{:.3f}")
+
+                o_table.insert_item(row=_row,
+                                    column=4,
+                                    value=_lambda/2.,
+                                    format_str="{:.3f}")
 
     def closeEvent(self, ev):
         self.parent.list_hkl_lambda_d0_ui = None
@@ -91,7 +133,6 @@ class ListHKLLambdaD0(QDialog):
         self.close()
 
     def refresh_populate_table(self):
-
         o_table = TableHandler(table_ui=self.ui.tableWidget)
         o_table.remove_all_rows()
         self.populate_table()

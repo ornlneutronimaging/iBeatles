@@ -68,7 +68,7 @@ class EventHandler(TopEventHandler):
         """
         this check if the lattice and crystal structure widgets can be displayed in the load data and normalized
         tab and changed the visibility of those widgets accordingly
-        
+
         True if the selected element is from the default list, or if user used method1 when adding a new material
         False otherwise
         """
