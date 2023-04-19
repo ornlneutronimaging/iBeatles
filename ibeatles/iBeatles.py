@@ -734,18 +734,8 @@ class MainWindow(QMainWindow):
         self.update_hkl_lambda_d0()
 
     def check_status_of_material_widgets(self):
-        print("check if lattice and crystal should be visible as well")
-        element = self.ui.list_of_elements.currentText()
-        if element in self.user_defined_bragg_edge_list.keys():
-            print("user modified this entry")
-            if self.user_defined_bragg_edge_list[element][Material.method_used] == Material.via_lattice_and_crystal_structure:
-                self.ui.crystal_structure_2_groupBox.setVisible(True)
-                self.ui.lattice_2_groupBox.setVisible(True)
-            else:
-                self.ui.crystal_structure_2_groupBox.setVisible(False)
-                self.ui.lattice_2_groupBox.setVisible(False)
-        else:
-            print("we need to calculate the value just like before")
+        o_event = Step1EventHandler(parent=self)
+        o_event.check_status_of_material_widgets()
 
     def update_hkl_lambda_d0(self):
         if self.list_hkl_lambda_d0_ui:

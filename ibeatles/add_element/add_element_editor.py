@@ -248,5 +248,6 @@ class AddElementInterface(QDialog):
         self.save_new_element_to_local_list()
         self.add_element_to_list_of_elements_widgets()
         self.parent.update_hkl_lambda_d0()
+        self.parent.check_status_of_material_widgets()
 
         self.close()

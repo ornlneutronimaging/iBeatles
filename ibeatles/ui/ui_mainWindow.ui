@@ -194,7 +194,7 @@
                       <x>0</x>
                       <y>0</y>
                       <width>1390</width>
-                      <height>799</height>
+                      <height>812</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -645,7 +645,7 @@
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_18">
                        <item>
-                        <widget class="QGroupBox" name="groupBox_7">
+                        <widget class="QGroupBox" name="lattice_groupBox">
                          <property name="title">
                           <string>Lattice</string>
                          </property>
@@ -703,7 +703,7 @@
                         </widget>
                        </item>
                        <item>
-                        <widget class="QGroupBox" name="groupBox_8">
+                        <widget class="QGroupBox" name="crystal_structure_groupBox">
                          <property name="title">
                           <string>Crystal structure</string>
                          </property>
@@ -2757,7 +2757,7 @@ p, li { white-space: pre-wrap; }
   </connection>
   <connection>
    <sender>list_of_elements</sender>
-   <signal>currentIndexChanged(int)</signal>
+   <signal>currentIndexChanged(QString)</signal>
    <receiver>MainWindow</receiver>
    <slot>list_of_element_index_changed()</slot>
    <hints>

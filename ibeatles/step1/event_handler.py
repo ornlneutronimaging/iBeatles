@@ -1,15 +1,15 @@
 import logging
 import os
 
-from ..all_steps.event_handler import EventHandler as TopEventHandler
-from ..step1.data_handler import DataHandler
-from ..step1.plot import Step1Plot
-from ..step2.initialization import Initialization as Step2Initialization
-from ..step1.gui_handler import Step1GuiHandler
+from ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.plot import Step1Plot
+from ibeatles.step2.initialization import Initialization as Step2Initialization
+from ibeatles.step1.gui_handler import Step1GuiHandler
 
-from ..utilities.retrieve_data_infos import RetrieveGeneralDataInfos
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
 
-from .. import DataType
+from ibeatles import DataType, Material
 
 
 class EventHandler(TopEventHandler):
@@ -63,3 +63,29 @@ class EventHandler(TopEventHandler):
             self.parent.default_path[DataType.normalization] = parent_folder
         elif self.data_type == DataType.normalization:
             self.parent.default_path[DataType.normalized] = parent_folder
+
+    def check_status_of_material_widgets(self):
+        """
+        this check if the lattice and crystal structure widgets can be displayed in the load data and normalized
+        tab and changed the visibility of those widgets accordingly
+        
+        True if the selected element is from the default list, or if user used method1 when adding a new material
+        False otherwise
+        """
+        element = self.parent.ui.list_of_elements.currentText()
+        if element in self.parent.user_defined_bragg_edge_list.keys():
+            if self.parent.user_defined_bragg_edge_list[element][Material.method_used] == Material.via_lattice_and_crystal_structure:
+                self.parent.ui.crystal_structure_2_groupBox.setVisible(True)
+                self.parent.ui.lattice_2_groupBox.setVisible(True)
+                self.parent.ui.crystal_structure_groupBox.setVisible(True)
+                self.parent.ui.lattice_groupBox.setVisible(True)
+            else:
+                self.parent.ui.crystal_structure_2_groupBox.setVisible(False)
+                self.parent.ui.lattice_2_groupBox.setVisible(False)
+                self.parent.ui.crystal_structure_groupBox.setVisible(False)
+                self.parent.ui.lattice_groupBox.setVisible(False)
+        else:
+            self.parent.ui.crystal_structure_2_groupBox.setVisible(True)
+            self.parent.ui.lattice_2_groupBox.setVisible(True)
+            self.parent.ui.crystal_structure_groupBox.setVisible(True)
+            self.parent.ui.lattice_groupBox.setVisible(True)
