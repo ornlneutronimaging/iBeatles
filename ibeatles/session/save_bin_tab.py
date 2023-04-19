@@ -1,10 +1,12 @@
 import logging
 
-from .save_tab import SaveTab
-from .. import BINNING_LINE_COLOR
-from .. import DEFAULT_ROI
-from .. import DataType
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles import BINNING_LINE_COLOR
+from ibeatles import DEFAULT_ROI
+from ibeatles import DataType
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+
+from ibeatles.session.save_tab import SaveTab
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class SaveBinTab(SaveTab):
@@ -66,10 +68,12 @@ class SaveBinTab(SaveTab):
         logging.info(f" state: {state}")
         logging.info(f" histogram: {histogram}")
 
-        self.session_dict['bin']['roi'] = [name, x0, y0, width, height, bin_size]
-        self.session_dict['bin']['binning line view']['pos'] = formatted_binning_line_view_pos
-        self.session_dict['bin']['binning line view']['adj'] = formatted_binning_line_view_adj
-        self.session_dict['bin']['binning line view']['line color'] = binning_line_view_line_color
-        self.session_dict[DataType.bin]['image view state'] = state
-        self.session_dict[DataType.bin]['image view histogram'] = histogram
-        self.session_dict[DataType.bin]['ui accessed'] = self.parent.data_metadata[DataType.bin]['ui_accessed']
+        self.session_dict[SessionKeys.bin][SessionSubKeys.roi] = [name, x0, y0, width, height, bin_size]
+        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]['pos'] = formatted_binning_line_view_pos
+        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]['adj'] = formatted_binning_line_view_adj
+        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]['line color'] = \
+            binning_line_view_line_color
+        self.session_dict[DataType.bin][SessionSubKeys.image_view_state] = state
+        self.session_dict[DataType.bin][SessionSubKeys.image_view_histogram] = histogram
+        self.session_dict[DataType.bin][SessionSubKeys.ui_accessed] = \
+            self.parent.data_metadata[DataType.bin]['ui_accessed']

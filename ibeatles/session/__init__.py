@@ -41,6 +41,10 @@ class SessionSubKeys:
 
     # fitting
     ui_accessed = "ui accessed"
+    x_axis = "x_axis"
+    transparency = "transparency"
+    ui = "ui"
+
 
     # settings
     log_buffer_size = "log buffer size"

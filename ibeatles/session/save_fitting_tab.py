@@ -1,16 +1,18 @@
 import logging
 
-from .save_tab import SaveTab
-from .. import DataType
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles import DataType
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 from ibeatles.fitting import FittingTabSelected
+
+from ibeatles.session.save_tab import SaveTab
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class SaveFittingTab(SaveTab):
 
     def fitting(self):
 
-        if not self.parent.data_metadata[DataType.fitting]['ui_accessed']:
+        if not self.parent.data_metadata[DataType.fitting][SessionSubKeys.ui_accessed]:
             return
 
         self.general_infos()

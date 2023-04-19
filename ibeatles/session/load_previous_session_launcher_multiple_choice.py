@@ -1,10 +1,10 @@
 from qtpy.QtWidgets import QDialog
 import os
 
-from .. import load_ui
-from .session_handler import SessionHandler
+from ibeatles import load_ui
+from ibeatles import DataType
 
-from .. import DataType
+from ibeatles.session.session_handler import SessionHandler
 
 
 class LoadPreviousSessionLauncherMultipleChoice(QDialog):
