@@ -126,6 +126,10 @@ class LoadLoadDataTab:
         crystal_structure_index = session_dict["material"]["crystal structure"]['index']
         count = self.parent.ui.list_of_elements.count()
         user_defined_bragg_edge_list = session_dict["material"][Material.user_defined_bragg_edge_list]
+        self.parent.user_defined_bragg_edge_list = user_defined_bragg_edge_list
+
+        self.parent.ui.list_of_elements.blockSignals(True)
+        self.parent.ui.list_of_elements_2.blockSignals(True)
 
         if selected_element_index >= count:
            selected_element_name = session_dict["material"]["selected element"]['name']
@@ -135,6 +139,7 @@ class LoadLoadDataTab:
            # only 1 lattice user defined value can be saved between sessions
            self.parent.ui.list_of_elements.setCurrentIndex(count)
            self.parent.ui.list_of_elements_2.setCurrentIndex(count)
+
         else:
             self.parent.ui.list_of_elements.setCurrentIndex(selected_element_index)
             self.parent.ui.list_of_elements_2.setCurrentIndex(selected_element_index)
@@ -144,5 +149,10 @@ class LoadLoadDataTab:
         self.parent.ui.crystal_structure.setCurrentIndex(crystal_structure_index)
         self.parent.ui.crystal_structure_2.setCurrentIndex(crystal_structure_index)
 
+        self.parent.ui.list_of_elements.blockSignals(False)
+        self.parent.ui.list_of_elements_2.blockSignals(False)
+
         o_gui = Step1GuiHandler(parent=self.parent)
         o_gui.update_lattice_and_crystal_when_index_selected()
+
+        self.parent.check_status_of_material_widgets()

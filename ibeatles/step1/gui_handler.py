@@ -2,12 +2,12 @@ import pyqtgraph as pg
 
 from neutronbraggedge.braggedge import BraggEdge
 
-from ..step1.plot import Step1Plot
-from ..utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveGeneralDataInfos
-from ..step1.math_utilities import calculate_delta_lambda
-from ..utilities.gui_handler import GuiHandler
-from .. import DataType
-from .roi import Roi
+from ibeatles.step1.plot import Step1Plot
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveGeneralDataInfos
+from ibeatles.step1.math_utilities import calculate_delta_lambda
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles import DataType, Material
+from ibeatles.step1.roi import Roi
 
 
 class CustomAxis(pg.AxisItem):
@@ -180,33 +180,44 @@ class Step1GuiHandler(object):
         self.parent.ui.list_of_elements.blockSignals(True)
 
         _element = self.get_element_selected(source=source)
-        try:
+
+        if _element in self.parent.user_defined_bragg_edge_list.keys():
+
+            if self.parent.user_defined_bragg_edge_list[_element][Material.method_used] == Material.via_d0:
+                _lattice = ""
+                _crystal_structure = ""
+
+            else:
+                _lattice = self.parent.user_defined_bragg_edge_list[_element][Material.lattice]
+                _crystal_structure = self.parent.user_defined_bragg_edge_list[_element][Material.crystal_structure]
+
+        else:
             _handler = BraggEdge(material=_element)
             _crystal_structure = _handler.metadata['crystal_structure'][_element]
             _lattice = str(_handler.metadata['lattice'][_element])
 
-        except KeyError:
-            # new element
-
-            if source == 'load_data':
-
-                _lattice = str(self.parent.ui.lattice_parameter.text())
-                _index = self.parent.ui.list_of_elements.currentIndex()
-                self.parent.ui.list_of_elements_2.addItem(_element)
-                self.parent.ui.list_of_elements_2.setCurrentIndex(_index)
-                self.parent.ui.lattice_parameter_2.setText(_lattice)
-
-            else:
-                _lattice = str(self.parent.ui.lattice_parameter_2.text())
-                _index = self.parent.ui.list_of_elements_2.currentIndex()
-                self.parent.ui.list_of_elements.addItem(_element)
-                self.parent.ui.list_of_elements.setCurrentIndex(_index)
-                self.parent.ui.lattice_parameter.setText(_lattice)
-
-            self.parent.ui.list_of_elements_2.blockSignals(False)
-            self.parent.ui.list_of_elements.blockSignals(False)
-
-            return
+        # except KeyError:
+        #     # new element
+        #
+        #     if source == 'load_data':
+        #
+        #         _lattice = str(self.parent.ui.lattice_parameter.text())
+        #         _index = self.parent.ui.list_of_elements.currentIndex()
+        #         self.parent.ui.list_of_elements_2.addItem(_element)
+        #         self.parent.ui.list_of_elements_2.setCurrentIndex(_index)
+        #         self.parent.ui.lattice_parameter_2.setText(_lattice)
+        #
+        #     else:
+        #         _lattice = str(self.parent.ui.lattice_parameter_2.text())
+        #         _index = self.parent.ui.list_of_elements_2.currentIndex()
+        #         self.parent.ui.list_of_elements.addItem(_element)
+        #         self.parent.ui.list_of_elements.setCurrentIndex(_index)
+        #         self.parent.ui.lattice_parameter.setText(_lattice)
+        #
+        #     self.parent.ui.list_of_elements_2.blockSignals(False)
+        #     self.parent.ui.list_of_elements.blockSignals(False)
+        #
+        #     return
 
         # except KeyError:
         #
