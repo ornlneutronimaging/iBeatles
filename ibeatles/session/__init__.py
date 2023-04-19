@@ -11,6 +11,9 @@ class SessionSubKeys:
     detector_value = "detector value"
     beam_index = "beam index"
 
+    # sample
+    time_spectra_filename = "time spectra filename"
+
     # ob
     list_files = "list files"
     current_folder = 'current folder'

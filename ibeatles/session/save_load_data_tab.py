@@ -36,13 +36,13 @@ class SaveLoadDataTab(SaveTab):
         logging.info(f" state: {state}")
         logging.info(f" histogram: {histogram}")
 
-        self.session_dict[data_type]['list files'] = list_files
-        self.session_dict[data_type]['current folder'] = current_folder
-        self.session_dict[data_type]['time spectra filename'] = time_spectra_filename
-        self.session_dict[data_type]['list files selected'] = list_files_selected
-        self.session_dict[data_type]['list rois'] = list_roi
-        self.session_dict[data_type]['image view state'] = state
-        self.session_dict[data_type]['image view histogram'] = histogram
+        self.session_dict[data_type][SessionSubKeys.list_files] = list_files
+        self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder
+        self.session_dict[data_type][SessionSubKeys.time_spectra_filename] = time_spectra_filename
+        self.session_dict[data_type][SessionSubKeys.list_files_selected] = list_files_selected
+        self.session_dict[data_type][SessionSubKeys.list_rois] = list_roi
+        self.session_dict[data_type][SessionSubKeys.image_view_state] = state
+        self.session_dict[data_type][SessionSubKeys.image_view_histogram] = histogram
 
     def ob(self):
         """record all the parameters of the Load Data tab / ob accordion tab"""
