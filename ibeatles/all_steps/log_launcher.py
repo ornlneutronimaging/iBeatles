@@ -4,10 +4,11 @@ from qtpy.QtGui import QIcon
 from qtpy import QtGui
 import logging
 
-from .. import load_ui
-from ..utilities.get import Get
-from ..utilities.file_handler import read_ascii, write_ascii
-from .. import refresh_image, settings_image
+from ibeatles import load_ui
+from ibeatles.utilities.get import Get
+from ibeatles.utilities.file_handler import read_ascii, write_ascii
+from ibeatles import refresh_image, settings_image
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class LogLauncher:
@@ -93,11 +94,11 @@ class LogSettings(QDialog):
         self.init_widgets()
 
     def init_widgets(self):
-        log_buffer_size = self.grand_parent.session_dict['log buffer size']
+        log_buffer_size = self.grand_parent.session_dict[SessionSubKeys.log_buffer_size]
         self.ui.buffer_size_spinBox.setValue(log_buffer_size)
 
     def accept(self):
-        self.grand_parent.session_dict['log buffer size'] = self.ui.buffer_size_spinBox.value()
+        self.grand_parent.session_dict[SessionSubKeys.log_buffer_size] = self.ui.buffer_size_spinBox.value()
         self.parent.check_log_size()
         self.parent.loading_logging_file()
         self.close()
@@ -110,7 +111,7 @@ class LogHandler:
         self.log_file_name = log_file_name
 
     def cut_log_size_if_bigger_than_buffer(self):
-        log_buffer_size = self.parent.session_dict['log buffer size']
+        log_buffer_size = self.parent.session_dict[SessionSubKeys.log_buffer_size]
         # check current size of log file
         log_text = read_ascii(self.log_file_name)
         log_text_split_by_cr = log_text.split("\n")

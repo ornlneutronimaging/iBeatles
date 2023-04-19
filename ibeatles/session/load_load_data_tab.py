@@ -6,6 +6,7 @@ from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step2.plot import Step2Plot
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class LoadLoadDataTab:
@@ -19,19 +20,19 @@ class LoadLoadDataTab:
         session_dict = self.session_dict
         data_type = DataType.sample
 
-        list_sample_files = self.session_dict[data_type]['list files']
+        list_sample_files = self.session_dict[data_type][SessionSubKeys.list_files]
         if list_sample_files:
-            input_folder = session_dict[data_type]['current folder']
+            input_folder = session_dict[data_type][SessionSubKeys.current_folder]
             self.parent.image_view_settings[data_type]['state'] = \
-                session_dict[data_type]['image view state']
+                session_dict[data_type][SessionSubKeys.image_view_state]
             o_data_handler = DataHandler(parent=self.parent,
                                          data_type=data_type)
             list_sample_files_fullname = [os.path.join(input_folder, _file) for _file in list_sample_files]
             o_data_handler.load_files(list_of_files=list_sample_files_fullname)
-            time_spectra_file = session_dict[data_type]['time spectra filename']
+            time_spectra_file = session_dict[data_type][SessionSubKeys.time_spectra_filename]
             o_data_handler.load_time_spectra(time_spectra_file=time_spectra_file)
-            list_files_selected = session_dict[data_type]['list files selected']
-            self.parent.list_roi[data_type] = session_dict[data_type]['list rois']
+            list_files_selected = session_dict[data_type][SessionSubKeys.list_files_selected]
+            self.parent.list_roi[data_type] = session_dict[data_type][SessionSubKeys.list_rois]
             o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
             o_gui.initialize_rois_and_labels()
             for _row_selected in list_files_selected:
@@ -50,8 +51,8 @@ class LoadLoadDataTab:
             o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                         image_view=self.parent.ui.image_view,
                                         data_type=data_type)
-            o_pyqt.set_state(session_dict[data_type]['image view state'])
-            histogram_level = session_dict[data_type]['image view histogram']
+            o_pyqt.set_state(session_dict[data_type][SessionSubKeys.image_view_state])
+            histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram]
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
     def ob(self):
@@ -59,17 +60,17 @@ class LoadLoadDataTab:
         session_dict = self.session_dict
         data_type = DataType.ob
 
-        self.parent.image_view_settings[data_type]['state'] = session_dict[data_type]['image view state']
-        self.parent.image_view_settings[data_type]['histogram'] = session_dict[data_type]['image view histogram']
-        list_ob_files = session_dict[data_type]['list files']
+        self.parent.image_view_settings[data_type]['state'] = session_dict[data_type][SessionSubKeys.image_view_state]
+        self.parent.image_view_settings[data_type]['histogram'] = session_dict[data_type][SessionSubKeys.image_view_histogram]
+        list_ob_files = session_dict[data_type][SessionSubKeys.list_files]
         if list_ob_files:
-            input_folder = session_dict[data_type]['current folder']
+            input_folder = session_dict[data_type][SessionSubKeys.current_folder]
             o_data_handler = DataHandler(parent=self.parent,
                                          data_type=data_type)
             list_ob_files_fullname = [os.path.join(input_folder, _file) for _file in list_ob_files]
             o_data_handler.load_files(list_of_files=list_ob_files_fullname)
-        list_files_selected = session_dict[data_type]['list files selected']
-        self.parent.list_roi[data_type] = session_dict[data_type]['list rois']
+        list_files_selected = session_dict[data_type][SessionSubKeys.list_files_selected]
+        self.parent.list_roi[data_type] = session_dict[data_type][SessionSubKeys.list_rois]
         o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
         o_gui.initialize_rois_and_labels()
         for _row_selected in list_files_selected:
@@ -79,9 +80,9 @@ class LoadLoadDataTab:
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.ui.ob_image_view,
                                     data_type=data_type)
-        o_pyqt.set_state(session_dict[data_type]['image view state'])
+        o_pyqt.set_state(session_dict[data_type][SessionSubKeys.image_view_state])
         o_pyqt.reload_histogram_level()
-        histogram_level = session_dict[data_type]['image view histogram']
+        histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram]
         o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
     def instrument(self):
@@ -103,10 +104,14 @@ class LoadLoadDataTab:
         for _key in list_ui_normalized.keys():
             list_ui_normalized[_key].blockSignals(True)
 
-        o_gui.set_index_selected(index=session_dict["instrument"]["beam index"], ui=list_ui_data['beam'])
-        o_gui.set_text(value=session_dict["instrument"]["distance source detector"], ui=list_ui_data['distance'])
-        o_gui.set_index_selected(index=session_dict["instrument"]["beam index"], ui=list_ui_normalized['beam'])
-        o_gui.set_text(value=session_dict["instrument"]["distance source detector"], ui=list_ui_normalized['distance'])
+        o_gui.set_index_selected(index=session_dict[SessionKeys.instrument][SessionSubKeys.beam_index],
+                                 ui=list_ui_data['beam'])
+        o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector],
+                       ui=list_ui_data['distance'])
+        o_gui.set_index_selected(index=session_dict[SessionKeys.instrument][SessionSubKeys.beam_index],
+                                 ui=list_ui_normalized['beam'])
+        o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector],
+                       ui=list_ui_normalized['distance'])
 
         for _key in list_ui_data.keys():
             list_ui_data[_key].blockSignals(False)
@@ -114,25 +119,27 @@ class LoadLoadDataTab:
         for _key in list_ui_normalized.keys():
             list_ui_normalized[_key].blockSignals(False)
 
-        o_gui.set_text(value=session_dict["instrument"]["detector value"], ui=list_ui_data['detector'])
-        o_gui.set_text(value=session_dict["instrument"]["detector value"], ui=list_ui_normalized['detector'])
+        o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.detector_value],
+                       ui=list_ui_data['detector'])
+        o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.detector_value],
+                       ui=list_ui_normalized['detector'])
 
     def material(self):
 
         session_dict = self.session_dict
 
-        selected_element_index = session_dict["material"]["selected element"]['index']
-        lattice = session_dict["material"]["lattice"]
-        crystal_structure_index = session_dict["material"]["crystal structure"]['index']
+        selected_element_index = session_dict[SessionKeys.material][SessionSubKeys.selected_element][SessionSubKeys.index]
+        lattice = session_dict[SessionKeys.material][SessionSubKeys.lattice]
+        crystal_structure_index = session_dict[SessionKeys.material][SessionSubKeys.crystal_structure][SessionSubKeys.index]
         count = self.parent.ui.list_of_elements.count()
-        user_defined_bragg_edge_list = session_dict["material"][Material.user_defined_bragg_edge_list]
+        user_defined_bragg_edge_list = session_dict[SessionKeys.material][Material.user_defined_bragg_edge_list]
         self.parent.user_defined_bragg_edge_list = user_defined_bragg_edge_list
 
         self.parent.ui.list_of_elements.blockSignals(True)
         self.parent.ui.list_of_elements_2.blockSignals(True)
 
         if selected_element_index >= count:
-           selected_element_name = session_dict["material"]["selected element"]['name']
+           selected_element_name = session_dict[SessionKeys.material][SessionSubKeys.selected_element][SessionSubKeys.name]
            self.parent.ui.list_of_elements.addItem(selected_element_name)
            self.parent.ui.list_of_elements_2.addItem(selected_element_name)
 

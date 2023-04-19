@@ -1,3 +1,6 @@
+from ibeatles.session import SessionSubKeys
+
+
 class General:
 
     def __init__(self, parent=None):
@@ -9,4 +12,5 @@ class General:
         if self.session_dict.get('log buffer size', None):
             pass
         else:
-            self.session_dict['log buffer size'] = self.parent.default_session_dict['log buffser size']
+            self.session_dict[SessionSubKeys.log_buffer_size] = \
+                self.parent.default_session_dict[SessionSubKeys.log_buffer_size]
