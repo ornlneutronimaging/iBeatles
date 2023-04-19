@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1520</width>
-    <height>1140</height>
+    <width>1542</width>
+    <height>1470</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -37,8 +37,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1494</width>
-         <height>1063</height>
+         <width>1516</width>
+         <height>1393</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -88,6 +88,9 @@
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
+               <property name="handleWidth">
+                <number>7</number>
+               </property>
                <widget class="QWidget" name="layoutWidget">
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
@@ -100,8 +103,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1369</width>
-                      <height>482</height>
+                      <width>1390</width>
+                      <height>812</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -190,8 +193,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>1383</width>
-                      <height>369</height>
+                      <width>1390</width>
+                      <height>799</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -387,13 +390,25 @@
                      <string>Instrument</string>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_2">
-                     <item row="1" column="2">
-                      <widget class="QLabel" name="label_4">
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_3">
                        <property name="enabled">
                         <bool>false</bool>
                        </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>75</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>75</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
                        <property name="text">
-                        <string>Hz</string>
+                        <string>Beam Rate</string>
                        </property>
                       </widget>
                      </item>
@@ -420,107 +435,6 @@
                       <widget class="QLabel" name="delta_lambda_value">
                        <property name="text">
                         <string>N/A</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QLineEdit" name="distance_source_detector">
-                       <property name="text">
-                        <string>19.855</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QLineEdit" name="detector_offset">
-                       <property name="text">
-                        <string>5000</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_3">
-                       <property name="enabled">
-                        <bool>false</bool>
-                       </property>
-                       <property name="minimumSize">
-                        <size>
-                         <width>75</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>75</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Beam Rate</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="distance_source_detector_label">
-                       <property name="minimumSize">
-                        <size>
-                         <width>80</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>80</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>d source-detector</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="2">
-                      <widget class="QLabel" name="micro_s">
-                       <property name="text">
-                        <string>micros</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="4" column="1">
-                      <spacer name="verticalSpacer_2">
-                       <property name="orientation">
-                        <enum>Qt::Vertical</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>20</width>
-                         <height>40</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item row="3" column="0">
-                      <widget class="QLabel" name="delta_lambda_label">
-                       <property name="minimumSize">
-                        <size>
-                         <width>20</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>20</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>delta_lambda:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="2">
-                      <widget class="QLabel" name="label_6">
-                       <property name="text">
-                        <string>m</string>
                        </property>
                       </widget>
                      </item>
@@ -553,11 +467,93 @@
                        </item>
                       </widget>
                      </item>
+                     <item row="1" column="2">
+                      <widget class="QLabel" name="label_4">
+                       <property name="enabled">
+                        <bool>false</bool>
+                       </property>
+                       <property name="text">
+                        <string>Hz</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="QLineEdit" name="detector_offset">
+                       <property name="text">
+                        <string>5000</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="0">
+                      <widget class="QLabel" name="delta_lambda_label">
+                       <property name="minimumSize">
+                        <size>
+                         <width>20</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>20</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>delta_lambda:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <widget class="QLabel" name="label_6">
+                       <property name="text">
+                        <string>m</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLineEdit" name="distance_source_detector">
+                       <property name="text">
+                        <string>19.855</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="2">
+                      <widget class="QLabel" name="micro_s">
+                       <property name="text">
+                        <string>micros</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="distance_source_detector_label">
+                       <property name="minimumSize">
+                        <size>
+                         <width>80</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>80</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>d source-detector</string>
+                       </property>
+                      </widget>
+                     </item>
                     </layout>
                    </widget>
                   </item>
                   <item>
                    <widget class="QGroupBox" name="groupBox_3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="title">
                      <string>Material</string>
                     </property>
@@ -647,161 +643,131 @@
                       </layout>
                      </item>
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_17">
-                       <item>
-                        <widget class="QLabel" name="label_13">
-                         <property name="minimumSize">
-                          <size>
-                           <width>110</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>110</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Lattice</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLineEdit" name="lattice_parameter">
-                         <property name="maximumSize">
-                          <size>
-                           <width>150</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="angstroms_label">
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>A</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="reset_lattice_button">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_12">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_18">
                        <item>
-                        <widget class="QLabel" name="label_14">
-                         <property name="minimumSize">
-                          <size>
-                           <width>110</width>
-                           <height>0</height>
-                          </size>
+                        <widget class="QGroupBox" name="groupBox_7">
+                         <property name="title">
+                          <string>Lattice</string>
                          </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>110</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Crystal Structure</string>
-                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_17">
+                          <item>
+                           <widget class="QLineEdit" name="lattice_parameter">
+                            <property name="maximumSize">
+                             <size>
+                              <width>150</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="angstroms_label">
+                            <property name="text">
+                             <string>A</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="reset_lattice_button">
+                            <property name="minimumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="text">
+                             <string/>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_5">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
                         </widget>
                        </item>
                        <item>
-                        <widget class="QComboBox" name="crystal_structure">
-                         <property name="minimumSize">
-                          <size>
-                           <width>100</width>
-                           <height>0</height>
-                          </size>
+                        <widget class="QGroupBox" name="groupBox_8">
+                         <property name="title">
+                          <string>Crystal structure</string>
                          </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>100</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <item>
-                          <property name="text">
-                           <string>FCC</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>BCC</string>
-                          </property>
-                         </item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_21">
+                          <item>
+                           <widget class="QComboBox" name="crystal_structure">
+                            <property name="minimumSize">
+                             <size>
+                              <width>100</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>100</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                            <item>
+                             <property name="text">
+                              <string>FCC</string>
+                             </property>
+                            </item>
+                            <item>
+                             <property name="text">
+                              <string>BCC</string>
+                             </property>
+                            </item>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QPushButton" name="reset_crystal_structure_button">
+                            <property name="minimumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>20</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                            <property name="text">
+                             <string/>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_8">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
                         </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="reset_crystal_structure_button">
-                         <property name="minimumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>20</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string/>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <spacer name="horizontalSpacer_8">
-                         <property name="orientation">
-                          <enum>Qt::Horizontal</enum>
-                         </property>
-                         <property name="sizeHint" stdset="0">
-                          <size>
-                           <width>40</width>
-                           <height>20</height>
-                          </size>
-                         </property>
-                        </spacer>
                        </item>
                       </layout>
                      </item>
@@ -1869,7 +1835,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1520</width>
+     <width>1542</width>
      <height>24</height>
     </rect>
    </property>
