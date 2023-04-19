@@ -1,11 +1,11 @@
 import os
 
-from .. import DataType
-from ..step1.data_handler import DataHandler
-from ..step1.gui_handler import Step1GuiHandler
-from ..step2.plot import Step2Plot
-from ..utilities.gui_handler import GuiHandler
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles import DataType, Material
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.step2.plot import Step2Plot
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class LoadLoadDataTab:
@@ -125,6 +125,7 @@ class LoadLoadDataTab:
         lattice = session_dict["material"]["lattice"]
         crystal_structure_index = session_dict["material"]["crystal structure"]['index']
         count = self.parent.ui.list_of_elements.count()
+        user_defined_bragg_edge_list = session_dict["material"][Material.user_defined_bragg_edge_list]
 
         if selected_element_index >= count:
            selected_element_name = session_dict["material"]["selected element"]['name']

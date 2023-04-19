@@ -5,6 +5,8 @@ from ibeatles.session.save_tab import SaveTab
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
+from ibeatles.session import SessionKeys
+
 
 class SaveLoadDataTab(SaveTab):
 
@@ -107,11 +109,15 @@ class SaveLoadDataTab(SaveTab):
         logging.info(f" lattice: {lattice}")
         logging.info(f" crystal structure:{crystal_structure_name} at index: {crystal_structure_index}")
 
-        self.session_dict["material"]["selected element"] = {'name': selected_element,
+        self.session_dict[SessionKeys.material]["selected element"] = {'name': selected_element,
                                                              'index': selected_index}
-        self.session_dict["material"]["lattice"] = lattice
-        self.session_dict["material"]["crystal structure"] = {'name': crystal_structure_name,
+        self.session_dict[SessionKeys.material]["lattice"] = lattice
+        self.session_dict[SessionKeys.material]["crystal structure"] = {'name': crystal_structure_name,
                                                               'index': crystal_structure_index}
 
-        self.session_dict["material"][Material.user_defined_bragg_edge_list] = \
+        self.session_dict[SessionKeys.material][Material.user_defined_bragg_edge_list] = \
             self.parent.user_defined_bragg_edge_list
+
+        full_list_of_element_names = [self.parent.ui.list_of_elements.itemText(i) for i
+                                      in range(self.parent.ui.list_of_elements.count())]
+        self.session_dict[SessionKeys.material][Material.full_list_of_element_names] = full_list_of_element_names

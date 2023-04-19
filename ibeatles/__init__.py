@@ -67,3 +67,4 @@ class Material:
     via_d0 = "using method 2"
     method_used = "either via_lattice or via_d0"
     user_defined_bragg_edge_list = "list of hkl, d0 of the user defined material"
+    full_list_of_element_names = "list of names of element displayed in the 2 comboBoxes"

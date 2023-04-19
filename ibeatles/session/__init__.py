@@ -1,0 +1,4 @@
+class SessionKeys:
+
+    material = "material"
+    
