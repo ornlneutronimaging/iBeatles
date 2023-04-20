@@ -8,7 +8,7 @@ from ibeatles import load_ui
 from ibeatles.utilities.get import Get
 from ibeatles.utilities.file_handler import read_ascii, write_ascii
 from ibeatles import refresh_image, settings_image
-from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.session import SessionSubKeys
 
 
 class LogLauncher:
