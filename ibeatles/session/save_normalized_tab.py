@@ -1,8 +1,10 @@
 import logging
 
+from ibeatles import DataType
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+
+from ibeatles.session import SessionKeys, SessionSubKeys
 from .save_tab import SaveTab
-from .. import DataType
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class SaveNormalizedTab(SaveTab):
@@ -34,11 +36,11 @@ class SaveNormalizedTab(SaveTab):
         logging.info(f" state: {state}")
         logging.info(f" histogram: {histogram}")
 
-        self.session_dict[data_type]['list files'] = list_files
-        self.session_dict[data_type]['current folder'] = current_folder
-        self.session_dict[data_type]['time spectra filename'] = time_spectra_filename
-        self.session_dict[data_type]['list files selected'] = list_files_selected
-        self.session_dict[data_type]['list rois'] = list_roi
-        self.session_dict[data_type]['image view state'] = state
-        self.session_dict[data_type]['image view histogram'] = histogram
-        self.session_dict["reduction"] = self.parent.session_dict["reduction"]
+        self.session_dict[data_type][SessionSubKeys.list_files] = list_files
+        self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder
+        self.session_dict[data_type][SessionSubKeys.time_spectra_filename] = time_spectra_filename
+        self.session_dict[data_type][SessionSubKeys.list_files_selected] = list_files_selected
+        self.session_dict[data_type][SessionSubKeys.list_rois] = list_roi
+        self.session_dict[data_type][SessionSubKeys.image_view_state] = state
+        self.session_dict[data_type][SessionSubKeys.image_view_histogram] = histogram
+        self.session_dict[SessionKeys.reduction] = self.parent.session_dict[SessionKeys.reduction]

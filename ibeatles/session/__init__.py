@@ -5,6 +5,7 @@ class SessionKeys:
     bin = "bin"
     fitting = "fitting"
     settings = "settings"
+    reduction = "reduction"
 
 
 class SessionSubKeys:
@@ -33,6 +34,7 @@ class SessionSubKeys:
     crystal_structure = "crystal structure"
     index = "index"
     name = "name"
+    user_defined = "user_defined"
 
     # bin
     state = "state"
@@ -40,12 +42,21 @@ class SessionSubKeys:
     binning_line_view = 'binning line view'
 
     # fitting
-    ui_accessed = "ui accessed"
+    ui_accessed = "ui_accessed"
     x_axis = "x_axis"
     transparency = "transparency"
     ui = "ui"
-
+    lambda_range_index = "lambda range index"
+    march_dollase = "march dollase"
+    kropff = "kropff"
 
     # settings
     log_buffer_size = "log buffer size"
+    config_version = "config version"
 
+    # reduction
+    activate = "activate"
+    dimension = "dimension"
+    size = "size"
+    type = "type"
+    process_order = "process order"

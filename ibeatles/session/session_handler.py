@@ -3,102 +3,102 @@ import json
 import logging
 import copy
 
-from ..utilities.status_message_config import StatusMessageStatus, show_status_message
-from ..utilities.get import Get
-from .save_load_data_tab import SaveLoadDataTab
-from .save_normalization_tab import SaveNormalizationTab
-from .save_normalized_tab import SaveNormalizedTab
-from .save_bin_tab import SaveBinTab
-from .save_fitting_tab import SaveFittingTab
-
-from .session_utilities import SessionUtilities
-from .load_load_data_tab import LoadLoadDataTab
-from .load_normalization_tab import LoadNormalization
-from .load_normalized_tab import LoadNormalized
-from .load_bin_tab import LoadBin
-from .load_fitting_tab import LoadFitting
-from .general import General
-
 from ibeatles import DataType, Material
+from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from ibeatles.utilities.get import Get
+
+from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.session.save_load_data_tab import SaveLoadDataTab
+from ibeatles.session.save_normalization_tab import SaveNormalizationTab
+from ibeatles.session.save_normalized_tab import SaveNormalizedTab
+from ibeatles.session.save_bin_tab import SaveBinTab
+from ibeatles.session.save_fitting_tab import SaveFittingTab
+from ibeatles.session.session_utilities import SessionUtilities
+from ibeatles.session.load_load_data_tab import LoadLoadDataTab
+from ibeatles.session.load_normalization_tab import LoadNormalization
+from ibeatles.session.load_normalized_tab import LoadNormalized
+from ibeatles.session.load_bin_tab import LoadBin
+from ibeatles.session.load_fitting_tab import LoadFitting
+from ibeatles.session.general import General
 
 
 class SessionHandler:
     config_file_name = ""
     load_successful = True
 
-    session_dict = {'config version': None,
-                    'log buffer size': 500,
-                    DataType.sample: {'list files': None,
-                                      'current folder': None,
-                                      'time spectra filename': None,
-                                      'list files selected': None,
-                                      'list rois': None,
-                                      'image view state': None,
-                                      'image view histogram': None,
+    session_dict = {SessionSubKeys.config_version: None,
+                    SessionSubKeys.log_buffer_size: 500,
+                    DataType.sample: {SessionSubKeys.list_files: None,
+                                      SessionSubKeys.current_folder: None,
+                                      SessionSubKeys.time_spectra_filename: None,
+                                      SessionSubKeys.list_files_selected: None,
+                                      SessionSubKeys.list_rois: None,
+                                      SessionSubKeys.image_view_state: None,
+                                      SessionSubKeys.image_view_histogram: None,
                                       },
-                    DataType.ob: {'list files': None,
-                                  'current folder': None,
-                                  'list files selected': None,
+                    DataType.ob: {SessionSubKeys.list_files: None,
+                                  SessionSubKeys.current_folder: None,
+                                  SessionSubKeys.list_files_selected: None,
                                   },
-                    DataType.normalization: {'roi': None,
-                                             'image view state': None,
-                                             'image view histogram': None,
+                    DataType.normalization: {SessionSubKeys.roi: None,
+                                             SessionSubKeys.image_view_state: None,
+                                             SessionSubKeys.image_view_histogram: None,
                                              },
-                    DataType.normalized: {'list files': None,
-                                          'current folder': None,
-                                          'time spectra filename': None,
-                                          'list files selected': None,
-                                          'list rois': None,
-                                          'image view state': None,
-                                          'image view histogram': None,
+                    DataType.normalized: {SessionSubKeys.list_files: None,
+                                          SessionSubKeys.current_folder: None,
+                                          SessionSubKeys.time_spectra_filename: None,
+                                          SessionSubKeys.list_files_selected: None,
+                                          SessionSubKeys.list_rois: None,
+                                          SessionSubKeys.image_view_state: None,
+                                          SessionSubKeys.image_view_histogram: None,
                                           },
-                    "instrument": {'distance source detector': None,
-                                   'beam index': 0,
-                                   'detector value': None,
+                    SessionKeys.instrument: {SessionSubKeys.distance_source_detector: None,
+                                   SessionSubKeys.beam_index: 0,
+                                   SessionSubKeys.detector_value: None,
                                    },
-                    "material": {'selected element': {'name': None,
-                                                      'user_defined': False,
-                                                      'index': 0},
-                                 'lattice': None,
+                    SessionKeys.material: {SessionSubKeys.selected_element: {SessionSubKeys.name: None,
+                                                                   SessionSubKeys.user_defined: False,
+                                                                   SessionSubKeys.index: 0},
+                                 SessionSubKeys.lattice: None,
                                  Material.hkl_d0: None,
-                                 'crystal structure': {'name': 'fcc',
-                                                       'index': 0,
-                                                       },
+                                 SessionSubKeys.crystal_structure: {SessionSubKeys.name: 'fcc',
+                                                                    SessionSubKeys.index: 0,
+                                                                   },
                                  Material.user_defined_bragg_edge_list: None,
                                  },
-                    "reduction": {'activate': True,
-                                  'dimension': '2d',
-                                  'size': {'flag': 'default',
+                    SessionKeys.reduction: {SessionSubKeys.activate: True,
+                                  SessionSubKeys.dimension: '2d',
+                                  SessionSubKeys.size: {'flag': 'default',
                                            'y': 20,
                                            'x': 20,
                                            'l': 3,
                                            },
-                                  'type': 'box',
-                                  'processes order': 'option1',
+                                  SessionSubKeys.type: 'box',
+                                  SessionSubKeys.process_order: 'option1',
                                   },
-                    "bin": {'roi': None,
-                            'binning line view': {'pos': None,
+                    SessionKeys.bin: {SessionSubKeys.roi: None,
+                            SessionSubKeys.binning_line_view: {'pos': None,
                                                   'adj': None,
                                                   'line color': None,
                                                   },
-                            'image view state': None,
-                            'image view histogram': None,
-                            'ui accessed': False,
+                            SessionSubKeys.image_view_state: None,
+                            SessionSubKeys.image_view_histogram: None,
+                            SessionSubKeys.ui_accessed: False,
                             },
-                    DataType.fitting: {"lambda range index": None,
-                                       "x_axis": None,
-                                       "transparency": 50,
-                                       'image view state': None,
-                                       'image view histogram': None,
-                                       'ui accessed': False,
-                                       'ui': {'splitter_2': None,
+                    DataType.fitting: {SessionSubKeys.lambda_range_index: None,
+                                       SessionSubKeys.x_axis: None,
+                                       SessionSubKeys.transparency: 50,
+                                       SessionSubKeys.image_view_state: None,
+                                       SessionSubKeys.image_view_histogram: None,
+                                       SessionSubKeys.ui_accessed: False,
+                                       SessionSubKeys.ui: {'splitter_2': None,
                                               'splitter': None,
                                               'splitter_3': None,
                                               },
-                                       'march dollase': {"table dictionary": None,
+                                       SessionSubKeys.march_dollase: {"table dictionary": None,
                                                          "plot active row flag": True,
                                                          },
-                                       'kropff': {'table dictionary': None,
+                                       SessionSubKeys.kropff: {'table dictionary': None,
                                                   'high tof': {'a0': '1',
                                                                'b0': '1',
                                                                'graph': 'a0',
@@ -145,8 +145,8 @@ class SessionHandler:
         self.parent = parent
 
     def save_from_ui(self):
-        self.session_dict['config version'] = self.parent.config["config version"]
-        self.session_dict['log buffer size'] = self.parent.session_dict['log buffer size']
+        self.session_dict[SessionSubKeys.config_version] = self.parent.config[SessionSubKeys.config_version]
+        self.session_dict[SessionSubKeys.log_buffer_size] = self.parent.session_dict[SessionSubKeys.log_buffer_size]
 
         # Load data tab
         o_save_load_data_tab = SaveLoadDataTab(parent=self.parent,
@@ -302,18 +302,18 @@ class SessionHandler:
 
             with open(config_file_name, "r") as read_file:
                 session_to_save = json.load(read_file)
-                if session_to_save.get("config version", None) is None:
+                if session_to_save.get(SessionSubKeys.config_version, None) is None:
                     logging.info(f"Session file is out of date!")
-                    logging.info(f"-> expected version: {self.parent.config['config version']}")
+                    logging.info(f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}")
                     logging.info(f"-> session version: Unknown!")
                     self.load_successful = False
-                elif session_to_save["config version"] == self.parent.config["config version"]:
+                elif session_to_save[SessionSubKeys.config_version] == self.parent.config[SessionSubKeys.config_version]:
                     self.parent.session_dict = session_to_save
                     logging.info(f"Loaded from {config_file_name}")
                 else:
                     logging.info(f"Session file is out of date!")
-                    logging.info(f"-> expected version: {self.parent.config['config version']}")
-                    logging.info(f"-> session version: {session_to_save['config version']}")
+                    logging.info(f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}")
+                    logging.info(f"-> session version: {session_to_save[SessionSubKeys.config_version]}")
                     self.load_successful = False
 
                 if not self.load_successful:
@@ -332,13 +332,13 @@ class SessionHandler:
     def get_tabs_to_load(self):
         session_dict = self.parent.session_dict
         list_tabs_to_load = []
-        if session_dict[DataType.sample]['list files']:
+        if session_dict[DataType.sample][SessionSubKeys.list_files]:
             list_tabs_to_load.append(DataType.sample)
-        if session_dict[DataType.normalized]['list files']:
+        if session_dict[DataType.normalized][SessionSubKeys.list_files]:
             list_tabs_to_load.append(DataType.normalized)
-        if session_dict[DataType.bin]['ui accessed']:
+        if session_dict[DataType.bin][SessionSubKeys.ui_accessed]:
             list_tabs_to_load.append(DataType.bin)
-        if session_dict[DataType.fitting]['ui accessed']:
+        if session_dict[DataType.fitting][SessionSubKeys.ui_accessed]:
             list_tabs_to_load.append(DataType.fitting)
 
         return list_tabs_to_load
