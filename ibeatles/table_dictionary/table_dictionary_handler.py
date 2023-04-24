@@ -3,10 +3,8 @@ import numpy as np
 import os
 import pandas as pd
 
-from ..utilities.table_handler import TableHandler
-
-from ..fitting import fitting_handler
-# from ibeatles.py.utilities.math_tools import get_random_value
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting import fitting_handler
 
 
 class ColumnNameIndex:

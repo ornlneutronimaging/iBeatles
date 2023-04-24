@@ -1,10 +1,10 @@
 import numpy as np
 import collections
 
-from ..utilities.status import Status
+from ibeatles.utilities.status import Status
 
 
-class TableFittingStoryDictionaryHandler(object):
+class TableFittingStoryDictionaryHandler:
     story_1 = [['a1', 'a6'],
                ['a2', 'a5'],
                ['d_spacing', 'sigma', 'alpha'],
