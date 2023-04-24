@@ -976,6 +976,9 @@ class MainWindow(QMainWindow):
         self.ui.roi_add_button.setChecked(True)
         self.ui.ob_roi_add_button.setChecked(True)
         self.roi_normalized_image_view_changed()
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
+        o_retrieve_data_infos.update()
+        self.roi_normalized_image_view_changed(mouse_selection=True)
 
     def normalized_roi_algorithm_is_mean_clicked(self):
         self.ui.roi_mean_button.setChecked(True)

@@ -143,13 +143,13 @@ class Initialization:
 
         add_button = QRadioButton()
         add_button.setText("Add")
-        add_button.setChecked(True)
+        add_button.setChecked(False)
         add_button.released.connect(add_function)
         line_layout.addWidget(add_button)
 
         mean_button = QRadioButton()
         mean_button.setText("Mean")
-        mean_button.setChecked(False)
+        mean_button.setChecked(True)
         mean_button.released.connect(mean_function)
         line_layout.addWidget(mean_button)
 

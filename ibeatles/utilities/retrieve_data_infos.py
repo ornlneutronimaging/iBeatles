@@ -2,6 +2,7 @@ import os
 import time
 import numpy as np
 
+from ibeatles import DataType
 from ibeatles.step1.plot import Step1Plot
 
 
@@ -50,6 +51,11 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
 
         list_row_selected = list(np.sort(self.get_list_row_selected()))
 
+        if self.data_type == DataType.normalized:
+            combine_algo = np.nansum if self.parent.ui.normalized_roi_add_button.isChecked() else np.nanmean
+        else:
+            combine_algo = np.nansum if self.parent.ui.roi_add_button.isChecked() else np.nanmean
+
         if not list_row_selected:
 
             if self.parent.data_metadata[self.data_type]['data'] == []:
@@ -65,7 +71,8 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
                 self.table_ui[self.data_type].blockSignals(False)
 
                 data = self.parent.data_metadata[self.data_type]['data']
-                self.data = np.sum(data, axis=0)
+
+                self.data = combine_algo(data, axis=0)
 
         else:
 
@@ -73,7 +80,7 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
             _data = []
             for index in list_row_selected:
                 _data.append(full_data[index])
-            self.data = np.sum(_data, axis=0)
+            self.data = combine_algo(_data, axis=0)
 
             if self.data_type == 'normalized':
                 self.parent.data_metadata['normalized']['data_live_selection'] = _data
