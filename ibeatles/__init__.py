@@ -1,10 +1,12 @@
 import os
 from qtpy.uic import loadUi
-from ibeatles import ui
-from ._version import get_versions
+import re
 
-__version__ = get_versions()['version']
-del get_versions
+from ibeatles import ui
+# from ._version import get_versions
+
+# __version__ = get_versions()['version']
+# del get_versions
 
 root = os.path.dirname(os.path.realpath(__file__))
 refresh_image = os.path.join(root, "icons/refresh.png")
@@ -68,3 +70,24 @@ class Material:
     method_used = "either via_lattice or via_d0"
     user_defined_bragg_edge_list = "list of hkl, d0 of the user defined material"
     full_list_of_element_names = "list of names of element displayed in the 2 comboBoxes"
+
+
+def get_version():
+    """getting version of ibeatles by looking at the setup.py file
+    """
+    root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    setup_py_file = os.path.join(root, "setup.py")
+    with open(setup_py_file, 'r') as setup_file_handler:
+        content = setup_file_handler.read()
+    content_formatted = content.split("\n")
+
+    _version = "unknown"
+    for _line in content_formatted:
+        if _line.strip().startswith("version"):
+            _tag, _version = _line.strip().split("=")
+            m = re.match('"(\d*.\d*.\d*)",', _version)
+            if m:
+                _version = m.group(1)
+            break
+
+    return _version

@@ -16,6 +16,7 @@ from ibeatles.utilities.status_message_config import StatusMessageStatus, show_s
 from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
 from ibeatles.step2.reduction_tools import moving_average
 from ibeatles.step2.get import Get
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class Normalization:
@@ -50,7 +51,7 @@ class Normalization:
 
         o_norm = self.create_o_norm()
 
-        if self.parent.session_dict["reduction"]["processes order"] == "option1":
+        if self.parent.session_dict[SessionKeys.reduction][SessionSubKeys.process_order] == "option1":
             # running moving average before running normalization
             o_norm = self.running_moving_average(o_norm=copy.deepcopy(o_norm))
             o_norm = self.running_normalization(o_norm=copy.deepcopy(o_norm))
@@ -137,7 +138,7 @@ class Normalization:
         if o_norm is None:
             return None
 
-        running_moving_average_settings = self.parent.session_dict["reduction"]
+        running_moving_average_settings = self.parent.session_dict[SessionKeys.reduction]
         if not running_moving_average_settings["activate"]:
             logging.info("Not running moving average! Option has been turned off")
             return o_norm
@@ -146,7 +147,7 @@ class Normalization:
                             message="Running moving average ...",
                             status=StatusMessageStatus.working)
         logging.info("Running moving average:")
-        reduction_settings = self.parent.session_dict["reduction"]
+        reduction_settings = self.parent.session_dict[SessionKeys.reduction]
 
         if reduction_settings['size']['flag'] == 'default':
             x = ReductionSettingsHandler.default_kernel_size['x']

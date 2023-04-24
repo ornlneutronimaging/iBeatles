@@ -1,63 +1,58 @@
 from qtpy import QtCore
-from qtpy.QtGui import QIcon
 from qtpy.QtWidgets import QApplication, QMainWindow
-import sys
 import os
 import logging
-import versioneer
 import warnings
 warnings.filterwarnings("ignore")
 
-from .config_handler import ConfigHandler
-from ibeatles import Material
+from ibeatles.config_handler import ConfigHandler
 
-from .all_steps.log_launcher import LogLauncher, LogHandler
-from .all_steps.event_handler import EventHandler as GeneralEventHandler
+from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
+from ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
 from ibeatles.all_steps.list_hkl_lambda_d0 import ListHKLLambdaD0Handler
 
-from .step1.event_handler import EventHandler as Step1EventHandler
-from .step1.data_handler import DataHandler
-from .step1.gui_handler import Step1GuiHandler
-from .step1.time_spectra_handler import TimeSpectraHandler
-from .step1.plot import Step1Plot
-from .step1.check_error import CheckError
-from .step1.initialization import Initialization
+from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
+from ibeatles.step1.plot import Step1Plot
+from ibeatles.step1.check_error import CheckError
+from ibeatles.step1.initialization import Initialization
 
-from .utilities.get import Get
-from .session.load_previous_session_launcher import LoadPreviousSessionLauncher
-from .session.session_handler import SessionHandler
+from ibeatles.utilities.get import Get
+from ibeatles.session.load_previous_session_launcher import LoadPreviousSessionLauncher
+from ibeatles.session.session_handler import SessionHandler
 
-from .step2.initialization import Initialization as Step2Initialization
-from .step2.gui_handler import Step2GuiHandler
-from .step2.roi_handler import Step2RoiHandler
-from .step2.plot import Step2Plot
-from .step2.normalization import Normalization
-from .step2.reduction_settings_handler import ReductionSettingsHandler
+from ibeatles.step2.initialization import Initialization as Step2Initialization
+from ibeatles.step2.gui_handler import Step2GuiHandler
+from ibeatles.step2.roi_handler import Step2RoiHandler
+from ibeatles.step2.plot import Step2Plot
+from ibeatles.step2.normalization import Normalization
+from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
 
-from .step3.gui_handler import Step3GuiHandler
-from .step3.event_handler import EventHandler as Step3EventHandler
+from ibeatles.step3.gui_handler import Step3GuiHandler
+from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 
-from .binning.binning_launcher import BinningLauncher
+from ibeatles.binning.binning_launcher import BinningLauncher
 
-from .fitting.fitting_launcher import FittingLauncher
-from .fitting import KropffThresholdFinder
+from ibeatles.fitting.fitting_launcher import FittingLauncher
+from ibeatles.fitting import KropffThresholdFinder
 
-from .step6.strain_mapping_launcher import StrainMappingLauncher
+from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
-from .tools.rotate_images import RotateImages
+from ibeatles.tools.rotate_images import RotateImages
 
-from .utilities.retrieve_data_infos import RetrieveGeneralDataInfos, RetrieveGeneralFileInfos
-from .utilities.list_data_handler import ListDataHandler
-from .utilities.roi_editor import RoiEditor
-from .utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
-from .utilities.bragg_edge_element_handler import BraggEdgeElementHandler
-from .utilities.gui_handler import GuiHandler
-from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos, RetrieveGeneralFileInfos
+from ibeatles.utilities.list_data_handler import ListDataHandler
+from ibeatles.utilities.roi_editor import RoiEditor
+from ibeatles.utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
+from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.add_element.add_element_editor import AddElement
 
-from .utilities.array_utilities import find_nearest_index
-from . import load_ui
-from . import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
+from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles import load_ui, get_version
+from ibeatles import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
 
 from ibeatles.about.about_launcher import AboutLauncher
 
@@ -301,8 +296,7 @@ class MainWindow(QMainWindow):
                             format='[%(levelname)s] - %(asctime)s - %(message)s',
                             level=logging.INFO)
         logging.info("*** Starting a new session ***")
-        #logging.info(f" Version: {versioneer.get_versions()}")
-        logging.info(f" Version: FIXME!")
+        logging.info(f" Version: {get_version()}")
 
         self.automatic_load_of_previous_session()
 
