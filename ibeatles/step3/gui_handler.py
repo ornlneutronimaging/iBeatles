@@ -1,5 +1,5 @@
-from ..utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveGeneralDataInfos
-from .. import DataType
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveGeneralDataInfos
+from ibeatles import DataType
 
 
 class Step3GuiHandler:

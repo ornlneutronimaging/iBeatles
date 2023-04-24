@@ -1,13 +1,13 @@
 import logging
 
-from ..all_steps.event_handler import EventHandler as TopEventHandler
-from ..step1.data_handler import DataHandler
-from ..step1.plot import Step1Plot
-from .gui_handler import Step3GuiHandler
+from ibeatles import DataType
 
-from ..utilities.retrieve_data_infos import RetrieveGeneralDataInfos
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
+from ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.plot import Step1Plot
 
-from .. import DataType
+from ibeatles.step3.gui_handler import Step3GuiHandler
 
 
 class EventHandler(TopEventHandler):
