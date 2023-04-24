@@ -1,8 +1,9 @@
 from qtpy.QtWidgets import QMainWindow
 
-from .. import load_ui
-from ibeatles.step6.initialization import Initialization
+from ibeatles import load_ui
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+
+from ibeatles.step6.initialization import Initialization
 from ibeatles.step6.display import Display
 from ibeatles.step6.event_handler import EventHandler
 from ibeatles.step6.get import Get
@@ -10,7 +11,7 @@ from ibeatles.step6.export import Export
 from ibeatles.step6 import ParametersToDisplay
 
 
-class StrainMappingLauncher(object):
+class StrainMappingLauncher:
 
     def __init__(self, parent=None):
         self.parent = parent
