@@ -4,12 +4,14 @@ import numpy as np
 import pyqtgraph as pg
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
-from ..utilities.gui_handler import GuiHandler
-from .. import RegionType, DataType
-from .get import Get as Step2Get
-from ..utilities.colors import pen_color
-from . import roi_label_color
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+
+from ibeatles import RegionType, DataType
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.colors import pen_color
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+
+from ibeatles.step2.get import Get as Step2Get
+from ibeatles.step2 import roi_label_color
 
 
 class CustomAxis(pg.AxisItem):

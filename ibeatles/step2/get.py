@@ -1,6 +1,6 @@
 import numpy as np
 
-from . import RegionType, KernelType
+from ibeatles.step2 import RegionType, KernelType
 
 
 class Get:

@@ -2,7 +2,7 @@ import numpy as np
 import scipy.ndimage
 import logging
 
-from . import KernelType
+from ibeatles.step2 import KernelType
 
 
 def moving_average(data=None, kernel_type=KernelType.gaussian, kernel=None):

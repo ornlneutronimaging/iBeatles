@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QDialog
 import os
 
-from .. import load_ui
+from ibeatles import load_ui
 
 
 class ReductionSettingsHandler(QDialog):

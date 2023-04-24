@@ -2,10 +2,10 @@ from qtpy.QtWidgets import QVBoxLayout, QHBoxLayout, QRadioButton, QSpacerItem, 
 import pyqtgraph as pg
 from pyqtgraph.dockarea import DockArea, Dock
 
-from ..utilities.colors import pen_color
+from ibeatles.utilities.colors import pen_color
+from ibeatles import DataType, DEFAULT_NORMALIZATION_ROI
 
-from .. import DataType, DEFAULT_NORMALIZATION_ROI
-from . import roi_label_color
+from ibeatles.step2 import roi_label_color
 
 
 class Initialization:

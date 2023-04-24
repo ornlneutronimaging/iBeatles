@@ -1,8 +1,8 @@
 import numpy as np
 import pyqtgraph as pg
 
-from .plot import Step2Plot
-from .get import Get
+from ibeatles.step2.plot import Step2Plot
+from ibeatles.step2.get import Get
 
 
 class CustomAxis(pg.AxisItem):

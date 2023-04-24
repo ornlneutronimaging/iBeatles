@@ -8,20 +8,17 @@ import copy
 from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
 
-from ..step2.roi_handler import Step2RoiHandler
-from ..step3.event_handler import EventHandler
-from ..utilities.file_handler import FileHandler
-from ..utilities.status_message_config import StatusMessageStatus, show_status_message
-from .reduction_settings_handler import ReductionSettingsHandler
-from .reduction_tools import moving_average
-from .moving_average import MovingAverage
-from . import KernelType
-from .get import Get
-
-from .. import DataType
+from ibeatles import DataType
+from ibeatles.step2.roi_handler import Step2RoiHandler
+from ibeatles.step3.event_handler import EventHandler
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
+from ibeatles.step2.reduction_tools import moving_average
+from ibeatles.step2.get import Get
 
 
-class Normalization(object):
+class Normalization:
 
     coeff_array = 1  # ob / sample of ROI selected
     o_norm = None
