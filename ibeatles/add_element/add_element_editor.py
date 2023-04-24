@@ -9,6 +9,7 @@ from ibeatles import load_ui
 from ibeatles.utilities.check import is_float, is_int
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
+from ibeatles.step1.plot import Step1Plot
 
 
 class AddElement(object):
@@ -249,5 +250,8 @@ class AddElementInterface(QDialog):
         self.add_element_to_list_of_elements_widgets()
         self.parent.update_hkl_lambda_d0()
         self.parent.check_status_of_material_widgets()
+
+        o_plot = Step1Plot(parent=self.parent, data_type='normalized')
+        o_plot.display_general_bragg_edge()
 
         self.close()

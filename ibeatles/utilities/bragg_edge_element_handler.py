@@ -1,3 +1,4 @@
+from ibeatles import Material
 from ibeatles.utilities.gui_handler import GuiHandler
 from neutronbraggedge.braggedge import BraggEdge
 
@@ -11,20 +12,57 @@ class BraggEdgeElementHandler:
         o_gui = GuiHandler(parent=self.parent)
 
         element_name = str(o_gui.get_text_selected(ui=self.parent.ui.list_of_elements))
-        lattice_value = float(o_gui.get_text(ui=self.parent.ui.lattice_parameter))
-        crystal_structure = str(o_gui.get_text_selected(ui=self.parent.ui.crystal_structure))
+        if element_name in self.parent.user_defined_bragg_edge_list.keys():
+            # user defined element
+            _entry = self.parent.user_defined_bragg_edge_list[element_name]
+            if _entry[Material.method_used] == Material.via_lattice_and_crystal_structure:
+                lattice_value = _entry[Material.lattice]
+                crystal_structure = _entry[Material.crystal_structure]
 
-        _element_dictionary = {'name': element_name,
-                               'lattice': lattice_value,
-                               'crystal_structure': crystal_structure}
+                _element_dictionary = {'name': element_name,
+                                       'lattice': lattice_value,
+                                       'crystal_structure': crystal_structure}
 
-        o_calculator = BraggEdgeElementCalculator(element_name=element_name,
-                                                  lattice_value=lattice_value,
-                                                  crystal_structure=crystal_structure)
-        o_calculator.run()
+                o_calculator = BraggEdgeElementCalculator(element_name=element_name,
+                                                          lattice_value=lattice_value,
+                                                          crystal_structure=crystal_structure)
+                o_calculator.run()
 
-        selected_element_bragg_edges_array = o_calculator.lambda_array
-        selected_element_hkl_array = o_calculator.hkl_array
+                selected_element_bragg_edges_array = o_calculator.lambda_array
+                selected_element_hkl_array = o_calculator.hkl_array
+
+            else:
+
+                list_hkl = _entry[Material.hkl_d0]
+                selected_element_hkl_array = []
+                selected_element_bragg_edges_array = []
+                for _key in list_hkl.keys():
+                    if list_hkl[_key]['h'] is None:
+                        continue
+
+                    h = int(list_hkl[_key]['h'])
+                    k = int(list_hkl[_key]['k'])
+                    l = int(list_hkl[_key]['l'])
+                    d0 = float(list_hkl[_key]['d0'])
+                    selected_element_hkl_array.append([h, k, l])
+                    selected_element_bragg_edges_array.append(2*d0)
+
+        else:
+            # default element
+            lattice_value = float(o_gui.get_text(ui=self.parent.ui.lattice_parameter))
+            crystal_structure = str(o_gui.get_text_selected(ui=self.parent.ui.crystal_structure))
+
+            _element_dictionary = {'name': element_name,
+                                   'lattice': lattice_value,
+                                   'crystal_structure': crystal_structure}
+
+            o_calculator = BraggEdgeElementCalculator(element_name=element_name,
+                                                      lattice_value=lattice_value,
+                                                      crystal_structure=crystal_structure)
+            o_calculator.run()
+
+            selected_element_bragg_edges_array = o_calculator.lambda_array
+            selected_element_hkl_array = o_calculator.hkl_array
 
         self.parent.selected_element_bragg_edges_array = selected_element_bragg_edges_array
         self.parent.selected_element_hkl_array = selected_element_hkl_array

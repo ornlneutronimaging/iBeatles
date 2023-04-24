@@ -121,3 +121,5 @@ class SaveLoadDataTab(SaveTab):
         full_list_of_element_names = [self.parent.ui.list_of_elements.itemText(i) for i
                                       in range(self.parent.ui.list_of_elements.count())]
         self.session_dict[SessionKeys.material][Material.full_list_of_element_names] = full_list_of_element_names
+
+        # self.session_dict[SessionKeys.material][Material.local_bragg_edge_list] = self.parent.local_bragg_edge_list

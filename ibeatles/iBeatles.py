@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
     # new entry will be local_bragg_edge_list['new_name'] = {Material.lattice: value,
     #                                                        Material.crystal_structure: 'FCC',
     #                                                        Material.hkl_d0: None',
-    #                                                        Material.user_defined: False}
+    #                                                        Material.method_used: Material.via_lattice_and_crystal_structure}
     local_bragg_edge_list = {}
     selected_element_bragg_edges_array = []
     selected_element_hkl_array = []
@@ -624,8 +624,8 @@ class MainWindow(QMainWindow):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='load_data')
         BraggEdgeElementHandler(parent=self)
-        # o_plot = Step1Plot(parent=self, data_type='sample')
-        # o_plot.display_general_bragg_edge()
+        o_plot = Step1Plot(parent=self, data_type='sample')
+        o_plot.display_general_bragg_edge()
         # self.roi_image_view_changed()
         self.update_hkl_lambda_d0()
         self.check_status_of_material_widgets()
@@ -641,8 +641,8 @@ class MainWindow(QMainWindow):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='normalized')
         BraggEdgeElementHandler(parent=self)
-        # o_plot = Step1Plot(parent=self, data_type='normalized')
-        # o_plot.display_general_bragg_edge()
+        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot.display_general_bragg_edge()
         # self.roi_image_view_changed()
         self.update_hkl_lambda_d0()
         self.check_status_of_material_widgets()
