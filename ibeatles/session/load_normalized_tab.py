@@ -33,9 +33,14 @@ class LoadNormalized:
             self.parent.list_roi[data_type] = session_dict[data_type][SessionSubKeys.list_rois]
             o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
             o_gui.initialize_rois_and_labels()
+
+            self.parent.ui.list_normalized.blockSignals(True)
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_normalized.item(_row_selected)
                 _item.setSelected(True)
+            self.parent.ui.list_normalized.blockSignals(False)
+            self.parent.normalized_list_selection_changed()
+
             self.parent.retrieve_general_infos(data_type=data_type)
             self.parent.retrieve_general_data_infos(data_type=data_type)
             o_gui = Step3GuiHandler(parent=self.parent)
@@ -54,3 +59,5 @@ class LoadNormalized:
             o_pyqt.reload_histogram_level()
             histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram]
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
+
+            self.parent.list_of_element_2_index_changed(True)
