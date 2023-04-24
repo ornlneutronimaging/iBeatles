@@ -220,7 +220,9 @@ class MainWindow(QMainWindow):
 
     # dictionary that will save the pan and zoom of each of the image view
     image_view_settings = {DataType.sample: {'state': None,
-                                             'histogram': None,
+                                             'histogram': {'mean': None,
+                                                           'add': None,
+                                                          },
                                              'first_time_using_histogram': False,
                                              'first_time_using_state': False,
                                              },
@@ -235,7 +237,9 @@ class MainWindow(QMainWindow):
                                                     'first_time_using_state'     : True,
                                                     },
                            DataType.normalized: {'state': None,
-                                                 'histogram': None,
+                                                 'histogram': {'mean': None,
+                                                               'add': None,
+                                                               },
                                                  'first_time_using_histogram': False,
                                                  'first_time_using_state'     : False,
                                                  },

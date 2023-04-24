@@ -13,6 +13,7 @@ class LoadNormalized:
     def __init__(self, parent=None):
         self.parent = parent
         self.session_dict = parent.session_dict
+        self.combine_algo = 'sum' if self.parent.ui.roi_add_button.isChecked() else 'mean'
 
     def all(self):
 
@@ -49,7 +50,7 @@ class LoadNormalized:
 
             self.parent.image_view_settings[data_type]['state'] = \
                 session_dict[data_type][SessionSubKeys.image_view_state]
-            self.parent.image_view_settings[data_type]['histogram'] = \
+            self.parent.image_view_settings[data_type]['histogram'][self.combine_algo] = \
                 session_dict[data_type][SessionSubKeys.image_view_histogram]
 
             o_pyqt = PyqtgraphUtilities(parent=self.parent,

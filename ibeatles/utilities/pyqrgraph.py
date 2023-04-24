@@ -10,6 +10,13 @@ class Pyqtgrah:
         self.first_update = False
         self.histo_widget = self.image_view.getHistogramWidget()
 
+        if self.data_type == DataType.normalized:
+            self.combine_algo = 'sum' if self.parent.ui.roi_add_button.isChecked() else 'mean'
+        elif self.data_type == DataType.sample:
+            self.combine_algo = 'sum' if self.parent.ui.roi_mean_button.isChecked() else 'mean'
+        else:
+            self.combine_algo = 'sum'
+
     def set_state(self, state=None):
         if self.parent.image_view_settings[self.data_type]['first_time_using_state']:
             self.parent.image_view_settings[self.data_type]['first_time_using_state'] = False
@@ -37,21 +44,24 @@ class Pyqtgrah:
 
         if data_type_of_data is None:
             data_type_of_data = self.data_type
+
         if self.parent.data_metadata[data_type_of_data]['data'] == []:
             return
-        histogram_level = self.parent.image_view_settings[self.data_type]['histogram']
+
+        histogram_level = self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo]
+
         if histogram_level is None:
             self.first_update = True
         _histo_widget = self.image_view.getHistogramWidget()
-        self.parent.image_view_settings[self.data_type]['histogram'] = _histo_widget.getLevels()
+        self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo] = _histo_widget.getLevels()
 
     def reload_histogram_level(self):
         if not self.first_update:
             if self.parent.image_view_settings[self.data_type]['histogram']:
-                self.histo_widget.setLevels(self.parent.image_view_settings[self.data_type]['histogram'][0],
-                                            self.parent.image_view_settings[self.data_type]['histogram'][1])
+                self.histo_widget.setLevels(self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo][0],
+                                            self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo][1])
 
     def set_histogram_level(self, histogram_level):
         if histogram_level:
             self.histo_widget.setLevels(histogram_level[0], histogram_level[1])
-            self.parent.image_view_settings[self.data_type]['histogram'] = histogram_level
+            self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo] = histogram_level
