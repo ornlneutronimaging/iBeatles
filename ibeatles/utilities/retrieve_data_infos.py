@@ -2,14 +2,10 @@ import os
 import time
 import numpy as np
 
-# import matplotlib.pyplot as plt
-# from matplotlib.widgets import RectangleSelector
-
-from ..utilities.image_handler import ImageHandler
-from ..step1.plot import Step1Plot
+from ibeatles.step1.plot import Step1Plot
 
 
-class RetrieveDataInfos(object):
+class RetrieveDataInfos:
 
     def __init__(self, parent=None, data_type='sample'):
         self.parent = parent

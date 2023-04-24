@@ -11,7 +11,7 @@ from ibeatles.utilities.file_handler import FileHandler
 from ibeatles import load_ui, DataType
 
 
-class RotateImages(object):
+class RotateImages:
 
     def __init__(self, parent=None):
         self.parent = parent

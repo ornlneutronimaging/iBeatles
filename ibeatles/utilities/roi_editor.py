@@ -1,13 +1,13 @@
 from qtpy.QtWidgets import QMainWindow, QTableWidgetItem, QComboBox, QTableWidgetSelectionRange, QApplication
 import pyqtgraph as pg
 
-from ..utilities.gui_handler import GuiHandler
-from ..utilities import colors
-from ..step1.plot import Step1Plot
-from .. import load_ui, DEFAULT_ROI
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities import colors
+from ibeatles.step1.plot import Step1Plot
+from ibeatles import load_ui, DEFAULT_ROI
 
 
-class RoiEditor(object):
+class RoiEditor:
 
     def __init__(self, parent=None):
         self.parent = parent

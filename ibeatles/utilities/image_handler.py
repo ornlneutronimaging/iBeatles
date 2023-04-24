@@ -6,7 +6,8 @@ import time
 import copy
 
 
-class ImageHandler(object):
+class ImageHandler:
+
     metadata = {}
     data_type = 'tiff'
     data = []  # numpy array of image

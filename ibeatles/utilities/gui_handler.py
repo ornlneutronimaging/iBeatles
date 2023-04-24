@@ -1,7 +1,7 @@
-from .. import DataType
+from ibeatles import DataType
 
 
-class GuiHandler(object):
+class GuiHandler:
 
     def __init__(self, parent=None):
         self.parent = parent

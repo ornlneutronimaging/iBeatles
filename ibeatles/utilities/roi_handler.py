@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 
-class RoiHandler(object):
+class RoiHandler:
 
     def __init__(self, parent=None, data_type='sample'):
         self.parent = parent

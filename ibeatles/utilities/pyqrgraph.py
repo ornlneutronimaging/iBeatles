@@ -1,4 +1,4 @@
-from .. import DataType
+from ibeatles import DataType
 
 
 class Pyqtgrah:

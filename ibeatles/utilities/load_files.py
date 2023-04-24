@@ -2,11 +2,11 @@ from qtpy.QtWidgets import QApplication
 import glob
 import os
 
-from ..utilities.file_handler import FileHandler
-from ..utilities.image_handler import ImageHandler
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.image_handler import ImageHandler
 
 
-class LoadFiles(object):
+class LoadFiles:
     # class variables
     image_array = []
     list_of_files = []

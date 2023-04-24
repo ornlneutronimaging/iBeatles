@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 
 
-class LoadData(object):
+class LoadData:
     __slots__ = ['image_array', 'parent', 'list_of_files', 'image_ext']
 
     def __init__(self, parent=None, list_of_files=[], image_ext='.fits'):

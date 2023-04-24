@@ -1,6 +1,4 @@
-import numpy as np
-
-from ..utilities.gui_handler import GuiHandler
+from ibeatles.utilities.gui_handler import GuiHandler
 from neutronbraggedge.braggedge import BraggEdge
 
 

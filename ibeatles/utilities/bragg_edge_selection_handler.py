@@ -1,9 +1,9 @@
 from qtpy.QtWidgets import QAbstractItemView
 
-from ..utilities.array_utilities import find_nearest_index
+from ibeatles.utilities.array_utilities import find_nearest_index
 
 
-class BraggEdgeSelectionHandler(object):
+class BraggEdgeSelectionHandler:
 
     def __init__(self, parent=None, data_type='sample'):
         self.parent = parent

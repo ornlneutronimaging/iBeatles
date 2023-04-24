@@ -7,7 +7,7 @@ import shutil
 from datetime import datetime
 
 
-class FileHandler():
+class FileHandler:
 
     @classmethod
     def get_parent_folder(cls, full_folder):

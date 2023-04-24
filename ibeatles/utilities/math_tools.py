@@ -33,7 +33,7 @@ def get_random_value(max_value=1):
     return _value * max_value
 
 
-class MeanRangeCalculation(object):
+class MeanRangeCalculation:
     '''
     Mean value of all the counts between left_index and right_index
     '''
