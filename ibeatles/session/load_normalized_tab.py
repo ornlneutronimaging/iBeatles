@@ -56,7 +56,7 @@ class LoadNormalized:
                                         image_view=self.parent.ui.normalized_image_view,
                                         data_type=data_type)
             o_pyqt.set_state(session_dict[data_type][SessionSubKeys.image_view_state])
-            o_pyqt.reload_histogram_level()
+            # o_pyqt.reload_histogram_level()
             histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram]
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
 

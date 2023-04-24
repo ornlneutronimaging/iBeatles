@@ -3,8 +3,6 @@ from qtpy.QtWidgets import QApplication, QMainWindow
 import os
 import logging
 import warnings
-warnings.filterwarnings("ignore")
-
 from ibeatles.config_handler import ConfigHandler
 
 from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
@@ -55,6 +53,8 @@ from ibeatles import load_ui, get_version
 from ibeatles import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
 
 from ibeatles.about.about_launcher import AboutLauncher
+
+warnings.filterwarnings("ignore")
 
 
 class MainWindow(QMainWindow):
@@ -976,14 +976,13 @@ class MainWindow(QMainWindow):
         self.ui.roi_add_button.setChecked(True)
         self.ui.ob_roi_add_button.setChecked(True)
         self.roi_normalized_image_view_changed()
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
-        o_retrieve_data_infos.update()
-        self.roi_normalized_image_view_changed(mouse_selection=True)
+        self.normalized_list_selection_changed()
 
     def normalized_roi_algorithm_is_mean_clicked(self):
         self.ui.roi_mean_button.setChecked(True)
         self.ui.ob_roi_mean_button.setChecked(True)
         self.roi_normalized_image_view_changed()
+        self.normalized_list_selection_changed()
 
     def normalized_file_index_xaxis_button_clicked(self):
         self.data_metadata[DataType.normalized]['xaxis'] = 'file_index'
