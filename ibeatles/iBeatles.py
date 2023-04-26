@@ -969,7 +969,7 @@ class MainWindow(QMainWindow):
         if not self.loading_flag:
             o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
             o_retrieve_data_infos.update()
-            self.roi_normalized_image_view_changed(mouse_selection=False)
+            # self.roi_normalized_image_view_changed(mouse_selection=False)
         else:
             self.loading_flag = False
         QApplication.restoreOverrideCursor()

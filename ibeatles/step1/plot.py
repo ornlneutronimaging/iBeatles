@@ -60,6 +60,9 @@ class Step1Plot(object):
         self.display_bragg_edge()
 
     def display_image(self):
+        """
+        display the top right images + ROI boxes
+        """
 
         _data = self.data
         _state = None
@@ -67,6 +70,7 @@ class Step1Plot(object):
 
         if _data == []:
             self.clear_plots(data_type=self.data_type)
+
         else:
 
             _data = np.array(_data)
