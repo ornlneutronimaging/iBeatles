@@ -37,6 +37,9 @@ class Pyqtgrah:
         return _state
 
     def save_histogram_level(self, data_type_of_data=None):
+        print("saving histogram")
+        print(f"-> {data_type_of_data =}")
+        print(f"-> {self.data_type =}")
         if self.parent.image_view_settings[self.data_type]['first_time_using_histogram']:
             # this is to make bin and fit tabs working
             self.parent.image_view_settings[self.data_type]['first_time_using_histogram'] = False
@@ -48,16 +51,22 @@ class Pyqtgrah:
         if self.parent.data_metadata[data_type_of_data]['data'] == []:
             return
 
-        histogram_level = self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo]
+        print(f"-> {self.combine_algo =}")
+        histogram_level = self.parent.image_view_settings[data_type_of_data]['histogram'][self.combine_algo]
 
         if histogram_level is None:
             self.first_update = True
         _histo_widget = self.image_view.getHistogramWidget()
-        self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo] = _histo_widget.getLevels()
+
+        print(f"-> {_histo_widget.getLevels() =}")
+
+        self.parent.image_view_settings[data_type_of_data]['histogram'][self.combine_algo] = _histo_widget.getLevels()
 
     def reload_histogram_level(self):
+        print("in reload_histogram_level")
         if not self.first_update:
-            if self.parent.image_view_settings[self.data_type]['histogram']:
+            print("-> not first update")
+            if self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo]:
                 self.histo_widget.setLevels(self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo][0],
                                             self.parent.image_view_settings[self.data_type]['histogram'][self.combine_algo][1])
 

@@ -982,13 +982,15 @@ class MainWindow(QMainWindow):
         self.ui.roi_add_button.setChecked(True)
         self.ui.ob_roi_add_button.setChecked(True)
         self.roi_normalized_image_view_changed()
-        self.normalized_list_selection_changed()
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
+        o_retrieve_data_infos.update()
 
     def normalized_roi_algorithm_is_mean_clicked(self):
         self.ui.roi_mean_button.setChecked(True)
         self.ui.ob_roi_mean_button.setChecked(True)
         self.roi_normalized_image_view_changed()
-        self.normalized_list_selection_changed()
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
+        o_retrieve_data_infos.update()
 
     def normalized_file_index_xaxis_button_clicked(self):
         self.data_metadata[DataType.normalized]['xaxis'] = 'file_index'
