@@ -38,7 +38,7 @@
          <x>0</x>
          <y>0</y>
          <width>1516</width>
-         <height>1393</height>
+         <height>1399</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -96,7 +96,7 @@
                  <item>
                   <widget class="QToolBox" name="toolBox">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="sample_toolbox">
                     <property name="geometry">
@@ -104,7 +104,7 @@
                       <x>0</x>
                       <y>0</y>
                       <width>1397</width>
-                      <height>812</height>
+                      <height>818</height>
                      </rect>
                     </property>
                     <attribute name="label">
@@ -193,8 +193,8 @@
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>148</width>
-                      <height>142</height>
+                      <width>1397</width>
+                      <height>818</height>
                      </rect>
                     </property>
                     <attribute name="label">
