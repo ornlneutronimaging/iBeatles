@@ -37,8 +37,8 @@ class Normalization:
         default_dir = os.path.dirname(os.path.dirname(sample_folder))
         output_folder = str(
             QFileDialog.getExistingDirectory(caption="Select Where the Normalized folder will be created...",
-                                             directory=default_dir,
-                                             options=QFileDialog.ShowDirsOnly))
+                                             directory=default_dir))
+                                             # options=QFileDialog.ShowDirsOnly))
 
         if not output_folder:
             logging.info(" No output folder selected, normalization stopped!")
