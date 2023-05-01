@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1542</width>
-    <height>1470</height>
+    <width>1822</width>
+    <height>1476</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,7 +26,7 @@
      <height>0</height>
     </size>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_8">
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QScrollArea" name="scrollArea">
       <property name="widgetResizable">
@@ -37,8 +37,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1516</width>
-         <height>1399</height>
+         <width>1796</width>
+         <height>1405</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -63,7 +63,7 @@
            <attribute name="title">
             <string>1 - Load Data</string>
            </attribute>
-           <layout class="QHBoxLayout" name="horizontalLayout">
+           <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
              <widget class="QSplitter" name="load_data_splitter">
               <property name="orientation">
@@ -94,23 +94,22 @@
                <widget class="QWidget" name="layoutWidget">
                 <layout class="QVBoxLayout" name="verticalLayout_9">
                  <item>
-                  <widget class="QToolBox" name="toolBox">
-                   <property name="currentIndex">
-                    <number>0</number>
+                  <widget class="Line" name="line">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
                    </property>
-                   <widget class="QWidget" name="sample_toolbox">
-                    <property name="geometry">
-                     <rect>
-                      <x>0</x>
-                      <y>0</y>
-                      <width>1397</width>
-                      <height>818</height>
-                     </rect>
-                    </property>
-                    <attribute name="label">
-                     <string> Sample</string>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTabWidget" name="load_data_tab">
+                   <property name="currentIndex">
+                    <number>1</number>
+                   </property>
+                   <widget class="QWidget" name="tab_8">
+                    <attribute name="title">
+                     <string>Sample</string>
                     </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout_6">
+                    <layout class="QVBoxLayout" name="verticalLayout_11">
                      <item>
                       <layout class="QVBoxLayout" name="verticalLayout_5">
                        <item>
@@ -124,7 +123,7 @@
                             </sizepolicy>
                            </property>
                            <property name="text">
-                            <string>Import ...</string>
+                            <string>Load Sample Data ...</string>
                            </property>
                           </widget>
                          </item>
@@ -188,19 +187,11 @@
                      </item>
                     </layout>
                    </widget>
-                   <widget class="QWidget" name="open_beam_toolbox">
-                    <property name="geometry">
-                     <rect>
-                      <x>0</x>
-                      <y>0</y>
-                      <width>1397</width>
-                      <height>818</height>
-                     </rect>
-                    </property>
-                    <attribute name="label">
-                     <string> Open Beam</string>
+                   <widget class="QWidget" name="tab_9">
+                    <attribute name="title">
+                     <string>Open Beam</string>
                     </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout_8">
+                    <layout class="QVBoxLayout" name="verticalLayout_16">
                      <item>
                       <layout class="QVBoxLayout" name="verticalLayout_7">
                        <item>
@@ -208,7 +199,7 @@
                          <item>
                           <widget class="QPushButton" name="import_open_beam_button">
                            <property name="text">
-                            <string>Import ...</string>
+                            <string>Load Open Beam Data ...</string>
                            </property>
                           </widget>
                          </item>
@@ -254,13 +245,6 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="Line" name="line">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QGroupBox" name="time_spectra_groupbox_2">
                    <property name="minimumSize">
                     <size>
@@ -294,7 +278,7 @@
                          </sizepolicy>
                         </property>
                         <property name="text">
-                         <string>Import ...</string>
+                         <string>Import Time Spectra File ...</string>
                         </property>
                        </widget>
                       </item>
@@ -823,7 +807,7 @@
                 </font>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="sample_preview">
                 <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1835,7 +1819,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1542</width>
+     <width>1822</width>
      <height>24</height>
     </rect>
    </property>
@@ -1978,8 +1962,8 @@ p, li { white-space: pre-wrap; }
    <slot>sample_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>145</x>
-     <y>143</y>
+     <x>1321</x>
+     <y>349</y>
     </hint>
     <hint type="destinationlabel">
      <x>401</x>
@@ -1995,7 +1979,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>161</x>
-     <y>614</y>
+     <y>566</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -2010,8 +1994,8 @@ p, li { white-space: pre-wrap; }
    <slot>open_beam_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>159</x>
-     <y>195</y>
+     <x>1335</x>
+     <y>349</y>
     </hint>
     <hint type="destinationlabel">
      <x>910</x>
@@ -2026,8 +2010,8 @@ p, li { white-space: pre-wrap; }
    <slot>sample_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>185</y>
+     <x>1324</x>
+     <y>513</y>
     </hint>
     <hint type="destinationlabel">
      <x>146</x>
@@ -2042,8 +2026,8 @@ p, li { white-space: pre-wrap; }
    <slot>open_beam_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>178</x>
-     <y>214</y>
+     <x>1354</x>
+     <y>542</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2058,28 +2042,12 @@ p, li { white-space: pre-wrap; }
    <slot>sample_list_right_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>185</y>
+     <x>1324</x>
+     <y>513</y>
     </hint>
     <hint type="destinationlabel">
      <x>37</x>
      <y>818</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>toolBox</sender>
-   <signal>currentChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>load_data_tab_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>310</x>
-     <y>147</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>7</x>
-     <y>145</y>
     </hint>
    </hints>
   </connection>
@@ -2090,8 +2058,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1417</x>
-     <y>614</y>
+     <x>897</x>
+     <y>566</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -2138,8 +2106,8 @@ p, li { white-space: pre-wrap; }
    <slot>crystal_structure_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>980</x>
-     <y>860</y>
+     <x>788</x>
+     <y>805</y>
     </hint>
     <hint type="destinationlabel">
      <x>730</x>
@@ -2154,8 +2122,8 @@ p, li { white-space: pre-wrap; }
    <slot>crystal_structure_2_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>850</x>
-     <y>858</y>
+     <x>1487</x>
+     <y>1319</y>
     </hint>
     <hint type="destinationlabel">
      <x>653</x>
@@ -2170,8 +2138,8 @@ p, li { white-space: pre-wrap; }
    <slot>lattice_2_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>854</x>
-     <y>769</y>
+     <x>1131</x>
+     <y>1316</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2186,8 +2154,8 @@ p, li { white-space: pre-wrap; }
    <slot>lattice_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1033</x>
-     <y>823</y>
+     <x>551</x>
+     <y>807</y>
     </hint>
     <hint type="destinationlabel">
      <x>1522</x>
@@ -2202,8 +2170,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_display_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1080</x>
-     <y>728</y>
+     <x>648</x>
+     <y>682</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2218,8 +2186,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_display_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>741</x>
-     <y>526</y>
+     <x>1390</x>
+     <y>922</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2235,7 +2203,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>160</x>
-     <y>385</y>
+     <y>758</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2250,8 +2218,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1293</x>
-     <y>385</y>
+     <x>1820</x>
+     <y>758</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2266,8 +2234,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1149</x>
-     <y>675</y>
+     <x>1720</x>
+     <y>1144</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2282,8 +2250,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1117</x>
-     <y>675</y>
+     <x>1688</x>
+     <y>1144</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2298,8 +2266,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1362</x>
-     <y>932</y>
+     <x>1933</x>
+     <y>1401</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2330,8 +2298,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_tableWidget_cell_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1210</x>
-     <y>186</y>
+     <x>2028</x>
+     <y>284</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2346,8 +2314,8 @@ p, li { white-space: pre-wrap; }
    <slot>beam_rate_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>212</x>
-     <y>743</y>
+     <x>261</x>
+     <y>716</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2362,8 +2330,8 @@ p, li { white-space: pre-wrap; }
    <slot>distance_source_detector_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>308</x>
-     <y>719</y>
+     <x>314</x>
+     <y>682</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2378,8 +2346,8 @@ p, li { white-space: pre-wrap; }
    <slot>detector_offset_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>279</x>
-     <y>781</y>
+     <x>314</x>
+     <y>743</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2394,8 +2362,8 @@ p, li { white-space: pre-wrap; }
    <slot>distance_source_detector_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>231</x>
-     <y>501</y>
+     <x>374</x>
+     <y>874</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -2410,8 +2378,8 @@ p, li { white-space: pre-wrap; }
    <slot>detector_offset_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>231</x>
-     <y>568</y>
+     <x>374</x>
+     <y>935</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2426,8 +2394,8 @@ p, li { white-space: pre-wrap; }
    <slot>beam_rate_2_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>262</x>
-     <y>541</y>
+     <x>254</x>
+     <y>908</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2442,8 +2410,8 @@ p, li { white-space: pre-wrap; }
    <slot>add_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1115</x>
-     <y>797</y>
+     <x>875</x>
+     <y>764</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2458,11 +2426,11 @@ p, li { white-space: pre-wrap; }
    <slot>add_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>780</x>
-     <y>695</y>
+     <x>1694</x>
+     <y>1185</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-6</x>
+     <x>0</x>
      <y>736</y>
     </hint>
    </hints>
@@ -2474,8 +2442,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_lattice_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1080</x>
-     <y>829</y>
+     <x>598</x>
+     <y>823</y>
     </hint>
     <hint type="destinationlabel">
      <x>1524</x>
@@ -2490,8 +2458,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_crystal_structure_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1005</x>
-     <y>862</y>
+     <x>813</x>
+     <y>823</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2506,8 +2474,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_lattice_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1017</x>
-     <y>771</y>
+     <x>1178</x>
+     <y>1317</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2522,8 +2490,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_crystal_structure_button_2_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>922</x>
-     <y>853</y>
+     <x>1512</x>
+     <y>1317</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2698,8 +2666,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_moving_average_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1446</x>
-     <y>919</y>
+     <x>2035</x>
+     <y>1401</y>
     </hint>
     <hint type="destinationlabel">
      <x>1538</x>
@@ -2730,8 +2698,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_list_hkl_lambda_d0_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
-     <y>902</y>
+     <x>1812</x>
+     <y>1398</y>
     </hint>
     <hint type="destinationlabel">
      <x>1156</x>
@@ -2746,8 +2714,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_list_hkl_lambda_d0_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1140</x>
-     <y>887</y>
+     <x>881</x>
+     <y>858</y>
     </hint>
     <hint type="destinationlabel">
      <x>1014</x>
@@ -2762,8 +2730,8 @@ p, li { white-space: pre-wrap; }
    <slot>list_of_element_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1209</x>
-     <y>746</y>
+     <x>875</x>
+     <y>722</y>
     </hint>
     <hint type="destinationlabel">
      <x>1476</x>
@@ -2778,12 +2746,28 @@ p, li { white-space: pre-wrap; }
    <slot>list_of_element_2_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1152</x>
-     <y>587</y>
+     <x>1806</x>
+     <y>1053</y>
     </hint>
     <hint type="destinationlabel">
      <x>1473</x>
      <y>965</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>load_data_tab</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>load_data_tab_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1597</x>
+     <y>292</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2154</x>
+     <y>1371</y>
     </hint>
    </hints>
   </connection>
