@@ -925,8 +925,9 @@ class MainWindow(QMainWindow):
 
     def normalization_button_clicked(self):
         o_norm = Normalization(parent=self)
-        o_norm.run_and_export()
-        self.ui.tabWidget.setCurrentIndex(2)
+        norm_worked = o_norm.run_and_export()
+        if norm_worked:
+            self.ui.tabWidget.setCurrentIndex(2)
 
     def step2_file_index_radio_button_clicked(self):
         self.data_metadata[DataType.normalization]['xaxis'] = 'file_index'

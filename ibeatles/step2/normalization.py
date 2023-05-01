@@ -37,16 +37,25 @@ class Normalization:
         default_dir = os.path.dirname(os.path.dirname(sample_folder))
         output_folder = str(
             QFileDialog.getExistingDirectory(caption="Select Where the Normalized folder will be created...",
-                                             directory=default_dir))
-                                             # options=QFileDialog.ShowDirsOnly))
+                                             directory=default_dir,
+                                             options=QFileDialog.ShowDirsOnly))
 
         if not output_folder:
             logging.info(" No output folder selected, normalization stopped!")
-            return
+            return False
 
         logging.info(f" output folder selected: {output_folder}")
         full_output_folder = os.path.join(output_folder, sample_name + "_normalized")
-        full_output_folder = FileHandler.make_or_append_date_time_to_folder(full_output_folder)
+        try:
+            full_output_folder = FileHandler.make_or_append_date_time_to_folder(full_output_folder)
+        except OSError:
+            logging.info(f"ERROR: folder permission error into this folder {full_output_folder}")
+            show_status_message(parent=self.parent,
+                                message="You don't have write permission into this folder!",
+                                status=StatusMessageStatus.error,
+                                duration_s=10)
+            return False
+
         logging.info(f" full output folder will be: {full_output_folder}")
 
         o_norm = self.create_o_norm()
@@ -65,7 +74,7 @@ class Normalization:
             show_status_message(parent=self.parent,
                                 message="Normalization Failed (check logbook)!",
                                 status=StatusMessageStatus.error)
-            return
+            return False
 
         self.export_normalization(o_norm=o_norm, output_folder=full_output_folder)
         self.saving_normalization_parameters(o_norm=o_norm, output_folder=full_output_folder)
@@ -75,6 +84,8 @@ class Normalization:
         o_step3 = EventHandler(parent=self.parent,
                                data_type=DataType.normalized)
         o_step3.import_button_clicked_automatically(folder=full_output_folder)
+
+        return True
 
     def create_o_norm(self):
 
