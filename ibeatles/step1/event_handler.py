@@ -39,6 +39,9 @@ class EventHandler(TopEventHandler):
             o_step2_gui.roi()
             self.update_default_path(folder=_folder)
 
+            if self.data_type == DataType.sample:
+                self.parent.data_metadata['normalization']['data'] = []
+
         else:
             logging.info(f"Import button clicked ... operation canceled!")
 
