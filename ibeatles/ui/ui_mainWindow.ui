@@ -278,7 +278,7 @@
                          </sizepolicy>
                         </property>
                         <property name="text">
-                         <string>Import Time Spectra File ...</string>
+                         <string>Load Time Spectra File ...</string>
                         </property>
                        </widget>
                       </item>
@@ -1248,7 +1248,7 @@ p, li { white-space: pre-wrap; }
                          </sizepolicy>
                         </property>
                         <property name="text">
-                         <string>Import ...</string>
+                         <string>Load Time Spectra File ...</string>
                         </property>
                        </widget>
                       </item>
