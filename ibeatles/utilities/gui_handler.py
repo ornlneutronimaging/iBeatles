@@ -14,7 +14,7 @@ class GuiHandler:
         if top_tab_index == 2:
             return 'normalized'
         if top_tab_index == 0:
-            load_data_tab_index = self.parent.ui.toolBox.currentIndex()
+            load_data_tab_index = self.parent.ui.load_data_tab.currentIndex()
             if load_data_tab_index == 0:
                 return 'sample'
             if load_data_tab_index == 1:

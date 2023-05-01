@@ -55,7 +55,9 @@ class Initialization:
         self.parent.ui.normalized_splitter.setSizes([150, 600])
 
         # ob tab
+        self.parent.ui.load_data_tab.blockSignals(True)
         self.parent.ui.load_data_tab.setTabEnabled(1, False)
+        self.parent.ui.load_data_tab.blockSignals(False)
 
         # normalized
         self.parent.ui.tabWidget.setTabEnabled(1, False)

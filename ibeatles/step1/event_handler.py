@@ -24,9 +24,6 @@ class EventHandler(TopEventHandler):
         state = o_load.import_files_from_folder(folder=_folder, extension=[".fits", ".tiff", ".tif"])
 
         if state:
-        # if self.parent.data_metadata[self.data_type]['data']:
-        # # if self.parent.data_metadata[self.data_type]['data'].any():
-
             o_load.import_time_spectra()
             self.parent.select_load_data_row(data_type=self.data_type, row=0)
             self.parent.retrieve_general_infos(data_type=self.data_type)

@@ -103,7 +103,7 @@
                  <item>
                   <widget class="QTabWidget" name="load_data_tab">
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="tab_8">
                     <attribute name="title">
@@ -1172,7 +1172,7 @@ p, li { white-space: pre-wrap; }
                       </sizepolicy>
                      </property>
                      <property name="text">
-                      <string>Import ...</string>
+                      <string>Load Normalized Data ...</string>
                      </property>
                     </widget>
                    </item>

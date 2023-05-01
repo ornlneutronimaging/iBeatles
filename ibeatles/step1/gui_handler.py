@@ -264,7 +264,7 @@ class Step1GuiHandler(object):
 
     def check_step1_widgets(self):
         if self.parent.data_metadata[self.data_type]['data'].any():
-            self.parent.ui.toolBox.setItemEnabled(1, True)
+            self.parent.ui.load_data_tab.setTabEnabled(1, True)
             self.parent.ui.tabWidget.setTabEnabled(1, True)
 
     def check_time_spectra_widgets(self):

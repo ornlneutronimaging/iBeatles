@@ -752,6 +752,7 @@ class MainWindow(QMainWindow):
     def sample_import_button_clicked(self):
         o_event = Step1EventHandler(parent=self, data_type='sample')
         o_event.import_button_clicked()
+        self.load_data_tab_changed(tab_index=0)
 
     def select_load_data_row(self, data_type='sample', row=0):
         o_gui = Step1GuiHandler(parent=self)
