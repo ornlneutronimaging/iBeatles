@@ -4,13 +4,14 @@ from pathlib import PurePath
 import numpy as np
 from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 import logging
-import copy
 
-from ..utilities.load_files import LoadFiles
-from ..utilities.status_message_config import StatusMessageStatus, show_status_message
-from ..utilities.file_handler import FileHandler
-from ..step1.time_spectra_handler import TimeSpectraHandler
-from .. import DataType
+from ibeatles import DataType
+
+from ibeatles.utilities.load_files import LoadFiles
+from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.system import is_os_mac
+from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
 TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
 
@@ -45,11 +46,17 @@ class DataHandler:
         raise ValueError
 
     def select_folder(self):
-        _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
-                                                       directory=os.path.dirname(self.parent.default_path[
+        if is_os_mac():
+            _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
+                                                           directory=os.path.dirname(self.parent.default_path[
                                                            self.data_type]),
-                                                      options=QFileDialog.DontUseNativeDialog))
-                                                       # options = QFileDialog.ShowDirsOnlAnyFiley))
+                                                           options=QFileDialog.ShowDirsOnly))
+        else:
+            _folder = str(QFileDialog.getExistingDirectory(caption="Select {} folder".format(self.data_type),
+                                                           directory=os.path.dirname(self.parent.default_path[
+                                                                                         self.data_type]),
+                                                           options=QFileDialog.DontUseNativeDialog))
+
         return _folder
 
     def import_files_from_folder(self, folder='', extension=".fits"):

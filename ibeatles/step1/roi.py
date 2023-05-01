@@ -1,8 +1,8 @@
 import pyqtgraph as pg
 
-from .. import DataType
-from ..utilities.colors import pen_color
-from .. import RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
+from ibeatles import DataType
+from ibeatles import RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
+from ibeatles.utilities.colors import pen_color
 
 # DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
 # DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', RegionType.background]
