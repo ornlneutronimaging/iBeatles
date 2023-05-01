@@ -59,7 +59,7 @@ class Step1Plot(object):
         self.display_image()
         self.display_bragg_edge()
 
-    def display_image(self):
+    def display_image(self, add_mean_radio_button_changed=False):
         """
         display the top right images + ROI boxes
         """
@@ -77,7 +77,8 @@ class Step1Plot(object):
             if self.data_type == 'sample':
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.image_view,
-                                            data_type=self.data_type)
+                                            data_type=self.data_type,
+                                            add_mean_radio_button_changed=add_mean_radio_button_changed)
                 _state = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
 
@@ -91,7 +92,8 @@ class Step1Plot(object):
             elif self.data_type == 'ob':
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.ob_image_view,
-                                            data_type=self.data_type)
+                                            data_type=self.data_type,
+                                            add_mean_radio_button_changed=add_mean_radio_button_changed)
                 _state = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
                 self.parent.ui.ob_area.setVisible(True)
@@ -103,7 +105,8 @@ class Step1Plot(object):
             elif self.data_type == 'normalized':
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.normalized_image_view,
-                                            data_type=self.data_type)
+                                            data_type=self.data_type,
+                                            add_mean_radio_button_changed=add_mean_radio_button_changed)
                 _state = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
                 self.parent.ui.normalized_area.setVisible(True)

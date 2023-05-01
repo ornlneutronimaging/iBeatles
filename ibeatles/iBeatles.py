@@ -223,26 +223,34 @@ class MainWindow(QMainWindow):
                                              'histogram': {'mean': None,
                                                            'sum': None,
                                                           },
-                                             'first_time_using_histogram': False,
+                                             'first_time_using_histogram': {'mean': True,
+                                                                            'sum': True,
+                                                                            },
                                              'first_time_using_state': False,
                                              },
                            DataType.ob: {'state': None,
                                          'histogram': {'mean': None,
                                                        'sum': None,
                                                        },
-                                         'first_time_using_histogram': False,
+                                         'first_time_using_histogram': {'mean': True,
+                                                                        'sum': True,
+                                                                        },
                                          'first_time_using_state': False,
                                          },
                            DataType.normalization: {'state': None,
                                                     'histogram': None,
-                                                    'first_time_using_histogram': True,
+                                                    'first_time_using_histogram': {'mean': True,
+                                                                                   'sum': True,
+                                                                                   },
                                                     'first_time_using_state'     : True,
                                                     },
                            DataType.normalized: {'state': None,
                                                  'histogram': {'mean': None,
                                                                'sum': None,
                                                                },
-                                                 'first_time_using_histogram': False,
+                                                 'first_time_using_histogram': {'mean': True,
+                                                                                'sum': True,
+                                                                                },
                                                  'first_time_using_state'     : False,
                                                  },
                            DataType.bin: {'state': None,
@@ -807,20 +815,36 @@ class MainWindow(QMainWindow):
         self.ui.normalized_roi_add_button.setChecked(True)
         self.roi_image_view_changed()
 
+        # update the top plot
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.sample)
+        o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
+
     def roi_algorithm_is_mean_clicked(self):
         self.ui.ob_roi_mean_button.setChecked(True)
         self.ui.normalized_roi_mean_button.setChecked(True)
         self.roi_image_view_changed()
+
+        # update the top plot
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.sample)
+        o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def ob_roi_algorithm_is_add_clicked(self):
         self.ui.roi_add_button.setChecked(True)
         self.ui.normalized_roi_add_button.setChecked(True)
         self.roi_ob_image_view_changed()
 
+        # update the top plot
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
+        o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
+
     def ob_roi_algorithm_is_mean_clicked(self):
         self.ui.roi_mean_button.setChecked(True)
         self.ui.normalized_roi_mean_button.setChecked(True)
         self.roi_ob_image_view_changed()
+
+        # update the top plot
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
+        o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def file_index_xaxis_button_clicked(self):
         self.data_metadata[DataType.sample]['xaxis'] = 'file_index'
@@ -982,15 +1006,19 @@ class MainWindow(QMainWindow):
         self.ui.roi_add_button.setChecked(True)
         self.ui.ob_roi_add_button.setChecked(True)
         self.roi_normalized_image_view_changed()
+
+        # update the top plot
         o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
-        o_retrieve_data_infos.update()
+        o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def normalized_roi_algorithm_is_mean_clicked(self):
         self.ui.roi_mean_button.setChecked(True)
         self.ui.ob_roi_mean_button.setChecked(True)
         self.roi_normalized_image_view_changed()
+
+        # update the top plot
         o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
-        o_retrieve_data_infos.update()
+        o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def normalized_file_index_xaxis_button_clicked(self):
         self.data_metadata[DataType.normalized]['xaxis'] = 'file_index'

@@ -47,7 +47,7 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
 
     data = []
 
-    def update(self):
+    def update(self, add_mean_radio_button_changed=False):
 
         list_row_selected = list(np.sort(self.get_list_row_selected()))
 
@@ -87,10 +87,9 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
 
             self.parent.list_file_selected[self.data_type] = list_row_selected
 
-        self.display()
+        self.display(add_mean_radio_button_changed=add_mean_radio_button_changed)
 
-    def display(self):
-
+    def display(self, add_mean_radio_button_changed=False):
         # # metadata
         # text = ''
         # for key in self.selected_infos:
@@ -101,7 +100,7 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
         o_plot = Step1Plot(parent=self.parent,
                            data_type=self.data_type,
                            data=self.data)
-        o_plot.display_image()
+        o_plot.display_image(add_mean_radio_button_changed=add_mean_radio_button_changed)
 
     def get_list_files_selected(self):
         list_files = [str(x.text()) for x in self.table_ui[self.data_type].selectedItems()]

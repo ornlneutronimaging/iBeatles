@@ -59,8 +59,8 @@ class LoadNormalized:
             o_pyqt.set_state(session_dict[data_type][SessionSubKeys.image_view_state])
             # o_pyqt.reload_histogram_level()
 
-            combine_algo = 'sum' if self.parent.ui.roi_add_button.isChecked() else 'mean'
-            histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram][combine_algo]
+            # combine_algo = 'sum' if self.parent.ui.roi_add_button.isChecked() else 'mean'
+            histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram][self.combine_algo]
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
             self.parent.list_of_element_2_index_changed(True)

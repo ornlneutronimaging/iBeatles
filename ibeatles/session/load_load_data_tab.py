@@ -36,9 +36,11 @@ class LoadLoadDataTab:
             self.parent.list_roi[data_type] = session_dict[data_type][SessionSubKeys.list_rois]
             o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
             o_gui.initialize_rois_and_labels()
+            self.parent.ui.list_sample.blockSignals(True)
             for _row_selected in list_files_selected:
                 _item = self.parent.ui.list_sample.item(_row_selected)
                 _item.setSelected(True)
+            self.parent.ui.list_sample.blockSignals(False)
             o_gui.check_time_spectra_widgets()
             o_gui.check_step1_widgets()
             self.parent.check_files_error()
@@ -53,7 +55,7 @@ class LoadLoadDataTab:
                                         image_view=self.parent.ui.image_view,
                                         data_type=data_type)
             o_pyqt.set_state(session_dict[data_type][SessionSubKeys.image_view_state])
-            histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram]
+            histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram][self.combine_algo]
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
     def ob(self):
@@ -62,8 +64,8 @@ class LoadLoadDataTab:
         data_type = DataType.ob
 
         self.parent.image_view_settings[data_type]['state'] = session_dict[data_type][SessionSubKeys.image_view_state]
-        self.parent.image_view_settings[data_type]['histogram'][self.combine_algo] = \
-            session_dict[data_type][SessionSubKeys.image_view_histogram]
+        # self.parent.image_view_settings[data_type]['histogram'][self.combine_algo] = \
+        #     session_dict[data_type][SessionSubKeys.image_view_histogram]
         list_ob_files = session_dict[data_type][SessionSubKeys.list_files]
         if list_ob_files:
             input_folder = session_dict[data_type][SessionSubKeys.current_folder]
@@ -75,16 +77,18 @@ class LoadLoadDataTab:
         self.parent.list_roi[data_type] = session_dict[data_type][SessionSubKeys.list_rois]
         o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
         o_gui.initialize_rois_and_labels()
+        self.parent.ui.list_open_beam.blockSignals(True)
         for _row_selected in list_files_selected:
             _item = self.parent.ui.list_open_beam.item(_row_selected)
             _item.setSelected(True)
+        self.parent.ui.list_open_beam.blockSignals(False)
 
         o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                     image_view=self.parent.ui.ob_image_view,
                                     data_type=data_type)
         o_pyqt.set_state(session_dict[data_type][SessionSubKeys.image_view_state])
         o_pyqt.reload_histogram_level()
-        histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram]
+        histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram][self.combine_algo]
         o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
     def instrument(self):
