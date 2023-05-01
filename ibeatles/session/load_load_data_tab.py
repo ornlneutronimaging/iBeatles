@@ -169,3 +169,4 @@ class LoadLoadDataTab:
         o_gui.update_lattice_and_crystal_when_index_selected()
 
         self.parent.check_status_of_material_widgets()
+        self.parent.list_of_element_index_changed(index=selected_element_index)
