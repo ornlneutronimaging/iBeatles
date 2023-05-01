@@ -525,6 +525,7 @@ class Step1Plot(object):
                     x_axis = np.arange(len(_bragg_edge))
 
                 elif xaxis_choice == 'tof':
+
                     curve = plot_ui.plot(tof_array, _bragg_edge,
                                          pen=pen_color[_key],
                                          symbolPen=None,
@@ -557,7 +558,9 @@ class Step1Plot(object):
 
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
-                _text = pg.TextItem("Group {}".format(_key), anchor=(0.5, 0))
+                _text = pg.TextItem("Group {}".format(_key),
+                                    anchor=(0.5, 0),
+                                    color=pen_color[_key])
                 _text.setParentItem(curvePoint)
                 brush = QBrush()
                 brush.setColor(roi_group_color[int(_key)])
@@ -593,6 +596,9 @@ class Step1Plot(object):
                 plot_ui.addItem(_item)
                 _hkl = _selected_element_hkl_array[_index]
                 _hkl_formated = "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2])
-                _text = pg.TextItem(_hkl_formated, anchor=(0, 1), angle=45, color=pg.mkColor("c"))
+                _text = pg.TextItem(_hkl_formated,
+                                    anchor=(0, 1),
+                                    angle=45,
+                                    color=pg.mkColor("c"))
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)

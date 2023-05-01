@@ -344,7 +344,7 @@
                 </property>
                 <widget class="QWidget" name="tab_4">
                  <attribute name="title">
-                  <string>Infos</string>
+                  <string>Files Infos</string>
                  </attribute>
                  <layout class="QHBoxLayout" name="horizontalLayout_11">
                   <item>
@@ -365,7 +365,7 @@
                 </widget>
                 <widget class="QWidget" name="tab_5">
                  <attribute name="title">
-                  <string>Settings</string>
+                  <string>Instrument and Material Settings</string>
                  </attribute>
                  <layout class="QHBoxLayout" name="horizontalLayout_10">
                   <item>
@@ -1332,7 +1332,7 @@ p, li { white-space: pre-wrap; }
                   </sizepolicy>
                  </property>
                  <attribute name="title">
-                  <string>Infos</string>
+                  <string>Files Infos</string>
                  </attribute>
                  <layout class="QHBoxLayout" name="horizontalLayout_13">
                   <item>
@@ -1384,7 +1384,7 @@ p, li { white-space: pre-wrap; }
                   </sizepolicy>
                  </property>
                  <attribute name="title">
-                  <string>Settings</string>
+                  <string>Instrument and Material Settings</string>
                  </attribute>
                  <layout class="QHBoxLayout" name="horizontalLayout_14">
                   <item>
@@ -1843,7 +1843,7 @@ p, li { white-space: pre-wrap; }
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>Log</string>
     </property>
     <addaction name="actionAbout"/>
     <addaction name="separator"/>

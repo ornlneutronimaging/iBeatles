@@ -254,4 +254,6 @@ class AddElementInterface(QDialog):
         o_plot = Step1Plot(parent=self.parent, data_type='normalized')
         o_plot.display_general_bragg_edge()
 
+        self.parent.list_of_element_index_changed(index="0")
+
         self.close()
