@@ -3,12 +3,16 @@ from qtpy.QtWidgets import (QProgressBar, QVBoxLayout, QPushButton, QHBoxLayout,
 from qtpy.QtGui import QIcon
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
+import os
+
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
 
+from ibeatles.icons import icons_rc
 from ibeatles import DataType
 from ibeatles import refresh_image
+from ibeatles import vertical_splitter_file, horizontal_splitter_file
 from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
 from ibeatles.step1.roi import Roi
 
@@ -29,7 +33,49 @@ class Initialization:
         self.splitters()
 
     def splitters(self):
-        self.parent.ui.splitter_2.setSizes([800, 300])
+        self.parent.ui.vertical_normalized_splitter.setSizes([800, 300])
+        self.parent.ui.load_data_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.sample_ob_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.horizontal_normalization_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.normalized_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.vertical_normalized_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                     }
+                                     """)
+
+        self.parent.ui.area.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                     }
+                                     """)
+
+        self.parent.ui.ob_area.setStyleSheet("""
+                                         QSplitter::handle{
+                                         image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                         }
+                                         """)
+        self.parent.ui.normalized_area.setStyleSheet("""
+                                         QSplitter::handle{
+                                         image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                         }
+                                         """)
 
     def widgets(self):
         # folder path of time spectra
@@ -124,7 +170,7 @@ class Initialization:
         area.addDock(d2, 'bottom')
 
         preview_widget = pg.GraphicsLayoutWidget()
-        pg.setConfigOptions(antialias=True)  # this improve display
+        pg.setConfigOptions(antialias=True)  # this improves the display
 
         vertical_layout = QVBoxLayout()
         preview_widget.setLayout(vertical_layout)

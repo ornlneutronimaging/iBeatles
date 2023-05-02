@@ -13,6 +13,8 @@ refresh_image = os.path.join(root, "icons/refresh.png")
 up_image = os.path.join(root, "icons/up_arrow.png")
 down_image = os.path.join(root, "icons/down_arrow.png")
 settings_image = os.path.join(root, "icons/plotSettings.png")
+vertical_splitter_file = os.path.join(root, "icons/vertical_splitter_handle.png")
+horizontal_splitter_file = os.path.join(root, "icons/horizontal_splitter_handle.png")
 
 DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
 DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', 'background']

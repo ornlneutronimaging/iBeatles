@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -68,6 +68,9 @@
              <widget class="QSplitter" name="load_data_splitter">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="handleWidth">
+               <number>25</number>
               </property>
               <widget class="QSplitter" name="sample_ob_splitter">
                <property name="minimumSize">
@@ -89,7 +92,7 @@
                 <enum>Qt::Vertical</enum>
                </property>
                <property name="handleWidth">
-                <number>7</number>
+                <number>15</number>
                </property>
                <widget class="QWidget" name="layoutWidget">
                 <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -103,7 +106,7 @@
                  <item>
                   <widget class="QTabWidget" name="load_data_tab">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="tab_8">
                     <attribute name="title">
@@ -859,9 +862,12 @@
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_24">
             <item>
-             <widget class="QSplitter" name="splitter">
+             <widget class="QSplitter" name="horizontal_normalization_splitter">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="handleWidth">
+               <number>25</number>
               </property>
               <widget class="QWidget" name="normalization_left_widget" native="true">
                <property name="sizePolicy">
@@ -1155,7 +1161,10 @@ p, li { white-space: pre-wrap; }
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <widget class="QSplitter" name="splitter_2">
+              <property name="handleWidth">
+               <number>25</number>
+              </property>
+              <widget class="QSplitter" name="vertical_normalized_splitter">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>
@@ -1322,7 +1331,7 @@ p, li { white-space: pre-wrap; }
                  </size>
                 </property>
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="tab_6">
                  <property name="sizePolicy">
@@ -1953,7 +1962,9 @@ p, li { white-space: pre-wrap; }
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../icons/icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>import_sample_button</sender>
