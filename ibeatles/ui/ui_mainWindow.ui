@@ -550,7 +550,7 @@
                        <item>
                         <widget class="QCheckBox" name="material_display_checkbox">
                          <property name="text">
-                          <string>Display ?</string>
+                          <string>Display Material Bragg Peaks</string>
                          </property>
                          <property name="checked">
                           <bool>true</bool>
@@ -1331,7 +1331,7 @@ p, li { white-space: pre-wrap; }
                  </size>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="tab_6">
                  <property name="sizePolicy">
@@ -1573,7 +1573,7 @@ p, li { white-space: pre-wrap; }
                        <item>
                         <widget class="QCheckBox" name="material_display_checkbox_2">
                          <property name="text">
-                          <string>Display?</string>
+                          <string>Display Material Bragg Peaks</string>
                          </property>
                          <property name="checked">
                           <bool>true</bool>
