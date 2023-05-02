@@ -4,15 +4,15 @@ from qtpy import QtCore
 import pyqtgraph as pg
 import numpy as np
 
-from ..utilities import colors
+from ibeatles.utilities import colors
 
-from ..fitting.fitting_handler import FittingHandler
-from ..fitting.filling_table_handler import FillingTableHandler
-from ..binning.binning_handler import BinningHandler
-from .. import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
+from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
 
 
-class BinningLauncher(object):
+class BinningLauncher:
 
     def __init__(self, parent=None):
         self.parent = parent
