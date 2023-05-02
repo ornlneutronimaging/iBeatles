@@ -10,9 +10,11 @@ import matplotlib
 matplotlib.use('Qt5Agg')
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
-from .. import DataType, interact_me_style
-from ..utilities.table_handler import TableHandler
-from .. import settings_image
+from ibeatles.icons import icons_rc
+
+from ibeatles import DataType, interact_me_style
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles import settings_image
 from ibeatles.fitting import KropffThresholdFinder
 from ibeatles.utilities.mplcanvas import MplCanvas
 
@@ -38,6 +40,23 @@ class Initialization:
 
     def splitter(self):
         self.parent.ui.splitter.setSizes([500, 500])
+
+        self.parent.ui.splitter_2.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                     }
+                                     """)
+
+        self.parent.ui.splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.splitter_3.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
 
     def tab(self):
         self.parent.ui.tabWidget.setCurrentIndex(1)   # show by default Kropff

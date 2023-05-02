@@ -327,8 +327,7 @@ class MainWindow(QMainWindow):
         BraggEdgeElementHandler(parent=self)
 
         o_gui_2 = Step2Initialization(parent=self)
-        o_gui_2.pyqtgraph()
-        o_gui_2.table()
+        o_gui_2.all()
 
     def setup(self):
 

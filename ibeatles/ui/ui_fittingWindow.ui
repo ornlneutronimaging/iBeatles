@@ -42,6 +42,9 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="handleWidth">
+           <number>25</number>
+          </property>
           <widget class="QWidget" name="layoutWidget_2">
            <layout class="QHBoxLayout" name="horizontalLayout_23">
             <item>
@@ -706,6 +709,9 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
+          <property name="handleWidth">
+           <number>25</number>
+          </property>
           <widget class="QWidget" name="layoutWidget">
            <layout class="QHBoxLayout" name="horizontalLayout_22">
             <item>
@@ -916,7 +922,7 @@
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="handleWidth">
-            <number>14</number>
+            <number>25</number>
            </property>
            <widget class="QWidget" name="layoutWidget">
             <layout class="QVBoxLayout" name="verticalLayout_11">

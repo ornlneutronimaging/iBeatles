@@ -4,7 +4,7 @@ from pyqtgraph.dockarea import DockArea, Dock
 
 from ibeatles.utilities.colors import pen_color
 from ibeatles import DataType, DEFAULT_NORMALIZATION_ROI
-
+from ibeatles.icons import icons_rc
 from ibeatles.step2 import roi_label_color
 
 
@@ -13,6 +13,18 @@ class Initialization:
 
     def __init__(self, parent=None):
         self.parent = parent
+
+    def all(self):
+        self.table()
+        self.pyqtgraph()
+        self.splitter()
+
+    def splitter(self):
+        self.parent.step2_ui['area'].setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                     }
+                                     """)
 
     def table(self):
         for _index, _width in enumerate(self.col_width):
