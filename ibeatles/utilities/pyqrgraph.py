@@ -3,6 +3,8 @@ from ibeatles import DataType
 
 class Pyqtgrah:
 
+    list_steps_without_combine_algo_options = (DataType.normalization, DataType.bin, DataType.fitting)
+
     def __init__(self, parent=None, image_view=None, data_type=DataType.sample, add_mean_radio_button_changed=False):
         self.parent = parent
         self.image_view = image_view
@@ -44,7 +46,7 @@ class Pyqtgrah:
         if self.add_mean_radio_button_changed:
             return
 
-        if self.data_type in (DataType.normalization, DataType.bin):
+        if self.data_type in self.list_steps_without_combine_algo_options:
             if self.parent.image_view_settings[self.data_type]['first_time_using_histogram']:
                 # this is to make bin and fit tabs working
                 self.parent.image_view_settings[self.data_type]['first_time_using_histogram'] = False
@@ -78,7 +80,7 @@ class Pyqtgrah:
 
     def reload_histogram_level(self):
         if not self.first_update:
-            if self.data_type in (DataType.normalization, DataType.bin):
+            if self.data_type in self.list_steps_without_combine_algo_options:
                 if self.parent.image_view_settings[self.data_type]['histogram']:
                     self.histo_widget.setLevels(self.parent.image_view_settings[self.data_type]['histogram'][0],
                                                 self.parent.image_view_settings[self.data_type]['histogram'][1])
@@ -89,7 +91,7 @@ class Pyqtgrah:
 
     def set_histogram_level(self, histogram_level):
         if histogram_level:
-            if self.data_type in (DataType.normalization, DataType.bin):
+            if self.data_type in self.list_steps_without_combine_algo_options:
                 self.histo_widget.setLevels(histogram_level[0], histogram_level[1])
                 self.parent.image_view_settings[self.data_type]['histogram'] = histogram_level
             else:
