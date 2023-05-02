@@ -316,7 +316,6 @@ class Step1Plot(object):
             self.clear_bragg_edge_plot()
 
         else:  # retrieve dictionaries of roi_id and roi data (label, x, y, w, h, group)
-
             list_roi_id = self.parent.list_roi_id[self.data_type]
             list_roi = self.parent.list_roi[self.data_type]
 
@@ -417,29 +416,27 @@ class Step1Plot(object):
                                             data)
 
             # check if xaxis can be in lambda, or tof
-            # o_time_handler = TimeSpectraHandler(parent = self.parent)
-            # o_time_handler.load()
-            # tof_array = o_time_handler.tof_array
-            if self.data_type == 'normalized':
-                tof_array = self.parent.data_metadata['time_spectra']['normalized_data']
-                lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda']
-            else:
-                tof_array = self.parent.data_metadata['time_spectra']['data']
-                lambda_array = self.parent.data_metadata['time_spectra']['lambda']
-
-            # # enable the right xaxis buttons
+            time_spectra_file = self.parent.data_metadata[self.data_type]['time_spectra']['filename']
             o_gui = GuiHandler(parent=self.parent)
-            # if tof_array == []:
-            #     tof_flag = False
-            # else:
-            #     tof_flag = True
-            # o_gui.enable_xaxis_button(tof_flag=tof_flag)
 
-            list_files_selected = self.parent.list_file_selected[self.data_type]
-            linear_region_left = list_files_selected[0]
-            linear_region_right = list_files_selected[-1]
+            if time_spectra_file == "":
+                o_gui.enable_xaxis_button(tof_flag=False)
+                tof_array = []
+                lambda_array = []
 
-            # xaxis_choice = o_gui.get_xaxis_checked(data_type=self.data_type)
+            else:
+                o_gui.enable_xaxis_button(tof_flag=True)
+
+                if self.data_type == 'normalized':
+                    tof_array = self.parent.data_metadata['time_spectra']['normalized_data']
+                    lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda']
+                else:
+                    tof_array = self.parent.data_metadata['time_spectra']['data']
+                    lambda_array = self.parent.data_metadata['time_spectra']['lambda']
+                    self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
+
+                # # # enable the right xaxis buttons
+                # o_gui = GuiHandler(parent=self.parent)
 
             # display of bottom bragg edge plot
             dictionary = self.display_images_and_bragg_edge(tof_array=tof_array,
@@ -447,7 +444,6 @@ class Step1Plot(object):
                                                             bragg_edges=bragg_edges)
             x_axis = dictionary['x_axis']
             [linear_region_left, linear_region_right] = dictionary['linear_region']
-            self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
             o_gui.xaxis_label()
 
             lr = pg.LinearRegionItem([linear_region_left, linear_region_right])

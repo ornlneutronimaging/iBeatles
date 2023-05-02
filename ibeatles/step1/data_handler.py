@@ -136,20 +136,25 @@ class DataHandler:
             if not time_spectra_file:
                 time_spectra_file = self.browse_file_name()
 
-            if time_spectra_file is None:
-                logging.info("User cancel browsing for time_spectra_file manually but time spectra is Mandatory!")
-                time_spectra_file = self.browse_file_name()
+        if time_spectra_file is None:
+            logging.info("User cancel browsing for time_spectra!")
+            show_status_message(parent=self.parent,
+                                message="User cancel browsing for time spectra file!",
+                                status=StatusMessageStatus.warning,
+                                duration_s=5)
+            return
 
-        logging.info(f"User manually selected time spectra file {time_spectra_file}")
+        else:
+            logging.info(f"User manually selected time spectra file {time_spectra_file}")
 
-        self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = time_spectra_file
+            self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = time_spectra_file
 
-        o_time_handler = TimeSpectraHandler(parent=self.parent,
-                                            data_type=self.data_type)
-        o_time_handler.load()
-        o_time_handler.calculate_lambda_scale()
-        self.save_tof_and_lambda_array(o_time_handler)
-        self.print_time_spectra_filename(time_spectra_file)
+            o_time_handler = TimeSpectraHandler(parent=self.parent,
+                                                data_type=self.data_type)
+            o_time_handler.load()
+            o_time_handler.calculate_lambda_scale()
+            self.save_tof_and_lambda_array(o_time_handler)
+            self.print_time_spectra_filename(time_spectra_file)
 
     def save_tof_and_lambda_array(self, o_time_handler):
         tof_array = o_time_handler.tof_array

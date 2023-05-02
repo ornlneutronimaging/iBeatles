@@ -7,7 +7,7 @@ class StatusMessageStatus:
     ready = "QStatusBar{padding-left:8px;color:green;font-weight:normal;}"
     working = "QStatusBar{padding-left:8px;color:blue;font-weight:normal;}"
     error = "QStatusBar{padding-left:8px;;color:red;font-weight:bold;}"
-    warning = "QStatusBar{padding-left:8px;color:orange;font-weight:normal;}"
+    warning = "QStatusBar{padding-left:8px;color:purple;font-weight:normal;}"
 
 
 def show_status_message(parent=None, message="", status=StatusMessageStatus.ready, duration_s=None):
