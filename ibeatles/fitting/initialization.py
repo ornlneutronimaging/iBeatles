@@ -58,6 +58,12 @@ class Initialization:
                                      }
                                      """)
 
+        self.parent.ui.area.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+
     def tab(self):
         self.parent.ui.tabWidget.setCurrentIndex(1)   # show by default Kropff
         self.parent.ui.tabWidget.setTabEnabled(0, False)   # disable March-Dollase
