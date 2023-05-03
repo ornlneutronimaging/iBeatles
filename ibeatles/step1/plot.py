@@ -309,106 +309,122 @@ class Step1Plot(object):
         elif self.data_type == 'normalized':
             self.parent.ui.normalized_bragg_edge_plot.clear()
 
+    def retrieve_list_data_group(self, mouse_selection=False):
+        """
+        this method looks at the current data_type and create a dictionary of the ROI selected
+        for all the groups
+        """
+
+        list_roi_id = self.parent.list_roi_id[self.data_type]
+        list_roi = self.parent.list_roi[self.data_type]
+
+        # collect the right image_view and image_view_item to recover the ROI
+        roi_editor_ui = self.parent.roi_editor_ui[self.data_type]
+        if self.data_type == 'sample':
+            _image_view = self.parent.ui.image_view
+            _image_view_item = self.parent.ui.image_view.imageItem
+        elif self.data_type == 'ob':
+            _image_view = self.parent.ui.ob_image_view
+            _image_view_item = self.parent.ui.ob_image_view.imageItem
+        elif self.data_type == 'normalized':
+            _image_view = self.parent.ui.normalized_image_view
+            _image_view_item = self.parent.ui.normalized_image_view.imageItem
+
+        # used here to group rois into their group for Bragg Edge plot
+        list_data_group = {'0': [],
+                           '1': [],
+                           '2': [],
+                           '3': []}
+
+        for _index, roi in enumerate(list_roi_id):
+
+            if mouse_selection:
+                if type(self.parent.live_data) == type(list()):
+                    self.parent.live_data = np.array(self.parent.live_data)
+
+                try:
+                    region = roi.getArraySlice(self.parent.live_data,
+                                               _image_view_item)
+                except IndexError:
+                    return
+
+                label = list_roi[_index][0]
+                x0 = region[0][0].start
+                x1 = region[0][0].stop - 1
+                y0 = region[0][1].start
+                y1 = region[0][1].stop - 1
+                group = list_roi[_index][-1]
+
+                if x1 == x0:
+                    x1 += 1
+                if y1 == y0:
+                    y1 += 1
+
+            else:
+                if roi_editor_ui is None:
+                    [label, x0, y0, w, h, group] = list_roi[_index]
+                    x0 = int(x0)
+                    y0 = int(y0)
+                    w = int(w)
+                    h = int(h)
+
+                else:
+                    try:
+                        [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui,
+                                                                               _index)
+                    except ValueError:
+                        return
+
+                x1 = x0 + w
+                y1 = y0 + h
+                roi.setPos([x0, y0], update=False, finish=False)
+                roi.setSize([w, h], update=False, finish=False)
+
+            # display ROI boxes
+            roi.setPen(pen_color[group])
+
+            _text_array = self.parent.list_label_roi_id[self.data_type]
+            if _text_array == []:
+                text_id = pg.TextItem(
+                    html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
+                    anchor=(-0.3, 1.3),
+                    border='w',
+                    fill=(0, 0, 255, 50))
+                _image_view.addItem(text_id)
+                text_id.setPos(x0, y0)
+                self.parent.list_label_roi_id[self.data_type].append(text_id)
+            else:
+                text_id = self.parent.list_label_roi_id[self.data_type][_index]
+                # text_id.setText(label)
+                text_id.setPos(x0, y0)
+                text_id.setHtml('<div style="text-align: center"><span style="color: #ff0000;">' + label + ' \
+                                                                                              ''</span></div>')
+
+            list_data_group[group].append([x0, x1, y0, y1])
+
+            self.save_roi(label, x0, y0, x1, y1, group, self.data_type, _index)
+
+            if mouse_selection:
+                if not (roi_editor_ui is None):
+                    roi_editor_ui.ui.tableWidget.blockSignals(True)
+                    self.update_roi_editor(_index)
+                    roi_editor_ui.ui.tableWidget.blockSignals(False)
+
+            return list_data_group
+
     def display_bragg_edge(self, mouse_selection=True):
+        """
+        Display the bottom right plot showing the bragg edges and the position of the material bragg peaks
+        """
+
         _data = self.data
 
         if _data == []:  # clear data if no data
             self.clear_bragg_edge_plot()
 
         else:  # retrieve dictionaries of roi_id and roi data (label, x, y, w, h, group)
-            list_roi_id = self.parent.list_roi_id[self.data_type]
-            list_roi = self.parent.list_roi[self.data_type]
 
-            roi_editor_ui = self.parent.roi_editor_ui[self.data_type]
-            if self.data_type == 'sample':
-                _image_view = self.parent.ui.image_view
-                _image_view_item = self.parent.ui.image_view.imageItem
-            elif self.data_type == 'ob':
-                _image_view = self.parent.ui.ob_image_view
-                _image_view_item = self.parent.ui.ob_image_view.imageItem
-            elif self.data_type == 'normalized':
-                _image_view = self.parent.ui.normalized_image_view
-                _image_view_item = self.parent.ui.normalized_image_view.imageItem
-
-            # used here to group rois into their group for Bragg Edge plot
-            list_data_group = {'0': [],
-                               '1': [],
-                               '2': [],
-                               '3': []}
-
-            for _index, roi in enumerate(list_roi_id):
-
-                if mouse_selection:
-                    if type(self.parent.live_data) == type(list()):
-                        self.parent.live_data = np.array(self.parent.live_data)
-
-                    try:
-                        region = roi.getArraySlice(self.parent.live_data,
-                                                   _image_view_item)
-                    except IndexError:
-                        return
-
-                    label = list_roi[_index][0]
-                    x0 = region[0][0].start
-                    x1 = region[0][0].stop - 1
-                    y0 = region[0][1].start
-                    y1 = region[0][1].stop - 1
-                    group = list_roi[_index][-1]
-
-                    if x1 == x0:
-                        x1 += 1
-                    if y1 == y0:
-                        y1 += 1
-
-                else:
-                    if roi_editor_ui is None:
-                        [label, x0, y0, w, h, group] = list_roi[_index]
-                        x0 = int(x0)
-                        y0 = int(y0)
-                        w = int(w)
-                        h = int(h)
-
-                    else:
-                        try:
-                            [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui,
-                                                                                   _index)
-                        except ValueError:
-                            return
-
-                    x1 = x0 + w
-                    y1 = y0 + h
-                    roi.setPos([x0, y0], update=False, finish=False)
-                    roi.setSize([w, h], update=False, finish=False)
-
-                # display ROI boxes
-                roi.setPen(pen_color[group])
-
-                _text_array = self.parent.list_label_roi_id[self.data_type]
-                if _text_array == []:
-                    text_id = pg.TextItem(
-                        html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
-                        anchor=(-0.3, 1.3),
-                        border='w',
-                        fill=(0, 0, 255, 50))
-                    _image_view.addItem(text_id)
-                    text_id.setPos(x0, y0)
-                    self.parent.list_label_roi_id[self.data_type].append(text_id)
-                else:
-                    text_id = self.parent.list_label_roi_id[self.data_type][_index]
-                    # text_id.setText(label)
-                    text_id.setPos(x0, y0)
-                    text_id.setHtml('<div style="text-align: center"><span style="color: #ff0000;">' + label + ' \
-                                                                                                  ''</span></div>')
-
-                list_data_group[group].append([x0, x1, y0, y1])
-
-                self.save_roi(label, x0, y0, x1, y1, group, self.data_type, _index)
-
-                if mouse_selection:
-                    if not (roi_editor_ui is None):
-                        roi_editor_ui.ui.tableWidget.blockSignals(True)
-                        self.update_roi_editor(_index)
-                        roi_editor_ui.ui.tableWidget.blockSignals(False)
+            list_data_group = self.retrieve_list_data_group(mouse_selection=mouse_selection)
 
             # work over groups
             data = self.parent.data_metadata[self.data_type]['data']
@@ -435,13 +451,10 @@ class Step1Plot(object):
                     lambda_array = self.parent.data_metadata['time_spectra']['lambda']
                     self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
 
-                # # # enable the right xaxis buttons
-                # o_gui = GuiHandler(parent=self.parent)
-
             # display of bottom bragg edge plot
-            dictionary = self.display_images_and_bragg_edge(tof_array=tof_array,
-                                                            lambda_array=lambda_array,
-                                                            bragg_edges=bragg_edges)
+            dictionary = self.plot_bragg_edge(tof_array=tof_array,
+                                              lambda_array=lambda_array,
+                                              bragg_edges=bragg_edges)
             x_axis = dictionary['x_axis']
             [linear_region_left, linear_region_right] = dictionary['linear_region']
             o_gui.xaxis_label()
@@ -461,7 +474,10 @@ class Step1Plot(object):
             self.parent.list_bragg_edge_selection_id[self.data_type] = lr
             self.parent.current_bragg_edge_x_axis[self.data_type] = x_axis
 
-    def display_images_and_bragg_edge(self, tof_array=[], lambda_array=[], bragg_edges=[]):
+    def plot_bragg_edge(self, tof_array=[], lambda_array=[], bragg_edges=[]):
+        """
+        plot the bragg edges
+        """
 
         data_type = self.data_type
         plot_ui = self.plot_ui[data_type]
@@ -549,8 +565,9 @@ class Step1Plot(object):
                     if first_index:
                         self.display_selected_element_bragg_edges(plot_ui=plot_ui,
                                                                   lambda_range=[lambda_array[0], lambda_array[-1]],
-                                                                  ymax=np.max(_bragg_edge))
+                                                                  ymax=np.nanmax(_bragg_edge))
                         first_index = False
+
 
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
@@ -573,7 +590,7 @@ class Step1Plot(object):
         return {'x_axis': x_axis,
                 'linear_region': [linear_region_left, linear_region_right]}
 
-    def display_selected_element_bragg_edges(self, plot_ui=plot_ui, lambda_range=[], ymax=0):
+    def display_selected_element_bragg_edges(self, plot_ui=plot_ui, lambda_range=None, ymax=0):
 
         if self.data_type:
             display_flag_ui = self.parent.ui.material_display_checkbox
@@ -586,10 +603,15 @@ class Step1Plot(object):
         _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
         _selected_element_hkl_array = self.parent.selected_element_hkl_array
 
+        counter = 0
         for _index, _x in enumerate(_selected_element_bragg_edges_array):
             if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
+
+                # vertical line
                 _item = pg.InfiniteLine(_x, pen=pg.mkPen("c"))
                 plot_ui.addItem(_item)
+
+                # label of line
                 _hkl = _selected_element_hkl_array[_index]
                 _hkl_formated = "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2])
                 _text = pg.TextItem(_hkl_formated,
@@ -598,3 +620,7 @@ class Step1Plot(object):
                                     color=pg.mkColor("c"))
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)
+                counter += 1
+
+            if counter == 5:
+                return

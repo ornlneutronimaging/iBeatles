@@ -64,3 +64,4 @@ class LoadNormalized:
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
             self.parent.list_of_element_2_index_changed(True)
+            self.parent.roi_normalized_image_view_changed()
