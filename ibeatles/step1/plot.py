@@ -622,5 +622,5 @@ class Step1Plot(object):
                 plot_ui.addItem(_text)
                 counter += 1
 
-            if counter == 5:
+            if counter == 4:
                 return
