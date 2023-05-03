@@ -799,6 +799,8 @@ class MainWindow(QMainWindow):
         if is_file_selected:
             o_gui = Step1GuiHandler(parent=self)
             o_gui.check_time_spectra_widgets()
+            o_plot = Step1Plot(parent=self)
+            o_plot.display_general_bragg_edge()
 
     def time_spectra_preview_button_clicked(self):
         o_time_spectra = TimeSpectraHandler(parent=self)
@@ -967,9 +969,12 @@ class MainWindow(QMainWindow):
 
     def normalized_time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent=self, data_type='normalized')
-        o_load.retrieve_time_spectra()
-        o_gui = Step3GuiHandler(parent=self)
-        o_gui.check_time_spectra_widgets()
+        is_file_selected = o_load.retrieve_time_spectra()
+        if is_file_selected:
+            o_gui = Step3GuiHandler(parent=self)
+            o_gui.check_time_spectra_widgets()
+            o_plot = Step1Plot(parent=self)
+            o_plot.display_general_bragg_edge()
 
     def normalized_time_spectra_preview_button_clicked(self):
         o_time_spectra = TimeSpectraHandler(parent=self, data_type='normalized')
