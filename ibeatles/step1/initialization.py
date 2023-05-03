@@ -1,10 +1,10 @@
 from qtpy.QtWidgets import (QProgressBar, QVBoxLayout, QPushButton, QHBoxLayout, QRadioButton, QWidget, QSpacerItem,
-                            QSizePolicy)
+                            QSizePolicy, QScrollBar, QLabel)
+from qtpy import QtCore
 from qtpy.QtGui import QIcon
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 import os
-
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
@@ -159,8 +159,8 @@ class Initialization:
                                mean_function,
                                file_index_function,
                                tof_function,
-                               lambda_function):
-
+                               lambda_function,
+                               scroll_bar_function):
         area = DockArea()
         area.setVisible(False)
         d1 = Dock("Image Preview", size=(200, 300))
@@ -254,18 +254,35 @@ class Initialization:
         spacer2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         hori_layout.addItem(spacer2)
 
+        # hkl horizontal scroll widget
+        scroll_hori_layout = QHBoxLayout()
+        scroll_hori_layout.addWidget(QLabel("Range of material Bragg peaks displayed:"))
+        hori_scroll_widget = QScrollBar(QtCore.Qt.Horizontal)
+        hori_scroll_widget.sliderMoved.connect(scroll_bar_function)
+        hori_scroll_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+        scroll_hori_layout.addWidget(hori_scroll_widget)
+        scroll_hori_widget = QWidget()
+        scroll_hori_widget.setLayout(scroll_hori_layout)
+
+        widget_vertical_layout = QVBoxLayout()
+        widget_vertical_layout.addWidget(button_widgets)
+        widget_vertical_layout.addWidget(scroll_hori_widget)
+
+        bottom_widgets = QWidget()
+        bottom_widgets.setLayout(widget_vertical_layout)
+
         d2.addWidget(bragg_edge_plot)
-        d2.addWidget(button_widgets)
+        d2.addWidget(bottom_widgets)
 
         vertical_layout.addWidget(area)
         base_widget.setLayout(vertical_layout)
 
         return [area, image_view, roi, bragg_edge_plot,
                 caxis, roi_editor_button, add_button, mean_button,
-                file_index_button, tof_button, lambda_button]
+                file_index_button, tof_button, lambda_button,
+                hori_scroll_widget]
 
     def pyqtgraph(self):
-
         # sample
         [self.parent.ui.area,
          self.parent.ui.image_view,
@@ -277,13 +294,17 @@ class Initialization:
          self.parent.ui.roi_mean_button,
          file_index_button,
          tof_button,
-         lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_image_view_changed,
-                                                      self.parent.ui.preview_widget,
-                                                      self.parent.roi_algorithm_is_add_clicked,
-                                                      self.parent.roi_algorithm_is_mean_clicked,
-                                                      self.parent.file_index_xaxis_button_clicked,
-                                                      self.parent.tof_xaxis_button_clicked,
-                                                      self.parent.lambda_xaxis_button_clicked)
+         lambda_button,
+         self.parent.hkl_scrollbar_ui[DataType.sample]] = self.general_init_pyqtgrpah(
+                self.parent.roi_image_view_changed,
+                self.parent.ui.preview_widget,
+                self.parent.roi_algorithm_is_add_clicked,
+                self.parent.roi_algorithm_is_mean_clicked,
+                self.parent.file_index_xaxis_button_clicked,
+                self.parent.tof_xaxis_button_clicked,
+                self.parent.lambda_xaxis_button_clicked,
+                self.parent.sample_hkl_scrollbar_changed)
+
         self.parent.list_roi_id['sample'].append(self.parent.ui.image_view_roi)
         self.parent.xaxis_button_ui['sample']['tof'] = tof_button
         self.parent.xaxis_button_ui['sample']['file_index'] = file_index_button
@@ -300,13 +321,17 @@ class Initialization:
          self.parent.ui.ob_roi_mean_button,
          file_index_button,
          tof_button,
-         lambda_button] = self.general_init_pyqtgrpah(self.parent.roi_ob_image_view_changed,
-                                                      self.parent.ui.ob_preview_widget,
-                                                      self.parent.ob_roi_algorithm_is_add_clicked,
-                                                      self.parent.ob_roi_algorithm_is_mean_clicked,
-                                                      self.parent.ob_file_index_xaxis_button_clicked,
-                                                      self.parent.ob_tof_xaxis_button_clicked,
-                                                      self.parent.ob_lambda_xaxis_button_clicked)
+         lambda_button,
+         self.parent.hkl_scrollbar_ui[DataType.ob]] = self.general_init_pyqtgrpah(
+                self.parent.roi_ob_image_view_changed,
+                self.parent.ui.ob_preview_widget,
+                self.parent.ob_roi_algorithm_is_add_clicked,
+                self.parent.ob_roi_algorithm_is_mean_clicked,
+                self.parent.ob_file_index_xaxis_button_clicked,
+                self.parent.ob_tof_xaxis_button_clicked,
+                self.parent.ob_lambda_xaxis_button_clicked,
+                self.parent.ob_hkl_scrollbar_changed)
+
         self.parent.list_roi_id['ob'].append(self.parent.ui.ob_image_view_roi)
         self.parent.xaxis_button_ui['ob']['tof'] = tof_button
         self.parent.xaxis_button_ui['ob']['file_index'] = file_index_button
@@ -323,13 +348,16 @@ class Initialization:
          self.parent.ui.normalized_roi_mean_button,
          file_index_button1,
          tof_button1,
-         lambda_button1] = self.general_init_pyqtgrpah(self.parent.roi_normalized_image_view_changed,
-                                                       self.parent.ui.normalized_preview_widget,
-                                                       self.parent.normalized_roi_algorithm_is_add_clicked,
-                                                       self.parent.normalized_roi_algorithm_is_mean_clicked,
-                                                       self.parent.normalized_file_index_xaxis_button_clicked,
-                                                       self.parent.normalized_tof_xaxis_button_clicked,
-                                                       self.parent.normalized_lambda_xaxis_button_clicked)
+         lambda_button1,
+         self.parent.hkl_scrollbar_ui[DataType.normalized]] = self.general_init_pyqtgrpah(
+                self.parent.roi_normalized_image_view_changed,
+                self.parent.ui.normalized_preview_widget,
+                self.parent.normalized_roi_algorithm_is_add_clicked,
+                self.parent.normalized_roi_algorithm_is_mean_clicked,
+                self.parent.normalized_file_index_xaxis_button_clicked,
+                self.parent.normalized_tof_xaxis_button_clicked,
+                self.parent.normalized_lambda_xaxis_button_clicked,
+                self.parent.normalized_hkl_scrollbar_changed)
 
         self.parent.list_roi_id['normalized'].append(self.parent.ui.normalized_image_view_roi)
         self.parent.xaxis_button_ui['normalized']['tof'] = tof_button1

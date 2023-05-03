@@ -86,9 +86,14 @@ class MainWindow(QMainWindow):
     cbar = None
     live_data = []
     add_element_editor_ui = None
-    roi_editor_ui = {'sample': None,
-                     'ob': None,
-                     'normalized': None}
+    roi_editor_ui = {DataType.sample: None,
+                     DataType.ob: None,
+                     DataType.normalized: None}
+
+    # scrollbar below Bragg plot for main 3 data sets
+    hkl_scrollbar_ui = {DataType.sample: None,
+                        DataType.ob: None,
+                        DataType.normalized: None}
 
     # used to report in status bar the error messages
     steps_error = {'step1': {'status': True,
@@ -746,7 +751,7 @@ class MainWindow(QMainWindow):
         if self.list_hkl_lambda_d0_ui:
             self.list_hkl_lambda_d0_ui.refresh_populate_table()
 
-    # TAB 1: Load Data Tab
+    # TAB 1: Sample and OB Tab =========================================================================================
 
     def sample_import_button_clicked(self):
         o_event = Step1EventHandler(parent=self, data_type='sample')
@@ -877,7 +882,13 @@ class MainWindow(QMainWindow):
         self.data_metadata[DataType.ob]['xaxis'] = 'lambda'
         self.open_beam_list_selection_changed()
 
-    # TAB 2:
+    def sample_hkl_scrollbar_changed(self, value):
+        print("sample progress bar changed")
+
+    def ob_hkl_scrollbar_changed(self, value):
+        print("ob progress bar changed")
+
+    # TAB 2: Normalization Tab ==================================================================================
 
     def normalization_manual_roi_changed(self):
         self.ui.normalization_tableWidget.blockSignals(True)
@@ -965,7 +976,7 @@ class MainWindow(QMainWindow):
         settings = ReductionSettingsHandler(parent=self)
         settings.show()
 
-    # TAB 3: Normalized Data Tab
+    # TAB 3: Normalized Tab ==================================================================================
 
     def normalized_time_spectra_import_button_clicked(self):
         o_load = DataHandler(parent=self, data_type='normalized')
@@ -1039,6 +1050,15 @@ class MainWindow(QMainWindow):
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
+    def normalized_hkl_scrollbar_changed(self, value):
+
+        print(self.hkl_scrollbar_ui[DataType.normalized].value())
+        print(f"minimum: {self.hkl_scrollbar_ui[DataType.normalized].minimum()}")
+        print(f"maximum: {self.hkl_scrollbar_ui[DataType.normalized].maximum()}")
+        print(f"normalized progress bar changed: {value}")
+        print(f"")
+
+    # GENERAL UI =======================================================================================
     def closeEvent(self, event):
         o_session = SessionHandler(parent=self)
         o_session.save_from_ui()
@@ -1046,9 +1066,6 @@ class MainWindow(QMainWindow):
         self.check_log_file_size()
         logging.info(" #### Leaving iBeatles ####")
         self.close()
-
-    def test_button_clicked(self):
-        self.ui.area.setVisible(True)
 
 
 def main(args):

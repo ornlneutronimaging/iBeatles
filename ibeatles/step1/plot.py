@@ -2,13 +2,15 @@ import numpy as np
 import pyqtgraph as pg
 from qtpy.QtGui import QBrush
 
-import ibeatles.step1.utilities as utilities
 from neutronbraggedge.experiment_handler.experiment import Experiment
-from ..utilities.colors import pen_color, roi_group_color
-from ..utilities.gui_handler import GuiHandler
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from ..binning.binning_handler import BinningHandler
-from ..fitting.fitting_handler import FittingHandler
+
+from ibeatles import DataType
+import ibeatles.step1.utilities as utilities
+from ibeatles.utilities.colors import pen_color, roi_group_color
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles.fitting.fitting_handler import FittingHandler
 
 
 class CustomAxis(pg.AxisItem):
@@ -39,21 +41,21 @@ class CustomAxis(pg.AxisItem):
 class Step1Plot(object):
     data = []
 
-    plot_ui = {'sample': None,
-               'ob': None,
-               'normalized': None,
+    plot_ui = {DataType.sample: None,
+               DataType.ob: None,
+               DataType.normalized: None,
                'binning': None}
 
-    def __init__(self, parent=None, data_type='sample', data=[]):
+    def __init__(self, parent=None, data_type=DataType.sample, data=[]):
         self.parent = parent
         self.data_type = data_type
         if data == []:
             data = self.parent.data_metadata[data_type]['data']
         self.data = data
 
-        self.plot_ui['sample'] = self.parent.ui.bragg_edge_plot
-        self.plot_ui['ob'] = self.parent.ui.ob_bragg_edge_plot
-        self.plot_ui['normalized'] = self.parent.ui.normalized_bragg_edge_plot
+        self.plot_ui[DataType.sample] = self.parent.ui.bragg_edge_plot
+        self.plot_ui[DataType.ob] = self.parent.ui.ob_bragg_edge_plot
+        self.plot_ui[DataType.normalized] = self.parent.ui.normalized_bragg_edge_plot
 
     def all_plots(self):
         self.display_image()
@@ -74,7 +76,7 @@ class Step1Plot(object):
         else:
 
             _data = np.array(_data)
-            if self.data_type == 'sample':
+            if self.data_type == DataType.sample:
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.image_view,
                                             data_type=self.data_type,
@@ -89,7 +91,7 @@ class Step1Plot(object):
                 o_pyqt.set_state(_state)
                 o_pyqt.reload_histogram_level()
 
-            elif self.data_type == 'ob':
+            elif self.data_type == DataType.ob:
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.ob_image_view,
                                             data_type=self.data_type,
@@ -102,7 +104,7 @@ class Step1Plot(object):
                 o_pyqt.set_state(_state)
                 o_pyqt.reload_histogram_level()
 
-            elif self.data_type == 'normalized':
+            elif self.data_type == DataType.normalized:
                 o_pyqt = PyqtgraphUtilities(parent=self.parent,
                                             image_view=self.parent.ui.normalized_image_view,
                                             data_type=self.data_type,
@@ -112,7 +114,7 @@ class Step1Plot(object):
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
-                self.parent.data_metadata['normalized']['data_live_selection'] = _data
+                self.parent.data_metadata[DataType.normalized]['data_live_selection'] = _data
                 o_pyqt.set_state(_state)
                 o_pyqt.reload_histogram_level()
 
@@ -140,11 +142,11 @@ class Step1Plot(object):
             self.parent.image_view_settings[self.data_type]['state'] = _state
 
     def initialize_default_roi(self):
-        if self.data_type == 'sample':
+        if self.data_type == DataType.sample:
             self.add_origin_roi(self.parent.ui.image_view, self.parent.ui.image_view_roi)
-        elif self.data_type == 'ob':
+        elif self.data_type == DataType.ob:
             self.add_origin_roi(self.parent.ui.ob_image_view, self.parent.ui.ob_image_view_roi)
-        elif self.data_type == 'normalized':
+        elif self.data_type == DataType.normalized:
             self.add_origin_roi(self.parent.ui.normalized_image_view, self.parent.ui.normalized_image_view_roi)
 
     def add_origin_roi(self, image_view, roi_id):
@@ -592,7 +594,7 @@ class Step1Plot(object):
 
     def display_selected_element_bragg_edges(self, plot_ui=plot_ui, lambda_range=None, ymax=0):
 
-        if self.data_type:
+        if self.data_type in (DataType.sample, DataType.ob):
             display_flag_ui = self.parent.ui.material_display_checkbox
         else:
             display_flag_ui = self.parent.ui.material_display_checkbox_2
@@ -602,6 +604,25 @@ class Step1Plot(object):
 
         _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
         _selected_element_hkl_array = self.parent.selected_element_hkl_array
+
+        nbr_hkl_in_list = len(_selected_element_bragg_edges_array)
+        nbr_to_display_at_the_same_time = 4
+
+        hkl_scrollbar_ui = self.parent.hkl_scrollbar_ui[self.data_type]
+
+        # no need to enabled the scrollbar if the total number of hkl is smaller than the minimum to display
+        scollbar_max = nbr_hkl_in_list - 1 - nbr_to_display_at_the_same_time
+        if scollbar_max < nbr_to_display_at_the_same_time:
+            hkl_scrollbar_ui.setEnabled(False)
+        else:
+            hkl_scrollbar_ui.setEnabled(True)
+
+        hkl_scrollbar_ui.setMinimum(0)
+        hkl_scrollbar_ui.setMaximum(nbr_hkl_in_list-1-nbr_to_display_at_the_same_time)
+        hkl_scrollbar_ui.setValue(nbr_hkl_in_list-1)
+        current_value = hkl_scrollbar_ui.value()
+        list_to_display = np.arange(current_value, current_value + nbr_to_display_at_the_same_time)
+        print(f"{list_to_display =}")
 
         counter = 0
         for _index, _x in enumerate(_selected_element_bragg_edges_array):
