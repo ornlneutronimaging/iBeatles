@@ -61,7 +61,7 @@
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
-            <string>1 - Raw Data</string>
+            <string>1 - Load Raw Data</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
@@ -858,7 +858,7 @@
           </widget>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
-            <string>2 - Normalization</string>
+            <string>2 - Normalization of the data</string>
            </attribute>
            <layout class="QHBoxLayout" name="horizontalLayout_24">
             <item>
@@ -1153,7 +1153,7 @@ p, li { white-space: pre-wrap; }
           </widget>
           <widget class="QWidget" name="tab_3">
            <attribute name="title">
-            <string>3 - Normalized Data</string>
+            <string>3 - work with normalized Data</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_20">
             <item>

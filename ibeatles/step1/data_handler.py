@@ -256,7 +256,8 @@ class DataHandler:
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files
         self.parent.data_metadata[self.data_type]['folder'] = o_load_image.folder
-        self.parent.sample_folder = os.path.dirname(o_load_image.folder)
+        # self.parent.sample_folder = os.path.dirname(o_load_image.folder)
+        self.parent.sample_folder = o_load_image.folder
         self.parent.data_metadata[self.data_type]['data'] = o_load_image.image_array
 
     def populate_list_widget(self, o_loader):
@@ -273,7 +274,8 @@ class DataHandler:
         self.parent.default_path[self.data_type] = _folder
 
         _parent_folder = FileHandler.get_parent_folder(_folder)
-        self.list_ui[self.data_type]['folder'].setText(_parent_folder)
+        # self.list_ui[self.data_type]['folder'].setText(_parent_folder)
+        self.list_ui[self.data_type]['folder'].setText(_folder)
 
     @staticmethod
     def get_image_type(list_of_files):

@@ -117,7 +117,7 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
 class RetrieveGeneralFileInfos(RetrieveDataInfos):
     general_infos = {'number_of_files': {'name': 'Number of Files',
                                          'value': -1},
-                     'time_stamp_files': {'name': 'Acquisition Time of Files',
+                     'time_stamp_files': {'name': 'Acquisition Time of First File',
                                           'value': -1},
                      'size_mb': {'name': 'Individual File Size (MB)',
                                  'value': ''},
