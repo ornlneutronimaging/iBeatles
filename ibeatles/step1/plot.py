@@ -4,7 +4,7 @@ from qtpy.QtGui import QBrush
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
 
-from ibeatles import DataType
+from ibeatles import DataType, ScrollBarParameters, MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME, XAxisMode
 import ibeatles.step1.utilities as utilities
 from ibeatles.utilities.colors import pen_color, roi_group_color
 from ibeatles.utilities.gui_handler import GuiHandler
@@ -434,7 +434,11 @@ class Step1Plot(object):
                                             data)
 
             # check if xaxis can be in lambda, or tof
-            time_spectra_file = self.parent.data_metadata[self.data_type]['time_spectra']['filename']
+
+            if self.data_type in [DataType.sample, DataType.ob]:
+                time_spectra_file = self.parent.data_metadata[DataType.sample]['time_spectra']['filename']
+            else:
+                time_spectra_file = self.parent.data_metadata[self.data_type]['time_spectra']['filename']
             o_gui = GuiHandler(parent=self.parent)
 
             if time_spectra_file == "":
@@ -457,6 +461,7 @@ class Step1Plot(object):
             dictionary = self.plot_bragg_edge(tof_array=tof_array,
                                               lambda_array=lambda_array,
                                               bragg_edges=bragg_edges)
+
             x_axis = dictionary['x_axis']
             [linear_region_left, linear_region_right] = dictionary['linear_region']
             o_gui.xaxis_label()
@@ -480,7 +485,6 @@ class Step1Plot(object):
         """
         plot the bragg edges
         """
-
         data_type = self.data_type
         plot_ui = self.plot_ui[data_type]
         plot_ui.clear()
@@ -495,6 +499,9 @@ class Step1Plot(object):
         plot_ui.setLabel("left", "Total Counts")
 
         _symbol = 't'
+
+        # use to check if bragg peaks scroll bar should be visible or not
+        o_gui = GuiHandler(parent=self.parent)
 
         if tof_array == []:
 
@@ -517,12 +524,14 @@ class Step1Plot(object):
                 arrow.setParentItem(curvePoint)
                 curvePoint.setPos(x_axis[-1])
 
+            o_gui.update_bragg_peak_scrollbar(force_hide_widgets=True)
+
         else:
 
             tof_array = tof_array * 1e6
 
-            o_gui = GuiHandler(parent=self.parent)
             xaxis_choice = o_gui.get_xaxis_checked(data_type=self.data_type)
+            o_gui.update_bragg_peak_scrollbar(xaxis_mode=xaxis_choice)
 
             first_index = True
 
@@ -570,7 +579,6 @@ class Step1Plot(object):
                                                                   ymax=np.nanmax(_bragg_edge))
                         first_index = False
 
-
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
                 _text = pg.TextItem("Group {}".format(_key),
@@ -599,34 +607,38 @@ class Step1Plot(object):
         else:
             display_flag_ui = self.parent.ui.material_display_checkbox_2
 
-        if not display_flag_ui.isChecked():
-            return
-
         _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
         _selected_element_hkl_array = self.parent.selected_element_hkl_array
 
-        nbr_hkl_in_list = len(_selected_element_bragg_edges_array)
-        nbr_to_display_at_the_same_time = 4
+        # nbr_hkl_in_list = len(_selected_element_bragg_edges_array)
+        # nbr_to_display_at_the_same_time = 4
 
-        hkl_scrollbar_ui = self.parent.hkl_scrollbar_ui[self.data_type]
+        hkl_scrollbar_ui = self.parent.hkl_scrollbar_ui['widget'][self.data_type]
+        max_value = self.parent.hkl_scrollbar_dict[ScrollBarParameters.maximum]
+        hkl_scrollbar_ui.setMaximum(max_value)
+        current_value = self.parent.hkl_scrollbar_dict[ScrollBarParameters.value]
+        hkl_scrollbar_ui.setValue(current_value)
 
-        # no need to enabled the scrollbar if the total number of hkl is smaller than the minimum to display
-        scollbar_max = nbr_hkl_in_list - 1 - nbr_to_display_at_the_same_time
-        if scollbar_max < nbr_to_display_at_the_same_time:
-            hkl_scrollbar_ui.setEnabled(False)
-        else:
-            hkl_scrollbar_ui.setEnabled(True)
+        list_to_display = np.arange(max_value - current_value, max_value - current_value +
+                                    MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME)
 
-        hkl_scrollbar_ui.setMinimum(0)
-        hkl_scrollbar_ui.setMaximum(nbr_hkl_in_list-1-nbr_to_display_at_the_same_time)
-        hkl_scrollbar_ui.setValue(nbr_hkl_in_list-1)
-        current_value = hkl_scrollbar_ui.value()
-        list_to_display = np.arange(current_value, current_value + nbr_to_display_at_the_same_time)
-        print(f"{list_to_display =}")
+        # # no need to enabled the scrollbar if the total number of hkl is smaller than the minimum to display
+        # scollbar_max = nbr_hkl_in_list - 1 - nbr_to_display_at_the_same_time
+        # if scollbar_max < nbr_to_display_at_the_same_time:
+        #     hkl_scrollbar_ui.setEnabled(False)
+        # else:
+        #     hkl_scrollbar_ui.setEnabled(True)
+        #
+        # hkl_scrollbar_ui.setMinimum(0)
+        # hkl_scrollbar_ui.setMaximum(nbr_hkl_in_list-1-nbr_to_display_at_the_same_time)
+        # hkl_scrollbar_ui.setValue(nbr_hkl_in_list-1)
+        # current_value = hkl_scrollbar_ui.value()
+        # list_to_display = np.arange(current_value, current_value + nbr_to_display_at_the_same_time)
 
-        counter = 0
         for _index, _x in enumerate(_selected_element_bragg_edges_array):
-            if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
+            # if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
+
+            if _index in list_to_display:
 
                 # vertical line
                 _item = pg.InfiniteLine(_x, pen=pg.mkPen("c"))
@@ -641,7 +653,3 @@ class Step1Plot(object):
                                     color=pg.mkColor("c"))
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)
-                counter += 1
-
-            if counter == 4:
-                return

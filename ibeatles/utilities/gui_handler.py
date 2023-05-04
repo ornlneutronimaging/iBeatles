@@ -1,4 +1,6 @@
-from ibeatles import DataType
+from qtpy.QtWidgets import QApplication
+
+from ibeatles import DataType, XAxisMode
 
 
 class GuiHandler:
@@ -83,3 +85,30 @@ class GuiHandler:
 
     def get_step2_xaxis_checked(self):
         return self.parent.data_metadata[DataType.normalization]['xaxis']
+
+    def update_bragg_peak_scrollbar(self, xaxis_mode=XAxisMode.file_index_mode, force_hide_widgets=False):
+
+        list_label_ui = [self.parent.hkl_scrollbar_ui['label'][key] for key in self.parent.hkl_scrollbar_ui['label'].keys()]
+        list_widget_ui = [self.parent.hkl_scrollbar_ui['widget'][key] for key in
+                          self.parent.hkl_scrollbar_ui['widget'].keys()]
+
+        list_ui = [*list_label_ui, *list_widget_ui]
+
+        for _ui in list_ui:
+            _ui.blockSignals(True)
+
+        if force_hide_widgets:
+            for _ui in list_ui:
+                _ui.setEnabled(False)
+            return
+
+        if xaxis_mode in (XAxisMode.file_index_mode, XAxisMode.tof_mode):
+            is_enable = False
+        else:
+            is_enable = True
+
+        for _ui in list_ui:
+            _ui.setEnabled(is_enable)
+
+        for _ui in list_ui:
+            _ui.blockSignals(False)

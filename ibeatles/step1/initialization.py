@@ -256,7 +256,8 @@ class Initialization:
 
         # hkl horizontal scroll widget
         scroll_hori_layout = QHBoxLayout()
-        scroll_hori_layout.addWidget(QLabel("Range of material Bragg peaks displayed:"))
+        scroll_label = QLabel("Range of material Bragg peaks displayed:")
+        scroll_hori_layout.addWidget(scroll_label)
         hori_scroll_widget = QScrollBar(QtCore.Qt.Horizontal)
         hori_scroll_widget.sliderMoved.connect(scroll_bar_function)
         hori_scroll_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -280,7 +281,7 @@ class Initialization:
         return [area, image_view, roi, bragg_edge_plot,
                 caxis, roi_editor_button, add_button, mean_button,
                 file_index_button, tof_button, lambda_button,
-                hori_scroll_widget]
+                scroll_label, hori_scroll_widget]
 
     def pyqtgraph(self):
         # sample
@@ -295,7 +296,8 @@ class Initialization:
          file_index_button,
          tof_button,
          lambda_button,
-         self.parent.hkl_scrollbar_ui[DataType.sample]] = self.general_init_pyqtgrpah(
+         self.parent.hkl_scrollbar_ui['label'][DataType.sample],
+         self.parent.hkl_scrollbar_ui['widget'][DataType.sample]] = self.general_init_pyqtgrpah(
                 self.parent.roi_image_view_changed,
                 self.parent.ui.preview_widget,
                 self.parent.roi_algorithm_is_add_clicked,
@@ -322,7 +324,8 @@ class Initialization:
          file_index_button,
          tof_button,
          lambda_button,
-         self.parent.hkl_scrollbar_ui[DataType.ob]] = self.general_init_pyqtgrpah(
+         self.parent.hkl_scrollbar_ui['label'][DataType.ob],
+         self.parent.hkl_scrollbar_ui['widget'][DataType.ob]] = self.general_init_pyqtgrpah(
                 self.parent.roi_ob_image_view_changed,
                 self.parent.ui.ob_preview_widget,
                 self.parent.ob_roi_algorithm_is_add_clicked,
@@ -349,7 +352,8 @@ class Initialization:
          file_index_button1,
          tof_button1,
          lambda_button1,
-         self.parent.hkl_scrollbar_ui[DataType.normalized]] = self.general_init_pyqtgrpah(
+         self.parent.hkl_scrollbar_ui['label'][DataType.normalized],
+         self.parent.hkl_scrollbar_ui['widget'][DataType.normalized]] = self.general_init_pyqtgrpah(
                 self.parent.roi_normalized_image_view_changed,
                 self.parent.ui.normalized_preview_widget,
                 self.parent.normalized_roi_algorithm_is_add_clicked,

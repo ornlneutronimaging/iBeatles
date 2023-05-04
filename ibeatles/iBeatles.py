@@ -3,6 +3,10 @@ from qtpy.QtWidgets import QApplication, QMainWindow
 import os
 import logging
 import warnings
+
+from ibeatles import load_ui, get_version
+from ibeatles import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI, ScrollBarParameters
+
 from ibeatles.config_handler import ConfigHandler
 
 from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
@@ -49,8 +53,6 @@ from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.add_element.add_element_editor import AddElement
 
 from ibeatles.utilities.array_utilities import find_nearest_index
-from ibeatles import load_ui, get_version
-from ibeatles import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
 
 from ibeatles.about.about_launcher import AboutLauncher
 
@@ -91,9 +93,16 @@ class MainWindow(QMainWindow):
                      DataType.normalized: None}
 
     # scrollbar below Bragg plot for main 3 data sets
-    hkl_scrollbar_ui = {DataType.sample: None,
-                        DataType.ob: None,
-                        DataType.normalized: None}
+    hkl_scrollbar_ui = {'label': {DataType.sample: None,
+                                  DataType.ob: None,
+                                  DataType.normalized: None},
+                        'widget': {DataType.sample: None,
+                                  DataType.ob: None,
+                                  DataType.normalized: None},
+                        }
+
+    hkl_scrollbar_dict = {ScrollBarParameters.maximum: 1,
+                          ScrollBarParameters.value: 0}
 
     # used to report in status bar the error messages
     steps_error = {'step1': {'status': True,
@@ -883,10 +892,14 @@ class MainWindow(QMainWindow):
         self.open_beam_list_selection_changed()
 
     def sample_hkl_scrollbar_changed(self, value):
-        print("sample progress bar changed")
+        self.hkl_scrollbar_dict[ScrollBarParameters.value] = value
+        o_plot = Step1Plot(parent=self, data_type=DataType.sample)
+        o_plot.display_bragg_edge()
 
     def ob_hkl_scrollbar_changed(self, value):
-        print("ob progress bar changed")
+        self.hkl_scrollbar_dict[ScrollBarParameters.value] = value
+        o_plot = Step1Plot(parent=self, data_type=DataType.ob)
+        o_plot.display_bragg_edge()
 
     # TAB 2: Normalization Tab ==================================================================================
 
@@ -1051,12 +1064,9 @@ class MainWindow(QMainWindow):
         o_event.sample_list_selection_changed()
 
     def normalized_hkl_scrollbar_changed(self, value):
-
-        print(self.hkl_scrollbar_ui[DataType.normalized].value())
-        print(f"minimum: {self.hkl_scrollbar_ui[DataType.normalized].minimum()}")
-        print(f"maximum: {self.hkl_scrollbar_ui[DataType.normalized].maximum()}")
-        print(f"normalized progress bar changed: {value}")
-        print(f"")
+        self.hkl_scrollbar_dict[ScrollBarParameters.value] = value
+        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot.display_bragg_edge()
 
     # GENERAL UI =======================================================================================
     def closeEvent(self, event):

@@ -30,6 +30,14 @@ LAMBDA = u"\u03BB"
 MICRO = u"\u00B5"
 SUB_0 = u"\u2080"
 
+MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME = 4
+
+
+class XAxisMode:
+    tof_mode = 'tof'
+    lambda_mode = 'lambda'
+    file_index_mode = 'file_index'
+
 
 class DataType:
     sample = 'sample'
@@ -39,6 +47,11 @@ class DataType:
     normalization = 'normalization'
     bin = "bin"
     fitting = "fitting"
+
+
+class ScrollBarParameters:
+    maximum = 'maximumx value'
+    value = 'current value'
 
 
 class RegionType:

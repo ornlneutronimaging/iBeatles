@@ -1,6 +1,7 @@
-from ibeatles import Material
-from ibeatles.utilities.gui_handler import GuiHandler
 from neutronbraggedge.braggedge import BraggEdge
+
+from ibeatles import Material, ScrollBarParameters, MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME
+from ibeatles.utilities.gui_handler import GuiHandler
 
 
 class BraggEdgeElementHandler:
@@ -75,6 +76,17 @@ class BraggEdgeElementHandler:
             self.parent.fitting_ui.ui.hkl_list_ui.clear()
             self.parent.fitting_ui.ui.hkl_list_ui.addItems(str_hkl_list)
             self.parent.fitting_ui.ui.material_groupBox.setTitle(element_name)
+
+        self.reset_scroll_bar_in_bottom_right_plot()
+
+    def reset_scroll_bar_in_bottom_right_plot(self):
+
+        _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
+        nbr_hkl_in_list = len(_selected_element_bragg_edges_array)
+        scrollbar_max = nbr_hkl_in_list - MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME
+
+        self.parent.hkl_scrollbar_dict = {ScrollBarParameters.maximum: scrollbar_max,
+                                          ScrollBarParameters.value: scrollbar_max}
 
 
 class BraggEdgeElementCalculator:
