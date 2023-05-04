@@ -12,6 +12,7 @@ from ibeatles.config_handler import ConfigHandler
 from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
 from ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
 from ibeatles.all_steps.list_hkl_lambda_d0 import ListHKLLambdaD0Handler
+from ibeatles.all_steps.infos_launcher import InfosLauncher
 
 from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
 from ibeatles.step1.data_handler import DataHandler
@@ -91,6 +92,9 @@ class MainWindow(QMainWindow):
     roi_editor_ui = {DataType.sample: None,
                      DataType.ob: None,
                      DataType.normalized: None}
+
+    # infos mainwindow
+    infos_id = None
 
     # scrollbar below Bragg plot for main 3 data sets
     hkl_scrollbar_ui = {'label': {DataType.sample: None,
@@ -483,7 +487,7 @@ class MainWindow(QMainWindow):
         o_about = AboutLauncher(parent=self)
         o_about.show()
 
-    # TAB 1, 2 and 3
+    # TAB 1, 2 and 3  ===========================================================================================
     def tab_widget_changed(self, tab_selected):
 
         general_event_handler = GeneralEventHandler(parent=self)
@@ -508,6 +512,9 @@ class MainWindow(QMainWindow):
 
         else:
             self.ui.tabWidget.setCurrentIndex(self.current_tab)
+
+    def infos_button_clicked(self):
+        InfosLauncher(parent=self)
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
