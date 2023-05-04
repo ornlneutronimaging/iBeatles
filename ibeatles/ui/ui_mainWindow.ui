@@ -61,7 +61,7 @@
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
-            <string>1 - Load Data</string>
+            <string>1 - Raw Data</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>

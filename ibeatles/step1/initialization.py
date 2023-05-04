@@ -9,7 +9,8 @@ import os
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
 
-from ibeatles.icons import icons_rc
+from ibeatles.icons import icons_rc  # do not remove
+from ibeatles import step1_icon, step2_icon, step3_icon
 from ibeatles import DataType
 from ibeatles import refresh_image
 from ibeatles import vertical_splitter_file, horizontal_splitter_file
@@ -31,6 +32,12 @@ class Initialization:
         self.icons()
         self.widgets()
         self.splitters()
+        self.tabs()
+
+    def tabs(self):
+        self.parent.ui.tabWidget.setTabIcon(0, QIcon(step1_icon))
+        self.parent.ui.tabWidget.setTabIcon(1, QIcon(step2_icon))
+        self.parent.ui.tabWidget.setTabIcon(2, QIcon(step3_icon))
 
     def splitters(self):
         self.parent.ui.vertical_normalized_splitter.setSizes([800, 300])
