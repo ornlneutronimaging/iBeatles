@@ -10,7 +10,7 @@ from neutronbraggedge.material_handler.retrieve_material_metadata import Retriev
 from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles.icons import icons_rc  # do not remove
-from ibeatles import step1_icon, step2_icon, step3_icon
+from ibeatles import step1_icon, step2_icon, step3_icon, infos_file
 from ibeatles import DataType
 from ibeatles import refresh_image
 from ibeatles import vertical_splitter_file, horizontal_splitter_file
@@ -88,6 +88,10 @@ class Initialization:
         # folder path of time spectra
         self.parent.ui.time_spectra_folder_2.setVisible(False)
         self.parent.ui.time_spectra_folder.setVisible(False)
+
+        self.parent.ui.sample_infos_pushButton.setIcon(QIcon(infos_file))
+        self.parent.ui.ob_infos_pushButton.setIcon(QIcon(infos_file))
+        self.parent.ui.normalized_infos_pushButton.setIcon(QIcon(infos_file))
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)

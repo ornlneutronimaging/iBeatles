@@ -240,7 +240,6 @@ class DataHandler:
             self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = file_name
 
             self.load_time_spectra(time_spectra_file=file_name)
-
             return True
 
         return False
