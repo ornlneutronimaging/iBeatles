@@ -10,7 +10,7 @@ from neutronbraggedge.material_handler.retrieve_material_metadata import Retriev
 from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles.icons import icons_rc  # do not remove
-from ibeatles import step1_icon, step2_icon, step3_icon, infos_file
+from ibeatles import step1_icon, step2_icon, step3_icon, infos_file, preview_file
 from ibeatles import DataType
 from ibeatles import refresh_image
 from ibeatles import vertical_splitter_file, horizontal_splitter_file
@@ -157,8 +157,8 @@ class Initialization:
                                scroll_bar_function):
         area = DockArea()
         area.setVisible(False)
-        d1 = Dock("Image Preview", size=(200, 300))
-        d2 = Dock("Bragg Edge", size=(200, 100))
+        d1 = Dock("Image Preview", size=(200, 200))
+        d2 = Dock("Bragg Edge", size=(200, 200))
 
         area.addDock(d1, 'top')
         area.addDock(d2, 'bottom')
@@ -367,6 +367,9 @@ class Initialization:
         icon = QIcon(refresh_image)
         self.parent.ui.reset_lattice_button.setIcon(icon)
         self.parent.ui.reset_crystal_structure_button.setIcon(icon)
+        preview_icon = QIcon(preview_file)
+        self.parent.ui.preview_time_spectra_button.setIcon(preview_icon)
+        self.parent.ui.preview_time_spectra_normalized_button.setIcon(preview_icon)
 
     def connect_widgets(self):
         self.parent.ui.list_of_elements.currentIndexChanged.connect(self.parent.list_of_element_index_changed)

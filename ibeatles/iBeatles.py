@@ -652,18 +652,19 @@ class MainWindow(QMainWindow):
         if type(index) == int:
             return
 
+        o_gui = GuiHandler(parent=self)
+        tab_selected = o_gui.get_active_tab()
+
         self.ui.list_of_elements.blockSignals(True)
-        self.ui.list_of_elements_2.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
-        o_gui.update_lattice_and_crystal_when_index_selected(source='load_data')
+        o_gui.update_lattice_and_crystal_when_index_selected()
         BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self, data_type='sample')
-        o_plot.display_general_bragg_edge()
+        o_plot = Step1Plot(parent=self, data_type=tab_selected)
+        o_plot.display_general_bragg_edge(data_type=tab_selected)
         # self.roi_image_view_changed()
         self.update_hkl_lambda_d0()
         self.check_status_of_material_widgets()
         self.ui.list_of_elements.blockSignals(False)
-        self.ui.list_of_elements_2.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)

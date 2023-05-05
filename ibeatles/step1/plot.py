@@ -199,8 +199,7 @@ class Step1Plot(object):
             self.parent.ui.normalized_image_view.clear()
             self.parent.ui.normalized_bragg_edge_plot.clear()
 
-    def display_general_bragg_edge(self):
-        data_type = utilities.get_tab_selected(parent=self.parent)
+    def display_general_bragg_edge(self, data_type=DataType.sample):
         self.data_type = data_type
         data = self.parent.data_metadata[data_type]['data']
         self.data = data
@@ -602,10 +601,7 @@ class Step1Plot(object):
 
     def display_selected_element_bragg_edges(self, plot_ui=plot_ui, lambda_range=None, ymax=0):
 
-        if self.data_type in (DataType.sample, DataType.ob):
-            display_flag_ui = self.parent.ui.material_display_checkbox
-        else:
-            display_flag_ui = self.parent.ui.material_display_checkbox_2
+        display_flag_ui = self.parent.ui.material_display_checkbox
 
         _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
         _selected_element_hkl_array = self.parent.selected_element_hkl_array

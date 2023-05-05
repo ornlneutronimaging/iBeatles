@@ -65,5 +65,7 @@ class LoadNormalized:
             histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram][self.combine_algo]
             o_pyqt.set_histogram_level(histogram_level=histogram_level)
 
-            self.parent.list_of_element_2_index_changed(True)
+            self.parent.list_of_element_index_changed(True)
             self.parent.roi_normalized_image_view_changed()
+
+            self.parent.ui.normalized_splitter.setSizes([20, 450])

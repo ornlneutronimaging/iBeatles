@@ -80,7 +80,7 @@
                 <item>
                  <widget class="QTabWidget" name="load_data_tab">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="tab_8">
                    <attribute name="title">
@@ -330,8 +330,20 @@
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
                        <property name="text">
-                        <string>Preview ...</string>
+                        <string/>
                        </property>
                       </widget>
                      </item>
@@ -878,15 +890,27 @@ p, li { white-space: pre-wrap; }
                       </spacer>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="preview_time_spectra_button_2">
+                      <widget class="QPushButton" name="preview_time_spectra_normalized_button">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>30</width>
+                         <height>30</height>
+                        </size>
+                       </property>
                        <property name="text">
-                        <string>Preview ...</string>
+                        <string/>
                        </property>
                       </widget>
                      </item>
@@ -1752,7 +1776,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>preview_time_spectra_button_2</sender>
+   <sender>preview_time_spectra_normalized_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>normalized_time_spectra_preview_button_clicked()</slot>

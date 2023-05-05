@@ -30,6 +30,8 @@ class EventHandler(TopEventHandler):
             self.check_time_spectra_status()
             self.parent.infos_window_update(data_type=self.data_type)
 
+            self.parent.ui.normalized_splitter.setSizes([20, 450])
+
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:
             o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type=DataType.normalized)
@@ -60,8 +62,8 @@ class EventHandler(TopEventHandler):
         o_gui.check_widgets()
         # self.check_time_spectra_status()
 
-    # def check_time_spectra_status(self):
-    #     if str(self.parent.ui.time_spectra_2.text()):
-    #         self.parent.ui.display_warning_2.setVisible(False)
-    #     else:
-    #         self.parent.ui.display_warning_2.setVisible(True)
+    def check_time_spectra_status(self):
+        if str(self.parent.ui.time_spectra.text()):
+            self.parent.ui.display_warning.setVisible(False)
+        else:
+            self.parent.ui.display_warning.setVisible(True)

@@ -16,6 +16,7 @@ settings_image = os.path.join(root, "icons/plotSettings.png")
 vertical_splitter_file = os.path.join(root, "icons/vertical_splitter_handle.png")
 horizontal_splitter_file = os.path.join(root, "icons/horizontal_splitter_handle.png")
 infos_file = os.path.join(root, "icons/info.png")
+preview_file = os.path.join(root, "icons/preview.png")
 
 step1_icon = os.path.join(root, "static/step1.png")
 step2_icon = os.path.join(root, "static/step2.png")

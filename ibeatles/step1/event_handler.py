@@ -79,17 +79,11 @@ class EventHandler(TopEventHandler):
         element = self.parent.ui.list_of_elements.currentText()
         if element in self.parent.user_defined_bragg_edge_list.keys():
             if self.parent.user_defined_bragg_edge_list[element][Material.method_used] == Material.via_lattice_and_crystal_structure:
-                self.parent.ui.crystal_structure_2_groupBox.setVisible(True)
-                self.parent.ui.lattice_2_groupBox.setVisible(True)
                 self.parent.ui.crystal_structure_groupBox.setVisible(True)
                 self.parent.ui.lattice_groupBox.setVisible(True)
             else:
-                self.parent.ui.crystal_structure_2_groupBox.setVisible(False)
-                self.parent.ui.lattice_2_groupBox.setVisible(False)
                 self.parent.ui.crystal_structure_groupBox.setVisible(False)
                 self.parent.ui.lattice_groupBox.setVisible(False)
         else:
-            self.parent.ui.crystal_structure_2_groupBox.setVisible(True)
-            self.parent.ui.lattice_2_groupBox.setVisible(True)
             self.parent.ui.crystal_structure_groupBox.setVisible(True)
             self.parent.ui.lattice_groupBox.setVisible(True)

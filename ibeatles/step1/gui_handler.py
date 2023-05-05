@@ -131,7 +131,7 @@ class Step1GuiHandler(object):
     def row_selected(self, data_type='sample'):
         return self.parent.data_metadata[data_type]['list_widget_ui'].currentRow()
 
-    def get_element_selected(self, source='load_data'):
+    def get_element_selected(self):
         return str(self.parent.ui.list_of_elements.currentText())
 
     def set_crystal_structure(self, new_crystal_structure):
@@ -169,13 +169,13 @@ class Step1GuiHandler(object):
         self.parent.local_bragg_edge_list[material] = {'crystal_structure': _crystal_structure,
                                                        'lattice': _lattice}
 
-    def update_lattice_and_crystal_when_index_selected(self, source='load_data',
+    def update_lattice_and_crystal_when_index_selected(self,
                                                        fill_lattice_flag=True,
                                                        fill_crystal_structure_flag=True):
 
         self.parent.ui.list_of_elements.blockSignals(True)
 
-        _element = self.get_element_selected(source=source)
+        _element = self.get_element_selected()
 
         if _element in self.parent.user_defined_bragg_edge_list.keys():
 
