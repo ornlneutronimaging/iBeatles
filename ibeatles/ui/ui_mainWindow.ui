@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1515</width>
-    <height>912</height>
+    <width>1524</width>
+    <height>985</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -37,7 +37,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1489</width>
+         <width>1498</width>
          <height>950</height>
         </rect>
        </property>
@@ -159,7 +159,7 @@
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>50</width>
+                        <width>0</width>
                         <height>0</height>
                        </size>
                       </property>
@@ -283,7 +283,7 @@
                   <property name="title">
                    <string>Time Spectra</string>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_14">
+                  <layout class="QVBoxLayout" name="verticalLayout_2">
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_3">
                      <item>
@@ -304,13 +304,6 @@
                        <property name="autoFillBackground">
                         <bool>false</bool>
                        </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="time_spectra">
                        <property name="text">
                         <string/>
                        </property>
@@ -341,6 +334,30 @@
                         <string>Preview ...</string>
                        </property>
                       </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <item>
+                      <widget class="QLabel" name="time_spectra">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_7">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
                      </item>
                     </layout>
                    </item>
@@ -831,7 +848,7 @@ p, li { white-space: pre-wrap; }
                   <property name="title">
                    <string>Time Spectra</string>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_15">
+                  <layout class="QVBoxLayout" name="verticalLayout_4">
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_7">
                      <item>
@@ -844,22 +861,6 @@ p, li { white-space: pre-wrap; }
                        </property>
                        <property name="text">
                         <string>Load Time Spectra File ...</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="time_spectra_folder_2">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="autoFillBackground">
-                        <bool>false</bool>
-                       </property>
-                       <property name="text">
-                        <string/>
                        </property>
                       </widget>
                      </item>
@@ -895,6 +896,39 @@ p, li { white-space: pre-wrap; }
                         <string>Preview ...</string>
                        </property>
                       </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                     <item>
+                      <widget class="QLabel" name="time_spectra_folder_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="autoFillBackground">
+                        <bool>false</bool>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_9">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
                      </item>
                     </layout>
                    </item>
@@ -936,7 +970,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_4">
+         <widget class="QGroupBox" name="instrument_and_material_settings">
           <property name="maximumSize">
            <size>
             <width>400</width>
@@ -1371,7 +1405,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1515</width>
+     <width>1524</width>
      <height>24</height>
     </rect>
    </property>

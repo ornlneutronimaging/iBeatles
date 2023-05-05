@@ -634,32 +634,9 @@ class MainWindow(QMainWindow):
         self.instruments_widgets()
 
     # global normalized instruments widgets handler
-    # def instruments_2_widgets(self, update_delta_lambda=True):
-    #     o_gui = Step1GuiHandler(parent=self)
-    #     o_gui.block_instrument_widgets(status=True)
-    #     # o_gui.sync_instrument_widgets(source='normalized')
-    #     if update_delta_lambda:
-    #         self.update_delta_lambda()
-    #     o_data = DataHandler(parent=self, data_type='normalized')
-    #     o_data.load_time_spectra()
-    #     o_plot = Step1Plot(parent=self, data_type='normalized')
-    #     o_plot.display_bragg_edge(mouse_selection=False)
-    #
-    #     o_event = Step1EventHandler(parent=self)
-    #     o_event.sample_list_selection_changed()
-    #
-    #     o_gui.block_instrument_widgets(status=False)
 
     def distance_source_detector_2_changed(self):
         self.instruments_2_widgets()
-
-    # def beam_rate_2_changed(self):
-    #     self.instruments_2_widgets()
-
-    # def detector_offset_2_changed(self):
-    #     self.instruments_2_widgets(update_delta_lambda=False)
-
-    # Material widgets
 
     def add_element_clicked(self):
         _add_ele = AddElement(parent=self)
@@ -682,36 +659,12 @@ class MainWindow(QMainWindow):
         self.ui.list_of_elements.blockSignals(False)
         self.ui.list_of_elements_2.blockSignals(False)
 
-    # def list_of_element_2_index_changed(self, index):
-    #     if type(index) == int:
-    #         return
-    #
-    #     self.ui.list_of_elements.blockSignals(True)
-    #     self.ui.list_of_elements_2.blockSignals(True)
-    #     o_gui = Step1GuiHandler(parent=self)
-    #     o_gui.update_lattice_and_crystal_when_index_selected(source='normalized')
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self, data_type='normalized')
-    #     o_plot.display_general_bragg_edge()
-    #     # self.roi_image_view_changed()
-    #     self.update_hkl_lambda_d0()
-    #     self.check_status_of_material_widgets()
-    #     self.ui.list_of_elements.blockSignals(False)
-    #     self.ui.list_of_elements_2.blockSignals(False)
-
     def crystal_structure_index_changed(self, index):
         self.ui.crystal_structure_2.setCurrentIndex(index)
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
         self.update_hkl_lambda_d0()
-
-    # def crystal_structure_2_index_changed(self, index):
-    #     self.ui.crystal_structure.setCurrentIndex(index)
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self)
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
 
     def lattice_text_changed(self):
         _contain = str(self.ui.lattice_parameter.text())
@@ -720,14 +673,6 @@ class MainWindow(QMainWindow):
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
         self.update_hkl_lambda_d0()
-
-    # def lattice_2_text_changed(self):
-    #     _contain = str(self.ui.lattice_parameter_2.text())
-    #     self.ui.lattice_parameter.setText(_contain)
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self)
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
 
     def reset_lattice_button_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
@@ -738,15 +683,6 @@ class MainWindow(QMainWindow):
         o_plot.display_general_bragg_edge()
         self.update_hkl_lambda_d0()
 
-    # def reset_lattice_button_2_clicked(self):
-    #     o_gui = Step1GuiHandler(parent=self)
-    #     o_gui.update_lattice_and_crystal_when_index_selected(source='normalized',
-    #                                                          fill_crystal_structure_flag=False)
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self, data_type='normalized')
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
-
     def reset_crystal_structure_button_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected(source='load_data',
@@ -756,23 +692,11 @@ class MainWindow(QMainWindow):
         o_plot.display_general_bragg_edge()
         self.update_hkl_lambda_d0()
 
-    # def reset_crystal_structure_button_2_clicked(self):
-    #     o_gui = Step1GuiHandler(parent=self)
-    #     o_gui.update_lattice_and_crystal_when_index_selected(source='normalized',
-    #                                                          fill_lattice_flag=False)
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self, data_type='normalized')
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
-
     def check_files_error(self):
         CheckError(parent=self)
 
     def material_list_hkl_lambda_d0_clicked(self):
         ListHKLLambdaD0Handler(parent=self)
-    #
-    # def list_element_2_changed(self, new_index):
-    #     self.update_hkl_lambda_d0()
 
     def list_element_changed(self, new_index):
         self.update_hkl_lambda_d0()

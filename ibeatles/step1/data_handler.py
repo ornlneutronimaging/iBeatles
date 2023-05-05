@@ -274,7 +274,7 @@ class DataHandler:
 
         _parent_folder = FileHandler.get_parent_folder(_folder)
         # self.list_ui[self.data_type]['folder'].setText(_parent_folder)
-        self.list_ui[self.data_type]['folder'].setText(_folder)
+        self.list_ui[self.data_type]['folder'].setText(os.path.basename(os.path.abspath(_folder)))
 
     @staticmethod
     def get_image_type(list_of_files):

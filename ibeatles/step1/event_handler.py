@@ -44,6 +44,8 @@ class EventHandler(TopEventHandler):
             if self.data_type == DataType.sample:
                 self.parent.data_metadata['normalization']['data'] = []
 
+            self.parent.ui.sample_ob_splitter.setSizes([20, 450])
+
         else:
             logging.info(f"Import button clicked ... operation canceled!")
 
