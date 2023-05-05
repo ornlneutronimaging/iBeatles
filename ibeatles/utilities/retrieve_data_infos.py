@@ -127,6 +127,7 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
 
     def update(self):
         data_files = self.parent.list_files[self.data_type]
+
         if data_files == []:
             self.general_infos = {}  # no files so no infos to display
 
@@ -150,17 +151,20 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
             _total_size_mb = "{:.2f}".format(_total_size_mb)
             self.general_infos['total_size_folder']['value'] = _total_size_mb
 
-        self.display()
+        # save general infos into main infos_dict
+        self.parent.infos_dict[self.data_type] = self.general_infos
+
+        # self.display()
 
     def get_formated_time(self, full_file_name):
         _time = time.strftime('%m/%d/%Y %H:%M:%S',
                               time.gmtime(os.path.getmtime(full_file_name)))
         return _time
 
-    def display(self):
-        text = ''
-        for key in self.general_infos:
-            text += '<b>{}</b>: {}<br/>'.format(self.general_infos[key]['name'],
-                                                self.general_infos[key]['value'])
-
-        self.general_infos_ui[self.data_type].setHtml(text)
+    # def display(self):
+    #     text = ''
+    #     for key in self.general_infos:
+    #         text += '<b>{}</b>: {}<br/>'.format(self.general_infos[key]['name'],
+    #                                             self.general_infos[key]['value'])
+    #
+    #     self.general_infos_ui[self.data_type].setHtml(text)

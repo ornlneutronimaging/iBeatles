@@ -95,6 +95,9 @@ class MainWindow(QMainWindow):
 
     # infos mainwindow
     infos_id = None
+    infos_dict = {DataType.sample: None,
+                  DataType.ob: None,
+                  DataType.normalized: None}
 
     # scrollbar below Bragg plot for main 3 data sets
     hkl_scrollbar_ui = {'label': {DataType.sample: None,

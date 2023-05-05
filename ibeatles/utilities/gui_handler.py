@@ -12,15 +12,15 @@ class GuiHandler:
         """return either 'sample', 'ob', 'normalization' or 'normalized' """
         top_tab_index = self.parent.ui.tabWidget.currentIndex()
         if top_tab_index == 1:
-            return 'normalization'
+            return DataType.normalization
         if top_tab_index == 2:
-            return 'normalized'
+            return DataType.normalized
         if top_tab_index == 0:
             load_data_tab_index = self.parent.ui.load_data_tab.currentIndex()
             if load_data_tab_index == 0:
-                return 'sample'
+                return DataType.sample
             if load_data_tab_index == 1:
-                return 'ob'
+                return DataType.ob
 
     def enable_xaxis_button(self, tof_flag=True):
         list_button_ui = self.parent.xaxis_button_ui
