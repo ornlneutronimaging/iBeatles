@@ -47,16 +47,21 @@ class Initialization:
                                      }
                                      """)
         self.parent.ui.sample_ob_splitter.setHandleWidth(15)
+
         self.parent.ui.horizontal_normalization_splitter.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
                                      }
                                      """)
+
+        self.parent.ui.normalized_splitter.setSizes([100, 0])
         self.parent.ui.normalized_splitter.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
                                      }
                                      """)
+        self.parent.ui.normalized_splitter.setHandleWidth(15)
+
         self.parent.ui.area.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/vertical_splitter_handle.png");

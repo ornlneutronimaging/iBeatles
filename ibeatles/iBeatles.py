@@ -508,6 +508,7 @@ class MainWindow(QMainWindow):
 
             if tab_selected == 1:  # normalization
 
+                material_instrument_group_visible = False
                 o_gui = Step2GuiHandler(parent=self)
                 o_gui.update_widgets()
                 time_spectra_data = self.data_metadata['time_spectra']['data']
@@ -519,7 +520,12 @@ class MainWindow(QMainWindow):
                 o_plot = Step2Plot(parent=self)
                 o_plot.display_bragg_edge()
 
+            else:
+
+                material_instrument_group_visible = True
+
             self.current_tab = tab_selected
+            self.ui.instrument_and_material_settings.setVisible(material_instrument_group_visible)
 
         else:
             self.ui.tabWidget.setCurrentIndex(self.current_tab)

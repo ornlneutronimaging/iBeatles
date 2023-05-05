@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -865,13 +865,6 @@ p, li { white-space: pre-wrap; }
                       </widget>
                      </item>
                      <item>
-                      <widget class="QLabel" name="time_spectra_2">
-                       <property name="text">
-                        <string/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
                       <spacer name="horizontalSpacer_6">
                        <property name="orientation">
                         <enum>Qt::Horizontal</enum>
@@ -912,6 +905,13 @@ p, li { white-space: pre-wrap; }
                        <property name="autoFillBackground">
                         <bool>false</bool>
                        </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="time_spectra_2">
                        <property name="text">
                         <string/>
                        </property>
