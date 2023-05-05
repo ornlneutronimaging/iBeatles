@@ -44,6 +44,8 @@ class LoadNormalized:
 
             self.parent.retrieve_general_infos(data_type=data_type)
             self.parent.retrieve_general_data_infos(data_type=data_type)
+            self.parent.infos_window_update(data_type=data_type)
+
             o_gui = Step3GuiHandler(parent=self.parent)
             o_gui.check_widgets()
             o_gui.check_time_spectra_widgets()

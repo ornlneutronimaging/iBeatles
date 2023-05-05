@@ -19,13 +19,16 @@ class EventHandler(TopEventHandler):
         o_load = DataHandler(parent=self.parent,
                              data_type=self.data_type)
         _folder = o_load.select_folder()
-        o_load.import_files_from_folder(folder=_folder, extension=[".tif", ".fits", ".tiff"])
-        o_load.import_time_spectra()
+        state = o_load.import_files_from_folder(folder=_folder, extension=[".tif", ".fits", ".tiff"])
 
-        if not (self.parent.data_metadata[self.data_type]['data'] is None):
-            self.update_ui_after_loading_data(folder=_folder)
+        if state:
+            o_load.import_time_spectra()
 
-        self.check_time_spectra_status()
+            if not (self.parent.data_metadata[self.data_type]['data'] is None):
+                self.update_ui_after_loading_data(folder=_folder)
+
+            self.check_time_spectra_status()
+            self.parent.infos_window_update(data_type=self.data_type)
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:

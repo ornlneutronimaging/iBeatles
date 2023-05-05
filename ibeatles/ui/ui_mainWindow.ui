@@ -106,7 +106,7 @@
                  <item>
                   <widget class="QTabWidget" name="load_data_tab">
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="tab_8">
                     <attribute name="title">
@@ -155,6 +155,9 @@
                          </item>
                          <item>
                           <widget class="QPushButton" name="sample_infos_pushButton">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
                            <property name="minimumSize">
                             <size>
                              <width>30</width>
@@ -247,6 +250,9 @@
                          </item>
                          <item>
                           <widget class="QPushButton" name="ob_infos_pushButton">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
                            <property name="minimumSize">
                             <size>
                              <width>30</width>
@@ -1245,6 +1251,9 @@ p, li { white-space: pre-wrap; }
                    </item>
                    <item>
                     <widget class="QPushButton" name="normalized_infos_pushButton">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
                      <property name="minimumSize">
                       <size>
                        <width>30</width>

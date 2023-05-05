@@ -46,6 +46,7 @@ class LoadLoadDataTab:
             self.parent.check_files_error()
             self.parent.retrieve_general_infos(data_type=data_type)
             self.parent.retrieve_general_data_infos(data_type=data_type)
+            self.parent.infos_window_update(data_type=data_type)
 
             o_step2_plot = Step2Plot(parent=self.parent)
             o_step2_plot.prepare_data()

@@ -38,6 +38,8 @@ class EventHandler(TopEventHandler):
             o_step2_gui = Step2Initialization(parent=self.parent)
             o_step2_gui.roi()
             self.update_default_path(folder=_folder)
+            # activate or not infos button
+            self.parent.infos_window_update(data_type=self.data_type)
 
             if self.data_type == DataType.sample:
                 self.parent.data_metadata['normalization']['data'] = []

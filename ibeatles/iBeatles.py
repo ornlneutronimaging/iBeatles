@@ -98,6 +98,10 @@ class MainWindow(QMainWindow):
     infos_dict = {DataType.sample: None,
                   DataType.ob: None,
                   DataType.normalized: None}
+    # ui of infos pushButton
+    infos_ui_dict = {DataType.sample: None,
+                     DataType.ob: None,
+                     DataType.normalized: None}
 
     # scrollbar below Bragg plot for main 3 data sets
     hkl_scrollbar_ui = {'label': {DataType.sample: None,
@@ -433,6 +437,10 @@ class MainWindow(QMainWindow):
         self.old_list_roi[DataType.normalized] = [DEFAULT_ROI]
         self.old_list_roi[DataType.normalization] = [DEFAULT_NORMALIZATION_ROI]
 
+        self.infos_ui_dict = {DataType.sample: self.ui.sample_infos_pushButton,
+                              DataType.ob: self.ui.ob_infos_pushButton,
+                              DataType.normalized: self.ui.normalized_infos_pushButton}
+
     def automatic_load_of_previous_session(self):
         o_get = Get(parent=self)
         full_config_file_name = o_get.get_automatic_config_file_name()
@@ -518,6 +526,13 @@ class MainWindow(QMainWindow):
 
     def infos_button_clicked(self):
         InfosLauncher(parent=self)
+
+    def infos_window_update(self, data_type=DataType.sample):
+        """will update the infos view if this one is active"""
+        if self.infos_dict[data_type]:
+            self.infos_ui_dict[data_type].setEnabled(True)
+        if self.infos_id:
+            self.infos_id.update()
 
     def material_display_clicked(self, status):
         self.ui.material_display_checkbox_2.setChecked(status)
