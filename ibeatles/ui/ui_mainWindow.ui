@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1822</width>
-    <height>1476</height>
+    <width>1515</width>
+    <height>912</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -37,8 +37,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1796</width>
-         <height>1405</height>
+         <width>1489</width>
+         <height>950</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -47,7 +47,7 @@
          <height>950</height>
         </size>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="enabled">
@@ -65,259 +65,32 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="QSplitter" name="load_data_splitter">
+             <widget class="QSplitter" name="sample_ob_splitter">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="handleWidth">
-               <number>25</number>
+              <property name="opaqueResize">
+               <bool>true</bool>
               </property>
-              <widget class="QSplitter" name="sample_ob_splitter">
-               <property name="minimumSize">
-                <size>
-                 <width>300</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="handleWidth">
-                <number>15</number>
-               </property>
-               <widget class="QWidget" name="layoutWidget">
-                <layout class="QVBoxLayout" name="verticalLayout_9">
-                 <item>
-                  <widget class="Line" name="line">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QTabWidget" name="load_data_tab">
-                   <property name="currentIndex">
-                    <number>0</number>
-                   </property>
-                   <widget class="QWidget" name="tab_8">
-                    <attribute name="title">
-                     <string>Sample</string>
-                    </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout_11">
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_5">
-                       <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_4">
-                         <item>
-                          <widget class="QPushButton" name="import_sample_button">
-                           <property name="sizePolicy">
-                            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                             <horstretch>0</horstretch>
-                             <verstretch>0</verstretch>
-                            </sizepolicy>
-                           </property>
-                           <property name="text">
-                            <string>Load Sample Data ...</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QLabel" name="sample_folder">
-                           <property name="text">
-                            <string/>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <spacer name="horizontalSpacer_2">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
-                           </property>
-                           <property name="sizeType">
-                            <enum>QSizePolicy::Expanding</enum>
-                           </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                          </spacer>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="sample_infos_pushButton">
-                           <property name="enabled">
-                            <bool>false</bool>
-                           </property>
-                           <property name="minimumSize">
-                            <size>
-                             <width>30</width>
-                             <height>30</height>
-                            </size>
-                           </property>
-                           <property name="maximumSize">
-                            <size>
-                             <width>30</width>
-                             <height>30</height>
-                            </size>
-                           </property>
-                           <property name="text">
-                            <string/>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </item>
-                       <item>
-                        <widget class="QListWidget" name="list_sample">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="minimumSize">
-                          <size>
-                           <width>50</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="contextMenuPolicy">
-                          <enum>Qt::CustomContextMenu</enum>
-                         </property>
-                         <property name="editTriggers">
-                          <set>QAbstractItemView::NoEditTriggers</set>
-                         </property>
-                         <property name="alternatingRowColors">
-                          <bool>true</bool>
-                         </property>
-                         <property name="selectionMode">
-                          <enum>QAbstractItemView::ExtendedSelection</enum>
-                         </property>
-                         <property name="selectionBehavior">
-                          <enum>QAbstractItemView::SelectRows</enum>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                    </layout>
-                   </widget>
-                   <widget class="QWidget" name="tab_9">
-                    <attribute name="title">
-                     <string>Open Beam</string>
-                    </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout_16">
-                     <item>
-                      <layout class="QVBoxLayout" name="verticalLayout_7">
-                       <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout_5">
-                         <item>
-                          <widget class="QPushButton" name="import_open_beam_button">
-                           <property name="text">
-                            <string>Load Open Beam Data ...</string>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <widget class="QLabel" name="open_beam_folder">
-                           <property name="text">
-                            <string/>
-                           </property>
-                          </widget>
-                         </item>
-                         <item>
-                          <spacer name="horizontalSpacer_3">
-                           <property name="orientation">
-                            <enum>Qt::Horizontal</enum>
-                           </property>
-                           <property name="sizeHint" stdset="0">
-                            <size>
-                             <width>40</width>
-                             <height>20</height>
-                            </size>
-                           </property>
-                          </spacer>
-                         </item>
-                         <item>
-                          <widget class="QPushButton" name="ob_infos_pushButton">
-                           <property name="enabled">
-                            <bool>false</bool>
-                           </property>
-                           <property name="minimumSize">
-                            <size>
-                             <width>30</width>
-                             <height>30</height>
-                            </size>
-                           </property>
-                           <property name="maximumSize">
-                            <size>
-                             <width>30</width>
-                             <height>30</height>
-                            </size>
-                           </property>
-                           <property name="text">
-                            <string/>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
-                       </item>
-                       <item>
-                        <widget class="QListWidget" name="list_open_beam">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                           <horstretch>0</horstretch>
-                           <verstretch>0</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="selectionMode">
-                          <enum>QAbstractItemView::ExtendedSelection</enum>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                    </layout>
-                   </widget>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QGroupBox" name="time_spectra_groupbox_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>110</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>110</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="title">
-                    <string>Time Spectra</string>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_14">
+              <property name="childrenCollapsible">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="layoutWidget">
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <widget class="QTabWidget" name="load_data_tab">
+                  <property name="currentIndex">
+                   <number>0</number>
+                  </property>
+                  <widget class="QWidget" name="tab_8">
+                   <attribute name="title">
+                    <string>Sample</string>
+                   </attribute>
+                   <layout class="QVBoxLayout" name="verticalLayout_9">
                     <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_3">
+                     <layout class="QHBoxLayout" name="horizontalLayout_4">
                       <item>
-                       <widget class="QPushButton" name="import_time_spectra_button">
+                       <widget class="QPushButton" name="import_sample_button">
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                           <horstretch>0</horstretch>
@@ -325,31 +98,24 @@
                          </sizepolicy>
                         </property>
                         <property name="text">
-                         <string>Load Time Spectra File ...</string>
+                         <string>Load Sample Data ...</string>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QLabel" name="time_spectra_folder">
-                        <property name="autoFillBackground">
-                         <bool>false</bool>
-                        </property>
+                       <widget class="QLabel" name="sample_folder">
                         <property name="text">
                          <string/>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QLabel" name="time_spectra">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_4">
+                       <spacer name="horizontalSpacer_2">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeType">
+                         <enum>QSizePolicy::Expanding</enum>
                         </property>
                         <property name="sizeHint" stdset="0">
                          <size>
@@ -360,15 +126,132 @@
                        </spacer>
                       </item>
                       <item>
-                       <widget class="QPushButton" name="preview_time_spectra_button">
+                       <widget class="QPushButton" name="sample_infos_pushButton">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>30</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                        <property name="maximumSize">
+                         <size>
+                          <width>30</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QListWidget" name="list_sample">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>50</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="contextMenuPolicy">
+                       <enum>Qt::CustomContextMenu</enum>
+                      </property>
+                      <property name="editTriggers">
+                       <set>QAbstractItemView::NoEditTriggers</set>
+                      </property>
+                      <property name="alternatingRowColors">
+                       <bool>true</bool>
+                      </property>
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::ExtendedSelection</enum>
+                      </property>
+                      <property name="selectionBehavior">
+                       <enum>QAbstractItemView::SelectRows</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="tab_9">
+                   <attribute name="title">
+                    <string>Open Beam</string>
+                   </attribute>
+                   <layout class="QVBoxLayout" name="verticalLayout_16">
+                    <item>
+                     <layout class="QVBoxLayout" name="verticalLayout_7">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_5">
+                        <item>
+                         <widget class="QPushButton" name="import_open_beam_button">
+                          <property name="text">
+                           <string>Load Open Beam Data ...</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="open_beam_folder">
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_3">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="ob_infos_pushButton">
+                          <property name="enabled">
+                           <bool>false</bool>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>30</width>
+                            <height>30</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QListWidget" name="list_open_beam">
                         <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                           <horstretch>0</horstretch>
                           <verstretch>0</verstretch>
                          </sizepolicy>
                         </property>
-                        <property name="text">
-                         <string>Preview ...</string>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::ExtendedSelection</enum>
                         </property>
                        </widget>
                       </item>
@@ -376,458 +259,95 @@
                     </item>
                    </layout>
                   </widget>
-                 </item>
-                </layout>
-               </widget>
-               <widget class="QTabWidget" name="tabWidget_2">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>300</height>
-                 </size>
-                </property>
-                <property name="currentIndex">
-                 <number>1</number>
-                </property>
-                <widget class="QWidget" name="tab_4">
-                 <attribute name="title">
-                  <string>Files Infos</string>
-                 </attribute>
-                 <layout class="QHBoxLayout" name="horizontalLayout_11">
-                  <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_2">
-                    <item>
-                     <widget class="QTextEdit" name="data_general_infos">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>10</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="tab_5">
-                 <attribute name="title">
-                  <string>Instrument and Material Settings</string>
-                 </attribute>
-                 <layout class="QHBoxLayout" name="horizontalLayout_10">
-                  <item>
-                   <widget class="QGroupBox" name="groupBox_2">
-                    <property name="title">
-                     <string>Instrument</string>
-                    </property>
-                    <layout class="QGridLayout" name="gridLayout_2">
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_3">
-                       <property name="enabled">
-                        <bool>false</bool>
-                       </property>
-                       <property name="minimumSize">
-                        <size>
-                         <width>75</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>75</width>
-                         <height>16777215</height>
-                        </size>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="time_spectra_groupbox_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>110</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>110</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>13</pointsize>
+                   </font>
+                  </property>
+                  <property name="title">
+                   <string>Time Spectra</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_14">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_3">
+                     <item>
+                      <widget class="QPushButton" name="import_time_spectra_button">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
                        </property>
                        <property name="text">
-                        <string>Beam Rate</string>
+                        <string>Load Time Spectra File ...</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_7">
-                       <property name="minimumSize">
-                        <size>
-                         <width>100</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>100</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Detector offset</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="1">
-                      <widget class="QLabel" name="delta_lambda_value">
-                       <property name="text">
-                        <string>N/A</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QComboBox" name="beam_rate">
-                       <property name="enabled">
-                        <bool>false</bool>
-                       </property>
-                       <property name="minimumSize">
-                        <size>
-                         <width>70</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>70</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <item>
-                        <property name="text">
-                         <string>60</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>30</string>
-                        </property>
-                       </item>
-                      </widget>
-                     </item>
-                     <item row="1" column="2">
-                      <widget class="QLabel" name="label_4">
-                       <property name="enabled">
+                     <item>
+                      <widget class="QLabel" name="time_spectra_folder">
+                       <property name="autoFillBackground">
                         <bool>false</bool>
                        </property>
                        <property name="text">
-                        <string>Hz</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="QLineEdit" name="detector_offset">
-                       <property name="text">
-                        <string>5000</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="0">
-                      <widget class="QLabel" name="delta_lambda_label">
-                       <property name="minimumSize">
-                        <size>
-                         <width>20</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>20</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>delta_lambda:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="2">
-                      <widget class="QLabel" name="label_6">
-                       <property name="text">
-                        <string>m</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="QLineEdit" name="distance_source_detector">
-                       <property name="text">
-                        <string>19.855</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="2">
-                      <widget class="QLabel" name="micro_s">
-                       <property name="text">
-                        <string>micros</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="distance_source_detector_label">
-                       <property name="minimumSize">
-                        <size>
-                         <width>80</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>80</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>d source-detector</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QGroupBox" name="groupBox_3">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="title">
-                     <string>Material</string>
-                    </property>
-                    <layout class="QVBoxLayout" name="verticalLayout_13">
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_22">
-                       <item>
-                        <widget class="QCheckBox" name="material_display_checkbox">
-                         <property name="text">
-                          <string>Display Material Bragg Peaks</string>
-                         </property>
-                         <property name="checked">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="display_warning">
-                         <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#c1162d;&quot;&gt;Time Spectra Missing !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_16">
-                       <item>
-                        <widget class="QLabel" name="label_12">
-                         <property name="minimumSize">
-                          <size>
-                           <width>110</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>110</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Select Element</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="list_of_elements">
-                         <property name="editable">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_27">
-                       <item>
-                        <widget class="QLabel" name="label_23">
-                         <property name="minimumSize">
-                          <size>
-                           <width>30</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>30</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>or</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="add_element">
-                         <property name="text">
-                          <string>Add New Element ...</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_18">
-                       <item>
-                        <widget class="QGroupBox" name="lattice_groupBox">
-                         <property name="title">
-                          <string>Lattice</string>
-                         </property>
-                         <layout class="QHBoxLayout" name="horizontalLayout_17">
-                          <item>
-                           <widget class="QLineEdit" name="lattice_parameter">
-                            <property name="maximumSize">
-                             <size>
-                              <width>150</width>
-                              <height>16777215</height>
-                             </size>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QLabel" name="angstroms_label">
-                            <property name="text">
-                             <string>A</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QPushButton" name="reset_lattice_button">
-                            <property name="minimumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="text">
-                             <string/>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <spacer name="horizontalSpacer_5">
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                            <property name="sizeHint" stdset="0">
-                             <size>
-                              <width>40</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                           </spacer>
-                          </item>
-                         </layout>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QGroupBox" name="crystal_structure_groupBox">
-                         <property name="title">
-                          <string>Crystal structure</string>
-                         </property>
-                         <layout class="QHBoxLayout" name="horizontalLayout_21">
-                          <item>
-                           <widget class="QComboBox" name="crystal_structure">
-                            <property name="minimumSize">
-                             <size>
-                              <width>100</width>
-                              <height>0</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>100</width>
-                              <height>16777215</height>
-                             </size>
-                            </property>
-                            <item>
-                             <property name="text">
-                              <string>FCC</string>
-                             </property>
-                            </item>
-                            <item>
-                             <property name="text">
-                              <string>BCC</string>
-                             </property>
-                            </item>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QPushButton" name="reset_crystal_structure_button">
-                            <property name="minimumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="text">
-                             <string/>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <spacer name="horizontalSpacer_8">
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                            <property name="sizeHint" stdset="0">
-                             <size>
-                              <width>40</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                           </spacer>
-                          </item>
-                         </layout>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="list_hkl_pushButton">
-                       <property name="text">
-                        <string>List hkl, lambda, d0</string>
+                        <string/>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <spacer name="verticalSpacer_3">
+                      <widget class="QLabel" name="time_spectra">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_4">
                        <property name="orientation">
-                        <enum>Qt::Vertical</enum>
+                        <enum>Qt::Horizontal</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
-                         <width>20</width>
-                         <height>40</height>
+                         <width>40</width>
+                         <height>20</height>
                         </size>
                        </property>
                       </spacer>
                      </item>
+                     <item>
+                      <widget class="QPushButton" name="preview_time_spectra_button">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>Preview ...</string>
+                       </property>
+                      </widget>
+                     </item>
                     </layout>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
               </widget>
               <widget class="QStackedWidget" name="image_preview">
                <property name="sizePolicy">
@@ -891,7 +411,14 @@
                <widget class="QWidget" name="ob_preview">
                 <layout class="QVBoxLayout" name="verticalLayout_10">
                  <item>
-                  <widget class="QWidget" name="ob_preview_widget" native="true"/>
+                  <widget class="QWidget" name="ob_preview_widget" native="true">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </widget>
@@ -1199,657 +726,182 @@ p, li { white-space: pre-wrap; }
            <attribute name="title">
             <string>3 - work with normalized Data</string>
            </attribute>
-           <layout class="QVBoxLayout" name="verticalLayout_20">
+           <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
              <widget class="QSplitter" name="normalized_splitter">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
-              <property name="handleWidth">
-               <number>25</number>
-              </property>
-              <widget class="QSplitter" name="vertical_normalized_splitter">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <widget class="QWidget" name="layoutWidget">
-                <layout class="QVBoxLayout" name="verticalLayout_12">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_2">
-                   <item>
-                    <widget class="QPushButton" name="import_normalized_data">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>Load Normalized Data ...</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="normalized_folder">
-                     <property name="text">
-                      <string/>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="normalized_infos_pushButton">
-                     <property name="enabled">
-                      <bool>false</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="QListWidget" name="list_normalized">
-                   <property name="editTriggers">
-                    <set>QAbstractItemView::NoEditTriggers</set>
-                   </property>
-                   <property name="alternatingRowColors">
-                    <bool>true</bool>
-                   </property>
-                   <property name="selectionMode">
-                    <enum>QAbstractItemView::ExtendedSelection</enum>
-                   </property>
-                   <property name="selectionBehavior">
-                    <enum>QAbstractItemView::SelectRows</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QGroupBox" name="time_spectra_groupbox">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>110</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>16777215</width>
-                     <height>110</height>
-                    </size>
-                   </property>
-                   <property name="font">
-                    <font>
-                     <pointsize>13</pointsize>
-                    </font>
-                   </property>
-                   <property name="title">
-                    <string>Time Spectra</string>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_15">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_7">
-                      <item>
-                       <widget class="QPushButton" name="import_time_spectra_button_2">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Load Time Spectra File ...</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="time_spectra_folder_2">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="autoFillBackground">
-                         <bool>false</bool>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="time_spectra_2">
-                        <property name="text">
-                         <string/>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_6">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QPushButton" name="preview_time_spectra_button_2">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="text">
-                         <string>Preview ...</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-               <widget class="QTabWidget" name="tabWidget_3">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>1677215</height>
-                 </size>
-                </property>
-                <property name="currentIndex">
-                 <number>1</number>
-                </property>
-                <widget class="QWidget" name="tab_6">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <attribute name="title">
-                  <string>Files Infos</string>
-                 </attribute>
-                 <layout class="QHBoxLayout" name="horizontalLayout_13">
+              <widget class="QWidget" name="layoutWidget">
+               <layout class="QVBoxLayout" name="verticalLayout_12">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
                   <item>
-                   <layout class="QVBoxLayout" name="verticalLayout_4">
-                    <item>
-                     <widget class="QLabel" name="label_5">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>15</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>15</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>All Files</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QTextEdit" name="normalized_general_infos">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>10</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   <widget class="QPushButton" name="import_normalized_data">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Load Normalized Data ...</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="normalized_folder">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="normalized_infos_pushButton">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>30</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
-                </widget>
-                <widget class="QWidget" name="tab_7">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <attribute name="title">
-                  <string>Instrument and Material Settings</string>
-                 </attribute>
-                 <layout class="QHBoxLayout" name="horizontalLayout_14">
-                  <item>
-                   <widget class="QGroupBox" name="groupBox_4">
-                    <property name="title">
-                     <string>Instrument</string>
-                    </property>
-                    <layout class="QGridLayout" name="gridLayout_4">
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_10">
-                       <property name="minimumSize">
-                        <size>
-                         <width>100</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>100</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Detector offset</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="2">
-                      <widget class="QLabel" name="label_11">
-                       <property name="text">
-                        <string>m</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="2">
-                      <widget class="QLabel" name="label_9">
-                       <property name="text">
-                        <string>Hz</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="0">
-                      <widget class="QLabel" name="delta_lambda_label_2">
-                       <property name="minimumSize">
-                        <size>
-                         <width>20</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>20</width>
-                         <height>16777215</height>
-                        </size>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="list_normalized">
+                  <property name="editTriggers">
+                   <set>QAbstractItemView::NoEditTriggers</set>
+                  </property>
+                  <property name="alternatingRowColors">
+                   <bool>true</bool>
+                  </property>
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::ExtendedSelection</enum>
+                  </property>
+                  <property name="selectionBehavior">
+                   <enum>QAbstractItemView::SelectRows</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="time_spectra_groupbox">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>110</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>110</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>13</pointsize>
+                   </font>
+                  </property>
+                  <property name="title">
+                   <string>Time Spectra</string>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_15">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <item>
+                      <widget class="QPushButton" name="import_time_spectra_button_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
                        </property>
                        <property name="text">
-                        <string>delta_lambda:</string>
+                        <string>Load Time Spectra File ...</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="2" column="1">
-                      <widget class="QLineEdit" name="detector_offset_2">
-                       <property name="text">
-                        <string>5000</string>
+                     <item>
+                      <widget class="QLabel" name="time_spectra_folder_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
                        </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="2">
-                      <widget class="QLabel" name="micro_s_2">
-                       <property name="text">
-                        <string>micros</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QComboBox" name="beam_rate_2">
-                       <property name="minimumSize">
-                        <size>
-                         <width>70</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>70</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <item>
-                        <property name="text">
-                         <string>60</string>
-                        </property>
-                       </item>
-                       <item>
-                        <property name="text">
-                         <string>30</string>
-                        </property>
-                       </item>
-                      </widget>
-                     </item>
-                     <item row="3" column="1">
-                      <widget class="QLabel" name="delta_lambda_value_2">
-                       <property name="text">
-                        <string>N/A</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="distance_source_detector_label_2">
-                       <property name="minimumSize">
-                        <size>
-                         <width>80</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>80</width>
-                         <height>16777215</height>
-                        </size>
+                       <property name="autoFillBackground">
+                        <bool>false</bool>
                        </property>
                        <property name="text">
-                        <string>d source-detector</string>
+                        <string/>
                        </property>
                       </widget>
                      </item>
-                     <item row="0" column="1">
-                      <widget class="QLineEdit" name="distance_source_detector_2">
+                     <item>
+                      <widget class="QLabel" name="time_spectra_2">
                        <property name="text">
-                        <string>19.855</string>
+                        <string/>
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_15">
-                       <property name="minimumSize">
-                        <size>
-                         <width>75</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>75</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Beam Rate</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="4" column="1">
-                      <spacer name="verticalSpacer_4">
+                     <item>
+                      <spacer name="horizontalSpacer_6">
                        <property name="orientation">
-                        <enum>Qt::Vertical</enum>
+                        <enum>Qt::Horizontal</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
-                         <width>20</width>
-                         <height>40</height>
+                         <width>40</width>
+                         <height>20</height>
                         </size>
                        </property>
                       </spacer>
                      </item>
-                    </layout>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QGroupBox" name="groupBox_5">
-                    <property name="title">
-                     <string>Material</string>
-                    </property>
-                    <layout class="QVBoxLayout" name="verticalLayout">
                      <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_23">
-                       <item>
-                        <widget class="QCheckBox" name="material_display_checkbox_2">
-                         <property name="text">
-                          <string>Display Material Bragg Peaks</string>
-                         </property>
-                         <property name="checked">
-                          <bool>true</bool>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QLabel" name="display_warning_2">
-                         <property name="text">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#c1162d;&quot;&gt;Time Spectra Missing!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                         </property>
-                         <property name="alignment">
-                          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_19">
-                       <item>
-                        <widget class="QLabel" name="label_18">
-                         <property name="minimumSize">
-                          <size>
-                           <width>110</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>110</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>Select Element</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="list_of_elements_2"/>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_28">
-                       <item>
-                        <widget class="QLabel" name="label_21">
-                         <property name="minimumSize">
-                          <size>
-                           <width>30</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>30</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                         <property name="text">
-                          <string>or</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QPushButton" name="add_element_3">
-                         <property name="text">
-                          <string>Add New Element ...</string>
-                         </property>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <layout class="QHBoxLayout" name="horizontalLayout_20">
-                       <item>
-                        <widget class="QGroupBox" name="lattice_2_groupBox">
-                         <property name="title">
-                          <string>Lattice</string>
-                         </property>
-                         <layout class="QHBoxLayout" name="horizontalLayout_6">
-                          <item>
-                           <widget class="QLineEdit" name="lattice_parameter_2">
-                            <property name="maximumSize">
-                             <size>
-                              <width>150</width>
-                              <height>16777215</height>
-                             </size>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QLabel" name="angstroms_label_2">
-                            <property name="text">
-                             <string>A</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QPushButton" name="reset_lattice_button_2">
-                            <property name="minimumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="text">
-                             <string/>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <spacer name="horizontalSpacer_13">
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                            <property name="sizeHint" stdset="0">
-                             <size>
-                              <width>40</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                           </spacer>
-                          </item>
-                         </layout>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QGroupBox" name="crystal_structure_2_groupBox">
-                         <property name="title">
-                          <string>Crystal Structure</string>
-                         </property>
-                         <layout class="QHBoxLayout" name="horizontalLayout_12">
-                          <item>
-                           <widget class="QComboBox" name="crystal_structure_2">
-                            <property name="maximumSize">
-                             <size>
-                              <width>100</width>
-                              <height>16777215</height>
-                             </size>
-                            </property>
-                            <item>
-                             <property name="text">
-                              <string>FCC</string>
-                             </property>
-                            </item>
-                            <item>
-                             <property name="text">
-                              <string>BCC</string>
-                             </property>
-                            </item>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QPushButton" name="reset_crystal_structure_button_2">
-                            <property name="minimumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="maximumSize">
-                             <size>
-                              <width>20</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                            <property name="text">
-                             <string/>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <spacer name="horizontalSpacer_9">
-                            <property name="orientation">
-                             <enum>Qt::Horizontal</enum>
-                            </property>
-                            <property name="sizeHint" stdset="0">
-                             <size>
-                              <width>40</width>
-                              <height>20</height>
-                             </size>
-                            </property>
-                           </spacer>
-                          </item>
-                         </layout>
-                        </widget>
-                       </item>
-                      </layout>
-                     </item>
-                     <item>
-                      <widget class="QPushButton" name="list_hkl_pushButton_2">
+                      <widget class="QPushButton" name="preview_time_spectra_button_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
                        <property name="text">
-                        <string>List hkl, lambda, d0 ...</string>
+                        <string>Preview ...</string>
                        </property>
                       </widget>
                      </item>
                     </layout>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
               </widget>
               <widget class="QWidget" name="normalized_preview_widget" native="true">
                <property name="sizePolicy">
@@ -1883,6 +935,431 @@ p, li { white-space: pre-wrap; }
           </widget>
          </widget>
         </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="maximumSize">
+           <size>
+            <width>400</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Instrument and Material Settings</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QGroupBox" name="groupBox_3">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="title">
+              <string>Material</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_22">
+                <item>
+                 <widget class="QCheckBox" name="material_display_checkbox">
+                  <property name="text">
+                   <string>Display Material Bragg Peaks</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="display_warning">
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#c1162d;&quot;&gt;Time Spectra Missing !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_16">
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="minimumSize">
+                   <size>
+                    <width>110</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>110</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Select Element</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="list_of_elements">
+                  <property name="editable">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_27">
+                <item>
+                 <widget class="QLabel" name="label_23">
+                  <property name="minimumSize">
+                   <size>
+                    <width>30</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>30</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>or</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="add_element">
+                  <property name="text">
+                   <string>Add New Element ...</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_18">
+                <item>
+                 <widget class="QGroupBox" name="lattice_groupBox">
+                  <property name="title">
+                   <string>Lattice</string>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_17">
+                   <item>
+                    <widget class="QLineEdit" name="lattice_parameter">
+                     <property name="maximumSize">
+                      <size>
+                       <width>150</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="angstroms_label">
+                     <property name="text">
+                      <string>A</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="reset_lattice_button">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_5">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="crystal_structure_groupBox">
+                  <property name="title">
+                   <string>Crystal structure</string>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_21">
+                   <item>
+                    <widget class="QComboBox" name="crystal_structure">
+                     <property name="minimumSize">
+                      <size>
+                       <width>100</width>
+                       <height>0</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>100</width>
+                       <height>16777215</height>
+                      </size>
+                     </property>
+                     <item>
+                      <property name="text">
+                       <string>FCC</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>BCC</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="reset_crystal_structure_button">
+                     <property name="minimumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>20</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <spacer name="horizontalSpacer_8">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>40</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QPushButton" name="list_hkl_pushButton">
+                <property name="text">
+                 <string>List hkl, lambda, d0</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Instrument</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="1" column="1">
+               <widget class="QComboBox" name="beam_rate">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>70</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>70</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>60</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>30</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="distance_source_detector">
+                <property name="text">
+                 <string>19.855</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>m</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Beam Rate</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLabel" name="label_4">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Hz</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Detector offset</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="detector_offset">
+                <property name="text">
+                 <string>5000</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="delta_lambda_value">
+                <property name="text">
+                 <string>N/A</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLabel" name="micro_s">
+                <property name="text">
+                 <string>micros</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="delta_lambda_label">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>delta_lambda:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="distance_source_detector_label">
+                <property name="minimumSize">
+                 <size>
+                  <width>80</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>d source-detector</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -1894,7 +1371,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1822</width>
+     <width>1515</width>
      <height>24</height>
     </rect>
    </property>
@@ -2193,38 +1670,6 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>crystal_structure_2</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>crystal_structure_2_index_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1285</x>
-     <y>1306</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>653</x>
-     <y>971</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lattice_parameter_2</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>lattice_2_text_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>976</x>
-     <y>1303</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1528</x>
-     <y>948</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>lattice_parameter</sender>
    <signal>returnPressed()</signal>
    <receiver>MainWindow</receiver>
@@ -2249,22 +1694,6 @@ p, li { white-space: pre-wrap; }
     <hint type="sourcelabel">
      <x>1286</x>
      <y>1185</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>766</x>
-     <y>500</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>material_display_checkbox_2</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>material_display_2_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1188</x>
-     <y>914</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2433,54 +1862,6 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>distance_source_detector_2</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>distance_source_detector_2_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>517</x>
-     <y>867</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>6</x>
-     <y>808</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>detector_offset_2</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>detector_offset_2_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>517</x>
-     <y>928</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>8</x>
-     <y>867</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>beam_rate_2</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>beam_rate_2_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>254</x>
-     <y>901</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>7</x>
-     <y>906</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>add_element</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -2493,22 +1874,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>8</x>
      <y>637</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>add_element_3</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>add_element_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1537</x>
-     <y>1173</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>0</x>
-     <y>736</y>
     </hint>
    </hints>
   </connection>
@@ -2541,38 +1906,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>1527</x>
      <y>875</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>reset_lattice_button_2</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>reset_lattice_button_2_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1023</x>
-     <y>1304</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1526</x>
-     <y>778</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>reset_crystal_structure_button_2</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>reset_crystal_structure_button_2_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1310</x>
-     <y>1304</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>766</x>
-     <y>500</y>
     </hint>
    </hints>
   </connection>
@@ -2769,22 +2102,6 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>list_hkl_pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>material_list_hkl_lambda_d0_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1543</x>
-     <y>1384</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1156</x>
-     <y>967</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>list_hkl_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -2813,22 +2130,6 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>1476</x>
      <y>972</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>list_of_elements_2</sender>
-   <signal>currentIndexChanged(QString)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>list_of_element_2_index_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1537</x>
-     <y>1044</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1473</x>
-     <y>965</y>
     </hint>
    </hints>
   </connection>

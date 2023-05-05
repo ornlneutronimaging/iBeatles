@@ -40,17 +40,13 @@ class Initialization:
         self.parent.ui.tabWidget.setTabIcon(2, QIcon(step3_icon))
 
     def splitters(self):
-        self.parent.ui.vertical_normalized_splitter.setSizes([800, 300])
-        self.parent.ui.load_data_splitter.setStyleSheet("""
+        self.parent.ui.sample_ob_splitter.setSizes([100, 0])
+        self.parent.ui.sample_ob_splitter.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
                                      }
                                      """)
-        self.parent.ui.sample_ob_splitter.setStyleSheet("""
-                                     QSplitter::handle{
-                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
-                                     }
-                                     """)
+        self.parent.ui.sample_ob_splitter.setHandleWidth(15)
         self.parent.ui.horizontal_normalization_splitter.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
@@ -61,12 +57,6 @@ class Initialization:
                                      image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
                                      }
                                      """)
-        self.parent.ui.vertical_normalized_splitter.setStyleSheet("""
-                                     QSplitter::handle{
-                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
-                                     }
-                                     """)
-
         self.parent.ui.area.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/vertical_splitter_handle.png");
@@ -101,14 +91,11 @@ class Initialization:
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
         self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
-        #        self.parent.ui.statusbar.showMessage("this is an error", 2000)
-
     def gui(self):
         # define position and size
         rect = self.parent.geometry()
         self.parent.setGeometry(10, 10, rect.width(), rect.height())
         self.parent.ui.sample_ob_splitter.setSizes([850, 20])
-        self.parent.ui.load_data_splitter.setSizes([200, 500])
         self.parent.ui.normalized_splitter.setSizes([150, 600])
 
         # ob tab
@@ -131,11 +118,8 @@ class Initialization:
         retrieve_material = RetrieveMaterialMetadata(material='all')
         list_returned = retrieve_material.full_list_material()
         self.parent.ui.list_of_elements.blockSignals(True)
-        self.parent.ui.list_of_elements_2.blockSignals(True)
         self.parent.ui.list_of_elements.addItems(list_returned)
-        self.parent.ui.list_of_elements_2.addItems(list_returned)
         self.parent.ui.list_of_elements.blockSignals(False)
-        self.parent.ui.list_of_elements_2.blockSignals(False)
 
         o_gui = GuiHandler(parent=self.parent,
                            data_type=DataType.sample)
@@ -143,26 +127,20 @@ class Initialization:
         _crystal_structure = _handler.metadata['crystal_structure'][o_gui.get_element_selected()]
         _lattice = str(_handler.metadata['lattice'][o_gui.get_element_selected()])
         self.parent.ui.lattice_parameter.setText(_lattice)
-        self.parent.ui.lattice_parameter_2.setText(_lattice)
         o_gui.set_crystal_structure(_crystal_structure)
 
     def labels(self):
         # micros
         self.parent.ui.micro_s.setText(u"\u00B5s")
-        self.parent.ui.micro_s_2.setText(u"\u00B5s")
         # distance source detector
         self.parent.ui.distance_source_detector_label.setText("d<sub> source-detector</sub>")
-        self.parent.ui.distance_source_detector_label_2.setText("d<sub> source-detector</sub>")
         # delta lambda
         self.parent.ui.delta_lambda_label.setText(u"\u0394\u03BB:")
-        self.parent.ui.delta_lambda_label_2.setText(u"\u0394\u03BB:")
         # Angstroms
         self.parent.ui.angstroms_label.setText(u"\u212B")
-        self.parent.ui.angstroms_label_2.setText(u"\u212B")
 
         # list hkl, lambda and d0 ... buttons
         self.parent.ui.list_hkl_pushButton.setText(u"(h, k, l), \u03bb and d\u2090 ...")
-        self.parent.ui.list_hkl_pushButton_2.setText(u"(h, k, l), \u03bb and  d\u2090 ...")
 
     def general_init_pyqtgrpah(self, roi_function,
                                base_widget,
@@ -384,9 +362,6 @@ class Initialization:
         icon = QIcon(refresh_image)
         self.parent.ui.reset_lattice_button.setIcon(icon)
         self.parent.ui.reset_crystal_structure_button.setIcon(icon)
-        self.parent.ui.reset_lattice_button_2.setIcon(icon)
-        self.parent.ui.reset_crystal_structure_button_2.setIcon(icon)
 
     def connect_widgets(self):
         self.parent.ui.list_of_elements.currentIndexChanged.connect(self.parent.list_of_element_index_changed)
-        self.parent.ui.list_of_elements_2.currentIndexChanged.connect(self.parent.list_of_element_2_index_changed)

@@ -77,26 +77,27 @@ class Step1GuiHandler(object):
         self.parent.list_label_roi_id[self.data_type] = list_label_roi_id
 
     def sync_instrument_widgets(self, source='load_data'):
+        pass
 
-        target = 'normalized'
-        if source == 'normalized':
-            target = 'load_data'
-
-        list_ui = {'load_data': {'distance': self.parent.ui.distance_source_detector,
-                                 'beam': self.parent.ui.beam_rate,
-                                 'detector': self.parent.ui.detector_offset},
-                   'normalized': {'distance': self.parent.ui.distance_source_detector_2,
-                                  'beam': self.parent.ui.beam_rate_2,
-                                  'detector': self.parent.ui.detector_offset_2}}
-
-        o_gui = GuiHandler(parent=self.parent)
-        distance_value = o_gui.get_text(ui=list_ui[source]['distance'])
-        detector_value = o_gui.get_text(ui=list_ui[source]['detector'])
-        beam_index = o_gui.get_index_selected(ui=list_ui[source]['beam'])
-
-        o_gui.set_text(value=distance_value, ui=list_ui[target]['distance'])
-        o_gui.set_text(value=detector_value, ui=list_ui[target]['detector'])
-        o_gui.set_index_selected(index=beam_index, ui=list_ui[target]['beam'])
+        # target = 'normalized'
+        # if source == 'normalized':
+        #     target = 'load_data'
+        #
+        # list_ui = {'load_data': {'distance': self.parent.ui.distance_source_detector,
+        #                          'beam': self.parent.ui.beam_rate,
+        #                          'detector': self.parent.ui.detector_offset},
+        #            'normalized': {'distance': self.parent.ui.distance_source_detector_2,
+        #                           'beam': self.parent.ui.beam_rate_2,
+        #                           'detector': self.parent.ui.detector_offset_2}}
+        #
+        # o_gui = GuiHandler(parent=self.parent)
+        # distance_value = o_gui.get_text(ui=list_ui[source]['distance'])
+        # detector_value = o_gui.get_text(ui=list_ui[source]['detector'])
+        # beam_index = o_gui.get_index_selected(ui=list_ui[source]['beam'])
+        #
+        # o_gui.set_text(value=distance_value, ui=list_ui[target]['distance'])
+        # o_gui.set_text(value=detector_value, ui=list_ui[target]['detector'])
+        # o_gui.set_index_selected(index=beam_index, ui=list_ui[target]['beam'])
 
     def load_data_tab_changed(self, tab_index=0):
         data_type = 'sample'
@@ -131,10 +132,7 @@ class Step1GuiHandler(object):
         return self.parent.data_metadata[data_type]['list_widget_ui'].currentRow()
 
     def get_element_selected(self, source='load_data'):
-        if source == 'load_data':
-            return str(self.parent.ui.list_of_elements.currentText())
-        else:
-            return str(self.parent.ui.list_of_elements_2.currentText())
+        return str(self.parent.ui.list_of_elements.currentText())
 
     def set_crystal_structure(self, new_crystal_structure):
         nbr_item = self.parent.ui.crystal_structure.count()
@@ -142,7 +140,6 @@ class Step1GuiHandler(object):
             _item_of_row = self.parent.ui.crystal_structure.itemText(_row)
             if _item_of_row == new_crystal_structure:
                 self.parent.ui.crystal_structure.setCurrentIndex(_row)
-                self.parent.ui.crystal_structure_2.setCurrentIndex(_row)
 
     def retrieve_handler_from_local_bragg_edge_list(self, material=None):
         '''
@@ -176,7 +173,6 @@ class Step1GuiHandler(object):
                                                        fill_lattice_flag=True,
                                                        fill_crystal_structure_flag=True):
 
-        self.parent.ui.list_of_elements_2.blockSignals(True)
         self.parent.ui.list_of_elements.blockSignals(True)
 
         _element = self.get_element_selected(source=source)
@@ -196,51 +192,14 @@ class Step1GuiHandler(object):
             _crystal_structure = _handler.metadata['crystal_structure'][_element]
             _lattice = str(_handler.metadata['lattice'][_element])
 
-        # except KeyError:
-        #     # new element
-        #
-        #     if source == 'load_data':
-        #
-        #         _lattice = str(self.parent.ui.lattice_parameter.text())
-        #         _index = self.parent.ui.list_of_elements.currentIndex()
-        #         self.parent.ui.list_of_elements_2.addItem(_element)
-        #         self.parent.ui.list_of_elements_2.setCurrentIndex(_index)
-        #         self.parent.ui.lattice_parameter_2.setText(_lattice)
-        #
-        #     else:
-        #         _lattice = str(self.parent.ui.lattice_parameter_2.text())
-        #         _index = self.parent.ui.list_of_elements_2.currentIndex()
-        #         self.parent.ui.list_of_elements.addItem(_element)
-        #         self.parent.ui.list_of_elements.setCurrentIndex(_index)
-        #         self.parent.ui.lattice_parameter.setText(_lattice)
-        #
-        #     self.parent.ui.list_of_elements_2.blockSignals(False)
-        #     self.parent.ui.list_of_elements.blockSignals(False)
-        #
-        #     return
-
-        # except KeyError:
-        #
-        #     # look for element in local list of element
-        #     _handler = self.retrieve_handler_from_local_bragg_edge_list(material=_element)
-        #     _crystal_structure = _handler['crystal_structure']
-        #     _lattice = _handler['lattice']
-
-        if source == 'load_data':
-            _index = self.parent.ui.list_of_elements.currentIndex()
-            self.parent.ui.list_of_elements_2.setCurrentIndex(_index)
-        else:
-            _index = self.parent.ui.list_of_elements_2.currentIndex()
-            self.parent.ui.list_of_elements.setCurrentIndex(_index)
+        _index = self.parent.ui.list_of_elements.currentIndex()
 
         if fill_lattice_flag:
             self.parent.ui.lattice_parameter.setText(_lattice)
-            self.parent.ui.lattice_parameter_2.setText(_lattice)
 
         if fill_crystal_structure_flag:
             self.set_crystal_structure(_crystal_structure)
 
-        self.parent.ui.list_of_elements_2.blockSignals(False)
         self.parent.ui.list_of_elements.blockSignals(False)
 
     def select_load_data_row(self, data_type='sample', row=0):
@@ -260,7 +219,6 @@ class Step1GuiHandler(object):
             frequency=frequency)
 
         self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
-        self.parent.ui.delta_lambda_value_2.setText("{:.2f}".format(delta_lambda))
 
     def check_step1_widgets(self):
         if self.parent.data_metadata[self.data_type]['data'].any():
@@ -281,8 +239,5 @@ class Step1GuiHandler(object):
 
     def block_instrument_widgets(self, status=True):
         self.parent.ui.detector_offset.blockSignals(status)
-        self.parent.ui.detector_offset_2.blockSignals(status)
         self.parent.ui.distance_source_detector.blockSignals(status)
-        self.parent.ui.distance_source_detector_2.blockSignals(status)
         self.parent.ui.beam_rate.blockSignals(status)
-        self.parent.ui.beam_rate_2.blockSignals(status)

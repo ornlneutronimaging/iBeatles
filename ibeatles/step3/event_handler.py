@@ -58,10 +58,10 @@ class EventHandler(TopEventHandler):
         o_plot.display_bragg_edge(mouse_selection=False)
         o_gui = Step3GuiHandler(parent=self.parent)
         o_gui.check_widgets()
-        self.check_time_spectra_status()
+        # self.check_time_spectra_status()
 
-    def check_time_spectra_status(self):
-        if str(self.parent.ui.time_spectra_2.text()):
-            self.parent.ui.display_warning_2.setVisible(False)
-        else:
-            self.parent.ui.display_warning_2.setVisible(True)
+    # def check_time_spectra_status(self):
+    #     if str(self.parent.ui.time_spectra_2.text()):
+    #         self.parent.ui.display_warning_2.setVisible(False)
+    #     else:
+    #         self.parent.ui.display_warning_2.setVisible(True)

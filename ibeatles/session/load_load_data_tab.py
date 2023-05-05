@@ -104,32 +104,16 @@ class LoadLoadDataTab:
         for _key in list_ui_data.keys():
             list_ui_data[_key].blockSignals(True)
 
-        list_ui_normalized = {'distance': self.parent.ui.distance_source_detector_2,
-                              'beam': self.parent.ui.beam_rate_2,
-                              'detector': self.parent.ui.detector_offset_2}
-
-        for _key in list_ui_normalized.keys():
-            list_ui_normalized[_key].blockSignals(True)
-
         o_gui.set_index_selected(index=session_dict[SessionKeys.instrument][SessionSubKeys.beam_index],
                                  ui=list_ui_data['beam'])
         o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector],
                        ui=list_ui_data['distance'])
-        o_gui.set_index_selected(index=session_dict[SessionKeys.instrument][SessionSubKeys.beam_index],
-                                 ui=list_ui_normalized['beam'])
-        o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector],
-                       ui=list_ui_normalized['distance'])
 
         for _key in list_ui_data.keys():
             list_ui_data[_key].blockSignals(False)
 
-        for _key in list_ui_normalized.keys():
-            list_ui_normalized[_key].blockSignals(False)
-
         o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.detector_value],
                        ui=list_ui_data['detector'])
-        o_gui.set_text(value=session_dict[SessionKeys.instrument][SessionSubKeys.detector_value],
-                       ui=list_ui_normalized['detector'])
 
     def material(self):
 
@@ -143,28 +127,21 @@ class LoadLoadDataTab:
         self.parent.user_defined_bragg_edge_list = user_defined_bragg_edge_list
 
         self.parent.ui.list_of_elements.blockSignals(True)
-        self.parent.ui.list_of_elements_2.blockSignals(True)
 
         if selected_element_index >= count:
            selected_element_name = session_dict[SessionKeys.material][SessionSubKeys.selected_element][SessionSubKeys.name]
            self.parent.ui.list_of_elements.addItem(selected_element_name)
-           self.parent.ui.list_of_elements_2.addItem(selected_element_name)
 
            # only 1 lattice user defined value can be saved between sessions
            self.parent.ui.list_of_elements.setCurrentIndex(count)
-           self.parent.ui.list_of_elements_2.setCurrentIndex(count)
 
         else:
             self.parent.ui.list_of_elements.setCurrentIndex(selected_element_index)
-            self.parent.ui.list_of_elements_2.setCurrentIndex(selected_element_index)
 
         self.parent.ui.lattice_parameter.setText(lattice)
-        self.parent.ui.lattice_parameter_2.setText(lattice)
         self.parent.ui.crystal_structure.setCurrentIndex(crystal_structure_index)
-        self.parent.ui.crystal_structure_2.setCurrentIndex(crystal_structure_index)
 
         self.parent.ui.list_of_elements.blockSignals(False)
-        self.parent.ui.list_of_elements_2.blockSignals(False)
 
         o_gui = Step1GuiHandler(parent=self.parent)
         o_gui.update_lattice_and_crystal_when_index_selected()

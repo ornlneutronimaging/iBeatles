@@ -12,14 +12,6 @@ class RetrieveDataInfos:
         self.parent = parent
         self.data_type = data_type
 
-        self.general_infos_ui = {'sample': self.parent.ui.data_general_infos,
-                                 'ob': self.parent.ui.data_general_infos,
-                                 'normalized': self.parent.ui.normalized_general_infos}
-
-        # self.selected_infos_ui = {'sample': self.parent.ui.data_selected_infos,
-        #                           'ob': self.parent.ui.data_selected_infos,
-        #                           'normalized': self.parent.ui.normalized_selected_infos}
-
         self.path = self.parent.data_metadata[data_type]['folder']
 
         self.table_ui = {'sample': self.parent.ui.list_sample,
@@ -123,6 +115,10 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
                                  'value': ''},
                      'total_size_folder': {'name': 'Total Size of Folder (MB)',
                                            'value': ''},
+                     'full_path': {'name': 'Full path to folder',
+                                   'value': None},
+                     'folder': {'name': 'Name of folder',
+                                'value': None},
                      }
 
     def update(self):
@@ -133,6 +129,9 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
 
         else:
             folder = self.parent.data_metadata[self.data_type]['folder']
+
+            self.general_infos['full_path']['value'] = folder
+            self.general_infos['folder']['value'] = os.path.basename(os.path.abspath(folder))
 
             _nbr_files = len(data_files)
             self.general_infos['number_of_files']['value'] = _nbr_files
