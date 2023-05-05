@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>2</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
@@ -1472,9 +1472,17 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionLoadSession"/>
     <addaction name="actionSaveSession"/>
    </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="action_Instrument_Material_Settings"/>
+    <addaction name="separator"/>
+   </widget>
    <addaction name="menuSession"/>
    <addaction name="menuSteps"/>
    <addaction name="menuTools"/>
+   <addaction name="menuView"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -1560,6 +1568,17 @@ p, li { white-space: pre-wrap; }
   <action name="actionSaveSession">
    <property name="text">
     <string>Save ...</string>
+   </property>
+  </action>
+  <action name="action_Instrument_Material_Settings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Instrument &amp; Material Settings</string>
    </property>
   </action>
  </widget>
@@ -2255,6 +2274,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_Instrument_Material_Settings</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>view_instrument_and_material_settings_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>761</x>
+     <y>492</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -2315,5 +2350,6 @@ p, li { white-space: pre-wrap; }
   <slot>about_clicked()</slot>
   <slot>material_list_hkl_lambda_d0_clicked()</slot>
   <slot>infos_button_clicked()</slot>
+  <slot>view_instrument_and_material_settings_clicked()</slot>
  </slots>
 </ui>

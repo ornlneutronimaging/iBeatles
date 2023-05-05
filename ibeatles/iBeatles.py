@@ -491,6 +491,19 @@ class MainWindow(QMainWindow):
         if o_event.is_step_selected_allowed(step_index_requested=6):
             RotateImages(parent=self)
 
+    def view_instrument_and_material_settings_clicked(self, state):
+        """will make the instrument and material widgets visible, only if we are not working with the
+        normalization tab"""
+
+        o_gui = GuiHandler(parent=self)
+        tab_selected = o_gui.get_active_tab()
+
+        # ignore it if we are working with the normalization tab
+        if tab_selected == DataType.normalization:
+            return
+
+        self.ui.instrument_and_material_settings.setVisible(state)
+
     def log_clicked(self):
         LogLauncher(parent=self)
 
@@ -522,7 +535,7 @@ class MainWindow(QMainWindow):
 
             else:
 
-                material_instrument_group_visible = True
+                material_instrument_group_visible = self.ui.action_Instrument_Material_Settings.isChecked()
 
             self.current_tab = tab_selected
             self.ui.instrument_and_material_settings.setVisible(material_instrument_group_visible)

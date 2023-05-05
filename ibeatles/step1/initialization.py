@@ -13,7 +13,6 @@ from ibeatles.icons import icons_rc  # do not remove
 from ibeatles import step1_icon, step2_icon, step3_icon, infos_file, preview_file
 from ibeatles import DataType
 from ibeatles import refresh_image
-from ibeatles import vertical_splitter_file, horizontal_splitter_file
 from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
 from ibeatles.step1.roi import Roi
 
