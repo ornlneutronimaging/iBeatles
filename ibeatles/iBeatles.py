@@ -554,18 +554,17 @@ class MainWindow(QMainWindow):
             self.infos_id.update()
 
     def material_display_clicked(self, status):
-        self.ui.material_display_checkbox_2.setChecked(status)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.check_time_spectra_widgets()
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
 
-    def material_display_2_clicked(self, status):
-        self.ui.material_display_checkbox.setChecked(status)
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.check_time_spectra_widgets()
-        o_plot = Step1Plot(parent=self)
-        o_plot.display_general_bragg_edge()
+    # def material_display_2_clicked(self, status):
+    #     self.ui.material_display_checkbox.setChecked(status)
+    #     o_gui = Step1GuiHandler(parent=self)
+    #     o_gui.check_time_spectra_widgets()
+    #     o_plot = Step1Plot(parent=self)
+    #     o_plot.display_general_bragg_edge()
 
     def roi_image_view_changed(self, mouse_selection=True):
         o_plot = Step1Plot(parent=self, data_type='sample')
