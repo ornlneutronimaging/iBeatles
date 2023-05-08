@@ -11,6 +11,7 @@ from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.system import is_os_mac
+from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 
 TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
@@ -21,6 +22,11 @@ class DataHandler:
 
     def __init__(self, parent=None, data_type='sample'):
         self.parent = parent
+
+        if data_type is None:
+            o_gui = GuiHandler(parent=parent)
+            data_type = o_gui.get_active_tab()
+
         self.data_type = data_type
 
         self.list_ui = {'sample': {'list': self.parent.ui.list_sample,

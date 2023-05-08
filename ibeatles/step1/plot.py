@@ -46,8 +46,13 @@ class Step1Plot(object):
                DataType.normalized: None,
                'binning': None}
 
-    def __init__(self, parent=None, data_type=DataType.sample, data=[]):
+    def __init__(self, parent=None, data_type=None, data=[]):
         self.parent = parent
+
+        if data_type is None:
+            o_gui = GuiHandler(parent=parent)
+            data_type = o_gui.get_active_tab()
+
         self.data_type = data_type
         if data == []:
             data = self.parent.data_metadata[data_type]['data']

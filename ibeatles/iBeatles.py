@@ -636,7 +636,7 @@ class MainWindow(QMainWindow):
             self.update_delta_lambda()
         o_data = DataHandler(parent=self)
         o_data.load_time_spectra()
-        o_plot = Step1Plot(parent=self, data_type='sample')
+        o_plot = Step1Plot(parent=self)
         o_plot.display_bragg_edge(mouse_selection=False)
 
     def distance_source_detector_changed(self):
@@ -652,9 +652,6 @@ class MainWindow(QMainWindow):
         self.instruments_widgets()
 
     # global normalized instruments widgets handler
-
-    def distance_source_detector_2_changed(self):
-        self.instruments_2_widgets()
 
     def add_element_clicked(self):
         _add_ele = AddElement(parent=self)
@@ -679,7 +676,6 @@ class MainWindow(QMainWindow):
         self.ui.list_of_elements.blockSignals(False)
 
     def crystal_structure_index_changed(self, index):
-        self.ui.crystal_structure_2.setCurrentIndex(index)
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
@@ -687,7 +683,6 @@ class MainWindow(QMainWindow):
 
     def lattice_text_changed(self):
         _contain = str(self.ui.lattice_parameter.text())
-        self.ui.lattice_parameter_2.setText(_contain)
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
@@ -695,8 +690,7 @@ class MainWindow(QMainWindow):
 
     def reset_lattice_button_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
-        o_gui.update_lattice_and_crystal_when_index_selected(source='load_data',
-                                                             fill_crystal_structure_flag=False)
+        o_gui.update_lattice_and_crystal_when_index_selected(fill_crystal_structure_flag=False)
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='sample')
         o_plot.display_general_bragg_edge()
@@ -704,8 +698,7 @@ class MainWindow(QMainWindow):
 
     def reset_crystal_structure_button_clicked(self):
         o_gui = Step1GuiHandler(parent=self)
-        o_gui.update_lattice_and_crystal_when_index_selected(source='load_data',
-                                                             fill_lattice_flag=False)
+        o_gui.update_lattice_and_crystal_when_index_selected(fill_lattice_flag=False)
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self, data_type='sample')
         o_plot.display_general_bragg_edge()
