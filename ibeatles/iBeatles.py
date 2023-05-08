@@ -533,7 +533,12 @@ class MainWindow(QMainWindow):
                 o_plot = Step2Plot(parent=self)
                 o_plot.display_bragg_edge()
 
-            else:
+            elif (tab_selected == 0) or (tab_selected == 2):
+
+                BraggEdgeElementHandler(parent=self)
+                o_plot = Step1Plot(parent=self)
+                o_plot.display_general_bragg_edge()
+                self.update_hkl_lambda_d0()
 
                 material_instrument_group_visible = self.ui.action_Instrument_Material_Settings.isChecked()
 
@@ -657,19 +662,20 @@ class MainWindow(QMainWindow):
         _add_ele = AddElement(parent=self)
         _add_ele.run()
 
-    def list_of_element_index_changed(self, index):
+    def list_of_element_index_changed(self, index, data_type=None):
         if type(index) == int:
             return
 
-        o_gui = GuiHandler(parent=self)
-        tab_selected = o_gui.get_active_tab()
+        if data_type is None:
+            o_gui = GuiHandler(parent=self)
+            data_type = o_gui.get_active_tab()
 
         self.ui.list_of_elements.blockSignals(True)
         o_gui = Step1GuiHandler(parent=self)
         o_gui.update_lattice_and_crystal_when_index_selected()
         BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self, data_type=tab_selected)
-        o_plot.display_general_bragg_edge(data_type=tab_selected)
+        o_plot = Step1Plot(parent=self, data_type=data_type)
+        o_plot.display_general_bragg_edge(data_type=data_type)
         # self.roi_image_view_changed()
         self.update_hkl_lambda_d0()
         self.check_status_of_material_widgets()

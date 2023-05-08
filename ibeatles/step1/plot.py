@@ -52,8 +52,8 @@ class Step1Plot(object):
         if data_type is None:
             o_gui = GuiHandler(parent=parent)
             data_type = o_gui.get_active_tab()
-
         self.data_type = data_type
+
         if data == []:
             data = self.parent.data_metadata[data_type]['data']
         self.data = data
@@ -204,8 +204,11 @@ class Step1Plot(object):
             self.parent.ui.normalized_image_view.clear()
             self.parent.ui.normalized_bragg_edge_plot.clear()
 
-    def display_general_bragg_edge(self, data_type=DataType.sample):
-        self.data_type = data_type
+    def display_general_bragg_edge(self, data_type=None):
+        if data_type is None:
+            o_gui = GuiHandler(parent=self.parent)
+            data_type = o_gui.get_active_tab()
+
         data = self.parent.data_metadata[data_type]['data']
         self.data = data
         self.display_bragg_edge()
