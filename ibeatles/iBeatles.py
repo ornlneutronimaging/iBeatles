@@ -688,7 +688,7 @@ class MainWindow(QMainWindow):
         self.update_hkl_lambda_d0()
 
     def lattice_text_changed(self):
-        _contain = str(self.ui.lattice_parameter.text())
+        # _contain = str(self.ui.lattice_parameter.text())
         BraggEdgeElementHandler(parent=self)
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()

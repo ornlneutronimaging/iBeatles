@@ -19,8 +19,13 @@ class CustomAxis(pg.AxisItem):
 
 class Step1GuiHandler(object):
 
-    def __init__(self, parent=None, data_type='sample'):
+    def __init__(self, parent=None, data_type=None):
         self.parent = parent
+
+        if data_type is None:
+            o_gui = GuiHandler(parent=self.parent)
+            data_type = o_gui.get_active_tab()
+
         self.data_type = data_type
 
     def initialize_rois_and_labels(self):
@@ -226,7 +231,12 @@ class Step1GuiHandler(object):
             self.parent.ui.tabWidget.setTabEnabled(1, True)
 
     def check_time_spectra_widgets(self):
-        time_spectra_data = self.parent.data_metadata['time_spectra']['data']
+        if self.data_type == DataType.normalized:
+            data_location = 'data_normalized'
+        else:
+            data_location = 'data'
+        time_spectra_data = self.parent.data_metadata['time_spectra'][data_location]
+
         if self.parent.ui.material_display_checkbox.isChecked():
             if time_spectra_data == []:
                 _display_error_label = True

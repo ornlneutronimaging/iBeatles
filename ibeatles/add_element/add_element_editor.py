@@ -216,16 +216,11 @@ class AddElementInterface(QDialog):
     def add_element_to_list_of_elements_widgets(self):
         _element = self.new_element
         self.parent.ui.list_of_elements.blockSignals(True)
-        self.parent.ui.list_of_elements_2.blockSignals(True)
         self.parent.ui.list_of_elements.addItem(_element[Material.element_name])
-        self.parent.ui.list_of_elements_2.addItem(_element[Material.element_name])
         nbr_element = self.parent.ui.list_of_elements.count()
         self.parent.ui.list_of_elements.setCurrentIndex(nbr_element - 1)
-        self.parent.ui.list_of_elements_2.setCurrentIndex(nbr_element - 1)
         self.parent.ui.lattice_parameter.setText(_element[Material.lattice])
-        self.parent.ui.lattice_parameter_2.setText(_element[Material.lattice])
         self.parent.ui.list_of_elements.blockSignals(False)
-        self.parent.ui.list_of_elements_2.blockSignals(False)
 
     def save_new_element_to_local_list(self):
         _new_element = self.new_element
