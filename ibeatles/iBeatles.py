@@ -657,32 +657,25 @@ class MainWindow(QMainWindow):
         self.instruments_widgets()
 
     # material
-    def pre_defined_element_clicked(self):
-        is_pre_defined_selected = self.ui.pre_defined_radioButton.isChecked()
-        self.ui.pre_defined_groupBox.setEnabled(is_pre_defined_selected)
-        self.ui.user_defined_groupBox.setEnabled(not is_pre_defined_selected)
-        self.ui.user_defined_radioButton.setChecked(not is_pre_defined_selected)
-
-    def user_defined_element_clicked(self):
-        is_user_defined_selected = self.ui.user_defined_radioButton.isChecked()
-        self.ui.pre_defined_groupBox.setEnabled(not is_user_defined_selected)
-        self.ui.user_defined_groupBox.setEnabled(is_user_defined_selected)
-        self.ui.pre_defined_radioButton.setChecked(not is_user_defined_selected)
-
+    # def pre_defined_element_clicked(self):
+    #     is_pre_defined_selected = self.ui.pre_defined_radioButton.isChecked()
+    #     self.ui.pre_defined_groupBox.setEnabled(is_pre_defined_selected)
+    #     self.ui.user_defined_groupBox.setEnabled(not is_pre_defined_selected)
+    #     self.ui.user_defined_radioButton.setChecked(not is_pre_defined_selected)
+    #
+    # def user_defined_element_clicked(self):
+    #     is_user_defined_selected = self.ui.user_defined_radioButton.isChecked()
+    #     self.ui.pre_defined_groupBox.setEnabled(not is_user_defined_selected)
+    #     self.ui.user_defined_groupBox.setEnabled(is_user_defined_selected)
+    #     self.ui.pre_defined_radioButton.setChecked(not is_user_defined_selected)
 
     def user_defined_method_clicked(self):
         is_method1_selected = self.ui.method1_radioButton_2.isChecked()
-        list_method1_widgets = [self.ui.method1_lattice_label,
-                                self.ui.method1_lattice_value,
-                                self.ui.method1_lattice_units,
-                                self.ui.method1_crystal_label,
-                                self.ui.method1_crystal_value]
-        for _ui in list_method1_widgets:
-            _ui.setEnabled(is_method1_selected)
+        self.ui.method1_groupBox_2.setEnabled(is_method1_selected)
+        self.ui.method2_groupBox_2.setEnabled(not is_method1_selected)
 
-        self.ui.method2_tableWidget.setEnabled(not is_method1_selected)
-
-
+    def pre_defined_element_dropBox_changed(self):
+        pass
 
 
 

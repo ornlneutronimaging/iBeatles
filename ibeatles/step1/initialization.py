@@ -4,7 +4,7 @@ from qtpy import QtCore
 from qtpy.QtGui import QIcon
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
-import os
+import numpy as np
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
@@ -15,6 +15,7 @@ from ibeatles import DataType
 from ibeatles import refresh_image
 from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
 from ibeatles.step1.roi import Roi
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class Initialization:
@@ -86,6 +87,12 @@ class Initialization:
         self.parent.ui.sample_infos_pushButton.setIcon(QIcon(infos_file))
         self.parent.ui.ob_infos_pushButton.setIcon(QIcon(infos_file))
         self.parent.ui.normalized_infos_pushButton.setIcon(QIcon(infos_file))
+
+        column_sizes = [30, 30, 30, 80]
+        o_table = TableHandler(table_ui=self.parent.ui.pre_defined_tableWidget)
+        o_table.set_column_sizes(column_sizes=column_sizes)
+        o_table = TableHandler(table_ui=self.parent.ui.method2_tableWidget)
+        o_table.set_column_sizes(column_sizes=column_sizes)
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
