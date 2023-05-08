@@ -1073,7 +1073,7 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="list_of_elements_4">
+                 <widget class="QComboBox" name="pre_defined_list_of_elements">
                   <property name="editable">
                    <bool>true</bool>
                   </property>
@@ -1246,7 +1246,7 @@ p, li { white-space: pre-wrap; }
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="list_of_elements_5">
+                 <widget class="QComboBox" name="user_defined_list_of_elements">
                   <property name="editable">
                    <bool>true</bool>
                   </property>

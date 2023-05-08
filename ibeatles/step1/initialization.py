@@ -125,6 +125,15 @@ class Initialization:
         self.parent.ui.list_of_elements.addItems(list_returned)
         self.parent.ui.list_of_elements.blockSignals(False)
 
+        self.parent.ui.pre_defined_list_of_elements.blockSignals(True)
+        self.parent.ui.user_defined_list_of_elements.blockSignals(True)
+        self.parent.ui.pre_defined_list_of_elements.addItems(list_returned)
+        extanded_list = list(list_returned)
+        extanded_list.insert(0, "None")
+        self.parent.ui.user_defined_list_of_elements.addItems(extanded_list)
+        self.parent.ui.pre_defined_list_of_elements.blockSignals(False)
+        self.parent.ui.user_defined_list_of_elements.blockSignals(False)
+
         o_gui = GuiHandler(parent=self.parent,
                            data_type=DataType.sample)
         _handler = BraggEdge(material=o_gui.get_element_selected())
