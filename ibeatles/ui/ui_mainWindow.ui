@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1524</width>
-    <height>985</height>
+    <width>1928</width>
+    <height>1167</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -37,8 +37,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1498</width>
-         <height>950</height>
+         <width>1902</width>
+         <height>1096</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -80,7 +80,7 @@
                 <item>
                  <widget class="QTabWidget" name="load_data_tab">
                   <property name="currentIndex">
-                   <number>1</number>
+                   <number>0</number>
                   </property>
                   <widget class="QWidget" name="tab_8">
                    <attribute name="title">
@@ -994,6 +994,528 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>400</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Material</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_21">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_28">
+             <item>
+              <widget class="QCheckBox" name="material_display_checkbox_3">
+               <property name="text">
+                <string>Display Material Bragg Peaks</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="display_warning_3">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#c1162d;&quot;&gt;Time Spectra Missing !&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="pre_defined_radioButton">
+             <property name="text">
+              <string>Pre-defined Element</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="pre_defined_groupBox">
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_22">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_29">
+                <item>
+                 <widget class="QLabel" name="label_15">
+                  <property name="minimumSize">
+                   <size>
+                    <width>60</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>60</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Element</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="list_of_elements_4">
+                  <property name="editable">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_11">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_3">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Latttice:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>N/A</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="angstroms_label_4">
+                  <property name="text">
+                   <string>A</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_17">
+                  <property name="text">
+                   <string>Crystal Structure:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>N/A</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="tableWidget_3">
+                <property name="alternatingRowColors">
+                 <bool>true</bool>
+                </property>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <row>
+                 <property name="text">
+                  <string>New Row</string>
+                 </property>
+                </row>
+                <column>
+                 <property name="text">
+                  <string>h</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>k</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>l</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>d0</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="user_defined_radioButton">
+             <property name="text">
+              <string>User Defined</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="user_defined_groupBox">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_23">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_30">
+                <item>
+                 <widget class="QLabel" name="label_20">
+                  <property name="minimumSize">
+                   <size>
+                    <width>60</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>60</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Element</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_2"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_31">
+                <item>
+                 <widget class="QPushButton" name="pushButton_2">
+                  <property name="text">
+                   <string>Pre-populate Fields with Element:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="list_of_elements_5">
+                  <property name="editable">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_11">
+                <property name="title">
+                 <string/>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_24">
+                 <item>
+                  <widget class="QRadioButton" name="method1_radioButton_2">
+                   <property name="text">
+                    <string>Method 1</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_33">
+                   <item>
+                    <widget class="QGroupBox" name="method1_groupBox_2">
+                     <property name="title">
+                      <string/>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_25">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_34">
+                        <item>
+                         <widget class="QLabel" name="method1_lattice_label">
+                          <property name="minimumSize">
+                           <size>
+                            <width>110</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>110</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::LeftToRight</enum>
+                          </property>
+                          <property name="text">
+                           <string>Lattice:</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLineEdit" name="method1_lattice_value">
+                          <property name="minimumSize">
+                           <size>
+                            <width>80</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>80</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="method1_lattice_units">
+                          <property name="text">
+                           <string>A</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_14">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_35">
+                        <item>
+                         <widget class="QLabel" name="method1_crystal_label">
+                          <property name="minimumSize">
+                           <size>
+                            <width>110</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>110</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="layoutDirection">
+                           <enum>Qt::LeftToRight</enum>
+                          </property>
+                          <property name="text">
+                           <string>Crystal Structure:</string>
+                          </property>
+                          <property name="alignment">
+                           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QComboBox" name="method1_crystal_value">
+                          <property name="sizePolicy">
+                           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                           </sizepolicy>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>80</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>80</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <item>
+                           <property name="text">
+                            <string>FCC</string>
+                           </property>
+                          </item>
+                          <item>
+                           <property name="text">
+                            <string>BCC</string>
+                           </property>
+                          </item>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_15">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="method2_radioButton_2">
+                   <property name="text">
+                    <string>Method 2</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_36">
+                   <item>
+                    <widget class="QGroupBox" name="method2_groupBox_2">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="title">
+                      <string/>
+                     </property>
+                     <layout class="QVBoxLayout" name="verticalLayout_26">
+                      <item>
+                       <widget class="QTableWidget" name="method2_tableWidget">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
+                        <property name="alternatingRowColors">
+                         <bool>true</bool>
+                        </property>
+                        <attribute name="horizontalHeaderStretchLastSection">
+                         <bool>true</bool>
+                        </attribute>
+                        <attribute name="verticalHeaderVisible">
+                         <bool>false</bool>
+                        </attribute>
+                        <row>
+                         <property name="text">
+                          <string>New Row</string>
+                         </property>
+                        </row>
+                        <row>
+                         <property name="text">
+                          <string>New Row</string>
+                         </property>
+                        </row>
+                        <row>
+                         <property name="text">
+                          <string>New Row</string>
+                         </property>
+                        </row>
+                        <row>
+                         <property name="text">
+                          <string>New Row</string>
+                         </property>
+                        </row>
+                        <row>
+                         <property name="text">
+                          <string>New Row</string>
+                         </property>
+                        </row>
+                        <column>
+                         <property name="text">
+                          <string>h</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>k</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>l</string>
+                         </property>
+                        </column>
+                        <column>
+                         <property name="text">
+                          <string>d0</string>
+                         </property>
+                        </column>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QGroupBox" name="instrument_and_material_settings">
           <property name="maximumSize">
            <size>
@@ -1004,7 +1526,169 @@ p, li { white-space: pre-wrap; }
           <property name="title">
            <string>Instrument and Material Settings</string>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
+          <layout class="QVBoxLayout" name="verticalLayout_27">
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Instrument</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="1" column="1">
+               <widget class="QComboBox" name="beam_rate">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>70</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>70</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>60</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>30</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="distance_source_detector">
+                <property name="text">
+                 <string>19.855</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>m</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_3">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>75</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>75</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Beam Rate</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLabel" name="label_4">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Hz</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>100</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Detector offset</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="detector_offset">
+                <property name="text">
+                 <string>5000</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLabel" name="delta_lambda_value">
+                <property name="text">
+                 <string>N/A</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLabel" name="micro_s">
+                <property name="text">
+                 <string>micros</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="delta_lambda_label">
+                <property name="minimumSize">
+                 <size>
+                  <width>20</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>20</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>delta_lambda:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="distance_source_detector_label">
+                <property name="minimumSize">
+                 <size>
+                  <width>80</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>80</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>d source-detector</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
            <item>
             <widget class="QGroupBox" name="groupBox_3">
              <property name="minimumSize">
@@ -1241,168 +1925,6 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_2">
-             <property name="title">
-              <string>Instrument</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_2">
-              <item row="1" column="1">
-               <widget class="QComboBox" name="beam_rate">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>70</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>70</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>60</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>30</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="distance_source_detector">
-                <property name="text">
-                 <string>19.855</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_6">
-                <property name="text">
-                 <string>m</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_3">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>75</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>75</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Beam Rate</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLabel" name="label_4">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>Hz</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_7">
-                <property name="minimumSize">
-                 <size>
-                  <width>100</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>100</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>Detector offset</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLineEdit" name="detector_offset">
-                <property name="text">
-                 <string>5000</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QLabel" name="delta_lambda_value">
-                <property name="text">
-                 <string>N/A</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QLabel" name="micro_s">
-                <property name="text">
-                 <string>micros</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="delta_lambda_label">
-                <property name="minimumSize">
-                 <size>
-                  <width>20</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>20</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>delta_lambda:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="distance_source_detector_label">
-                <property name="minimumSize">
-                 <size>
-                  <width>80</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>80</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>d source-detector</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -1429,7 +1951,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1524</width>
+     <width>1928</width>
      <height>24</height>
     </rect>
    </property>
@@ -1593,8 +2115,8 @@ p, li { white-space: pre-wrap; }
    <slot>sample_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>241</x>
-     <y>164</y>
+     <x>89</x>
+     <y>121</y>
     </hint>
     <hint type="destinationlabel">
      <x>401</x>
@@ -1609,8 +2131,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>193</x>
-     <y>1061</y>
+     <x>224</x>
+     <y>1049</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -1625,8 +2147,8 @@ p, li { white-space: pre-wrap; }
    <slot>open_beam_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>266</x>
-     <y>164</y>
+     <x>265</x>
+     <y>154</y>
     </hint>
     <hint type="destinationlabel">
      <x>910</x>
@@ -1641,8 +2163,8 @@ p, li { white-space: pre-wrap; }
    <slot>sample_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1324</x>
-     <y>513</y>
+     <x>131</x>
+     <y>127</y>
     </hint>
     <hint type="destinationlabel">
      <x>146</x>
@@ -1657,8 +2179,8 @@ p, li { white-space: pre-wrap; }
    <slot>open_beam_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1354</x>
-     <y>542</y>
+     <x>950</x>
+     <y>673</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -1673,8 +2195,8 @@ p, li { white-space: pre-wrap; }
    <slot>sample_list_right_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1324</x>
-     <y>513</y>
+     <x>131</x>
+     <y>127</y>
     </hint>
     <hint type="destinationlabel">
      <x>37</x>
@@ -1689,8 +2211,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1686</x>
-     <y>1061</y>
+     <x>959</x>
+     <y>1053</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -1737,8 +2259,8 @@ p, li { white-space: pre-wrap; }
    <slot>crystal_structure_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1401</x>
-     <y>1308</y>
+     <x>1823</x>
+     <y>417</y>
     </hint>
     <hint type="destinationlabel">
      <x>730</x>
@@ -1753,8 +2275,8 @@ p, li { white-space: pre-wrap; }
    <slot>lattice_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1059</x>
-     <y>1310</y>
+     <x>1625</x>
+     <y>414</y>
     </hint>
     <hint type="destinationlabel">
      <x>1522</x>
@@ -1769,8 +2291,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_display_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1286</x>
-     <y>1185</y>
+     <x>1731</x>
+     <y>268</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -1785,8 +2307,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>191</x>
-     <y>751</y>
+     <x>222</x>
+     <y>1049</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -1801,8 +2323,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1551</x>
-     <y>751</y>
+     <x>779</x>
+     <y>1053</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -1817,8 +2339,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1437</x>
-     <y>1130</y>
+     <x>711</x>
+     <y>821</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -1833,8 +2355,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1405</x>
-     <y>1130</y>
+     <x>679</x>
+     <y>821</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -1849,8 +2371,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1650</x>
-     <y>1387</y>
+     <x>924</x>
+     <y>1078</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -1881,8 +2403,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_tableWidget_cell_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1745</x>
-     <y>382</y>
+     <x>1019</x>
+     <y>480</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -1897,8 +2419,8 @@ p, li { white-space: pre-wrap; }
    <slot>beam_rate_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>261</x>
-     <y>1219</y>
+     <x>1638</x>
+     <y>145</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1913,8 +2435,8 @@ p, li { white-space: pre-wrap; }
    <slot>distance_source_detector_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>456</x>
-     <y>1185</y>
+     <x>1641</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -1929,8 +2451,8 @@ p, li { white-space: pre-wrap; }
    <slot>detector_offset_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>456</x>
-     <y>1246</y>
+     <x>1641</x>
+     <y>172</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1945,8 +2467,8 @@ p, li { white-space: pre-wrap; }
    <slot>add_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1664</x>
-     <y>1267</y>
+     <x>1872</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -1961,8 +2483,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_lattice_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1106</x>
-     <y>1326</y>
+     <x>1672</x>
+     <y>415</y>
     </hint>
     <hint type="destinationlabel">
      <x>1524</x>
@@ -1977,8 +2499,8 @@ p, li { white-space: pre-wrap; }
    <slot>reset_crystal_structure_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1426</x>
-     <y>1326</y>
+     <x>1848</x>
+     <y>415</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2153,8 +2675,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_moving_average_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1752</x>
-     <y>1387</y>
+     <x>1026</x>
+     <y>1078</y>
     </hint>
     <hint type="destinationlabel">
      <x>1538</x>
@@ -2185,8 +2707,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_list_hkl_lambda_d0_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1670</x>
-     <y>1361</y>
+     <x>1878</x>
+     <y>472</y>
     </hint>
     <hint type="destinationlabel">
      <x>1014</x>
@@ -2201,8 +2723,8 @@ p, li { white-space: pre-wrap; }
    <slot>list_of_element_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1664</x>
-     <y>1225</y>
+     <x>1872</x>
+     <y>308</y>
     </hint>
     <hint type="destinationlabel">
      <x>1476</x>
@@ -2217,12 +2739,12 @@ p, li { white-space: pre-wrap; }
    <slot>load_data_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1597</x>
-     <y>292</y>
+     <x>974</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
-     <x>2154</x>
-     <y>1371</y>
+     <x>1927</x>
+     <y>1166</y>
     </hint>
    </hints>
   </connection>
@@ -2233,8 +2755,8 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1667</x>
-     <y>142</y>
+     <x>144</x>
+     <y>151</y>
     </hint>
     <hint type="destinationlabel">
      <x>1813</x>
@@ -2249,8 +2771,8 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1659</x>
-     <y>141</y>
+     <x>950</x>
+     <y>153</y>
     </hint>
     <hint type="destinationlabel">
      <x>1822</x>
@@ -2265,8 +2787,8 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1551</x>
-     <y>94</y>
+     <x>794</x>
+     <y>115</y>
     </hint>
     <hint type="destinationlabel">
      <x>1811</x>
@@ -2287,6 +2809,70 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>761</x>
      <y>492</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pre_defined_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>pre_defined_element_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1142</x>
+     <y>106</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1922</x>
+     <y>121</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>user_defined_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_element_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1160</x>
+     <y>564</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>963</x>
+     <y>583</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>method1_radioButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_method_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1178</x>
+     <y>708</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1923</x>
+     <y>888</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>method2_radioButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_method_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1168</x>
+     <y>833</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1925</x>
+     <y>1065</y>
     </hint>
    </hints>
   </connection>
@@ -2351,5 +2937,8 @@ p, li { white-space: pre-wrap; }
   <slot>material_list_hkl_lambda_d0_clicked()</slot>
   <slot>infos_button_clicked()</slot>
   <slot>view_instrument_and_material_settings_clicked()</slot>
+  <slot>pre_defined_element_clicked()</slot>
+  <slot>user_defined_method_clicked()</slot>
+  <slot>user_defined_element_clicked()</slot>
  </slots>
 </ui>
