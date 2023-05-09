@@ -212,8 +212,6 @@ class SessionHandler:
                 o_load = LoadLoadDataTab(parent=self.parent)
                 o_load.sample()
                 o_load.ob()
-                # o_load.instrument()
-                # o_load.material()
                 self.parent.load_data_tab_changed(tab_index=0)
                 self.parent.ui.sample_ob_splitter.setSizes([20, 450])
 

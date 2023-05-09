@@ -690,9 +690,13 @@ class MainWindow(QMainWindow):
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
 
-    def user_defined_method1_crystal_changed(self):
+    def user_defined_method1_crystal_changed(self, text):
         o_material = MaterialUserDefinedMethod1(parent=self)
         o_material.lattice_crystal_changed()
+        o_material = Material(parent=self)
+        o_material.check_status_of_all_widgets()
+
+    def user_defined_method1_table_changed(self, col, row):
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
 
@@ -700,6 +704,10 @@ class MainWindow(QMainWindow):
     def user_defined_method2_clear_table_clicked(self):
         o_material = MaterialUserDefinedMethod2(parent=self)
         o_material.clear_user_defined_method2_table()
+        o_material = Material(parent=self)
+        o_material.check_status_of_all_widgets()
+
+    def user_defined_method2_table_changed(self, col, row):
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
 

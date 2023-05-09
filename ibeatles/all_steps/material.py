@@ -2,7 +2,7 @@ import numpy as np
 
 from neutronbraggedge.braggedge import BraggEdge
 
-from ibeatles.utilities.check import is_float
+from ibeatles.utilities.check import is_float, is_int
 from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
 from ibeatles.utilities.table_handler import TableHandler
 
@@ -59,7 +59,53 @@ class Material:
                         self.parent.ui.user_defined_method2_table_error.setVisible(True)
 
     def is_table_valid(self, table_ui=None):
-        return True
+
+        o_table = TableHandler(table_ui=table_ui)
+        nbr_row = o_table.row_count()
+        at_least_one_row_valid = False
+        for _row in np.arange(nbr_row):
+
+            h = o_table.get_item_str_from_cell(row=_row, column=0)
+            k = o_table.get_item_str_from_cell(row=_row, column=1)
+            l = o_table.get_item_str_from_cell(row=_row, column=2)
+            d0_or_lambda = o_table.get_item_str_from_cell(row=_row, column=3)
+
+            if ((h is None) or h == "") and \
+                    ((k is None) or k == "") and \
+                    ((l is None) or l == "") and \
+                    ((d0_or_lambda is None) or d0_or_lambda == ""):
+                continue
+
+            elif (h is None):
+                return False
+
+            elif k is None:
+                return False
+
+            elif l is None:
+                return False
+
+            elif d0_or_lambda is None:
+                return False
+
+            if (h.strip() == "") and (k.strip() == "") and (l.strip() == "") and (d0_or_lambda.strip() == ""):
+                continue
+
+            if not is_int(h):
+                return False
+
+            if not is_int(k):
+                return False
+
+            if not is_int(l):
+                return False
+
+            if not is_float(d0_or_lambda):
+                return False
+
+            at_least_one_row_valid = True
+
+        return at_least_one_row_valid
 
 
 class MaterialPreDefined(Material):
@@ -156,6 +202,11 @@ class MaterialUserDefinedMethod1(Material):
     def user_defined_element_name_changed(self):
         element_name = self.parent.ui.user_defined_element_name.text()
         lattice_value = self.parent.ui.method1_lattice_value_2.text()
+        if not is_float(lattice_value):
+            o_table = TableHandler(table_ui=self.parent.ui.method1_tableWidget)
+            o_table.remove_all_rows()
+            return
+
         crystal_structure = self.parent.ui.method1_crystal_value_2.currentText()
 
         o_calculator = BraggEdgeElementCalculator(element_name=element_name,
@@ -203,7 +254,8 @@ class MaterialUserDefinedMethod1(Material):
             _row += 1
 
     def lattice_crystal_changed(self):
-            pass
+        """recalculate the hkl and lambda 0 of the table"""
+        self.user_defined_element_name_changed()
 
 
 class MaterialUserDefinedMethod2(Material):

@@ -148,3 +148,5 @@ class LoadLoadDataTab:
 
         self.parent.check_status_of_material_widgets()
         self.parent.list_of_element_index_changed(index=selected_element_index)
+
+        self.parent.pre_defined_element_dropBox_changed(0)

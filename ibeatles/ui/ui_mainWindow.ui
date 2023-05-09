@@ -1100,7 +1100,7 @@ p, li { white-space: pre-wrap; }
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_13">
                    <property name="text">
-                    <string>Latttice:</string>
+                    <string>Latttice :</string>
                    </property>
                   </widget>
                  </item>
@@ -1121,7 +1121,7 @@ p, li { white-space: pre-wrap; }
                  <item row="1" column="0">
                   <widget class="QLabel" name="label_25">
                    <property name="text">
-                    <string>Crystal Str.:</string>
+                    <string>Crystal Str. :</string>
                    </property>
                   </widget>
                  </item>
@@ -1461,13 +1461,13 @@ p, li { white-space: pre-wrap; }
                        </property>
                        <property name="minimumSize">
                         <size>
-                         <width>80</width>
+                         <width>60</width>
                          <height>0</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>80</width>
+                         <width>60</width>
                          <height>16777215</height>
                         </size>
                        </property>
@@ -3248,6 +3248,54 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>method1_tableWidget</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_method1_table_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1047</x>
+     <y>564</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1648</x>
+     <y>945</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>method2_tableWidget</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_method2_table_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1093</x>
+     <y>429</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1649</x>
+     <y>922</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>method1_crystal_value_2</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_method1_crystal_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1112</x>
+     <y>363</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1655</x>
+     <y>681</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -3318,5 +3366,8 @@ p, li { white-space: pre-wrap; }
   <slot>user_defined_element_name_changed()</slot>
   <slot>material_tab_changed()</slot>
   <slot>user_defined_method1_lattice_changed()</slot>
+  <slot>user_defined_method1_table_changed()</slot>
+  <slot>user_defined_method2_table_changed()</slot>
+  <slot>user_defined_method1_crystal_changed()</slot>
  </slots>
 </ui>
