@@ -192,7 +192,7 @@ class MaterialUserDefinedMethod1(Material):
         selected_element_bragg_edges_array = o_calculator.lambda_array
         selected_element_hkl_array = o_calculator.hkl_array
 
-        self.parent.ui.method1_lattice_value_2.setText(_lattice)
+        self.parent.ui.method1_lattice_value_2.setText(f"{float(_lattice):.3f}")
         _row_to_select = self.parent.ui.method1_crystal_value_2.findText(_crystal_structure)
         self.parent.ui.method1_crystal_value_2.setCurrentIndex(_row_to_select)
 

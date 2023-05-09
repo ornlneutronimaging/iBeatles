@@ -1045,7 +1045,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QTabWidget" name="material_top_tabWidget">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="tab_5">
               <attribute name="title">
@@ -1371,13 +1371,13 @@ p, li { white-space: pre-wrap; }
                       <widget class="QLineEdit" name="method1_lattice_value_2">
                        <property name="minimumSize">
                         <size>
-                         <width>50</width>
+                         <width>60</width>
                          <height>0</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>50</width>
+                         <width>60</width>
                          <height>16777215</height>
                         </size>
                        </property>

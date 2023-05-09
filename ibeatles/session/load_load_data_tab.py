@@ -149,4 +149,8 @@ class LoadLoadDataTab:
         self.parent.check_status_of_material_widgets()
         self.parent.list_of_element_index_changed(index=selected_element_index)
 
+        # fill the table with default selected element
         self.parent.pre_defined_element_dropBox_changed(0)
+
+        # check state of widgets
+        self.parent.user_defined_element_name_changed("")
