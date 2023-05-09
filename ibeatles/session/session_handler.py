@@ -9,7 +9,7 @@ from ibeatles.utilities.get import Get
 from ibeatles.fitting.march_dollase import SessionSubKeys as MarchSessionSubKeys
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 
-from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.session import SessionKeys, SessionSubKeys, MaterialMode
 from ibeatles.session.save_load_data_tab import SaveLoadDataTab
 from ibeatles.session.save_normalization_tab import SaveNormalizationTab
 from ibeatles.session.save_normalized_tab import SaveNormalizedTab
@@ -58,7 +58,16 @@ class SessionHandler:
                                              SessionSubKeys.beam_index: 0,
                                              SessionSubKeys.detector_value: None,
                                              },
-                    SessionKeys.material: {SessionSubKeys.selected_element: {SessionSubKeys.name: None,
+                    SessionKeys.material: {SessionSubKeys.material_mode: MaterialMode.pre_defined,
+                                           SessionSubKeys.pre_defined: {'index': 0},
+                                           SessionSubKeys.custom_method1: {},
+                                           SessionSubKeys.custom_method2: {},
+                                           },
+#FIXME
+
+
+
+                        SessionSubKeys.selected_element: {SessionSubKeys.name: None,
                                                                              SessionSubKeys.user_defined: False,
                                                                              SessionSubKeys.index: 0},
                                            SessionSubKeys.lattice: None,
@@ -68,6 +77,7 @@ class SessionHandler:
                                                                               },
                                            Material.user_defined_bragg_edge_list: None,
                                            },
+
                     SessionKeys.reduction: {SessionSubKeys.activate: True,
                                             SessionSubKeys.dimension: '2d',
                                             SessionSubKeys.size: {'flag': 'default',

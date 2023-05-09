@@ -8,6 +8,13 @@ class SessionKeys:
     reduction = "reduction"
 
 
+class MaterialMode:
+
+    pre_defined = "pre_defined"
+    custom_method1 = "custom method 1"
+    custom_method2 = "custom method 2"
+
+
 class SessionSubKeys:
 
     # instrument
@@ -29,7 +36,12 @@ class SessionSubKeys:
     image_view_histogram = 'image view histogram'
 
     # material
-    selected_element = "selected element"
+    pre_defined_selected_element = "selected element in the pre-defined mode"
+    material_mode = MaterialMode.pre_defined
+    pre_defined = "pre_defined"
+    custom_method1 = "custom method 1"
+    custom_method2 = "custom method 2"
+
     lattice = "lattice"
     crystal_structure = "crystal structure"
     index = "index"
