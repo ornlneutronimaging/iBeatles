@@ -13,7 +13,9 @@ from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
 from ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
 from ibeatles.all_steps.list_hkl_lambda_d0 import ListHKLLambdaD0Handler
 from ibeatles.all_steps.infos_launcher import InfosLauncher
-from ibeatles.all_steps.material import Material
+from ibeatles.all_steps.material import (MaterialPreDefined, MaterialUserDefinedMethod1,
+                                         MaterialUserDefinedMethod2, MaterialUserDefined,
+                                         Material)
 
 from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
 from ibeatles.step1.data_handler import DataHandler
@@ -659,11 +661,47 @@ class MainWindow(QMainWindow):
 
     # material - new UI
 
-    def pre_defined_element_dropBox_changed(self, index):
+    def material_tab_changed(self):
         o_material = Material(parent=self)
+        o_material.tab_changed()
+
+    ## pre-defined
+    def pre_defined_element_dropBox_changed(self, index):
+        o_material = MaterialPreDefined(parent=self)
         o_material.update_pre_defined_widgets()
 
+    ## user-defined
 
+    def user_defined_element_name_changed(self, text):
+        o_material = Material(parent=self)
+        o_material.tab_changed()
+
+    ### method 1
+
+    def fill_fields_with_selected_element_clicked(self, index):
+        o_material = MaterialUserDefinedMethod1(parent=self)
+        o_material.fill_fields_with_selected_element_clicked()
+        o_material = Material(parent=self)
+        o_material.check_status_of_all_widgets()
+
+    def user_defined_method1_lattice_changed(self, text):
+        o_material = MaterialUserDefinedMethod1(parent=self)
+        o_material.lattice_crystal_changed()
+        o_material = Material(parent=self)
+        o_material.check_status_of_all_widgets()
+
+    def user_defined_method1_crystal_changed(self):
+        o_material = MaterialUserDefinedMethod1(parent=self)
+        o_material.lattice_crystal_changed()
+        o_material = Material(parent=self)
+        o_material.check_status_of_all_widgets()
+
+    ### method 2
+    def user_defined_method2_clear_table_clicked(self):
+        o_material = MaterialUserDefinedMethod2(parent=self)
+        o_material.clear_user_defined_method2_table()
+        o_material = Material(parent=self)
+        o_material.check_status_of_all_widgets()
 
 
 

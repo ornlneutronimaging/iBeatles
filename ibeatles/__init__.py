@@ -17,6 +17,7 @@ vertical_splitter_file = os.path.join(root, "icons/vertical_splitter_handle.png"
 horizontal_splitter_file = os.path.join(root, "icons/horizontal_splitter_handle.png")
 infos_file = os.path.join(root, "icons/info.png")
 preview_file = os.path.join(root, "icons/preview.png")
+error_icon_file = os.path.join(root, "icons/error_icon.png")
 
 step1_icon = os.path.join(root, "static/step1.png")
 step2_icon = os.path.join(root, "static/step2.png")

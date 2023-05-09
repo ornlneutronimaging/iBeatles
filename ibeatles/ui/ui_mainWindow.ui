@@ -997,13 +997,13 @@ p, li { white-space: pre-wrap; }
          <widget class="QGroupBox" name="groupBox_5">
           <property name="minimumSize">
            <size>
-            <width>250</width>
+            <width>260</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>250</width>
+            <width>260</width>
             <height>16777215</height>
            </size>
           </property>
@@ -1043,9 +1043,9 @@ p, li { white-space: pre-wrap; }
             </widget>
            </item>
            <item>
-            <widget class="QTabWidget" name="tabWidget_2">
+            <widget class="QTabWidget" name="material_top_tabWidget">
              <property name="currentIndex">
-              <number>0</number>
+              <number>1</number>
              </property>
              <widget class="QWidget" name="tab_5">
               <attribute name="title">
@@ -1212,42 +1212,86 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item>
-                  <widget class="QLineEdit" name="lineEdit_3"/>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_37">
-                 <item>
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>Fill fields with:</string>
-                   </property>
-                  </widget>
+                  <widget class="QLineEdit" name="user_defined_element_name"/>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="user_defined_list_of_elements">
+                  <widget class="QLabel" name="user_defined_name_error">
                    <property name="minimumSize">
                     <size>
-                     <width>120</width>
-                     <height>0</height>
+                     <width>25</width>
+                     <height>25</height>
                     </size>
                    </property>
                    <property name="maximumSize">
                     <size>
-                     <width>150</width>
-                     <height>16777215</height>
+                     <width>25</width>
+                     <height>25</height>
                     </size>
                    </property>
-                   <property name="editable">
-                    <bool>true</bool>
+                   <property name="palette">
+                    <palette>
+                     <active>
+                      <colorrole role="WindowText">
+                       <brush brushstyle="SolidPattern">
+                        <color alpha="255">
+                         <red>208</red>
+                         <green>12</green>
+                         <blue>18</blue>
+                        </color>
+                       </brush>
+                      </colorrole>
+                     </active>
+                     <inactive>
+                      <colorrole role="WindowText">
+                       <brush brushstyle="SolidPattern">
+                        <color alpha="255">
+                         <red>208</red>
+                         <green>12</green>
+                         <blue>18</blue>
+                        </color>
+                       </brush>
+                      </colorrole>
+                     </inactive>
+                     <disabled>
+                      <colorrole role="WindowText">
+                       <brush brushstyle="SolidPattern">
+                        <color alpha="255">
+                         <red>127</red>
+                         <green>127</green>
+                         <blue>127</blue>
+                        </color>
+                       </brush>
+                      </colorrole>
+                     </disabled>
+                    </palette>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>15</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string/>
                    </property>
                   </widget>
                  </item>
                 </layout>
                </item>
                <item>
-                <widget class="QTabWidget" name="tabWidget_3">
+                <widget class="Line" name="line">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTabWidget" name="material_custom_tabWidget">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>400</height>
+                  </size>
+                 </property>
                  <property name="tabPosition">
                   <enum>QTabWidget::North</enum>
                  </property>
@@ -1259,6 +1303,43 @@ p, li { white-space: pre-wrap; }
                    <string>Method 1</string>
                   </attribute>
                   <layout class="QVBoxLayout" name="verticalLayout">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_37">
+                     <item>
+                      <widget class="QLabel" name="label_2">
+                       <property name="text">
+                        <string>Fill fields with:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="user_defined_list_of_elements">
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>150</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="editable">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="Line" name="line_3">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_38">
                      <item>
@@ -1290,13 +1371,13 @@ p, li { white-space: pre-wrap; }
                       <widget class="QLineEdit" name="method1_lattice_value_2">
                        <property name="minimumSize">
                         <size>
-                         <width>80</width>
+                         <width>50</width>
                          <height>0</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>80</width>
+                         <width>50</width>
                          <height>16777215</height>
                         </size>
                        </property>
@@ -1306,6 +1387,25 @@ p, li { white-space: pre-wrap; }
                       <widget class="QLabel" name="method1_lattice_units">
                        <property name="text">
                         <string>A</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="method1_lattice_error">
+                       <property name="minimumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string/>
                        </property>
                       </widget>
                      </item>
@@ -1399,9 +1499,233 @@ p, li { white-space: pre-wrap; }
                     </layout>
                    </item>
                    <item>
+                    <widget class="QLabel" name="user_defined_method1_table_error">
+                     <property name="minimumSize">
+                      <size>
+                       <width>25</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>25</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="palette">
+                      <palette>
+                       <active>
+                        <colorrole role="WindowText">
+                         <brush brushstyle="SolidPattern">
+                          <color alpha="255">
+                           <red>208</red>
+                           <green>12</green>
+                           <blue>18</blue>
+                          </color>
+                         </brush>
+                        </colorrole>
+                       </active>
+                       <inactive>
+                        <colorrole role="WindowText">
+                         <brush brushstyle="SolidPattern">
+                          <color alpha="255">
+                           <red>208</red>
+                           <green>12</green>
+                           <blue>18</blue>
+                          </color>
+                         </brush>
+                        </colorrole>
+                       </inactive>
+                       <disabled>
+                        <colorrole role="WindowText">
+                         <brush brushstyle="SolidPattern">
+                          <color alpha="255">
+                           <red>127</red>
+                           <green>127</green>
+                           <blue>127</blue>
+                          </color>
+                         </brush>
+                        </colorrole>
+                       </disabled>
+                      </palette>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
                     <widget class="QTableWidget" name="method1_tableWidget">
                      <property name="enabled">
                       <bool>false</bool>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>330</height>
+                      </size>
+                     </property>
+                     <property name="alternatingRowColors">
+                      <bool>true</bool>
+                     </property>
+                     <property name="selectionMode">
+                      <enum>QAbstractItemView::NoSelection</enum>
+                     </property>
+                     <attribute name="horizontalHeaderStretchLastSection">
+                      <bool>true</bool>
+                     </attribute>
+                     <attribute name="verticalHeaderVisible">
+                      <bool>false</bool>
+                     </attribute>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <column>
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>k</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>l</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>lambda</string>
+                      </property>
+                     </column>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="tab_7">
+                  <attribute name="title">
+                   <string>Method 2</string>
+                  </attribute>
+                  <layout class="QVBoxLayout" name="verticalLayout_15">
+                   <item>
+                    <widget class="QLabel" name="user_defined_method2_table_error">
+                     <property name="minimumSize">
+                      <size>
+                       <width>25</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>25</width>
+                       <height>25</height>
+                      </size>
+                     </property>
+                     <property name="palette">
+                      <palette>
+                       <active>
+                        <colorrole role="WindowText">
+                         <brush brushstyle="SolidPattern">
+                          <color alpha="255">
+                           <red>208</red>
+                           <green>12</green>
+                           <blue>18</blue>
+                          </color>
+                         </brush>
+                        </colorrole>
+                       </active>
+                       <inactive>
+                        <colorrole role="WindowText">
+                         <brush brushstyle="SolidPattern">
+                          <color alpha="255">
+                           <red>208</red>
+                           <green>12</green>
+                           <blue>18</blue>
+                          </color>
+                         </brush>
+                        </colorrole>
+                       </inactive>
+                       <disabled>
+                        <colorrole role="WindowText">
+                         <brush brushstyle="SolidPattern">
+                          <color alpha="255">
+                           <red>127</red>
+                           <green>127</green>
+                           <blue>127</blue>
+                          </color>
+                         </brush>
+                        </colorrole>
+                       </disabled>
+                      </palette>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <pointsize>15</pointsize>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QTableWidget" name="method2_tableWidget">
+                     <property name="enabled">
+                      <bool>true</bool>
                      </property>
                      <property name="alternatingRowColors">
                       <bool>true</bool>
@@ -1412,6 +1736,31 @@ p, li { white-space: pre-wrap; }
                      <attribute name="verticalHeaderVisible">
                       <bool>false</bool>
                      </attribute>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
                      <row>
                       <property name="text">
                        <string>New Row</string>
@@ -1459,72 +1808,11 @@ p, li { white-space: pre-wrap; }
                      </column>
                     </widget>
                    </item>
-                  </layout>
-                 </widget>
-                 <widget class="QWidget" name="tab_7">
-                  <attribute name="title">
-                   <string>Method 2</string>
-                  </attribute>
-                  <layout class="QVBoxLayout" name="verticalLayout_15">
                    <item>
-                    <widget class="QTableWidget" name="method2_tableWidget">
-                     <property name="enabled">
-                      <bool>false</bool>
+                    <widget class="QPushButton" name="user_defined_method2_clear_table">
+                     <property name="text">
+                      <string>Clear table</string>
                      </property>
-                     <property name="alternatingRowColors">
-                      <bool>true</bool>
-                     </property>
-                     <attribute name="horizontalHeaderStretchLastSection">
-                      <bool>true</bool>
-                     </attribute>
-                     <attribute name="verticalHeaderVisible">
-                      <bool>false</bool>
-                     </attribute>
-                     <row>
-                      <property name="text">
-                       <string>New Row</string>
-                      </property>
-                     </row>
-                     <row>
-                      <property name="text">
-                       <string>New Row</string>
-                      </property>
-                     </row>
-                     <row>
-                      <property name="text">
-                       <string>New Row</string>
-                      </property>
-                     </row>
-                     <row>
-                      <property name="text">
-                       <string>New Row</string>
-                      </property>
-                     </row>
-                     <row>
-                      <property name="text">
-                       <string>New Row</string>
-                      </property>
-                     </row>
-                     <column>
-                      <property name="text">
-                       <string>h</string>
-                      </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>k</string>
-                      </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>l</string>
-                      </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>d0</string>
-                      </property>
-                     </column>
                     </widget>
                    </item>
                   </layout>
@@ -2247,7 +2535,7 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>797</x>
+     <x>834</x>
      <y>907</y>
     </hint>
     <hint type="destinationlabel">
@@ -2359,7 +2647,7 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>648</x>
+     <x>678</x>
      <y>907</y>
     </hint>
     <hint type="destinationlabel">
@@ -2375,7 +2663,7 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>537</x>
+     <x>577</x>
      <y>675</y>
     </hint>
     <hint type="destinationlabel">
@@ -2391,7 +2679,7 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>505</x>
+     <x>545</x>
      <y>675</y>
     </hint>
     <hint type="destinationlabel">
@@ -2791,7 +3079,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>789</x>
+     <x>826</x>
      <y>152</y>
     </hint>
     <hint type="destinationlabel">
@@ -2807,7 +3095,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>788</x>
+     <x>825</x>
      <y>153</y>
     </hint>
     <hint type="destinationlabel">
@@ -2823,7 +3111,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>663</x>
+     <x>693</x>
      <y>115</y>
     </hint>
     <hint type="destinationlabel">
@@ -2861,6 +3149,102 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>1250</x>
      <y>24</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>user_defined_method2_clear_table</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_method2_clear_table_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1157</x>
+     <y>760</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1235</x>
+     <y>976</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>user_defined_list_of_elements</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fill_fields_with_selected_element_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1182</x>
+     <y>285</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1217</x>
+     <y>30</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>user_defined_element_name</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_element_name_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1133</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1027</x>
+     <y>33</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>material_top_tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>material_tab_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1055</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1122</x>
+     <y>-12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>material_custom_tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>material_tab_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1086</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1167</x>
+     <y>33</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>method1_lattice_value_2</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>user_defined_method1_lattice_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1070</x>
+     <y>325</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1649</x>
+     <y>583</y>
     </hint>
    </hints>
   </connection>
@@ -2929,5 +3313,10 @@ p, li { white-space: pre-wrap; }
   <slot>user_defined_method_clicked()</slot>
   <slot>user_defined_element_clicked()</slot>
   <slot>pre_defined_element_dropBox_changed()</slot>
+  <slot>user_defined_method2_clear_table_clicked()</slot>
+  <slot>fill_fields_with_selected_element_clicked()</slot>
+  <slot>user_defined_element_name_changed()</slot>
+  <slot>material_tab_changed()</slot>
+  <slot>user_defined_method1_lattice_changed()</slot>
  </slots>
 </ui>

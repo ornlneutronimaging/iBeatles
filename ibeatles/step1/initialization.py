@@ -1,5 +1,6 @@
 from qtpy.QtWidgets import (QProgressBar, QVBoxLayout, QPushButton, QHBoxLayout, QRadioButton, QWidget, QSpacerItem,
                             QSizePolicy, QScrollBar, QLabel)
+from qtpy.QtGui import QPixmap
 from qtpy import QtCore
 from qtpy.QtGui import QIcon
 from pyqtgraph.dockarea import DockArea, Dock
@@ -10,7 +11,7 @@ from neutronbraggedge.material_handler.retrieve_material_metadata import Retriev
 from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles.icons import icons_rc  # do not remove
-from ibeatles import step1_icon, step2_icon, step3_icon, infos_file, preview_file
+from ibeatles import step1_icon, step2_icon, step3_icon, infos_file, preview_file, error_icon_file
 from ibeatles import DataType
 from ibeatles import refresh_image
 from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
@@ -88,7 +89,7 @@ class Initialization:
         self.parent.ui.ob_infos_pushButton.setIcon(QIcon(infos_file))
         self.parent.ui.normalized_infos_pushButton.setIcon(QIcon(infos_file))
 
-        column_sizes = [30, 30, 30, 80]
+        column_sizes = [30, 30, 30, 60]
         o_table = TableHandler(table_ui=self.parent.ui.pre_defined_tableWidget)
         o_table.set_column_sizes(column_sizes=column_sizes)
         o_table = TableHandler(table_ui=self.parent.ui.method2_tableWidget)
@@ -151,9 +152,19 @@ class Initialization:
         self.parent.ui.lattice_parameter.setText(_lattice)
         o_gui.set_crystal_structure(_crystal_structure)
 
-        o_table = TableHandler(table_ui=self.parent.ui.pre_defined_tableWidget)
         column_names = ['h', 'k', 'l', f'\u03BB\u2090']
+        o_table = TableHandler(table_ui=self.parent.ui.pre_defined_tableWidget)
         o_table.set_column_names(column_names=column_names)
+        o_table = TableHandler(table_ui=self.parent.ui.method1_tableWidget)
+        o_table.set_column_names(column_names=column_names)
+
+        self.parent.ui.method1_tableWidget.setEnabled(True)
+
+        imgpix = QPixmap(error_icon_file)
+        self.parent.ui.user_defined_name_error.setPixmap(imgpix)
+        self.parent.ui.method1_lattice_error.setPixmap(imgpix)
+        self.parent.ui.user_defined_method1_table_error.setPixmap(imgpix)
+        self.parent.ui.user_defined_method2_table_error.setPixmap(imgpix)
 
     def labels(self):
         # micros
