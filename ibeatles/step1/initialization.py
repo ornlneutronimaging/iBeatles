@@ -93,6 +93,8 @@ class Initialization:
         o_table.set_column_sizes(column_sizes=column_sizes)
         o_table = TableHandler(table_ui=self.parent.ui.method2_tableWidget)
         o_table.set_column_sizes(column_sizes=column_sizes)
+        o_table = TableHandler(table_ui=self.parent.ui.method1_tableWidget)
+        o_table.set_column_sizes(column_sizes=column_sizes)
 
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
@@ -149,6 +151,10 @@ class Initialization:
         self.parent.ui.lattice_parameter.setText(_lattice)
         o_gui.set_crystal_structure(_crystal_structure)
 
+        o_table = TableHandler(table_ui=self.parent.ui.pre_defined_tableWidget)
+        column_names = ['h', 'k', 'l', f'\u03BB\u2090']
+        o_table.set_column_names(column_names=column_names)
+
     def labels(self):
         # micros
         self.parent.ui.micro_s.setText(u"\u00B5s")
@@ -158,6 +164,8 @@ class Initialization:
         self.parent.ui.delta_lambda_label.setText(u"\u0394\u03BB:")
         # Angstroms
         self.parent.ui.angstroms_label.setText(u"\u212B")
+        self.parent.ui.pre_defined_lattice_units.setText(u"\u212B")
+        self.parent.ui.method1_lattice_units.setText(u"\u212B")
 
         # list hkl, lambda and d0 ... buttons
         self.parent.ui.list_hkl_pushButton.setText(u"(h, k, l), \u03bb and d\u2090 ...")

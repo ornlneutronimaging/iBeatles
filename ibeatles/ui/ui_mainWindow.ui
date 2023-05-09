@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1389</width>
-    <height>985</height>
+    <width>1654</width>
+    <height>1002</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -37,7 +37,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1363</width>
+         <width>1628</width>
          <height>950</height>
         </rect>
        </property>
@@ -997,13 +997,13 @@ p, li { white-space: pre-wrap; }
          <widget class="QGroupBox" name="groupBox_5">
           <property name="minimumSize">
            <size>
-            <width>200</width>
+            <width>250</width>
             <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>300</width>
+            <width>250</width>
             <height>16777215</height>
            </size>
           </property>
@@ -1045,7 +1045,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QTabWidget" name="tabWidget_2">
              <property name="currentIndex">
-              <number>1</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="tab_5">
               <attribute name="title">
@@ -1105,14 +1105,14 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item row="0" column="1">
-                  <widget class="QLabel" name="label_24">
+                  <widget class="QLabel" name="pre_defined_lattice_value">
                    <property name="text">
                     <string>N/A</string>
                    </property>
                   </widget>
                  </item>
                  <item row="0" column="2">
-                  <widget class="QLabel" name="angstroms_label_5">
+                  <widget class="QLabel" name="pre_defined_lattice_units">
                    <property name="text">
                     <string>A</string>
                    </property>
@@ -1126,7 +1126,7 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QLabel" name="label_26">
+                  <widget class="QLabel" name="pre_defined_crystal_value">
                    <property name="text">
                     <string>N/A</string>
                    </property>
@@ -1139,62 +1139,15 @@ p, li { white-space: pre-wrap; }
                  <property name="alternatingRowColors">
                   <bool>true</bool>
                  </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::NoSelection</enum>
+                 </property>
                  <attribute name="horizontalHeaderStretchLastSection">
                   <bool>true</bool>
                  </attribute>
                  <attribute name="verticalHeaderVisible">
                   <bool>false</bool>
                  </attribute>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
-                 <row>
-                  <property name="text">
-                   <string>New Row</string>
-                  </property>
-                 </row>
                  <column>
                   <property name="text">
                    <string>h</string>
@@ -1212,7 +1165,7 @@ p, li { white-space: pre-wrap; }
                  </column>
                  <column>
                   <property name="text">
-                   <string>d0</string>
+                   <string>lambda</string>
                   </property>
                  </column>
                 </widget>
@@ -1234,9 +1187,9 @@ p, li { white-space: pre-wrap; }
              </widget>
              <widget class="QWidget" name="tab_4">
               <attribute name="title">
-               <string>User defined</string>
+               <string>Custom</string>
               </attribute>
-              <layout class="QVBoxLayout" name="verticalLayout_15">
+              <layout class="QVBoxLayout" name="verticalLayout_20">
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_32">
                  <item>
@@ -1294,241 +1247,288 @@ p, li { white-space: pre-wrap; }
                 </layout>
                </item>
                <item>
-                <widget class="QRadioButton" name="method1_radioButton_3">
-                 <property name="text">
-                  <string>Method 1</string>
+                <widget class="QTabWidget" name="tabWidget_3">
+                 <property name="tabPosition">
+                  <enum>QTabWidget::North</enum>
                  </property>
-                 <property name="checked">
-                  <bool>true</bool>
+                 <property name="currentIndex">
+                  <number>0</number>
                  </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="method1_groupBox_3">
-                 <property name="title">
-                  <string/>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_28">
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_38">
-                    <item>
-                     <widget class="QLabel" name="method1_lattice_label_2">
-                      <property name="minimumSize">
-                       <size>
-                        <width>80</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>80</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="layoutDirection">
-                       <enum>Qt::LeftToRight</enum>
-                      </property>
-                      <property name="text">
-                       <string>Lattice:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="method1_lattice_value_2">
-                      <property name="minimumSize">
-                       <size>
-                        <width>80</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>80</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="method1_lattice_units_2">
-                      <property name="text">
-                       <string>A</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_16">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_39">
-                    <item>
-                     <widget class="QLabel" name="method1_crystal_label_2">
-                      <property name="minimumSize">
-                       <size>
-                        <width>80</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>80</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="layoutDirection">
-                       <enum>Qt::LeftToRight</enum>
-                      </property>
-                      <property name="text">
-                       <string>Crystal Str.:</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QComboBox" name="method1_crystal_value_2">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>80</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>80</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <item>
-                       <property name="text">
-                        <string>FCC</string>
+                 <widget class="QWidget" name="tab_6">
+                  <attribute name="title">
+                   <string>Method 1</string>
+                  </attribute>
+                  <layout class="QVBoxLayout" name="verticalLayout">
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_38">
+                     <item>
+                      <widget class="QLabel" name="method1_lattice_label_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>80</width>
+                         <height>0</height>
+                        </size>
                        </property>
-                      </item>
-                      <item>
-                       <property name="text">
-                        <string>BCC</string>
+                       <property name="maximumSize">
+                        <size>
+                         <width>80</width>
+                         <height>16777215</height>
+                        </size>
                        </property>
-                      </item>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_17">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
+                       <property name="layoutDirection">
+                        <enum>Qt::LeftToRight</enum>
+                       </property>
+                       <property name="text">
+                        <string>Lattice:</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="method1_lattice_value_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>80</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>80</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="method1_lattice_units">
+                       <property name="text">
+                        <string>A</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_16">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_39">
+                     <item>
+                      <widget class="QLabel" name="method1_crystal_label_2">
+                       <property name="minimumSize">
+                        <size>
+                         <width>80</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>80</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="layoutDirection">
+                        <enum>Qt::LeftToRight</enum>
+                       </property>
+                       <property name="text">
+                        <string>Crystal Str.:</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="method1_crystal_value_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>80</width>
+                         <height>0</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>80</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>FCC</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>BCC</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="horizontalSpacer_17">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>40</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QTableWidget" name="method1_tableWidget">
+                     <property name="enabled">
+                      <bool>false</bool>
+                     </property>
+                     <property name="alternatingRowColors">
+                      <bool>true</bool>
+                     </property>
+                     <attribute name="horizontalHeaderStretchLastSection">
+                      <bool>true</bool>
+                     </attribute>
+                     <attribute name="verticalHeaderVisible">
+                      <bool>false</bool>
+                     </attribute>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
                       </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
                       </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QRadioButton" name="method2_radioButton_3">
-                 <property name="text">
-                  <string>Method 2</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="method2_groupBox_3">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <property name="title">
-                  <string/>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_29">
-                  <item>
-                   <widget class="QTableWidget" name="method2_tableWidget">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="alternatingRowColors">
-                     <bool>true</bool>
-                    </property>
-                    <attribute name="horizontalHeaderStretchLastSection">
-                     <bool>true</bool>
-                    </attribute>
-                    <attribute name="verticalHeaderVisible">
-                     <bool>false</bool>
-                    </attribute>
-                    <row>
-                     <property name="text">
-                      <string>New Row</string>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <column>
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>k</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>l</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>d0</string>
+                      </property>
+                     </column>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                 <widget class="QWidget" name="tab_7">
+                  <attribute name="title">
+                   <string>Method 2</string>
+                  </attribute>
+                  <layout class="QVBoxLayout" name="verticalLayout_15">
+                   <item>
+                    <widget class="QTableWidget" name="method2_tableWidget">
+                     <property name="enabled">
+                      <bool>false</bool>
                      </property>
-                    </row>
-                    <row>
-                     <property name="text">
-                      <string>New Row</string>
+                     <property name="alternatingRowColors">
+                      <bool>true</bool>
                      </property>
-                    </row>
-                    <row>
-                     <property name="text">
-                      <string>New Row</string>
-                     </property>
-                    </row>
-                    <row>
-                     <property name="text">
-                      <string>New Row</string>
-                     </property>
-                    </row>
-                    <row>
-                     <property name="text">
-                      <string>New Row</string>
-                     </property>
-                    </row>
-                    <column>
-                     <property name="text">
-                      <string>h</string>
-                     </property>
-                    </column>
-                    <column>
-                     <property name="text">
-                      <string>k</string>
-                     </property>
-                    </column>
-                    <column>
-                     <property name="text">
-                      <string>l</string>
-                     </property>
-                    </column>
-                    <column>
-                     <property name="text">
-                      <string>d0</string>
-                     </property>
-                    </column>
-                   </widget>
-                  </item>
-                 </layout>
+                     <attribute name="horizontalHeaderStretchLastSection">
+                      <bool>true</bool>
+                     </attribute>
+                     <attribute name="verticalHeaderVisible">
+                      <bool>false</bool>
+                     </attribute>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <row>
+                      <property name="text">
+                       <string>New Row</string>
+                      </property>
+                     </row>
+                     <column>
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>k</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>l</string>
+                      </property>
+                     </column>
+                     <column>
+                      <property name="text">
+                       <string>d0</string>
+                      </property>
+                     </column>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
                 </widget>
                </item>
                <item>
@@ -1547,19 +1547,6 @@ p, li { white-space: pre-wrap; }
               </layout>
              </widget>
             </widget>
-           </item>
-           <item>
-            <spacer name="verticalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -2000,7 +1987,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1389</width>
+     <width>1654</width>
      <height>24</height>
     </rect>
    </property>
@@ -2180,8 +2167,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>1049</y>
+     <x>255</x>
+     <y>903</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -2228,8 +2215,8 @@ p, li { white-space: pre-wrap; }
    <slot>open_beam_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>950</x>
-     <y>673</y>
+     <x>788</x>
+     <y>804</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2260,8 +2247,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>959</x>
-     <y>1053</y>
+     <x>797</x>
+     <y>907</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -2308,7 +2295,7 @@ p, li { white-space: pre-wrap; }
    <slot>crystal_structure_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1823</x>
+     <x>1549</x>
      <y>417</y>
     </hint>
     <hint type="destinationlabel">
@@ -2324,7 +2311,7 @@ p, li { white-space: pre-wrap; }
    <slot>lattice_text_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1625</x>
+     <x>1351</x>
      <y>414</y>
     </hint>
     <hint type="destinationlabel">
@@ -2340,7 +2327,7 @@ p, li { white-space: pre-wrap; }
    <slot>material_display_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1731</x>
+     <x>1457</x>
      <y>268</y>
     </hint>
     <hint type="destinationlabel">
@@ -2356,8 +2343,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>222</x>
-     <y>1049</y>
+     <x>253</x>
+     <y>903</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2372,8 +2359,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>779</x>
-     <y>1053</y>
+     <x>648</x>
+     <y>907</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2388,8 +2375,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>711</x>
-     <y>821</y>
+     <x>537</x>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2404,8 +2391,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>679</x>
-     <y>821</y>
+     <x>505</x>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2420,8 +2407,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>924</x>
-     <y>1078</y>
+     <x>750</x>
+     <y>932</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2452,8 +2439,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_tableWidget_cell_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1019</x>
-     <y>480</y>
+     <x>845</x>
+     <y>578</y>
     </hint>
     <hint type="destinationlabel">
      <x>1526</x>
@@ -2468,7 +2455,7 @@ p, li { white-space: pre-wrap; }
    <slot>beam_rate_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1638</x>
+     <x>1433</x>
      <y>145</y>
     </hint>
     <hint type="destinationlabel">
@@ -2484,7 +2471,7 @@ p, li { white-space: pre-wrap; }
    <slot>distance_source_detector_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1641</x>
+     <x>1547</x>
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
@@ -2500,7 +2487,7 @@ p, li { white-space: pre-wrap; }
    <slot>detector_offset_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1641</x>
+     <x>1547</x>
      <y>172</y>
     </hint>
     <hint type="destinationlabel">
@@ -2516,7 +2503,7 @@ p, li { white-space: pre-wrap; }
    <slot>add_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1872</x>
+     <x>1598</x>
      <y>350</y>
     </hint>
     <hint type="destinationlabel">
@@ -2532,7 +2519,7 @@ p, li { white-space: pre-wrap; }
    <slot>reset_lattice_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1672</x>
+     <x>1398</x>
      <y>415</y>
     </hint>
     <hint type="destinationlabel">
@@ -2548,7 +2535,7 @@ p, li { white-space: pre-wrap; }
    <slot>reset_crystal_structure_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1848</x>
+     <x>1574</x>
      <y>415</y>
     </hint>
     <hint type="destinationlabel">
@@ -2724,8 +2711,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_moving_average_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1026</x>
-     <y>1078</y>
+     <x>852</x>
+     <y>932</y>
     </hint>
     <hint type="destinationlabel">
      <x>1538</x>
@@ -2756,7 +2743,7 @@ p, li { white-space: pre-wrap; }
    <slot>material_list_hkl_lambda_d0_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1878</x>
+     <x>1604</x>
      <y>472</y>
     </hint>
     <hint type="destinationlabel">
@@ -2772,7 +2759,7 @@ p, li { white-space: pre-wrap; }
    <slot>list_of_element_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1872</x>
+     <x>1598</x>
      <y>308</y>
     </hint>
     <hint type="destinationlabel">
@@ -2788,12 +2775,12 @@ p, li { white-space: pre-wrap; }
    <slot>load_data_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>974</x>
-     <y>354</y>
+     <x>812</x>
+     <y>416</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1927</x>
-     <y>1166</y>
+     <x>1653</x>
+     <y>1001</y>
     </hint>
    </hints>
   </connection>
@@ -2804,11 +2791,11 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>951</x>
+     <x>789</x>
      <y>152</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1813</x>
+     <x>1653</x>
      <y>242</y>
     </hint>
    </hints>
@@ -2820,11 +2807,11 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>950</x>
+     <x>788</x>
      <y>153</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1822</x>
+     <x>1653</x>
      <y>284</y>
     </hint>
    </hints>
@@ -2836,11 +2823,11 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>794</x>
+     <x>663</x>
      <y>115</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1811</x>
+     <x>1653</x>
      <y>313</y>
     </hint>
    </hints>
@@ -2858,6 +2845,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>761</x>
      <y>492</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pre_defined_list_of_elements</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>pre_defined_element_dropBox_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1069</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1250</x>
+     <y>24</y>
     </hint>
    </hints>
   </connection>

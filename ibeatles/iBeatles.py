@@ -13,6 +13,7 @@ from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
 from ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
 from ibeatles.all_steps.list_hkl_lambda_d0 import ListHKLLambdaD0Handler
 from ibeatles.all_steps.infos_launcher import InfosLauncher
+from ibeatles.all_steps.material import Material
 
 from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
 from ibeatles.step1.data_handler import DataHandler
@@ -656,28 +657,21 @@ class MainWindow(QMainWindow):
     def detector_offset_changed(self):
         self.instruments_widgets()
 
-    # material
-    # def pre_defined_element_clicked(self):
-    #     is_pre_defined_selected = self.ui.pre_defined_radioButton.isChecked()
-    #     self.ui.pre_defined_groupBox.setEnabled(is_pre_defined_selected)
-    #     self.ui.user_defined_groupBox.setEnabled(not is_pre_defined_selected)
-    #     self.ui.user_defined_radioButton.setChecked(not is_pre_defined_selected)
-    #
-    # def user_defined_element_clicked(self):
-    #     is_user_defined_selected = self.ui.user_defined_radioButton.isChecked()
-    #     self.ui.pre_defined_groupBox.setEnabled(not is_user_defined_selected)
-    #     self.ui.user_defined_groupBox.setEnabled(is_user_defined_selected)
-    #     self.ui.pre_defined_radioButton.setChecked(not is_user_defined_selected)
+    # material - new UI
 
-    def user_defined_method_clicked(self):
-        is_method1_selected = self.ui.method1_radioButton_2.isChecked()
-        self.ui.method1_groupBox_2.setEnabled(is_method1_selected)
-        self.ui.method2_groupBox_2.setEnabled(not is_method1_selected)
-
-    def pre_defined_element_dropBox_changed(self):
-        pass
+    def pre_defined_element_dropBox_changed(self, index):
+        o_material = Material(parent=self)
+        o_material.update_pre_defined_widgets()
 
 
+
+
+
+
+
+
+
+    # material - old UI
 
     def add_element_clicked(self):
         _add_ele = AddElement(parent=self)
