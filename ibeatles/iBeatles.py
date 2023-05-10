@@ -351,10 +351,8 @@ class MainWindow(QMainWindow):
         self.update_delta_lambda()
         self.pre_defined_element_dropBox_changed(0)
 
-        o_gui.connect_widgets()
-
         # init bragg edge element
-        BraggEdgeElementHandler(parent=self)
+        # BraggEdgeElementHandler(parent=self)
 
         o_gui_2 = Step2Initialization(parent=self)
         o_gui_2.all()
@@ -713,82 +711,76 @@ class MainWindow(QMainWindow):
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
 
-
-
-
-
-
-
     # material - old UI
 
-    def add_element_clicked(self):
-        _add_ele = AddElement(parent=self)
-        _add_ele.run()
-
-    def list_of_element_index_changed(self, index, data_type=None):
-        if type(index) == int:
-            return
-
-        if data_type is None:
-            o_gui = GuiHandler(parent=self)
-            data_type = o_gui.get_active_tab()
-
-        self.ui.list_of_elements.blockSignals(True)
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.update_lattice_and_crystal_when_index_selected()
-        BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self, data_type=data_type)
-        o_plot.display_general_bragg_edge(data_type=data_type)
-        # self.roi_image_view_changed()
-        self.update_hkl_lambda_d0()
-        self.check_status_of_material_widgets()
-        self.ui.list_of_elements.blockSignals(False)
-
-    def crystal_structure_index_changed(self, index):
-        BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self)
-        o_plot.display_general_bragg_edge()
-        self.update_hkl_lambda_d0()
-
-    def lattice_text_changed(self):
-        # _contain = str(self.ui.lattice_parameter.text())
-        BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self)
-        o_plot.display_general_bragg_edge()
-        self.update_hkl_lambda_d0()
-
-    def reset_lattice_button_clicked(self):
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.update_lattice_and_crystal_when_index_selected(fill_crystal_structure_flag=False)
-        BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self, data_type='sample')
-        o_plot.display_general_bragg_edge()
-        self.update_hkl_lambda_d0()
-
-    def reset_crystal_structure_button_clicked(self):
-        o_gui = Step1GuiHandler(parent=self)
-        o_gui.update_lattice_and_crystal_when_index_selected(fill_lattice_flag=False)
-        BraggEdgeElementHandler(parent=self)
-        o_plot = Step1Plot(parent=self, data_type='sample')
-        o_plot.display_general_bragg_edge()
-        self.update_hkl_lambda_d0()
-
-    def check_files_error(self):
-        CheckError(parent=self)
-
-    def material_list_hkl_lambda_d0_clicked(self):
-        ListHKLLambdaD0Handler(parent=self)
-
-    def list_element_changed(self, new_index):
-        self.update_hkl_lambda_d0()
-
-    def check_status_of_material_widgets(self):
-        o_event = Step1EventHandler(parent=self)
-        o_event.check_status_of_material_widgets()
-
-    def update_hkl_lambda_d0(self):
-        if self.list_hkl_lambda_d0_ui:
-            self.list_hkl_lambda_d0_ui.refresh_populate_table()
+    # def add_element_clicked(self):
+    #     _add_ele = AddElement(parent=self)
+    #     _add_ele.run()
+    #
+    # def list_of_element_index_changed(self, index, data_type=None):
+    #     if type(index) == int:
+    #         return
+    #
+    #     if data_type is None:
+    #         o_gui = GuiHandler(parent=self)
+    #         data_type = o_gui.get_active_tab()
+    #
+    #     self.ui.list_of_elements.blockSignals(True)
+    #     o_gui = Step1GuiHandler(parent=self)
+    #     o_gui.update_lattice_and_crystal_when_index_selected()
+    #     BraggEdgeElementHandler(parent=self)
+    #     o_plot = Step1Plot(parent=self, data_type=data_type)
+    #     o_plot.display_general_bragg_edge(data_type=data_type)
+    #     # self.roi_image_view_changed()
+    #     self.update_hkl_lambda_d0()
+    #     self.check_status_of_material_widgets()
+    #     self.ui.list_of_elements.blockSignals(False)
+    #
+    # def crystal_structure_index_changed(self, index):
+    #     BraggEdgeElementHandler(parent=self)
+    #     o_plot = Step1Plot(parent=self)
+    #     o_plot.display_general_bragg_edge()
+    #     self.update_hkl_lambda_d0()
+    #
+    # def lattice_text_changed(self):
+    #     # _contain = str(self.ui.lattice_parameter.text())
+    #     BraggEdgeElementHandler(parent=self)
+    #     o_plot = Step1Plot(parent=self)
+    #     o_plot.display_general_bragg_edge()
+    #     self.update_hkl_lambda_d0()
+    #
+    # def reset_lattice_button_clicked(self):
+    #     o_gui = Step1GuiHandler(parent=self)
+    #     o_gui.update_lattice_and_crystal_when_index_selected(fill_crystal_structure_flag=False)
+    #     BraggEdgeElementHandler(parent=self)
+    #     o_plot = Step1Plot(parent=self, data_type='sample')
+    #     o_plot.display_general_bragg_edge()
+    #     self.update_hkl_lambda_d0()
+    #
+    # def reset_crystal_structure_button_clicked(self):
+    #     o_gui = Step1GuiHandler(parent=self)
+    #     o_gui.update_lattice_and_crystal_when_index_selected(fill_lattice_flag=False)
+    #     BraggEdgeElementHandler(parent=self)
+    #     o_plot = Step1Plot(parent=self, data_type='sample')
+    #     o_plot.display_general_bragg_edge()
+    #     self.update_hkl_lambda_d0()
+    #
+    # def check_files_error(self):
+    #     CheckError(parent=self)
+    #
+    # def material_list_hkl_lambda_d0_clicked(self):
+    #     ListHKLLambdaD0Handler(parent=self)
+    #
+    # def list_element_changed(self, new_index):
+    #     self.update_hkl_lambda_d0()
+    #
+    # def check_status_of_material_widgets(self):
+    #     o_event = Step1EventHandler(parent=self)
+    #     o_event.check_status_of_material_widgets()
+    #
+    # def update_hkl_lambda_d0(self):
+    #     if self.list_hkl_lambda_d0_ui:
+    #         self.list_hkl_lambda_d0_ui.refresh_populate_table()
 
     # TAB 1: Sample and OB Tab =========================================================================================
 

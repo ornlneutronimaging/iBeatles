@@ -131,9 +131,6 @@ class Initialization:
     def material_widgets(self):
         retrieve_material = RetrieveMaterialMetadata(material='all')
         list_returned = retrieve_material.full_list_material()
-        self.parent.ui.list_of_elements.blockSignals(True)
-        self.parent.ui.list_of_elements.addItems(list_returned)
-        self.parent.ui.list_of_elements.blockSignals(False)
 
         self.parent.ui.pre_defined_list_of_elements.blockSignals(True)
         self.parent.ui.user_defined_list_of_elements.blockSignals(True)
@@ -144,13 +141,13 @@ class Initialization:
         self.parent.ui.pre_defined_list_of_elements.blockSignals(False)
         self.parent.ui.user_defined_list_of_elements.blockSignals(False)
 
-        o_gui = GuiHandler(parent=self.parent,
-                           data_type=DataType.sample)
-        _handler = BraggEdge(material=o_gui.get_element_selected())
-        _crystal_structure = _handler.metadata['crystal_structure'][o_gui.get_element_selected()]
-        _lattice = str(_handler.metadata['lattice'][o_gui.get_element_selected()])
-        self.parent.ui.lattice_parameter.setText(_lattice)
-        o_gui.set_crystal_structure(_crystal_structure)
+        # o_gui = GuiHandler(parent=self.parent,
+        #                    data_type=DataType.sample)
+        # _handler = BraggEdge(material=o_gui.get_element_selected())
+        # _crystal_structure = _handler.metadata['crystal_structure'][o_gui.get_element_selected()]
+        # _lattice = str(_handler.metadata['lattice'][o_gui.get_element_selected()])
+        # self.parent.ui.lattice_parameter.setText(_lattice)
+        # o_gui.set_crystal_structure(_crystal_structure)
 
         column_names = ['h', 'k', 'l', f'\u03BB\u2090']
         o_table = TableHandler(table_ui=self.parent.ui.pre_defined_tableWidget)
@@ -174,12 +171,8 @@ class Initialization:
         # delta lambda
         self.parent.ui.delta_lambda_label.setText(u"\u0394\u03BB:")
         # Angstroms
-        self.parent.ui.angstroms_label.setText(u"\u212B")
         self.parent.ui.pre_defined_lattice_units.setText(u"\u212B")
         self.parent.ui.method1_lattice_units.setText(u"\u212B")
-
-        # list hkl, lambda and d0 ... buttons
-        self.parent.ui.list_hkl_pushButton.setText(u"(h, k, l), \u03bb and d\u2090 ...")
 
     def general_init_pyqtgrpah(self, roi_function,
                                base_widget,
@@ -398,12 +391,6 @@ class Initialization:
 
     def icons(self):
         # reset buttons
-        icon = QIcon(refresh_image)
-        self.parent.ui.reset_lattice_button.setIcon(icon)
-        self.parent.ui.reset_crystal_structure_button.setIcon(icon)
         preview_icon = QIcon(preview_file)
         self.parent.ui.preview_time_spectra_button.setIcon(preview_icon)
         self.parent.ui.preview_time_spectra_normalized_button.setIcon(preview_icon)
-
-    def connect_widgets(self):
-        self.parent.ui.list_of_elements.currentIndexChanged.connect(self.parent.list_of_element_index_changed)

@@ -178,6 +178,17 @@ class MaterialUserDefinedMethod1(Material):
     def fill_fields_with_selected_element_clicked(self):
         element_selected = self.parent.ui.user_defined_list_of_elements.currentText()
         if element_selected == 'None':
+            # clear table
+            o_table = TableHandler(table_ui=self.parent.ui.method1_tableWidget)
+            o_table.remove_all_rows()
+            self.parent.ui.method1_lattice_value_2.blockSignals(True)
+            self.parent.ui.method1_crystal_value_2.blockSignals(True)
+
+            self.parent.ui.method1_lattice_value_2.setText("")
+            self.parent.ui.method1_crystal_value_2.setCurrentIndex(0)
+
+            self.parent.ui.method1_lattice_value_2.blockSignals(False)
+            self.parent.ui.method1_crystal_value_2.blockSignals(False)
             return
 
         _handler = BraggEdge(material=element_selected)
