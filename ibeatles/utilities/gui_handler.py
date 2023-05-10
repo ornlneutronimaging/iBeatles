@@ -1,6 +1,9 @@
 from qtpy.QtWidgets import QApplication
+import numpy as np
 
 from ibeatles import DataType, XAxisMode
+from ibeatles.session import MaterialMode
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class GuiHandler:
@@ -21,6 +24,69 @@ class GuiHandler:
                 return DataType.sample
             if load_data_tab_index == 1:
                 return DataType.ob
+
+    def get_material_active_tab(self):
+        """
+        return either MaterialMode.pre_defined, MaterialMode.custom_method1 or MaterialMode.custom_method2
+        """
+        top_tab_index = self.parent.ui.material_top_tabWidget.currentIndex()
+        if top_tab_index == 0:  # pre-defined
+            return MaterialMode.pre_defined
+
+        custom_tab_index = self.parent.ui.material_custom_tabWidget.currentIndex()
+        if custom_tab_index == 0:  # method 1
+            return MaterialMode.custom_method1
+
+        return MaterialMode.custom_method2
+
+    def set_material_active_tab(self, active_tab_mode=MaterialMode.pre_defined):
+
+        if active_tab_mode == MaterialMode.pre_defined:
+            self.parent.ui.material_top_tabWidget.setCurrentIndex(0)
+        else:
+            self.parent.ui.material_top_tabWidget.setCurrentIndex(1)
+            if active_tab_mode == MaterialMode.custom_method1:
+                self.parent.ui.material_custom_tabWidget.setCurrentIndex(0)
+            else:
+                self.parent.ui.material_custom_tabWidget.setCurrentIndex(1)
+
+    @staticmethod
+    def collect_table_data(table_ui=None):
+        """
+        return as a dictionary the content of a tableWidget where the top key is the row number, and
+        the under-keys are the names of the columns
+        """
+        if table_ui is None:
+            return None
+
+        o_table = TableHandler(table_ui=table_ui)
+        column_names = o_table.get_column_names()
+        nbr_column = len(column_names)
+        nbr_row = o_table.row_count()
+
+        table = {}
+        for _row in np.arange(nbr_row):
+            _row_entry = {}
+            for _col in np.arange(nbr_column):
+                _row_entry[str(column_names[_col])] = o_table.get_item_str_from_cell(row=_row, column=_col)
+            table[int(_row)] = _row_entry
+
+        return table, column_names
+
+    @staticmethod
+    def fill_table_data(table_ui=None, table_dict=None, column_names=None):
+        o_table = TableHandler(table_ui=table_ui)
+        o_table.remove_all_rows()
+        for _row in table_dict.keys():
+            o_table.insert_empty_row(row=int(_row))
+            for _col_key in table_dict[_row].keys():
+                _col = column_names.index(_col_key)
+                _val = table_dict[_row][_col_key]
+                if _val is None:
+                    _val = ""
+                o_table.insert_item(row=int(_row),
+                                    column=int(_col),
+                                    value=_val)
 
     def enable_xaxis_button(self, tof_flag=True):
         list_button_ui = self.parent.xaxis_button_ui

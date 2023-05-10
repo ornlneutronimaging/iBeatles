@@ -98,28 +98,48 @@ class SaveLoadDataTab(SaveTab):
 
     def material(self):
         """record the material settings (element selected, full list, crystal structure, lattice"""
-        selected_index = self.parent.ui.list_of_elements.currentIndex()
-        selected_element = self.parent.ui.list_of_elements.currentText()
-        lattice = self.parent.ui.lattice_parameter.text()
-        crystal_structure_index = self.parent.ui.crystal_structure.currentIndex()
-        crystal_structure_name = self.parent.ui.crystal_structure.currentText()
+
+        # pre-defined
+        pre_defined_material_index = self.parent.ui.pre_defined_list_of_elements.currentIndex()
+        o_gui = GuiHandler(parent=self.parent)
+        material_mode = o_gui.get_material_active_tab()
+
+        # custom
+        custom_material_name = self.parent.ui.user_defined_element_name.text()
+
+        ## method1
+        index_element = self.parent.ui.user_defined_list_of_elements.currentIndex()
+        lattice_value = self.parent.ui.method1_lattice_value_2.text()
+        crystal_structure_index = self.parent.ui.method1_crystal_value_2.currentIndex()
+        method1_table, column1_names = GuiHandler.collect_table_data(table_ui=self.parent.ui.method1_tableWidget)
+
+        ## method 2
+        method2_table, column2_names = GuiHandler.collect_table_data(table_ui=self.parent.method2_tableWidget)
+
+        self.session_dict[SessionKeys.material] = {SessionSubKeys.material_mode: material_mode,
+                                                   SessionSubKeys.pre_defined: {
+                                                      SessionSubKeys.pre_defined_selected_element_index:
+                                                          pre_defined_material_index},
+                                                   SessionSubKeys.custom_material_name: custom_material_name,
+                                                   SessionSubKeys.custom_method1: {
+                                                       SessionSubKeys.user_defined_fill_fields_with_element_index:
+                                                       index_element,
+                                                       SessionSubKeys.lattice: lattice_value,
+                                                       SessionSubKeys.crystal_structure_index: crystal_structure_index,
+                                                       SessionSubKeys.material_hkl_table: method1_table,
+                                                       SessionSubKeys.column_names: column1_names,
+                                                                                   },
+                                                   SessionSubKeys.custom_method2: {
+                                                       SessionSubKeys.material_hkl_table: method2_table,
+                                                       SessionSubKeys.column_names: column2_names,
+                                                    }
+                                                   }
 
         logging.info("Recording Material")
-        logging.info(f" selected element:{selected_element} at index:{selected_index}")
-        logging.info(f" lattice: {lattice}")
-        logging.info(f" crystal structure:{crystal_structure_name} at index: {crystal_structure_index}")
-
-        self.session_dict[SessionKeys.material][SessionSubKeys.selected_element] = {'name': selected_element,
-                                                                                    'index': selected_index}
-        self.session_dict[SessionKeys.material][SessionSubKeys.lattice] = lattice
-        self.session_dict[SessionKeys.material][SessionSubKeys.crystal_structure] = {'name': crystal_structure_name,
-                                                                                     'index': crystal_structure_index}
-
-        self.session_dict[SessionKeys.material][Material.user_defined_bragg_edge_list] = \
-            self.parent.user_defined_bragg_edge_list
-
-        full_list_of_element_names = [self.parent.ui.list_of_elements.itemText(i) for i
-                                      in range(self.parent.ui.list_of_elements.count())]
-        self.session_dict[SessionKeys.material][Material.full_list_of_element_names] = full_list_of_element_names
-
-        # self.session_dict[SessionKeys.material][Material.local_bragg_edge_list] = self.parent.local_bragg_edge_list
+        logging.info(f" pre-defined material index: {pre_defined_material_index}")
+        logging.info(f" custom material name: {custom_material_name}")
+        logging.info(f" index of element used to fill fields: {index_element}")
+        logging.info(f" custom method1 lattice: {lattice_value}")
+        logging.info(f" custom method1 crystal structure index: {crystal_structure_index}")
+        logging.info(f" custom method1 table: {method1_table}")
+        logging.info(f" custom method2 table: {method2_table}")

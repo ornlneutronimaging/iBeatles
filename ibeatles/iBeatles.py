@@ -349,6 +349,8 @@ class MainWindow(QMainWindow):
         o_gui = Initialization(parent=self)
         o_gui.all()
         self.update_delta_lambda()
+        self.pre_defined_element_dropBox_changed(0)
+
         o_gui.connect_widgets()
 
         # init bragg edge element

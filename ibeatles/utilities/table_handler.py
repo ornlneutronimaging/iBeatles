@@ -140,6 +140,13 @@ class TableHandler:
     def set_column_names(self, column_names=None):
         self.table_ui.setHorizontalHeaderLabels(column_names)
 
+    def get_column_names(self):
+        nbr_column = self.column_count()
+        names = []
+        for _column in np.arange(nbr_column):
+            names.append(self.table_ui.horizontalHeaderItem(_column).text())
+        return names
+
     def set_row_names(self, row_names=None):
         self.table_ui.setVerticalHeaderLabels(row_names)
 

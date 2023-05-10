@@ -37,16 +37,22 @@ class SessionSubKeys:
 
     # material
     pre_defined_selected_element = "selected element in the pre-defined mode"
-    material_mode = MaterialMode.pre_defined
+    pre_defined_selected_element_index = "index of pre-defined element"
+    material_mode = "material mode"
     pre_defined = "pre_defined"
     custom_method1 = "custom method 1"
     custom_method2 = "custom method 2"
+    custom_material_name = "name of the custom material"
 
     lattice = "lattice"
     crystal_structure = "crystal structure"
+    crystal_structure_index = "index of crystal structure (0 for BCC, 1 for FCC)"
     index = "index"
     name = "name"
     user_defined = "user_defined"
+    user_defined_fill_fields_with_element_index = "index of element used to fill the fields of method1"
+    material_hkl_table = "hkl, d0 or lambda0 table"
+    column_names = "names of the columns"
 
     # bin
     state = "state"

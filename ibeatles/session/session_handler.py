@@ -59,25 +59,18 @@ class SessionHandler:
                                              SessionSubKeys.detector_value: None,
                                              },
                     SessionKeys.material: {SessionSubKeys.material_mode: MaterialMode.pre_defined,
-                                           SessionSubKeys.pre_defined: {'index': 0},
-                                           SessionSubKeys.custom_method1: {},
-                                           SessionSubKeys.custom_method2: {},
+                                           SessionSubKeys.pre_defined:
+                                               {SessionSubKeys.pre_defined_selected_element_index: 0},
+                                           SessionSubKeys.custom_material_name: None,
+                                           SessionSubKeys.custom_method1: {
+                                               SessionSubKeys.lattice: None,
+                                               SessionSubKeys.crystal_structure_index: 0,
+                                               SessionSubKeys.material_hkl_table: None,
+                                               },
+                                           SessionSubKeys.custom_method2: {
+                                               SessionSubKeys.material_hkl_table: None,
+                                               },
                                            },
-#FIXME
-
-
-
-                        SessionSubKeys.selected_element: {SessionSubKeys.name: None,
-                                                                             SessionSubKeys.user_defined: False,
-                                                                             SessionSubKeys.index: 0},
-                                           SessionSubKeys.lattice: None,
-                                           Material.hkl_d0: None,
-                                           SessionSubKeys.crystal_structure: {SessionSubKeys.name: 'fcc',
-                                                                              SessionSubKeys.index: 0,
-                                                                              },
-                                           Material.user_defined_bragg_edge_list: None,
-                                           },
-
                     SessionKeys.reduction: {SessionSubKeys.activate: True,
                                             SessionSubKeys.dimension: '2d',
                                             SessionSubKeys.size: {'flag': 'default',

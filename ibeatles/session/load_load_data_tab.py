@@ -1,6 +1,7 @@
 import os
 
 from ibeatles import DataType, Material
+from ibeatles.all_steps.material import Material as AllStepsMaterial
 from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step2.plot import Step2Plot
@@ -117,40 +118,49 @@ class LoadLoadDataTab:
 
     def material(self):
 
-        session_dict = self.session_dict
+        material_session_dict = self.session_dict[SessionKeys.material]
 
-        selected_element_index = session_dict[SessionKeys.material][SessionSubKeys.selected_element][SessionSubKeys.index]
-        lattice = session_dict[SessionKeys.material][SessionSubKeys.lattice]
-        crystal_structure_index = session_dict[SessionKeys.material][SessionSubKeys.crystal_structure][SessionSubKeys.index]
-        count = self.parent.ui.list_of_elements.count()
-        user_defined_bragg_edge_list = session_dict[SessionKeys.material][Material.user_defined_bragg_edge_list]
-        self.parent.user_defined_bragg_edge_list = user_defined_bragg_edge_list
+        material_mode = material_session_dict[SessionSubKeys.material_mode]
+        o_gui = GuiHandler(parent=self.parent)
+        o_gui.set_material_active_tab(active_tab_mode=material_mode)
 
-        self.parent.ui.list_of_elements.blockSignals(True)
+        # pre-defined
+        pre_defined_material_index = material_session_dict[SessionSubKeys.pre_defined][SessionSubKeys.pre_defined_selected_element_index]
+        self.parent.ui.pre_defined_list_of_elements.setCurrentIndex(pre_defined_material_index)
 
-        if selected_element_index >= count:
-           selected_element_name = session_dict[SessionKeys.material][SessionSubKeys.selected_element][SessionSubKeys.name]
-           self.parent.ui.list_of_elements.addItem(selected_element_name)
+        # custom
 
-           # only 1 lattice user defined value can be saved between sessions
-           self.parent.ui.list_of_elements.setCurrentIndex(count)
+        custom_material_name = material_session_dict[SessionSubKeys.custom_material_name]
+        self.parent.ui.user_defined_element_name.setText(custom_material_name)
 
-        else:
-            self.parent.ui.list_of_elements.setCurrentIndex(selected_element_index)
+        # method 1
+        index_of_element = material_session_dict[SessionSubKeys.custom_method1][SessionSubKeys.user_defined_fill_fields_with_element_index]
+        self.parent.ui.user_defined_list_of_elements.blockSignals(True)
+        self.parent.ui.user_defined_list_of_elements.setCurrentIndex(index_of_element)
+        self.parent.ui.user_defined_list_of_elements.blockSignals(False)
 
-        self.parent.ui.lattice_parameter.setText(lattice)
-        self.parent.ui.crystal_structure.setCurrentIndex(crystal_structure_index)
+        lattice = material_session_dict[SessionSubKeys.custom_method1][SessionSubKeys.lattice]
+        if not (lattice == ""):
+            self.parent.ui.method1_lattice_value_2.blockSignals(True)
+            self.parent.ui.method1_lattice_value_2.setText(f"{float(lattice):.3f}")
+            self.parent.ui.method1_lattice_value_2.blockSignals(False)
 
-        self.parent.ui.list_of_elements.blockSignals(False)
+        crystal_structure_index = material_session_dict[SessionSubKeys.custom_method1][SessionSubKeys.crystal_structure_index]
+        self.parent.ui.method1_crystal_value_2.blockSignals(True)
+        self.parent.ui.method1_crystal_value_2.setCurrentIndex(crystal_structure_index)
+        self.parent.ui.method1_crystal_value_2.blockSignals(False)
 
-        o_gui = Step1GuiHandler(parent=self.parent)
-        o_gui.update_lattice_and_crystal_when_index_selected()
+        method1_table = material_session_dict[SessionSubKeys.custom_method1][SessionSubKeys.material_hkl_table]
+        method1_column_names = material_session_dict[SessionSubKeys.custom_method1][SessionSubKeys.column_names]
+        GuiHandler.fill_table_data(table_ui=self.parent.ui.method1_tableWidget,
+                                   table_dict=method1_table,
+                                   column_names=method1_column_names)
 
-        self.parent.check_status_of_material_widgets()
-        self.parent.list_of_element_index_changed(index=selected_element_index)
+        method2_table = material_session_dict[SessionSubKeys.custom_method2][SessionSubKeys.material_hkl_table]
+        method2_column_names = material_session_dict[SessionSubKeys.custom_method2][SessionSubKeys.column_names]
+        GuiHandler.fill_table_data(table_ui=self.parent.ui.method2_tableWidget,
+                                   table_dict=method2_table,
+                                   column_names=method2_column_names)
 
-        # fill the table with default selected element
-        self.parent.pre_defined_element_dropBox_changed(0)
-
-        # check state of widgets
-        self.parent.user_defined_element_name_changed("")
+        o_material = AllStepsMaterial(parent=self.parent)
+        o_material.check_status_of_all_widgets()

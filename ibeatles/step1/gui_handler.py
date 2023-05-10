@@ -251,3 +251,4 @@ class Step1GuiHandler(object):
         self.parent.ui.detector_offset.blockSignals(status)
         self.parent.ui.distance_source_detector.blockSignals(status)
         self.parent.ui.beam_rate.blockSignals(status)
+
