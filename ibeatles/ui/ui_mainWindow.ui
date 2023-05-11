@@ -1206,7 +1206,7 @@ p, li { white-space: pre-wrap; }
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_14">
                 <item>
-                 <widget class="QCheckBox" name="material_display_checkbox_4">
+                 <widget class="QCheckBox" name="material_display_checkbox">
                   <property name="text">
                    <string>Display Material Bragg Peaks</string>
                   </property>
@@ -2213,7 +2213,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>255</x>
-     <y>903</y>
+     <y>1002</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -2292,8 +2292,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>834</x>
-     <y>907</y>
+     <x>1297</x>
+     <y>1006</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -2341,7 +2341,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>253</x>
-     <y>903</y>
+     <y>1002</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2356,8 +2356,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>678</x>
-     <y>907</y>
+     <x>1052</x>
+     <y>1006</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2372,8 +2372,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>577</x>
-     <y>675</y>
+     <x>1072</x>
+     <y>774</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2388,8 +2388,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>545</x>
-     <y>675</y>
+     <x>1040</x>
+     <y>774</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2404,8 +2404,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>750</x>
-     <y>932</y>
+     <x>1245</x>
+     <y>1031</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2436,7 +2436,7 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_tableWidget_cell_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>845</x>
+     <x>1340</x>
      <y>578</y>
     </hint>
     <hint type="destinationlabel">
@@ -2452,7 +2452,7 @@ p, li { white-space: pre-wrap; }
    <slot>beam_rate_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1433</x>
+     <x>1652</x>
      <y>145</y>
     </hint>
     <hint type="destinationlabel">
@@ -2468,7 +2468,7 @@ p, li { white-space: pre-wrap; }
    <slot>distance_source_detector_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1547</x>
+     <x>1656</x>
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
@@ -2484,7 +2484,7 @@ p, li { white-space: pre-wrap; }
    <slot>detector_offset_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1547</x>
+     <x>1656</x>
      <y>172</y>
     </hint>
     <hint type="destinationlabel">
@@ -2660,8 +2660,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_moving_average_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>852</x>
-     <y>932</y>
+     <x>1347</x>
+     <y>1031</y>
     </hint>
     <hint type="destinationlabel">
      <x>1538</x>
@@ -2708,7 +2708,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
+     <x>1289</x>
      <y>152</y>
     </hint>
     <hint type="destinationlabel">
@@ -2724,7 +2724,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>825</x>
+     <x>1288</x>
      <y>153</y>
     </hint>
     <hint type="destinationlabel">
@@ -2740,7 +2740,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>693</x>
+     <x>1067</x>
      <y>115</y>
     </hint>
     <hint type="destinationlabel">
@@ -2772,8 +2772,8 @@ p, li { white-space: pre-wrap; }
    <slot>pre_defined_element_dropBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1069</x>
-     <y>191</y>
+     <x>1579</x>
+     <y>369</y>
     </hint>
     <hint type="destinationlabel">
      <x>1250</x>
@@ -2788,8 +2788,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method2_clear_table_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1157</x>
-     <y>760</y>
+     <x>1667</x>
+     <y>940</y>
     </hint>
     <hint type="destinationlabel">
      <x>1235</x>
@@ -2804,8 +2804,8 @@ p, li { white-space: pre-wrap; }
    <slot>fill_fields_with_selected_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1182</x>
-     <y>285</y>
+     <x>1692</x>
+     <y>463</y>
     </hint>
     <hint type="destinationlabel">
      <x>1217</x>
@@ -2820,8 +2820,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_element_name_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1133</x>
-     <y>185</y>
+     <x>1643</x>
+     <y>363</y>
     </hint>
     <hint type="destinationlabel">
      <x>1027</x>
@@ -2836,12 +2836,12 @@ p, li { white-space: pre-wrap; }
    <slot>material_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1055</x>
-     <y>143</y>
+     <x>1565</x>
+     <y>321</y>
     </hint>
     <hint type="destinationlabel">
      <x>1122</x>
-     <y>-12</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -2852,8 +2852,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1086</x>
-     <y>227</y>
+     <x>1596</x>
+     <y>405</y>
     </hint>
     <hint type="destinationlabel">
      <x>1167</x>
@@ -2868,8 +2868,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_lattice_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1070</x>
-     <y>325</y>
+     <x>1580</x>
+     <y>503</y>
     </hint>
     <hint type="destinationlabel">
      <x>1649</x>
@@ -2884,8 +2884,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_table_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1047</x>
-     <y>564</y>
+     <x>1557</x>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
      <x>1648</x>
@@ -2900,8 +2900,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method2_table_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1093</x>
-     <y>429</y>
+     <x>1603</x>
+     <y>607</y>
     </hint>
     <hint type="destinationlabel">
      <x>1649</x>
@@ -2916,12 +2916,28 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_crystal_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1112</x>
-     <y>363</y>
+     <x>1622</x>
+     <y>541</y>
     </hint>
     <hint type="destinationlabel">
      <x>1655</x>
      <y>681</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>material_display_checkbox</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>display_material_bragg_peaks_checkbox_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1486</x>
+     <y>255</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1747</x>
+     <y>418</y>
     </hint>
    </hints>
   </connection>
@@ -2998,5 +3014,6 @@ p, li { white-space: pre-wrap; }
   <slot>user_defined_method1_table_changed()</slot>
   <slot>user_defined_method2_table_changed()</slot>
   <slot>user_defined_method1_crystal_changed()</slot>
+  <slot>display_material_bragg_peaks_checkbox_clicked()</slot>
  </slots>
 </ui>

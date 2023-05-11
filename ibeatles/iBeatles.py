@@ -350,6 +350,8 @@ class MainWindow(QMainWindow):
         o_gui.all()
         self.update_delta_lambda()
         self.pre_defined_element_dropBox_changed(0)
+        o_material = Material(parent=self)
+        o_material.check_status_of_all_widgets()
 
         # init bragg edge element
         # BraggEdgeElementHandler(parent=self)
@@ -538,10 +540,10 @@ class MainWindow(QMainWindow):
 
             elif (tab_selected == 0) or (tab_selected == 2):
 
-                BraggEdgeElementHandler(parent=self)
+                # BraggEdgeElementHandler(parent=self)
                 o_plot = Step1Plot(parent=self)
                 o_plot.display_general_bragg_edge()
-                self.update_hkl_lambda_d0()
+                # self.update_hkl_lambda_d0()
 
                 material_instrument_group_visible = self.ui.action_Instrument_Material_Settings.isChecked()
 
@@ -661,14 +663,25 @@ class MainWindow(QMainWindow):
 
     # material - new UI
 
+    def display_material_bragg_peaks_checkbox_clicked(self):
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
+
     def material_tab_changed(self):
         o_material = Material(parent=self)
         o_material.tab_changed()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     ## pre-defined
     def pre_defined_element_dropBox_changed(self, index):
         o_material = MaterialPreDefined(parent=self)
         o_material.update_pre_defined_widgets()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     ## user-defined
 
@@ -683,22 +696,34 @@ class MainWindow(QMainWindow):
         o_material.fill_fields_with_selected_element_clicked()
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     def user_defined_method1_lattice_changed(self, text):
         o_material = MaterialUserDefinedMethod1(parent=self)
         o_material.lattice_crystal_changed()
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     def user_defined_method1_crystal_changed(self, text):
         o_material = MaterialUserDefinedMethod1(parent=self)
         o_material.lattice_crystal_changed()
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     def user_defined_method1_table_changed(self, col, row):
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     ### method 2
     def user_defined_method2_clear_table_clicked(self):
@@ -706,10 +731,16 @@ class MainWindow(QMainWindow):
         o_material.clear_user_defined_method2_table()
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     def user_defined_method2_table_changed(self, col, row):
         o_material = Material(parent=self)
         o_material.check_status_of_all_widgets()
+        BraggEdgeElementHandler(parent=self)
+        o_plot = Step1Plot(parent=self)
+        o_plot.display_general_bragg_edge()
 
     # material - old UI
 

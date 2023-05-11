@@ -2,82 +2,56 @@ from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles import Material, ScrollBarParameters, MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME
 from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.session import MaterialMode
 
 
 class BraggEdgeElementHandler:
+
     bragg_edges_array = []
 
     def __init__(self, parent=None):
         self.parent = parent
 
+        table_ui_dict = {MaterialMode.pre_defined: self.parent.ui.pre_defined_tableWidget,
+                         MaterialMode.custom_method1: self.parent.ui.method1_tableWidget,
+                         MaterialMode.custom_method2: self.parent.ui.method2_tableWidget}
+
         o_gui = GuiHandler(parent=self.parent)
 
-        element_name = str(o_gui.get_text_selected(ui=self.parent.ui.list_of_elements))
-        if element_name in self.parent.user_defined_bragg_edge_list.keys():
-            # user defined element
-            _entry = self.parent.user_defined_bragg_edge_list[element_name]
-            if _entry[Material.method_used] == Material.via_lattice_and_crystal_structure:
-                lattice_value = _entry[Material.lattice]
-                crystal_structure = _entry[Material.crystal_structure]
+        material_active_tab = o_gui.get_material_active_tab()
+        table_ui = table_ui_dict[material_active_tab]
 
-                _element_dictionary = {'name': element_name,
-                                       'lattice': lattice_value,
-                                       'crystal_structure': crystal_structure}
+        table_data, column_names = o_gui.collect_table_data(table_ui=table_ui)
+        list_hkl, list_lambda = BraggEdgeElementHandler.extract_hkl_lambda_from_table(table_data=table_data)
 
-                o_calculator = BraggEdgeElementCalculator(element_name=element_name,
-                                                          lattice_value=lattice_value,
-                                                          crystal_structure=crystal_structure)
-                o_calculator.run()
-
-                selected_element_bragg_edges_array = o_calculator.lambda_array
-                selected_element_hkl_array = o_calculator.hkl_array
-
-            else:
-
-                list_hkl = _entry[Material.hkl_d0]
-                selected_element_hkl_array = []
-                selected_element_bragg_edges_array = []
-                for _key in list_hkl.keys():
-                    if list_hkl[_key]['h'] is None:
-                        continue
-
-                    h = int(list_hkl[_key]['h'])
-                    k = int(list_hkl[_key]['k'])
-                    l = int(list_hkl[_key]['l'])
-                    d0 = float(list_hkl[_key]['d0'])
-                    selected_element_hkl_array.append([h, k, l])
-                    selected_element_bragg_edges_array.append(2*d0)
-
-        else:
-            # default element
-            lattice_value = float(o_gui.get_text(ui=self.parent.ui.lattice_parameter))
-            crystal_structure = str(o_gui.get_text_selected(ui=self.parent.ui.crystal_structure))
-
-            _element_dictionary = {'name': element_name,
-                                   'lattice': lattice_value,
-                                   'crystal_structure': crystal_structure}
-
-            o_calculator = BraggEdgeElementCalculator(element_name=element_name,
-                                                      lattice_value=lattice_value,
-                                                      crystal_structure=crystal_structure)
-            o_calculator.run()
-
-            selected_element_bragg_edges_array = o_calculator.lambda_array
-            selected_element_hkl_array = o_calculator.hkl_array
-
-        self.parent.selected_element_bragg_edges_array = selected_element_bragg_edges_array
-        self.parent.selected_element_hkl_array = selected_element_hkl_array
-        self.parent.selected_element_name = element_name
-
-        # modified the fitting window list of h,k,l if window is alive
-        if self.parent.fitting_ui:
-            hkl_list = selected_element_hkl_array
-            str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
-            self.parent.fitting_ui.ui.hkl_list_ui.clear()
-            self.parent.fitting_ui.ui.hkl_list_ui.addItems(str_hkl_list)
-            self.parent.fitting_ui.ui.material_groupBox.setTitle(element_name)
+        self.parent.selected_element_bragg_edges_array = list_lambda
+        self.parent.selected_element_hkl_array = list_hkl
+        self.parent.selected_element_name = "FIXME"
 
         self.reset_scroll_bar_in_bottom_right_plot()
+
+    @staticmethod
+    def extract_hkl_lambda_from_table(table_data=None):
+        """
+        using the table from the pre-defined, method1 and method2, will extract the rows into hkl and lambda list
+        """
+        list_hkl = []
+        list_lambda = []
+        for _index in table_data.keys():
+            _row_entry = table_data[_index]
+            _row_hkl = [_row_entry['h'],
+                        _row_entry['k'],
+                        _row_entry['l']]
+            list_hkl.append(_row_hkl)
+
+            if 'd0' in _row_entry.keys():
+                if _row_entry['d0'] is None:
+                    continue
+                list_lambda.append(float(_row_entry['d0']) * 2)
+            else:
+                list_lambda.append(_row_entry[f'\u03BB\u2090'])
+
+        return list_hkl, list_lambda
 
     def reset_scroll_bar_in_bottom_right_plot(self):
 

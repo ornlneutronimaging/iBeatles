@@ -6,6 +6,7 @@ from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.plot import Step1Plot
 from ibeatles.step2.initialization import Initialization as Step2Initialization
 from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
 
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
 
@@ -28,13 +29,14 @@ class EventHandler(TopEventHandler):
             self.parent.select_load_data_row(data_type=self.data_type, row=0)
             self.parent.retrieve_general_infos(data_type=self.data_type)
             self.parent.retrieve_general_data_infos(data_type=self.data_type)
+            BraggEdgeElementHandler(parent=self.parent)
             o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
             o_plot.initialize_default_roi()
             o_plot.display_bragg_edge(mouse_selection=False)
             o_gui = Step1GuiHandler(parent=self.parent, data_type=self.data_type)
             o_gui.check_time_spectra_widgets()
             o_gui.check_step1_widgets()
-            self.parent.check_files_error()
+            # self.parent.check_files_error()
             o_step2_gui = Step2Initialization(parent=self.parent)
             o_step2_gui.roi()
             self.update_default_path(folder=_folder)

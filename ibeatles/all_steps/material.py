@@ -203,9 +203,15 @@ class MaterialUserDefinedMethod1(Material):
         selected_element_bragg_edges_array = o_calculator.lambda_array
         selected_element_hkl_array = o_calculator.hkl_array
 
+        self.parent.ui.method1_lattice_value_2.blockSignals(True)
+        self.parent.ui.method1_crystal_value_2.blockSignals(True)
+
         self.parent.ui.method1_lattice_value_2.setText(f"{float(_lattice):.3f}")
         _row_to_select = self.parent.ui.method1_crystal_value_2.findText(_crystal_structure)
         self.parent.ui.method1_crystal_value_2.setCurrentIndex(_row_to_select)
+
+        self.parent.ui.method1_lattice_value_2.blockSignals(False)
+        self.parent.ui.method1_crystal_value_2.blockSignals(False)
 
         self.fill_table_method1(selected_element_hkl_array=selected_element_hkl_array,
                                 selected_element_bragg_edges_array=selected_element_bragg_edges_array)
@@ -237,6 +243,7 @@ class MaterialUserDefinedMethod1(Material):
         o_table = TableHandler(table_ui=self.parent.ui.method1_tableWidget)
         o_table.remove_all_rows()
 
+        self.parent.ui.method1_tableWidget.blockSignals(True)
         _row = 0
         for _hkl, _lambda in zip(selected_element_hkl_array, selected_element_bragg_edges_array):
 
@@ -259,10 +266,12 @@ class MaterialUserDefinedMethod1(Material):
 
             o_table.insert_item(row=_row,
                                 column=3,
-                                value=_lambda/2.,
+                                value=_lambda,
                                 format_str="{:.3f}")
 
             _row += 1
+
+        self.parent.ui.method1_tableWidget.blockSignals(False)
 
     def lattice_crystal_changed(self):
         """recalculate the hkl and lambda 0 of the table"""

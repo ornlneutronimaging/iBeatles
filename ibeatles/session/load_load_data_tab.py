@@ -44,7 +44,7 @@ class LoadLoadDataTab:
             self.parent.ui.list_sample.blockSignals(False)
             o_gui.check_time_spectra_widgets()
             o_gui.check_step1_widgets()
-            self.parent.check_files_error()
+            # self.parent.check_files_error()
             self.parent.retrieve_general_infos(data_type=data_type)
             self.parent.retrieve_general_data_infos(data_type=data_type)
             self.parent.infos_window_update(data_type=data_type)

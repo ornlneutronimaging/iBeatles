@@ -609,7 +609,9 @@ class Step1Plot(object):
 
     def display_selected_element_bragg_edges(self, plot_ui=plot_ui, lambda_range=None, ymax=0):
 
-        display_flag_ui = self.parent.ui.material_display_checkbox
+        display_flag = self.parent.ui.material_display_checkbox.isChecked()
+        if not display_flag:
+            return
 
         _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
         _selected_element_hkl_array = self.parent.selected_element_hkl_array
@@ -641,6 +643,11 @@ class Step1Plot(object):
 
         for _index, _x in enumerate(_selected_element_bragg_edges_array):
             # if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
+
+            if _x is None:
+                continue
+
+            _x = float(_x)
 
             if _index in list_to_display:
 
