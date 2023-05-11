@@ -11,10 +11,9 @@ from ibeatles.config_handler import ConfigHandler
 
 from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
 from ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
-from ibeatles.all_steps.list_hkl_lambda_d0 import ListHKLLambdaD0Handler
 from ibeatles.all_steps.infos_launcher import InfosLauncher
 from ibeatles.all_steps.material import (MaterialPreDefined, MaterialUserDefinedMethod1,
-                                         MaterialUserDefinedMethod2, MaterialUserDefined,
+                                         MaterialUserDefinedMethod2,
                                          Material)
 
 from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
@@ -22,7 +21,6 @@ from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step1.time_spectra_handler import TimeSpectraHandler
 from ibeatles.step1.plot import Step1Plot
-from ibeatles.step1.check_error import CheckError
 from ibeatles.step1.initialization import Initialization
 
 from ibeatles.utilities.get import Get
@@ -54,7 +52,6 @@ from ibeatles.utilities.roi_editor import RoiEditor
 from ibeatles.utilities.bragg_edge_selection_handler import BraggEdgeSelectionHandler
 from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
 from ibeatles.utilities.gui_handler import GuiHandler
-from ibeatles.add_element.add_element_editor import AddElement
 
 from ibeatles.utilities.array_utilities import find_nearest_index
 
@@ -742,77 +739,6 @@ class MainWindow(QMainWindow):
         o_plot = Step1Plot(parent=self)
         o_plot.display_general_bragg_edge()
 
-    # material - old UI
-
-    # def add_element_clicked(self):
-    #     _add_ele = AddElement(parent=self)
-    #     _add_ele.run()
-    #
-    # def list_of_element_index_changed(self, index, data_type=None):
-    #     if type(index) == int:
-    #         return
-    #
-    #     if data_type is None:
-    #         o_gui = GuiHandler(parent=self)
-    #         data_type = o_gui.get_active_tab()
-    #
-    #     self.ui.list_of_elements.blockSignals(True)
-    #     o_gui = Step1GuiHandler(parent=self)
-    #     o_gui.update_lattice_and_crystal_when_index_selected()
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self, data_type=data_type)
-    #     o_plot.display_general_bragg_edge(data_type=data_type)
-    #     # self.roi_image_view_changed()
-    #     self.update_hkl_lambda_d0()
-    #     self.check_status_of_material_widgets()
-    #     self.ui.list_of_elements.blockSignals(False)
-    #
-    # def crystal_structure_index_changed(self, index):
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self)
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
-    #
-    # def lattice_text_changed(self):
-    #     # _contain = str(self.ui.lattice_parameter.text())
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self)
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
-    #
-    # def reset_lattice_button_clicked(self):
-    #     o_gui = Step1GuiHandler(parent=self)
-    #     o_gui.update_lattice_and_crystal_when_index_selected(fill_crystal_structure_flag=False)
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self, data_type='sample')
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
-    #
-    # def reset_crystal_structure_button_clicked(self):
-    #     o_gui = Step1GuiHandler(parent=self)
-    #     o_gui.update_lattice_and_crystal_when_index_selected(fill_lattice_flag=False)
-    #     BraggEdgeElementHandler(parent=self)
-    #     o_plot = Step1Plot(parent=self, data_type='sample')
-    #     o_plot.display_general_bragg_edge()
-    #     self.update_hkl_lambda_d0()
-    #
-    # def check_files_error(self):
-    #     CheckError(parent=self)
-    #
-    # def material_list_hkl_lambda_d0_clicked(self):
-    #     ListHKLLambdaD0Handler(parent=self)
-    #
-    # def list_element_changed(self, new_index):
-    #     self.update_hkl_lambda_d0()
-    #
-    # def check_status_of_material_widgets(self):
-    #     o_event = Step1EventHandler(parent=self)
-    #     o_event.check_status_of_material_widgets()
-    #
-    # def update_hkl_lambda_d0(self):
-    #     if self.list_hkl_lambda_d0_ui:
-    #         self.list_hkl_lambda_d0_ui.refresh_populate_table()
-
     # TAB 1: Sample and OB Tab =========================================================================================
 
     def sample_import_button_clicked(self):
@@ -840,17 +766,6 @@ class MainWindow(QMainWindow):
     def open_beam_import_button_clicked(self):
         o_event = Step1EventHandler(parent=self, data_type='ob')
         o_event.import_button_clicked()
-
-        # self.loading_flag = True
-        # o_load = DataHandler(parent=self)
-        # o_load.retrieve_files(data_type='ob')
-        # if not o_load.user_canceled:
-        #     self.select_load_data_row(data_type='ob', row=0)
-        #     self.retrieve_general_infos(data_type='ob')
-        #     self.retrieve_selected_row_infos(data_type='ob')
-        #     o_plot = Step1Plot(parent=self, data_type='ob')
-        #     o_plot.display_bragg_edge()
-        #     self.check_files_error()
 
     def open_beam_list_selection_changed(self):
         if not self.loading_flag:
