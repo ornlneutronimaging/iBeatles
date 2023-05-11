@@ -280,7 +280,7 @@ class Initialization:
         scroll_label = QLabel("Range of material Bragg peaks displayed:")
         scroll_hori_layout.addWidget(scroll_label)
         hori_scroll_widget = QScrollBar(QtCore.Qt.Horizontal)
-        hori_scroll_widget.sliderMoved.connect(scroll_bar_function)
+        hori_scroll_widget.valueChanged.connect(scroll_bar_function)
         hori_scroll_widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         scroll_hori_layout.addWidget(hori_scroll_widget)
         scroll_hori_widget = QWidget()
