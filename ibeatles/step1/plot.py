@@ -425,7 +425,6 @@ class Step1Plot(object):
         """
         Display the bottom right plot showing the bragg edges and the position of the material bragg peaks
         """
-
         _data = self.data
 
         if _data == []:  # clear data if no data
@@ -620,14 +619,17 @@ class Step1Plot(object):
         # nbr_to_display_at_the_same_time = 4
 
         hkl_scrollbar_ui = self.parent.hkl_scrollbar_ui['widget'][self.data_type]
+        hkl_scrollbar_ui.blockSignals(True)
         max_value = self.parent.hkl_scrollbar_dict[ScrollBarParameters.maximum]
         hkl_scrollbar_ui.setMaximum(max_value)
         current_value = self.parent.hkl_scrollbar_dict[ScrollBarParameters.value]
         hkl_scrollbar_ui.setValue(current_value)
+        hkl_scrollbar_ui.blockSignals(False)
 
         list_to_display = np.arange(max_value - current_value, max_value - current_value +
                                     MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME)
 
+        # display only the vertical lines
         for _index, _x in enumerate(_selected_element_bragg_edges_array):
             # if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
 

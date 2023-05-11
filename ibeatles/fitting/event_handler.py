@@ -57,6 +57,7 @@ class EventHandler:
 
     def hkl_list_changed(self, hkl):
         bragg_edges_array = self.grand_parent.selected_element_bragg_edges_array
+        print(f"{bragg_edges_array =}")
         if bragg_edges_array:
             if str(hkl) == '':
                 value = "N/A"

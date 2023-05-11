@@ -39,30 +39,36 @@ class Initialization:
         self.tab()
 
     def splitter(self):
-        self.parent.ui.splitter.setSizes([500, 500])
 
+        # march dollase vertical splitter
         self.parent.ui.splitter_2.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/vertical_splitter_handle.png");
                                      }
                                      """)
 
+        # kropff
+        self.parent.ui.splitter.setSizes([500, 500])
+        self.parent.ui.splitter.setHandleWidth(15)
         self.parent.ui.splitter.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/vertical_splitter_handle.png");
                                      }
                                      """)
+
+        # self.parent.ui.area.setStyleSheet("""
+        #                              QSplitter::handle{
+        #                              image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+        #                              }
+        #                              """)
+
         self.parent.ui.splitter_3.setStyleSheet("""
                                      QSplitter::handle{
-                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png",);
                                      }
                                      """)
+        self.parent.ui.splitter_3.setHandleWidth(15)
 
-        self.parent.ui.area.setStyleSheet("""
-                                     QSplitter::handle{
-                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
-                                     }
-                                     """)
 
     def tab(self):
         self.parent.ui.tabWidget.setCurrentIndex(1)   # show by default Kropff

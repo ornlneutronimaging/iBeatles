@@ -129,7 +129,6 @@ class LoadLoadDataTab:
         self.parent.ui.pre_defined_list_of_elements.setCurrentIndex(pre_defined_material_index)
 
         # custom
-
         custom_material_name = material_session_dict[SessionSubKeys.custom_material_name]
         self.parent.ui.user_defined_element_name.setText(custom_material_name)
 
@@ -152,9 +151,11 @@ class LoadLoadDataTab:
 
         method1_table = material_session_dict[SessionSubKeys.custom_method1][SessionSubKeys.material_hkl_table]
         method1_column_names = material_session_dict[SessionSubKeys.custom_method1][SessionSubKeys.column_names]
+        self.parent.ui.method1_tableWidget.blockSignals(True)
         GuiHandler.fill_table_data(table_ui=self.parent.ui.method1_tableWidget,
                                    table_dict=method1_table,
                                    column_names=method1_column_names)
+        self.parent.ui.method1_tableWidget.blockSignals(False)
 
         method2_table = material_session_dict[SessionSubKeys.custom_method2][SessionSubKeys.material_hkl_table]
         method2_column_names = material_session_dict[SessionSubKeys.custom_method2][SessionSubKeys.column_names]

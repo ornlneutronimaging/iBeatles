@@ -77,6 +77,7 @@ class GuiHandler:
     def fill_table_data(table_ui=None, table_dict=None, column_names=None):
         o_table = TableHandler(table_ui=table_ui)
         o_table.remove_all_rows()
+        table_ui.blockSignals(True)
         for _row in table_dict.keys():
             o_table.insert_empty_row(row=int(_row))
             for _col_key in table_dict[_row].keys():
@@ -87,6 +88,7 @@ class GuiHandler:
                 o_table.insert_item(row=int(_row),
                                     column=int(_col),
                                     value=_val)
+        table_ui.blockSignals(False)
 
     def enable_xaxis_button(self, tof_flag=True):
         list_button_ui = self.parent.xaxis_button_ui
