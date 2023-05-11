@@ -628,19 +628,6 @@ class Step1Plot(object):
         list_to_display = np.arange(max_value - current_value, max_value - current_value +
                                     MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME)
 
-        # # no need to enabled the scrollbar if the total number of hkl is smaller than the minimum to display
-        # scollbar_max = nbr_hkl_in_list - 1 - nbr_to_display_at_the_same_time
-        # if scollbar_max < nbr_to_display_at_the_same_time:
-        #     hkl_scrollbar_ui.setEnabled(False)
-        # else:
-        #     hkl_scrollbar_ui.setEnabled(True)
-        #
-        # hkl_scrollbar_ui.setMinimum(0)
-        # hkl_scrollbar_ui.setMaximum(nbr_hkl_in_list-1-nbr_to_display_at_the_same_time)
-        # hkl_scrollbar_ui.setValue(nbr_hkl_in_list-1)
-        # current_value = hkl_scrollbar_ui.value()
-        # list_to_display = np.arange(current_value, current_value + nbr_to_display_at_the_same_time)
-
         for _index, _x in enumerate(_selected_element_bragg_edges_array):
             # if (_x >= lambda_range[0]) and (_x <= lambda_range[1]):
 
@@ -651,10 +638,6 @@ class Step1Plot(object):
 
             if _index in list_to_display:
 
-                # vertical line
-                _item = pg.InfiniteLine(_x, pen=pg.mkPen("c"))
-                plot_ui.addItem(_item)
-
                 # label of line
                 _hkl = _selected_element_hkl_array[_index]
                 _hkl_formated = "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2])
@@ -664,3 +647,7 @@ class Step1Plot(object):
                                     color=pg.mkColor("c"))
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)
+
+                # vertical line
+                _item = pg.InfiniteLine(_x, pen=pg.mkPen("c"))
+                plot_ui.addItem(_item)
