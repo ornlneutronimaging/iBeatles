@@ -228,6 +228,8 @@ class SessionHandler:
             o_load.instrument()
             o_load.material()
 
+            self.parent.material_tab_changed()  # to make sure the hkl and lambda are correctly saved
+
             if DataType.normalized in tabs_to_load:
                 # load normalized tab
                 o_normalized = LoadNormalized(parent=self.parent)
@@ -244,8 +246,8 @@ class SessionHandler:
                 o_fit.table_dictionary()
 
             o_util = SessionUtilities(parent=self.parent)
-            if tabs_to_load:
-                o_util.jump_to_tab_of_data_type(tabs_to_load[-1])
+            if DataType.normalized in tabs_to_load:
+                o_util.jump_to_tab_of_data_type(DataType.normalized)
 
             show_status_message(parent=self.parent,
                                 message=f"Loaded {self.config_file_name}",
