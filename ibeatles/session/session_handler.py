@@ -127,10 +127,10 @@ class SessionHandler:
                                                                        KropffSessionSubKeys.state: True,
                                                                        KropffSessionSubKeys.value: 0.01},
                                                                     KropffSessionSubKeys.t_error: {
-                                                                        KropffSessionSubKeys.state: True,
+                                                                        KropffSessionSubKeys.state: False,
                                                                         KropffSessionSubKeys.value: 0.01},
                                                                     KropffSessionSubKeys.sigma_error: {
-                                                                        KropffSessionSubKeys.state: True,
+                                                                        KropffSessionSubKeys.state: False,
                                                                         KropffSessionSubKeys.value: 0.01},
                                                                     },
                                                                KropffSessionSubKeys.kropff_lambda_settings: {

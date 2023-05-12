@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1461</width>
-    <height>1216</height>
+    <width>1511</width>
+    <height>1288</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -1081,7 +1081,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>0</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="tab_3">
                 <attribute name="title">
@@ -1887,7 +1887,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1461</width>
+     <width>1511</width>
      <height>24</height>
     </rect>
    </property>
