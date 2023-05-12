@@ -285,6 +285,7 @@ class Initialization:
         kropff_session_dict = self.grand_parent.session_dict[DataType.fitting]['kropff']
 
         hkl_list = self.grand_parent.selected_element_hkl_array
+
         str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
         self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
 

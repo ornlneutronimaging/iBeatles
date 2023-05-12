@@ -3,14 +3,15 @@ import pyqtgraph as pg
 from qtpy.QtWidgets import QGraphicsRectItem
 import copy
 
-from ..utilities import colors
-from ..fitting.filling_table_handler import FillingTableHandler
-from .selected_bin_handler import SelectedBinsHandler
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from .. import DataType
-from . import FittingTabSelected, KropffTabSelected
-from ..utilities.array_utilities import get_min_max_xy
+from ibeatles import DataType
+from ibeatles.utilities import colors
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.utilities.array_utilities import get_min_max_xy
+
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting import selected_color, lock_color
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from ibeatles.fitting import FittingTabSelected, KropffTabSelected
 
 
 class FittingHandler:

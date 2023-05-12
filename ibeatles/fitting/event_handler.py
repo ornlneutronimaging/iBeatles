@@ -1,9 +1,8 @@
 import logging
 import numpy as np
 
-from ..utilities.array_utilities import find_nearest_index
-from ibeatles.utilities.math_tools import is_float
-from .selected_bin_handler import SelectedBinsHandler
+from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 
 
 class EventHandler:
@@ -65,7 +64,7 @@ class EventHandler:
                 hkl_array = self.grand_parent.selected_element_hkl_array
                 str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_array]
                 hkl_bragg_edges = dict(zip(str_hkl_list, bragg_edges_array))
-                value = "{:04.3f}".format(hkl_bragg_edges[str(hkl)])
+                value = "{:04.3f}".format(float(hkl_bragg_edges[str(hkl)]))
         else:
             value = "N/A"
         self.parent.ui.bragg_edge_calculated.setText(value)

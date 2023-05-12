@@ -205,8 +205,6 @@ class SessionHandler:
 
         logging.info(f"Automatic session tabs to load: {tabs_to_load}")
 
-        print(self.parent.session_dict[SessionSubKeys.config_version])
-
         try:
 
             o_general = General(parent=self.parent)
@@ -250,6 +248,9 @@ class SessionHandler:
             o_util = SessionUtilities(parent=self.parent)
             if DataType.normalized in tabs_to_load:
                 o_util.jump_to_tab_of_data_type(DataType.normalized)
+
+            if DataType.bin in tabs_to_load:
+                o_util.jump_to_tab_of_data_type(DataType.bin)
 
             show_status_message(parent=self.parent,
                                 message=f"Loaded {self.config_file_name}",

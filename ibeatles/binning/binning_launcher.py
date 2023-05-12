@@ -56,6 +56,7 @@ class BinningWindow(QMainWindow):
         self.roi_selection_widgets_modified()
         self.parent.there_is_a_roi = True
         self.parent.data_metadata[DataType.bin]['ui_accessed'] = True
+        self.roi_changed_finished()
 
     def load_data(self):
         self.data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
