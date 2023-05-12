@@ -76,7 +76,6 @@ class Display:
 
         if len(np.where(np.isnan(parameter_array))[0]) == len(parameter_array):
             # nothing to plot because all data points are NaN
-            print("nothing to plot !")
             return
 
         if use_error_bar_plot(parameter_error_array):

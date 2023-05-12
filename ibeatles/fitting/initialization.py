@@ -27,6 +27,7 @@ class Initialization:
 
     def run_all(self):
         self.pyqtgraph()
+        self.data_format()
         self.table_behavior()
         self.table_headers()
         self.labels()
@@ -37,6 +38,11 @@ class Initialization:
         self.statusbar()
         self.matplotlib()
         self.tab()
+
+    def data_format(self):
+        # force all the bragg edges array to be float instead of string
+        bragg_edges_array = self.grand_parent.selected_element_bragg_edges_array
+        self.grand_parent.selected_element_bragg_edges_array = [float(_value) for _value in bragg_edges_array]
 
     def splitter(self):
 
