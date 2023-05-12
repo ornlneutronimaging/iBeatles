@@ -126,7 +126,7 @@ class SelectedBinsHandler(object):
             bragg_edge_data.append(final)
 
         bragg_edge_data = np.nanmean(bragg_edge_data, axis=0)
-        x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
+        # x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
 
         try:
             self.parent.bragg_edge_plot.plot(x_axis, bragg_edge_data)
@@ -135,6 +135,9 @@ class SelectedBinsHandler(object):
 
         self.parent.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
         self.parent.bragg_edge_plot.setLabel("left", "Average Counts")
+
+        print(f"{self.grand_parent.fitting_bragg_edge_linear_selection =}")
+        print(f"{x_axis =}")
 
         if self.grand_parent.fitting_bragg_edge_linear_selection == []:
             linear_region_left_index = 0
@@ -145,6 +148,10 @@ class SelectedBinsHandler(object):
         else:
             [linear_region_left_index, linear_region_right_index] = \
                 self.grand_parent.fitting_bragg_edge_linear_selection
+
+        print(f"{np.shape(x_axis) =}")
+        print(f" {linear_region_left_index =}")
+        print(f" {linear_region_right_index =}")
 
         lr_left = x_axis[linear_region_left_index]
         lr_right = x_axis[linear_region_right_index]

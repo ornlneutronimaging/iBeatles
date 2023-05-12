@@ -461,7 +461,7 @@ class Step1Plot(object):
                 else:
                     tof_array = self.parent.data_metadata['time_spectra']['data']
                     lambda_array = self.parent.data_metadata['time_spectra']['lambda']
-                    self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
+                self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
 
             # display of bottom bragg edge plot
             dictionary = self.plot_bragg_edge(tof_array=tof_array,
