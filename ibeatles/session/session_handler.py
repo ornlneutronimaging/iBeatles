@@ -205,6 +205,8 @@ class SessionHandler:
 
         logging.info(f"Automatic session tabs to load: {tabs_to_load}")
 
+        print(self.parent.session_dict[SessionSubKeys.config_version])
+
         try:
 
             o_general = General(parent=self.parent)
