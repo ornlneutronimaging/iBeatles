@@ -227,23 +227,14 @@ class FittingWindow(QMainWindow):
         self.image_view.setFocus(True)
 
     def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
-        image_pos = self.image_view_item.mapFromScene(mouse_click_event.scenePos())
-        # FIXME
+        o_event = EventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.mouse_clicked_in_top_left_image_view(mouse_click_event=mouse_click_event)
 
     def mouse_moved_in_top_left_image_view(self, evt):
-        pos = evt[0]
-
-        width = self.parent.data_metadata[DataType.normalized]['size']['width']
-        height = self.parent.data_metadata[DataType.normalized]['size']['height']
-
-        if self.image_view_item.sceneBoundingRect().contains(pos):
-            image_pos = self.image_view_item.mapFromScene(pos)
-            x = int(image_pos.x())
-            y = int(image_pos.y())
-
-            if (x >= 0) and (x < width) and (y >= 0) and (y < height):
-                self.image_view_vline.setPos(x)
-                self.image_view_hline.setPos(y)
+        o_event = EventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.mouse_moved_in_top_left_image_view(evt=evt)
 
     def hkl_list_changed(self, hkl):
         o_event = EventHandler(parent=self, grand_parent=self.parent)

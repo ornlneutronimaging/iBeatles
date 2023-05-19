@@ -7,6 +7,7 @@ import numpy as np
 from ibeatles.utilities import colors
 
 from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.fitting_launcher import FittingLauncher
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.binning.binning_handler import BinningHandler
 from ibeatles import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
@@ -69,6 +70,9 @@ class BinningWindow(QMainWindow):
             self.ui.selection_width.setText(str(width))
             self.ui.selection_height.setText(str(height))
             self.ui.bin_size_horizontalSlider.setValue(int(bin_size))
+
+    def fitting_steps_clicked(self):
+        FittingLauncher(parent=self.parent)
 
     def bin_slider_value_changed(self, new_value):
         self.roi_selection_widgets_modified()

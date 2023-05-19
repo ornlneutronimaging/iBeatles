@@ -222,6 +222,7 @@ class FittingHandler:
         kropff_table_dictionary = {}
         _index = 0
         _index_col = 0
+        _index_row = 0
         for _x in np.arange(from_x, to_x, bin_size):
             _index_row = 0
             for _y in np.arange(from_y, to_y, bin_size):

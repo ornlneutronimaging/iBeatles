@@ -243,6 +243,31 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>978</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSteps">
+    <property name="title">
+     <string>Steps</string>
+    </property>
+    <addaction name="action5_Fitting"/>
+   </widget>
+   <addaction name="menuSteps"/>
+  </widget>
+  <action name="action5_Fitting">
+   <property name="text">
+    <string>5. Fitting</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+5</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="../icons/icons.qrc"/>
@@ -344,6 +369,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action5_Fitting</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>fitting_steps_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>488</x>
+     <y>300</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -397,5 +438,6 @@
   <slot>roi_selection_widgets_modified()</slot>
   <slot>bin_slider_value_changed()</slot>
   <slot>ok_button_clicked()</slot>
+  <slot>fitting_steps_clicked()</slot>
  </slots>
 </ui>
