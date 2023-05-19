@@ -412,3 +412,57 @@ class EventHandler:
         o_table.insert_item(row=2, column=2, value=hkl_error_value_std, format_str="{:0.4f}", editable=False)
         o_table.insert_item(row=3, column=2, value=hkl_error_value_percentage_with_fit, format_str="{:0.2f}",
                             editable=False)
+
+    # top left view mouse events
+    def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
+        image_pos = self.parent.image_view_item.mapFromScene(mouse_click_event.scenePos())
+
+        # if user click within a BIN, select that bin in all the tables (this will automatically highlight it
+        top_left_corner_coordinates = self.grand_parent.binning_line_view['pos'][0]
+        top_left_x = top_left_corner_coordinates[0]
+        top_left_y = top_left_corner_coordinates[1]
+
+        binning_size = self.grand_parent.binning_roi[-1]
+        x = int(image_pos.x())
+        y = int(image_pos.y())
+
+        if x < top_left_x:
+            return
+
+        if y < top_left_y:
+            return
+
+        tab_selected_index = self.parent.ui.kropff_tabWidget.currentIndex()
+        list_table_ui = [self.parent.ui.high_lda_tableWidget,
+                         self.parent.ui.low_lda_tableWidget,
+                         self.parent.ui.bragg_edge_tableWidget]
+        o_table = TableHandler(table_ui=list_table_ui[tab_selected_index])
+        nbr_row = o_table.row_count()
+        nbr_bin_y_direction = np.sqrt(nbr_row)
+
+        if x > (top_left_x + nbr_bin_y_direction * binning_size):
+            return
+
+        if y > (top_left_y + nbr_bin_y_direction * binning_size):
+            return
+
+        bin_x_index = int((x - top_left_x) / binning_size) + 1
+        bin_y_index = int((y - top_left_y) / binning_size) + 1
+
+        row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1)
+        o_table.select_row(row_to_select)
+
+    def mouse_moved_in_top_left_image_view(self, evt):
+        pos = evt[0]
+
+        width = self.grand_parent.data_metadata[DataType.normalized]['size']['width']
+        height = self.grand_parent.data_metadata[DataType.normalized]['size']['height']
+
+        if self.parent.image_view_item.sceneBoundingRect().contains(pos):
+            image_pos = self.parent.image_view_item.mapFromScene(pos)
+            x = int(image_pos.x())
+            y = int(image_pos.y())
+
+            if (x >= 0) and (x < width) and (y >= 0) and (y < height):
+                self.parent.image_view_vline.setPos(x)
+                self.parent.image_view_hline.setPos(y)

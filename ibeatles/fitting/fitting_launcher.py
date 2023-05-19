@@ -313,16 +313,6 @@ class FittingWindow(QMainWindow):
 
     # March-Dollase
 
-    def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
-        o_event = MarchDollaseEventHandler(parent=self,
-                               grand_parent=self.parent)
-        o_event.mouse_clicked_in_top_left_image_view(mouse_click_event=mouse_click_event)
-
-    def mouse_moved_in_top_left_image_view(self, evt):
-        o_event = MarchDollaseEventHandler(parent=self,
-                               grand_parent=self.parent)
-        o_event.mouse_moved_in_top_left_image_view(evt=evt)
-
     def column_value_table_clicked(self, column):
         o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.column_value_table_clicked(column)
@@ -410,6 +400,16 @@ class FittingWindow(QMainWindow):
         self.update_bragg_edge_plot()
 
     # kropff
+
+    def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.mouse_clicked_in_top_left_image_view(mouse_click_event=mouse_click_event)
+
+    def mouse_moved_in_top_left_image_view(self, evt):
+        o_event = KropffHandler(parent=self,
+                                grand_parent=self.parent)
+        o_event.mouse_moved_in_top_left_image_view(evt=evt)
 
     def filling_kropff_table(self):
         o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
