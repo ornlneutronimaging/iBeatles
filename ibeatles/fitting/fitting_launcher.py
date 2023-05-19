@@ -226,16 +226,6 @@ class FittingWindow(QMainWindow):
     def mouse_moved_in_image_view(self):
         self.image_view.setFocus(True)
 
-    def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
-        o_event = EventHandler(parent=self,
-                               grand_parent=self.parent)
-        o_event.mouse_clicked_in_top_left_image_view(mouse_click_event=mouse_click_event)
-
-    def mouse_moved_in_top_left_image_view(self, evt):
-        o_event = EventHandler(parent=self,
-                               grand_parent=self.parent)
-        o_event.mouse_moved_in_top_left_image_view(evt=evt)
-
     def hkl_list_changed(self, hkl):
         o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.hkl_list_changed(hkl)
@@ -322,6 +312,17 @@ class FittingWindow(QMainWindow):
         o_fitting_display.display_lambda_0()
 
     # March-Dollase
+
+    def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
+        o_event = MarchDollaseEventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.mouse_clicked_in_top_left_image_view(mouse_click_event=mouse_click_event)
+
+    def mouse_moved_in_top_left_image_view(self, evt):
+        o_event = MarchDollaseEventHandler(parent=self,
+                               grand_parent=self.parent)
+        o_event.mouse_moved_in_top_left_image_view(evt=evt)
+
     def column_value_table_clicked(self, column):
         o_event = MarchDollaseEventHandler(parent=self, grand_parent=self.parent)
         o_event.column_value_table_clicked(column)
