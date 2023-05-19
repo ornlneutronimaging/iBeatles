@@ -1,7 +1,9 @@
 from qtpy.QtWidgets import QApplication
 import glob
 import os
+import numpy as np
 
+from ibeatles import DataType
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.image_handler import ImageHandler
 
@@ -54,5 +56,10 @@ class LoadFiles:
             self.image_array.append(_data)
             self.parent.eventProgress.setValue(_index + 1)
             QApplication.processEvents()
+
+            if _index == 0:
+                [height, width] = np.shape(_data)
+                self.parent.data_metadata[DataType.normalized]['size'] = {'width': width,
+                                                                          'height': height}
 
         self.parent.eventProgress.setVisible(False)

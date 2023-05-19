@@ -357,7 +357,6 @@ class MainWindow(QMainWindow):
         o_gui_2.all()
 
     def setup(self):
-
         o_config = ConfigHandler(parent=self)
         o_config.load()
 
@@ -402,6 +401,7 @@ class MainWindow(QMainWindow):
                                                     'folder': current_folder,
                                                     'general_infos': None,
                                                     'data': [],
+                                                    'size': {'width': None, 'height': None},
                                                     'xaxis': 'file_index',
                                                     'data_live_selection': [],
                                                     'time_spectra': {'folder': '',

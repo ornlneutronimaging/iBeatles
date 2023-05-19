@@ -152,7 +152,6 @@ class DataHandler:
 
         else:
             logging.info(f"User manually selected time spectra file {time_spectra_file}")
-
             self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = time_spectra_file
 
             o_time_handler = TimeSpectraHandler(parent=self.parent,

@@ -75,7 +75,6 @@ class Initialization:
                                      """)
         self.parent.ui.splitter_3.setHandleWidth(15)
 
-
     def tab(self):
         self.parent.ui.tabWidget.setCurrentIndex(1)   # show by default Kropff
         self.parent.ui.tabWidget.setTabEnabled(0, False)   # disable March-Dollase
@@ -96,7 +95,6 @@ class Initialization:
         #     self.grand_parent.kropff_automatic_threshold_finder_algorithm
 
     def table_headers(self):
-
         o_kropff_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
         column_names = [u'row #',
                         u'column #',
@@ -177,7 +175,6 @@ class Initialization:
         self.parent.hori_value_table.sectionClicked.connect(self.parent.column_value_table_clicked)
 
     def pyqtgraph(self):
-
         if (len(self.grand_parent.data_metadata['normalized']['data_live_selection']) > 0) and \
                 not (self.grand_parent.binning_line_view['pos'] is None):
             status = True
@@ -203,9 +200,22 @@ class Initialization:
         image_view = pg.ImageView(view=pg.PlotItem())
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
+
+        self.parent.image_view_vline = pg.InfiniteLine(angle=90, movable=False)
+        self.parent.image_view_hline = pg.InfiniteLine(angle=0, movable=False)
+        image_view.addItem(self.parent.image_view_vline)
+        image_view.addItem(self.parent.image_view_hline)
+
         self.parent.image_view = image_view
+        self.parent.image_view_item = image_view.getImageItem()
+        self.parent.image_view_scene = self.parent.image_view_item.scene()
+        self.parent.image_view_proxy = pg.SignalProxy(self.parent.image_view_scene.sigMouseMoved,
+                                                      rateLimit=60,
+                                                      slot=self.parent.mouse_moved_in_top_left_image_view)
+
         self.grand_parent.fitting_image_view = image_view
         image_view.scene.sigMouseMoved.connect(self.parent.mouse_moved_in_image_view)
+        self.parent.image_view_scene.sigMouseClicked.connect(self.parent.mouse_clicked_in_top_left_image_view)
 
         top_widget = QWidget()
         vertical = QVBoxLayout()

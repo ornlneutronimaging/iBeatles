@@ -72,13 +72,18 @@ class FittingWindow(QMainWindow):
     lambda_calculated_item_in_kropff_fitting_plot = None
 
     data = []
+    image_size = None   # [height, width]
     # there_is_a_roi = False
     bragg_edge_active_button_status = True  # to make sure active/lock button worked correctly
 
     list_bins_selected_item = []
     list_bins_locked_item = []
 
-    image_view = None
+    image_view = None    # top left view
+    image_view_scene = None   # scene of top left view
+    image_view_item = None   # item of the top left view
+    image_view_proxy = None  # proxy used when mouse moved in top left view
+
     bragg_edge_plot = None
     line_view = None
 
@@ -220,6 +225,25 @@ class FittingWindow(QMainWindow):
 
     def mouse_moved_in_image_view(self):
         self.image_view.setFocus(True)
+
+    def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
+        image_pos = self.image_view_item.mapFromScene(mouse_click_event.scenePos())
+        # FIXME
+
+    def mouse_moved_in_top_left_image_view(self, evt):
+        pos = evt[0]
+
+        width = self.parent.data_metadata[DataType.normalized]['size']['width']
+        height = self.parent.data_metadata[DataType.normalized]['size']['height']
+
+        if self.image_view_item.sceneBoundingRect().contains(pos):
+            image_pos = self.image_view_item.mapFromScene(pos)
+            x = int(image_pos.x())
+            y = int(image_pos.y())
+
+            if (x >= 0) and (x < width) and (y >= 0) and (y < height):
+                self.image_view_vline.setPos(x)
+                self.image_view_hline.setPos(y)
 
     def hkl_list_changed(self, hkl):
         o_event = EventHandler(parent=self, grand_parent=self.parent)
