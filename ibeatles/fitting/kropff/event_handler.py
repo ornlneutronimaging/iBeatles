@@ -436,8 +436,6 @@ class EventHandler:
         list_table_ui = [self.parent.ui.high_lda_tableWidget,
                          self.parent.ui.low_lda_tableWidget,
                          self.parent.ui.bragg_edge_tableWidget]
-        o_table = TableHandler(table_ui=list_table_ui[tab_selected_index])
-        nbr_row = o_table.row_count()
 
         nbr_bin_y_direction = self.grand_parent.fitting_selection['nbr_row']
 
@@ -451,6 +449,8 @@ class EventHandler:
         bin_y_index = int((y - top_left_y) / binning_size) + 1
 
         row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1)
+
+        o_table = TableHandler(table_ui=list_table_ui[tab_selected_index])
         o_table.select_row(row_to_select)
 
     def mouse_moved_in_top_left_image_view(self, evt):
@@ -463,6 +463,14 @@ class EventHandler:
             image_pos = self.parent.image_view_item.mapFromScene(pos)
             x = int(image_pos.x())
             y = int(image_pos.y())
+            binning_size = self.grand_parent.binning_roi[-1]
+            top_left_corner_coordinates = self.grand_parent.binning_line_view['pos'][0]
+            top_left_x = top_left_corner_coordinates[0]
+            top_left_y = top_left_corner_coordinates[1]
+            bin_x_index = int((x - top_left_x) / binning_size) + 1
+            bin_y_index = int((y - top_left_y) / binning_size) + 1
+            nbr_bin_y_direction = self.grand_parent.fitting_selection['nbr_row']
+            row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1) + 1
 
             if (x >= 0) and (x < width) and (y >= 0) and (y < height):
                 self.parent.image_view_vline.setPos(x)
@@ -471,9 +479,32 @@ class EventHandler:
                 self.parent.ui.kropff_pos_x_value.setText(f"{x}")
                 self.parent.ui.kropff_pos_y_value.setText(f"{y}")
 
+                # only if we are inside the bin selection
+                bin_list = self.grand_parent.session_dict[DataType.bin]["roi"]
+                left = bin_list[1]
+                top = bin_list[2]
+                roi_width = bin_list[3]
+                roi_height = bin_list[4]
+                bin_size = bin_list[5]
+
+                if (x >= left) and (x <= (left + roi_width - bin_size)) and \
+                        (y >= top) and (y <= (top + roi_height - bin_size)):
+                    # inside the ROI region
+                    self.parent.ui.kropff_bin_x_value.setText(f"{bin_x_index}")
+                    self.parent.ui.kropff_bin_y_value.setText(f"{bin_y_index}")
+                    self.parent.ui.kropff_bin_nbr_value.setText(f"{row_to_select}")
+                else:
+                    # outside the ROI region
+                    self.parent.ui.kropff_bin_x_value.setText("N/A")
+                    self.parent.ui.kropff_bin_y_value.setText("N/A")
+                    self.parent.ui.kropff_bin_nbr_value.setText("N/A")
+
             else:
                 self.parent.ui.kropff_pos_x_value.setText("N/A")
                 self.parent.ui.kropff_pos_y_value.setText("N/A")
+                self.parent.ui.kropff_bin_x_value.setText(f"N/A")
+                self.parent.ui.kropff_bin_y_value.setText(f"N/A")
+                self.parent.ui.kropff_bin_nbr_value.setText(f"N/A")
 
         else:
             self.parent.ui.kropff_pos_x_value.setText("N/A")
