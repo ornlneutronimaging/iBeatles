@@ -227,6 +227,7 @@ class Initialization:
 
         # cursor infos
         group_xy = QGroupBox()
+        group_xy.setFixedHeight(60)
         group_xy.setTitle("Cursor")
         pos_x_label = QLabel("x:")
         pos_x_label.setFixedWidth(50)
@@ -250,6 +251,7 @@ class Initialization:
 
         # bin infos
         group_bin = QGroupBox()
+        group_bin.setFixedHeight(60)
         group_bin.setTitle("Bin")
 
         bin_x_label = QLabel("x:")
@@ -291,8 +293,8 @@ class Initialization:
 
         # bin transparency
         transparency_layout = QHBoxLayout()
-        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        transparency_layout.addItem(spacer)
+        # spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        # transparency_layout.addItem(spacer)
         label = QLabel("Bin Transparency")
         transparency_layout.addWidget(label)
         slider = QSlider(QtCore.Qt.Horizontal)
@@ -302,11 +304,14 @@ class Initialization:
         slider.valueChanged.connect(self.parent.slider_changed)
         self.parent.slider = slider
         transparency_layout.addWidget(slider)
+        transparency_widget = QWidget()
+        transparency_widget.setLayout(transparency_layout)
+
         bottom_widget = QWidget()
 
         bottom_vertical_layout = QVBoxLayout()
         bottom_vertical_layout.addWidget(groups_xy_bin)
-        bottom_vertical_layout.addWidget(slider)
+        bottom_vertical_layout.addWidget(transparency_widget)
         bottom_widget.setLayout(bottom_vertical_layout)
 
         top_widget.setLayout(vertical)
