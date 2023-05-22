@@ -466,3 +466,19 @@ class EventHandler:
             if (x >= 0) and (x < width) and (y >= 0) and (y < height):
                 self.parent.image_view_vline.setPos(x)
                 self.parent.image_view_hline.setPos(y)
+
+                self.parent.ui.kropff_pos_x_value.setText(f"{x}")
+                self.parent.ui.kropff_pos_y_value.setText(f"{y}")
+
+            else:
+                self.parent.ui.kropff_pos_x_value.setText("N/A")
+                self.parent.ui.kropff_pos_y_value.setText("N/A")
+
+        else:
+            self.parent.ui.kropff_pos_x_value.setText("N/A")
+            self.parent.ui.kropff_pos_y_value.setText("N/A")
+            self.parent.ui.kropff_bin_x_value.setText("N/A")
+            self.parent.ui.kropff_bin_y_value.setText("N/A")
+            self.parent.ui.kropff_bin_nbr_value.setText("N/A")
+
+

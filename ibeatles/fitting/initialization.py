@@ -229,20 +229,24 @@ class Initialization:
         group_xy = QGroupBox()
         group_xy.setFixedHeight(60)
         group_xy.setTitle("Cursor")
+
         pos_x_label = QLabel("x:")
         pos_x_label.setFixedWidth(50)
         pos_x_label.setAlignment(QtCore.Qt.AlignRight)
         pos_x_value = QLabel("N/A")
         pos_x_value.setFixedWidth(50)
         pos_x_value.setAlignment(QtCore.Qt.AlignLeft)
+        self.parent.ui.kropff_pos_x_value = pos_x_value
+
         pos_y_label = QLabel("y:")
         pos_y_label.setFixedWidth(50)
         pos_y_label.setAlignment(QtCore.Qt.AlignRight)
         pos_y_value = QLabel("N/A")
         pos_y_value.setFixedWidth(50)
         pos_y_value.setAlignment(QtCore.Qt.AlignLeft)
-        hori_layout = QHBoxLayout()
+        self.parent.ui.kropff_pos_y_value = pos_y_value
 
+        hori_layout = QHBoxLayout()
         hori_layout.addWidget(pos_x_label)
         hori_layout.addWidget(pos_x_value)
         hori_layout.addWidget(pos_y_label)
@@ -260,6 +264,7 @@ class Initialization:
         bin_x_value = QLabel("N/A")
         bin_x_value.setFixedWidth(50)
         bin_x_value.setAlignment(QtCore.Qt.AlignLeft)
+        self.parent.ui.kropff_bin_x_value = bin_x_value
 
         bin_y_label = QLabel("y:")
         bin_y_label.setFixedWidth(50)
@@ -267,6 +272,7 @@ class Initialization:
         bin_y_value = QLabel("N/A")
         bin_y_value.setFixedWidth(50)
         bin_y_value.setAlignment(QtCore.Qt.AlignLeft)
+        self.parent.ui.kropff_bin_y_value = bin_y_value
 
         bin_nbr_label = QLabel("#:")
         bin_nbr_label.setFixedWidth(50)
@@ -274,9 +280,9 @@ class Initialization:
         bin_nbr_value = QLabel("N/A")
         bin_nbr_value.setFixedWidth(50)
         bin_nbr_value.setAlignment(QtCore.Qt.AlignLeft)
+        self.parent.ui.kropff_bin_nbr_value = bin_nbr_value
 
         hori_layout = QHBoxLayout()
-
         hori_layout.addWidget(bin_x_label)
         hori_layout.addWidget(bin_x_value)
         hori_layout.addWidget(bin_y_label)
