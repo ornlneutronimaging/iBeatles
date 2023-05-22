@@ -1,5 +1,6 @@
 from qtpy.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget, QProgressBar,
-                            QLabel, QSpacerItem, QSlider, QRadioButton, QSizePolicy)
+                            QLabel, QSpacerItem, QSlider, QSizePolicy,
+                            QGroupBox)
 import numpy as np
 from qtpy import QtCore
 from pyqtgraph.dockarea import DockArea, Dock
@@ -175,6 +176,9 @@ class Initialization:
         self.parent.hori_value_table.sectionClicked.connect(self.parent.column_value_table_clicked)
 
     def pyqtgraph(self):
+
+        # Kropff
+
         if (len(self.grand_parent.data_metadata['normalized']['data_live_selection']) > 0) and \
                 not (self.grand_parent.binning_line_view['pos'] is None):
             status = True
@@ -221,6 +225,70 @@ class Initialization:
         vertical = QVBoxLayout()
         vertical.addWidget(image_view)
 
+        # cursor infos
+        group_xy = QGroupBox()
+        group_xy.setTitle("Cursor")
+        pos_x_label = QLabel("x:")
+        pos_x_label.setFixedWidth(50)
+        pos_x_label.setAlignment(QtCore.Qt.AlignRight)
+        pos_x_value = QLabel("N/A")
+        pos_x_value.setFixedWidth(50)
+        pos_x_value.setAlignment(QtCore.Qt.AlignLeft)
+        pos_y_label = QLabel("y:")
+        pos_y_label.setFixedWidth(50)
+        pos_y_label.setAlignment(QtCore.Qt.AlignRight)
+        pos_y_value = QLabel("N/A")
+        pos_y_value.setFixedWidth(50)
+        pos_y_value.setAlignment(QtCore.Qt.AlignLeft)
+        hori_layout = QHBoxLayout()
+
+        hori_layout.addWidget(pos_x_label)
+        hori_layout.addWidget(pos_x_value)
+        hori_layout.addWidget(pos_y_label)
+        hori_layout.addWidget(pos_y_value)
+        group_xy.setLayout(hori_layout)
+
+        # bin infos
+        group_bin = QGroupBox()
+        group_bin.setTitle("Bin")
+
+        bin_x_label = QLabel("x:")
+        bin_x_label.setFixedWidth(50)
+        bin_x_label.setAlignment(QtCore.Qt.AlignRight)
+        bin_x_value = QLabel("N/A")
+        bin_x_value.setFixedWidth(50)
+        bin_x_value.setAlignment(QtCore.Qt.AlignLeft)
+
+        bin_y_label = QLabel("y:")
+        bin_y_label.setFixedWidth(50)
+        bin_y_label.setAlignment(QtCore.Qt.AlignRight)
+        bin_y_value = QLabel("N/A")
+        bin_y_value.setFixedWidth(50)
+        bin_y_value.setAlignment(QtCore.Qt.AlignLeft)
+
+        bin_nbr_label = QLabel("#:")
+        bin_nbr_label.setFixedWidth(50)
+        bin_nbr_label.setAlignment(QtCore.Qt.AlignRight)
+        bin_nbr_value = QLabel("N/A")
+        bin_nbr_value.setFixedWidth(50)
+        bin_nbr_value.setAlignment(QtCore.Qt.AlignLeft)
+
+        hori_layout = QHBoxLayout()
+
+        hori_layout.addWidget(bin_x_label)
+        hori_layout.addWidget(bin_x_value)
+        hori_layout.addWidget(bin_y_label)
+        hori_layout.addWidget(bin_y_value)
+        hori_layout.addWidget(bin_nbr_label)
+        hori_layout.addWidget(bin_nbr_value)
+        group_bin.setLayout(hori_layout)
+
+        groups_xy_bin = QWidget()
+        groups_xh_bin_layout = QHBoxLayout()
+        groups_xh_bin_layout.addWidget(group_xy)
+        groups_xh_bin_layout.addWidget(group_bin)
+        groups_xy_bin.setLayout(groups_xh_bin_layout)
+
         # bin transparency
         transparency_layout = QHBoxLayout()
         spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -235,7 +303,11 @@ class Initialization:
         self.parent.slider = slider
         transparency_layout.addWidget(slider)
         bottom_widget = QWidget()
-        bottom_widget.setLayout(transparency_layout)
+
+        bottom_vertical_layout = QVBoxLayout()
+        bottom_vertical_layout.addWidget(groups_xy_bin)
+        bottom_vertical_layout.addWidget(slider)
+        bottom_widget.setLayout(bottom_vertical_layout)
 
         top_widget.setLayout(vertical)
         d1.addWidget(top_widget)
@@ -254,32 +326,31 @@ class Initialization:
         buttons_layout.addWidget(label)
         self.parent.ui.plot_label = label
 
-        # all bins button
-        active_button = QRadioButton()
-        active_button.setText("Active Bins")
-        active_button.setChecked(True)
-        active_button.pressed.connect(self.parent.active_button_pressed)
-        self.parent.ui.active_bins_button = active_button
-
-        # individual bin button
-        buttons_layout.addWidget(active_button)
-        locked_button = QRadioButton()
-        locked_button.setText("Locked Bins")
-        locked_button.setChecked(False)
-        locked_button.pressed.connect(self.parent.lock_button_pressed)
-        self.parent.ui.locked_bins_button = locked_button
-
-        buttons_layout.addWidget(locked_button)
-        bottom_widget = QWidget()
-        bottom_widget.setLayout(buttons_layout)
+        # # all bins button
+        # active_button = QRadioButton()
+        # active_button.setText("Active Bins")
+        # active_button.setChecked(True)
+        # active_button.pressed.connect(self.parent.active_button_pressed)
+        # self.parent.ui.active_bins_button = active_button
+        #
+        # # individual bin button
+        # buttons_layout.addWidget(active_button)
+        # locked_button = QRadioButton()
+        # locked_button.setText("Locked Bins")
+        # locked_button.setChecked(False)
+        # locked_button.pressed.connect(self.parent.lock_button_pressed)
+        # self.parent.ui.locked_bins_button = locked_button
+        #
+        # buttons_layout.addWidget(locked_button)
+        # bottom_widget = QWidget()
+        # bottom_widget.setLayout(buttons_layout)
 
         d2.addWidget(bragg_edge_plot)
-        d2.addWidget(bottom_widget)
 
         vertical_layout.addWidget(area)
         self.parent.ui.widget_kropff.setLayout(vertical_layout)
 
-        # kropff
+        # bottom right plot
         self.parent.ui.kropff_fitting = pg.PlotWidget(title="Fitting")
         fitting_layout = QVBoxLayout()
         fitting_layout.addWidget(self.parent.ui.kropff_fitting)
