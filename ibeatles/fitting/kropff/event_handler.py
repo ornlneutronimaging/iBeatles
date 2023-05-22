@@ -438,7 +438,8 @@ class EventHandler:
                          self.parent.ui.bragg_edge_tableWidget]
         o_table = TableHandler(table_ui=list_table_ui[tab_selected_index])
         nbr_row = o_table.row_count()
-        nbr_bin_y_direction = np.sqrt(nbr_row)
+
+        nbr_bin_y_direction = self.grand_parent.fitting_selection['nbr_row']
 
         if x > (top_left_x + nbr_bin_y_direction * binning_size):
             return
