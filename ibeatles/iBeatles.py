@@ -637,8 +637,6 @@ class MainWindow(QMainWindow):
 
     # global load data instruments widgets handler
     def instruments_widgets(self, update_delta_lambda=True):
-        o_gui = Step1GuiHandler(parent=self)
-        # o_gui.sync_instrument_widgets(source='load_data')
         if update_delta_lambda:
             self.update_delta_lambda()
         o_data = DataHandler(parent=self)

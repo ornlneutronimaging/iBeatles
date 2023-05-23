@@ -20,7 +20,7 @@ TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
 class DataHandler:
     user_canceled = False
 
-    def __init__(self, parent=None, data_type='sample'):
+    def __init__(self, parent=None, data_type=None):
         self.parent = parent
 
         if data_type is None:
@@ -137,6 +137,9 @@ class DataHandler:
             return file_name
 
     def load_time_spectra(self, time_spectra_file=None):
+
+        print(f"in load time spectra: {self.data_type =}")
+
         if time_spectra_file is None:
             time_spectra_file = self.get_time_spectra_file()
             if not time_spectra_file:

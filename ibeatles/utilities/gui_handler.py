@@ -14,6 +14,7 @@ class GuiHandler:
     def get_active_tab(self):
         """return either 'sample', 'ob', 'normalization' or 'normalized' """
         top_tab_index = self.parent.ui.tabWidget.currentIndex()
+
         if top_tab_index == 1:
             return DataType.normalization
         if top_tab_index == 2:
