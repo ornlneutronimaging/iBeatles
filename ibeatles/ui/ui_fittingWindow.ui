@@ -709,7 +709,7 @@
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
              <widget class="QWidget" name="widget_kropff" native="true"/>
@@ -726,13 +726,13 @@
                 </property>
                 <property name="minimumSize">
                  <size>
-                  <width>270</width>
+                  <width>300</width>
                   <height>240</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>270</width>
+                  <width>300</width>
                   <height>240</height>
                  </size>
                 </property>
@@ -930,13 +930,13 @@
                <widget class="QGroupBox" name="groupBox_17">
                 <property name="minimumSize">
                  <size>
-                  <width>270</width>
+                  <width>300</width>
                   <height>0</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
-                  <width>270</width>
+                  <width>300</width>
                   <height>16777215</height>
                  </size>
                 </property>
