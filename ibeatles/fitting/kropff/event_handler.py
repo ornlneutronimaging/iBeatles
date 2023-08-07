@@ -202,8 +202,10 @@ class EventHandler:
     def bragg_peak_right_click(self):
         menu = QMenu(self.parent)
 
-        lock_all_good_cells = None
-        unlock_all_rows = None
+        # lock_all_good_cells = None
+        # unlock_all_rows = None
+
+        replace_row = menu.addAction("Replace value by median of surrounding pixels")
 
         unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
 
@@ -211,6 +213,11 @@ class EventHandler:
 
         if action == unlock_all_rows:
             self.unlock_all_bragg_peak_rows()
+        if action == replace_row:
+            self.replace_bragg_peak_row_values()
+
+    def replace_bragg_peak_row_values(self):
+        pass
 
     def unlock_all_bragg_peak_rows(self):
         background_color = UNLOCK_ROW_BACKGROUND
