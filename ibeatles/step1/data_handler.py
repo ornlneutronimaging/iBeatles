@@ -138,8 +138,6 @@ class DataHandler:
 
     def load_time_spectra(self, time_spectra_file=None):
 
-        print(f"in load time spectra: {self.data_type =}")
-
         if time_spectra_file is None:
             time_spectra_file = self.get_time_spectra_file()
             if not time_spectra_file:

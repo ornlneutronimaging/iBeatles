@@ -38,7 +38,7 @@
          <x>0</x>
          <y>0</y>
          <width>1727</width>
-         <height>1043</height>
+         <height>1049</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -57,7 +57,7 @@
            <enum>Qt::StrongFocus</enum>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab">
            <attribute name="title">
