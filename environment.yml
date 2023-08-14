@@ -2,6 +2,9 @@ name: ibeatles
 channels:
   - conda-forge
 dependencies:
+  - python
+  - python-dateutil
+  - pip
   - cycler
   - freetype
   - libpng
@@ -9,11 +12,8 @@ dependencies:
   - mkl
   - numpy
   - openssl
-  - pip
   - pyparsing
-  - pyqt=5.9.2
-  - python
-  - python-dateutil
+  - pyqt
   - pytz
   - qt
   - readline
@@ -29,4 +29,7 @@ dependencies:
   - qtpy
   - versioneer
   - astropy
-  - neutronbraggedge
+  - pip:
+      - neutronbraggedge
+      - changepy
+      - NeuNorm
