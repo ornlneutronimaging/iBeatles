@@ -15,18 +15,6 @@ def read_requirements_from_file(filepath):
     with open(filepath, 'r') as req_file:
         return req_file.readlines()
 
-
-setup_args = dict(
-        install_requires=read_requirements_from_file(
-                os.path.join(
-                        THIS_DIR,
-                        'requirements.txt')),
-        # tests_require=read_requirements_from_file(
-        #     os.path.join(
-        #         THIS_DIR,
-        #         'requirements-dev.txt'))
-)
-
 setup(name="ibeatles",
       #      version=versioneer.get_version(),
       version="08.08.23",
@@ -39,6 +27,5 @@ setup(name="ibeatles",
       scripts=["scripts/run.py"],
       packages=find_packages(),
       package_data={'': ['*.ui', '*.png', '*.qrc', '*.json']},
-      install_requires=setup_args["install_requires"],
       setup_requires=[],
       )
