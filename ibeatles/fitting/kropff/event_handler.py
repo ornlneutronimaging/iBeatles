@@ -16,6 +16,8 @@ from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns, FittingKropff
     FittingKropffLowLambdaColumns
 from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
 from ibeatles.utilities.status_message_config import show_status_message, StatusMessageStatus
+from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher
+
 
 fit_rgb = (255, 0, 0)
 
@@ -203,21 +205,29 @@ class EventHandler:
         menu = QMenu(self.parent)
 
         # lock_all_good_cells = None
-        # unlock_all_rows = None
+        unlock_all_rows = None
 
         replace_row = menu.addAction("Replace value by median of surrounding pixels")
-
-        unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
+        menu.addSeparator()
+        display_fitting_parameters = menu.addAction("Fitting parameters viewer")
+        # unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
 
         action = menu.exec_(QtGui.QCursor.pos())
 
         if action == unlock_all_rows:
             self.unlock_all_bragg_peak_rows()
-        if action == replace_row:
+        elif action == replace_row:
             self.replace_bragg_peak_row_values()
+        elif action == display_fitting_parameters:
+            self.display_fitting_parameters()
 
     def replace_bragg_peak_row_values(self):
+        """replace by median of surrounding pixels"""
         pass
+
+    def display_fitting_parameters(self):
+        FittingParametersViewerEditorLauncher(parent=self.parent,
+                                              grand_parent=self.grand_parent)
 
     def unlock_all_bragg_peak_rows(self):
         background_color = UNLOCK_ROW_BACKGROUND

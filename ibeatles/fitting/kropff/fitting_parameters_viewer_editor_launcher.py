@@ -33,7 +33,7 @@ class FittingParametersViewerEditor(QMainWindow):
         self.grand_parent = grand_parent
         self.parent = parent
         QMainWindow.__init__(self, parent=grand_parent)
-        self.ui = load_ui('ui_fittingSetVariables.ui', baseinstance=self)
+        self.ui = load_ui('ui_fittingVariablesKropff.ui', baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
         self.setWindowTitle("Check/Set Variables")

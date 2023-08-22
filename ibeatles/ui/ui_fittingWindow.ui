@@ -968,6 +968,22 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_12">
                  <item>
+                  <widget class="QGroupBox" name="groupBox_12">
+                   <property name="title">
+                    <string>Step 1</string>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_18">
+                    <item>
+                     <widget class="QLabel" name="label_5">
+                      <property name="text">
+                       <string>Select the peak to fit</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QGroupBox" name="groupBox_7">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -976,7 +992,7 @@
                     </sizepolicy>
                    </property>
                    <property name="title">
-                    <string>Step 1</string>
+                    <string>Step 2</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout">
                     <item>
@@ -1069,7 +1085,7 @@
                  <item>
                   <widget class="QGroupBox" name="groupBox_18">
                    <property name="title">
-                    <string>Step 2</string>
+                    <string>Step 3</string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_31">
                     <item>
@@ -1135,7 +1151,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="tab_3">
                 <attribute name="title">
