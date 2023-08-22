@@ -23,6 +23,7 @@ from ibeatles.fitting.march_dollase.create_fitting_story_launcher import CreateF
 from ibeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
 
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff import RightClickTableMenu
 from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
 from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
 from ibeatles.fitting.kropff.display import Display as KropffDisplay
@@ -180,6 +181,11 @@ class FittingWindow(QMainWindow):
     #                                                          },
     #                                                }
     kropff_bragg_peak_row_rejections_conditions = None
+
+    kropff_bragg_table_right_click_menu = {RightClickTableMenu.replace_values: {'ui': None,
+                                                                                'state': False},
+                                           RightClickTableMenu.display_fitting_parameters: {'ui': None,
+                                                                                            'state': False}}
 
     def __init__(self, parent=None):
 
@@ -509,6 +515,8 @@ class FittingWindow(QMainWindow):
         o_display.update_fitting_parameters_matplotlib()
         self.update_locked_and_rejected_rows_in_bragg_peak_table()
         self.update_summary_table()
+        self.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state'] = True
+        self.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state'] = True
 
     def update_summary_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)

@@ -17,6 +17,7 @@ from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns, FittingKropff
 from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
 from ibeatles.utilities.status_message_config import show_status_message, StatusMessageStatus
 from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher
+from ibeatles.fitting.kropff import RightClickTableMenu
 
 
 fit_rgb = (255, 0, 0)
@@ -208,9 +209,19 @@ class EventHandler:
         unlock_all_rows = None
 
         replace_row = menu.addAction("Replace value by median of surrounding pixels")
+        button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state']
+        replace_row.setEnabled(button_state)
+
         menu.addSeparator()
+
         display_fitting_parameters = menu.addAction("Fitting parameters viewer")
+        button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state']
+        display_fitting_parameters.setEnabled(button_state)
         # unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
+
+        self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['ui'] = replace_row
+        self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['ui'] = \
+            display_fitting_parameters
 
         action = menu.exec_(QtGui.QCursor.pos())
 

@@ -66,3 +66,8 @@ class SessionSubKeys:
     less_than = "less_than"
     more_than = "more_than"
 
+
+class RightClickTableMenu:
+
+    replace_values = "replace values by surrounding median values"
+    display_fitting_parameters = "display the fitting parameters"
