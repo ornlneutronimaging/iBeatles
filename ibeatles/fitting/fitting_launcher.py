@@ -564,9 +564,11 @@ class FittingWindow(QMainWindow):
     # general settings
 
     def windows_settings(self):
+        self.parent.session_dict[DataType.fitting]['ui']['kropff_top_horizontal_splitter'] = \
+            self.ui.kropff_top_horizontal_splitter.sizes()
         self.parent.session_dict[DataType.fitting]['ui']['splitter_2'] = self.ui.splitter_2.sizes()
-        self.parent.session_dict[DataType.fitting]['ui']['splitter'] = self.ui.splitter.sizes()
         self.parent.session_dict[DataType.fitting]['ui']['splitter_3'] = self.ui.splitter_3.sizes()
+        self.parent.session_dict[DataType.fitting]['ui']['splitter_4'] = self.ui.splitter_4.sizes()
 
     def save_all_parameters(self):
         self.kropff_parameters_changed()
