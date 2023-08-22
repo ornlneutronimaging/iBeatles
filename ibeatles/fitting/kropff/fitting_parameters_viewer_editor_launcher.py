@@ -39,8 +39,14 @@ class FittingParametersViewerEditor(QMainWindow):
         self.setWindowTitle("Check/Set Variables")
         # self.installEventFilter(self)
 
-        # self.init_widgets()
-        # self.init_table()
+        kropff_fitting_table = self.grand_parent.kropff_table_dictionary
+        # print(kropff_fitting_table)
+
+        list_key = list(kropff_fitting_table.keys())
+        print(kropff_fitting_table[list_key[0]])
+
+        self.init_widgets()
+        self.init_table()
 
     def eventFilter(self, object, event):
         if event.type() == QtCore.QEvent.WindowActivate:
@@ -49,6 +55,8 @@ class FittingParametersViewerEditor(QMainWindow):
 
     def init_table(self):
         fitting_selection = self.grand_parent.fitting_selection
+
+        print(fitting_selection)
         nbr_row = fitting_selection['nbr_row']
         nbr_column = fitting_selection['nbr_column']
 
@@ -61,17 +69,13 @@ class FittingParametersViewerEditor(QMainWindow):
 
         # set size of cells
         value = int(self.ui.advanced_selection_cell_size_slider.value())
-        self.selection_cell_size_changed(value)
+        # self.selection_cell_size_changed(value)
 
     def init_widgets(self):
-        self.advanced_mode = self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
-        if not self.advanced_mode:
-            self.ui.a5_button.setVisible(False)
-            self.ui.a6_button.setVisible(False)
-
-        self.ui.fixed_label.setStyleSheet("background-color: green")
-        self.ui.locked_label.setStyleSheet("background-color: green")
-        self.ui.active_label.setStyleSheet("background-color: green")
+        pass
+        # self.ui.fixed_label.setStyleSheet("background-color: green")
+        # self.ui.locked_label.setStyleSheet("background-color: green")
+        # self.ui.active_label.setStyleSheet("background-color: green")
 
     def selection_cell_size_changed(self, value):
         nbr_row = self.ui.variable_table.rowCount()
@@ -134,7 +138,7 @@ class FittingParametersViewerEditor(QMainWindow):
         o_variable.right_click(position=position)
 
     def closeEvent(self, event=None):
-        self.grand_parent.fitting_set_variables_ui = None
+        self.grand_parent.kropff_fitting_parameters_viewer_editor_ui = None
 
 
 class VariableTableHandler(object):
