@@ -144,6 +144,9 @@ class MainWindow(QMainWindow):
     fitting_story_ui = None
     advanced_selection_ui = None
     fitting_set_variables_ui = None
+
+    kropff_fitting_parameters_viewer_editor_ui = None
+
     fitting_selection = {'nbr_column': -1,
                          'nbr_row': -1}
     fitting_bragg_edge_linear_selection = []   # [left lambda, right lambda]

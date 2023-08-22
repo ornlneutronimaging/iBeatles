@@ -1,0 +1,606 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1264</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Variables</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="d_spacing_button">
+         <property name="text">
+          <string>D-spacing</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="sigma_button">
+         <property name="text">
+          <string>Sigma</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="alpha_button">
+         <property name="text">
+          <string>Alpha</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QTableWidget" name="variable_table">
+        <property name="contextMenuPolicy">
+         <enum>Qt::CustomContextMenu</enum>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="colorscale_table">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>75</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>75</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::NoSelection</enum>
+        </property>
+        <attribute name="horizontalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>New Column</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="active_label">
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>8</red>
+              <green>35</green>
+              <blue>224</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Light">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>13</red>
+              <green>142</green>
+              <blue>27</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>5</red>
+              <green>28</green>
+              <blue>209</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>146</green>
+              <blue>2</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>8</red>
+              <green>35</green>
+              <blue>224</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Light">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>13</red>
+              <green>142</green>
+              <blue>27</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>5</red>
+              <green>28</green>
+              <blue>209</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>146</green>
+              <blue>2</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>69</red>
+              <green>69</green>
+              <blue>69</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Light">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>13</red>
+              <green>142</green>
+              <blue>27</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Text">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>69</red>
+              <green>69</green>
+              <blue>69</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Base">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
+             </color>
+            </brush>
+           </colorrole>
+           <colorrole role="Window">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>15</red>
+              <green>204</green>
+              <blue>13</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="text">
+         <string>Active Bin</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="locked_label">
+        <property name="palette">
+         <palette>
+          <active>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>193</red>
+              <green>22</green>
+              <blue>45</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </active>
+          <inactive>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>193</red>
+              <green>22</green>
+              <blue>45</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </inactive>
+          <disabled>
+           <colorrole role="WindowText">
+            <brush brushstyle="SolidPattern">
+             <color alpha="255">
+              <red>69</red>
+              <green>69</green>
+              <blue>69</blue>
+             </color>
+            </brush>
+           </colorrole>
+          </disabled>
+         </palette>
+        </property>
+        <property name="text">
+         <string>Bin Locked</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>Pixel's value substitution</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QFrame" name="frame">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QRadioButton" name="replace_by_median_radioButton">
+              <property name="text">
+               <string>Replace by median of surrounding pixels</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="replace_by_value_radioButton">
+              <property name="text">
+               <string>Replace  by </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="replace_by_value_lineEdit">
+              <property name="minimumSize">
+               <size>
+                <width>75</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>75</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="apply_pushButton">
+           <property name="text">
+            <string>Apply</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Cells Size</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="advanced_selection_cell_size_slider">
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
+         <number>80</number>
+        </property>
+        <property name="value">
+         <number>20</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksAbove</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../icons/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>advanced_selection_cell_size_slider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selection_cell_size_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>948</x>
+     <y>687</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>927</x>
+     <y>722</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>d_spacing_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>114</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sigma_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>224</x>
+     <y>41</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>63</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>alpha_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>update_table()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>409</x>
+     <y>44</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>428</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>variable_table</sender>
+   <signal>customContextMenuRequested(QPoint)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>variable_table_right_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>610</x>
+     <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>sample_import_button_clicked()</slot>
+  <slot>time_spectra_import_button_clicked()</slot>
+  <slot>open_beam_import_button_clicked()</slot>
+  <slot>sample_list_selection_changed()</slot>
+  <slot>open_beam_list_selection_changed()</slot>
+  <slot>sample_list_right_click()</slot>
+  <slot>time_spectra_selection_changed()</slot>
+  <slot>load_data_tab_changed()</slot>
+  <slot>time_spectra_preview_button_clicked()</slot>
+  <slot>normalized_import_button_clicked()</slot>
+  <slot>normalized_list_selection_changed()</slot>
+  <slot>update_delta_lambda()</slot>
+  <slot>crystal_structure_index_changed()</slot>
+  <slot>crystal_structure_2_index_changed()</slot>
+  <slot>list_of_element_index_changed()</slot>
+  <slot>list_of_element_2_index_changed()</slot>
+  <slot>lattice_text_changed()</slot>
+  <slot>lattice_2_text_changed()</slot>
+  <slot>material_display_clicked()</slot>
+  <slot>material_display_2_clicked()</slot>
+  <slot>normalization_add_roi_button_clicked()</slot>
+  <slot>normalization_remove_roi_button_clicked()</slot>
+  <slot>normalization_use_coefficient_checked()</slot>
+  <slot>normalization_button_clicked()</slot>
+  <slot>normalization_coefficient_value_changed()</slot>
+  <slot>tab_widget_changed()</slot>
+  <slot>normalization_tableWidget_cell_changed()</slot>
+  <slot>beam_rate_changed()</slot>
+  <slot>distance_source_detector_changed()</slot>
+  <slot>detector_offset_changed()</slot>
+  <slot>distance_source_detector_2_changed()</slot>
+  <slot>detector_offset_2_changed()</slot>
+  <slot>beam_rate_2_changed()</slot>
+  <slot>list_of_elements_current_text_changed()</slot>
+  <slot>add_element_clicked()</slot>
+  <slot>reset_lattice_button_clicked()</slot>
+  <slot>reset_crystal_structure_button_clicked()</slot>
+  <slot>reset_lattice_button_2_clicked()</slot>
+  <slot>reset_crystal_structure_button_2_clicked()</slot>
+  <slot>normalized_time_spectra_import_button_clicked()</slot>
+  <slot>normalized_time_spectra_preview_button_clicked()</slot>
+  <slot>test_me_clicked()</slot>
+  <slot>menu_view_load_data_clicked()</slot>
+  <slot>menu_view_normalization_clicked()</slot>
+  <slot>menu_view_normalized_clicked()</slot>
+  <slot>menu_view_binning_clicked()</slot>
+  <slot>menu_view_fitting_clicked()</slot>
+  <slot>menu_view_strain_mapping_clicked()</slot>
+  <slot>roi_selection_widgets_modified()</slot>
+  <slot>hkl_list_changed()</slot>
+  <slot>table_width_changed()</slot>
+  <slot>value_table_right_click()</slot>
+  <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
+  <slot>selection_in_value_table_changed()</slot>
+  <slot>advanced_table_clicked()</slot>
+  <slot>selection_cell_size_changed()</slot>
+  <slot>update_table()</slot>
+  <slot>variable_table_right_click()</slot>
+  <slot>apply_new_value_to_selection()</slot>
+ </slots>
+</ui>

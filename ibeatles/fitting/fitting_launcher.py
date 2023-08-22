@@ -8,24 +8,28 @@ from ibeatles import DataType
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from ibeatles.session import SessionSubKeys
 
-from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.value_table_handler import ValueTableHandler
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
-from ibeatles.fitting.march_dollase.fitting_initialization_handler import FittingInitializationHandler
-from ibeatles.fitting.march_dollase.create_fitting_story_launcher import CreateFittingStoryLauncher
-from ibeatles.fitting.initialization import Initialization
-from ibeatles.fitting.event_handler import EventHandler
-from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
-from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
-from ibeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
-from ibeatles.fitting.kropff.display import Display as KropffDisplay
 from ibeatles.fitting.display import Display as FittingDisplay
 from ibeatles.fitting.get import Get
+from ibeatles.fitting.initialization import Initialization
+from ibeatles.fitting.event_handler import EventHandler
+
+from ibeatles.fitting.march_dollase.fitting_initialization_handler import FittingInitializationHandler
+from ibeatles.fitting.march_dollase.create_fitting_story_launcher import CreateFittingStoryLauncher
+from ibeatles.fitting.march_dollase.event_handler import EventHandler as MarchDollaseEventHandler
+
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
+from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
+from ibeatles.fitting.kropff.display import Display as KropffDisplay
 from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
 from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import KropffLambdaHKLSettings
+from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher \
+    as KropffFittingParametersViewerEditorLauncher
 
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
@@ -180,6 +184,7 @@ class FittingWindow(QMainWindow):
     def __init__(self, parent=None):
 
         logging.info("Launching fitting tab!")
+
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_fittingWindow.ui', baseinstance=self)
@@ -551,6 +556,10 @@ class FittingWindow(QMainWindow):
     def kropff_bragg_peak_lambda_settings_clicked(self):
         o_lambda = KropffLambdaHKLSettings(parent=self, grand_parent=self.parent)
         o_lambda.show()
+
+    def kropff_fitting_parameters_viewer_editor_clicked(self):
+        KropffFittingParametersViewerEditorLauncher(parent=self,
+                                                    grand_parent=self.parent)
 
     # general settings
 

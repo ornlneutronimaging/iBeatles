@@ -1897,6 +1897,33 @@ p, li { white-space: pre-wrap; }
                </widget>
               </widget>
              </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_18">
+               <item>
+                <spacer name="horizontalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="kropff_fitting_parameters_viewer_editor_pushButton">
+                 <property name="enabled">
+                  <bool>true</bool>
+                 </property>
+                 <property name="text">
+                  <string>Fitting parameters viewer/editor ...</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
             </layout>
            </widget>
            <widget class="QWidget" name="kropff_widget" native="true"/>
@@ -1947,8 +1974,8 @@ p, li { white-space: pre-wrap; }
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>900</x>
-     <y>142</y>
+     <x>218</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -1980,7 +2007,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>554</x>
-     <y>784</y>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
      <x>1146</x>
@@ -1995,8 +2022,8 @@ p, li { white-space: pre-wrap; }
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>50</x>
-     <y>786</y>
+     <x>80</x>
+     <y>338</y>
     </hint>
     <hint type="destinationlabel">
      <x>124</x>
@@ -2011,8 +2038,8 @@ p, li { white-space: pre-wrap; }
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>137</x>
-     <y>786</y>
+     <x>254</x>
+     <y>338</y>
     </hint>
     <hint type="destinationlabel">
      <x>40</x>
@@ -2028,7 +2055,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>401</x>
-     <y>786</y>
+     <y>338</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
@@ -2043,8 +2070,8 @@ p, li { white-space: pre-wrap; }
    <slot>initialize_all_parameters_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>929</x>
-     <y>697</y>
+     <x>890</x>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -2059,8 +2086,8 @@ p, li { white-space: pre-wrap; }
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>963</x>
-     <y>244</y>
+     <x>281</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -2075,8 +2102,8 @@ p, li { white-space: pre-wrap; }
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>963</x>
-     <y>275</y>
+     <x>281</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -2091,8 +2118,8 @@ p, li { white-space: pre-wrap; }
    <slot>create_fitting_story_checked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1400</x>
-     <y>697</y>
+     <x>1312</x>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>1210</x>
@@ -2107,8 +2134,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>122</x>
-     <y>318</y>
+     <x>181</x>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2123,8 +2150,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>232</x>
-     <y>318</y>
+     <x>291</x>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2139,8 +2166,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>298</y>
+     <x>190</x>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2155,8 +2182,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>250</x>
-     <y>298</y>
+     <x>309</x>
+     <y>742</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2171,8 +2198,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>357</x>
-     <y>306</y>
+     <x>304</x>
+     <y>730</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2187,8 +2214,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>513</x>
-     <y>311</y>
+     <x>451</x>
+     <y>735</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2219,8 +2246,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_high_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>289</x>
-     <y>806</y>
+     <x>334</x>
+     <y>1056</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2235,8 +2262,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>105</x>
-     <y>427</y>
+     <x>150</x>
+     <y>1056</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -2283,8 +2310,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>640</x>
-     <y>194</y>
+     <x>326</x>
+     <y>432</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2299,8 +2326,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>58</x>
-     <y>200</y>
+     <x>125</x>
+     <y>394</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2315,8 +2342,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_threshold_width_slider_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>193</y>
+     <x>213</x>
+     <y>431</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2331,8 +2358,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1251</x>
-     <y>200</y>
+     <x>332</x>
+     <y>517</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2347,8 +2374,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>105</x>
-     <y>427</y>
+     <x>124</x>
+     <y>850</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2363,8 +2390,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>427</y>
+     <x>153</x>
+     <y>850</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2379,8 +2406,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>105</x>
-     <y>427</y>
+     <x>124</x>
+     <y>850</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2395,8 +2422,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>427</y>
+     <x>153</x>
+     <y>850</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2411,8 +2438,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>105</x>
-     <y>403</y>
+     <x>150</x>
+     <y>850</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2427,8 +2454,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>125</x>
-     <y>403</y>
+     <x>254</x>
+     <y>850</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2443,8 +2470,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>153</x>
-     <y>403</y>
+     <x>326</x>
+     <y>850</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2459,8 +2486,8 @@ p, li { white-space: pre-wrap; }
    <slot>automatic_hkl0_selection_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>982</x>
-     <y>138</y>
+     <x>300</x>
+     <y>139</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2491,8 +2518,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1226</x>
-     <y>1111</y>
+     <x>1121</x>
+     <y>1055</y>
     </hint>
     <hint type="destinationlabel">
      <x>1424</x>
@@ -2507,8 +2534,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_fit_bragg_peak_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>800</x>
-     <y>346</y>
+     <x>842</x>
+     <y>789</y>
     </hint>
     <hint type="destinationlabel">
      <x>1455</x>
@@ -2523,8 +2550,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_table_right_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>886</x>
-     <y>700</y>
+     <x>931</x>
+     <y>1020</y>
     </hint>
     <hint type="destinationlabel">
      <x>1456</x>
@@ -2539,8 +2566,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_auto_lock_rows_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>740</x>
-     <y>302</y>
+     <x>813</x>
+     <y>730</y>
     </hint>
     <hint type="destinationlabel">
      <x>1458</x>
@@ -2555,8 +2582,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1230</x>
-     <y>302</y>
+     <x>1135</x>
+     <y>732</y>
     </hint>
     <hint type="destinationlabel">
      <x>1455</x>
@@ -2571,12 +2598,28 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_lambda_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>247</x>
-     <y>298</y>
+     <x>195</x>
+     <y>732</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
      <y>333</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_fitting_parameters_viewer_editor_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_fitting_parameters_viewer_editor_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>981</x>
+     <y>1138</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1356</x>
+     <y>1176</y>
     </hint>
    </hints>
   </connection>
@@ -2667,5 +2710,6 @@ p, li { white-space: pre-wrap; }
   <slot>kropff_bragg_peak_auto_lock_rows_clicked()</slot>
   <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
   <slot>kropff_bragg_peak_lambda_settings_clicked()</slot>
+  <slot>kropff_fitting_parameters_viewer_editor_clicked()</slot>
  </slots>
 </ui>
