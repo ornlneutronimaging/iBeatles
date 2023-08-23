@@ -69,8 +69,8 @@ class FittingParametersViewerEditor(QMainWindow):
 
     def init_widgets(self):
         self.ui.lambda_hkl_button.setText(u'\u03BB\u2095\u2096\u2097')
-        self.ui.sigma_button.setText(u'\u03c4')
-        self.ui.tau_button.setText(u'\u03c3')
+        self.ui.tau_button.setText(u'\u03c4')
+        self.ui.sigma_button.setText(u'\u03c3')
         # self.ui.fixed_label.setStyleSheet("background-color: green")
         # self.ui.locked_label.setStyleSheet("background-color: green")
         # self.ui.active_label.setStyleSheet("background-color: green")

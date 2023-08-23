@@ -1,4 +1,5 @@
 from qtpy import QtGui, QtCore
+from qtpy.QtGui import QBrush
 from qtpy.QtWidgets import QTableWidgetItem
 import numpy as np
 
@@ -29,30 +30,35 @@ class FittingParametersViewerEditorHandler:
         array_2d_values = self.create_array_of_variable(variable=variable)
 
         # retrieve min and max values
-        if np.isnan(array_2d_values).any():
-            min_value = np.NaN
-            max_value = np.NaN
-            mid_point = np.NaN
-        else:
-            min_value = np.nanmin(array_2d_values)
-            max_value = np.nanmax(array_2d_values)
-            mid_point = np.mean([min_value, max_value])
-
+        # if np.isnan(array_2d_values).any():
+        #     print("#1")
+        #     min_value = np.NaN
+        #     max_value = np.NaN
+        #     mid_point = np.NaN
+        # else:
+        # print("#2")
+        min_value = np.nanmin(array_2d_values)
+        max_value = np.nanmax(array_2d_values)
+        mid_point = np.mean([min_value, max_value])
 
         # define colorscale table
-        # self.initialize_colorscale_table(min_value=min_value, max_value=max_value)
+        self.initialize_colorscale_table(min_value=min_value, max_value=max_value)
 
         [nbr_row, nbr_column] = np.shape(array_2d_values)
         for _row in np.arange(nbr_row):
             for _col in np.arange(nbr_column):
                 _value = array_2d_values[_row, _col]
-                # _color = self.get_color_for_this_value(min_value=min_value,
-                #                                        max_value=max_value,
-                #                                        value=_value)
-                _item = QTableWidgetItem(str(_value))
+                _color = self.get_color_for_this_value(min_value=min_value,
+                                                       max_value=max_value,
+                                                       value=_value)
+                if np.isnan(_value):
+                    _item = QTableWidgetItem("nan")
+                else:
+                    _item = QTableWidgetItem("{:04.2f}".format(_value))
+
                 # _item.setBackground(_color)
 
-                # bin_index = _row + nbr_row * _col
+                bin_index = _row + nbr_row * _col
                 # if self.is_bin_locked(bin_index=bin_index):
                 #     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
                 #     _gradient.setColorAt(1, _color)
@@ -74,9 +80,9 @@ class FittingParametersViewerEditorHandler:
                 # #         _gradient.setColorAt(0, QtGui.QColor(255, 255, 255))
                 # #         _item.setBackground(QtGui.QBrush(_gradient))
                 #
-                # if _value > mid_point:
-                #     _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
-                #     _item.setTextColor(_foreground_color)
+                if _value > mid_point:
+                    _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
+                    # _item.setForeground(QBrush(_foreground_color))
 
                 self.parent.ui.variable_table.setItem(_row, _col, _item)
 
@@ -129,7 +135,7 @@ class FittingParametersViewerEditorHandler:
             if (_row < mid_point) and (nbr_row != 1):
                 # font should be changed from black to white
                 _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
-                _item.setTextColor(_foreground_color)
+                _item.setForeground(QBrush(_foreground_color))
 
             self.parent.colorscale_table.setItem(_row, 0, _item)
             _row += 1
@@ -140,7 +146,7 @@ class FittingParametersViewerEditorHandler:
         elif max_value == min_value:
             return QtGui.QColor(250, 0, 0, alpha=255)  # red
 
-        _ratio = (1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value)))
+        _ratio = int(1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value)))
         return QtGui.QColor(0, _ratio * 255, 0, alpha=255)
 
     def create_array_of_variable(self, variable=None):
@@ -158,9 +164,6 @@ class FittingParametersViewerEditorHandler:
             row_index = table_dictionary[_entry]['row_index']
             column_index = table_dictionary[_entry]['column_index']
             value = table_dictionary[_entry][variable]['val']
-
-            print(f"{_entry =}: {value =}")
-
             _array[row_index, column_index] = value
 
         return _array
