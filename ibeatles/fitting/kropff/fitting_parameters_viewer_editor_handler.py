@@ -12,12 +12,14 @@ class FittingParametersViewerEditorHandler:
         self.grand_parent = grand_parent
         self.parent = parent
 
+        self.table_dictionary = self.grand_parent.kropff_table_dictionary
+
     def get_variable_selected(self):
-        if self.grand_parent.fitting_set_variables_ui.ui.lambda_hkl_button.isChecked():
+        if self.parent.ui.lambda_hkl_button.isChecked():
             return 'lambda_hkl'
-        elif self.grand_parent.fitting_set_variables_ui.ui.sigma_button.isChecked():
+        elif self.parent.ui.sigma_button.isChecked():
             return 'sigma'
-        elif self.grand_parent.fitting_set_variables_ui.ui.tau_button.isChecked():
+        elif self.parent.ui.tau_button.isChecked():
             return 'tau'
 
     def populate_table_with_variable(self, variable=None):
@@ -36,60 +38,56 @@ class FittingParametersViewerEditorHandler:
             max_value = np.nanmax(array_2d_values)
             mid_point = np.mean([min_value, max_value])
 
-        # define colorscale table
-        self.initialize_colorscale_table(min_value=min_value, max_value=max_value)
 
-        return
+        # define colorscale table
+        # self.initialize_colorscale_table(min_value=min_value, max_value=max_value)
 
         [nbr_row, nbr_column] = np.shape(array_2d_values)
         for _row in np.arange(nbr_row):
             for _col in np.arange(nbr_column):
                 _value = array_2d_values[_row, _col]
-                _color = self.get_color_for_this_value(min_value=min_value,
-                                                       max_value=max_value,
-                                                       value=_value)
+                # _color = self.get_color_for_this_value(min_value=min_value,
+                #                                        max_value=max_value,
+                #                                        value=_value)
                 _item = QTableWidgetItem(str(_value))
-                _item.setBackground(_color)
+                # _item.setBackground(_color)
 
-                bin_index = _row + nbr_row * _col
-                if self.is_bin_locked(bin_index=bin_index):
-                    _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
-                    _gradient.setColorAt(1, _color)
-                    if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
-                        _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
-                    _gradient.setColorAt(0, QtGui.QColor(255, 0, 0, alpha=255))
-                    _item.setBackground(QtGui.QBrush(_gradient))
-                elif self.is_bin_activated(bin_index=bin_index):
-                    _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
-                    _gradient.setColorAt(1, _color)
-                    if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
-                        _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
-                    _gradient.setColorAt(0, QtGui.QColor(0, 0, 255, alpha=255))
-                    _item.setBackground(QtGui.QBrush(_gradient))
-                else:
-                    if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
-                        _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
-                        _gradient.setColorAt(1, _color)
-                        _gradient.setColorAt(0, QtGui.QColor(255, 255, 255))
-                        _item.setBackground(QtGui.QBrush(_gradient))
+                # bin_index = _row + nbr_row * _col
+                # if self.is_bin_locked(bin_index=bin_index):
+                #     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                #     _gradient.setColorAt(1, _color)
+                #     # if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
+                #     #     _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
+                #     _gradient.setColorAt(0, QtGui.QColor(255, 0, 0, alpha=255))
+                #     _item.setBackground(QtGui.QBrush(_gradient))
+                # elif self.is_bin_activated(bin_index=bin_index):
+                #     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                #     _gradient.setColorAt(1, _color)
+                #     # if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
+                #     #     _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
+                #     _gradient.setColorAt(0, QtGui.QColor(0, 0, 255, alpha=255))
+                #     _item.setBackground(QtGui.QBrush(_gradient))
+                # # else:
+                # #     if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
+                # #         _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                # #         _gradient.setColorAt(1, _color)
+                # #         _gradient.setColorAt(0, QtGui.QColor(255, 255, 255))
+                # #         _item.setBackground(QtGui.QBrush(_gradient))
+                #
+                # if _value > mid_point:
+                #     _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
+                #     _item.setTextColor(_foreground_color)
 
-                if _value > mid_point:
-                    _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
-                    _item.setTextColor(_foreground_color)
+                self.parent.ui.variable_table.setItem(_row, _col, _item)
 
-                # self.grand_parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
-
-    def is_bin_fixed(self, bin_index=0, variable_name='d_spacing'):
-        table_dictionary = self.grand_parent.march_table_dictionary
-        return table_dictionary[str(bin_index)][variable_name]['fixed']
+    def is_bin_fixed(self, bin_index=0, variable_name='lambda_hkl'):
+        return self.table_dictionary[str(bin_index)][variable_name]['fixed']
 
     def is_bin_locked(self, bin_index=0):
-        table_dictionary = self.grand_parent.march_table_dictionary
-        return table_dictionary[str(bin_index)]['lock']
+        return self.table_dictionary[str(bin_index)]['lock']
 
     def is_bin_activated(self, bin_index=0):
-        table_dictionary = self.grand_parent.march_table_dictionary
-        return table_dictionary[str(bin_index)]['active']
+        return self.table_dictionary[str(bin_index)]['active']
 
     def clear_colorscale_table(self):
         nbr_row = self.parent.colorscale_table.rowCount()
@@ -145,9 +143,11 @@ class FittingParametersViewerEditorHandler:
         _ratio = (1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value)))
         return QtGui.QColor(0, _ratio * 255, 0, alpha=255)
 
-    def create_array_of_variable(self, variable='d_spacing'):
-        table_dictionary = self.grand_parent.kropff_table_dictionary
+    def create_array_of_variable(self, variable=None):
+        if variable is None:
+            variable = self.get_variable_selected()
 
+        table_dictionary = self.grand_parent.kropff_table_dictionary
         _table_selection = self.grand_parent.fitting_selection
         nbr_column = _table_selection['nbr_column']
         nbr_row = _table_selection['nbr_row']
@@ -158,6 +158,9 @@ class FittingParametersViewerEditorHandler:
             row_index = table_dictionary[_entry]['row_index']
             column_index = table_dictionary[_entry]['column_index']
             value = table_dictionary[_entry][variable]['val']
+
+            print(f"{_entry =}: {value =}")
+
             _array[row_index, column_index] = value
 
         return _array
@@ -167,7 +170,7 @@ class FittingParametersViewerEditorHandler:
                                        variable_value=0,
                                        table_nbr_row=0):
 
-        table_dictionary = self.grand_parent.march_table_dictionary
+        table_dictionary = self.table_dictionary
         nbr_row = table_nbr_row
 
         for _select in selection:
@@ -183,5 +186,5 @@ class FittingParametersViewerEditorHandler:
                         table_dictionary[_index][variable_name]['err'] = np.NaN
             self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
-        self.grand_parent.march_table_dictionary = table_dictionary
+        self.grand_parent.kropff_table_dictionary = table_dictionary
         self.populate_table_with_variable(variable=variable_name)
