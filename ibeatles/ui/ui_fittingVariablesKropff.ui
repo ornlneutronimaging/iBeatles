@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -204,6 +207,37 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QPushButton" name="cancel_pushButton">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ok_pushButton">
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -219,8 +253,8 @@
    <slot>selection_cell_size_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>948</x>
-     <y>687</y>
+     <x>1214</x>
+     <y>625</y>
     </hint>
     <hint type="destinationlabel">
      <x>927</x>
@@ -235,8 +269,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>43</y>
+     <x>612</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>114</x>
@@ -251,8 +285,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>41</y>
+     <x>670</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>265</x>
@@ -267,8 +301,8 @@
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>409</x>
-     <y>44</y>
+     <x>742</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
      <x>428</x>
@@ -289,6 +323,38 @@
     <hint type="destinationlabel">
      <x>610</x>
      <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancel_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>53</x>
+     <y>657</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>211</x>
+     <y>651</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ok_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save_and_quit_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1192</x>
+     <y>657</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1099</x>
+     <y>662</y>
     </hint>
    </hints>
   </connection>
@@ -353,5 +419,6 @@
   <slot>update_table()</slot>
   <slot>variable_table_right_click()</slot>
   <slot>apply_new_value_to_selection()</slot>
+  <slot>save_and_quit_clicked()</slot>
  </slots>
 </ui>

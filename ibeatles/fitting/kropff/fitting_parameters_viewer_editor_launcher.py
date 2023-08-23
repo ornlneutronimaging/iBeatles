@@ -142,6 +142,10 @@ class FittingParametersViewerEditor(QMainWindow):
         o_variable = VariableTableHandler(grand_parent=self.grand_parent)
         o_variable.right_click(position=position)
 
+    def save_and_quit_clicked(self):
+        print("save and qui application")
+        self.close()
+
     def closeEvent(self, event=None):
         self.grand_parent.kropff_fitting_parameters_viewer_editor_ui = None
 
@@ -170,6 +174,7 @@ class VariableTableHandler:
 
     def replace_by_median_of_surrounding_pixels(self):
         print("in replace by median of surrounding pixels!")
+        #FIXME
 
     def set_fixed_status_of_selection(self, state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
