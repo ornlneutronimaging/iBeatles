@@ -129,7 +129,7 @@ class FittingParametersViewerEditorHandler:
             if np.isnan(_value):
                 _item = QTableWidgetItem("nan")
             else:
-                _item = QTableWidgetItem("{:04.2f}".format(_value))
+                _item = QTableWidgetItem("{:04.4f}".format(_value))
             _item.setBackground(_color)
             _item.setTextAlignment(QtCore.Qt.AlignRight)
             if (_row < mid_point) and (nbr_row != 1):
@@ -146,8 +146,8 @@ class FittingParametersViewerEditorHandler:
         elif max_value == min_value:
             return QtGui.QColor(250, 0, 0, alpha=255)  # red
 
-        _ratio = int(1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value)))
-        return QtGui.QColor(0, _ratio * 255, 0, alpha=255)
+        _ratio = 1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value))
+        return QtGui.QColor(0, int(_ratio * 255), 0, alpha=255)
 
     def create_array_of_variable(self, variable=None):
         if variable is None:
