@@ -21,6 +21,7 @@ class FitRegions:
         self.grand_parent = grand_parent
         self.o_get = Get(parent=parent)
         self.table_dictionary = self.grand_parent.kropff_table_dictionary
+        self.progress_bar_ui = self.parent.eventProgress
 
     def all_regions(self):
         type_error = ""
@@ -70,9 +71,16 @@ class FitRegions:
         common_xaxis = None
         nearest_index = -1
 
+        self.progress_bar_ui.setMaximum(len(table_dictionary.keys()))
+        self.progress_bar_ui.setVisible(True)
+        QtGui.QGuiApplication.processEvents()
+
         xaxis_common = table_dictionary['0']['xaxis']
 
-        for _key in table_dictionary.keys():
+        for _index, _key in enumerate(table_dictionary.keys()):
+
+            self.progress_bar_ui.setValue(_index+1)
+            QtGui.QGuiApplication.processEvents()
 
             # if row is locked, continue
             if table_dictionary[_key]['lock']:
@@ -117,6 +125,9 @@ class FitRegions:
             table_dictionary[_key]['fitted'][KropffTabSelected.high_tof] = {'xaxis': xaxis,
                                                                             'yaxis': yaxis_fitted}
 
+        self.progress_bar_ui.setVisible(False)
+        QtGui.QGuiApplication.processEvents()
+
     def low_lambda(self):
         gmodel = Model(kropff_low_lambda, missing='drop', independent_vars=['lda'])
 
@@ -124,9 +135,17 @@ class FitRegions:
         bhkl = self.o_get.bhkl()
 
         table_dictionary = self.table_dictionary
+
+        self.progress_bar_ui.setMaximum(len(table_dictionary.keys()))
+        self.progress_bar_ui.setVisible(True)
+        QtGui.QGuiApplication.processEvents()
+
         common_xaxis = None
         nearest_index = -1
-        for _key in table_dictionary.keys():
+        for _index, _key in enumerate(table_dictionary.keys()):
+
+            self.progress_bar_ui.setValue(_index+1)
+            QtGui.QGuiApplication.processEvents()
 
             # if row is locked, continue
             if table_dictionary[_key]['lock']:
@@ -176,6 +195,9 @@ class FitRegions:
                                               'err': bhkl_error}
             table_dictionary[_key]['fitted'][KropffTabSelected.low_tof] = {'xaxis': common_xaxis,
                                                                            'yaxis': yaxis_fitted}
+
+        self.progress_bar_ui.setVisible(False)
+        QtGui.QGuiApplication.processEvents()
 
     def bragg_peak(self):
         if self.parent.kropff_lambda_settings['state'] == 'fix':
@@ -281,8 +303,15 @@ class FitRegions:
 
         table_dictionary = self.table_dictionary
 
+        self.progress_bar_ui.setMaximum(len(table_dictionary.keys()))
+        self.progress_bar_ui.setVisible(True)
+        QtGui.QGuiApplication.processEvents()
+
         list_key_locked = []
-        for _key in table_dictionary.keys():
+        for _index, _key in enumerate(table_dictionary.keys()):
+
+            self.progress_bar_ui.setValue(_index+1)
+            QtGui.QGuiApplication.processEvents()
 
             # if row is locked, continue
             if table_dictionary[_key]['lock']:
@@ -335,3 +364,6 @@ class FitRegions:
                                                                               'yaxis': yaxis_fitted}
 
         logging.info(f"-> list of locked keys: {list_key_locked}")
+
+        self.progress_bar_ui.setVisible(False)
+        QtGui.QGuiApplication.processEvents()

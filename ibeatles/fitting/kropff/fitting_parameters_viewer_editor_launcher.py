@@ -44,6 +44,7 @@ class FittingParametersViewerEditor(QMainWindow):
 
         self.init_widgets()
         self.init_table()
+        self.fill_table()
 
     def eventFilter(self, object, event):
         if event.type() == QtCore.QEvent.WindowActivate:
@@ -74,6 +75,13 @@ class FittingParametersViewerEditor(QMainWindow):
         # self.ui.locked_label.setStyleSheet("background-color: green")
         # self.ui.active_label.setStyleSheet("background-color: green")
 
+    def fill_table(self):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        variable_selected = self.get_variable_selected()
+        o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
+        o_handler.populate_table_with_variable(variable=variable_selected)
+        QApplication.restoreOverrideCursor()
+
     def selection_cell_size_changed(self, value):
         nbr_row = self.ui.variable_table.rowCount()
         nbr_column = self.ui.variable_table.columnCount()
@@ -91,11 +99,12 @@ class FittingParametersViewerEditor(QMainWindow):
         variable_selected = self.get_variable_selected()
         o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
         o_handler.populate_table_with_variable(variable=variable_selected)
-        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
-                                              parent=self.parent)
-        self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
-        o_filling_table.fill_table()
-        self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
+
+        # o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
+        #                                       parent=self.parent)
+        # self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
+        # o_filling_table.fill_table()
+        # self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
         QApplication.restoreOverrideCursor()
 
     def get_variable_selected(self):
