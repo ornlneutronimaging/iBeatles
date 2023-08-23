@@ -54,18 +54,17 @@ class FittingParametersViewerEditorHandler:
                 if np.isnan(_value):
                     _item = QTableWidgetItem("nan")
                 else:
-                    _item = QTableWidgetItem("{:04.2f}".format(_value))
-
-                # _item.setBackground(_color)
+                    _item = QTableWidgetItem("{:04.4f}".format(_value))
+                _item.setBackground(_color)
 
                 bin_index = _row + nbr_row * _col
-                # if self.is_bin_locked(bin_index=bin_index):
-                #     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
-                #     _gradient.setColorAt(1, _color)
-                #     # if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
-                #     #     _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
-                #     _gradient.setColorAt(0, QtGui.QColor(255, 0, 0, alpha=255))
-                #     _item.setBackground(QtGui.QBrush(_gradient))
+                if self.is_bin_locked(bin_index=bin_index):
+                    _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                    _gradient.setColorAt(1, _color)
+                    # if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
+                    #     _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
+                    _gradient.setColorAt(0, QtGui.QColor(255, 0, 0, alpha=255))
+                    _item.setBackground(QtGui.QBrush(_gradient))
                 # elif self.is_bin_activated(bin_index=bin_index):
                 #     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
                 #     _gradient.setColorAt(1, _color)
@@ -82,7 +81,7 @@ class FittingParametersViewerEditorHandler:
                 #
                 if _value > mid_point:
                     _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
-                    # _item.setForeground(QBrush(_foreground_color))
+                    _item.setForeground(QBrush(_foreground_color))
 
                 self.parent.ui.variable_table.setItem(_row, _col, _item)
 
@@ -133,7 +132,7 @@ class FittingParametersViewerEditorHandler:
             _item.setBackground(_color)
             _item.setTextAlignment(QtCore.Qt.AlignRight)
             if (_row < mid_point) and (nbr_row != 1):
-                # font should be changed from black to white
+                # font should be changed from black to white to be visible over the very dark background
                 _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
                 _item.setForeground(QBrush(_foreground_color))
 

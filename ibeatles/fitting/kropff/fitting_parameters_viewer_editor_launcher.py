@@ -154,14 +154,10 @@ class VariableTableHandler:
     def right_click(self, position=None):
         menu = QMenu(self.grand_parent)
 
-        _activate = menu.addAction("Activate Selection")
-        _deactivate = menu.addAction("Deactivate Selection")
-        menu.addSeparator()
         _lock = menu.addAction("Lock Selection")
         _unlock = menu.addAction("Unlock Selection")
         menu.addSeparator()
-        _fixed = menu.addAction("Fixed Selection")
-        _unfixed = menu.addAction("Unfixed Selection")
+        _median = menu.addAction("Replace by median of surrounding pixels")
 
         action = menu.exec_(QtGui.QCursor.pos())
 
@@ -169,14 +165,11 @@ class VariableTableHandler:
             self.lock_selection()
         elif action == _unlock:
             self.unlock_selection()
-        elif action == _activate:
-            self.activate_selection()
-        elif action == _deactivate:
-            self.deactivate_selection()
-        elif action == _fixed:
-            self.fixed_selection()
-        elif action == _unfixed:
-            self.unfixed_selection()
+        elif action == _median:
+            self.replace_by_median_of_surrounding_pixels()
+
+    def replace_by_median_of_surrounding_pixels(self):
+        print("in replace by median of surrounding pixels!")
 
     def set_fixed_status_of_selection(self, state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
@@ -207,21 +200,21 @@ class VariableTableHandler:
     def unfixed_selection(self):
         self.set_fixed_status_of_selection(state=False)
 
-    def activate_selection(self):
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        self.change_state_of_bins(name='active', state=True)
-        self.update_fitting_ui(name='active')
-        self.update_advanced_selection_ui(name='active')
-        self.grand_parent.fitting_ui.update_bragg_edge_plot()
-        QApplication.restoreOverrideCursor()
-
-    def deactivate_selection(self):
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        self.change_state_of_bins(name='active', state=False)
-        self.update_fitting_ui(name='active')
-        self.update_advanced_selection_ui(name='active')
-        self.grand_parent.fitting_ui.update_bragg_edge_plot()
-        QApplication.restoreOverrideCursor()
+    # def activate_selection(self):
+    #     QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+    #     self.change_state_of_bins(name='active', state=True)
+    #     self.update_fitting_ui(name='active')
+    #     self.update_advanced_selection_ui(name='active')
+    #     self.grand_parent.fitting_ui.update_bragg_edge_plot()
+    #     QApplication.restoreOverrideCursor()
+    #
+    # def deactivate_selection(self):
+    #     QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+    #     self.change_state_of_bins(name='active', state=False)
+    #     self.update_fitting_ui(name='active')
+    #     self.update_advanced_selection_ui(name='active')
+    #     self.grand_parent.fitting_ui.update_bragg_edge_plot()
+    #     QApplication.restoreOverrideCursor()
 
     def lock_selection(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
