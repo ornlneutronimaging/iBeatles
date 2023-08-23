@@ -34,10 +34,7 @@ class FittingParametersViewerEditor(QMainWindow):
         self.parent = parent
         QMainWindow.__init__(self, parent=grand_parent)
         self.ui = load_ui('ui_fittingVariablesKropff.ui', baseinstance=self)
-        # self.ui = UiMainWindow()
-        # self.ui.setupUi(self)
         self.setWindowTitle("Check/Set Variables")
-        # self.installEventFilter(self)
 
         kropff_fitting_table = self.grand_parent.kropff_table_dictionary
         # print(kropff_fitting_table)
@@ -56,7 +53,7 @@ class FittingParametersViewerEditor(QMainWindow):
     def init_table(self):
         fitting_selection = self.grand_parent.fitting_selection
 
-        print(fitting_selection)
+        # print(fitting_selection)
         nbr_row = fitting_selection['nbr_row']
         nbr_column = fitting_selection['nbr_column']
 
@@ -69,7 +66,7 @@ class FittingParametersViewerEditor(QMainWindow):
 
         # set size of cells
         value = int(self.ui.advanced_selection_cell_size_slider.value())
-        # self.selection_cell_size_changed(value)
+        self.selection_cell_size_changed(value)
 
     def init_widgets(self):
         pass
@@ -141,7 +138,7 @@ class FittingParametersViewerEditor(QMainWindow):
         self.grand_parent.kropff_fitting_parameters_viewer_editor_ui = None
 
 
-class VariableTableHandler(object):
+class VariableTableHandler:
 
     def __init__(self, grand_parent=None):
         self.grand_parent = grand_parent
