@@ -2,10 +2,12 @@ from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
 from qtpy import QtGui, QtCore
 import numpy as np
 
-from ibeatles.fitting.set_fitting_variables_handler import SetFittingVariablesHandler
+from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import FittingParametersViewerEditorHandler
 from ibeatles import load_ui
 from ibeatles.fitting.march_dollase.event_handler import EventHandler
+from ibeatles.fitting.kropff import SessionSubKeys
 
 
 class FittingParametersViewerEditorLauncher:
@@ -36,11 +38,7 @@ class FittingParametersViewerEditor(QMainWindow):
         self.ui = load_ui('ui_fittingVariablesKropff.ui', baseinstance=self)
         self.setWindowTitle("Check/Set Variables")
 
-        kropff_fitting_table = self.grand_parent.kropff_table_dictionary
-        # print(kropff_fitting_table)
-
-        list_key = list(kropff_fitting_table.keys())
-        print(kropff_fitting_table[list_key[0]])
+        self.kropff_fitting_table = self.grand_parent.kropff_table_dictionary
 
         self.init_widgets()
         self.init_table()
@@ -70,7 +68,9 @@ class FittingParametersViewerEditor(QMainWindow):
         self.selection_cell_size_changed(value)
 
     def init_widgets(self):
-        pass
+        self.ui.lambda_hkl_button.setText(u'\u03BB\u2095\u2096\u2097')
+        self.ui.sigma_button.setText(u'\u03c4')
+        self.ui.tau_button.setText(u'\u03c3')
         # self.ui.fixed_label.setStyleSheet("background-color: green")
         # self.ui.locked_label.setStyleSheet("background-color: green")
         # self.ui.active_label.setStyleSheet("background-color: green")
@@ -78,7 +78,8 @@ class FittingParametersViewerEditor(QMainWindow):
     def fill_table(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         variable_selected = self.get_variable_selected()
-        o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
+        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent,
+                                                         parent=self)
         o_handler.populate_table_with_variable(variable=variable_selected)
         QApplication.restoreOverrideCursor()
 
@@ -97,7 +98,8 @@ class FittingParametersViewerEditor(QMainWindow):
     def update_table(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         variable_selected = self.get_variable_selected()
-        o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
+        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent,
+                                                         parent=self)
         o_handler.populate_table_with_variable(variable=variable_selected)
 
         # o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
@@ -108,25 +110,22 @@ class FittingParametersViewerEditor(QMainWindow):
         QApplication.restoreOverrideCursor()
 
     def get_variable_selected(self):
-        if self.ui.d_spacing_button.isChecked():
-            return 'd_spacing'
+        """
+        returns the button checked at the top of the window
+        """
+        if self.ui.lambda_hkl_button.isChecked():
+            return SessionSubKeys.lambda_hkl
         elif self.ui.sigma_button.isChecked():
-            return 'sigma'
-        elif self.ui.alpha_button.isChecked():
-            return 'alpha'
-        elif self.ui.a1_button.isChecked():
-            return 'a1'
-        elif self.ui.a2_button.isChecked():
-            return 'a2'
-        elif self.ui.a5_button.isChecked():
-            return 'a5'
-        elif self.ui.a6_button.isChecked():
-            return 'a6'
+            return SessionSubKeys.sigma
+        elif self.ui.tau_button.isChecked():
+            return SessionSubKeys.tau
+        else:
+            raise NotImplementedError("variable requested not supported!")
 
     def apply_new_value_to_selection(self):
         variable_selected = self.get_variable_selected()
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
-        o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
+        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent)
         new_variable = float(str(self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
         o_handler.set_new_value_to_selected_bins(selection=selection,
                                                  variable_name=variable_selected,
@@ -183,7 +182,7 @@ class VariableTableHandler:
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         table_dictionary = self.grand_parent.march_table_dictionary
         nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
-        o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
+        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent)
         variable_selected = o_handler.get_variable_selected()
 
         for _select in selection:

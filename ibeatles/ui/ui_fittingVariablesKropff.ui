@@ -50,9 +50,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QRadioButton" name="d_spacing_button">
+        <widget class="QRadioButton" name="lambda_hkl_button">
          <property name="text">
-          <string>D-spacing</string>
+          <string>lambda_hkl</string>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -60,16 +60,16 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="sigma_button">
+        <widget class="QRadioButton" name="tau_button">
          <property name="text">
-          <string>Sigma</string>
+          <string>tau</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="alpha_button">
+        <widget class="QRadioButton" name="sigma_button">
          <property name="text">
-          <string>Alpha</string>
+          <string>sigma</string>
          </property>
         </widget>
        </item>
@@ -216,11 +216,31 @@
        </widget>
       </item>
       <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QGroupBox" name="groupBox_3">
         <property name="title">
          <string>Zoom</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QSlider" name="advanced_selection_cell_size_slider">
            <property name="minimum">
@@ -237,6 +257,13 @@
            </property>
            <property name="tickPosition">
             <enum>QSlider::TicksAbove</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>+</string>
            </property>
           </widget>
          </item>
@@ -270,7 +297,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>d_spacing_button</sender>
+   <sender>lambda_hkl_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>update_table()</slot>
@@ -286,7 +313,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>sigma_button</sender>
+   <sender>tau_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>update_table()</slot>
@@ -302,7 +329,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>alpha_button</sender>
+   <sender>sigma_button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>update_table()</slot>

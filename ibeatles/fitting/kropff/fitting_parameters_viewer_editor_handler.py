@@ -3,13 +3,14 @@ from qtpy.QtWidgets import QTableWidgetItem
 import numpy as np
 
 
-class SetFittingVariablesHandler:
+class FittingParametersViewerEditorHandler:
     colorscale_nbr_row = 15
     colorscale_cell_size = {'width': 75,
                             'height': 30}
 
-    def __init__(self, grand_parent=None):
+    def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent
+        self.parent = parent
 
     def get_variable_selected(self):
         if self.grand_parent.fitting_set_variables_ui.ui.lambda_hkl_button.isChecked():
@@ -25,58 +26,58 @@ class SetFittingVariablesHandler:
 
         array_2d_values = self.create_array_of_variable(variable=variable)
 
-        print(array_2d_values)
+        # retrieve min and max values
+        if np.isnan(array_2d_values).any():
+            min_value = np.NaN
+            max_value = np.NaN
+            mid_point = np.NaN
+        else:
+            min_value = np.nanmin(array_2d_values)
+            max_value = np.nanmax(array_2d_values)
+            mid_point = np.mean([min_value, max_value])
 
-        # # retrieve min and max values
-        # if np.isnan(array_2d_values).any():
-        #     min_value = np.NaN
-        #     max_value = np.NaN
-        #     mid_point = np.NaN
-        # else:
-        #     min_value = np.nanmin(array_2d_values)
-        #     max_value = np.nanmax(array_2d_values)
-        #     mid_point = np.mean([min_value, max_value])
-        #
-        # # define colorscale table
-        # self.initialize_colorscale_table(min_value=min_value, max_value=max_value)
-        #
-        # [nbr_row, nbr_column] = np.shape(array_2d_values)
-        # for _row in np.arange(nbr_row):
-        #     for _col in np.arange(nbr_column):
-        #         _value = array_2d_values[_row, _col]
-        #         _color = self.get_color_for_this_value(min_value=min_value,
-        #                                                max_value=max_value,
-        #                                                value=_value)
-        #         _item = QTableWidgetItem(str(_value))
-        #         _item.setBackground(_color)
-        #
-        #         bin_index = _row + nbr_row * _col
-        #         if self.is_bin_locked(bin_index=bin_index):
-        #             _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
-        #             _gradient.setColorAt(1, _color)
-        #             if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
-        #                 _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
-        #             _gradient.setColorAt(0, QtGui.QColor(255, 0, 0, alpha=255))
-        #             _item.setBackground(QtGui.QBrush(_gradient))
-        #         elif self.is_bin_activated(bin_index=bin_index):
-        #             _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
-        #             _gradient.setColorAt(1, _color)
-        #             if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
-        #                 _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
-        #             _gradient.setColorAt(0, QtGui.QColor(0, 0, 255, alpha=255))
-        #             _item.setBackground(QtGui.QBrush(_gradient))
-        #         else:
-        #             if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
-        #                 _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
-        #                 _gradient.setColorAt(1, _color)
-        #                 _gradient.setColorAt(0, QtGui.QColor(255, 255, 255))
-        #                 _item.setBackground(QtGui.QBrush(_gradient))
-        #
-        #         if (_value > mid_point):
-        #             _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
-        #             _item.setTextColor(_foreground_color)
-        #
-        #         self.grand_parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
+        # define colorscale table
+        self.initialize_colorscale_table(min_value=min_value, max_value=max_value)
+
+        return
+
+        [nbr_row, nbr_column] = np.shape(array_2d_values)
+        for _row in np.arange(nbr_row):
+            for _col in np.arange(nbr_column):
+                _value = array_2d_values[_row, _col]
+                _color = self.get_color_for_this_value(min_value=min_value,
+                                                       max_value=max_value,
+                                                       value=_value)
+                _item = QTableWidgetItem(str(_value))
+                _item.setBackground(_color)
+
+                bin_index = _row + nbr_row * _col
+                if self.is_bin_locked(bin_index=bin_index):
+                    _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                    _gradient.setColorAt(1, _color)
+                    if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
+                        _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
+                    _gradient.setColorAt(0, QtGui.QColor(255, 0, 0, alpha=255))
+                    _item.setBackground(QtGui.QBrush(_gradient))
+                elif self.is_bin_activated(bin_index=bin_index):
+                    _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                    _gradient.setColorAt(1, _color)
+                    if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
+                        _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
+                    _gradient.setColorAt(0, QtGui.QColor(0, 0, 255, alpha=255))
+                    _item.setBackground(QtGui.QBrush(_gradient))
+                else:
+                    if self.is_bin_fixed(bin_index=bin_index, variable_name=variable):
+                        _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
+                        _gradient.setColorAt(1, _color)
+                        _gradient.setColorAt(0, QtGui.QColor(255, 255, 255))
+                        _item.setBackground(QtGui.QBrush(_gradient))
+
+                if _value > mid_point:
+                    _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
+                    _item.setTextColor(_foreground_color)
+
+                # self.grand_parent.fitting_set_variables_ui.ui.variable_table.setItem(_row, _col, _item)
 
     def is_bin_fixed(self, bin_index=0, variable_name='d_spacing'):
         table_dictionary = self.grand_parent.march_table_dictionary
@@ -91,9 +92,9 @@ class SetFittingVariablesHandler:
         return table_dictionary[str(bin_index)]['active']
 
     def clear_colorscale_table(self):
-        nbr_row = self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.rowCount()
+        nbr_row = self.parent.colorscale_table.rowCount()
         for _row in np.arange(nbr_row):
-            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.removeRow(0)
+            self.parent.colorscale_table.removeRow(0)
 
     def initialize_colorscale_table(self, min_value=0, max_value=1):
         self.clear_colorscale_table()
@@ -110,11 +111,9 @@ class SetFittingVariablesHandler:
             nbr_row = 1
 
         for _index in np.arange(nbr_row - 1, -1, -1):
-            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.insertRow(_row)
-            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.setRowHeight(_row,
-                                                                                  self.colorscale_cell_size['height'])
-            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.setColumnWidth(_row,
-                                                                                    self.colorscale_cell_size['width'])
+            self.parent.colorscale_table.insertRow(_row)
+            self.parent.colorscale_table.setRowHeight(_row, self.colorscale_cell_size['height'])
+            self.parent.colorscale_table.setColumnWidth(_row, self.colorscale_cell_size['width'])
             if np.isnan(step):
                 _value = np.NaN
             else:
@@ -134,7 +133,7 @@ class SetFittingVariablesHandler:
                 _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
                 _item.setTextColor(_foreground_color)
 
-            self.grand_parent.fitting_set_variables_ui.ui.colorscale_table.setItem(_row, 0, _item)
+            self.parent.colorscale_table.setItem(_row, 0, _item)
             _row += 1
 
     def get_color_for_this_value(self, min_value=0, max_value=1, value=0):
@@ -147,7 +146,7 @@ class SetFittingVariablesHandler:
         return QtGui.QColor(0, _ratio * 255, 0, alpha=255)
 
     def create_array_of_variable(self, variable='d_spacing'):
-        table_dictionary = self.kropf_table_dictionary
+        table_dictionary = self.grand_parent.kropff_table_dictionary
 
         _table_selection = self.grand_parent.fitting_selection
         nbr_column = _table_selection['nbr_column']

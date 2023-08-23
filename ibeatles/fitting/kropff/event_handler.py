@@ -214,7 +214,7 @@ class EventHandler:
 
         menu.addSeparator()
 
-        display_fitting_parameters = menu.addAction("Fitting parameters viewer")
+        display_fitting_parameters = menu.addAction("Fitting parameters viewer ...")
         button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state']
         display_fitting_parameters.setEnabled(button_state)
         # unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
