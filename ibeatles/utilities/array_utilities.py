@@ -93,6 +93,10 @@ def calculate_median(array_of_value=None):
     if array_of_value is None:
         return None
 
+    print(f"{array_of_value =}")
+    print(f"")
+    print(f"{np.isinf(array_of_value) =}")
+
     array_of_value = np.where(np.isinf(array_of_value), np.NaN, array_of_value)
     array_of_value = np.where(np.isneginf(array_of_value), np.NaN, array_of_value)
 

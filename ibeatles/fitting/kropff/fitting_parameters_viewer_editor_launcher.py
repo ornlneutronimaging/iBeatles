@@ -13,6 +13,7 @@ from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import Fit
 from ibeatles.fitting.march_dollase.event_handler import EventHandler
 from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.array_utilities import calculate_median
 
 
 class FittingParametersViewerEditorLauncher:
@@ -43,7 +44,7 @@ class FittingParametersViewerEditor(QMainWindow):
         self.ui = load_ui('ui_fittingVariablesKropff.ui', baseinstance=self)
         self.setWindowTitle("Check/Set Variables")
 
-        self.kropff_fitting_table = self.grand_parent.kropff_table_dictionary
+        self.kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
 
         self.init_widgets()
         self.init_table()
@@ -144,8 +145,10 @@ class FittingParametersViewerEditor(QMainWindow):
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def variable_table_right_click(self, position):
-        o_variable = VariableTableHandler(grand_parent=self.grand_parent,
-                                          parent=self)
+        o_variable = VariableTableHandler(grand_grand_parent=self.grand_parent,
+                                          grand_parent=self.parent,
+                                          parent=self,
+                                          )
         o_variable.right_click(position=position)
 
     def save_and_quit_clicked(self):
@@ -160,7 +163,8 @@ class VariableTableHandler:
     nbr_row = None
     nbr_column = None
 
-    def __init__(self, grand_parent=None, parent=None):
+    def __init__(self, grand_grand_parent=None, grand_parent=None, parent=None):
+        self.grand_grand_parent = grand_grand_parent
         self.grand_parent = grand_parent
         self.parent = parent
 
@@ -188,9 +192,7 @@ class VariableTableHandler:
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         all_selection = o_table.get_selection()
 
-        table_dictionary = self.grand_parent.kropff_table_dictionary
-
-        print(f"{table_dictionary.keys() =}")
+        table_dictionary = self.parent.kropff_table_dictionary
 
         logging.info("replace by median of surrounding pixels")
 
@@ -229,22 +231,40 @@ class VariableTableHandler:
 
                 for _key in surrounding_keys:
 
-                    list_lambda_value.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['value'])
-                    list_tau_value.append(table_dictionary[_key][SessionSubKeys.tau]['value'])
-                    list_sigma_value.append(table_dictionary[_key][SessionSubKeys.sigma]['value'])
+                    list_lambda_value.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['val'])
+                    list_tau_value.append(table_dictionary[_key][SessionSubKeys.tau]['val'])
+                    list_sigma_value.append(table_dictionary[_key][SessionSubKeys.sigma]['val'])
 
-                    list_lambda_error.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['error'])
-                    list_tau_error.append(table_dictionary[_key][SessionSubKeys.tau]['error'])
-                    list_sigma_error.append(table_dictionary[_key][SessionSubKeys.sigma]['error'])
+                    list_lambda_error.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['err'])
+                    list_tau_error.append(table_dictionary[_key][SessionSubKeys.tau]['err'])
+                    list_sigma_error.append(table_dictionary[_key][SessionSubKeys.sigma]['err'])
 
+                new_lambda_value = calculate_median(array_of_value=list_lambda_value)
+                new_lambda_error = calculate_median(array_of_value=list_lambda_error)
 
+                new_tau_value = calculate_median(array_of_value=list_tau_value)
+                new_tau_error = calculate_median(array_of_value=list_tau_error)
 
+                new_sigma_value = calculate_median(array_of_value=list_sigma_value)
+                new_sigma_error = calculate_median(array_of_value=list_sigma_error)
+
+            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['val'] = new_lambda_value
+            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['err'] = new_lambda_error
+
+            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['val'] = new_tau_value
+            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['err'] = new_tau_error
+
+            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['val'] = new_sigma_value
+            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['err'] = new_sigma_error
+
+        # refresh table
+        # self.parent.update_table()
 
     def set_fixed_status_of_selection(self, state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         table_dictionary = self.grand_parent.march_table_dictionary
         nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
-        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent)
+        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_grand_parent)
         variable_selected = o_handler.get_variable_selected()
 
         for _select in selection:
@@ -301,44 +321,44 @@ class VariableTableHandler:
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()
 
-    def change_state_of_bins(self, name='lock', state=True):
-        selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
-        table_dictionary = self.grand_parent.march_table_dictionary
-        nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
-
-        for _select in selection:
-            _left_column = _select.leftColumn()
-            _right_column = _select.rightColumn()
-            _top_row = _select.topRow()
-            _bottom_row = _select.bottomRow()
-            for _row in np.arange(_top_row, _bottom_row + 1):
-                for _col in np.arange(_left_column, _right_column + 1):
-                    _index = _row + _col * nbr_row
-                    table_dictionary[str(_index)][name] = state
-
-            # remove selection markers
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
-
-        self.grand_parent.march_table_dictionary = table_dictionary
-        self.grand_parent.fitting_set_variables_ui.update_table()
-
-    def update_fitting_ui(self, name='active'):
-        o_event = EventHandler(parent=self.parent,
-                               grand_parent=self.grand_parent)
-        if name == 'lock':
-            o_event.update_image_view_lock()
-        elif name == 'active':
-            o_event.update_image_view_selection()
-
-        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent)
-        self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
-        o_filling_table.fill_table()
-
-        self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
-
-    def update_advanced_selection_ui(self, name='active'):
-        if self.grand_parent.advanced_selection_ui:
-            if name == 'lock':
-                self.grand_parent.advanced_selection_ui.update_lock_table()
-            elif name == 'active':
-                self.grand_parent.advanced_selection_ui.update_selected_table()
+    # def change_state_of_bins(self, name='lock', state=True):
+    #     selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
+    #     table_dictionary = self.grand_parent.march_table_dictionary
+    #     nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
+    #
+    #     for _select in selection:
+    #         _left_column = _select.leftColumn()
+    #         _right_column = _select.rightColumn()
+    #         _top_row = _select.topRow()
+    #         _bottom_row = _select.bottomRow()
+    #         for _row in np.arange(_top_row, _bottom_row + 1):
+    #             for _col in np.arange(_left_column, _right_column + 1):
+    #                 _index = _row + _col * nbr_row
+    #                 table_dictionary[str(_index)][name] = state
+    #
+    #         # remove selection markers
+    #         self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+    #
+    #     self.grand_parent.march_table_dictionary = table_dictionary
+    #     self.grand_parent.fitting_set_variables_ui.update_table()
+    #
+    # def update_fitting_ui(self, name='active'):
+    #     o_event = EventHandler(parent=self.parent,
+    #                            grand_parent=self.grand_parent)
+    #     if name == 'lock':
+    #         o_event.update_image_view_lock()
+    #     elif name == 'active':
+    #         o_event.update_image_view_selection()
+    #
+    #     o_filling_table = FillingTableHandler(grand_parent=self.grand_parent)
+    #     self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
+    #     o_filling_table.fill_table()
+    #
+    #     self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
+    #
+    # def update_advanced_selection_ui(self, name='active'):
+    #     if self.grand_parent.advanced_selection_ui:
+    #         if name == 'lock':
+    #             self.grand_parent.advanced_selection_ui.update_lock_table()
+    #         elif name == 'active':
+    #             self.grand_parent.advanced_selection_ui.update_selected_table()
