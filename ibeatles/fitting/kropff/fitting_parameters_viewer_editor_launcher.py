@@ -1,6 +1,7 @@
 from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
 from qtpy import QtGui, QtCore
 import numpy as np
+import logging
 
 from ibeatles.utilities.bins import create_list_of_bins_from_selection
 from ibeatles import load_ui
@@ -180,6 +181,8 @@ class VariableTableHandler:
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         all_selection = o_table.get_selection()
 
+        logging.info("replace by median of surrounding pixels")
+
         for _selection in all_selection:
             top_row = _selection.topRow()
             bottom_row = _selection.bottomRow()
@@ -192,6 +195,10 @@ class VariableTableHandler:
                                                            left_column=left_column,
                                                            right_column=right_column)
 
+            logging.info(f"-> list_bins: {list_bins}")
+            for central_bin in list_bins:
+
+                surrounding_bins =
 
 
 
