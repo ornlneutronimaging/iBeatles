@@ -182,3 +182,12 @@ class TestConvertBinsToKeys(TestCase):
         list_of_keys_expected = ["49"]
 
         self.assertEqual(list_of_keys_expected, list_of_keys_returned)
+
+    def test_list_of_bins_case1(self):
+        """assert case for list of bins"""
+        list_of_bins = [(0, 0), [9, 0], [0, 1], [9, 4]]
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins,
+                                                     full_bin_height=self.full_bin_height)
+        list_of_keys_expected = ["0", "9", "10", "49"]
+
+        self.assertEqual(list_of_keys_expected, list_of_keys_returned)
