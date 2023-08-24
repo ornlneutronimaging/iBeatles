@@ -3,7 +3,7 @@ from qtpy import QtGui, QtCore
 import numpy as np
 import logging
 
-from ibeatles.utilities.bins import create_list_of_bins_from_selection
+from ibeatles.utilities.bins import create_list_of_bins_from_selection, create_list_of_surrounding_bins
 from ibeatles import load_ui
 
 from ibeatles.fitting.fitting_handler import FittingHandler
@@ -156,9 +156,15 @@ class FittingParametersViewerEditor(QMainWindow):
 
 class VariableTableHandler:
 
+    nbr_row = None
+    nbr_column = None
+
     def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent
         self.parent = parent
+
+        self.nbr_column = self.parent.nbr_column
+        self.nbr_row = self.parent.nbr_row
 
     def right_click(self, position=None):
         menu = QMenu(self.grand_parent)
@@ -181,6 +187,10 @@ class VariableTableHandler:
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         all_selection = o_table.get_selection()
 
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+
+        print(f"{table_dictionary.keys() =}")
+
         logging.info("replace by median of surrounding pixels")
 
         for _selection in all_selection:
@@ -198,9 +208,14 @@ class VariableTableHandler:
             logging.info(f"-> list_bins: {list_bins}")
             for central_bin in list_bins:
 
-                surrounding_bins =
+                surrounding_bins = create_list_of_surrounding_bins(central_bin=central_bin,
+                                                                   full_bin_width=self.nbr_column,
+                                                                   full_bin_height=self.nbr_row)
 
 
+                for _bin in surrounding_bins:
+
+                    _key = str(_bin[1] * self.nbr_row + _bin[0])
 
 
 

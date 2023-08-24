@@ -3,6 +3,7 @@ import numpy as np
 
 from ibeatles.utilities.bins import create_list_of_bins_from_selection
 from ibeatles.utilities.bins import create_list_of_surrounding_bins
+from ibeatles.utilities.bins import convert_bins_to_keys
 
 
 class TestCreateListOfBinsFromSelection(TestCase):
@@ -138,3 +139,46 @@ class TestCreateListOfSurroundingBins(TestCase):
         expected_surrounding_bins.sort()
 
         self.assertEqual(expected_surrounding_bins, surrounding_bins)
+
+
+class TestConvertBinsToKeys(TestCase):
+
+    def setUp(self):
+        self.full_bin_width = 5
+        self.full_bin_height = 10
+
+    def test_first_bin(self):
+        """assert case for 1 bin (0,0)"""
+        list_of_bins = [(0, 0)]
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins,
+                                                     full_bin_height=self.full_bin_height)
+        list_of_keys_expected = ["0"]
+
+        self.assertEqual(list_of_keys_expected, list_of_keys_returned)
+
+    def test_last_bin_of_first_column(self):
+        """assert case for last bin of first column (9,0)"""
+        list_of_bins = [(9, 0)]
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins,
+                                                     full_bin_height=self.full_bin_height)
+        list_of_keys_expected = ["9"]
+
+        self.assertEqual(list_of_keys_expected, list_of_keys_returned)
+
+    def test_first_bin_of_second_column(self):
+        """assert case for last bin of first column (0,1)"""
+        list_of_bins = [(0, 1)]
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins,
+                                                     full_bin_height=self.full_bin_height)
+        list_of_keys_expected = ["10"]
+
+        self.assertEqual(list_of_keys_expected, list_of_keys_returned)
+
+    def test_first_bin_of_second_column(self):
+        """assert case for last bin (9, 4)"""
+        list_of_bins = [(9, 4)]
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins,
+                                                     full_bin_height=self.full_bin_height)
+        list_of_keys_expected = ["49"]
+
+        self.assertEqual(list_of_keys_expected, list_of_keys_returned)

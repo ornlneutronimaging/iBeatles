@@ -59,3 +59,17 @@ def create_list_of_surrounding_bins(central_bin=None, full_bin_width=None, full_
 
     list_surrounding_bins.sort()
     return list_surrounding_bins
+
+
+def convert_bins_to_keys(list_of_bins=None, full_bin_height=None):
+    """
+    this convert into a key (used by the self.grand_parent.kropff_table_dictionary) the list of
+    bins values (row, column) using the simple math  key = str(_row + _col * nbr_row)
+    """
+    list_keys = []
+    for _bin in list_of_bins:
+        _row, _col = _bin
+        str_key = str(_row + _col * full_bin_height)
+        list_keys.append(str_key)
+
+    return list_keys
