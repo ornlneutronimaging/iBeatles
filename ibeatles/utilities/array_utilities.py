@@ -87,3 +87,13 @@ def exclude_y_value_when_error_is_nan(axis, error_axis):
             error_axis_cleaned.append(float(_error))
 
     return axis_cleaned, error_axis_cleaned
+
+
+def calculate_median(array_of_value=None):
+    if array_of_value is None:
+        return None
+
+    array_of_value = np.where(np.isinf(array_of_value), np.NaN, array_of_value)
+    array_of_value = np.where(np.isneginf(array_of_value), np.NaN, array_of_value)
+
+    return np.nanmedian(array_of_value)

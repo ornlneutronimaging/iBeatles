@@ -3,7 +3,8 @@ from qtpy import QtGui, QtCore
 import numpy as np
 import logging
 
-from ibeatles.utilities.bins import create_list_of_bins_from_selection, create_list_of_surrounding_bins
+from ibeatles.utilities.bins import create_list_of_bins_from_selection, create_list_of_surrounding_bins, \
+    convert_bins_to_keys
 from ibeatles import load_ui
 
 from ibeatles.fitting.fitting_handler import FittingHandler
@@ -213,12 +214,28 @@ class VariableTableHandler:
                                                                    full_bin_height=self.nbr_row)
 
 
-                for _bin in surrounding_bins:
+                surrounding_keys = convert_bins_to_keys(list_of_bins=surrounding_bins,
+                                                        full_bin_height=self.nbr_row)
+                central_key = convert_bins_to_keys(list_of_bins=[central_bin],
+                                                   full_bin_height=self.nbr_row)
 
-                    _key = str(_bin[1] * self.nbr_row + _bin[0])
+                list_lambda_value = []
+                list_tau_value = []
+                list_sigma_value = []
 
+                list_lambda_error = []
+                list_tau_error = []
+                list_sigma_error = []
 
+                for _key in surrounding_keys:
 
+                    list_lambda_value.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['value'])
+                    list_tau_value.append(table_dictionary[_key][SessionSubKeys.tau]['value'])
+                    list_sigma_value.append(table_dictionary[_key][SessionSubKeys.sigma]['value'])
+
+                    list_lambda_error.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['error'])
+                    list_tau_error.append(table_dictionary[_key][SessionSubKeys.tau]['error'])
+                    list_sigma_error.append(table_dictionary[_key][SessionSubKeys.sigma]['error'])
 
 
 
