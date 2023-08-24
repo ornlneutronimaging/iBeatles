@@ -2,12 +2,15 @@ from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
 from qtpy import QtGui, QtCore
 import numpy as np
 
+from ibeatles.utilities.bins import create_list_of_bins_from_selection
+from ibeatles import load_ui
+
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import FittingParametersViewerEditorHandler
-from ibeatles import load_ui
 from ibeatles.fitting.march_dollase.event_handler import EventHandler
 from ibeatles.fitting.kropff import SessionSubKeys
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class FittingParametersViewerEditorLauncher:
@@ -139,11 +142,11 @@ class FittingParametersViewerEditor(QMainWindow):
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def variable_table_right_click(self, position):
-        o_variable = VariableTableHandler(grand_parent=self.grand_parent)
+        o_variable = VariableTableHandler(grand_parent=self.grand_parent,
+                                          parent=self)
         o_variable.right_click(position=position)
 
     def save_and_quit_clicked(self):
-        print("save and qui application")
         self.close()
 
     def closeEvent(self, event=None):
@@ -152,8 +155,9 @@ class FittingParametersViewerEditor(QMainWindow):
 
 class VariableTableHandler:
 
-    def __init__(self, grand_parent=None):
+    def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent
+        self.parent = parent
 
     def right_click(self, position=None):
         menu = QMenu(self.grand_parent)
@@ -173,8 +177,29 @@ class VariableTableHandler:
             self.replace_by_median_of_surrounding_pixels()
 
     def replace_by_median_of_surrounding_pixels(self):
-        print("in replace by median of surrounding pixels!")
-        #FIXME
+        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        all_selection = o_table.get_selection()
+
+        for _selection in all_selection:
+            top_row = _selection.topRow()
+            bottom_row = _selection.bottomRow()
+            left_column = _selection.leftColumn()
+            right_column = _selection.rightColumn()
+
+            # make individual list of bins to work on
+            list_bins = create_list_of_bins_from_selection(top_row=top_row,
+                                                           bottom_row=bottom_row,
+                                                           left_column=left_column,
+                                                           right_column=right_column)
+
+
+
+
+
+
+
+
+
 
     def set_fixed_status_of_selection(self, state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
