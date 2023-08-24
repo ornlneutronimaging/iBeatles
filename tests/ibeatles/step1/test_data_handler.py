@@ -68,12 +68,12 @@ class TestDataHandler(TestCase):
     def test_time_spectra_automatically_retrieved(self):
         """Checking that the timespectra from the folder is correctly located or return empty string when not found"""
         self.mock_parent.default_path['sample'] = os.path.join(self.data_path, 'sample_with_time_spectra')
-        o_data_with = DataHandler(parent=self.mock_parent)
+        o_data_with = DataHandler(parent=self.mock_parent, data_type='sample')
         time_spectra_file = o_data_with.get_time_spectra_file()
         test_spectra_file = os.path.join(self.data_path, 'sample_with_time_spectra/Image019_Spectra.txt')
         self.assertEqual(time_spectra_file, test_spectra_file)
 
-        o_data_without = DataHandler(parent=self.mock_parent)
+        o_data_without = DataHandler(parent=self.mock_parent, data_type='sample')
         self.mock_parent.default_path['sample'] = os.path.join(self.data_path, 'sample_without_time_spectra')
         time_spectra_file = o_data_without.get_time_spectra_file()
         test_spectra_file = ''
