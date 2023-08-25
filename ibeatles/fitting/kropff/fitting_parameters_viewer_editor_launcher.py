@@ -313,44 +313,43 @@ class VariableTableHandler:
         self.set_fixed_status_of_selection(state=False)
 
     def lock_selection(self):
-        pass
-        # QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        # self.change_state_of_bins(name='lock', state=True)
-        # self.update_fitting_ui(name='lock')
-        # self.update_advanced_selection_ui(name='lock')
-        # self.grand_parent.fitting_ui.update_bragg_edge_plot()
-        # QApplication.restoreOverrideCursor()
+        self.change_state_of_bins(name='lock', state=True)
+        self.parent.update_table()
+        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        o_table.select_everything(False)
 
     def unlock_selection(self):
-        pass
-        # QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        # self.change_state_of_bins(name='lock', state=False)
-        # self.update_fitting_ui(name='lock')
-        # self.update_advanced_selection_ui(name='lock')
-        # self.grand_parent.fitting_ui.update_bragg_edge_plot()
-        # QApplication.restoreOverrideCursor()
+        self.change_state_of_bins(name='lock', state=False)
+        self.parent.update_table()
+        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        o_table.select_everything(False)
 
-    # def change_state_of_bins(self, name='lock', state=True):
-    #     selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
-    #     table_dictionary = self.grand_parent.march_table_dictionary
-    #     nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
-    #
-    #     for _select in selection:
-    #         _left_column = _select.leftColumn()
-    #         _right_column = _select.rightColumn()
-    #         _top_row = _select.topRow()
-    #         _bottom_row = _select.bottomRow()
-    #         for _row in np.arange(_top_row, _bottom_row + 1):
-    #             for _col in np.arange(_left_column, _right_column + 1):
-    #                 _index = _row + _col * nbr_row
-    #                 table_dictionary[str(_index)][name] = state
-    #
-    #         # remove selection markers
-    #         self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
-    #
-    #     self.grand_parent.march_table_dictionary = table_dictionary
-    #     self.grand_parent.fitting_set_variables_ui.update_table()
-    #
+    def change_state_of_bins(self, name='lock', state=True):
+
+        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        all_selection = o_table.get_selection()
+        table_dictionary = self.parent.kropff_table_dictionary
+        logging.info("Changing lock state of selection")
+
+        for _selection in all_selection:
+
+            top_row = _selection.topRow()
+            bottom_row = _selection.bottomRow()
+            left_column = _selection.leftColumn()
+            right_column = _selection.rightColumn()
+
+            # make individual list of bins to work on
+            list_bins = create_list_of_bins_from_selection(top_row=top_row,
+                                                           bottom_row=bottom_row,
+                                                           left_column=left_column,
+                                                           right_column=right_column)
+
+            list_keys = convert_bins_to_keys(list_of_bins=list_bins,
+                                             full_bin_height=self.nbr_row)
+
+            for _key in list_keys:
+                self.parent.kropff_table_dictionary[_key][SessionSubKeys.lock] = state
+
     # def update_fitting_ui(self, name='active'):
     #     o_event = EventHandler(parent=self.parent,
     #                            grand_parent=self.grand_parent)
