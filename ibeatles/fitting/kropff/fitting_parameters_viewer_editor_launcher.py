@@ -198,6 +198,10 @@ class VariableTableHandler:
             self.replace_by_median_of_surrounding_pixels()
 
     def replace_by_median_of_surrounding_pixels(self):
+        """
+        replace all the pixels selected by the median of the surrounding pixels and
+        automatically lock that cell
+        """
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         all_selection = o_table.get_selection()
 
@@ -220,15 +224,19 @@ class VariableTableHandler:
             logging.info(f"-> list_bins: {list_bins}")
             for central_bin in list_bins:
 
+                [central_key] = convert_bins_to_keys(list_of_bins=[central_bin],
+                                                     full_bin_height=self.nbr_row)
+                if self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lock]:
+                    logging.info(f"-> bin #{central_key} is locked and won't be modified!")
+                    # we don't do anything if the cell is locked !
+                    continue
+
                 surrounding_bins = create_list_of_surrounding_bins(central_bin=central_bin,
                                                                    full_bin_width=self.nbr_column,
                                                                    full_bin_height=self.nbr_row)
 
-
                 surrounding_keys = convert_bins_to_keys(list_of_bins=surrounding_bins,
                                                         full_bin_height=self.nbr_row)
-                [central_key] = convert_bins_to_keys(list_of_bins=[central_bin],
-                                                     full_bin_height=self.nbr_row)
 
                 list_lambda_value = []
                 list_tau_value = []
@@ -257,14 +265,16 @@ class VariableTableHandler:
                 new_sigma_value = calculate_median(array_of_value=list_sigma_value)
                 new_sigma_error = calculate_median(array_of_value=list_sigma_error)
 
-            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['val'] = new_lambda_value
-            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['err'] = new_lambda_error
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['val'] = new_lambda_value
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['err'] = new_lambda_error
 
-            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['val'] = new_tau_value
-            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['err'] = new_tau_error
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['val'] = new_tau_value
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['err'] = new_tau_error
 
-            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['val'] = new_sigma_value
-            self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['err'] = new_sigma_error
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['val'] = new_sigma_value
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['err'] = new_sigma_error
+
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lock] = True
 
         # refresh table
         self.parent.update_table()

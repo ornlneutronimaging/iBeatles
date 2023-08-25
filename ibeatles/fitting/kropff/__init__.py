@@ -51,6 +51,7 @@ class SessionSubKeys:
     tau = "tau"
     sigma = "sigma"
     table_selection = "table selection"
+    lock = "lock"
     automatic_bragg_peak_threshold_finder = "automatic bragg peak threshold finder"
     kropff_bragg_peak_good_fit_conditions = "kropff bragg peak good fit conditions"
     l_hkl = "l_hkl"
