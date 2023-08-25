@@ -218,8 +218,8 @@ class VariableTableHandler:
 
                 surrounding_keys = convert_bins_to_keys(list_of_bins=surrounding_bins,
                                                         full_bin_height=self.nbr_row)
-                central_key = convert_bins_to_keys(list_of_bins=[central_bin],
-                                                   full_bin_height=self.nbr_row)
+                [central_key] = convert_bins_to_keys(list_of_bins=[central_bin],
+                                                     full_bin_height=self.nbr_row)
 
                 list_lambda_value = []
                 list_tau_value = []
@@ -258,7 +258,11 @@ class VariableTableHandler:
             self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['err'] = new_sigma_error
 
         # refresh table
-        # self.parent.update_table()
+        self.parent.update_table()
+
+        # clear selection
+        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        o_table.select_everything(False)
 
     def set_fixed_status_of_selection(self, state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
