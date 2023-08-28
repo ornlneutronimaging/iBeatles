@@ -210,8 +210,12 @@ class FitRegions:
     def bragg_peak_range(self):
         """will fit using either fix or range values of lambda_hkl, tau and sigma"""
         logging.info("Fitting bragg peak with:")
-        list_lambda_hkl = 0
+        o_get = Get(parent=self.parent)
+        list_lambda_hkl = o_get.list_lambda_hkl_initial_guess()
+        list_tau = o_get.list_tau_initial_guess()
+        list_sigma = o_get.list_sigma_initial_guess()
 
+        #FIXME
 
 
 
