@@ -226,6 +226,5 @@ class FittingParametersViewerEditorHandler:
         table_dictionary[key[0]][variable_selected]['val'] = cell_value
 
         self.parent.kropff_table_dictionary = table_dictionary
-        self.table_dictionary = table_dictionary
-
-        o_table.select_everything(False)
+        self.grand_parent.kropff_table_dictionary = table_dictionary
+        self.populate_table_with_variable(variable=variable_selected)
