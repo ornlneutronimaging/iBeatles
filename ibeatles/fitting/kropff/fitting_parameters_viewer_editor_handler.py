@@ -3,6 +3,8 @@ from qtpy.QtGui import QBrush
 from qtpy.QtWidgets import QTableWidgetItem
 import numpy as np
 
+from ibeatles.fitting.kropff import SessionSubKeys
+
 
 class FittingParametersViewerEditorHandler:
     colorscale_nbr_row = 15
@@ -17,11 +19,11 @@ class FittingParametersViewerEditorHandler:
 
     def get_variable_selected(self):
         if self.parent.ui.lambda_hkl_button.isChecked():
-            return 'lambda_hkl'
+            return SessionSubKeys.lambda_hkl
         elif self.parent.ui.sigma_button.isChecked():
-            return 'sigma'
+            return SessionSubKeys.sigma
         elif self.parent.ui.tau_button.isChecked():
-            return 'tau'
+            return SessionSubKeys.tau
 
     def populate_table_with_variable(self, variable=None):
         if variable is None:
@@ -54,7 +56,10 @@ class FittingParametersViewerEditorHandler:
                 if np.isnan(_value):
                     _item = QTableWidgetItem("nan")
                 else:
-                    _item = QTableWidgetItem("{:04.4f}".format(_value))
+                    if self.get_variable_selected() == SessionSubKeys.sigma:
+                        _item = QTableWidgetItem("{:04.6f}".format(_value))
+                    else:
+                        _item = QTableWidgetItem("{:04.4f}".format(_value))
                 _item.setBackground(_color)
 
                 bin_index = _row + nbr_row * _col
@@ -128,7 +133,12 @@ class FittingParametersViewerEditorHandler:
             if np.isnan(_value):
                 _item = QTableWidgetItem("nan")
             else:
-                _item = QTableWidgetItem("{:04.4f}".format(_value))
+
+                if self.get_variable_selected() == SessionSubKeys.sigma:
+                    _item = QTableWidgetItem("{:04.6f}".format(_value))
+                else:
+                    _item = QTableWidgetItem("{:04.4f}".format(_value))
+
             _item.setBackground(_color)
             _item.setTextAlignment(QtCore.Qt.AlignRight)
             if (_row < mid_point) and (nbr_row != 1):
