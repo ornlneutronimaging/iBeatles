@@ -105,3 +105,6 @@ class Get:
                                                       message=u"Wrong \u03BB\u2095\u2096\u2097 format!")
 
         return list_lambda_hkl
+
+    def list_sigma_initial_guess(self):
+        pass
