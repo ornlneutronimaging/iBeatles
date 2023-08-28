@@ -85,26 +85,43 @@ class Get:
             raise NotImplementedError("variable requested not supported!")
 
     def list_lambda_hkl_initial_guess(self):
+        return self._list_parameter_initial_guess(parameter=SessionSubKeys.lambda_hkl,
+                                                 error_message=u"Wrong \u03BB\u2095\u2096\u2097 format!")
+
+    def _list_parameter_initial_guess(self, parameter=SessionSubKeys.lambda_hkl,
+                                      error_message=u"Wrong \u03BB\u2095\u2096\u2097 format!"):
+
+        list_ui = {'fix_value': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_fix_lineEdit,
+                                 },
+                   'fix_radio': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_fix_radioButton,
+                                 },
+                   'from': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_from_lineEdit,
+                            },
+                   'to': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_to_lineEdit,
+                          },
+                   'step': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_step_lineEdit,
+                            },
+                   }
+
         try:
-            if self.parent.ui.lambda_hkl_fix_radioButton.isChecked():
-                list_lambda_hkl = [float(self.parent.ui.lambda_hkl_fix_lineEdit.text())]
-
+            if list_ui['fix_radio'][parameter].isChecked():
+                list_value = [float(list_ui['fix_value'][parameter].text())]
             else:
-                from_lambda_hkl = float(self.parent.ui.lambda_hkl_from_lineEdit.text())
-                to_lambda_hkl = float(self.parent.ui.lambda_hkl_to_lineEdit.text())
-                step_lambda_hkl = float(self.parent.ui.lambda_hkl_step_lineEdit.text())
+                _from = float(list_ui['from'][parameter].text())
+                _to = float(list_ui['to'][parameter].text())
+                _step = float(list_ui['step'][parameter].text())
 
-                value = from_lambda_hkl
-                list_lambda_hkl = []
-                while (value <= to_lambda_hkl):
-                    list_lambda_hkl.append(value)
-                    value += step_lambda_hkl
+                value = _from
+                list_value = []
+                while (value <= _to):
+                    list_value.append(value)
+                    value += _step
 
         except ValueError:
             raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
-                                                      message=u"Wrong \u03BB\u2095\u2096\u2097 format!")
+                                                      message=error_message)
 
-        return list_lambda_hkl
+        return list_value
 
     def list_sigma_initial_guess(self):
         pass
