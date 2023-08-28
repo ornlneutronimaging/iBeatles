@@ -278,8 +278,8 @@ class FitRegions:
                                             sigma_error=sigma_error):
                     break
 
-                self.parent.eventProgress.setValue(_index)
-                QtGui.QGuiApplication.processEvents()
+            self.parent.eventProgress.setValue(_index)
+            QtGui.QGuiApplication.processEvents()
 
             table_dictionary[_key]['lambda_hkl'] = {'val': ldahkl_value,
                                                     'err': ldahkl_error}
@@ -289,7 +289,7 @@ class FitRegions:
                                                'err': sigma_error}
             table_dictionary[_key]['fitted'][KropffTabSelected.bragg_peak] = {'xaxis': xaxis,
                                                                               'yaxis': yaxis_fitted}
-            self.parent.eventProgress.setVisible(False)
+        self.parent.eventProgress.setVisible(False)
 
     def bragg_peak_fix_lambda(self):
         logging.info("Fitting bragg peak with a fixed initial lambda_hkl:")

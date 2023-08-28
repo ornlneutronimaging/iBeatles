@@ -228,3 +228,4 @@ class FittingParametersViewerEditorHandler:
         self.parent.kropff_table_dictionary = table_dictionary
         self.grand_parent.kropff_table_dictionary = table_dictionary
         self.populate_table_with_variable(variable=variable_selected)
+        o_table.select_everything(False)
