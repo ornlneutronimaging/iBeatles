@@ -101,8 +101,20 @@ class TestGet(TestCase):
         for _expected, _returned in zip(list_lambda_hkl_expected, list_lambda_hkl_returned):
             self.assertAlmostEqual(_expected, _returned, delta=1e-10)
 
+    def test_list_sigma_initial_guess_range_value(self):
+        """assert correct list of sigma is returned for range of values"""
+        parent = MockParent(from_lineEdit=5e-8,
+                            to_lineEdit=1e-7,
+                            step_lineEdit=1e-8,
+                            fix_radioButton=False)
+        o_get = Get(parent=parent)
+        list_sigma_returned = o_get.list_sigma_initial_guess()
+        list_sigma_expected = [5e-8, 6e-8, 7e-8, 8e-8, 9e-8, 1e-7]
+        for _expected, _returned in zip(list_sigma_expected, list_sigma_returned):
+            self.assertAlmostEqual(_expected, _returned, delta=1e-10)
+
     def test_list_lambda_hkl_initial_guess_raise_value_error_with_range(self):
-        """assert ValueError is raised when values are not float with range value"""
+        """assert ValueError lambda_hkl is raised when values are not float with range value"""
         parent = MockParent(from_lineEdit="abc",
                             to_lineEdit=1e-7,
                             step_lineEdit=1e-8,
@@ -111,10 +123,28 @@ class TestGet(TestCase):
         with pytest.raises(fitting_error.BraggPeakFittingError):
             o_get.list_lambda_hkl_initial_guess()
 
+    def test_list_sigma_initial_guess_raise_value_error_with_range(self):
+        """assert ValueError sigma is raised when values are not float with range value"""
+        parent = MockParent(from_lineEdit="abc",
+                            to_lineEdit=1e-7,
+                            step_lineEdit=1e-8,
+                            fix_radioButton=False)
+        o_get = Get(parent=parent)
+        with pytest.raises(fitting_error.BraggPeakFittingError):
+            o_get.list_sigma_initial_guess()
+
     def test_list_lambda_hkl_initial_guess_raise_value_error_with_fix(self):
-        """assert ValueError is raised when values are not float with fix value"""
+        """assert ValueError lambda_hkl is raised when values are not float with fix value"""
         parent = MockParent(fix_value="abc",
                             fix_radioButton=True)
         o_get = Get(parent=parent)
         with pytest.raises(fitting_error.BraggPeakFittingError):
             o_get.list_lambda_hkl_initial_guess()
+
+    def test_list_sigma_initial_guess_raise_value_error_with_fix(self):
+        """assert ValueError sigma is raised when values are not float with fix value"""
+        parent = MockParent(fix_value="abc",
+                            fix_radioButton=True)
+        o_get = Get(parent=parent)
+        with pytest.raises(fitting_error.BraggPeakFittingError):
+            o_get.list_sigma_initial_guess()
