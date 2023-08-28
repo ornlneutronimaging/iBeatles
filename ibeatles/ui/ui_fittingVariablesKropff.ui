@@ -365,6 +365,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>variable_table</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>variable_table_cell_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>797</x>
+     <y>240</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>669</x>
+     <y>607</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>sample_import_button_clicked()</slot>
@@ -427,5 +443,6 @@
   <slot>variable_table_right_click()</slot>
   <slot>apply_new_value_to_selection()</slot>
   <slot>save_and_quit_clicked()</slot>
+  <slot>variable_table_cell_changed()</slot>
  </slots>
 </ui>

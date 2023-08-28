@@ -3,7 +3,11 @@ from qtpy.QtGui import QBrush
 from qtpy.QtWidgets import QTableWidgetItem
 import numpy as np
 
+from ibeatles.utilities.bins import convert_bins_to_keys
+from ibeatles.utilities.table_handler import TableHandler
+
 from ibeatles.fitting.kropff import SessionSubKeys
+from ibeatles.fitting.kropff.get import Get
 
 
 class FittingParametersViewerEditorHandler:
@@ -26,8 +30,9 @@ class FittingParametersViewerEditorHandler:
             return SessionSubKeys.tau
 
     def populate_table_with_variable(self, variable=None):
+        o_get = Get(parent=self.parent)
         if variable is None:
-            variable = self.get_variable_selected()
+            variable = o_get.variable_selected()
 
         array_2d_values = self.create_array_of_variable(variable=variable)
 
@@ -56,7 +61,7 @@ class FittingParametersViewerEditorHandler:
                 if np.isnan(_value):
                     _item = QTableWidgetItem("nan")
                 else:
-                    if self.get_variable_selected() == SessionSubKeys.sigma:
+                    if variable == SessionSubKeys.sigma:
                         _item = QTableWidgetItem("{:04.6f}".format(_value))
                     else:
                         _item = QTableWidgetItem("{:04.4f}".format(_value))
@@ -70,6 +75,8 @@ class FittingParametersViewerEditorHandler:
                     #     _gradient.setColorAt(0.5, QtGui.QColor(255, 255, 255))
                     _gradient.setColorAt(0, QtGui.QColor(255, 0, 0, alpha=255))
                     _item.setBackground(QtGui.QBrush(_gradient))
+                    _item.setFlags(QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable)
+
                 # elif self.is_bin_activated(bin_index=bin_index):
                 #     _gradient = QtGui.QRadialGradient(10, 10, 10, 20, 20)
                 #     _gradient.setColorAt(1, _color)
@@ -88,7 +95,9 @@ class FittingParametersViewerEditorHandler:
                     _foreground_color = QtGui.QColor(255, 255, 255, alpha=255)
                     _item.setForeground(QBrush(_foreground_color))
 
+                self.parent.ui.variable_table.blockSignals(True)
                 self.parent.ui.variable_table.setItem(_row, _col, _item)
+                self.parent.ui.variable_table.blockSignals(False)
 
     def is_bin_fixed(self, bin_index=0, variable_name='lambda_hkl'):
         return self.table_dictionary[str(bin_index)][variable_name]['fixed']
@@ -134,7 +143,8 @@ class FittingParametersViewerEditorHandler:
                 _item = QTableWidgetItem("nan")
             else:
 
-                if self.get_variable_selected() == SessionSubKeys.sigma:
+                o_get = Get(parent=self.parent)
+                if o_get.variable_selected() == SessionSubKeys.sigma:
                     _item = QTableWidgetItem("{:04.6f}".format(_value))
                 else:
                     _item = QTableWidgetItem("{:04.4f}".format(_value))
@@ -160,7 +170,8 @@ class FittingParametersViewerEditorHandler:
 
     def create_array_of_variable(self, variable=None):
         if variable is None:
-            variable = self.get_variable_selected()
+            o_get = Get(parent=self.parent)
+            variable = o_get.variable_selected()
 
         table_dictionary = self.grand_parent.kropff_table_dictionary
         _table_selection = self.grand_parent.fitting_selection
@@ -200,3 +211,21 @@ class FittingParametersViewerEditorHandler:
 
         self.grand_parent.kropff_table_dictionary = table_dictionary
         self.populate_table_with_variable(variable=variable_name)
+
+    def variable_cell_manual_changed(self, row=-1, column=-1):
+        o_get = Get(parent=self.parent)
+        variable_selected = o_get.variable_selected()
+
+        key = convert_bins_to_keys(list_of_bins=[(row, column)],
+                                   full_bin_height=self.parent.nbr_row)
+
+        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        cell_value = o_table.get_item_float_from_cell(row=row, column=column)
+
+        table_dictionary = self.parent.kropff_table_dictionary
+        table_dictionary[key[0]][variable_selected]['val'] = cell_value
+
+        self.parent.kropff_table_dictionary = table_dictionary
+        self.table_dictionary = table_dictionary
+
+        o_table.select_everything(False)

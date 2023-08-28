@@ -2,6 +2,7 @@ import numpy as np
 
 from ibeatles.fitting.kropff import FittingRegions
 import ibeatles.utilities.error as fitting_error
+from ibeatles.fitting.kropff import SessionSubKeys
 
 
 class Get:
@@ -71,3 +72,14 @@ class Get:
             raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
                                                       message=u"Wrong sigma format!")
         return sigma
+
+    def variable_selected(self):
+        """get the variable selected in the Check/Set Variables table"""
+        if self.parent.ui.lambda_hkl_button.isChecked():
+            return SessionSubKeys.lambda_hkl
+        elif self.parent.ui.sigma_button.isChecked():
+            return SessionSubKeys.sigma
+        elif self.parent.ui.tau_button.isChecked():
+            return SessionSubKeys.tau
+        else:
+            raise NotImplementedError("variable requested not supported!")

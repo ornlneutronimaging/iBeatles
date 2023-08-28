@@ -12,6 +12,7 @@ from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import Fit
 from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.utilities.array_utilities import calculate_median
+from ibeatles.fitting.kropff.get import Get
 
 
 class FittingParametersViewerEditorLauncher:
@@ -78,7 +79,8 @@ class FittingParametersViewerEditor(QMainWindow):
 
     def fill_table(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        variable_selected = self.get_variable_selected()
+        o_get = Get(parent=self)
+        variable_selected = o_get.variable_selected()
         o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent,
                                                          parent=self)
         o_handler.populate_table_with_variable(variable=variable_selected)
@@ -98,7 +100,8 @@ class FittingParametersViewerEditor(QMainWindow):
 
     def update_table(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        variable_selected = self.get_variable_selected()
+        o_get = Get(parent=self)
+        variable_selected = o_get.variable_selected()
         o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent,
                                                          parent=self)
         o_handler.populate_table_with_variable(variable=variable_selected)
@@ -110,21 +113,9 @@ class FittingParametersViewerEditor(QMainWindow):
         # self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
         QApplication.restoreOverrideCursor()
 
-    def get_variable_selected(self):
-        """
-        returns the button checked at the top of the window
-        """
-        if self.ui.lambda_hkl_button.isChecked():
-            return SessionSubKeys.lambda_hkl
-        elif self.ui.sigma_button.isChecked():
-            return SessionSubKeys.sigma
-        elif self.ui.tau_button.isChecked():
-            return SessionSubKeys.tau
-        else:
-            raise NotImplementedError("variable requested not supported!")
-
     def apply_new_value_to_selection(self):
-        variable_selected = self.get_variable_selected()
+        o_get = Get(parent=self)
+        variable_selected = o_get.variable_selected()
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent)
         new_variable = float(str(self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
@@ -145,6 +136,11 @@ class FittingParametersViewerEditor(QMainWindow):
                                           parent=self,
                                           )
         o_variable.right_click(position=position)
+
+    def variable_table_cell_changed(self, row, column):
+        o_handler = FittingParametersViewerEditorHandler(parent=self,
+                                                         grand_parent=self.grand_parent)
+        o_handler.variable_cell_manual_changed(row=row, column=column)
 
     def save_and_quit_clicked(self):
         logging.info("Saving fitting parameters back into fitting tab!")
@@ -287,8 +283,9 @@ class VariableTableHandler:
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         table_dictionary = self.grand_parent.march_table_dictionary
         nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
-        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_grand_parent)
-        variable_selected = o_handler.get_variable_selected()
+
+        o_get = Get(parent=self.parent)
+        variable_selected = o_get.variable_selected()
 
         for _select in selection:
             _left_column = _select.leftColumn()
