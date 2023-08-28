@@ -705,14 +705,37 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_14">
         <item>
-         <widget class="QSplitter" name="splitter">
+         <widget class="QSplitter" name="splitter_4">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <widget class="QWidget" name="layoutWidget">
+          <widget class="QWidget" name="">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="QWidget" name="widget_kropff" native="true"/>
+             <widget class="QSplitter" name="kropff_top_horizontal_splitter">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="handleWidth">
+               <number>25</number>
+              </property>
+              <widget class="QWidget" name="widget_kropff_left" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+              <widget class="QWidget" name="widget_kropff_right" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </widget>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -945,6 +968,22 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_12">
                  <item>
+                  <widget class="QGroupBox" name="groupBox_12">
+                   <property name="title">
+                    <string>Step 1</string>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_18">
+                    <item>
+                     <widget class="QLabel" name="label_5">
+                      <property name="text">
+                       <string>Select the peak to fit</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
                   <widget class="QGroupBox" name="groupBox_7">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -953,7 +992,7 @@
                     </sizepolicy>
                    </property>
                    <property name="title">
-                    <string>Step 1</string>
+                    <string>Step 2</string>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout">
                     <item>
@@ -1046,7 +1085,7 @@
                  <item>
                   <widget class="QGroupBox" name="groupBox_18">
                    <property name="title">
-                    <string>Step 2</string>
+                    <string>Step 3</string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_31">
                     <item>
@@ -1095,6 +1134,9 @@
            </layout>
           </widget>
           <widget class="QSplitter" name="splitter_3">
+           <property name="lineWidth">
+            <number>1</number>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -1897,33 +1939,6 @@ p, li { white-space: pre-wrap; }
                </widget>
               </widget>
              </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_18">
-               <item>
-                <spacer name="horizontalSpacer_6">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QPushButton" name="kropff_fitting_parameters_viewer_editor_pushButton">
-                 <property name="enabled">
-                  <bool>true</bool>
-                 </property>
-                 <property name="text">
-                  <string>Fitting parameters viewer/editor ...</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
             </layout>
            </widget>
            <widget class="QWidget" name="kropff_widget" native="true"/>
@@ -1974,8 +1989,8 @@ p, li { white-space: pre-wrap; }
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>218</x>
-     <y>143</y>
+     <x>900</x>
+     <y>142</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -2007,7 +2022,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>554</x>
-     <y>336</y>
+     <y>784</y>
     </hint>
     <hint type="destinationlabel">
      <x>1146</x>
@@ -2022,8 +2037,8 @@ p, li { white-space: pre-wrap; }
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>80</x>
-     <y>338</y>
+     <x>50</x>
+     <y>786</y>
     </hint>
     <hint type="destinationlabel">
      <x>124</x>
@@ -2038,8 +2053,8 @@ p, li { white-space: pre-wrap; }
    <slot>update_table()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>254</x>
-     <y>338</y>
+     <x>137</x>
+     <y>786</y>
     </hint>
     <hint type="destinationlabel">
      <x>40</x>
@@ -2055,7 +2070,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>401</x>
-     <y>338</y>
+     <y>786</y>
     </hint>
     <hint type="destinationlabel">
      <x>403</x>
@@ -2070,8 +2085,8 @@ p, li { white-space: pre-wrap; }
    <slot>initialize_all_parameters_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>890</x>
-     <y>249</y>
+     <x>929</x>
+     <y>697</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -2086,8 +2101,8 @@ p, li { white-space: pre-wrap; }
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>281</x>
-     <y>245</y>
+     <x>963</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -2102,8 +2117,8 @@ p, li { white-space: pre-wrap; }
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>281</x>
-     <y>276</y>
+     <x>963</x>
+     <y>275</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -2118,8 +2133,8 @@ p, li { white-space: pre-wrap; }
    <slot>create_fitting_story_checked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1312</x>
-     <y>249</y>
+     <x>1400</x>
+     <y>697</y>
     </hint>
     <hint type="destinationlabel">
      <x>1210</x>
@@ -2134,8 +2149,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>181</x>
-     <y>742</y>
+     <x>122</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2150,8 +2165,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>291</x>
-     <y>742</y>
+     <x>232</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2166,8 +2181,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>190</x>
-     <y>742</y>
+     <x>131</x>
+     <y>298</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2182,8 +2197,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>742</y>
+     <x>250</x>
+     <y>298</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2198,8 +2213,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>304</x>
-     <y>730</y>
+     <x>357</x>
+     <y>306</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2214,8 +2229,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_parameters_changed_with_string()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>451</x>
-     <y>735</y>
+     <x>513</x>
+     <y>311</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2246,8 +2261,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_high_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>334</x>
-     <y>1056</y>
+     <x>289</x>
+     <y>806</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2262,8 +2277,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>1056</y>
+     <x>105</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>91</x>
@@ -2310,8 +2325,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>326</x>
-     <y>432</y>
+     <x>640</x>
+     <y>194</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2326,8 +2341,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>125</x>
-     <y>394</y>
+     <x>58</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2342,8 +2357,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_threshold_width_slider_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>213</x>
-     <y>431</y>
+     <x>533</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2358,8 +2373,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>332</x>
-     <y>517</y>
+     <x>1251</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2374,8 +2389,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>850</y>
+     <x>105</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2390,8 +2405,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>153</x>
-     <y>850</y>
+     <x>135</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2406,8 +2421,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>850</y>
+     <x>105</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2422,8 +2437,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>153</x>
-     <y>850</y>
+     <x>135</x>
+     <y>427</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2438,8 +2453,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>850</y>
+     <x>105</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2454,8 +2469,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>254</x>
-     <y>850</y>
+     <x>125</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2470,8 +2485,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>326</x>
-     <y>850</y>
+     <x>153</x>
+     <y>403</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2486,8 +2501,8 @@ p, li { white-space: pre-wrap; }
    <slot>automatic_hkl0_selection_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>300</x>
-     <y>139</y>
+     <x>982</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2518,8 +2533,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1121</x>
-     <y>1055</y>
+     <x>1226</x>
+     <y>1111</y>
     </hint>
     <hint type="destinationlabel">
      <x>1424</x>
@@ -2534,8 +2549,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_fit_bragg_peak_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>842</x>
-     <y>789</y>
+     <x>800</x>
+     <y>346</y>
     </hint>
     <hint type="destinationlabel">
      <x>1455</x>
@@ -2550,8 +2565,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_table_right_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>1020</y>
+     <x>886</x>
+     <y>700</y>
     </hint>
     <hint type="destinationlabel">
      <x>1456</x>
@@ -2566,8 +2581,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_auto_lock_rows_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>813</x>
-     <y>730</y>
+     <x>740</x>
+     <y>302</y>
     </hint>
     <hint type="destinationlabel">
      <x>1458</x>
@@ -2582,8 +2597,8 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1135</x>
-     <y>732</y>
+     <x>1230</x>
+     <y>302</y>
     </hint>
     <hint type="destinationlabel">
      <x>1455</x>
@@ -2598,28 +2613,12 @@ p, li { white-space: pre-wrap; }
    <slot>kropff_bragg_peak_lambda_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>195</x>
-     <y>732</y>
+     <x>247</x>
+     <y>298</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
      <y>333</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>kropff_fitting_parameters_viewer_editor_pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>kropff_fitting_parameters_viewer_editor_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>981</x>
-     <y>1138</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1356</x>
-     <y>1176</y>
     </hint>
    </hints>
   </connection>
@@ -2710,6 +2709,5 @@ p, li { white-space: pre-wrap; }
   <slot>kropff_bragg_peak_auto_lock_rows_clicked()</slot>
   <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
   <slot>kropff_bragg_peak_lambda_settings_clicked()</slot>
-  <slot>kropff_fitting_parameters_viewer_editor_clicked()</slot>
  </slots>
 </ui>

@@ -53,15 +53,22 @@ class Initialization:
                                      image: url(":/MPL Toolbar/vertical_splitter_handle.png");
                                      }
                                      """)
+        self.parent.ui.splitter_2.setHandleWidth(15)
 
         # kropff
-        self.parent.ui.splitter.setSizes([500, 500])
-        self.parent.ui.splitter.setHandleWidth(15)
-        self.parent.ui.splitter.setStyleSheet("""
+        self.parent.ui.kropff_top_horizontal_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+
+        self.parent.ui.splitter_4.setSizes([500, 500])
+        self.parent.ui.splitter_4.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/vertical_splitter_handle.png");
                                      }
                                      """)
+        self.parent.ui.splitter_4.setHandleWidth(15)
 
         # self.parent.ui.area.setStyleSheet("""
         #                              QSplitter::handle{
@@ -71,7 +78,7 @@ class Initialization:
 
         self.parent.ui.splitter_3.setStyleSheet("""
                                      QSplitter::handle{
-                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png",);
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
                                      }
                                      """)
         self.parent.ui.splitter_3.setHandleWidth(15)
@@ -185,18 +192,19 @@ class Initialization:
         else:
             status = False
 
-        area = DockArea()
-        self.parent.ui.area = area
-        area.setVisible(status)
-        d1 = Dock("Image Preview", size=(200, 300))
-        d2 = Dock("Bragg Edge", size=(200, 100))
+        # area = DockArea()
+        # self.parent.ui.area = area
+        # area.setVisible(status)
+        # d1 = Dock("Image Preview", size=(200, 300))
+        # d2 = Dock("Bragg Edge", size=(200, 100))
 
-        area.addDock(d1, 'left')
-        area.addDock(d2, 'right')
+        # area.addDock(d1, 'left')
+        # area.addDock(d2, 'right')
 
         preview_widget = pg.GraphicsLayoutWidget()
         pg.setConfigOptions(antialias=True)  # this improves display
 
+        # LEFT WIDGET
         vertical_layout = QVBoxLayout()
         preview_widget.setLayout(vertical_layout)
 
@@ -221,7 +229,7 @@ class Initialization:
         image_view.scene.sigMouseMoved.connect(self.parent.mouse_moved_in_image_view)
         self.parent.image_view_scene.sigMouseClicked.connect(self.parent.mouse_clicked_in_top_left_image_view)
 
-        top_widget = QWidget()
+        # left_widget = QWidget()
         vertical = QVBoxLayout()
         vertical.addWidget(image_view)
 
@@ -313,18 +321,21 @@ class Initialization:
         transparency_widget = QWidget()
         transparency_widget.setLayout(transparency_layout)
 
-        bottom_widget = QWidget()
+        vertical.addWidget(groups_xy_bin)
+        vertical.addWidget(transparency_widget)
 
-        bottom_vertical_layout = QVBoxLayout()
-        bottom_vertical_layout.addWidget(groups_xy_bin)
-        bottom_vertical_layout.addWidget(transparency_widget)
-        bottom_widget.setLayout(bottom_vertical_layout)
+        # bottom_vertical_layout = QVBoxLayout()
+        # bottom_vertical_layout.addWidget(groups_xy_bin)
+        # bottom_vertical_layout.addWidget(transparency_widget)
+        # bottom_widget.setLayout(bottom_vertical_layout)
+        # left_widget.setLayout(vertical)
 
-        top_widget.setLayout(vertical)
-        d1.addWidget(top_widget)
-        d1.addWidget(bottom_widget)
+        self.parent.ui.widget_kropff_left.setLayout(vertical)
 
-        # bragg edge plot (bottom plot)
+        # d1.addWidget(top_widget)
+        # d1.addWidget(bottom_widget)
+
+        # RIGHT WIDGET
         bragg_edge_plot = pg.PlotWidget(title='')
         bragg_edge_plot.plot()
         self.parent.bragg_edge_plot = bragg_edge_plot
@@ -337,29 +348,13 @@ class Initialization:
         buttons_layout.addWidget(label)
         self.parent.ui.plot_label = label
 
-        # # all bins button
-        # active_button = QRadioButton()
-        # active_button.setText("Active Bins")
-        # active_button.setChecked(True)
-        # active_button.pressed.connect(self.parent.active_button_pressed)
-        # self.parent.ui.active_bins_button = active_button
-        #
-        # # individual bin button
-        # buttons_layout.addWidget(active_button)
-        # locked_button = QRadioButton()
-        # locked_button.setText("Locked Bins")
-        # locked_button.setChecked(False)
-        # locked_button.pressed.connect(self.parent.lock_button_pressed)
-        # self.parent.ui.locked_bins_button = locked_button
-        #
-        # buttons_layout.addWidget(locked_button)
-        # bottom_widget = QWidget()
-        # bottom_widget.setLayout(buttons_layout)
+        # d2.addWidget(bragg_edge_plot)
+        right_vertical_layout = QVBoxLayout()
+        right_vertical_layout.addWidget(bragg_edge_plot)
+        self.parent.ui.widget_kropff_right.setLayout(right_vertical_layout)
 
-        d2.addWidget(bragg_edge_plot)
-
-        vertical_layout.addWidget(area)
-        self.parent.ui.widget_kropff.setLayout(vertical_layout)
+        # vertical_layout.addWidget(area)
+        # self.parent.ui.widget_kropff.setLayout(vertical_layout)
 
         # bottom right plot
         self.parent.ui.kropff_fitting = pg.PlotWidget(title="Fitting")
@@ -454,11 +449,14 @@ class Initialization:
             splitter_2_size = ui_dict['splitter_2']
             self.parent.ui.splitter_2.setSizes(splitter_2_size)
 
-            splitter_size = ui_dict['splitter']
-            self.parent.ui.splitter.setSizes(splitter_size)
+            splitter_size = ui_dict['splitter_4']
+            self.parent.ui.splitter_4.setSizes(splitter_size)
 
             splitter_3_size = ui_dict['splitter_3']
             self.parent.ui.splitter_3.setSizes(splitter_3_size)
+
+            kropff_top_horizontal_splitter = ui_dict['kropff_top_horizontal_splitter']
+            self.parent.ui.kropff_top_horizontal_splitter.setSizes(splitter_3_size)
 
             threshold_width = self.grand_parent.session_dict[DataType.fitting]['kropff']["bragg peak threshold width"]
             self.parent.ui.kropff_threshold_width_slider.setValue(threshold_width)

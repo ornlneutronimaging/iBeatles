@@ -7,7 +7,7 @@ from qtpy import QtGui
 from ..utilities.table_handler import TableHandler
 
 
-class FillingTableHandler(object):
+class FillingTableHandler:
     table_dictionary = {}
     advanced_mode_flag = True
 

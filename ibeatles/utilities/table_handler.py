@@ -113,6 +113,9 @@ class TableHandler:
         col = first_selection.leftColumn()
         return row, col
 
+    def get_selection(self):
+        return self.table_ui.selectedRanges()
+
     def get_item_str_from_cell(self, row=-1, column=-1):
         if self.table_ui.item(row, column):
             return str(self.table_ui.item(row, column).text())

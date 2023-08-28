@@ -51,6 +51,7 @@ class SessionSubKeys:
     tau = "tau"
     sigma = "sigma"
     table_selection = "table selection"
+    lock = "lock"
     automatic_bragg_peak_threshold_finder = "automatic bragg peak threshold finder"
     kropff_bragg_peak_good_fit_conditions = "kropff bragg peak good fit conditions"
     l_hkl = "l_hkl"
@@ -66,3 +67,8 @@ class SessionSubKeys:
     less_than = "less_than"
     more_than = "more_than"
 
+
+class RightClickTableMenu:
+
+    replace_values = "replace values by surrounding median values"
+    display_fitting_parameters = "display the fitting parameters"
