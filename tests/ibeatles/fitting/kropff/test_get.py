@@ -48,17 +48,29 @@ class MockParent:
         self.ui = MockWidget(fix_value=fix_value,
                              fix_radioButton=fix_radioButton,
                              from_lineEdit=from_lineEdit,
-                             to_lineEdit=to_lineEdit)
+                             to_lineEdit=to_lineEdit,
+                             step_lineEdit=step_lineEdit)
 
 
 class TestGet(TestCase):
 
-    def test_list_lambda_hkl_initial_guess(self):
-        """assert correct list of lambda_hkl is returned"""
+    def test_list_lambda_hkl_initial_guess_fix_value(self):
+        """assert correct list of lambda_hkl is returned for fix value"""
         parent = MockParent(fix_value=5e-8,
                             fix_radioButton=True)
         o_get = Get(parent=parent)
         list_lambda_hkl_returned = o_get.list_lambda_hkl_initial_guess()
         list_lambda_hkl_expected = [5.e-8]
-
         self.assertEqual(list_lambda_hkl_expected, list_lambda_hkl_returned)
+
+    def test_list_lambda_hkl_initial_guess_range_value(self):
+        """assert correct list of lambda_hkl is returned for range of values"""
+        parent = MockParent(from_lineEdit=5e-8,
+                            to_lineEdit=1e-7,
+                            step_lineEdit=1e-8,
+                            fix_radioButton=False)
+        o_get = Get(parent=parent)
+        list_lambda_hkl_returned = o_get.list_lambda_hkl_initial_guess()
+        list_lambda_hkl_expected = [5e-8, 6e-8, 7e-8, 8e-8, 9e-8, 1e-7]
+        for _expected, _returned in zip(list_lambda_hkl_expected, list_lambda_hkl_returned):
+            self.assertAlmostEqual(_expected, _returned, delta=1e-10)
