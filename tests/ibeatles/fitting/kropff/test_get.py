@@ -31,6 +31,12 @@ class MockWidget:
     lambda_hkl_to_lineEdit = None
     lambda_hkl_step_lineEdit = None
 
+    sigma_fix_lineEdit = None
+    sigma_fix_radioButton = None
+    sigma_from_lineEdit = None
+    sigma_to_lineEdit = None
+    sigma_step_lineEdit = None
+
     def __init__(self, fix_value=None, fix_radioButton=True,
                  from_lineEdit=None, to_lineEdit=None, step_lineEdit=None):
 
@@ -40,12 +46,21 @@ class MockWidget:
         self.lambda_hkl_to_lineEdit = LineEdit(to_lineEdit)
         self.lambda_hkl_step_lineEdit = LineEdit(step_lineEdit)
 
+        self.sigma_fix_lineEdit = LineEdit(fix_value)
+        self.sigma_fix_radioButton = CheckBox(fix_radioButton)
+        self.sigma_from_lineEdit = LineEdit(from_lineEdit)
+        self.sigma_to_lineEdit = LineEdit(to_lineEdit)
+        self.sigma_step_lineEdit = LineEdit(step_lineEdit)
+
 
 class MockParent:
     ui = MockWidget()
 
-    def __init__(self, fix_value=None, fix_radioButton=True,
-                 from_lineEdit=None, to_lineEdit=None, step_lineEdit=None):
+    def __init__(self, fix_value=None,
+                 fix_radioButton=True,
+                 from_lineEdit=None,
+                 to_lineEdit=None,
+                 step_lineEdit=None):
 
         self.ui = MockWidget(fix_value=fix_value,
                              fix_radioButton=fix_radioButton,
@@ -64,6 +79,15 @@ class TestGet(TestCase):
         list_lambda_hkl_returned = o_get.list_lambda_hkl_initial_guess()
         list_lambda_hkl_expected = [5.e-8]
         self.assertEqual(list_lambda_hkl_expected, list_lambda_hkl_returned)
+
+    def test_list_sigma_initial_guess_fix_value(self):
+        """assert correct list of sigma is returned for fix value"""
+        parent = MockParent(fix_value=1,
+                            fix_radioButton=True)
+        o_get = Get(parent=parent)
+        list_sigma_returned = o_get.list_sigma_initial_guess()
+        list_sigma_expected = [1]
+        self.assertEqual(list_sigma_expected, list_sigma_returned)
 
     def test_list_lambda_hkl_initial_guess_range_value(self):
         """assert correct list of lambda_hkl is returned for range of values"""
