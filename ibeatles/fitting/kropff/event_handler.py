@@ -121,7 +121,6 @@ class EventHandler:
                             grand_parent=self.grand_parent)
         o_display.display_bragg_peak_threshold()
 
-
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
         o_kropff = KropffBraggPeakThresholdCalculator(parent=self.parent,
                                                       grand_parent=self.grand_parent)

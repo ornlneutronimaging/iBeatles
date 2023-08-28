@@ -7,10 +7,8 @@ from ibeatles.utilities.bins import create_list_of_bins_from_selection, create_l
     convert_bins_to_keys
 from ibeatles import load_ui
 
-from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import FittingParametersViewerEditorHandler
-from ibeatles.fitting.march_dollase.event_handler import EventHandler
 from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.utilities.array_utilities import calculate_median
@@ -149,6 +147,11 @@ class FittingParametersViewerEditor(QMainWindow):
         o_variable.right_click(position=position)
 
     def save_and_quit_clicked(self):
+        logging.info("Saving fitting parameters back into fitting tab!")
+        self.grand_parent.kropff_table_dictionary = self.kropff_table_dictionary
+        o_fill = FillingTableHandler(parent=self.parent,
+                                     grand_parent=self.grand_parent)
+        o_fill.fill_kropff_bragg_peak_table()
         self.close()
 
     def closeEvent(self, event=None):
