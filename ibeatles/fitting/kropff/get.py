@@ -92,23 +92,32 @@ class Get:
         return self._list_parameter_initial_guess(parameter=SessionSubKeys.sigma,
                                                   error_message=u"Wrong sigma format!")
 
+    def list_tau_initial_guess(self):
+        return self._list_parameter_initial_guess(parameter=SessionSubKeys.sigma,
+                                                  error_message=u"Wrong tau format!")
+
     def _list_parameter_initial_guess(self, parameter=SessionSubKeys.lambda_hkl,
                                       error_message=u"Wrong \u03BB\u2095\u2096\u2097 format!"):
 
         list_ui = {'fix_value': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_fix_lineEdit,
                                  SessionSubKeys.sigma: self.parent.ui.sigma_fix_lineEdit,
+                                 SessionSubKeys.tau: self.parent.ui.tau_fix_lineEdit,
                                  },
                    'fix_radio': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_fix_radioButton,
                                  SessionSubKeys.sigma: self.parent.ui.sigma_fix_radioButton,
+                                 SessionSubKeys.tau: self.parent.ui.tau_fix_radioButton,
                                  },
                    'from': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_from_lineEdit,
                             SessionSubKeys.sigma: self.parent.ui.sigma_from_lineEdit,
+                            SessionSubKeys.tau: self.parent.ui.tau_from_lineEdit,
                             },
                    'to': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_to_lineEdit,
                           SessionSubKeys.sigma: self.parent.ui.sigma_to_lineEdit,
+                          SessionSubKeys.tau: self.parent.ui.tau_to_lineEdit,
                           },
                    'step': {SessionSubKeys.lambda_hkl: self.parent.ui.lambda_hkl_step_lineEdit,
                             SessionSubKeys.sigma: self.parent.ui.sigma_step_lineEdit,
+                            SessionSubKeys.tau: self.parent.ui.tau_step_lineEdit,
                             },
                    }
 
