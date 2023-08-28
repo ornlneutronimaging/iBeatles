@@ -200,10 +200,21 @@ class FitRegions:
         QtGui.QGuiApplication.processEvents()
 
     def bragg_peak(self):
-        if self.parent.kropff_lambda_settings['state'] == 'fix':
-            self.bragg_peak_fix_lambda()
-        else:
-            self.bragg_peak_range_lambda()
+        self.bragg_peak_range()
+
+        # if self.parent.kropff_lambda_settings['state'] == 'fix':
+        #     self.bragg_peak_fix_lambda()
+        # else:
+        #     self.bragg_peak_range_lambda()
+
+    def bragg_peak_range(self):
+        """will fit using either fix or range values of lambda_hkl, tau and sigma"""
+        logging.info("Fitting bragg peak with:")
+        list_lambda_hkl = 0
+
+
+
+
 
     def bragg_peak_range_lambda(self):
         """we need to try to fit until the fit worked or we exhausted the full range defined"""

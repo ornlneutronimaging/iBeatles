@@ -4,6 +4,7 @@ from ibeatles import load_ui
 
 
 class KropffGoodFitSettingsLauncher(QDialog):
+    ### REMOVE_ME
 
     fit_conditions = {}
 

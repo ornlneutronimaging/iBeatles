@@ -427,19 +427,25 @@ class Initialization:
 
         icon = QIcon(settings_image)
         self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)
-        self.parent.ui.bragg_peak_good_fit_settings.setIcon(icon)
-        self.parent.ui.lambda_hkl_settings.setIcon(icon)
+        # self.parent.ui.bragg_peak_good_fit_settings.setIcon(icon)
+        # self.parent.ui.lambda_hkl_settings.setIcon(icon)
 
         self.parent.ui.kropff_bragg_peak_lambda_label.setText(u"\u03BB<sub>hkl</sub>")
         self.parent.ui.kropff_bragg_peak_tau_label.setText(u"\u03c4")
         self.parent.ui.kropff_bragg_peak_sigma_label.setText(u"\u03c3")
 
         self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
-        # self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(interact_me_style)
 
-        self.parent.ui.kropff_fit_high_lambda_button.setVisible(False)
-        self.parent.ui.kropff_fit_low_lambda_button.setVisible(False)
-        self.parent.ui.kropff_fit_bragg_peak_button.setVisible(False)
+        self.parent.ui.kropff_initial_guess_tabWidget.setTabText(0, u"\u03BB\u2095\u2096\u2097")
+        self.parent.ui.kropff_initial_guess_tabWidget.setTabText(1, u"\u03c4")
+        self.parent.ui.kropff_initial_guess_tabWidget.setTabText(2, u"\u03c3")
+
+        self.parent.ui.l_hkl_error_label.setText(u"\u03BB<sub>hkl</sub>")
+        self.parent.ui.t_error_label.setText(u"\u03c4")
+        self.parent.ui.sigma_error_label.setText(u"\u03c3")
+
+        self.parent.ui.l_hkl_less_than_label.setText(u"\u03BB<sub>hkl</sub>")
+        self.parent.ui.l_hkl_more_than_label.setText(u"\u03BB<sub>hkl</sub>")
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']

@@ -264,56 +264,56 @@ class EventHandler:
             table_dictionary[_key]['lock'] = False
         self.grand_parent.kropff_table_dictionary = table_dictionary
 
-    def bragg_peak_auto_lock_clicked(self):
-        """if the condition found in the Bragg Edge table are met, the row of all the table will be locked"""
-
-        o_table_bragg_peak = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
-        o_table_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
-        o_table_low_tof = TableHandler(table_ui=self.parent.ui.low_lda_tableWidget)
-        nbr_row = o_table_bragg_peak.row_count()
-
-        table_dictionary = self.grand_parent.kropff_table_dictionary
-        if self.parent.ui.checkBox.isChecked():
-
-            for _row in np.arange(nbr_row):
-
-                if self._lets_reject_this_row(row=_row):
-                    background_color = REJECTED_ROW_BACKGROUND
-                    table_dictionary[str(_row)]['rejected'] = True
-
-                elif self._lets_lock_this_row(row=_row):
-                    table_dictionary[str(_row)]['rejected'] = False
-                    background_color = LOCK_ROW_BACKGROUND
-                    table_dictionary[str(_row)]['lock'] = True
-
-                else:
-                    table_dictionary[str(_row)]['rejected'] = False
-                    background_color = UNLOCK_ROW_BACKGROUND
-                    table_dictionary[str(_row)]['lock'] = False
-
-                o_table_bragg_peak.set_background_color_of_row(row=_row,
-                                                               qcolor=background_color)
-                o_table_high_tof.set_background_color_of_row(row=_row,
-                                                             qcolor=background_color)
-                o_table_low_tof.set_background_color_of_row(row=_row,
-                                                            qcolor=background_color)
-
-        else:
-            for _row in np.arange(nbr_row):
-
-                # if table_dictionary[str(_row)]['rejected']:
-                #     background_color = REJECTED_ROW_BACKGROUND
-                # else:
-                background_color = UNLOCK_ROW_BACKGROUND
-
-                o_table_bragg_peak.set_background_color_of_row(row=_row,
-                                                               qcolor=background_color)
-                o_table_high_tof.set_background_color_of_row(row=_row,
-                                                             qcolor=background_color)
-                o_table_low_tof.set_background_color_of_row(row=_row,
-                                                            qcolor=background_color)
-
-            self.unlock_all_rows_in_table_dictionary()
+    # def bragg_peak_auto_lock_clicked(self):
+    #     """if the condition found in the Bragg Edge table are met, the row of all the table will be locked"""
+    #
+    #     o_table_bragg_peak = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+    #     o_table_high_tof = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
+    #     o_table_low_tof = TableHandler(table_ui=self.parent.ui.low_lda_tableWidget)
+    #     nbr_row = o_table_bragg_peak.row_count()
+    #
+    #     table_dictionary = self.grand_parent.kropff_table_dictionary
+    #     if self.parent.ui.checkBox.isChecked():
+    #
+    #         for _row in np.arange(nbr_row):
+    #
+    #             if self._lets_reject_this_row(row=_row):
+    #                 background_color = REJECTED_ROW_BACKGROUND
+    #                 table_dictionary[str(_row)]['rejected'] = True
+    #
+    #             elif self._lets_lock_this_row(row=_row):
+    #                 table_dictionary[str(_row)]['rejected'] = False
+    #                 background_color = LOCK_ROW_BACKGROUND
+    #                 table_dictionary[str(_row)]['lock'] = True
+    #
+    #             else:
+    #                 table_dictionary[str(_row)]['rejected'] = False
+    #                 background_color = UNLOCK_ROW_BACKGROUND
+    #                 table_dictionary[str(_row)]['lock'] = False
+    #
+    #             o_table_bragg_peak.set_background_color_of_row(row=_row,
+    #                                                            qcolor=background_color)
+    #             o_table_high_tof.set_background_color_of_row(row=_row,
+    #                                                          qcolor=background_color)
+    #             o_table_low_tof.set_background_color_of_row(row=_row,
+    #                                                         qcolor=background_color)
+    #
+    #     else:
+    #         for _row in np.arange(nbr_row):
+    #
+    #             # if table_dictionary[str(_row)]['rejected']:
+    #             #     background_color = REJECTED_ROW_BACKGROUND
+    #             # else:
+    #             background_color = UNLOCK_ROW_BACKGROUND
+    #
+    #             o_table_bragg_peak.set_background_color_of_row(row=_row,
+    #                                                            qcolor=background_color)
+    #             o_table_high_tof.set_background_color_of_row(row=_row,
+    #                                                          qcolor=background_color)
+    #             o_table_low_tof.set_background_color_of_row(row=_row,
+    #                                                         qcolor=background_color)
+    #
+    #         self.unlock_all_rows_in_table_dictionary()
 
     def _lets_reject_this_row(self, row=0):
         o_table = TableHandler(table_ui=self.parent.ui.high_lda_tableWidget)
@@ -540,4 +540,32 @@ class EventHandler:
             self.parent.ui.kropff_bin_y_value.setText("N/A")
             self.parent.ui.kropff_bin_nbr_value.setText("N/A")
 
+    def change_initial_guess_lambda_hkl_widgets(self):
+        state_fix = self.parent.ui.lambda_hkl_fix_radioButton.isChecked()
 
+        self.parent.ui.lambda_hkl_fix_lineEdit.setEnabled(state_fix)
+        self.parent.ui.lambda_hkl_from_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.to_label.setEnabled(not state_fix)
+        self.parent.ui.lambda_hkl_to_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.step_label.setEnabled(not state_fix)
+        self.parent.ui.lambda_hkl_step_lineEdit.setEnabled(not state_fix)
+
+    def change_initial_guess_sigma_widgets(self):
+        state_fix = self.parent.ui.sigma_fix_radioButton.isChecked()
+
+        self.parent.ui.sigma_fix_lineEdit.setEnabled(state_fix)
+        self.parent.ui.sigma_from_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.to_label_3.setEnabled(not state_fix)
+        self.parent.ui.sigma_to_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.step_label_3.setEnabled(not state_fix)
+        self.parent.ui.sigma_step_lineEdit.setEnabled(not state_fix)
+
+    def change_initial_guess_tau_widgets(self):
+        state_fix = self.parent.ui.tau_fix_radioButton.isChecked()
+
+        self.parent.ui.tau_fix_lineEdit.setEnabled(state_fix)
+        self.parent.ui.tau_from_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.to_label_2.setEnabled(not state_fix)
+        self.parent.ui.tau_to_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.step_label_2.setEnabled(not state_fix)
+        self.parent.ui.tau_step_lineEdit.setEnabled(not state_fix)

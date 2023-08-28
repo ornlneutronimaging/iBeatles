@@ -83,3 +83,25 @@ class Get:
             return SessionSubKeys.tau
         else:
             raise NotImplementedError("variable requested not supported!")
+
+    def list_lambda_hkl_initial_guess(self):
+        try:
+            if self.parent.ui.lambda_hkl_fix_radioButton.isChecked():
+                list_lambda_hkl = [float(self.parent.ui.lambda_hkl_fix_lineEdit.text())]
+
+            else:
+                from_lambda_hkl = float(self.parent.ui.lambda_hkl_from_lineEdit.text())
+                to_lambda_hkl = float(self.parent.ui.lambda_hkl_to_lineEdit.text())
+                step_lambda_hkl = float(self.parent.ui.lambda_hkl_step_lineEdit.text())
+
+                value = from_lambda_hkl
+                list_lambda_hkl = []
+                while (value <= to_lambda_hkl):
+                    list_lambda_hkl.append(value)
+                    value += step_lambda_hkl
+
+        except ValueError:
+            raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak,
+                                                      message=u"Wrong \u03BB\u2095\u2096\u2097 format!")
+
+        return list_lambda_hkl

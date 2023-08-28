@@ -518,6 +518,32 @@ class FittingWindow(QMainWindow):
         self.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state'] = True
         self.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state'] = True
 
+    # fitting settings
+
+    def kropff_initial_guess_lambda_hkl_fix_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.change_initial_guess_lambda_hkl_widgets()
+
+    def kropff_initial_guess_lambda_hkl_range_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.change_initial_guess_lambda_hkl_widgets()
+
+    def kropff_initial_guess_sigma_fix_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.change_initial_guess_sigma_widgets()
+
+    def kropff_initial_guess_sigma_range_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.change_initial_guess_sigma_widgets()
+
+    def kropff_initial_guess_tau_fix_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.change_initial_guess_tau_widgets()
+
+    def kropff_initial_guess_tau_range_clicked(self):
+        o_event = KropffHandler(parent=self)
+        o_event.change_initial_guess_tau_widgets()
+
     def update_summary_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.update_summary_table()
@@ -548,9 +574,9 @@ class FittingWindow(QMainWindow):
         o_event.bragg_peak_right_click()
         o_event.check_how_many_fitting_are_locked()
 
-    def kropff_bragg_peak_auto_lock_rows_clicked(self):
-        o_event = KropffHandler(parent=self, grand_parent=self.parent)
-        o_event.bragg_peak_auto_lock_clicked()
+    # def kropff_bragg_peak_auto_lock_rows_clicked(self):
+    #     o_event = KropffHandler(parent=self, grand_parent=self.parent)
+    #     o_event.bragg_peak_auto_lock_clicked()
 
     def kropff_bragg_peak_good_fit_settings_clicked(self):
         o_kropff = KropffGoodFitSettingsLauncher(parent=self)
