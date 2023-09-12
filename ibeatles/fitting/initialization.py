@@ -440,12 +440,12 @@ class Initialization:
         self.parent.ui.kropff_initial_guess_tabWidget.setTabText(1, u"\u03c4")
         self.parent.ui.kropff_initial_guess_tabWidget.setTabText(2, u"\u03c3")
 
-        self.parent.ui.l_hkl_error_label.setText(u"\u03BB<sub>hkl</sub>")
-        self.parent.ui.t_error_label.setText(u"\u03c4")
-        self.parent.ui.sigma_error_label.setText(u"\u03c3")
+        # self.parent.ui.l_hkl_error_label.setText(u"\u03BB<sub>hkl</sub>")
+        # self.parent.ui.t_error_label.setText(u"\u03c4")
+        # self.parent.ui.sigma_error_label.setText(u"\u03c3")
 
-        self.parent.ui.l_hkl_less_than_label.setText(u"\u03BB<sub>hkl</sub>")
-        self.parent.ui.l_hkl_more_than_label.setText(u"\u03BB<sub>hkl</sub>")
+        # self.parent.ui.l_hkl_less_than_label.setText(u"\u03BB<sub>hkl</sub>")
+        # self.parent.ui.l_hkl_more_than_label.setText(u"\u03BB<sub>hkl</sub>")
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']

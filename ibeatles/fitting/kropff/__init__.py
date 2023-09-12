@@ -66,6 +66,7 @@ class SessionSubKeys:
     bragg_peak_row_rejections_conditions = "bragg peak row conditions"
     less_than = "less_than"
     more_than = "more_than"
+    automatic_fitting_threshold_width = "automatic fitting threshold width"
 
 
 class RightClickTableMenu:

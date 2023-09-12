@@ -57,7 +57,7 @@ class FittingLauncher:
             fitting_window.filling_kropff_table()
             fitting_window.update_locked_and_rejected_rows_in_bragg_peak_table()
             fitting_window.kropff_high_tof_table_selection_changed()
-            fitting_window.kropff_bragg_peak_auto_lock_rows_clicked()
+            # fitting_window.kropff_bragg_peak_auto_lock_rows_clicked()
             fitting_window.kropff_high_low_bragg_peak_tabs_changed(0)
             fitting_window.update_summary_table()
 
@@ -456,7 +456,7 @@ class FittingWindow(QMainWindow):
         o_event.check_widgets_helper()
 
     def kropff_automatic_bragg_peak_threshold_finder_settings_clicked(self):
-        o_kropff = KropffAutomaticSettingsLauncher(parent=self)
+        o_kropff = KropffAutomaticSettingsLauncher(parent=self, grand_parent=self.parent)
         o_kropff.show()
 
     def kropff_parameters_changed(self):
@@ -584,7 +584,7 @@ class FittingWindow(QMainWindow):
 
     def update_locked_and_rejected_rows_in_bragg_peak_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
-        o_event.bragg_peak_auto_lock_clicked()
+        # o_event.bragg_peak_auto_lock_clicked()
         o_event.check_how_many_fitting_are_locked()
 
     def kropff_bragg_peak_lambda_settings_clicked(self):
