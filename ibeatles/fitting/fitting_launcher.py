@@ -205,10 +205,10 @@ class FittingWindow(QMainWindow):
         x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         self.bragg_edge_data['x_axis'] = x_axis
         self.kropff_bragg_peak_good_fit_conditions = \
-            self.parent.session_dict[DataType.fitting][SessionSubKeys.kropff][KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions]
-        self.kropff_lambda_settings = self.parent.session_dict[DataType.fitting][SessionSubKeys.kropff][KropffSessionSubKeys.kropff_lambda_settings]
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions]
+        self.kropff_lambda_settings = self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.kropff_lambda_settings]
         self.kropff_bragg_peak_row_rejections_conditions = \
-            self.parent.session_dict[DataType.fitting][SessionSubKeys.kropff][KropffSessionSubKeys.bragg_peak_row_rejections_conditions]
+            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak_row_rejections_conditions]
 
     def action_strain_mapping_clicked(self):
         StrainMappingLauncher(parent=self.parent)

@@ -16,7 +16,9 @@ from ibeatles.icons import icons_rc
 from ibeatles import DataType, interact_me_style
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles import settings_image
-from ibeatles.fitting import KropffThresholdFinder
+from ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting import FittingTabSelected
 from ibeatles.utilities.mplcanvas import MplCanvas
 
 
@@ -423,7 +425,8 @@ class Initialization:
             self.parent.ui.kropff_sigma_radioButton.setChecked(True)
 
         self.parent.kropff_automatic_threshold_finder_algorithm = \
-            kropff_session_dict.get('automatic bragg peak threshold algorithm', KropffThresholdFinder.sliding_average)
+            kropff_session_dict.get(KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm,
+                                    KropffThresholdFinder.sliding_average)
 
         icon = QIcon(settings_image)
         self.parent.ui.automatic_bragg_peak_threshold_finder_settings.setIcon(icon)
@@ -464,7 +467,8 @@ class Initialization:
             kropff_top_horizontal_splitter = ui_dict['kropff_top_horizontal_splitter']
             self.parent.ui.kropff_top_horizontal_splitter.setSizes(splitter_3_size)
 
-            threshold_width = self.grand_parent.session_dict[DataType.fitting]['kropff']["bragg peak threshold width"]
+            threshold_width = self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+                KropffSessionSubKeys.automatic_fitting_threshold_width]
             self.parent.ui.kropff_threshold_width_slider.setValue(threshold_width)
 
         except TypeError:

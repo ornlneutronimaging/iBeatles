@@ -3,11 +3,13 @@ import json
 import logging
 import copy
 
-from ibeatles import DataType, Material
+from ibeatles import DataType
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.utilities.get import Get
 from ibeatles.fitting.march_dollase import SessionSubKeys as MarchSessionSubKeys
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting import FittingTabSelected
 
 from ibeatles.session import SessionKeys, SessionSubKeys, MaterialMode
 from ibeatles.session.save_load_data_tab import SaveLoadDataTab
@@ -100,10 +102,10 @@ class SessionHandler:
                                                            'splitter': None,
                                                            'splitter_3': None,
                                                            },
-                                       SessionSubKeys.march_dollase: {MarchSessionSubKeys.table_dictionary: None,
+                                       FittingTabSelected.march_dollase: {MarchSessionSubKeys.table_dictionary: None,
                                                                       MarchSessionSubKeys.plot_active_row_flag: True,
                                                                       },
-                                       SessionSubKeys.kropff: {KropffSessionSubKeys.table_dictionary: None,
+                                       FittingTabSelected.kropff: {KropffSessionSubKeys.table_dictionary: None,
                                                                KropffSessionSubKeys.high_tof: {
                                                                    KropffSessionSubKeys.a0: '1',
                                                                    KropffSessionSubKeys.b0: '1',
@@ -122,6 +124,9 @@ class SessionHandler:
                                                                    KropffSessionSubKeys.graph: 'lambda_hkl',
                                                                    },
                                                                KropffSessionSubKeys.automatic_bragg_peak_threshold_finder: True,
+                                                               KropffSessionSubKeys.automatic_fitting_threshold_width: 5,
+                                                               KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm:
+                                                                   KropffThresholdFinder.sliding_average,
                                                                KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions:
                                                                    {KropffSessionSubKeys.l_hkl_error: {
                                                                        KropffSessionSubKeys.state: True,

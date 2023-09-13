@@ -210,10 +210,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>kropff_threshold_width_slider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Dialog</receiver>
+   <slot>slider_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>205</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>191</x>
+     <y>262</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
   <slot>slider_moved()</slot>
   <slot>slider_clicked()</slot>
+  <slot>slider_changed()</slot>
  </slots>
 </ui>

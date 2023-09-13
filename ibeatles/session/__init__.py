@@ -65,8 +65,8 @@ class SessionSubKeys:
     transparency = "transparency"
     ui = "ui"
     lambda_range_index = "lambda range index"
-    march_dollase = "march dollase"
-    kropff = "kropff"
+    # march_dollase = "march dollase"
+    # kropff = "kropff"
 
     # settings
     log_buffer_size = "log buffer size"

@@ -7,6 +7,13 @@ REJECTED_ROW_BACKGROUND = QtGui.QColor(255, 255, 150)
 ERROR_TOLERANCE = 100
 
 
+class KropffThresholdFinder:
+
+    sliding_average = "sliding_average"
+    error_function = "error_function"
+    change_point = "change_point"
+
+
 class FittingKropffBraggPeakColumns:
 
     l_hkl_value = 2
@@ -67,6 +74,7 @@ class SessionSubKeys:
     less_than = "less_than"
     more_than = "more_than"
     automatic_fitting_threshold_width = "automatic fitting threshold width"
+    automatic_bragg_peak_threshold_algorithm = "automatic bragg peak threshold algorithm"
 
 
 class RightClickTableMenu:

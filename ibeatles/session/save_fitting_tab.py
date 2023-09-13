@@ -6,6 +6,9 @@ from ibeatles.fitting import FittingTabSelected
 
 from ibeatles.session.save_tab import SaveTab
 from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.march_dollase import SessionSubKeys as MarchDollaseSessionSubKeys
+from ibeatles.fitting import FittingKeys
 
 
 class SaveFittingTab(SaveTab):
@@ -42,13 +45,13 @@ class SaveFittingTab(SaveTab):
         logging.info(f" state: {state}")
         logging.info(f" histogram: {histogram}")
 
-        self.session_dict[DataType.fitting]['x_axis'] = [float(x) for x in
+        self.session_dict[DataType.fitting][FittingKeys.x_axis] = [float(x) for x in
                                                          self.parent.normalized_lambda_bragg_edge_x_axis]
-        self.session_dict[DataType.fitting]['transparency'] = self.parent.fitting_transparency_slider_value
-        self.session_dict[DataType.fitting]['image view state'] = state
-        self.session_dict[DataType.fitting]['image view histogram'] = histogram
-        self.session_dict[DataType.fitting]['ui accessed'] = self.parent.data_metadata[DataType.bin]['ui_accessed']
-        self.session_dict[DataType.fitting]['ui'] = self.parent.session_dict[DataType.fitting]['ui']
+        self.session_dict[DataType.fitting][FittingKeys.transparency] = self.parent.fitting_transparency_slider_value
+        self.session_dict[DataType.fitting][FittingKeys.image_view_state] = state
+        self.session_dict[DataType.fitting][FittingKeys.image_view_histogram] = histogram
+        self.session_dict[DataType.fitting][FittingKeys.ui_accessed] = self.parent.data_metadata[DataType.bin]['ui_accessed']
+        self.session_dict[DataType.fitting][FittingKeys.ui] = self.parent.session_dict[DataType.fitting]['ui']
 
     def march_dollase(self):
         logging.info("Recording March-Dollase fitting parameters")
@@ -84,12 +87,19 @@ class SaveFittingTab(SaveTab):
                                                 'a2'                : a2,
                                                 'a5'                : a5,
                                                 'a6'                : a6}
-        self.session_dict[DataType.fitting]['march dollase']["table dictionary"] = formatted_table_dictionary
-        self.session_dict[DataType.fitting]['march dollase']['plot active row flag'] = \
+        self.session_dict[DataType.fitting][FittingTabSelected.march_dollase][
+            MarchDollaseSessionSubKeys.table_dictionary] = formatted_table_dictionary
+        self.session_dict[DataType.fitting][FittingTabSelected.march_dollase][
+            MarchDollaseSessionSubKeys.plot_active_row_flag] = \
             self.parent.display_active_row_flag
 
-        logging.info(f" len(x_axis): {len(self.session_dict[DataType.fitting]['x_axis'])}")
-        logging.info(f" lambda range index: {self.session_dict['fitting']['lambda range index']}")
+        x_axis = self.session_dict[DataType.fitting][SessionSubKeys.x_axis]
+        if x_axis:
+            logging.info(f" len(x_axis): {len(x_axis)}")
+        else:
+            logging.info(f" xaxis is empty!")
+
+        logging.info(f" lambda range index: {self.session_dict[SessionKeys.fitting][SessionSubKeys.lambda_range_index]}")
 
     def kropff(self):
         logging.info("Recording Kropff fitting parameters")
@@ -123,22 +133,23 @@ class SaveFittingTab(SaveTab):
                                                 'rejected': rejected,
                                                 }
 
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["table dictionary"] = formatted_table_dictionary
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold finder"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold finder"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold algorithm"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["automatic bragg peak threshold algorithm"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak threshold width"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak threshold width"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["high tof"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["high tof"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["low tof"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["low tof"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff bragg peak good fit conditions"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff bragg peak good fit conditions"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff lambda settings"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["kropff lambda settings"]
-        self.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak row rejections conditions"] = \
-            self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff]["bragg peak row rejections conditions"]
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.table_dictionary, source=formatted_table_dictionary)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.automatic_bragg_peak_threshold_finder)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.high_tof)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.low_tof)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.bragg_peak)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.kropff_lambda_settings)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.bragg_peak_row_rejections_conditions)
+        self.import_from_parent_session_dict(key=KropffSessionSubKeys.automatic_fitting_threshold_width)
+
+    def import_from_parent_session_dict(self, key: SessionSubKeys = None, source: dict = None):
+        """
+        this method will move the key values specified from the self.parent.session_dict[fitting][kropff][key]
+        if source is not specified, otherwise the source is used as input
+        """
+        if source is None:
+            source = self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff][key]
+
+        self.session_dict[DataType.fitting][FittingTabSelected.kropff][key] = source

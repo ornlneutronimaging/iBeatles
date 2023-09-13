@@ -40,7 +40,7 @@ from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 from ibeatles.binning.binning_launcher import BinningLauncher
 
 from ibeatles.fitting.fitting_launcher import FittingLauncher
-from ibeatles.fitting import KropffThresholdFinder
+from ibeatles.fitting.kropff import KropffThresholdFinder
 
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 

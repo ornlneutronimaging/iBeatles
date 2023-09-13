@@ -15,7 +15,7 @@ class BinningHandler(object):
         _state = o_pyqt.get_state()
         o_pyqt.save_histogram_level(data_type_of_data=DataType.normalized)
 
-        if not (len(data) == 0):
+        if not (data is None):
             self.binning_ui.data = data
             self.parent.binning_line_view['image_view'].setImage(data)
         else:

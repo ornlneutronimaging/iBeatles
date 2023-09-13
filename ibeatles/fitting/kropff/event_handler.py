@@ -11,7 +11,9 @@ from ibeatles.fitting.kropff.display import Display
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.utilities.table_handler import TableHandler
 
+from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND, REJECTED_ROW_BACKGROUND
+from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns, FittingKropffHighLambdaColumns, \
     FittingKropffLowLambdaColumns
 from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
@@ -163,32 +165,39 @@ class EventHandler:
         else:
             bragg_peak_graph = 'sigma'
 
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['high tof']['a0'] = a0
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['high tof']['b0'] = b0
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['high tof']['graph'] = high_tof_graph
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.high_tof][
+            SessionSubKeys.a0] = a0
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.high_tof][
+            SessionSubKeys.b0] = b0
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.high_tof][
+            SessionSubKeys.graph] = high_tof_graph
 
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['low tof']['ahkl'] = ahkl
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['low tof']['bhkl'] = bhkl
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['low tof']['graph'] = low_tof_graph
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.low_tof][
+            SessionSubKeys.ahkl] = ahkl
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.low_tof][
+            SessionSubKeys.bhkl] = bhkl
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.low_tof][
+            SessionSubKeys.graph] = low_tof_graph
 
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak']['lambda_hkl'] = lambda_hkl
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak']['tau'] = tau
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak']['sigma'] = sigma
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak']['graph'] = bragg_peak_graph
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
+            SessionSubKeys.lambda_hkl] = lambda_hkl
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
+            SessionSubKeys.tau] = tau
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
+            SessionSubKeys.sigma] = sigma
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
+            SessionSubKeys.graph] = bragg_peak_graph
 
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['automatic bragg peak threshold algorithm'] = \
-            self.parent.kropff_automatic_threshold_finder_algorithm
-
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak threshold width'] = \
-            self.parent.ui.kropff_threshold_width_slider.value()
-
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['kropff bragg peak good fit conditions'] = \
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            SessionSubKeys.kropff_bragg_peak_good_fit_conditions] = \
             self.parent.kropff_bragg_peak_good_fit_conditions
 
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['kropff lambda settings'] = \
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            SessionSubKeys.kropff_lambda_settings] = \
             self.parent.kropff_lambda_settings
 
-        self.grand_parent.session_dict[DataType.fitting]['kropff']['bragg peak row rejections conditions'] = \
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            SessionSubKeys.bragg_peak_row_rejections_conditions] = \
             self.parent.kropff_bragg_peak_row_rejections_conditions
 
     def fit_regions(self):

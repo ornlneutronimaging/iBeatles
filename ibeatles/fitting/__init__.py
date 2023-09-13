@@ -1,18 +1,24 @@
 class KropffTabSelected:
+
     high_tof = "high_tof"
     low_tof = "low_tof"
     bragg_peak = "bragg_peak"
 
 
 class FittingTabSelected:
+
     march_dollase = "march_dollase"
     kropff = "kropff"
 
 
-class KropffThresholdFinder:
-    sliding_average = "sliding_average"
-    error_function = "error_function"
-    change_point = "change_point"
+class FittingKeys:
+
+    x_axis = "x-axis"
+    transparency = "transparency"
+    image_view_state = "image view state"
+    image_view_histogram = "image view histogram"
+    ui_accessed = "ui accessed"
+    ui = "ui"
 
 
 selected_color = {'pen': (0, 0, 0, 30),
