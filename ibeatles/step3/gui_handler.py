@@ -31,7 +31,7 @@ class Step3GuiHandler:
     def check_time_spectra_widgets(self):
         time_spectra_data = self.parent.data_metadata['time_spectra']['normalized_folder']
         if self.parent.ui.material_display_checkbox.isChecked():
-            if time_spectra_data == []:
+            if len(time_spectra_data) == 0:
                 _display_error_label = True
             else:
                 _display_error_label = False
@@ -41,7 +41,7 @@ class Step3GuiHandler:
         self.parent.ui.display_warning.setVisible(_display_error_label)
 
     def check_widgets(self):
-        if self.parent.list_files[DataType.normalized] == []:
+        if len(self.parent.list_files[DataType.normalized]) == 0:
             status = False
         else:
             status = True

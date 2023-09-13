@@ -4,7 +4,7 @@ configparser
 numpy
 pandas
 Pillow
-progressbar2
+# progressbar2
 pyqtgraph
 pytest
 scikit-image

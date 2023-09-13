@@ -50,7 +50,7 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
 
         if not list_row_selected:
 
-            if self.parent.data_metadata[self.data_type]['data'] == []:
+            if len(self.parent.data_metadata[self.data_type]['data']) == 0:
                 self.selected_infos = {}
                 self.data = []
             else:
@@ -124,7 +124,7 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
     def update(self):
         data_files = self.parent.list_files[self.data_type]
 
-        if data_files == []:
+        if len(data_files) == 0:
             self.general_infos = {}  # no files so no infos to display
 
         else:

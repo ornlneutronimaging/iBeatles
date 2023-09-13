@@ -54,7 +54,7 @@ class Step1Plot(object):
             data_type = o_gui.get_active_tab()
         self.data_type = data_type
 
-        if data == []:
+        if len(data) == 0:
             data = self.parent.data_metadata[data_type]['data']
         self.data = data
 
@@ -75,7 +75,7 @@ class Step1Plot(object):
         _state = None
         self.parent.live_data = _data
 
-        if _data == []:
+        if len(_data) == 0:
             self.clear_plots(data_type=self.data_type)
 
         else:
@@ -218,7 +218,7 @@ class Step1Plot(object):
         _height = np.abs(y1 - y0)
 
         _list_roi = self.parent.list_roi[data_type]
-        if _list_roi == []:
+        if len(_list_roi) == 0:
             _label = "roi_label"
             _group = "0"
             _list_roi = [_label, str(x0), str(y0), str(_width), str(_height), _group]
@@ -246,7 +246,7 @@ class Step1Plot(object):
 
         for _group in list_data_group.keys():
             _list_roi = list_data_group[_group]
-            if _list_roi == []:
+            if len(_list_roi) == 0:
                 list_data[_group] = []
             else:
                 for _data in data:
@@ -393,7 +393,7 @@ class Step1Plot(object):
             roi.setPen(pen_color[group])
 
             _text_array = self.parent.list_label_roi_id[self.data_type]
-            if _text_array == []:
+            if len(_text_array) == 0:
                 text_id = pg.TextItem(
                     html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
                     anchor=(-0.3, 1.3),
@@ -427,7 +427,7 @@ class Step1Plot(object):
         """
         _data = self.data
 
-        if _data == []:  # clear data if no data
+        if len(_data) == 0:  # clear data if no data
             self.clear_bragg_edge_plot()
 
         else:  # retrieve dictionaries of roi_id and roi data (label, x, y, w, h, group)
@@ -509,13 +509,13 @@ class Step1Plot(object):
         # use to check if bragg peaks scroll bar should be visible or not
         o_gui = GuiHandler(parent=self.parent)
 
-        if tof_array == []:
+        if len(tof_array) == 0:
 
             plot_ui.setLabel('bottom', 'File Index')
 
             for _key in bragg_edges.keys():
                 _bragg_edge = bragg_edges[_key]
-                if _bragg_edge == []:
+                if len(_bragg_edge) == 0:
                     continue
                 curve = plot_ui.plot(_bragg_edge, symbolPen=None, pen=pen_color[_key], symbol=_symbol, symbolSize=5)
                 x_axis = np.arange(len(_bragg_edge))
@@ -543,7 +543,7 @@ class Step1Plot(object):
 
             for _key in bragg_edges.keys():
                 _bragg_edge = bragg_edges[_key]
-                if _bragg_edge == []:
+                if len(_bragg_edge) == 0:
                     continue
 
                 if xaxis_choice == 'file_index':

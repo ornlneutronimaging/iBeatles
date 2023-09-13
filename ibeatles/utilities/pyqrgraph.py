@@ -40,7 +40,7 @@ class Pyqtgrah:
         return _state
 
     def save_histogram_level(self, data_type_of_data=None):
-        """we gonna save the histogram but only if we didn't come here via the add/mean radio buttons"""
+        """we are going to save the histogram but only if we didn't come here via the add/mean radio buttons"""
 
         # we switched the 'mean' and 'add' buttons, no need to save the histogram then
         if self.add_mean_radio_button_changed:
@@ -60,7 +60,7 @@ class Pyqtgrah:
         if data_type_of_data is None:
             data_type_of_data = self.data_type
 
-        if self.parent.data_metadata[data_type_of_data]['data'] == []:
+        if len(self.parent.data_metadata[data_type_of_data]['data']) == 0:
             return
 
         if self.data_type == DataType.normalization:

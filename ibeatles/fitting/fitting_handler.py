@@ -58,11 +58,11 @@ class FittingHandler:
         _state = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
-        if not (data == []):
+        if len(data) > 0:
             self.parent.data = data
             self.parent.image_view.setImage(data)
         else:
-            if not self.grand_parent.data_metadata['normalized']['data_live_selection'] == []:
+            if len(self.grand_parent.data_metadata['normalized']['data_live_selection']) > 0:
                 data = np.array(self.grand_parent.data_metadata['normalized']['data_live_selection'])
                 if len(data) == 0:
                     return

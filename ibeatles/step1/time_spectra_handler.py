@@ -6,9 +6,9 @@ from matplotlib.figure import Figure
 from neutronbraggedge.experiment_handler.tof import TOF
 from neutronbraggedge.experiment_handler.experiment import Experiment
 
-from ..utilities.file_handler import FileHandler
-from ..utilities import math_tools as math_tools
-from .. import load_ui
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities import math_tools as math_tools
+from ibeatles import load_ui
 
 
 class TimeSpectraHandler(object):
@@ -59,7 +59,7 @@ class TimeSpectraHandler(object):
     def display(self):
         self.load()
         self.calculate_lambda_scale()
-        if not self.tof_array == []:
+        if len(self.tof_array) > 0:
             _time_spectra_window = TimeSpectraDisplay(parent=self.parent,
                                                       short_filename=str(self.short_file_name),
                                                       full_filename=self.full_file_name,
@@ -72,7 +72,7 @@ class TimeSpectraHandler(object):
 class TimeSpectraDisplay(QMainWindow):
 
     def __init__(self, parent=None, short_filename='', full_filename='',
-                 x_axis=[], y_axis=[], x2_axis=[]):
+                 x_axis=None, y_axis=None, x2_axis=None):
         self.parent = parent
         self.x_axis = x_axis
         self.x2_axis = x2_axis

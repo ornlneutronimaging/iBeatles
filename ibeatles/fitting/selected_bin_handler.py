@@ -136,7 +136,7 @@ class SelectedBinsHandler(object):
         self.parent.bragg_edge_plot.setLabel("bottom", u'\u03BB (\u212B)')
         self.parent.bragg_edge_plot.setLabel("left", "Average Counts")
 
-        if self.grand_parent.fitting_bragg_edge_linear_selection == []:
+        if len(self.grand_parent.fitting_bragg_edge_linear_selection) == 0:
             linear_region_left_index = 0
             linear_region_right_index = len(x_axis) - 1
             self.grand_parent.fitting_bragg_edge_linear_selection = [linear_region_left_index,
@@ -176,7 +176,7 @@ class SelectedBinsHandler(object):
             flag_name = 'lock'
         list_bin_selected = self.retrieve_list_bin_selected(flag_name=flag_name)
 
-        if list_bin_selected == []:
+        if len(list_bin_selected) == 0:
             return
 
         table_dictionary = self.grand_parent.march_table_dictionary
@@ -336,8 +336,8 @@ class SelectedBinsHandler(object):
                 'a5'       : mean_a5,
                 'a6'       : mean_a6}
 
-    def get_mean_value(self, array=[]):
-        if array == []:
+    def get_mean_value(self, array=None):
+        if len(array) == 0:
             return np.NaN
         else:
             return np.mean(array)

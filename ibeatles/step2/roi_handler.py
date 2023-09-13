@@ -70,7 +70,7 @@ class Step2RoiHandler:
 
     def remove_roi(self):
         selection = self.parent.ui.normalization_tableWidget.selectedRanges()
-        if selection == []:
+        if len(selection) == 0:
             return
 
         selection = selection[0]

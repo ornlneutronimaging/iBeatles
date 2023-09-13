@@ -126,7 +126,7 @@ class Step1GuiHandler(object):
 
         row_selected = self.row_selected(data_type=data_type)
         data = self.parent.data_metadata[data_type]['data']
-        if not data == []:
+        if len(data) > 0:
             data = data[row_selected]
         o_gui = Step1Plot(parent=self.parent,
                           data_type=data_type,
@@ -238,7 +238,7 @@ class Step1GuiHandler(object):
         time_spectra_data = self.parent.data_metadata['time_spectra'][data_location]
 
         if self.parent.ui.material_display_checkbox.isChecked():
-            if time_spectra_data == []:
+            if len(time_spectra_data) == 0:
                 _display_error_label = True
             else:
                 _display_error_label = False

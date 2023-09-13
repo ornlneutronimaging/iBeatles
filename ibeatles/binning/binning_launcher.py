@@ -166,7 +166,7 @@ class BinningWindow(QMainWindow):
 
     def roi_selection_widgets_modified(self):
 
-        if self.data == []:
+        if len(self.data) == 0:
             return
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)

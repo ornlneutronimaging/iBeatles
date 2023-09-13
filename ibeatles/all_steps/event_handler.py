@@ -35,7 +35,7 @@ class EventHandler:
         # validate only if data loaded
         if step_index_requested == 1:
 
-            if self.parent.data_metadata[DataType.sample]['data'] == []:
+            if len(self.parent.data_metadata[DataType.sample]['data']) == 0:
                 message = "Please load some sample data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
@@ -52,7 +52,7 @@ class EventHandler:
         # bin
         # validate only if normalized data loaded
         if step_index_requested == 3:
-            if self.parent.data_metadata[DataType.normalized]['data'] == []:
+            if len(self.parent.data_metadata[DataType.normalized]['data']) == 0:
                 message = "Please load some normalized data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
@@ -64,7 +64,7 @@ class EventHandler:
         # fitting
         # validate if there is a bin region selected
         if step_index_requested == 4:
-            if self.parent.data_metadata[DataType.normalized]['data'] == []:
+            if len(self.parent.data_metadata[DataType.normalized]['data']) == 0:
                 message = "Please load some normalized data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
@@ -95,7 +95,7 @@ class EventHandler:
         # rotation
         # validate if normalized data loaded
         if step_index_requested == 6:
-            if self.parent.data_metadata[DataType.normalized]['data'] == []:
+            if len(self.parent.data_metadata[DataType.normalized]['data']) == 0:
                 message = "Please load some normalized data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)

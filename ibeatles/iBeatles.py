@@ -291,7 +291,7 @@ class MainWindow(QMainWindow):
                                               }
                            }
 
-    # use to display lable that illustrate normalization process in tab2
+    # use to display table that illustrate normalization process in tab2
     normalization_label = {'data_ob': '',
                            'data': '',
                            'no_data': '',
@@ -530,7 +530,7 @@ class MainWindow(QMainWindow):
                 o_gui = Step2GuiHandler(parent=self)
                 o_gui.update_widgets()
                 time_spectra_data = self.data_metadata['time_spectra']['data']
-                if time_spectra_data == []:
+                if len(time_spectra_data) == 0:
                     o_gui.enable_xaxis_button(tof_flag=False)
                 else:
                     o_gui.enable_xaxis_button(tof_flag=True)

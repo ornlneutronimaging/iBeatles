@@ -37,7 +37,7 @@ class ImageHandler:
             return []
 
         # if data not loaded yet
-        if self.data == []:
+        if len(self.data) == 0:
 
             # only load first selected data
             # _file = self.filename
@@ -61,7 +61,7 @@ class ImageHandler:
         self.data = _data
 
     def get_metadata(self, selected_infos_dict={}):
-        if self.data == []:
+        if len(self.data) == 0:
             self.get_data()
 
         if self.data_type == 'tiff':

@@ -64,7 +64,7 @@ class RoiEditorInterface(QMainWindow):
         list_roi = self.parent.list_roi[self.title]
 
         # no ROI already define
-        if list_roi == []:
+        if len(list_roi) == 0:
             return
 
         self.ui.remove_roi_button.setEnabled(True)
@@ -284,7 +284,7 @@ class RoiEditorInterface(QMainWindow):
             new_list_roi_id.append(list_roi_id[_index])
             new_list_label_roi_id.append(list_label_roi_id[_index])
 
-        if new_list_roi == []:
+        if len(new_list_roi) == 0:
             self.ui.remove_roi_button.setEnabled(False)
 
         self.parent.list_roi[self.title] = new_list_roi

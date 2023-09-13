@@ -138,6 +138,7 @@ class DataHandler:
 
     def load_time_spectra(self, time_spectra_file=None):
 
+        logging.info("running load_time_spectra method")
         if time_spectra_file is None:
             time_spectra_file = self.get_time_spectra_file()
             if not time_spectra_file:
@@ -152,7 +153,7 @@ class DataHandler:
             return
 
         else:
-            logging.info(f"User manually selected time spectra file {time_spectra_file}")
+            logging.info(f"time_spectra_file: {time_spectra_file}")
             self.parent.data_metadata[self.data_type]['time_spectra']['filename'] = time_spectra_file
 
             o_time_handler = TimeSpectraHandler(parent=self.parent,

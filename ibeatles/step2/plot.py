@@ -51,20 +51,20 @@ class Step2Plot:
         self.normalized = normalized
 
     def prepare_data(self):
-        if self.sample == []:
+        if len(self.sample) == 0:
             sample = self.parent.data_metadata['sample']['data']
 
         # still no sample data
-        if sample == []:
+        if len(sample) == 0:
             return
 
-        if self.ob == []:
+        if len(self.ob) == 0:
             ob = self.parent.data_metadata['ob']['data']
 
-        if self.normalized == []:
+        if len(self.normalized) == 0:
             normalized = self.parent.data_metadata['normalized']['data']
 
-        if self.parent.data_metadata['normalization']['data'] == []:
+        if len(self.parent.data_metadata['normalization']['data']) == 0:
             normalization = np.mean(np.array(sample), axis=0)
             self.parent.data_metadata['normalization']['axis'] = normalization
             self.parent.data_metadata['normalization']['data'] = normalization
@@ -93,7 +93,7 @@ class Step2Plot:
         _state = o_pyqt.get_state()
         o_pyqt.save_histogram_level()
 
-        if _data == []:
+        if len(_data) == 0:
             self.clear_plots()
             self.parent.step2_ui['area'].setVisible(False)
         else:
@@ -108,7 +108,7 @@ class Step2Plot:
         list_label_roi_id = self.parent.list_label_roi_id['normalization']
         roi = self.parent.list_roi['normalization']
 
-        if list_roi_id == []:
+        if len(list_roi_id) == 0:
             return
 
         self.clear_roi_from_image()
@@ -142,7 +142,7 @@ class Step2Plot:
         _plot_ui.clear()
 
         list_roi_id = self.parent.list_roi_id['normalization']
-        list_roi = self.parent.list_roi['normalization']
+        # list_roi = self.parent.list_roi['normalization']
 
         o_get = Step2Get(parent=self.parent)
         list_sample_roi = []
@@ -261,8 +261,8 @@ class Step2Plot:
 
         return data_to_plot
 
-    def calculate_mean_counts(self, data, list_roi=[]):
-        if data == []:
+    def calculate_mean_counts(self, data, list_roi=None):
+        if len(data) == 0:
             return data
 
         data = np.array(data)
@@ -270,7 +270,7 @@ class Step2Plot:
         _first_array_added = True
         nbr_roi = len(list_roi)
 
-        if list_roi == []:
+        if len(list_roi) == 0:
             final_array = np.mean(data, axis=(1, 2))
 
         else:
@@ -427,7 +427,7 @@ class Step2Plot:
     def clear_counts_vs_file(self):
         self.parent.step2_ui['bragg_edge_plot'].clear()
 
-    def multiply_array_by_coeff(self, data=[], coeff=[]):
+    def multiply_array_by_coeff(self, data=None, coeff=None):
         if len(data) == len(coeff):
             return data * coeff
         else:

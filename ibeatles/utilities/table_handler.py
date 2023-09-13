@@ -69,7 +69,7 @@ class TableHandler:
             return []
 
         selected_ranges = self.table_ui.selectedRanges()
-        if selected_ranges == []:
+        if len(selected_ranges) == 0:
             return []
 
         list_row_selected = []

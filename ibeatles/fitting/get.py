@@ -82,7 +82,7 @@ class Get:
             raise ValueError("Tab selected is invalid!")
 
     def fitting_bragg_edge_linear_selection(self):
-        if self.grand_parent.fitting_bragg_edge_linear_selection == []:
+        if len(self.grand_parent.fitting_bragg_edge_linear_selection) == 0:
             linear_region_left_index = 0
             x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
             linear_region_right_index = len(x_axis) - 1
@@ -191,7 +191,7 @@ class Get:
 
         list_of_yaxis = []
 
-        if row_selected == []:
+        if len(row_selected) == 0:
             return [], []
 
         for _row in row_selected:

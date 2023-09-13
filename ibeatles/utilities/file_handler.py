@@ -39,7 +39,7 @@ class FileHandler:
     def cleanup_list_of_files(cls, list_of_files=[], base_number=5):
         '''Will only keep the files that have the same number of character as
         the first n files'''
-        if list_of_files == []:
+        if len(list_of_files) == 0:
             return []
 
         len_base_files = []
