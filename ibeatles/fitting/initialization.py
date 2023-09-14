@@ -427,8 +427,11 @@ class Initialization:
         lambda_hkl_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
                                                           key=BraggPeakInitParameters.fix_flag)
         if lambda_hkl_fix_flag:
-            self.parent.ui.lambda_hkl_fix_radioButton.setChecked(lambda_hkl_fix_flag)
-            self.parent.kropff_initial_guess_lambda_hkl_fix_clicked()
+            self.parent.ui.lambda_hkl_fix_radioButton.setChecked(True)
+        else:
+            self.parent.ui.lambda_hkl_range_radioButton.setChecked(True)
+
+        self.parent.kropff_initial_guess_lambda_hkl_fix_clicked()
 
         lambda_hkl_fix_value =_retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
                                                           key=BraggPeakInitParameters.fix_value)
@@ -448,8 +451,11 @@ class Initialization:
 
         # tau
         tau_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
-                                                          key=BraggPeakInitParameters.fix_flag)
-        self.parent.ui.tau_fix_radioButton.setChecked(tau_fix_flag)
+                                                   key=BraggPeakInitParameters.fix_flag)
+        if tau_fix_flag:
+            self.parent.ui.tau_fix_radioButton.setChecked(True)
+        else:
+            self.parent.ui.tau_range_radioButton.setChecked(True)
         self.parent.kropff_initial_guess_tau_fix_clicked()
 
         tau_fix_value = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
@@ -471,7 +477,10 @@ class Initialization:
         # sigma
         sigma_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
                                                           key=BraggPeakInitParameters.fix_flag)
-        self.parent.ui.sigma_fix_radioButton.setChecked(sigma_fix_flag)
+        if sigma_fix_flag:
+            self.parent.ui.sigma_fix_radioButton.setChecked(True)
+        else:
+            self.parent.ui.sigma_range_radioButton.setChecked(True)
         self.parent.kropff_initial_guess_sigma_fix_clicked()
 
         sigma_fix_value = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,

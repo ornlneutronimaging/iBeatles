@@ -464,10 +464,6 @@ class EventHandler:
             if table_dictionary[_key]['lock']:
                 number_of_fits_locked += 1
 
-        # import pprint
-        # pprint.pprint(f"list_hkl: {list_hkl}")
-        # pprint.pprint(f"list_hkl_error: {list_hkl_error}")
-
         # turning None into NaN
         list_hkl_without_none = [_value for _value in list_hkl if _value is not None]
         list_hkl_error_without_none = [_value for _value in list_hkl_error if _value is not None]
@@ -569,7 +565,6 @@ class EventHandler:
 
                 # only if we are inside the bin selection
                 bin_list = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi]
-                print(f"{bin_list =}")
                 left = bin_list[1]
                 top = bin_list[2]
                 roi_width = bin_list[3]
