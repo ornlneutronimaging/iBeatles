@@ -9,6 +9,7 @@ from ibeatles.utilities.get import Get
 from ibeatles.fitting.march_dollase import SessionSubKeys as MarchSessionSubKeys
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting.kropff import BraggPeakInitParameters
 from ibeatles.fitting import FittingTabSelected
 
 from ibeatles.session import SessionKeys, SessionSubKeys, MaterialMode
@@ -117,9 +118,27 @@ class SessionHandler:
                                                                    KropffSessionSubKeys.graph: 'ahkl',
                                                                    },
                                                                KropffSessionSubKeys.bragg_peak: {
-                                                                   KropffSessionSubKeys.lambda_hkl: '5e-8',
-                                                                   KropffSessionSubKeys.tau: '1',
-                                                                   KropffSessionSubKeys.sigma: '1e-7',
+                                                                   KropffSessionSubKeys.lambda_hkl: {
+                                                                       BraggPeakInitParameters.fix_value: '5e-8',
+                                                                       BraggPeakInitParameters.fix_flag: True,
+                                                                       BraggPeakInitParameters.range_from: '1e-8',
+                                                                       BraggPeakInitParameters.range_to: '1e-7',
+                                                                       BraggPeakInitParameters.range_step: '1e-8',
+                                                                   },
+                                                                   KropffSessionSubKeys.tau: {
+                                                                       BraggPeakInitParameters.fix_value: '1',
+                                                                       BraggPeakInitParameters.fix_flag: True,
+                                                                       BraggPeakInitParameters.range_from: '0.1',
+                                                                       BraggPeakInitParameters.range_to: '2',
+                                                                       BraggPeakInitParameters.range_step: '0.1',
+                                                                   },
+                                                                   KropffSessionSubKeys.sigma: {
+                                                                       BraggPeakInitParameters.fix_value: '1e-7',
+                                                                       BraggPeakInitParameters.fix_flag: True,
+                                                                       BraggPeakInitParameters.range_from: '1e-7',
+                                                                       BraggPeakInitParameters.range_to: '1e-1',
+                                                                       BraggPeakInitParameters.range_step: '10',
+                                                                   },
                                                                    KropffSessionSubKeys.table_selection: 'single',
                                                                    KropffSessionSubKeys.graph: 'lambda_hkl',
                                                                    },

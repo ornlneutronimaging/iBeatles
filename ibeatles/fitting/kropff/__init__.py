@@ -43,12 +43,22 @@ class FittingRegions:
     bragg_peak = "bragg_peak"
 
 
+class BraggPeakInitParameters:
+
+    fix_flag = "fix flag"
+    fix_value = "fix value"
+    range_from = "range from"
+    range_to = "range to"
+    range_step = "range step"
+
+
 class SessionSubKeys:
 
     table_dictionary = "table dictionary"
     high_tof = "high tof"
     low_tof = "low tof"
     bragg_peak = "bragg peak"
+
     a0 = "a0"
     b0 = "b0"
     graph = "graph"
@@ -57,6 +67,7 @@ class SessionSubKeys:
     lambda_hkl = "lambda_hkl"
     tau = "tau"
     sigma = "sigma"
+
     table_selection = "table selection"
     lock = "lock"
     automatic_bragg_peak_threshold_finder = "automatic bragg peak threshold finder"
