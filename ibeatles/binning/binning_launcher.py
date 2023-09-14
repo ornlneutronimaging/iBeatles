@@ -11,6 +11,7 @@ from ibeatles.fitting.fitting_launcher import FittingLauncher
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.binning.binning_handler import BinningHandler
 from ibeatles import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class BinningLauncher:
@@ -329,7 +330,8 @@ class BinningWindow(QMainWindow):
         width = int(str(self.ui.selection_width.text()))
         height = int(str(self.ui.selection_height.text()))
         bin_size = self.ui.bin_size_horizontalSlider.value()
-        self.parent.binning_roi = [DEFAULT_ROI[0], x0, y0, width, height, bin_size]
+        self.parent.session_dict[DataType.bin][SessionSubKeys.roi] = [DEFAULT_ROI[0], x0, y0, width, height, bin_size]
+        # self.parent.binning_roi = [DEFAULT_ROI[0], x0, y0, width, height, bin_size]
 
     def ok_button_clicked(self):
         self.close()

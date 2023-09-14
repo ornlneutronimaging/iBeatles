@@ -397,98 +397,98 @@ class Initialization:
             return kropff_session_dict[KropffSessionSubKeys.bragg_peak][variable_key].get(key, None)
 
 
-        # hkl_list = self.grand_parent.selected_element_hkl_array
-        #
-        # str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
-        # self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
-        #
-        # # Kropff - initial fitting parameters
-        # a0 = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.a0]
-        # b0 = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.b0]
-        # high_tof_graph = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.graph]
-        # self.parent.ui.kropff_high_lda_a0_init.setText(a0)
-        # self.parent.ui.kropff_high_lda_b0_init.setText(b0)
-        # if high_tof_graph == 'a0':
-        #     self.parent.ui.kropff_a0_radioButton.setChecked(True)
-        # else:
-        #     self.parent.ui.kropff_b0_radioButton.setChecked(True)
-        #
-        # ahkl = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.ahkl]
-        # bhkl = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.bhkl]
-        # low_tof_graph = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.graph]
-        # self.parent.ui.kropff_low_lda_ahkl_init.setText(ahkl)
-        # self.parent.ui.kropff_low_lda_bhkl_init.setText(bhkl)
-        # if low_tof_graph == 'ahkl':
-        #     self.parent.ui.kropff_ahkl_radioButton.setChecked(True)
-        # else:
-        #     self.parent.ui.kropff_bhkl_radioButton.setChecked(True)
-        #
-        # # lambda hkl
-        # lambda_hkl_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
-        #                                                   key=BraggPeakInitParameters.fix_flag)
-        # if lambda_hkl_fix_flag:
-        #     self.parent.ui.lambda_hkl_fix_radioButton.setChecked(lambda_hkl_fix_flag)
-        #     self.parent.kropff_initial_guess_lambda_hkl_fix_clicked()
-        #
-        # lambda_hkl_fix_value =_retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
-        #                                                   key=BraggPeakInitParameters.fix_value)
-        # self.parent.ui.lambda_hkl_fix_lineEdit.setText(str(lambda_hkl_fix_value))
-        #
-        # lambda_hkl_range_from = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
-        #                                                     key=BraggPeakInitParameters.range_from)
-        # self.parent.ui.lambda_hkl_from_lineEdit.setText(str(lambda_hkl_range_from))
-        #
-        # lambda_hkl_range_to = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
-        #                                                     key=BraggPeakInitParameters.range_to)
-        # self.parent.ui.lambda_hkl_to_lineEdit.setText(str(lambda_hkl_range_to))
-        #
-        # lambda_hkl_range_step = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
-        #                                                     key=BraggPeakInitParameters.range_step)
-        # self.parent.ui.lambda_hkl_step_lineEdit.setText(str(lambda_hkl_range_step))
-        #
-        # # tau
-        # tau_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
-        #                                                   key=BraggPeakInitParameters.fix_flag)
-        # self.parent.ui.tau_fix_radioButton.setChecked(tau_fix_flag)
-        # self.parent.kropff_initial_guess_tau_fix_clicked()
-        #
-        # tau_fix_value = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
-        #                                                    key=BraggPeakInitParameters.fix_value)
-        # self.parent.ui.tau_fix_lineEdit.setText(str(tau_fix_value))
-        #
-        # tau_range_from = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
-        #                                                     key=BraggPeakInitParameters.range_from)
-        # self.parent.ui.tau_from_lineEdit.setText(str(tau_range_from))
-        #
-        # tau_range_to = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
-        #                                                   key=BraggPeakInitParameters.range_to)
-        # self.parent.ui.tau_to_lineEdit.setText(str(tau_range_to))
-        #
-        # tau_range_step = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
-        #                                                     key=BraggPeakInitParameters.range_step)
-        # self.parent.ui.tau_step_lineEdit.setText(str(tau_range_step))
-        #
-        # # sigma
-        # sigma_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
-        #                                                   key=BraggPeakInitParameters.fix_flag)
-        # self.parent.ui.sigma_fix_radioButton.setChecked(sigma_fix_flag)
-        # self.parent.kropff_initial_guess_sigma_fix_clicked()
-        #
-        # sigma_fix_value = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
-        #                                                    key=BraggPeakInitParameters.fix_value)
-        # self.parent.ui.sigma_fix_lineEdit.setText(str(sigma_fix_value))
-        #
-        # sigma_range_from = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
-        #                                                     key=BraggPeakInitParameters.range_from)
-        # self.parent.ui.sigma_from_lineEdit.setText(str(sigma_range_from))
-        #
-        # sigma_range_to = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
-        #                                                   key=BraggPeakInitParameters.range_to)
-        # self.parent.ui.sigma_to_lineEdit.setText(str(sigma_range_to))
-        #
-        # sigma_range_step = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
-        #                                                     key=BraggPeakInitParameters.range_step)
-        # self.parent.ui.sigma_step_lineEdit.setText(str(sigma_range_step))
+        hkl_list = self.grand_parent.selected_element_hkl_array
+
+        str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
+        self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
+
+        # Kropff - initial fitting parameters
+        a0 = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.a0]
+        b0 = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.b0]
+        high_tof_graph = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.graph]
+        self.parent.ui.kropff_high_lda_a0_init.setText(a0)
+        self.parent.ui.kropff_high_lda_b0_init.setText(b0)
+        if high_tof_graph == 'a0':
+            self.parent.ui.kropff_a0_radioButton.setChecked(True)
+        else:
+            self.parent.ui.kropff_b0_radioButton.setChecked(True)
+
+        ahkl = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.ahkl]
+        bhkl = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.bhkl]
+        low_tof_graph = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.graph]
+        self.parent.ui.kropff_low_lda_ahkl_init.setText(ahkl)
+        self.parent.ui.kropff_low_lda_bhkl_init.setText(bhkl)
+        if low_tof_graph == 'ahkl':
+            self.parent.ui.kropff_ahkl_radioButton.setChecked(True)
+        else:
+            self.parent.ui.kropff_bhkl_radioButton.setChecked(True)
+
+        # lambda hkl
+        lambda_hkl_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
+                                                          key=BraggPeakInitParameters.fix_flag)
+        if lambda_hkl_fix_flag:
+            self.parent.ui.lambda_hkl_fix_radioButton.setChecked(lambda_hkl_fix_flag)
+            self.parent.kropff_initial_guess_lambda_hkl_fix_clicked()
+
+        lambda_hkl_fix_value =_retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
+                                                          key=BraggPeakInitParameters.fix_value)
+        self.parent.ui.lambda_hkl_fix_lineEdit.setText(str(lambda_hkl_fix_value))
+
+        lambda_hkl_range_from = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
+                                                            key=BraggPeakInitParameters.range_from)
+        self.parent.ui.lambda_hkl_from_lineEdit.setText(str(lambda_hkl_range_from))
+
+        lambda_hkl_range_to = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
+                                                            key=BraggPeakInitParameters.range_to)
+        self.parent.ui.lambda_hkl_to_lineEdit.setText(str(lambda_hkl_range_to))
+
+        lambda_hkl_range_step = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.lambda_hkl,
+                                                            key=BraggPeakInitParameters.range_step)
+        self.parent.ui.lambda_hkl_step_lineEdit.setText(str(lambda_hkl_range_step))
+
+        # tau
+        tau_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
+                                                          key=BraggPeakInitParameters.fix_flag)
+        self.parent.ui.tau_fix_radioButton.setChecked(tau_fix_flag)
+        self.parent.kropff_initial_guess_tau_fix_clicked()
+
+        tau_fix_value = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
+                                                           key=BraggPeakInitParameters.fix_value)
+        self.parent.ui.tau_fix_lineEdit.setText(str(tau_fix_value))
+
+        tau_range_from = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
+                                                            key=BraggPeakInitParameters.range_from)
+        self.parent.ui.tau_from_lineEdit.setText(str(tau_range_from))
+
+        tau_range_to = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
+                                                          key=BraggPeakInitParameters.range_to)
+        self.parent.ui.tau_to_lineEdit.setText(str(tau_range_to))
+
+        tau_range_step = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.tau,
+                                                            key=BraggPeakInitParameters.range_step)
+        self.parent.ui.tau_step_lineEdit.setText(str(tau_range_step))
+
+        # sigma
+        sigma_fix_flag = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
+                                                          key=BraggPeakInitParameters.fix_flag)
+        self.parent.ui.sigma_fix_radioButton.setChecked(sigma_fix_flag)
+        self.parent.kropff_initial_guess_sigma_fix_clicked()
+
+        sigma_fix_value = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
+                                                           key=BraggPeakInitParameters.fix_value)
+        self.parent.ui.sigma_fix_lineEdit.setText(str(sigma_fix_value))
+
+        sigma_range_from = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
+                                                            key=BraggPeakInitParameters.range_from)
+        self.parent.ui.sigma_from_lineEdit.setText(str(sigma_range_from))
+
+        sigma_range_to = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
+                                                          key=BraggPeakInitParameters.range_to)
+        self.parent.ui.sigma_to_lineEdit.setText(str(sigma_range_to))
+
+        sigma_range_step = _retrieve_kropff_init_value(variable_key=KropffSessionSubKeys.sigma,
+                                                            key=BraggPeakInitParameters.range_step)
+        self.parent.ui.sigma_step_lineEdit.setText(str(sigma_range_step))
 
         # lambda_hkl = kropff_session_dict[KropffSessionSubKeys.bragg_peak]['lambda_hkl']
         # tau = kropff_session_dict['bragg peak']['tau']

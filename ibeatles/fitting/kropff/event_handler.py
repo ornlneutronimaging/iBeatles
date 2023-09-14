@@ -13,7 +13,8 @@ from ibeatles.utilities.table_handler import TableHandler
 
 from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND, REJECTED_ROW_BACKGROUND
-from ibeatles.fitting.kropff import SessionSubKeys
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.session import SessionSubKeys
 from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns, FittingKropffHighLambdaColumns, \
     FittingKropffLowLambdaColumns, BraggPeakInitParameters
 from ibeatles.fitting.kropff.checking_fitting_conditions import CheckingFittingConditions
@@ -152,23 +153,23 @@ class EventHandler:
         a0 = self.parent.ui.kropff_high_lda_a0_init.text()
         b0 = self.parent.ui.kropff_high_lda_b0_init.text()
         high_tof_graph = 'a0' if self.parent.ui.kropff_a0_radioButton.isChecked() else 'b0'
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.high_tof][
-            SessionSubKeys.a0] = a0
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.high_tof][
-            SessionSubKeys.b0] = b0
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.high_tof][
-            SessionSubKeys.graph] = high_tof_graph
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.high_tof][
+            KropffSessionSubKeys.a0] = a0
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.high_tof][
+            KropffSessionSubKeys.b0] = b0
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.high_tof][
+            KropffSessionSubKeys.graph] = high_tof_graph
 
         # low TOF
         ahkl = self.parent.ui.kropff_low_lda_ahkl_init.text()
         bhkl = self.parent.ui.kropff_low_lda_bhkl_init.text()
         low_tof_graph = 'ahkl' if self.parent.ui.kropff_ahkl_radioButton.isChecked() else 'bhkl'
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.low_tof][
-            SessionSubKeys.ahkl] = ahkl
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.low_tof][
-            SessionSubKeys.bhkl] = bhkl
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.low_tof][
-            SessionSubKeys.graph] = low_tof_graph
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.low_tof][
+            KropffSessionSubKeys.ahkl] = ahkl
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.low_tof][
+            KropffSessionSubKeys.bhkl] = bhkl
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.low_tof][
+            KropffSessionSubKeys.graph] = low_tof_graph
 
         # bragg peak
         lambda_hkl_fix_flag = self.parent.ui.lambda_hkl_fix_radioButton.isChecked()
@@ -176,48 +177,49 @@ class EventHandler:
         lambda_hkl_range_from = self.parent.ui.lambda_hkl_from_lineEdit.text()
         lambda_hkl_range_to = self.parent.ui.lambda_hkl_to_lineEdit.text()
         lambda_hkl_range_step = self.parent.ui.lambda_hkl_step_lineEdit.text()
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.lambda_hkl][BraggPeakInitParameters.fix_value] = lambda_hkl_fix_value
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.lambda_hkl][BraggPeakInitParameters.fix_flag] = lambda_hkl_fix_flag
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.lambda_hkl][BraggPeakInitParameters.range_from] = lambda_hkl_range_from
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.lambda_hkl][BraggPeakInitParameters.range_to] = lambda_hkl_range_to
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.lambda_hkl][BraggPeakInitParameters.range_step] = lambda_hkl_range_step
+
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl][BraggPeakInitParameters.fix_value] = lambda_hkl_fix_value
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl][BraggPeakInitParameters.fix_flag] = lambda_hkl_fix_flag
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl][BraggPeakInitParameters.range_from] = lambda_hkl_range_from
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl][BraggPeakInitParameters.range_to] = lambda_hkl_range_to
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl][BraggPeakInitParameters.range_step] = lambda_hkl_range_step
 
         tau_fix_flag = self.parent.ui.tau_fix_radioButton.isChecked()
         tau_fix_value = self.parent.ui.tau_fix_lineEdit.text()
         tau_range_from = self.parent.ui.tau_from_lineEdit.text()
         tau_range_to = self.parent.ui.tau_to_lineEdit.text()
         tau_range_step = self.parent.ui.tau_step_lineEdit.text()
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.tau][BraggPeakInitParameters.fix_value] = tau_fix_value
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.tau][BraggPeakInitParameters.fix_flag] = tau_fix_flag
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.tau][BraggPeakInitParameters.range_from] = tau_range_from
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.tau][BraggPeakInitParameters.range_to] = tau_range_to
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.tau][BraggPeakInitParameters.range_step] = tau_range_step
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau][BraggPeakInitParameters.fix_value] = tau_fix_value
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau][BraggPeakInitParameters.fix_flag] = tau_fix_flag
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau][BraggPeakInitParameters.range_from] = tau_range_from
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau][BraggPeakInitParameters.range_to] = tau_range_to
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau][BraggPeakInitParameters.range_step] = tau_range_step
 
         sigma_fix_flag = self.parent.ui.sigma_fix_radioButton.isChecked()
         sigma_fix_value = self.parent.ui.sigma_fix_lineEdit.text()
         sigma_range_from = self.parent.ui.sigma_from_lineEdit.text()
         sigma_range_to = self.parent.ui.sigma_to_lineEdit.text()
         sigma_range_step = self.parent.ui.sigma_step_lineEdit.text()
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.sigma][BraggPeakInitParameters.fix_value] = sigma_fix_value
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.sigma][BraggPeakInitParameters.fix_flag] = sigma_fix_flag
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.sigma][BraggPeakInitParameters.range_from] = sigma_range_from
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.sigma][BraggPeakInitParameters.range_to] = sigma_range_to
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.sigma][BraggPeakInitParameters.range_step] = sigma_range_step
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma][BraggPeakInitParameters.fix_value] = sigma_fix_value
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma][BraggPeakInitParameters.fix_flag] = sigma_fix_flag
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma][BraggPeakInitParameters.range_from] = sigma_range_from
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma][BraggPeakInitParameters.range_to] = sigma_range_to
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma][BraggPeakInitParameters.range_step] = sigma_range_step
 
         # lambda_hkl = self.parent.kropff_lambda_settings['fix']
         # tau = self.parent.ui.kropff_bragg_peak_tau_init.text()
@@ -229,25 +231,25 @@ class EventHandler:
         else:
             bragg_peak_graph = 'sigma'
 
-        # self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-        #     SessionSubKeys.lambda_hkl] = lambda_hkl
-        # self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-        #     SessionSubKeys.tau] = tau
-        # self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-        #     SessionSubKeys.sigma] = sigma
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][SessionSubKeys.bragg_peak][
-            SessionSubKeys.graph] = bragg_peak_graph
+        # self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+        #     KropffSessionSubKeys.lambda_hkl] = lambda_hkl
+        # self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+        #     KropffSessionSubKeys.tau] = tau
+        # self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+        #     KropffSessionSubKeys.sigma] = sigma
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.graph] = bragg_peak_graph
 
         self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            SessionSubKeys.kropff_bragg_peak_good_fit_conditions] = \
+            KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions] = \
             self.parent.kropff_bragg_peak_good_fit_conditions
 
         self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            SessionSubKeys.kropff_lambda_settings] = \
+            KropffSessionSubKeys.kropff_lambda_settings] = \
             self.parent.kropff_lambda_settings
 
         self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            SessionSubKeys.bragg_peak_row_rejections_conditions] = \
+            KropffSessionSubKeys.bragg_peak_row_rejections_conditions] = \
             self.parent.kropff_bragg_peak_row_rejections_conditions
 
     def fit_regions(self):
@@ -566,7 +568,8 @@ class EventHandler:
                 self.parent.ui.kropff_pos_y_value.setText(f"{y}")
 
                 # only if we are inside the bin selection
-                bin_list = self.grand_parent.session_dict[DataType.bin]["roi"]
+                bin_list = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi]
+                print(f"{bin_list =}")
                 left = bin_list[1]
                 top = bin_list[2]
                 roi_width = bin_list[3]
@@ -609,22 +612,22 @@ class EventHandler:
         self.parent.ui.step_label.setEnabled(not state_fix)
         self.parent.ui.lambda_hkl_step_lineEdit.setEnabled(not state_fix)
 
-    def change_initial_guess_sigma_widgets(self):
-        state_fix = self.parent.ui.sigma_fix_radioButton.isChecked()
-
-        self.parent.ui.sigma_fix_lineEdit.setEnabled(state_fix)
-        self.parent.ui.sigma_from_lineEdit.setEnabled(not state_fix)
-        self.parent.ui.to_label_3.setEnabled(not state_fix)
-        self.parent.ui.sigma_to_lineEdit.setEnabled(not state_fix)
-        self.parent.ui.step_label_3.setEnabled(not state_fix)
-        self.parent.ui.sigma_step_lineEdit.setEnabled(not state_fix)
-
     def change_initial_guess_tau_widgets(self):
         state_fix = self.parent.ui.tau_fix_radioButton.isChecked()
 
         self.parent.ui.tau_fix_lineEdit.setEnabled(state_fix)
         self.parent.ui.tau_from_lineEdit.setEnabled(not state_fix)
-        self.parent.ui.to_label_2.setEnabled(not state_fix)
+        self.parent.ui.to_label_1.setEnabled(not state_fix)
         self.parent.ui.tau_to_lineEdit.setEnabled(not state_fix)
-        self.parent.ui.step_label_2.setEnabled(not state_fix)
+        self.parent.ui.step_label_1.setEnabled(not state_fix)
         self.parent.ui.tau_step_lineEdit.setEnabled(not state_fix)
+
+    def change_initial_guess_sigma_widgets(self):
+        state_fix = self.parent.ui.sigma_fix_radioButton.isChecked()
+
+        self.parent.ui.sigma_fix_lineEdit.setEnabled(state_fix)
+        self.parent.ui.sigma_from_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.to_label_2.setEnabled(not state_fix)
+        self.parent.ui.sigma_to_lineEdit.setEnabled(not state_fix)
+        self.parent.ui.step_label_2.setEnabled(not state_fix)
+        self.parent.ui.sigma_step_lineEdit.setEnabled(not state_fix)

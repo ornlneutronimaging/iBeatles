@@ -1337,7 +1337,7 @@
                            <item>
                             <widget class="QLineEdit" name="lambda_hkl_fix_lineEdit">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>5e-8</string>
@@ -1382,7 +1382,7 @@
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="to_label_3">
+                            <widget class="QLabel" name="to_label">
                              <property name="enabled">
                               <bool>true</bool>
                              </property>
@@ -1402,7 +1402,7 @@
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="step_label_3">
+                            <widget class="QLabel" name="step_label">
                              <property name="enabled">
                               <bool>true</bool>
                              </property>
@@ -1478,7 +1478,7 @@
                            <item>
                             <widget class="QLineEdit" name="tau_from_lineEdit">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>0.1</string>
@@ -1486,9 +1486,9 @@
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="to_label_4">
+                            <widget class="QLabel" name="to_label_1">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>to</string>
@@ -1498,7 +1498,7 @@
                            <item>
                             <widget class="QLineEdit" name="tau_to_lineEdit">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>2</string>
@@ -1506,9 +1506,9 @@
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="step_label_4">
+                            <widget class="QLabel" name="step_label_1">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>step</string>
@@ -1518,7 +1518,7 @@
                            <item>
                             <widget class="QLineEdit" name="tau_step_lineEdit">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>0.1</string>
@@ -1582,7 +1582,7 @@
                            <item>
                             <widget class="QLineEdit" name="sigma_from_lineEdit">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>1e-7</string>
@@ -1590,9 +1590,9 @@
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="to_label_5">
+                            <widget class="QLabel" name="to_label_2">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>to</string>
@@ -1602,7 +1602,7 @@
                            <item>
                             <widget class="QLineEdit" name="sigma_to_lineEdit">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>1e-1</string>
@@ -1610,9 +1610,9 @@
                             </widget>
                            </item>
                            <item>
-                            <widget class="QLabel" name="step_label_5">
+                            <widget class="QLabel" name="step_label_2">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>step</string>
@@ -1622,7 +1622,7 @@
                            <item>
                             <widget class="QLineEdit" name="sigma_step_lineEdit">
                              <property name="enabled">
-                              <bool>false</bool>
+                              <bool>true</bool>
                              </property>
                              <property name="text">
                               <string>10</string>
