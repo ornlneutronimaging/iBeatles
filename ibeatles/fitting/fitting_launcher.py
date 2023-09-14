@@ -27,7 +27,7 @@ from ibeatles.fitting.kropff import RightClickTableMenu
 from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
 from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
 from ibeatles.fitting.kropff.display import Display as KropffDisplay
-from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
+# from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
 from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import KropffLambdaHKLSettings
 from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher \
     as KropffFittingParametersViewerEditorLauncher
@@ -501,9 +501,6 @@ class FittingWindow(QMainWindow):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.kropff_bragg_edge_threshold_changed()
 
-    def kropff_threshold_width_slider_changed(self, new_value):
-        self.ui.kropff_threshold_width_value.setText(str(new_value))
-
     def kropff_fit_all_regions(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.fit_regions()
@@ -578,9 +575,9 @@ class FittingWindow(QMainWindow):
     #     o_event = KropffHandler(parent=self, grand_parent=self.parent)
     #     o_event.bragg_peak_auto_lock_clicked()
 
-    def kropff_bragg_peak_good_fit_settings_clicked(self):
-        o_kropff = KropffGoodFitSettingsLauncher(parent=self)
-        o_kropff.show()
+    # def kropff_bragg_peak_good_fit_settings_clicked(self):
+    #     o_kropff = KropffGoodFitSettingsLauncher(parent=self)
+    #     o_kropff.show()
 
     def update_locked_and_rejected_rows_in_bragg_peak_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)

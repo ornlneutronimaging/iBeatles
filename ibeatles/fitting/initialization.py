@@ -562,10 +562,6 @@ class Initialization:
             kropff_top_horizontal_splitter = ui_dict['kropff_top_horizontal_splitter']
             self.parent.ui.kropff_top_horizontal_splitter.setSizes(splitter_3_size)
 
-            threshold_width = self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-                KropffSessionSubKeys.automatic_fitting_threshold_width]
-            self.parent.ui.kropff_threshold_width_slider.setValue(threshold_width)
-
         except TypeError:
             logging.info("Splitters have not been set due to log file format error! This should only show up once.")
 
