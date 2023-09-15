@@ -499,6 +499,7 @@ class EventHandler:
 
     # top left view mouse events
     def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
+        print("mouse_clicked_in_top_left_image_view")
         image_pos = self.parent.image_view_item.mapFromScene(mouse_click_event.scenePos())
 
         # if user click within a BIN, select that bin in all the tables (this will automatically highlight it
@@ -532,19 +533,25 @@ class EventHandler:
 
         nbr_bin_y_direction = self.grand_parent.fitting_selection['nbr_row']
 
-        if x > (top_left_x + nbr_bin_y_direction * binning_size):
+        if x > (top_left_x + (nbr_bin_y_direction + 1) * binning_size):
+            print("x bigger than box")
             return
 
-        if y > (top_left_y + nbr_bin_y_direction * binning_size):
+        if y > (top_left_y + (nbr_bin_y_direction) * binning_size):
+            print("y bigger than box")
             return
 
         bin_x_index = int((x - top_left_x) / binning_size) + 1
         bin_y_index = int((y - top_left_y) / binning_size) + 1
 
-        row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1)
+        print(f"{bin_x_index =}, {bin_y_index =}")
 
+        row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1)
+        print(f"{row_to_select =}")
         o_table = TableHandler(table_ui=list_table_ui[tab_selected_index])
         o_table.select_row(row_to_select)
+
+        print("")
 
     def mouse_moved_in_top_left_image_view(self, evt):
         pos = evt[0]
@@ -556,7 +563,7 @@ class EventHandler:
             image_pos = self.parent.image_view_item.mapFromScene(pos)
             x = int(image_pos.x())
             y = int(image_pos.y())
-            binning_size = self.grand_parent.binning_roi[-1]
+            binning_size = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi][-1]
             top_left_corner_coordinates = self.grand_parent.binning_line_view['pos'][0]
             top_left_x = top_left_corner_coordinates[0]
             top_left_y = top_left_corner_coordinates[1]
