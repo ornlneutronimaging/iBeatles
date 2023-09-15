@@ -65,7 +65,7 @@ class BinningWindow(QMainWindow):
 
     def init_widgets(self):
         if self.parent.binning_roi:
-            [_, x0, y0, width, height, bin_size] = self.parent.binning_roi
+            [_, x0, y0, width, height, bin_size] = self.parent.session_dict[DataType.bin][SessionSubKeys.roi]
             self.ui.selection_x0.setText(str(x0))
             self.ui.selection_y0.setText(str(y0))
             self.ui.selection_width.setText(str(width))
