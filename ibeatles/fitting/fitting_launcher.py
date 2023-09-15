@@ -413,9 +413,13 @@ class FittingWindow(QMainWindow):
     # kropff
 
     def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        QApplication.processEvents()
         o_event = KropffHandler(parent=self,
                                 grand_parent=self.parent)
         o_event.mouse_clicked_in_top_left_image_view(mouse_click_event=mouse_click_event)
+        QApplication.restoreOverrideCursor()
+        QApplication.processEvents()
 
     def mouse_moved_in_top_left_image_view(self, evt):
         o_event = KropffHandler(parent=self,
@@ -464,6 +468,7 @@ class FittingWindow(QMainWindow):
         o_kropff.parameters_changed()
 
     def update_selected_bins_plot(self):
+        print("in fitting launcher, update_selected_bins_plot!")
         o_kropff = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_bins_selected()
         o_kropff.update_bragg_edge_plot()

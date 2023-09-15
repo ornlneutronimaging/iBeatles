@@ -517,6 +517,14 @@ class EventHandler:
             return
 
         tab_selected_index = self.parent.ui.kropff_tabWidget.currentIndex()
+
+        if not tab_selected_index in [1, 2, 3]:
+            # no need to update table as we are showing a tab without tables
+            return
+
+        else:
+            tab_selected_index -= 1  # first tab is settings
+
         list_table_ui = [self.parent.ui.high_lda_tableWidget,
                          self.parent.ui.low_lda_tableWidget,
                          self.parent.ui.bragg_edge_tableWidget]
