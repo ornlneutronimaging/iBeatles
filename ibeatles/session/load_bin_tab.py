@@ -14,7 +14,7 @@ class LoadBin:
         session_dict = self.session_dict
 
         # self.parent.data_metadata[DataType.bin]['ui_accessed'] = session_dict[DataType.bin]['ui accessed']
-        self.parent.binning_roi = session_dict[SessionKeys.bin][SessionSubKeys.roi]
+        # self.parent.binning_roi = session_dict[SessionKeys.bin][SessionSubKeys.roi]
         self.parent.there_is_a_roi = True
 
         self.parent.image_view_settings[DataType.bin]['state'] = \

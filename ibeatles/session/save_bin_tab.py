@@ -31,7 +31,7 @@ class SaveBinTab(SaveTab):
         if self.parent.binning_roi is None:
             self.parent.binning_roi = DEFAULT_ROI
 
-        [name, x0, y0, width, height, bin_size] = self.parent.binning_roi
+        [name, x0, y0, width, height, bin_size] = self.parent.session_dict[DataType.bin][SessionSubKeys.roi]
 
         binning_line_view_pos = self.parent.binning_line_view['pos']
         formatted_binning_line_view_pos = format_numpy_array_into_list(binning_line_view_pos)
