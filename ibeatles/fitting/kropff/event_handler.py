@@ -502,11 +502,14 @@ class EventHandler:
         image_pos = self.parent.image_view_item.mapFromScene(mouse_click_event.scenePos())
 
         # if user click within a BIN, select that bin in all the tables (this will automatically highlight it
-        top_left_corner_coordinates = self.grand_parent.binning_line_view['pos'][0]
-        top_left_x = top_left_corner_coordinates[0]
-        top_left_y = top_left_corner_coordinates[1]
+        [_, top_left_x, top_left_y, _, _,  binning_size] = self.grand_parent.session_dict[DataType.bin][
+            SessionSubKeys.roi]
 
-        binning_size = self.grand_parent.binning_roi[-1]
+        # top_left_corner_coordinates = self.grand_parent.binning_line_view['pos'][0]
+        # top_left_x = top_left_corner_coordinates[0]
+        # top_left_y = top_left_corner_coordinates[1]
+        #
+        # binning_size = self.grand_parent.binning_roi[-1]
         x = int(image_pos.x())
         y = int(image_pos.y())
 
@@ -522,10 +525,8 @@ class EventHandler:
             # no need to update table as we are showing a tab without tables
             return
 
-        else:
-            tab_selected_index -= 1  # first tab is settings
-
-        list_table_ui = [self.parent.ui.high_lda_tableWidget,
+        list_table_ui = [None,  # settings tab
+                         self.parent.ui.high_lda_tableWidget,
                          self.parent.ui.low_lda_tableWidget,
                          self.parent.ui.bragg_edge_tableWidget]
 

@@ -12,6 +12,7 @@ from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting import selected_color, lock_color
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 from ibeatles.fitting import FittingTabSelected, KropffTabSelected
+from ibeatles.session import SessionSubKeys
 
 
 class FittingHandler:
@@ -206,7 +207,7 @@ class FittingHandler:
         # if not self.grand_parent.march_table_dictionary == {}:
         #     return
 
-        bin_size = self.grand_parent.binning_roi[-1]
+        bin_size = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi][5]
         pos = self.grand_parent.binning_line_view['pos']
 
         # calculate outside real edges of bins

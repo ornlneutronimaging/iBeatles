@@ -468,7 +468,6 @@ class FittingWindow(QMainWindow):
         o_kropff.parameters_changed()
 
     def update_selected_bins_plot(self):
-        print("in fitting launcher, update_selected_bins_plot!")
         o_kropff = SelectedBinsHandler(parent=self, grand_parent=self.parent)
         o_kropff.update_bins_selected()
         o_kropff.update_bragg_edge_plot()

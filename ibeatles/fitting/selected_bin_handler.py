@@ -24,7 +24,6 @@ class SelectedBinsHandler(object):
             self.parent.image_view.removeItem(_bin_ui)
 
     def update_bins_selected(self):
-        print("in update bins selected")
         self.clear_all_selected_bins()
         o_get = Get(parent=self.parent)
         fitting_tab_selected = o_get.main_tab_selected()
