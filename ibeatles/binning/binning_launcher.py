@@ -126,11 +126,12 @@ class BinningWindow(QMainWindow):
         image_view.ui.menuBtn.hide()
         self.parent.binning_line_view['image_view'] = image_view
 
-        if self.parent.binning_roi is None:
+        if not self.parent.session_dict[DataType.bin][SessionSubKeys.roi]:
             [_, x0, y0, width, height, _] = self.parent.list_roi[DataType.normalized][0]
-            self.parent.binning_roi = [DEFAULT_ROI[0], x0, y0, width, height, DEFAULT_BIN[-1]]
+            self.parent.session_dict[DataType.bin][SessionSubKeys.roi] = \
+                [DEFAULT_ROI[0], x0, y0, width, height, DEFAULT_BIN[-1]]
 
-        binning_roi = self.parent.binning_roi
+        binning_roi = self.parent.session_dict[DataType.bin][SessionSubKeys.roi]
 
         x0 = binning_roi[1]
         y0 = binning_roi[2]
