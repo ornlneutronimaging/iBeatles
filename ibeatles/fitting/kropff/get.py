@@ -144,12 +144,12 @@ class Get:
         return list_value
 
     def kropff_row_selected(self):
-        kropff_tab_ui_selected = self.kropff_tab_ui_selected()
+        kropff_tab_ui_selected = self.kropff_table_ui_selected()
         o_table = TableHandler(table_ui=kropff_tab_ui_selected)
         row_selected = o_table.get_rows_of_table_selected()
         return row_selected
 
-    def kropff_tab_ui_selected(self):
+    def kropff_table_ui_selected(self):
         tab_selected = self.kropff_tab_selected()
         if tab_selected == KropffTabSelected.high_tof:
             return self.parent.ui.high_lda_tableWidget
@@ -165,15 +165,15 @@ class Get:
     def kropff_tab_selected(self):
         tab_selected_index = self.parent.ui.kropff_tabWidget.currentIndex()
         if tab_selected_index == 1:
-            return KropffTabSelected.high_tof
-        elif tab_selected_index == 2:
             return KropffTabSelected.low_tof
+        elif tab_selected_index == 2:
+            return KropffTabSelected.high_tof
         elif tab_selected_index == 3:
             return KropffTabSelected.bragg_peak
         elif tab_selected_index == 0:
             return KropffTabSelected.settings
         elif tab_selected_index == 4:
-            return  KropffTabSelected.summary
+            return KropffTabSelected.summary
 
     def kropff_matplotlib_ui_selected(self):
         tab_selected = self.kropff_tab_selected()

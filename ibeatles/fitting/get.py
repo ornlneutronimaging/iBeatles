@@ -36,7 +36,7 @@ class Get:
 
     def y_axis_fitted_for_given_rows_selected(self):
         o_get = KropffGet(parent=self.parent)
-        table_ui_selected = o_get.kropff_tab_ui_selected()
+        table_ui_selected = o_get.kropff_table_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
         kropff_tab_selected = o_get.kropff_tab_selected()
@@ -118,7 +118,7 @@ class Get:
 
     def y_axis_and_x_axis_for_given_rows_selected(self):
         o_get = KropffGet(parent=self.parent)
-        table_ui_selected = o_get.kropff_tab_ui_selected()
+        table_ui_selected = o_get.kropff_table_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
 

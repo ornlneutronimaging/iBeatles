@@ -10,6 +10,8 @@ from ibeatles.fitting.kropff.fit_regions import FitRegions
 from ibeatles.fitting.kropff.display import Display
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.fitting import KropffTabSelected
 
 from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND, REJECTED_ROW_BACKGROUND
@@ -499,7 +501,6 @@ class EventHandler:
 
     # top left view mouse events
     def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
-        print("mouse_clicked_in_top_left_image_view")
         image_pos = self.parent.image_view_item.mapFromScene(mouse_click_event.scenePos())
 
         # if user click within a BIN, select that bin in all the tables (this will automatically highlight it
@@ -520,17 +521,16 @@ class EventHandler:
         if y < top_left_y:
             return
 
-        tab_selected_index = self.parent.ui.kropff_tabWidget.currentIndex()
+        o_get = KropffGet(parent=self.parent)
+        tab_selected = o_get.kropff_tab_selected()
 
-        if not tab_selected_index in [1, 2, 3]:
+        if not tab_selected in [KropffTabSelected.low_tof,
+                                KropffTabSelected.high_tof,
+                                KropffTabSelected.bragg_peak]:
             # no need to update table as we are showing a tab without tables
             return
 
-        list_table_ui = [None,  # settings tab
-                         self.parent.ui.high_lda_tableWidget,
-                         self.parent.ui.low_lda_tableWidget,
-                         self.parent.ui.bragg_edge_tableWidget]
-
+        table_ui = o_get.kropff_table_ui_selected()
         nbr_bin_y_direction = self.grand_parent.fitting_selection['nbr_row']
 
         if x > (top_left_x + (nbr_bin_y_direction + 1) * binning_size):
@@ -543,7 +543,7 @@ class EventHandler:
         bin_y_index = int((y - top_left_y) / binning_size) + 1
 
         row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1)
-        o_table = TableHandler(table_ui=list_table_ui[tab_selected_index])
+        o_table = TableHandler(table_ui=table_ui)
         o_table.select_row(row_to_select)
 
     def mouse_moved_in_top_left_image_view(self, evt):
