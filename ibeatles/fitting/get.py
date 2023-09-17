@@ -4,6 +4,7 @@ from . import KropffTabSelected, FittingTabSelected
 from ..utilities.table_handler import TableHandler
 from ibeatles.utilities.array_utilities import find_nearest_index
 from ibeatles.fitting.kropff.fitting_functions import kropff_high_lambda, kropff_bragg_peak_tof, kropff_low_lambda
+from ibeatles.fitting.kropff.get import Get as KropffGet
 
 
 class Get:
@@ -21,66 +22,6 @@ class Get:
         else:
             raise IndexError("Fitting algorithm not implemented")
 
-    def kropff_tab_selected(self):
-        tab_selected_index = self.parent.ui.kropff_tabWidget.currentIndex()
-        if tab_selected_index == 0:
-            tab_selected = KropffTabSelected.high_tof
-        elif tab_selected_index == 1:
-            tab_selected = KropffTabSelected.low_tof
-        else:
-            tab_selected = KropffTabSelected.bragg_peak
-        return tab_selected
-
-    def kropff_tab_ui_selected(self):
-        tab_selected = self.kropff_tab_selected()
-        if tab_selected == KropffTabSelected.high_tof:
-            return self.parent.ui.high_lda_tableWidget
-        elif tab_selected == KropffTabSelected.low_tof:
-            return self.parent.ui.low_lda_tableWidget
-        elif tab_selected == KropffTabSelected.bragg_peak:
-            return self.parent.ui.bragg_edge_tableWidget
-        else:
-            raise ValueError("Tab Selected is invalid!")
-
-    def kropff_matplotlib_ui_selected(self):
-        tab_selected = self.kropff_tab_selected()
-        if tab_selected == KropffTabSelected.high_tof:
-            return self.parent.kropff_high_plot
-        elif tab_selected == KropffTabSelected.low_tof:
-            return self.parent.kropff_low_plot
-        elif tab_selected == KropffTabSelected.bragg_peak:
-            return self.parent.kropff_bragg_peak_plot
-        else:
-            raise ValueError("Tab selected is invalid!")
-
-    def kropff_fitting_parameters_radioButton_selected(self):
-        tab_selected = self.kropff_tab_selected()
-        if tab_selected == KropffTabSelected.high_tof:
-            if self.parent.ui.kropff_a0_radioButton.isChecked():
-                return 'a0'
-            elif self.parent.ui.kropff_b0_radioButton.isChecked():
-                return 'b0'
-            else:
-                raise ValueError("fitting parameters is invalid!")
-        elif tab_selected == KropffTabSelected.low_tof:
-            if self.parent.ui.kropff_ahkl_radioButton.isChecked():
-                return 'ahkl'
-            elif self.parent.ui.kropff_bhkl_radioButton.isChecked():
-                return 'bhkl'
-            else:
-                raise ValueError("fitting parameters is invalid!")
-        elif tab_selected == KropffTabSelected.bragg_peak:
-            if self.parent.ui.kropff_lda_hkl_radioButton.isChecked():
-                return 'lambda_hkl'
-            elif self.parent.ui.kropff_tau_radioButton.isChecked():
-                return 'tau'
-            elif self.parent.ui.kropff_sigma_radioButton.isChecked():
-                return 'sigma'
-            else:
-                raise ValueError("fitting parameters is invalid!")
-        else:
-            raise ValueError("Tab selected is invalid!")
-
     def fitting_bragg_edge_linear_selection(self):
         if len(self.grand_parent.fitting_bragg_edge_linear_selection) == 0:
             linear_region_left_index = 0
@@ -94,10 +35,11 @@ class Get:
             return self.grand_parent.fitting_bragg_edge_linear_selection
 
     def y_axis_fitted_for_given_rows_selected(self):
-        table_ui_selected = self.kropff_tab_ui_selected()
+        o_get = KropffGet(parent=self.parent)
+        table_ui_selected = o_get.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
-        kropff_tab_selected = self.kropff_tab_selected()
+        kropff_tab_selected = o_get.kropff_tab_selected()
 
         list_of_yaxis_fitted = []
         xaxis = []
@@ -175,7 +117,8 @@ class Get:
                 raise NotImplementedError
 
     def y_axis_and_x_axis_for_given_rows_selected(self):
-        table_ui_selected = self.kropff_tab_ui_selected()
+        o_get = KropffGet(parent=self.parent)
+        table_ui_selected = o_get.kropff_tab_ui_selected()
         row_selected = self.row_selected_for_this_table_ui(table_ui=table_ui_selected)
         table_dictionary = self.grand_parent.kropff_table_dictionary
 
@@ -233,12 +176,6 @@ class Get:
             return []
 
         o_table = TableHandler(table_ui=table_ui)
-        row_selected = o_table.get_rows_of_table_selected()
-        return row_selected
-
-    def kropff_row_selected(self):
-        kropff_tab_ui_selected = self.kropff_tab_ui_selected()
-        o_table = TableHandler(table_ui=kropff_tab_ui_selected)
         row_selected = o_table.get_rows_of_table_selected()
         return row_selected
 

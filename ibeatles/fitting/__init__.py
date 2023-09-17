@@ -1,8 +1,10 @@
 class KropffTabSelected:
 
+    settings = "initial settings"
     high_tof = "high_tof"
     low_tof = "low_tof"
     bragg_peak = "bragg_peak"
+    summary = "summary"
 
 
 class FittingTabSelected:

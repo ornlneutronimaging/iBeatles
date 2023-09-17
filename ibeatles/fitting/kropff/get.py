@@ -3,6 +3,8 @@ import numpy as np
 from ibeatles.fitting.kropff import FittingRegions
 import ibeatles.utilities.error as fitting_error
 from ibeatles.fitting.kropff import SessionSubKeys
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting import KropffTabSelected, FittingTabSelected
 
 
 class Get:
@@ -140,3 +142,74 @@ class Get:
                                                       message=error_message)
 
         return list_value
+
+    def kropff_row_selected(self):
+        kropff_tab_ui_selected = self.kropff_tab_ui_selected()
+        o_table = TableHandler(table_ui=kropff_tab_ui_selected)
+        row_selected = o_table.get_rows_of_table_selected()
+        return row_selected
+
+    def kropff_tab_ui_selected(self):
+        tab_selected = self.kropff_tab_selected()
+        if tab_selected == KropffTabSelected.high_tof:
+            return self.parent.ui.high_lda_tableWidget
+        elif tab_selected == KropffTabSelected.low_tof:
+            return self.parent.ui.low_lda_tableWidget
+        elif tab_selected == KropffTabSelected.bragg_peak:
+            return self.parent.ui.bragg_edge_tableWidget
+        elif tab_selected == KropffTabSelected.summary:
+            return None
+        elif tab_selected == KropffTabSelected.settings:
+            return None
+
+    def kropff_tab_selected(self):
+        tab_selected_index = self.parent.ui.kropff_tabWidget.currentIndex()
+        if tab_selected_index == 1:
+            return KropffTabSelected.high_tof
+        elif tab_selected_index == 2:
+            return KropffTabSelected.low_tof
+        elif tab_selected_index == 3:
+            return KropffTabSelected.bragg_peak
+        elif tab_selected_index == 0:
+            return KropffTabSelected.settings
+        elif tab_selected_index == 4:
+            return  KropffTabSelected.summary
+
+    def kropff_matplotlib_ui_selected(self):
+        tab_selected = self.kropff_tab_selected()
+        if tab_selected == KropffTabSelected.high_tof:
+            return self.parent.kropff_high_plot
+        elif tab_selected == KropffTabSelected.low_tof:
+            return self.parent.kropff_low_plot
+        elif tab_selected == KropffTabSelected.bragg_peak:
+            return self.parent.kropff_bragg_peak_plot
+        else:
+            raise ValueError("Tab selected is invalid!")
+
+    def kropff_fitting_parameters_radioButton_selected(self):
+        tab_selected = self.kropff_tab_selected()
+        if tab_selected == KropffTabSelected.high_tof:
+            if self.parent.ui.kropff_a0_radioButton.isChecked():
+                return 'a0'
+            elif self.parent.ui.kropff_b0_radioButton.isChecked():
+                return 'b0'
+            else:
+                raise ValueError("fitting parameters is invalid!")
+        elif tab_selected == KropffTabSelected.low_tof:
+            if self.parent.ui.kropff_ahkl_radioButton.isChecked():
+                return 'ahkl'
+            elif self.parent.ui.kropff_bhkl_radioButton.isChecked():
+                return 'bhkl'
+            else:
+                raise ValueError("fitting parameters is invalid!")
+        elif tab_selected == KropffTabSelected.bragg_peak:
+            if self.parent.ui.kropff_lda_hkl_radioButton.isChecked():
+                return 'lambda_hkl'
+            elif self.parent.ui.kropff_tau_radioButton.isChecked():
+                return 'tau'
+            elif self.parent.ui.kropff_sigma_radioButton.isChecked():
+                return 'sigma'
+            else:
+                raise ValueError("fitting parameters is invalid!")
+        else:
+            raise ValueError("Tab selected is invalid!")

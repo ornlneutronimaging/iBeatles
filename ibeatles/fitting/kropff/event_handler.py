@@ -534,24 +534,17 @@ class EventHandler:
         nbr_bin_y_direction = self.grand_parent.fitting_selection['nbr_row']
 
         if x > (top_left_x + (nbr_bin_y_direction + 1) * binning_size):
-            print("x bigger than box")
             return
 
         if y > (top_left_y + (nbr_bin_y_direction) * binning_size):
-            print("y bigger than box")
             return
 
         bin_x_index = int((x - top_left_x) / binning_size) + 1
         bin_y_index = int((y - top_left_y) / binning_size) + 1
 
-        print(f"{bin_x_index =}, {bin_y_index =}")
-
         row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1)
-        print(f"{row_to_select =}")
         o_table = TableHandler(table_ui=list_table_ui[tab_selected_index])
         o_table.select_row(row_to_select)
-
-        print("")
 
     def mouse_moved_in_top_left_image_view(self, evt):
         pos = evt[0]

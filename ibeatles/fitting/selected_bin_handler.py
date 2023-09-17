@@ -1,9 +1,10 @@
 import numpy as np
 import pyqtgraph as pg
 
-from ..fitting.fitting_functions import basic_fit, advanced_fit
-from .get import Get
-from . import FittingTabSelected
+from ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
+from ibeatles.fitting.get import Get
+from ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.display import Display as FittingDisplay
 
 
@@ -42,7 +43,7 @@ class SelectedBinsHandler(object):
         # kropff
         else:
             # only display the bin of the row selected
-            o_get = Get(parent=self.parent)
+            o_get = KropffGet(parent=self.parent)
             row_selected = o_get.kropff_row_selected()
             table_dictionary = self.grand_parent.kropff_table_dictionary
             list_bins_selected_item = []
@@ -108,7 +109,7 @@ class SelectedBinsHandler(object):
         # retrieve image
         data_2d = self.grand_parent.data_metadata['normalized']['data']
 
-        o_get = Get(parent=self.parent)
+        o_get = KropffGet(parent=self.parent)
         list_bin_selected = o_get.kropff_row_selected()
 
         bragg_edge_data = []

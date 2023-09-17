@@ -2,6 +2,7 @@ import pyqtgraph as pg
 import numpy as np
 
 from ibeatles.fitting.get import Get
+from ibeatles.fitting.kropff.get import Get as GetKropff
 from ibeatles.utilities.display import Display as UtilitiesDisplay
 
 
@@ -19,7 +20,7 @@ class Display:
             self.parent.kropff_threshold_current_item = None
 
         # get list of row selected
-        o_kropff = Get(parent=self.parent)
+        o_kropff = GetKropff(parent=self.parent)
         if o_kropff.kropff_row_selected():
             row_selected = str(o_kropff.kropff_row_selected()[0])
         else:
@@ -50,7 +51,7 @@ class Display:
         self.display_lambda_calculated()
 
     def update_fitting_parameters_matplotlib(self):
-        o_get = Get(parent=self.parent)
+        o_get = GetKropff(parent=self.parent)
         matplotlib_ui = o_get.kropff_matplotlib_ui_selected()
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         fitting_parameter_to_plot = o_get.kropff_fitting_parameters_radioButton_selected()
@@ -124,7 +125,7 @@ class Display:
 
     def display_lambda_calculated(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
-        o_kropff = Get(parent=self.parent)
+        o_kropff = GetKropff(parent=self.parent)
         row_selected = str(o_kropff.kropff_row_selected()[0])
         kropff_table_of_row_selected = kropff_table_dictionary[row_selected]
         lambda_value = kropff_table_of_row_selected['lambda_hkl']['val']
