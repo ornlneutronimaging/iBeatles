@@ -14,7 +14,7 @@ from ibeatles.fitting.kropff.get import Get as KropffGet
 from ibeatles.fitting import KropffTabSelected
 
 from ibeatles.fitting import FittingTabSelected
-from ibeatles.fitting.kropff import LOCK_ROW_BACKGROUND, UNLOCK_ROW_BACKGROUND, REJECTED_ROW_BACKGROUND
+from ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.session import SessionSubKeys
 from ibeatles.fitting.kropff import FittingKropffBraggPeakColumns, FittingKropffHighLambdaColumns, \

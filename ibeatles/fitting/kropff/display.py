@@ -1,7 +1,6 @@
 import pyqtgraph as pg
 import numpy as np
 
-from ibeatles.fitting.get import Get
 from ibeatles.fitting.kropff.get import Get as GetKropff
 from ibeatles.utilities.display import Display as UtilitiesDisplay
 

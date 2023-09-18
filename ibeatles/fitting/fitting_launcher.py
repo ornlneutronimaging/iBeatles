@@ -6,7 +6,6 @@ import logging
 from ibeatles import load_ui
 from ibeatles import DataType
 from ibeatles.table_dictionary.table_dictionary_handler import TableDictionaryHandler
-from ibeatles.session import SessionSubKeys
 
 from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.fitting_handler import FittingHandler
@@ -27,7 +26,6 @@ from ibeatles.fitting.kropff import RightClickTableMenu
 from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
 from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
 from ibeatles.fitting.kropff.display import Display as KropffDisplay
-# from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
 from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import KropffLambdaHKLSettings
 from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher \
     as KropffFittingParametersViewerEditorLauncher
