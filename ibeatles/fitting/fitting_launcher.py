@@ -455,6 +455,10 @@ class FittingWindow(QMainWindow):
         o_event.kropff_automatic_bragg_peak_threshold_finder_clicked()
         self.kropff_check_widgets_helper()
 
+    def kropff_automatic_fit_clicked(self):
+        self.kropff_automatic_bragg_peak_threshold_finder_clicked()
+        self.kropff_fit_all_regions()
+
     def kropff_check_widgets_helper(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.check_widgets_helper()

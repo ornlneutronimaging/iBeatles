@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1688</width>
-    <height>1302</height>
+    <height>1251</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -966,11 +966,11 @@
                 <property name="title">
                  <string>Fitting Scenario</string>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_12">
+                <layout class="QVBoxLayout" name="verticalLayout_24">
                  <item>
                   <widget class="QGroupBox" name="groupBox_12">
                    <property name="title">
-                    <string>Step 1</string>
+                    <string>Step 0</string>
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_18">
                     <item>
@@ -984,92 +984,107 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="groupBox_7">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
+                  <widget class="QTabWidget" name="tabWidget_2">
+                   <property name="currentIndex">
+                    <number>1</number>
                    </property>
-                   <property name="title">
-                    <string>Step 2</string>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_6">
-                    <item>
-                     <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_pushButton">
-                      <property name="text">
-                       <string>Automatic Bragg peak threshold finder</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_settings">
-                      <property name="minimumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>20</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string/>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QGroupBox" name="groupBox_18">
-                   <property name="title">
-                    <string>Step 3</string>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_31">
-                    <item>
-                     <widget class="QPushButton" name="kropff_fit_allregions_pushButton">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>Fit All Regions (High, Low, Bragg Peak)</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   <widget class="QWidget" name="tab_12">
+                    <attribute name="title">
+                     <string>Automatic Mode</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_12">
+                     <item>
+                      <widget class="QPushButton" name="automatic_kropff_fitting_pushButton">
+                       <property name="text">
+                        <string>Fit selected peak</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                   <widget class="QWidget" name="tab_13">
+                    <attribute name="title">
+                     <string>Manual Mode</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout">
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_7">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="title">
+                        <string>Step 2</string>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_6">
+                        <item>
+                         <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_pushButton">
+                          <property name="text">
+                           <string>Automatic Bragg peak threshold finder</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_settings">
+                          <property name="minimumSize">
+                           <size>
+                            <width>20</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>20</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_18">
+                       <property name="title">
+                        <string>Step 3</string>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_31">
+                        <item>
+                         <widget class="QPushButton" name="kropff_fit_allregions_pushButton">
+                          <property name="enabled">
+                           <bool>false</bool>
+                          </property>
+                          <property name="minimumSize">
+                           <size>
+                            <width>0</width>
+                            <height>0</height>
+                           </size>
+                          </property>
+                          <property name="maximumSize">
+                           <size>
+                            <width>16777215</width>
+                            <height>16777215</height>
+                           </size>
+                          </property>
+                          <property name="text">
+                           <string>Fit All Regions (High, Low, Bragg Peak)</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
                   </widget>
                  </item>
                 </layout>
                </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
              </layout>
             </item>
@@ -1093,7 +1108,7 @@
                 <enum>QTabWidget::West</enum>
                </property>
                <property name="currentIndex">
-                <number>3</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="tab_15">
                 <attribute name="title">
@@ -1957,8 +1972,8 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>900</x>
-     <y>142</y>
+     <x>1011</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -2069,8 +2084,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>963</x>
-     <y>244</y>
+     <x>1074</x>
+     <y>245</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -2085,8 +2100,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>963</x>
-     <y>275</y>
+     <x>1074</x>
+     <y>276</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -2133,8 +2148,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1070</x>
-     <y>497</y>
+     <x>1142</x>
+     <y>484</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2149,8 +2164,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>869</x>
-     <y>459</y>
+     <x>1120</x>
+     <y>490</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2165,8 +2180,8 @@
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1076</x>
-     <y>582</y>
+     <x>1142</x>
+     <y>560</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2230,7 +2245,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>150</x>
-     <y>699</y>
+     <y>637</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2261,8 +2276,8 @@
    <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>172</x>
-     <y>702</y>
+     <x>1368</x>
+     <y>1138</y>
     </hint>
     <hint type="destinationlabel">
      <x>1424</x>
@@ -2277,8 +2292,8 @@
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>699</y>
+     <x>153</x>
+     <y>663</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2293,8 +2308,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>695</y>
+     <x>153</x>
+     <y>663</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2310,7 +2325,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>121</x>
-     <y>699</y>
+     <y>637</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2342,7 +2357,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>161</x>
-     <y>699</y>
+     <y>637</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2357,8 +2372,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>695</y>
+     <x>114</x>
+     <y>663</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2373,8 +2388,8 @@
    <slot>kropff_low_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>699</y>
+     <x>124</x>
+     <y>663</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2405,8 +2420,8 @@
    <slot>kropff_bragg_peak_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>143</x>
-     <y>695</y>
+     <x>134</x>
+     <y>663</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2421,8 +2436,8 @@
    <slot>kropff_initial_guess_tau_fix_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>130</x>
-     <y>813</y>
+     <x>152</x>
+     <y>961</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2437,8 +2452,8 @@
    <slot>kropff_initial_guess_sigma_fix_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>130</x>
-     <y>813</y>
+     <x>152</x>
+     <y>1074</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2453,8 +2468,8 @@
    <slot>kropff_initial_guess_sigma_range_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>819</y>
+     <x>169</x>
+     <y>1111</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2469,8 +2484,8 @@
    <slot>kropff_initial_guess_lambda_hkl_fix_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>139</x>
-     <y>876</y>
+     <x>152</x>
+     <y>848</y>
     </hint>
     <hint type="destinationlabel">
      <x>173</x>
@@ -2485,8 +2500,8 @@
    <slot>kropff_initial_guess_lambda_hkl_range_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>148</x>
-     <y>1013</y>
+     <x>169</x>
+     <y>885</y>
     </hint>
     <hint type="destinationlabel">
      <x>132</x>
@@ -2501,12 +2516,28 @@
    <slot>kropff_initial_guess_tau_range_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>819</y>
+     <x>169</x>
+     <y>998</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
      <y>1122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>automatic_kropff_fitting_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_automatic_fit_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1061</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1682</x>
+     <y>599</y>
     </hint>
    </hints>
   </connection>
@@ -2603,5 +2634,6 @@
   <slot>kropff_initial_guess_tau_range_clicked()</slot>
   <slot>kropff_initial_guess_sigma_fix_clicked()</slot>
   <slot>kropff_initial_guess_sigma_range_clicked()</slot>
+  <slot>kropff_automatic_fit_clicked()</slot>
  </slots>
 </ui>

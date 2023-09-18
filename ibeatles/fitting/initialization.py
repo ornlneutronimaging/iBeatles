@@ -530,6 +530,7 @@ class Initialization:
         # self.parent.ui.kropff_bragg_peak_sigma_label.setText(u"\u03c3")
 
         self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
+        self.parent.ui.automatic_kropff_fitting_pushButton.setStyleSheet(interact_me_style)
 
         self.parent.ui.fitting_kropff_bragg_peak_lambda_hkl_groupBox.setTitle(u"\u03BB\u2095\u2096\u2097")
         self.parent.ui.fitting_kropff_bragg_peak_tau_groupBox.setTitle(u"\u03c4")
