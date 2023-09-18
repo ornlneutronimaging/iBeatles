@@ -210,15 +210,103 @@ class FitRegions:
     def bragg_peak_range(self):
         """will fit using either fix or range values of lambda_hkl, tau and sigma"""
         logging.info("Fitting bragg peak with:")
+
         o_get = Get(parent=self.parent)
         list_lambda_hkl = o_get.list_lambda_hkl_initial_guess()
         list_tau = o_get.list_tau_initial_guess()
         list_sigma = o_get.list_sigma_initial_guess()
+        logging.info(f"-> {list_lambda_hkl =}")
+        logging.info(f"-> {list_tau =}")
+        logging.info(f"-> {list_sigma}")
 
-        #FIXME
+        # define fitting model
+        gmodel = Model(kropff_bragg_peak_tof, nan_policy='propagate', independent_vars=['lda'])
 
+        table_dictionary = self.table_dictionary
+        fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
+        o_checking = CheckingFittingConditions(fit_conditions=fit_conditions)
 
+        self.parent.eventProgress.setMaximum(len(table_dictionary.keys()))
+        self.parent.eventProgress.setValue(0)
+        self.parent.eventProgress.setVisible(True)
+        QtGui.QGuiApplication.processEvents()
 
+        for _index, _key in enumerate(table_dictionary.keys()):
+
+            # if row is locked, continue
+            if table_dictionary[_key]['lock']:
+                self.parent.eventProgress.setValue(_index)
+                QtGui.QGuiApplication.processEvents()
+                continue
+
+            if table_dictionary[_key]['rejected']:
+                self.parent.eventProgress.setValue(_index)
+                QtGui.QGuiApplication.processEvents()
+                continue
+
+            table_entry = table_dictionary[_key]
+
+            xaxis = copy.deepcopy(table_entry['xaxis'])
+
+            a0 = table_entry['a0']['val']
+            b0 = table_entry['b0']['val']
+            ahkl = table_entry['ahkl']['val']
+            bhkl = table_entry['bhkl']['val']
+
+            yaxis = copy.deepcopy(table_entry['yaxis'])
+            yaxis = -np.log(yaxis)
+
+            is_fitting_ok = False
+            for _lambda_hkl in list_lambda_hkl:
+
+                for _sigma in list_sigma:
+
+                    for _tau in list_tau:
+
+                        _result = gmodel.fit(yaxis,
+                                             lda=xaxis,
+                                             a0=Parameter('a0', value=a0, vary=False),
+                                             b0=Parameter('b0', value=b0, vary=False),
+                                             ahkl=Parameter('ahkl', value=ahkl, vary=False),
+                                             bhkl=Parameter('bhkl', value=bhkl, vary=False),
+                                             ldahkl=_lambda_hkl,
+                                             sigma=_sigma,
+                                             tau=_tau)
+
+                        ldahkl_error = _result.params['ldahkl'].stderr
+                        sigma_error = _result.params['sigma'].stderr
+                        tau_error = _result.params['tau'].stderr
+                        ldahkl_value = _result.params['ldahkl'].value
+                        sigma_value = _result.params['sigma'].value
+                        tau_value = _result.params['tau'].value
+                        yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value)
+
+                        is_fitting_ok = o_checking.is_fitting_ok(l_hkl_error=ldahkl_error,
+                                                                    t_error=tau_error,
+                                                                    sigma_error=sigma_error)
+
+                        self.parent.eventProgress.setValue(_index)
+                        QtGui.QGuiApplication.processEvents()
+
+                        table_dictionary[_key]['lambda_hkl'] = {'val': ldahkl_value,
+                                                                'err': ldahkl_error}
+                        table_dictionary[_key]['tau'] = {'val': tau_value,
+                                                         'err': tau_error}
+                        table_dictionary[_key]['sigma'] = {'val': sigma_value,
+                                                           'err': sigma_error}
+                        table_dictionary[_key]['fitted'][KropffTabSelected.bragg_peak] = {'xaxis': xaxis,
+                                                                                          'yaxis': yaxis_fitted}
+
+                        if is_fitting_ok:
+                            break
+
+                    if is_fitting_ok:
+                        break
+
+                if is_fitting_ok:
+                    break
+
+        self.parent.eventProgress.setVisible(False)
 
     def bragg_peak_range_lambda(self):
         """we need to try to fit until the fit worked or we exhausted the full range defined"""

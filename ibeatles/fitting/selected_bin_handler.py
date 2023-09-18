@@ -91,7 +91,7 @@ class SelectedBinsHandler(object):
         return list_bin_selected
 
     def update_bragg_edge_plot(self):
-        # self.parent.bragg_edge_plot.clear()
+        self.parent.bragg_edge_plot.clear()
 
         o_get = Get(parent=self.parent)
         fitting_tab_selected = o_get.main_tab_selected()
