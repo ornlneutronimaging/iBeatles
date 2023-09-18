@@ -183,6 +183,10 @@ class Get:
             return self.parent.kropff_low_plot
         elif tab_selected == KropffTabSelected.bragg_peak:
             return self.parent.kropff_bragg_peak_plot
+        elif tab_selected == KropffTabSelected.settings:
+            return None
+        elif tab_selected == KropffTabSelected.summary:
+            return None
         else:
             raise ValueError("Tab selected is invalid!")
 
@@ -211,5 +215,9 @@ class Get:
                 return 'sigma'
             else:
                 raise ValueError("fitting parameters is invalid!")
+        elif tab_selected == KropffTabSelected.settings:
+            return None
+        elif tab_selected == KropffTabSelected.summary:
+            return None
         else:
             raise ValueError("Tab selected is invalid!")

@@ -53,7 +53,7 @@ class SelectedBinsHandler(object):
                 self.parent.image_view.addItem(box)
                 list_bins_selected_item.append(box)
             self.parent.list_bins_selected_item = list_bins_selected_item
-            self.parent.update_kropff_fitting_plot()
+            self.parent.update_kropff_fitting_plots()
 
     def update_bins_locked(self, all_flag=True):
         self.clear_all_locked_bins()
@@ -91,7 +91,7 @@ class SelectedBinsHandler(object):
         return list_bin_selected
 
     def update_bragg_edge_plot(self):
-        self.parent.bragg_edge_plot.clear()
+        # self.parent.bragg_edge_plot.clear()
 
         o_get = Get(parent=self.parent)
         fitting_tab_selected = o_get.main_tab_selected()

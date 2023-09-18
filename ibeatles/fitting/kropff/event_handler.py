@@ -99,7 +99,10 @@ class EventHandler:
             _bin_entry['yaxis'] = yaxis
             _bin_entry['xaxis'] = xaxis
 
-    def update_fitting_plot(self):
+    def update_fitting_plots(self):
+        self.update_bottom_right_plot()
+
+    def update_bottom_right_plot(self):
         self.parent.ui.kropff_fitting.clear()
 
         o_get = Get(parent=self.parent, grand_parent=self.grand_parent)

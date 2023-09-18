@@ -56,6 +56,9 @@ class Display:
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         fitting_parameter_to_plot = o_get.kropff_fitting_parameters_radioButton_selected()
 
+        if not fitting_parameter_to_plot:
+            return
+
         def use_error_bar_plot(array):
             for _value in array:
                 if _value is None:

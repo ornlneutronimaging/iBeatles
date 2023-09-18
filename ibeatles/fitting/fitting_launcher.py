@@ -289,7 +289,7 @@ class FittingWindow(QMainWindow):
             QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
             QApplication.processEvents()
 
-            self.update_kropff_fitting_plot()
+            self.update_kropff_fitting_plots()
 
             o_event.automatically_select_best_lambda_0_for_that_range()
 
@@ -440,11 +440,11 @@ class FittingWindow(QMainWindow):
         o_event.record_all_xaxis_and_yaxis()
 
     def kropff_high_low_bragg_peak_tabs_changed(self, tab_index):
-        self.update_kropff_fitting_plot()
+        self.update_kropff_fitting_plots()
         self.update_selected_bins_plot()
         o_display = KropffDisplay(parent=self, grand_parent=self.parent)
         o_display.display_bragg_peak_threshold()
-        o_display.update_fitting_parameters_matplotlib()
+        # o_display.update_fitting_parameters_matplotlib()
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
         self.bragg_edge_linear_region_changed(full_reset_of_fitting_table=True)
@@ -472,9 +472,9 @@ class FittingWindow(QMainWindow):
         o_kropff.update_bins_selected()
         o_kropff.update_bragg_edge_plot()
 
-    def update_kropff_fitting_plot(self):
+    def update_kropff_fitting_plots(self):
         o_kropff = KropffHandler(parent=self, grand_parent=self.parent)
-        o_kropff.update_fitting_plot()
+        o_kropff.update_fitting_plots()
 
     def kropff_parameters_changed_with_string(self, string):
         self.kropff_parameters_changed()
@@ -482,14 +482,14 @@ class FittingWindow(QMainWindow):
     def kropff_high_tof_table_selection_changed(self):
         # kropff_table_dictionary = self.parent.kropff_table_dictionary
         self.update_bragg_edge_plot()
-        self.update_kropff_fitting_plot()
+        self.update_kropff_fitting_plots()
         self.update_selected_bins_plot()
         o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
     def kropff_low_tof_table_selection_changed(self):
         self.update_bragg_edge_plot()
-        self.update_kropff_fitting_plot()
+        self.update_kropff_fitting_plots()
         self.update_selected_bins_plot()
         o_event = KropffDisplay(parent=self,  grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
@@ -497,7 +497,7 @@ class FittingWindow(QMainWindow):
     def kropff_bragg_peak_table_selection_changed(self):
         self.update_selected_bins_plot()
         self.update_bragg_edge_plot()
-        self.update_kropff_fitting_plot()
+        self.update_kropff_fitting_plots()
         o_event = KropffDisplay(parent=self, grand_parent=self.parent)
         o_event.display_bragg_peak_threshold()
 
@@ -508,7 +508,7 @@ class FittingWindow(QMainWindow):
     def kropff_fit_all_regions(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.fit_regions()
-        o_event.update_fitting_plot()
+        o_event.update_fitting_plots()
         o_display = KropffDisplay(parent=self, grand_parent=self.parent)
         o_display.display_bragg_peak_threshold()
         o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
