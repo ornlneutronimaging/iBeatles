@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1653</width>
-    <height>1243</height>
+    <height>1181</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -944,7 +944,7 @@
                    </widget>
                    <widget class="QWidget" name="tab_16">
                     <attribute name="title">
-                     <string>Fitting Scenario</string>
+                     <string>Fitting</string>
                     </attribute>
                     <layout class="QVBoxLayout" name="verticalLayout_26">
                      <item>
@@ -966,17 +966,36 @@
                      <item>
                       <widget class="QTabWidget" name="tabWidget_2">
                        <property name="currentIndex">
-                        <number>0</number>
+                        <number>1</number>
                        </property>
                        <widget class="QWidget" name="tab_12">
                         <attribute name="title">
                          <string>Automatic Mode</string>
                         </attribute>
-                        <layout class="QVBoxLayout" name="verticalLayout_12">
+                        <layout class="QHBoxLayout" name="horizontalLayout_14">
                          <item>
                           <widget class="QPushButton" name="automatic_kropff_fitting_pushButton">
                            <property name="text">
                             <string>Fit selected peak</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="kropff_fitting_conditions_pushButton_1">
+                           <property name="minimumSize">
+                            <size>
+                             <width>20</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>20</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="text">
+                            <string/>
                            </property>
                           </widget>
                          </item>
@@ -1059,6 +1078,25 @@
                               </property>
                               <property name="text">
                                <string>Fit All Regions</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QPushButton" name="kropff_fitting_conditions_pushButton">
+                              <property name="minimumSize">
+                               <size>
+                                <width>20</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>20</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
                               </property>
                              </widget>
                             </item>
@@ -1975,8 +2013,8 @@
    <slot>hkl_list_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1011</x>
-     <y>143</y>
+     <x>1017</x>
+     <y>184</y>
     </hint>
     <hint type="destinationlabel">
      <x>957</x>
@@ -2087,8 +2125,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1074</x>
-     <y>245</y>
+     <x>1100</x>
+     <y>317</y>
     </hint>
     <hint type="destinationlabel">
      <x>1212</x>
@@ -2103,8 +2141,8 @@
    <slot>min_or_max_lambda_manually_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1074</x>
-     <y>276</y>
+     <x>1100</x>
+     <y>359</y>
     </hint>
     <hint type="destinationlabel">
      <x>1209</x>
@@ -2151,8 +2189,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1142</x>
-     <y>484</y>
+     <x>1102</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2167,8 +2205,8 @@
    <slot>kropff_automatic_bragg_peak_threshold_finder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1120</x>
-     <y>490</y>
+     <x>1080</x>
+     <y>283</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -2183,8 +2221,8 @@
    <slot>kropff_fit_all_regions()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1142</x>
-     <y>560</y>
+     <x>1080</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2199,8 +2237,8 @@
    <slot>automatic_hkl0_selection_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1044</x>
-     <y>139</y>
+     <x>1119</x>
+     <y>177</y>
     </hint>
     <hint type="destinationlabel">
      <x>1460</x>
@@ -2247,8 +2285,8 @@
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>637</y>
+     <x>153</x>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2279,8 +2317,8 @@
    <slot>kropff_bragg_peak_number_of_digits_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1368</x>
-     <y>1138</y>
+     <x>1337</x>
+     <y>1089</y>
     </hint>
     <hint type="destinationlabel">
      <x>1424</x>
@@ -2296,7 +2334,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>153</x>
-     <y>663</y>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2312,7 +2350,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>153</x>
-     <y>663</y>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2327,8 +2365,8 @@
    <slot>kropff_high_tof_graph_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>637</y>
+     <x>124</x>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2359,8 +2397,8 @@
    <slot>kropff_high_tof_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>161</x>
-     <y>637</y>
+     <x>206</x>
+     <y>1132</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2376,7 +2414,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>114</x>
-     <y>663</y>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -2392,7 +2430,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>124</x>
-     <y>663</y>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -2424,7 +2462,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>134</x>
-     <y>663</y>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -2439,8 +2477,8 @@
    <slot>kropff_initial_guess_tau_fix_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
-     <y>961</y>
+     <x>151</x>
+     <y>883</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2455,8 +2493,8 @@
    <slot>kropff_initial_guess_sigma_fix_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
-     <y>1074</y>
+     <x>151</x>
+     <y>996</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -2471,8 +2509,8 @@
    <slot>kropff_initial_guess_sigma_range_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>169</x>
-     <y>1111</y>
+     <x>168</x>
+     <y>1033</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2487,8 +2525,8 @@
    <slot>kropff_initial_guess_lambda_hkl_fix_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>152</x>
-     <y>848</y>
+     <x>151</x>
+     <y>770</y>
     </hint>
     <hint type="destinationlabel">
      <x>173</x>
@@ -2503,8 +2541,8 @@
    <slot>kropff_initial_guess_lambda_hkl_range_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>169</x>
-     <y>885</y>
+     <x>168</x>
+     <y>807</y>
     </hint>
     <hint type="destinationlabel">
      <x>132</x>
@@ -2519,8 +2557,8 @@
    <slot>kropff_initial_guess_tau_range_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>169</x>
-     <y>998</y>
+     <x>168</x>
+     <y>920</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2535,18 +2573,50 @@
    <slot>kropff_automatic_fit_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1061</x>
-     <y>509</y>
+     <x>1095</x>
+     <y>315</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1682</x>
+     <x>1652</x>
      <y>599</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_fitting_conditions_pushButton_1</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1108</x>
+     <y>301</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1645</x>
+     <y>388</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kropff_fitting_conditions_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>kropff_bragg_peak_good_fit_settings_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1092</x>
+     <y>338</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>590</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <signal>signal1()</signal>
+  <signal>kropff_fitting_conditions_clicked()</signal>
   <slot>sample_import_button_clicked()</slot>
   <slot>time_spectra_import_button_clicked()</slot>
   <slot>open_beam_import_button_clicked()</slot>
@@ -2638,5 +2708,6 @@
   <slot>kropff_initial_guess_sigma_fix_clicked()</slot>
   <slot>kropff_initial_guess_sigma_range_clicked()</slot>
   <slot>kropff_automatic_fit_clicked()</slot>
+  <slot>slot1()</slot>
  </slots>
 </ui>

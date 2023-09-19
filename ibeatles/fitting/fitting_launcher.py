@@ -27,8 +27,9 @@ from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
 from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAutomaticSettingsLauncher
 from ibeatles.fitting.kropff.display import Display as KropffDisplay
 from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import KropffLambdaHKLSettings
-from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher \
-    as KropffFittingParametersViewerEditorLauncher
+from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
+# from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher \
+#     as KropffFittingParametersViewerEditorLauncher
 
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
@@ -454,6 +455,7 @@ class FittingWindow(QMainWindow):
         self.kropff_check_widgets_helper()
 
     def kropff_automatic_fit_clicked(self):
+        self.ui.kropff_tabWidget.setCurrentIndex(3)
         self.kropff_automatic_bragg_peak_threshold_finder_clicked()
         self.kropff_fit_all_regions()
 
@@ -508,6 +510,7 @@ class FittingWindow(QMainWindow):
         o_event.kropff_bragg_edge_threshold_changed()
 
     def kropff_fit_all_regions(self):
+        self.ui.kropff_tabWidget.setCurrentIndex(3)
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.fit_regions()
         o_event.update_fitting_plots()
@@ -581,9 +584,9 @@ class FittingWindow(QMainWindow):
     #     o_event = KropffHandler(parent=self, grand_parent=self.parent)
     #     o_event.bragg_peak_auto_lock_clicked()
 
-    # def kropff_bragg_peak_good_fit_settings_clicked(self):
-    #     o_kropff = KropffGoodFitSettingsLauncher(parent=self)
-    #     o_kropff.show()
+    def kropff_bragg_peak_good_fit_settings_clicked(self):
+        o_kropff = KropffGoodFitSettingsLauncher(parent=self)
+        o_kropff.show()
 
     def update_locked_and_rejected_rows_in_bragg_peak_table(self):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
@@ -594,9 +597,9 @@ class FittingWindow(QMainWindow):
         o_lambda = KropffLambdaHKLSettings(parent=self, grand_parent=self.parent)
         o_lambda.show()
 
-    def kropff_fitting_parameters_viewer_editor_clicked(self):
-        KropffFittingParametersViewerEditorLauncher(parent=self,
-                                                    grand_parent=self.parent)
+    # def kropff_fitting_parameters_viewer_editor_clicked(self):
+    #     KropffFittingParametersViewerEditorLauncher(parent=self,
+    #                                                 grand_parent=self.parent)
 
     # general settings
 

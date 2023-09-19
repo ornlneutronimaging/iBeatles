@@ -95,7 +95,7 @@ class Get:
                                                   error_message=u"Wrong sigma format!")
 
     def list_tau_initial_guess(self):
-        return self._list_parameter_initial_guess(parameter=SessionSubKeys.sigma,
+        return self._list_parameter_initial_guess(parameter=SessionSubKeys.tau,
                                                   error_message=u"Wrong tau format!")
 
     def _list_parameter_initial_guess(self, parameter=SessionSubKeys.lambda_hkl,

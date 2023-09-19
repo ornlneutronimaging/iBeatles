@@ -217,7 +217,7 @@ class FitRegions:
         list_sigma = o_get.list_sigma_initial_guess()
         logging.info(f"-> {list_lambda_hkl =}")
         logging.info(f"-> {list_tau =}")
-        logging.info(f"-> {list_sigma}")
+        logging.info(f"-> {list_sigma =}")
 
         # define fitting model
         gmodel = Model(kropff_bragg_peak_tof, nan_policy='propagate', independent_vars=['lda'])
@@ -282,8 +282,9 @@ class FitRegions:
                         yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value)
 
                         is_fitting_ok = o_checking.is_fitting_ok(l_hkl_error=ldahkl_error,
-                                                                    t_error=tau_error,
-                                                                    sigma_error=sigma_error)
+                                                                 t_error=tau_error,
+                                                                 sigma_error=sigma_error)
+                        print(f"{is_fitting_ok =}")
 
                         self.parent.eventProgress.setValue(_index)
                         QtGui.QGuiApplication.processEvents()
