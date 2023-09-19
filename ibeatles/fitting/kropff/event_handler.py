@@ -440,7 +440,6 @@ class EventHandler:
                                         sigma_error=sigma_error)
 
     def check_how_many_fitting_are_locked(self):
-        print("here")
         table_dictionary = self.grand_parent.kropff_table_dictionary
 
         total_number_of_fitting = len(table_dictionary.keys())
