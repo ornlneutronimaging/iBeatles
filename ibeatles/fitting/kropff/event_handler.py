@@ -2,6 +2,7 @@ import numpy as np
 import copy
 from qtpy.QtWidgets import QMenu
 from qtpy import QtGui
+from qtpy.QtWidgets import QApplication
 
 from ibeatles.fitting.get import Get
 from ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
@@ -439,6 +440,7 @@ class EventHandler:
                                         sigma_error=sigma_error)
 
     def check_how_many_fitting_are_locked(self):
+        print("here")
         table_dictionary = self.grand_parent.kropff_table_dictionary
 
         total_number_of_fitting = len(table_dictionary.keys())
@@ -455,6 +457,7 @@ class EventHandler:
         show_status_message(parent=self.parent,
                             message=message,
                             status=StatusMessageStatus.ready)
+        QApplication.processEvents()
 
     def update_summary_table(self):
         table_dictionary = self.grand_parent.kropff_table_dictionary

@@ -197,6 +197,7 @@ class FitRegions:
                                                                            'yaxis': yaxis_fitted}
 
         self.progress_bar_ui.setVisible(False)
+        self.grand_parent.kropff_table_dictionary = self.table_dictionary
         QtGui.QGuiApplication.processEvents()
 
     def bragg_peak(self):
@@ -284,8 +285,6 @@ class FitRegions:
                         is_fitting_ok = o_checking.is_fitting_ok(l_hkl_error=ldahkl_error,
                                                                  t_error=tau_error,
                                                                  sigma_error=sigma_error)
-                        print(f"{is_fitting_ok =}")
-
                         self.parent.eventProgress.setValue(_index)
                         QtGui.QGuiApplication.processEvents()
 
@@ -305,6 +304,7 @@ class FitRegions:
                         break
 
                 if is_fitting_ok:
+                    table_dictionary[_key]['lock'] = True
                     break
 
         self.parent.eventProgress.setVisible(False)

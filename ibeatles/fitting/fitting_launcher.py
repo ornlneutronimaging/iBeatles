@@ -514,6 +514,7 @@ class FittingWindow(QMainWindow):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.fit_regions()
         o_event.update_fitting_plots()
+        o_event.check_how_many_fitting_are_locked()
         o_display = KropffDisplay(parent=self, grand_parent=self.parent)
         o_display.display_bragg_peak_threshold()
         o_table = FillingTableHandler(parent=self, grand_parent=self.parent)
@@ -523,6 +524,7 @@ class FittingWindow(QMainWindow):
         self.update_summary_table()
         self.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state'] = True
         self.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state'] = True
+
 
     # fitting settings
 
@@ -578,7 +580,7 @@ class FittingWindow(QMainWindow):
     def kropff_bragg_peak_table_right_clicked(self, position):
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
         o_event.bragg_peak_right_click()
-        o_event.check_how_many_fitting_are_locked()
+        # o_event.check_how_many_fitting_are_locked()
 
     # def kropff_bragg_peak_auto_lock_rows_clicked(self):
     #     o_event = KropffHandler(parent=self, grand_parent=self.parent)
