@@ -535,8 +535,9 @@ class EventHandler:
 
         table_ui = o_get.kropff_table_ui_selected()
         nbr_bin_y_direction = self.grand_parent.fitting_selection['nbr_row']
+        nbr_bin_x_direction = self.grand_parent.fitting_selection["nbr_column"]
 
-        if x > (top_left_x + (nbr_bin_y_direction + 1) * binning_size):
+        if x > (top_left_x + (nbr_bin_x_direction + 1) * binning_size):
             return
 
         if y > (top_left_y + (nbr_bin_y_direction) * binning_size):
