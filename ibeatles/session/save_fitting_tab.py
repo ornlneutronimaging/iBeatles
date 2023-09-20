@@ -15,7 +15,7 @@ class SaveFittingTab(SaveTab):
 
     def fitting(self):
 
-        if not self.parent.data_metadata[DataType.fitting][SessionSubKeys.ui_accessed]:
+        if not self.parent.session_dict[DataType.fitting][SessionSubKeys.ui_accessed]:
             return
 
         self.general_infos()
@@ -50,7 +50,7 @@ class SaveFittingTab(SaveTab):
         self.session_dict[DataType.fitting][FittingKeys.transparency] = self.parent.fitting_transparency_slider_value
         self.session_dict[DataType.fitting][FittingKeys.image_view_state] = state
         self.session_dict[DataType.fitting][FittingKeys.image_view_histogram] = histogram
-        self.session_dict[DataType.fitting][FittingKeys.ui_accessed] = self.parent.data_metadata[DataType.bin]['ui_accessed']
+        self.session_dict[DataType.fitting][FittingKeys.ui_accessed] = self.parent.session_dict[DataType.fitting][SessionSubKeys.ui_accessed]
         self.session_dict[DataType.fitting][FittingKeys.ui] = self.parent.session_dict[DataType.fitting]['ui']
 
     def march_dollase(self):
@@ -97,7 +97,7 @@ class SaveFittingTab(SaveTab):
         if x_axis:
             logging.info(f" len(x_axis): {len(x_axis)}")
         else:
-            logging.info(f" xaxis is empty!")
+            logging.info(f" x_axis is empty!")
 
         logging.info(f" lambda range index: {self.session_dict[SessionKeys.fitting][SessionSubKeys.lambda_range_index]}")
 

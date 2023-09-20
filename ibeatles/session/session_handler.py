@@ -187,8 +187,12 @@ class SessionHandler:
         self.parent = parent
 
     def save_from_ui(self):
+
+        self.session_dict[DataType.fitting][SessionSubKeys.ui_accessed] = self.parent.session_dict[DataType.fitting][SessionSubKeys.ui_accessed]
         self.session_dict[SessionSubKeys.config_version] = self.parent.config[SessionSubKeys.config_version]
         self.session_dict[SessionSubKeys.log_buffer_size] = self.parent.session_dict[SessionSubKeys.log_buffer_size]
+
+        self.session_dict = self.parent.session_dict
 
         # Load data tab
         o_save_load_data_tab = SaveLoadDataTab(parent=self.parent,

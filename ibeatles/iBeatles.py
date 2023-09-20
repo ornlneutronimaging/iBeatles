@@ -25,7 +25,7 @@ from ibeatles.step1.initialization import Initialization
 
 from ibeatles.utilities.get import Get
 from ibeatles.session.load_previous_session_launcher import LoadPreviousSessionLauncher
-from ibeatles.session.session_handler import SessionHandler
+from ibeatles.session.session_handler import SessionHandler, SessionKeys, SessionSubKeys
 
 from ibeatles.step2.initialization import Initialization as Step2Initialization
 from ibeatles.step2.gui_handler import Step2GuiHandler
@@ -1041,6 +1041,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         o_session = SessionHandler(parent=self)
         o_session.save_from_ui()
+        print(f"#C: {self.session_dict[DataType.fitting][SessionSubKeys.ui_accessed] =}")
         o_session.automatic_save()
         self.check_log_file_size()
         logging.info(" #### Leaving iBeatles ####")

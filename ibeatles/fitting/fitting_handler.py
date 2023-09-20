@@ -12,6 +12,7 @@ from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting import selected_color, lock_color
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 from ibeatles.fitting import FittingTabSelected, KropffTabSelected
+
 from ibeatles.session import SessionSubKeys, SessionKeys
 
 
@@ -135,7 +136,7 @@ class FittingHandler:
         self.parent.check_status_widgets()
 
     def initialize_parameters_from_session(self):
-        self.initialize_marche_dollase_parameters_from_session()
+        # self.initialize_marche_dollase_parameters_from_session()
         self.initialize_kropff_parameters_from_session()
 
     def initialize_kropff_parameters_from_session(self):
@@ -158,7 +159,7 @@ class FittingHandler:
         self.grand_parent.kropff_table_dictionary = table_dictionary
 
     def initialize_marche_dollase_parameters_from_session(self):
-        session_table_dictionary = self.grand_parent.session_dict["fitting"]['march dollase']["table dictionary"]
+        session_table_dictionary = self.grand_parent.session_dict[SessionKeys.fitting][FittingTabSelected.march_dollase]["table dictionary"]
         table_dictionary = self.grand_parent.march_table_dictionary
 
         for _row in session_table_dictionary.keys():
@@ -190,7 +191,7 @@ class FittingHandler:
         self.parent.ui.slider.setValue(transparency)
 
         self.grand_parent.display_active_row_flag = \
-            self.grand_parent.session_dict['fitting']['march dollase']['plot active row flag']
+            self.grand_parent.session_dict[SessionKeys.fitting][FittingTabSelected.march_dollase]['plot active row flag']
         self.parent.ui.active_bins_button.setChecked(self.grand_parent.display_active_row_flag)
         self.parent.ui.locked_bins_button.setChecked(not self.grand_parent.display_active_row_flag)
 

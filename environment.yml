@@ -9,7 +9,7 @@ dependencies:
   - freetype
   - libpng
   - matplotlib
-  - mkl
+#  - mkl
   - numpy
   - openssl
   - pyparsing
@@ -24,8 +24,7 @@ dependencies:
   - tk
   - wheel
   - zlib
-  - pyqtgraph=0.12.1
-  - lmfit
+  - pyqtgraph
   - qtpy
   - versioneer
   - astropy
@@ -33,3 +32,4 @@ dependencies:
       - neutronbraggedge
       - changepy
       - NeuNorm
+      - lmfit

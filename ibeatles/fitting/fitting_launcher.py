@@ -199,7 +199,7 @@ class FittingWindow(QMainWindow):
         o_init.run_all()
 
         self.check_status_widgets()
-        self.parent.data_metadata[DataType.fitting]['ui_accessed'] = True
+        self.parent.session_dict[DataType.fitting]['ui_accessed'] = True
 
         x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         self.bragg_edge_data['x_axis'] = x_axis

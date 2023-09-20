@@ -29,7 +29,6 @@ class LoadPreviousSessionLauncher(QDialog):
         o_session.load_from_file(config_file_name=full_config_file_name)
 
         if not o_session.load_successful:
-            print("no success!")
             self.no_clicked()
             return
 
