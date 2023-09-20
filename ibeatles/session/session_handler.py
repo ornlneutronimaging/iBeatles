@@ -85,6 +85,8 @@ class SessionHandler:
                                             SessionSubKeys.process_order: 'option1',
                                             },
                     SessionKeys.bin: {SessionSubKeys.roi: None,   # ['name', x0, y0, width, height, bin_size]
+                                      SessionSubKeys.nbr_row: None,   # number of bins in the vertical
+                                      SessionSubKeys.nbr_column: None,  # number of bins in the horizontal
                                       SessionSubKeys.binning_line_view: {'pos': None,
                                                                          'adj': None,
                                                                          'line color': None,

@@ -333,7 +333,6 @@ class BinningWindow(QMainWindow):
         height = int(str(self.ui.selection_height.text()))
         bin_size = self.ui.bin_size_horizontalSlider.value()
         self.parent.session_dict[DataType.bin][SessionSubKeys.roi] = [DEFAULT_ROI[0], x0, y0, width, height, bin_size]
-        # self.parent.binning_roi = [DEFAULT_ROI[0], x0, y0, width, height, bin_size]
 
     def ok_button_clicked(self):
         self.close()

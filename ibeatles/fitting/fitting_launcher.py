@@ -525,7 +525,6 @@ class FittingWindow(QMainWindow):
         self.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state'] = True
         self.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state'] = True
 
-
     # fitting settings
 
     def kropff_initial_guess_lambda_hkl_fix_clicked(self):

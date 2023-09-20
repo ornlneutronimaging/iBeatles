@@ -11,6 +11,7 @@ from ibeatles import DataType
 from ibeatles.utilities.mplcanvas import MplCanvas
 from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
+from ibeatles.session import SessionSubKeys, SessionKeys
 
 
 class Initialization:
@@ -81,12 +82,21 @@ class Initialization:
                                                   widget=self.parent.ui.matplotlib_widget)
 
     def min_max_values(self):
+
+        [_, x0, y0, width, height, bin_size] = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi]
+
+        max_row_index = self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_row]
+        max_col_index = self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_column]
+
         d_array = self.parent.d_array
-        self.parent.min_max[ParametersToDisplay.d] = {'min': np.min(d_array),
-                                                      'max': np.max(d_array)}
+        d_array_roi = d_array[y0: y0 + (max_row_index * bin_size),
+                              x0: x0 + (max_col_index * bin_size)]
+        self.parent.min_max[ParametersToDisplay.d] = {'min': np.min(d_array_roi),
+                                                      'max': np.max(d_array_roi)}
 
         o_get = Get(parent=self.parent)
         strain_mapping = o_get.strain_mapping()
-
-        self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.min(strain_mapping),
-                                                                   'max': np.max(strain_mapping)}
+        strain_mapping_roi = strain_mapping[y0: y0 + (max_row_index * bin_size),
+                                            x0: x0 + (max_col_index * bin_size)]
+        self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.min(strain_mapping_roi),
+                                                                   'max': np.max(strain_mapping_roi)}

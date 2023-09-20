@@ -12,7 +12,7 @@ from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting import selected_color, lock_color
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 from ibeatles.fitting import FittingTabSelected, KropffTabSelected
-from ibeatles.session import SessionSubKeys
+from ibeatles.session import SessionSubKeys, SessionKeys
 
 
 class FittingHandler:
@@ -318,3 +318,6 @@ class FittingHandler:
 
         self.grand_parent.fitting_selection['nbr_row'] = _index_row
         self.grand_parent.fitting_selection['nbr_column'] = _index_col
+
+        self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_row] = _index_row
+        self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_column] = _index_col

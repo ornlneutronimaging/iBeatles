@@ -58,6 +58,8 @@ class SessionSubKeys:
     state = "state"
     roi = "roi"
     binning_line_view = 'binning line view'
+    nbr_row = "nbr row"
+    nbr_column = "nbr column"
 
     # fitting
     ui_accessed = "ui_accessed"
