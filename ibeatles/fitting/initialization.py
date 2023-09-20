@@ -65,6 +65,13 @@ class Initialization:
                                      }
                                      """)
 
+        self.parent.ui.splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.splitter.setHandleWidth(15)
+
         self.parent.ui.splitter_4.setSizes([500, 500])
         self.parent.ui.splitter_4.setStyleSheet("""
                                      QSplitter::handle{
