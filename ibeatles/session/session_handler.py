@@ -282,6 +282,9 @@ class SessionHandler:
             if DataType.bin in tabs_to_load:
                 o_util.jump_to_tab_of_data_type(DataType.bin)
 
+            if DataType.fitting in tabs_to_load:
+                o_util.jump_to_tab_of_data_type(DataType.fitting)
+
             show_status_message(parent=self.parent,
                                 message=f"Loaded {self.config_file_name}",
                                 status=StatusMessageStatus.ready,
