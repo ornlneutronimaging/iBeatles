@@ -272,11 +272,15 @@ class EventHandler:
         menu = QMenu(self.parent)
 
         # lock_all_good_cells = None
-        unlock_all_rows = None
+        # unlock_all_rows = None
+        replace_row = None
+        # export_bin = None
 
-        replace_row = menu.addAction("Replace value by median of surrounding pixels")
-        button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state']
-        replace_row.setEnabled(button_state)
+        export_bin = menu.addAction("Export bin signal ...")
+
+        # replace_row = menu.addAction("Replace value by median of surrounding pixels")
+        # button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state']
+        # replace_row.setEnabled(button_state)
 
         menu.addSeparator()
 
@@ -285,18 +289,26 @@ class EventHandler:
         display_fitting_parameters.setEnabled(button_state)
         # unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
 
-        self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['ui'] = replace_row
-        self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['ui'] = \
-            display_fitting_parameters
+        # self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['ui'] = replace_row
+        # self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['ui'] = \
+        #     display_fitting_parameters
 
         action = menu.exec_(QtGui.QCursor.pos())
 
-        if action == unlock_all_rows:
-            self.unlock_all_bragg_peak_rows()
-        elif action == replace_row:
-            self.replace_bragg_peak_row_values()
-        elif action == display_fitting_parameters:
+        # if action == unlock_all_rows:
+        #     self.unlock_all_bragg_peak_rows()
+        # if action == replace_row:
+        #     self.replace_bragg_peak_row_values()
+        if action == display_fitting_parameters:
             self.display_fitting_parameters()
+        elif action == export_bin:
+            self.export_bin()
+
+    def export_bin(self):
+        print("export bin")
+        # get row selected
+        # create base output file name
+        # export file
 
     def replace_bragg_peak_row_values(self):
         """replace by median of surrounding pixels"""
