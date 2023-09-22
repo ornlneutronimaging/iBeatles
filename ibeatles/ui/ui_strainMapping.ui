@@ -462,6 +462,9 @@
          </widget>
         </item>
         <item>
+         <widget class="QWidget" name="vertical_range_slider_widget" native="true"/>
+        </item>
+        <item>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QLabel" name="label_4">
@@ -596,7 +599,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>37</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

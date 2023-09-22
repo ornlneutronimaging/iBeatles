@@ -54,8 +54,8 @@ class Display:
         o_get = Get(parent=self.parent)
         d_array = o_get.d_array()
 
-        min_value = self.parent.min_max['d']['min']
-        max_value = self.parent.min_max['d']['max']
+        min_value = self.parent.min_max[ParametersToDisplay.d]['min']
+        max_value = self.parent.min_max[ParametersToDisplay.d]['max']
 
         self.parent.ui.matplotlib_plot.axes.imshow(d_array, vmin=min_value, vmax=max_value)
         self.parent.ui.matplotlib_plot.draw()
@@ -64,8 +64,8 @@ class Display:
         o_get = Get(parent=self.parent)
         strain_mapping = o_get.strain_mapping()
 
-        min_value = self.parent.min_max['strain_mapping']['min']
-        max_value = self.parent.min_max['strain_mapping']['max']
+        min_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['min']
+        max_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['max']
 
         self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping, vmin=min_value, vmax=max_value)
         self.parent.ui.matplotlib_plot.draw()

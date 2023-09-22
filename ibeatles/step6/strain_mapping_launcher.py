@@ -18,7 +18,7 @@ class StrainMappingLauncher:
 
         if self.parent.fitting_ui is None:
             show_status_message(parent=self.parent,
-                                message="Strain Mapping requiere to first launch the fitting window!",
+                                message="Strain Mapping requires to first launch the fitting window!",
                                 status=StatusMessageStatus.error,
                                 duration_s=10)
         else:
@@ -105,3 +105,15 @@ class StrainMappingWindow(QMainWindow):
 
         self.ui.max_value_lineEdit.setText(f"{max_value:.8f}")
         self.ui.min_value_lineEdit.setText(f"{min_value:.8f}")
+
+        global_min_value = self.min_max[parameter_displayed]['global_min']
+        global_max_value = self.min_max[parameter_displayed]['global_max']
+
+        print(f"{global_min_value =}")
+        print(f"{global_max_value =}")
+        print(f"{min_value =}")
+        print(f"{max_value =}")
+
+        # self.ui.range_slider.setMin(global_min_value)
+        # self.ui.range_slider.setMax(global_max_value)
+        # self.ui.range_slider.setRange(start=min_value, end=max_value)

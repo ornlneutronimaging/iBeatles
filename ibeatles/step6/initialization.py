@@ -12,6 +12,7 @@ from ibeatles.utilities.mplcanvas import MplCanvas
 from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
 from ibeatles.session import SessionSubKeys, SessionKeys
+from ibeatles.widgets.qrangeslider import QRangeSlider
 
 
 class Initialization:
@@ -22,6 +23,7 @@ class Initialization:
 
     def all(self):
         self.labels()
+        self.range_slider()
         self.parameters()
         self.pyqtgraph()
         self.matplotlib()
@@ -33,8 +35,13 @@ class Initialization:
         self.parent.ui.d0_units1_label.setText(ANGSTROMS)
         self.parent.ui.d0_units2_label.setText(ANGSTROMS)
         self.parent.ui.reference_material_lambda0_units_label.setText(ANGSTROMS)
-
         self.parent.ui.reference_material_lambda0_label.setText(LAMBDA + SUB_0)
+
+    def range_slider(self):
+        layout = QVBoxLayout()
+        self.parent.ui.range_slider = QRangeSlider(splitterWidth=10, vertical=True)
+        layout.addWidget(self.parent.ui.range_slider)
+        self.parent.ui.vertical_range_slider_widget.setLayout(layout)
 
     def parameters(self):
         from_lambda = self.grand_parent.fitting_ui.ui.lambda_min_lineEdit.text()
@@ -92,11 +99,15 @@ class Initialization:
         d_array_roi = d_array[y0: y0 + (max_row_index * bin_size),
                               x0: x0 + (max_col_index * bin_size)]
         self.parent.min_max[ParametersToDisplay.d] = {'min': np.min(d_array_roi),
-                                                      'max': np.max(d_array_roi)}
+                                                      'max': np.max(d_array_roi),
+                                                      'global_min': np.min(d_array),
+                                                      'global_max': np.max(d_array)}
 
         o_get = Get(parent=self.parent)
         strain_mapping = o_get.strain_mapping()
         strain_mapping_roi = strain_mapping[y0: y0 + (max_row_index * bin_size),
                                             x0: x0 + (max_col_index * bin_size)]
         self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.min(strain_mapping_roi),
-                                                                   'max': np.max(strain_mapping_roi)}
+                                                                   'max': np.max(strain_mapping_roi),
+                                                                   'global_min': np.min(strain_mapping),
+                                                                   'global_max': np.max(strain_mapping)}
