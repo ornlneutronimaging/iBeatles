@@ -39,9 +39,14 @@ class Initialization:
 
     def range_slider(self):
         layout = QVBoxLayout()
-        self.parent.ui.range_slider = QRangeSlider(splitterWidth=10, vertical=True, min_at_the_bottom=True)
-        self.parent.ui.range_slider.startValueChanged.connect(self.parent.range_slider_start_value_changed)
-        self.parent.ui.range_slider.endValueChanged.connect(self.parent.range_slider_end_value_changed)
+        self.parent.ui.range_slider = QRangeSlider(splitterWidth=50,
+                                                   vertical=True,
+                                                   min_at_the_bottom=True,
+                                                   number_of_steps=self.parent.slider_nbr_steps)
+        self.parent.ui.range_slider.startValueChanged.connect(
+            self.parent.range_slider_start_value_changed)
+        self.parent.ui.range_slider.endValueChanged.connect(
+            self.parent.range_slider_end_value_changed)
         layout.addWidget(self.parent.ui.range_slider)
         self.parent.ui.vertical_range_slider_widget.setLayout(layout)
 
@@ -92,7 +97,8 @@ class Initialization:
 
     def min_max_values(self):
 
-        [_, x0, y0, width, height, bin_size] = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi]
+        [_, x0, y0, width, height, bin_size] = self.grand_parent.session_dict[DataType.bin][
+            SessionSubKeys.roi]
 
         max_row_index = self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_row]
         max_col_index = self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_column]

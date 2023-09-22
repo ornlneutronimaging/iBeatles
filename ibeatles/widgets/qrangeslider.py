@@ -82,10 +82,10 @@ QRangeSlider #Head {
     background: #222;
 }
 QRangeSlider #Span {
-    background: #393;
+    background: #393;         
 }
 QRangeSlider #Span:active {
-    background: #282;
+    background: #3d3;        
 }
 QRangeSlider #Tail {
     background: #222;
@@ -182,6 +182,23 @@ class RangeSliderElement(QGroupBox):
             self.drawText(event, qp)
         qp.end()
 
+    def calculate_real_value(self, int_value=0):
+        """
+        this formula uses the int value (between 0 and 100) and return the real value using
+        the real_min and real_max defined and using.
+
+        Parameters
+        ----------
+        int_value
+
+        Returns
+        -------
+
+        """
+
+        term1 = (int_value - self.main.min())/(self.main.max() - self.main.min())
+        term2 = term1 * (self.main.real_max - self.main.real_min)
+        return f"{term2 + self.main.real_min: 0.3f}"
 
 class Head(RangeSliderElement):
     """area before the handle"""
@@ -191,13 +208,13 @@ class Head(RangeSliderElement):
 
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
-        qp.setFont(QtGui.QFont('Arial', 10))
+        qp.setFont(QtGui.QFont('Arial', 15))
         if self.main.min_at_the_bottom:
-            str_value = str(self.main.max() - self.main.min())
+            value = self.main.max() - self.main.min()
         else:
-            str_value = str(self.main.min())
+            value = self.main.min()
+        str_value = self.calculate_real_value(int_value=value)
         qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str_value)
-
 
 class Tail(RangeSliderElement):
     """area after the handle"""
@@ -207,11 +224,12 @@ class Tail(RangeSliderElement):
         
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
-        qp.setFont(QtGui.QFont('Arial', 10))
+        qp.setFont(QtGui.QFont('Arial', 15))
         if self.main.min_at_the_bottom:
-            str_value = str(self.main.min())
+            value = self.main.min()
         else:
-            str_value = str(self.main.max())
+            value = self.main.max()
+        str_value = self.calculate_real_value(int_value=value)
         qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str_value)
 
 
@@ -220,22 +238,24 @@ class Handle(RangeSliderElement):
     
     def __init__(self, parent, main, vertical=False, min_value_at_the_bottom=False):
         super(Handle, self).__init__(parent, main, vertical)
-        
+
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
-        qp.setFont(QtGui.QFont('Arial', 10))
+        qp.setFont(QtGui.QFont('Arial', 15))
 
         if self.main.min_at_the_bottom:
-            str_value = str(self.main.max() - self.main.start())
+            value = self.main.max() - self.main.start()
         else:
-            str_value = str(self.main.start())
+            value = self.main.start()
+        str_value = self.calculate_real_value(int_value=value)
         qp.drawText(event.rect(), QtCore.Qt.AlignLeft,
                     str_value)
 
         if self.main.min_at_the_bottom:
-            str_value = str(self.main.max() - self.main.end())
+            value = self.main.max() - self.main.end()
         else:
-            str_value = str(self.main.end())
+            value = self.main.end()
+        str_value = self.calculate_real_value(int_value=value)
         qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom,
                     str_value)
 
@@ -368,7 +388,11 @@ class QRangeSlider(QWidget, RangeSliderForm):
     startValueChanged = Signal(int)
     endValueChanged = Signal(int)
 
-    def __init__(self, parent=None, splitterWidth=4, vertical=False, min_at_the_bottom=False):
+    def __init__(self, parent=None,
+                 splitterWidth=4,
+                 vertical=False,
+                 min_at_the_bottom=False,
+                 number_of_steps=100):
         """Create a new QRangeSlider instance.
         
             :param parent: QWidget parent
@@ -380,6 +404,7 @@ class QRangeSlider(QWidget, RangeSliderForm):
         """
         super(QRangeSlider, self).__init__(parent)
         self.vertical = vertical
+        self.number_of_steps=number_of_steps
         self.min_at_the_bottom = min_at_the_bottom
         self.setupUi(self, splitterWidth=splitterWidth, vertical=self.vertical)
         self.setMouseTracking(False)
@@ -401,7 +426,7 @@ class QRangeSlider(QWidget, RangeSliderForm):
         self._handle_layout.setContentsMargins(0, 0, 0, 0)
         self._handle.setLayout(self._handle_layout)
         self.handle = Handle(self._handle, main=self, vertical=self.vertical)
-        self.handle.setTextColor((150, 255, 150))
+        self.handle.setTextColor((0, 0, 0))
         self._handle_layout.addWidget(self.handle)
 
         # tail layout
@@ -419,6 +444,12 @@ class QRangeSlider(QWidget, RangeSliderForm):
         self.setStart(0)
         self.setEnd(99)
         self.setDrawValues(True)
+
+    def setRealMin(self, value):
+        self.real_min = value
+
+    def setRealMax(self, value):
+        self.real_max = value
 
     def min(self):
         """:return: minimum value"""

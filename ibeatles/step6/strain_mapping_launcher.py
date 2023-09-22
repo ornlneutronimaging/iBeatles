@@ -29,6 +29,8 @@ class StrainMappingLauncher:
 
 class StrainMappingWindow(QMainWindow):
 
+    slider_nbr_steps = 1000
+
     integrated_image = None
     image_size = {'width': None,
                   'height': None}
@@ -108,6 +110,9 @@ class StrainMappingWindow(QMainWindow):
 
         global_min_value = self.min_max[parameter_displayed]['global_min']
         global_max_value = self.min_max[parameter_displayed]['global_max']
+
+        self.ui.range_slider.setRealMin(global_min_value)
+        self.ui.range_slider.setRealMax(global_max_value)
 
         # self.ui.range_slider.setMin(global_min_value)
         # self.ui.range_slider.setMax(global_max_value)
