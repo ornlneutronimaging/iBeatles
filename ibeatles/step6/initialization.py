@@ -39,7 +39,9 @@ class Initialization:
 
     def range_slider(self):
         layout = QVBoxLayout()
-        self.parent.ui.range_slider = QRangeSlider(splitterWidth=10, vertical=True)
+        self.parent.ui.range_slider = QRangeSlider(splitterWidth=10, vertical=True, min_at_the_bottom=True)
+        self.parent.ui.range_slider.startValueChanged.connect(self.parent.range_slider_start_value_changed)
+        self.parent.ui.range_slider.endValueChanged.connect(self.parent.range_slider_end_value_changed)
         layout.addWidget(self.parent.ui.range_slider)
         self.parent.ui.vertical_range_slider_widget.setLayout(layout)
 

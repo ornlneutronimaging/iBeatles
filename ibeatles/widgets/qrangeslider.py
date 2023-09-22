@@ -192,7 +192,11 @@ class Head(RangeSliderElement):
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str(self.main.min()))
+        if self.main.min_at_the_bottom:
+            str_value = str(self.main_max() - self.main_min())
+        else:
+            str_value = str(self.main.min())
+        qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str_value)
 
 
 class Tail(RangeSliderElement):
@@ -210,13 +214,14 @@ class Tail(RangeSliderElement):
 class Handle(RangeSliderElement):
     """handle area"""
     
-    def __init__(self, parent, main, vertical=False):
+    def __init__(self, parent, main, vertical=False, min_value_at_the_bottom=False):
         super(Handle, self).__init__(parent, main, vertical)
         
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str(self.main.start()))
+        # qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str(self.main.start()))
+        qp.drawText(event.rect(), QtCore.Qt.AlignLeft, "abc")
         qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str(self.main.end()))
 
     def mouseReleaseEvent(self, event):
@@ -333,10 +338,10 @@ class QRangeSlider(QWidget, RangeSliderForm):
         }
         
     """
-    endValueChanged = Signal(int)
-    maxValueChanged = Signal(int)
-    minValueChanged = Signal(int)
-    startValueChanged = Signal(int)
+    # endValueChanged = Signal(int)
+    # maxValueChanged = Signal(int)
+    # minValueChanged = Signal(int)
+    # startValueChanged = Signal(int)
 
     # define splitter indices
     _SPLIT_START = 1
@@ -348,15 +353,19 @@ class QRangeSlider(QWidget, RangeSliderForm):
     startValueChanged = Signal(int)
     endValueChanged = Signal(int)
 
-    def __init__(self, parent=None, splitterWidth=4, vertical=False):
+    def __init__(self, parent=None, splitterWidth=4, vertical=False, min_at_the_bottom=False):
         """Create a new QRangeSlider instance.
         
             :param parent: QWidget parent
+            :param splitterWidth: int
+            :param vertical: boolean (False)
+            :param min_at_the_bottom: boolean (False) min value at the bottom when True
             :return: New QRangeSlider instance.
         
         """
         super(QRangeSlider, self).__init__(parent)
         self.vertical = vertical
+        self.min_at_the_bottom = min_at_the_bottom
         self.setupUi(self, splitterWidth=splitterWidth, vertical=self.vertical)
         self.setMouseTracking(False)
 
@@ -366,7 +375,7 @@ class QRangeSlider(QWidget, RangeSliderForm):
         # head layout
         self._head_layout = QHBoxLayout()
         self._head_layout.setSpacing(0)
-        self._head_layout.setContentsMargins(0,0,0,0)
+        self._head_layout.setContentsMargins(0, 0, 0, 0)
         self._head.setLayout(self._head_layout)
         self.head = Head(self._head, main=self, vertical=self.vertical)
         self._head_layout.addWidget(self.head)
@@ -374,7 +383,7 @@ class QRangeSlider(QWidget, RangeSliderForm):
         # handle layout
         self._handle_layout = QHBoxLayout()
         self._handle_layout.setSpacing(0)
-        self._handle_layout.setContentsMargins(0,0,0,0)
+        self._handle_layout.setContentsMargins(0, 0, 0, 0)
         self._handle.setLayout(self._handle_layout)
         self.handle = Handle(self._handle, main=self, vertical=self.vertical)
         self.handle.setTextColor((150, 255, 150))
@@ -383,7 +392,7 @@ class QRangeSlider(QWidget, RangeSliderForm):
         # tail layout
         self._tail_layout = QHBoxLayout()
         self._tail_layout.setSpacing(0)
-        self._tail_layout.setContentsMargins(0,0,0,0)
+        self._tail_layout.setContentsMargins(0, 0, 0, 0)
         self._tail.setLayout(self._tail_layout)
         self.tail = Tail(self._tail, main=self, vertical=self.vertical)
         self._tail_layout.addWidget(self.tail)
@@ -580,7 +589,7 @@ class QRangeSlider(QWidget, RangeSliderForm):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    rs = QRangeSlider(splitterWidth=10, vertical=True)
+    rs = QRangeSlider(splitterWidth=10, vertical=True, min_at_the_bottom=False)
     rs.show()
     rs.setMin(0)
     rs.setMax(1000)
