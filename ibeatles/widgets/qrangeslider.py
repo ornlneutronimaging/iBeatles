@@ -193,7 +193,7 @@ class Head(RangeSliderElement):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
         if self.main.min_at_the_bottom:
-            str_value = str(self.main_max() - self.main_min())
+            str_value = str(self.main.max() - self.main.min())
         else:
             str_value = str(self.main.min())
         qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str_value)
@@ -208,7 +208,11 @@ class Tail(RangeSliderElement):
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str(self.main.max()))
+        if self.main.min_at_the_bottom:
+            str_value = str(self.main.min())
+        else:
+            str_value = str(self.main.max())
+        qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str_value)
 
 
 class Handle(RangeSliderElement):
@@ -220,9 +224,20 @@ class Handle(RangeSliderElement):
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
-        # qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str(self.main.start()))
-        qp.drawText(event.rect(), QtCore.Qt.AlignLeft, "abc")
-        qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str(self.main.end()))
+
+        if self.main.min_at_the_bottom:
+            str_value = str(self.main.max() - self.main.start())
+        else:
+            str_value = str(self.main.start())
+        qp.drawText(event.rect(), QtCore.Qt.AlignLeft,
+                    str_value)
+
+        if self.main.min_at_the_bottom:
+            str_value = str(self.main.max() - self.main.end())
+        else:
+            str_value = str(self.main.end())
+        qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom,
+                    str_value)
 
     def mouseReleaseEvent(self, event):
         setattr(self, '__mx', None)

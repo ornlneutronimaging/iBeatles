@@ -109,17 +109,14 @@ class StrainMappingWindow(QMainWindow):
         global_min_value = self.min_max[parameter_displayed]['global_min']
         global_max_value = self.min_max[parameter_displayed]['global_max']
 
-        print(f"{global_min_value =}")
-        print(f"{global_max_value =}")
-        print(f"{min_value =}")
-        print(f"{max_value =}")
-
         # self.ui.range_slider.setMin(global_min_value)
         # self.ui.range_slider.setMax(global_max_value)
         # self.ui.range_slider.setRange(start=min_value, end=max_value)
 
     def range_slider_start_value_changed(self, value):
-        print(f"start value changed: {value}")
+        # print(f"start value changed: {value}")
+        pass
 
     def range_slider_end_value_changed(self, value):
-        print(f"end value changed: {value}")
+        # print(f"end value changed: {value}")
+        pass
