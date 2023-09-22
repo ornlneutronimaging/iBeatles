@@ -195,7 +195,6 @@ class RangeSliderElement(QGroupBox):
         -------
 
         """
-
         term1 = (int_value - self.main.min())/(self.main.max() - self.main.min())
         term2 = term1 * (self.main.real_max - self.main.real_min)
         return f"{term2 + self.main.real_min: 0.3f}"
@@ -389,10 +388,13 @@ class QRangeSlider(QWidget, RangeSliderForm):
     endValueChanged = Signal(int)
 
     def __init__(self, parent=None,
+                 min_value=0,
+                 max_value=99,
+                 start_value=0,
+                 end_value=99,
                  splitterWidth=4,
                  vertical=False,
-                 min_at_the_bottom=False,
-                 number_of_steps=100):
+                 min_at_the_bottom=False):
         """Create a new QRangeSlider instance.
         
             :param parent: QWidget parent
@@ -404,7 +406,6 @@ class QRangeSlider(QWidget, RangeSliderForm):
         """
         super(QRangeSlider, self).__init__(parent)
         self.vertical = vertical
-        self.number_of_steps=number_of_steps
         self.min_at_the_bottom = min_at_the_bottom
         self.setupUi(self, splitterWidth=splitterWidth, vertical=self.vertical)
         self.setMouseTracking(False)
@@ -438,11 +439,11 @@ class QRangeSlider(QWidget, RangeSliderForm):
         self._tail_layout.addWidget(self.tail)
 
         # defaults
-        self.setMin(0)
-        self.setMax(99)
+        self.setMin(min_value)
+        self.setMax(max_value)
         self._setMinimumRange(0)
-        self.setStart(0)
-        self.setEnd(99)
+        self.setStart(start_value)
+        self.setEnd(end_value)
         self.setDrawValues(True)
 
     def setRealMin(self, value):
@@ -636,10 +637,10 @@ class QRangeSlider(QWidget, RangeSliderForm):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     rs = QRangeSlider(splitterWidth=10, vertical=True, min_at_the_bottom=False)
-    rs.show()
     rs.setMin(0)
     rs.setMax(1000)
-    rs.setRange(100, 1000, 100)
+    rs.setRange(400, 600, 100)
     rs.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #222, stop:1 #333);')
     rs.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #393);')
+    rs.show()
     app.exec_()

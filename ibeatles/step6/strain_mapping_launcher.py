@@ -1,4 +1,5 @@
 from qtpy.QtWidgets import QMainWindow
+from qtpy.QtWidgets import QApplication
 
 from ibeatles import load_ui
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
@@ -29,7 +30,9 @@ class StrainMappingLauncher:
 
 class StrainMappingWindow(QMainWindow):
 
-    slider_nbr_steps = 1000
+    # slider_nbr_steps = 1000
+    slider_min = 0
+    slider_max = 1000
 
     integrated_image = None
     image_size = {'width': None,
@@ -96,6 +99,20 @@ class StrainMappingWindow(QMainWindow):
                             grand_parent=self.parent)
         o_display.run()
 
+    def calculate_int_value_from_real(self, float_value=0, max_float=0, min_float=0):
+        """
+        use the real value to return the int value (between 0 and 100) to use in the slider
+        Parameters
+        ----------
+        float_value
+
+        Returns
+        -------
+        """
+        term1 = (float_value - min_float)/(max_float - min_float)
+        term2 = int(round(term1 * (self.slider_max - self.slider_min)))
+        return term2
+
     def update_min_max_values(self):
         o_get = Get(parent=self)
         parameter_displayed = o_get.parameter_to_display()
@@ -108,15 +125,38 @@ class StrainMappingWindow(QMainWindow):
         self.ui.max_value_lineEdit.setText(f"{max_value:.8f}")
         self.ui.min_value_lineEdit.setText(f"{min_value:.8f}")
 
-        global_min_value = self.min_max[parameter_displayed]['global_min']
-        global_max_value = self.min_max[parameter_displayed]['global_max']
+        # global_min_value = self.min_max[parameter_displayed]['global_min']
+        # global_max_value = self.min_max[parameter_displayed]['global_max']
 
-        self.ui.range_slider.setRealMin(global_min_value)
-        self.ui.range_slider.setRealMax(global_max_value)
+        # self.ui.range_slider.setRealMin(global_min_value)
+        # self.ui.range_slider.setRealMax(global_max_value)
 
-        # self.ui.range_slider.setMin(global_min_value)
-        # self.ui.range_slider.setMax(global_max_value)
-        # self.ui.range_slider.setRange(start=min_value, end=max_value)
+        self.ui.range_slider.setRealMin(min_value)
+        self.ui.range_slider.setRealMax(max_value)
+
+        int_min_value = self.calculate_int_value_from_real(float_value=min_value,
+                                                           max_float=max_value,
+                                                           min_float=min_value)
+
+        self.ui.range_slider.setMin(int_min_value)
+
+
+        int_max_value = self.calculate_int_value_from_real(float_value=max_value,
+                                                           max_float=max_value,
+                                                           min_float=min_value)
+        self.ui.range_slider.setMax(int_max_value)
+
+        int_start_value = self.calculate_int_value_from_real(float_value=min_value,
+                                                             max_float=max_value,
+                                                             min_float=min_value)
+        int_end_value = self.calculate_int_value_from_real(float_value=max_value,
+                                                           max_float=max_value,
+                                                           min_float=min_value)
+        # self.ui.range_slider.setRange(start=int_end_value,
+        #                               end=int_start_value,
+        #                               minimumRange=int_start_value)
+        # self.ui.range_slider._setEnd(int_start_value)
+        QApplication.processEvents()
 
     def range_slider_start_value_changed(self, value):
         # print(f"start value changed: {value}")

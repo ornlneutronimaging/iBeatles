@@ -41,8 +41,9 @@ class Initialization:
         layout = QVBoxLayout()
         self.parent.ui.range_slider = QRangeSlider(splitterWidth=50,
                                                    vertical=True,
-                                                   min_at_the_bottom=True,
-                                                   number_of_steps=self.parent.slider_nbr_steps)
+                                                   min_at_the_bottom=True)
+        self.parent.ui.range_slider.setMin(self.parent.slider_min)
+        self.parent.ui.range_slider.setMax(self.parent.slider_max)
         self.parent.ui.range_slider.startValueChanged.connect(
             self.parent.range_slider_start_value_changed)
         self.parent.ui.range_slider.endValueChanged.connect(
