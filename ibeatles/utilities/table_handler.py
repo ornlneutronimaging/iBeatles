@@ -86,7 +86,7 @@ class TableHandler:
         list_row_selected.sort()
         return list_row_selected
 
-    def get_row_selected(self):
+    def get_row_selected(self) -> int:
         if self.table_ui is None:
             return -1
         list_selection = self.table_ui.selectedRanges()

@@ -14,7 +14,7 @@ from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.fitting.kropff.get import Get as KropffGet
 from ibeatles.fitting import KropffTabSelected
 
-from ibeatles.fitting import FittingTabSelected
+from ibeatles.fitting import FittingTabSelected, FittingKeys
 from ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.session import SessionSubKeys
@@ -306,8 +306,21 @@ class EventHandler:
 
     def export_bin(self):
         print("export bin")
-        # get row selected
-        # create base output file name
+        o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
+        row_selected = str(o_table.get_row_selected())
+
+        # create base output file name using bin# row# col#
+        table_dictionary = self.grand_parent.kropff_table_dictionary
+        metadata_for_this_row = table_dictionary[row_selected]
+        print(f"row_selected: {row_selected}")
+        print(f"metadata: {metadata_for_this_row}")
+
+        bin_number = row_selected
+        row_index = metadata_for_this_row[FittingKeys.row_index]
+        column_index = metadata_for_this_row[FittingKeys.column_index]
+        
+
+
         # export file
 
     def replace_bragg_peak_row_values(self):

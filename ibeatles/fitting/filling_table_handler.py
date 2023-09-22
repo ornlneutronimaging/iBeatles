@@ -4,7 +4,9 @@ from qtpy.QtWidgets import QCheckBox, QTableWidgetItem
 from qtpy import QtGui
 # import pyqtgraph as pg
 
-from ..utilities.table_handler import TableHandler
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting import FittingKeys
+from ibeatles.fitting.kropff import SessionSubKeys as KropffsessionSubKeys
 
 
 class FillingTableHandler:
@@ -73,20 +75,20 @@ class FillingTableHandler:
 
             o_table.insert_item(row=_index,
                                 column=0,
-                                value=_entry['row_index'] + 1,
+                                value=_entry[FittingKeys.row_index] + 1,
                                 editable=False,
                                 align_center=True)
             o_table.insert_item(row=_index,
                                 column=1,
-                                value=_entry['column_index'] + 1,
+                                value=_entry[FittingKeys.column_index] + 1,
                                 editable=False,
                                 align_center=True)
 
             # from column 2 to 5
-            list_value = [_entry['a0']['val'],
-                          _entry['b0']['val'],
-                          _entry['a0']['err'],
-                          _entry['b0']['err']]
+            list_value = [_entry[KropffsessionSubKeys.a0]['val'],
+                          _entry[KropffsessionSubKeys.b0]['val'],
+                          _entry[KropffsessionSubKeys.a0]['err'],
+                          _entry[KropffsessionSubKeys.b0]['err']]
 
             for _local_index, _value in enumerate(list_value):
                 o_table.insert_item(row=_index,
@@ -117,20 +119,20 @@ class FillingTableHandler:
 
             o_table.insert_item(row=_index,
                                 column=0,
-                                value=_entry['row_index'] + 1,
+                                value=_entry[FittingKeys.row_index] + 1,
                                 editable=False,
                                 align_center=True)
             o_table.insert_item(row=_index,
                                 column=1,
-                                value=_entry['column_index'] + 1,
+                                value=_entry[FittingKeys.column_index] + 1,
                                 editable=False,
                                 align_center=True)
 
             # from column 2 to 5
-            list_value = [_entry['ahkl']['val'],
-                          _entry['bhkl']['val'],
-                          _entry['ahkl']['err'],
-                          _entry['bhkl']['err']]
+            list_value = [_entry[KropffsessionSubKeys.ahkl]['val'],
+                          _entry[KropffsessionSubKeys.bhkl]['val'],
+                          _entry[KropffsessionSubKeys.ahkl]['err'],
+                          _entry[KropffsessionSubKeys.bhkl]['err']]
             for _local_index, _value in enumerate(list_value):
                 o_table.insert_item(row=_index,
                                     column=_local_index + 2,
@@ -159,22 +161,22 @@ class FillingTableHandler:
 
             o_table.insert_item(row=_index,
                                 column=0,
-                                value=_entry['row_index'] + 1,
+                                value=_entry[FittingKeys.row_index] + 1,
                                 editable=False,
                                 align_center=True)
             o_table.insert_item(row=_index,
                                 column=1,
-                                value=_entry['column_index'] + 1,
+                                value=_entry[FittingKeys.column_index] + 1,
                                 editable=False,
                                 align_center=True)
 
             # from column 2 to 7
-            list_value = [_entry['lambda_hkl']['val'],
-                          _entry['tau']['val'],
-                          _entry['sigma']['val'],
-                          _entry['lambda_hkl']['err'],
-                          _entry['tau']['err'],
-                          _entry['sigma']['err']]
+            list_value = [_entry[KropffsessionSubKeys.lambda_hkl]['val'],
+                          _entry[KropffsessionSubKeys.tau]['val'],
+                          _entry[KropffsessionSubKeys.sigma]['val'],
+                          _entry[KropffsessionSubKeys.lambda_hkl]['err'],
+                          _entry[KropffsessionSubKeys.tau]['err'],
+                          _entry[KropffsessionSubKeys.sigma]['err']]
 
             for _local_index, _value in enumerate(list_value):
 
@@ -215,16 +217,16 @@ class FillingTableHandler:
             self.set_item(table_ui=self.parent.ui.value_table,
                           row=_index,
                           col=0,
-                          value=_entry['row_index'] + 1)  # +1 because table starts indexing at 1
+                          value=_entry[FittingKeys.row_index] + 1)  # +1 because table starts indexing at 1
 
             self.set_item(table_ui=self.parent.ui.value_table,
                           row=_index,
                           col=1,
-                          value=_entry['column_index'] + 1)  # +1 because table starts indexing at 1
+                          value=_entry[FittingKeys.column_index] + 1)  # +1 because table starts indexing at 1
 
             # add lock button in first cell (column: 2)
             _lock_button = QCheckBox()
-            _is_lock = _entry['lock']
+            _is_lock = _entry[FittingKeys.lock]
 
             _lock_button.setChecked(_is_lock)
             _lock_button.stateChanged.connect(lambda state=0,
@@ -234,7 +236,7 @@ class FillingTableHandler:
 
             # add active button in second cell (column: 3)
             _active_button = QCheckBox()
-            _is_active = _entry['active']
+            _is_active = _entry[FittingKeys.active]
 
             _active_button.setChecked(_is_active)
             _active_button.stateChanged.connect(lambda state=0,

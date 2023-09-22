@@ -21,6 +21,11 @@ class FittingKeys:
     image_view_histogram = "image view histogram"
     ui_accessed = "ui accessed"
     ui = "ui"
+    row_index = "row_index"
+    column_index = "column_index"
+    bin_coordinates = "bin_coordinates"
+    active = "active"
+    lock = "lock"
 
 
 selected_color = {'pen': (0, 0, 0, 30),

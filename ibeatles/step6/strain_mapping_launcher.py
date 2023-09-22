@@ -140,22 +140,25 @@ class StrainMappingWindow(QMainWindow):
 
         self.ui.range_slider.setMin(int_min_value)
 
-
         int_max_value = self.calculate_int_value_from_real(float_value=max_value,
                                                            max_float=max_value,
                                                            min_float=min_value)
         self.ui.range_slider.setMax(int_max_value)
 
-        int_start_value = self.calculate_int_value_from_real(float_value=min_value,
-                                                             max_float=max_value,
-                                                             min_float=min_value)
-        int_end_value = self.calculate_int_value_from_real(float_value=max_value,
-                                                           max_float=max_value,
-                                                           min_float=min_value)
-        # self.ui.range_slider.setRange(start=int_end_value,
-        #                               end=int_start_value,
-        #                               minimumRange=int_start_value)
+        # int_start_value = self.calculate_int_value_from_real(float_value=min_value,
+        #                                                      max_float=max_value,
+        #                                                      min_float=min_value)
+        # int_end_value = self.calculate_int_value_from_real(float_value=max_value,
+        #                                                    max_float=max_value,
+        #                                                    min_float=min_value)
+        self.ui.range_slider.setRange(start=int_min_value,
+                                      end=int_max_value)
         # self.ui.range_slider._setEnd(int_start_value)
+
+        print(f"{int_min_value =}")
+        print(f"{int_max_value =}")
+
+
         QApplication.processEvents()
 
     def range_slider_start_value_changed(self, value):
