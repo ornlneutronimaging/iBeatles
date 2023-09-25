@@ -3,6 +3,7 @@ import copy
 from qtpy.QtWidgets import QMenu
 from qtpy import QtGui
 from qtpy.QtWidgets import QApplication
+import logging
 
 from ibeatles.fitting.get import Get
 from ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
@@ -305,23 +306,31 @@ class EventHandler:
             self.export_bin()
 
     def export_bin(self):
-        print("export bin")
+        logging.info(f"Exporting bin:")
         o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
         row_selected = str(o_table.get_row_selected())
 
         # create base output file name using bin# row# col#
         table_dictionary = self.grand_parent.kropff_table_dictionary
         metadata_for_this_row = table_dictionary[row_selected]
-        print(f"row_selected: {row_selected}")
-        print(f"metadata: {metadata_for_this_row}")
+
+        logging.info(f" - row_selected: {row_selected}")
+        logging.info(f" - metadata: {metadata_for_this_row}")
 
         bin_number = row_selected
         row_index = metadata_for_this_row[FittingKeys.row_index]
         column_index = metadata_for_this_row[FittingKeys.column_index]
-        
+
+        logging.info(f" - bin_number: {bin_number}")
+        logging.info(f" - bin row: {row_index}")
+        logging.info(f" - bin column: {column_index}")
+
+        x_axis = metadata_for_this_row[FittingKeys.x_axis]
+        y_axis = metadata_for_this_row[FittingKeys.y_axis]
 
 
-        # export file
+
+
 
     def replace_bragg_peak_row_values(self):
         """replace by median of surrounding pixels"""

@@ -15,7 +15,8 @@ class FittingTabSelected:
 
 class FittingKeys:
 
-    x_axis = "x-axis"
+    x_axis = "xaxis"
+    y_axis = "yaxis"
     transparency = "transparency"
     image_view_state = "image view state"
     image_view_histogram = "image view histogram"

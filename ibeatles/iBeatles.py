@@ -6,6 +6,7 @@ import warnings
 
 from ibeatles import load_ui, get_version
 from ibeatles import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI, ScrollBarParameters
+from ibeatles import XAxisMode
 
 from ibeatles.config_handler import ConfigHandler
 
@@ -830,17 +831,17 @@ class MainWindow(QMainWindow):
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.sample]['xaxis'] = 'file_index'
+        self.data_metadata[DataType.sample]['xaxis'] = XAxisMode.file_index_mode
         o_event = Step1EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def tof_xaxis_button_clicked(self):
-        self.data_metadata[DataType.sample]['xaxis'] = 'tof'
+        self.data_metadata[DataType.sample]['xaxis'] = XAxisMode.tof_mode
         o_event = Step1EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def lambda_xaxis_button_clicked(self):
-        self.data_metadata[DataType.sample]['xaxis'] = 'lambda'
+        self.data_metadata[DataType.sample]['xaxis'] = XAxisMode.lambda_mode
         o_event = Step1EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
@@ -849,15 +850,15 @@ class MainWindow(QMainWindow):
         o_event.sample_list_selection_changed()
 
     def ob_file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.ob]['xaxis'] = 'file_index'
+        self.data_metadata[DataType.ob]['xaxis'] = XAxisMode.file_index_mode
         self.open_beam_list_selection_changed()
 
     def ob_tof_xaxis_button_clicked(self):
-        self.data_metadata[DataType.ob]['xaxis'] = 'tof'
+        self.data_metadata[DataType.ob]['xaxis'] = XAxisMode.tof_mode
         self.open_beam_list_selection_changed()
 
     def ob_lambda_xaxis_button_clicked(self):
-        self.data_metadata[DataType.ob]['xaxis'] = 'lambda'
+        self.data_metadata[DataType.ob]['xaxis'] = XAxisMode.lambda_mode
         self.open_beam_list_selection_changed()
 
     def sample_hkl_scrollbar_changed(self, value):
@@ -924,17 +925,17 @@ class MainWindow(QMainWindow):
             self.ui.tabWidget.setCurrentIndex(2)
 
     def step2_file_index_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization]['xaxis'] = 'file_index'
+        self.data_metadata[DataType.normalization]['xaxis'] = XAxisMode.file_index_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
     def step2_tof_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization]['xaxis'] = 'tof'
+        self.data_metadata[DataType.normalization]['xaxis'] = XAxisMode.tof_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
     def step2_lambda_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization]['xaxis'] = 'lambda'
+        self.data_metadata[DataType.normalization]['xaxis'] = XAxisMode.lambda_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
@@ -1018,17 +1019,17 @@ class MainWindow(QMainWindow):
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def normalized_file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized]['xaxis'] = 'file_index'
+        self.data_metadata[DataType.normalized]['xaxis'] = XAxisMode.file_index_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def normalized_tof_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized]['xaxis'] = 'tof'
+        self.data_metadata[DataType.normalized]['xaxis'] = XAxisMode.tof_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def normalized_lambda_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized]['xaxis'] = 'lambda'
+        self.data_metadata[DataType.normalized]['xaxis'] = XAxisMode.lambda_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
@@ -1041,7 +1042,6 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         o_session = SessionHandler(parent=self)
         o_session.save_from_ui()
-        print(f"#C: {self.session_dict[DataType.fitting][SessionSubKeys.ui_accessed] =}")
         o_session.automatic_save()
         self.check_log_file_size()
         logging.info(" #### Leaving iBeatles ####")
