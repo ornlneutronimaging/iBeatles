@@ -328,6 +328,7 @@ class EventHandler:
         x_axis = metadata_for_this_row[FittingKeys.x_axis]
         y_axis = metadata_for_this_row[FittingKeys.y_axis]
 
+        logging.info(f" - normalized_folder: {self.grand_parent.default_path[DataType.normalized]}")
 
 
 

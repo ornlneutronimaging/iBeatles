@@ -54,6 +54,8 @@ class DataType:
     normalization = 'normalization'
     bin = "bin"
     fitting = "fitting"
+    time_spectra = 'time_spectra'
+    time_spectra_normalized = 'time_spectra_normalized'
 
 
 class ScrollBarParameters:

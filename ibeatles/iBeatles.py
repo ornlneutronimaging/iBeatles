@@ -40,6 +40,7 @@ from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 
 from ibeatles.binning.binning_launcher import BinningLauncher
 
+from ibeatles.fitting import FittingKeys
 from ibeatles.fitting.fitting_launcher import FittingLauncher
 from ibeatles.fitting.kropff import KropffThresholdFinder
 
@@ -73,20 +74,20 @@ class MainWindow(QMainWindow):
 
     config = None  # config such as name of log file, ...
 
-    default_path = {'sample': '',
-                    'ob': '',
-                    'normalized': '',
-                    'time_spectra': '',
-                    'time_spectra_normalized': ''}
+    default_path = {DataType.sample: '',
+                    DataType.ob: '',
+                    DataType.normalized: '',
+                    DataType.time_spectra: '',
+                    DataType.time_spectra_normalized: ''}
 
-    list_files = {'sample': [],    # ex data_files
-                  'ob': [],
-                  'normalized': [],
-                  'time_spectra': []}
+    list_files = {DataType.sample: [],    # ex data_files
+                  DataType.ob: [],
+                  DataType.normalized: [],
+                  DataType.time_spectra: []}
 
     DEBUGGING = True
     loading_flag = False
-    current_data_type = 'sample'
+    current_data_type = DataType.sample
     cbar = None
     live_data = []
     add_element_editor_ui = None
@@ -189,37 +190,37 @@ class MainWindow(QMainWindow):
     init_array_normalization = [True, 0, 0, 20, 20, RegionType.background]
 
     # list roi ui id (when multiple roi in plots)
-    list_roi_id = {'sample': [],
-                   'ob': [],
-                   'normalization': [],
-                   'normalized': []}
+    list_roi_id = {DataType.sample: [],
+                   DataType.ob: [],
+                   DataType.normalization: [],
+                   DataType.normalized: []}
 
-    list_label_roi_id = {'sample': [],
-                         'ob': [],
-                         'normalization': [],
-                         'normalized': []}
+    list_label_roi_id = {DataType.sample: [],
+                         DataType.ob: [],
+                         DataType.normalization: [],
+                         DataType.normalized: []}
 
-    list_bragg_edge_selection_id = {'sample': None,
-                                    'ob': None,
-                                    'normalized': None}
+    list_bragg_edge_selection_id = {DataType.sample: None,
+                                    DataType.ob: None,
+                                    DataType.normalized: None}
 
-    list_roi = {'sample': [],
-                'ob': [],
-                'normalization': [],
-                'normalized': []}
+    list_roi = {DataType.sample: [],
+                DataType.ob: [],
+                DataType.normalization: [],
+                DataType.normalized: []}
 
-    old_list_roi = {'sample': [],
-                    'ob': [],
-                    'normalized': []}
+    old_list_roi = {DataType.sample: [],
+                    DataType.ob: [],
+                    DataType.normalized: []}
 
-    list_file_selected = {'sample': [],
-                          'ob': [],
-                          'normalized': []}
+    list_file_selected = {DataType.sample: [],
+                          DataType.ob: [],
+                          DataType.normalized: []}
 
-    current_bragg_edge_x_axis = {'sample': [],
-                                 'ob': [],
-                                 'normalized': [],
-                                 'normalization': []}
+    current_bragg_edge_x_axis = {DataType.sample: [],
+                                 DataType.ob: [],
+                                 DataType.normalized: [],
+                                 DataType.normalization: []}
     normalized_lambda_bragg_edge_x_axis = []  # will be used by the fitting window
 
     step2_ui = {'area': None,
@@ -233,16 +234,16 @@ class MainWindow(QMainWindow):
                 'xaxis_file_index': None,
                 'bragg_edge_selection': None}
 
-    xaxis_button_ui = {'sample': {'file_index': None,
+    xaxis_button_ui = {DataType.sample: {'file_index': None,
                                   'tof': None,
                                   'lambda': None},
-                       'ob': {'file_index': None,
+                       DataType.ob: {'file_index': None,
                               'tof': None,
                               'lambda': None},
-                       'normalized': {'file_index': None,
+                       DataType.normalized: {'file_index': None,
                                       'tof': None,
                                       'lambda': None},
-                       'normalization': {'file_index': None,
+                       DataType.normalization: {'file_index': None,
                                          'tof': None,
                                          'lambda': None},
                        }
@@ -297,7 +298,7 @@ class MainWindow(QMainWindow):
                            'data': '',
                            'no_data': '',
                            'previous_status': {'data': False,
-                                               'ob': False},
+                                               DataType.ob: False},
                            }
 
     # kropff
@@ -389,7 +390,7 @@ class MainWindow(QMainWindow):
                                                 'folder': current_folder,
                                                 'general_infos': None,
                                                 'data': [],
-                                                'xaxis': 'file_index',
+                                                FittingKeys.x_axis: 'file_index',
                                                 'time_spectra': {'folder': '',
                                                                  'filename': '',
                                                                  },
@@ -398,7 +399,7 @@ class MainWindow(QMainWindow):
                                             'list_widget_ui': self.ui.list_open_beam,
                                             'folder': current_folder,
                                             'general_infos': None,
-                                            'xaxis': 'file_index',
+                                            FittingKeys.x_axis: 'file_index',
                                             'data': [],
                                             },
                               DataType.normalized: {'title': 'Select folder or list of files',
@@ -406,7 +407,7 @@ class MainWindow(QMainWindow):
                                                     'general_infos': None,
                                                     'data': [],
                                                     'size': {'width': None, 'height': None},
-                                                    'xaxis': 'file_index',
+                                                    FittingKeys.x_axis: 'file_index',
                                                     'data_live_selection': [],
                                                     'time_spectra': {'folder': '',
                                                                      'filename': '',
@@ -578,41 +579,41 @@ class MainWindow(QMainWindow):
     #     o_plot.display_general_bragg_edge()
 
     def roi_image_view_changed(self, mouse_selection=True):
-        o_plot = Step1Plot(parent=self, data_type='sample')
+        o_plot = Step1Plot(parent=self, data_type=DataType.sample)
         o_plot.display_bragg_edge(mouse_selection=mouse_selection)
 
     def roi_ob_image_view_changed(self, mouse_selection=True):
-        o_plot = Step1Plot(parent=self, data_type='ob')
+        o_plot = Step1Plot(parent=self, data_type=DataType.ob)
         o_plot.display_bragg_edge(mouse_selection=mouse_selection)
 
-    def retrieve_general_infos(self, data_type='sample'):
+    def retrieve_general_infos(self, data_type=DataType.sample):
         if data_type in (DataType.sample, DataType.normalized):
             o_general_infos = RetrieveGeneralFileInfos(parent=self, data_type=data_type)
             o_general_infos.update()
 
-    def retrieve_general_data_infos(self, data_type='sample'):
-        if data_type == 'sample':
+    def retrieve_general_data_infos(self, data_type=DataType.sample):
+        if data_type == DataType.sample:
             self.sample_retrieve_general_data_infos()
-        elif data_type == 'ob':
+        elif data_type == DataType.ob:
             self.open_beam_retrieve_general_data_infos()
-        elif data_type == 'normalized':
+        elif data_type == DataType.normalized:
             self.normalized_retrieve_general_data_infos()
 
     def load_data_tab_changed(self, tab_index):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.load_data_tab_changed(tab_index=tab_index)
         if tab_index == 0:
-            self.current_data_type = 'sample'
+            self.current_data_type = DataType.sample
             self.ui.image_preview.setCurrentIndex(0)
         else:
-            self.current_data_type = 'ob'
+            self.current_data_type = DataType.ob
             self.ui.image_preview.setCurrentIndex(1)
 
     def roi_editor_button_clicked(self):
         o_roi_editor = RoiEditor(parent=self)
         o_roi_editor.run()
 
-    def refresh_roi(self, data_type='sample'):
+    def refresh_roi(self, data_type=DataType.sample):
         o_step1_plot = Step1Plot(parent=self, data_type=data_type)
         o_step1_plot.display_bragg_edge()
 
@@ -621,9 +622,9 @@ class MainWindow(QMainWindow):
         data_type = o_gui.get_active_tab()
 
         _ui_list = None
-        if data_type == 'sample':
+        if data_type == DataType.sample:
             _ui_list = self.ui.list_sample
-        elif data_type == 'ob':
+        elif data_type == DataType.ob:
             _ui_list = self.ui.list_open_beam
         else:
             _ui_list = self.ui.list_normalized
@@ -744,21 +745,21 @@ class MainWindow(QMainWindow):
     # TAB 1: Sample and OB Tab =========================================================================================
 
     def sample_import_button_clicked(self):
-        o_event = Step1EventHandler(parent=self, data_type='sample')
+        o_event = Step1EventHandler(parent=self, data_type=DataType.sample)
         o_event.import_button_clicked()
         self.load_data_tab_changed(tab_index=0)
 
-    def select_load_data_row(self, data_type='sample', row=0):
+    def select_load_data_row(self, data_type=DataType.sample, row=0):
         o_gui = Step1GuiHandler(parent=self)
         o_gui.select_load_data_row(data_type=data_type,
                                    row=row)
 
     def sample_retrieve_general_data_infos(self):
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='sample')
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.sample)
         o_retrieve_data_infos.update()
 
     def open_beam_retrieve_general_data_infos(self):
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='ob')
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
         o_retrieve_data_infos.update()
 
     def sample_list_right_click(self, position):
@@ -766,12 +767,12 @@ class MainWindow(QMainWindow):
         o_list_handler.right_click(position=position)
 
     def open_beam_import_button_clicked(self):
-        o_event = Step1EventHandler(parent=self, data_type='ob')
+        o_event = Step1EventHandler(parent=self, data_type=DataType.ob)
         o_event.import_button_clicked()
 
     def open_beam_list_selection_changed(self):
         if not self.loading_flag:
-            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='ob')
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
             o_retrieve_data_infos.update()
             self.roi_ob_image_view_changed(mouse_selection=False)
         else:
@@ -831,17 +832,17 @@ class MainWindow(QMainWindow):
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.sample]['xaxis'] = XAxisMode.file_index_mode
+        self.data_metadata[DataType.sample][FittingKeys.x_axis] = XAxisMode.file_index_mode
         o_event = Step1EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def tof_xaxis_button_clicked(self):
-        self.data_metadata[DataType.sample]['xaxis'] = XAxisMode.tof_mode
+        self.data_metadata[DataType.sample][FittingKeys.x_axis] = XAxisMode.tof_mode
         o_event = Step1EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def lambda_xaxis_button_clicked(self):
-        self.data_metadata[DataType.sample]['xaxis'] = XAxisMode.lambda_mode
+        self.data_metadata[DataType.sample][FittingKeys.x_axis] = XAxisMode.lambda_mode
         o_event = Step1EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
@@ -850,15 +851,15 @@ class MainWindow(QMainWindow):
         o_event.sample_list_selection_changed()
 
     def ob_file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.ob]['xaxis'] = XAxisMode.file_index_mode
+        self.data_metadata[DataType.ob][FittingKeys.x_axis] = XAxisMode.file_index_mode
         self.open_beam_list_selection_changed()
 
     def ob_tof_xaxis_button_clicked(self):
-        self.data_metadata[DataType.ob]['xaxis'] = XAxisMode.tof_mode
+        self.data_metadata[DataType.ob][FittingKeys.x_axis] = XAxisMode.tof_mode
         self.open_beam_list_selection_changed()
 
     def ob_lambda_xaxis_button_clicked(self):
-        self.data_metadata[DataType.ob]['xaxis'] = XAxisMode.lambda_mode
+        self.data_metadata[DataType.ob][FittingKeys.x_axis] = XAxisMode.lambda_mode
         self.open_beam_list_selection_changed()
 
     def sample_hkl_scrollbar_changed(self, value):
@@ -925,17 +926,17 @@ class MainWindow(QMainWindow):
             self.ui.tabWidget.setCurrentIndex(2)
 
     def step2_file_index_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization]['xaxis'] = XAxisMode.file_index_mode
+        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = XAxisMode.file_index_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
     def step2_tof_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization]['xaxis'] = XAxisMode.tof_mode
+        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = XAxisMode.tof_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
     def step2_lambda_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization]['xaxis'] = XAxisMode.lambda_mode
+        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = XAxisMode.lambda_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
@@ -950,7 +951,7 @@ class MainWindow(QMainWindow):
         lr = self.bragg_edge_selection
         selection = list(lr.getRegion())
 
-        x_axis = self.current_bragg_edge_x_axis['normalization']
+        x_axis = self.current_bragg_edge_x_axis[DataType.normalization]
         left_index = find_nearest_index(array=x_axis, value=selection[0])
         right_index = find_nearest_index(array=x_axis, value=selection[1])
         self.range_files_to_normalized_step2['file_index'] = [left_index, right_index]
@@ -962,7 +963,7 @@ class MainWindow(QMainWindow):
     # TAB 3: Normalized Tab ==================================================================================
 
     def normalized_time_spectra_import_button_clicked(self):
-        o_load = DataHandler(parent=self, data_type='normalized')
+        o_load = DataHandler(parent=self, data_type=DataType.normalized)
         is_file_selected = o_load.retrieve_time_spectra()
         if is_file_selected:
             o_gui = Step3GuiHandler(parent=self)
@@ -971,15 +972,15 @@ class MainWindow(QMainWindow):
             o_plot.display_general_bragg_edge()
 
     def normalized_time_spectra_preview_button_clicked(self):
-        o_time_spectra = TimeSpectraHandler(parent=self, data_type='normalized')
+        o_time_spectra = TimeSpectraHandler(parent=self, data_type=DataType.normalized)
         o_time_spectra.display()
 
     def normalized_import_button_clicked(self):
-        o_event = Step3EventHandler(parent=self, data_type='normalized')
+        o_event = Step3EventHandler(parent=self, data_type=DataType.normalized)
         o_event.import_button_clicked()
 
     def normalized_retrieve_general_data_infos(self):
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type='normalized')
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
         o_retrieve_data_infos.update()
 
     def select_normalized_row(self, row=0):
@@ -997,7 +998,7 @@ class MainWindow(QMainWindow):
         QApplication.restoreOverrideCursor()
 
     def roi_normalized_image_view_changed(self, mouse_selection=True):
-        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot = Step1Plot(parent=self, data_type=DataType.normalized)
         o_plot.display_bragg_edge(mouse_selection=mouse_selection)
 
     def normalized_roi_algorithm_is_add_clicked(self):
@@ -1019,23 +1020,23 @@ class MainWindow(QMainWindow):
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def normalized_file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized]['xaxis'] = XAxisMode.file_index_mode
+        self.data_metadata[DataType.normalized][FittingKeys.x_axis] = XAxisMode.file_index_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def normalized_tof_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized]['xaxis'] = XAxisMode.tof_mode
+        self.data_metadata[DataType.normalized][FittingKeys.x_axis] = XAxisMode.tof_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def normalized_lambda_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized]['xaxis'] = XAxisMode.lambda_mode
+        self.data_metadata[DataType.normalized][FittingKeys.x_axis] = XAxisMode.lambda_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
     def normalized_hkl_scrollbar_changed(self, value):
         self.hkl_scrollbar_dict[ScrollBarParameters.value] = value
-        o_plot = Step1Plot(parent=self, data_type='normalized')
+        o_plot = Step1Plot(parent=self, data_type=DataType.normalized)
         o_plot.display_bragg_edge()
 
     # GENERAL UI =======================================================================================
