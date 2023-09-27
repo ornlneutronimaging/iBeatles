@@ -5,6 +5,7 @@ import numpy as np
 import os
 import shutil
 from datetime import datetime
+from qtpy.QtWidgets import QFileDialog
 
 
 class FileHandler:
@@ -138,3 +139,9 @@ def create_full_export_file_name(base_name, ext):
     '''
     file_name = f"{base_name}_{get_current_timestamp()}.{ext}"
     return file_name
+
+
+def select_folder(start_folder="./"):
+    return str(QFileDialog.getExistingDirectory(caption="Select output folder",
+                                                directory=start_folder,
+                                                options=QFileDialog.ShowDirsOnly))

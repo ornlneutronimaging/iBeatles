@@ -4,6 +4,8 @@ from qtpy.QtWidgets import QMenu
 from qtpy import QtGui
 from qtpy.QtWidgets import QApplication
 import logging
+from pathlib import PurePath
+import json
 
 from ibeatles.fitting.get import Get
 from ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import KropffBraggPeakThresholdCalculator
@@ -14,6 +16,7 @@ from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.fitting.kropff.get import Get as KropffGet
 from ibeatles.fitting import KropffTabSelected
+from ibeatles.utilities.file_handler import select_folder
 
 from ibeatles.fitting import FittingTabSelected, FittingKeys
 from ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
@@ -315,7 +318,7 @@ class EventHandler:
         metadata_for_this_row = table_dictionary[row_selected]
 
         logging.info(f" - row_selected: {row_selected}")
-        logging.info(f" - metadata: {metadata_for_this_row}")
+        # logging.info(f" - metadata: {metadata_for_this_row}")
 
         bin_number = row_selected
         row_index = metadata_for_this_row[FittingKeys.row_index]
@@ -325,13 +328,88 @@ class EventHandler:
         logging.info(f" - bin row: {row_index}")
         logging.info(f" - bin column: {column_index}")
 
-        x_axis = metadata_for_this_row[FittingKeys.x_axis]
-        y_axis = metadata_for_this_row[FittingKeys.y_axis]
+        logging.info(f" - metadata_for_this_row: {metadata_for_this_row}")
 
-        logging.info(f" - normalized_folder: {self.grand_parent.default_path[DataType.normalized]}")
+        # {'high_tof': {'xaxis': None, 'yaxis': None},
+        #  'low_tof': {'xaxis': None, 'yaxis': None},
+        #  'bragg_peak': {'xaxis': None, 'yaxis': None},
+        fitted_dict = metadata_for_this_row[KropffSessionSubKeys.fitted]
 
+        parent_folder = PurePath(self.grand_parent.default_path[DataType.normalized]).parent
+        base_parent_folder = PurePath(self.grand_parent.default_path[DataType.normalized]).name
+        output_folder = select_folder(start_folder=str(parent_folder))
 
+        full_output_filename = PurePath(output_folder) / f"{str(base_parent_folder)}_bin#{bin_number}.json"
+        logging.info(f" - file name: {full_output_filename}")
 
+        # cleanup data
+        cleaned_dict = {}
+
+        cleaned_dict[FittingKeys.x_axis] = EventHandler.from_nparray_to_list(metadata_for_this_row[FittingKeys.x_axis])
+        cleaned_dict[FittingKeys.y_axis] = EventHandler.from_nparray_to_list(metadata_for_this_row[FittingKeys.y_axis])
+
+        # fitted
+        cleaned_dict[KropffSessionSubKeys.fitted] = {}
+
+        # high tof
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof] = {}
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][FittingKeys.x_axis] = \
+            EventHandler.from_nparray_to_list(fitted_dict
+                                              [KropffSessionSubKeys.high_tof][FittingKeys.x_axis])
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][FittingKeys.y_axis] = \
+            EventHandler.from_nparray_to_list(fitted_dict
+                                              [KropffSessionSubKeys.high_tof][FittingKeys.y_axis])
+
+        # low tof
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof] = {}
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][FittingKeys.x_axis] = \
+            EventHandler.from_nparray_to_list(fitted_dict
+                                              [KropffTabSelected.low_tof][FittingKeys.x_axis])
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][FittingKeys.y_axis] = \
+            EventHandler.from_nparray_to_list(fitted_dict
+                                              [KropffTabSelected.low_tof][FittingKeys.y_axis])
+
+        # bragg peak
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak] = {}
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][FittingKeys.x_axis] = \
+            EventHandler.from_nparray_to_list(fitted_dict
+                                              [KropffTabSelected.bragg_peak][FittingKeys.x_axis])
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][FittingKeys.y_axis] = \
+            EventHandler.from_nparray_to_list(fitted_dict
+                                              [KropffTabSelected.bragg_peak][FittingKeys.y_axis])
+
+        # fitting parameters
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.a0] = \
+            metadata_for_this_row[KropffSessionSubKeys.a0]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.b0] = \
+            metadata_for_this_row[KropffSessionSubKeys.b0]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.ahkl] = \
+            metadata_for_this_row[KropffSessionSubKeys.ahkl]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.bhkl] = \
+            metadata_for_this_row[KropffSessionSubKeys.bhkl]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.lambda_hkl] = \
+            metadata_for_this_row[KropffSessionSubKeys.lambda_hkl]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.tau] = \
+            metadata_for_this_row[KropffSessionSubKeys.tau]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.sigma] =\
+            metadata_for_this_row[KropffSessionSubKeys.sigma]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.bhkl] =\
+            metadata_for_this_row[KropffSessionSubKeys.bhkl]
+        cleaned_dict[KropffSessionSubKeys.fitted][SessionSubKeys.bin_coordinates] = {'x0': int(metadata_for_this_row[SessionSubKeys.bin_coordinates]['x0']),
+                                                                                     'y0': int(metadata_for_this_row[SessionSubKeys.bin_coordinates]['y0']),
+                                                                                     'x1': int(metadata_for_this_row[SessionSubKeys.bin_coordinates]['x1']),
+                                                                                     'y1': int(metadata_for_this_row[SessionSubKeys.bin_coordinates]['y1'])}
+        cleaned_dict[KropffSessionSubKeys.fitted][SessionSubKeys.bragg_peak_threshold] =\
+            metadata_for_this_row[SessionSubKeys.bragg_peak_threshold]
+
+        with open(full_output_filename, 'w') as json_file:
+            json.dump(cleaned_dict, json_file)
+
+    @staticmethod
+    def from_nparray_to_list(nparray=None):
+        if nparray is None:
+            return None
+        return list(nparray)
 
     def replace_bragg_peak_row_values(self):
         """replace by median of surrounding pixels"""

@@ -28,6 +28,7 @@ dependencies:
   - qtpy
   - versioneer
   - astropy
+  - ipython
   - pip:
       - neutronbraggedge
       - changepy

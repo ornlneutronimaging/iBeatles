@@ -19,7 +19,7 @@ from ibeatles import settings_image
 from ibeatles.fitting.kropff import KropffThresholdFinder
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.fitting.kropff import BraggPeakInitParameters
-from ibeatles.fitting import FittingTabSelected
+from ibeatles.fitting import FittingTabSelected, KropffTabSelected
 from ibeatles.utilities.mplcanvas import MplCanvas
 
 
@@ -509,7 +509,7 @@ class Initialization:
         # lambda_hkl = kropff_session_dict[KropffSessionSubKeys.bragg_peak]['lambda_hkl']
         # tau = kropff_session_dict['bragg peak']['tau']
         # sigma = kropff_session_dict['bragg peak']['sigma']
-        bragg_peak_tof_graph = kropff_session_dict['bragg peak']['graph']
+        bragg_peak_tof_graph = kropff_session_dict[KropffTabSelected.bragg_peak]['graph']
 
         # self.parent.ui.kropff_bragg_peak_tau_init.setText(tau)
         # index = self.parent.ui.kropff_bragg_peak_sigma_comboBox.findText(sigma)

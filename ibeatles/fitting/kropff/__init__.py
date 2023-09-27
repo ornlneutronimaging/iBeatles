@@ -55,9 +55,11 @@ class BraggPeakInitParameters:
 class SessionSubKeys:
 
     table_dictionary = "table dictionary"
-    high_tof = "high tof"
-    low_tof = "low tof"
-    bragg_peak = "bragg peak"
+    high_tof = "high_tof"
+    low_tof = "low_tof"
+    bragg_peak = "bragg_peak"
+
+    fitted = "fitted"
 
     a0 = "a0"
     b0 = "b0"
