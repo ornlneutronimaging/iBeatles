@@ -21,7 +21,7 @@ jobs:
                 post-cleanup: 'all'
                 
             - name: switch to env
-                run: micromamba env ibeatles
+              run: micromamba env ibeatles
                 
             - name: Install package
               run: python -m pip install -e . pytest
