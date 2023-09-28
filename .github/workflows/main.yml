@@ -1,0 +1,9 @@
+name: iBeatles tests
+on: push
+jobs:
+    greetings:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Greetings!
+            run: echo hello world
+            
