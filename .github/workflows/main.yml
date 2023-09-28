@@ -41,7 +41,4 @@ jobs:
             environment-file: .ci/environment_py36.yml
             python-version: 3.10
             auto-activate-base: false
-        - run: |
-          conda info
-          conda list
-        
+        - run: conda info
