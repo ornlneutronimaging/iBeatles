@@ -405,6 +405,8 @@ class EventHandler:
         with open(full_output_filename, 'w') as json_file:
             json.dump(cleaned_dict, json_file)
 
+
+
     @staticmethod
     def from_nparray_to_list(nparray=None):
         if nparray is None:
