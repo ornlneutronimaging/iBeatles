@@ -3,7 +3,7 @@ on: push
 jobs:
     test-python-3-10:
         name: Check iBeatles tests using python 3.10 on ubuntu
-        runs-ons: ubuntu-latest
+        runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-python@v4
