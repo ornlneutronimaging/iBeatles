@@ -97,7 +97,7 @@ QRangeSlider > QSplitter::handle:vertical {
     height: 4px;
 }
 QRangeSlider > QSplitter::handle:pressed {
-    background: #ca5;
+    background: #ddd;
 }
 
 """
@@ -107,6 +107,7 @@ def scale(val, src, dst):
     Scale the given value from the scale of src to the scale of dst.
     """
     return int(((val - src[0]) / float(src[1]-src[0])) * (dst[1]-dst[0]) + dst[0])
+
 
 class RangeSliderForm:
     """default range slider form"""
@@ -164,7 +165,8 @@ class RangeSliderElement(QGroupBox):
 
     def textColor(self):
         """text paint color"""
-        return getattr(self, '__textColor', QtGui.QColor(125, 125, 125))
+        # return getattr(self, '__textColor', QtGui.QColor(125, 125, 125))
+        return getattr(self, '__textColor', QtGui.QColor(255, 255, 255))
 
     def setTextColor(self, color):
         """set the text paint color"""
@@ -199,6 +201,7 @@ class RangeSliderElement(QGroupBox):
         term2 = term1 * (self.main.real_max - self.main.real_min)
         return f"{term2 + self.main.real_min: 0.3f}"
 
+
 class Head(RangeSliderElement):
     """area before the handle"""
     
@@ -206,7 +209,8 @@ class Head(RangeSliderElement):
         super(Head, self).__init__(parent, main, vertical)
 
     def drawText(self, event, qp):
-        qp.setPen(self.textColor())
+        # qp.setPen(self.textColor())
+        qp.setPen(QtGui.QColor(0, 0, 0))
         qp.setFont(QtGui.QFont('Arial', 15))
         if self.main.min_at_the_bottom:
             value = self.main.max() - self.main.min()
@@ -214,6 +218,7 @@ class Head(RangeSliderElement):
             value = self.main.min()
         str_value = self.calculate_real_value(int_value=value)
         qp.drawText(event.rect(), QtCore.Qt.AlignLeft, str_value)
+
 
 class Tail(RangeSliderElement):
     """area after the handle"""
@@ -239,7 +244,8 @@ class Handle(RangeSliderElement):
         super(Handle, self).__init__(parent, main, vertical)
 
     def drawText(self, event, qp):
-        qp.setPen(self.textColor())
+        # qp.setPen(self.textColor())
+        qp.setPen(QtGui.QColor(255, 255, 255))
         qp.setFont(QtGui.QFont('Arial', 15))
 
         if self.main.min_at_the_bottom:
@@ -260,7 +266,7 @@ class Handle(RangeSliderElement):
 
     def mouseReleaseEvent(self, event):
         setattr(self, '__mx', None)
-        
+
     def mouseMoveEvent(self, event):
         #When the range is dragged
         event.accept()
@@ -268,6 +274,7 @@ class Handle(RangeSliderElement):
             mx = event.globalY()
         else:
             mx = event.globalX()
+
         #last value
         _mx = getattr(self, '__mx', None)
         
@@ -306,7 +313,8 @@ class Handle(RangeSliderElement):
         elif self.main.max() < e:
             e = self.main.max()
             s = e - r0
-        self.main.setRange(s,e)
+
+        self.main.setRange(s, e)
 
 
 class QRangeSlider(QWidget, RangeSliderForm):
@@ -386,6 +394,9 @@ class QRangeSlider(QWidget, RangeSliderForm):
     maxValueChanged = Signal(int)
     startValueChanged = Signal(int)
     endValueChanged = Signal(int)
+
+    real_end = None
+    real_start = None
 
     def __init__(self, parent=None,
                  min_value=0,
@@ -561,7 +572,41 @@ class QRangeSlider(QWidget, RangeSliderForm):
         self.setEnd(end)
         if minimumRange is not None:
             self.setMinimumRange(minimumRange)
-        
+
+    def setRealRange(self, realStart, realEnd):
+        real_min = self.real_min
+        real_max = self.real_max
+        min = self.min()
+        max = self.max()
+
+        self.real_end = realEnd
+        self.real_start = realStart
+
+        # print(f"in setRealRange")
+        # print(f"{real_min =}, {real_max =}")
+        # print(f"{min =}, {max =}")
+        # print(f"{realStart =}, {realEnd =}")
+
+        def get_coeff(real_value):
+            coeff = ((real_value - real_max) / (real_min - real_max))
+            return coeff * (max - min)
+
+        _end = int(get_coeff(realEnd) + min)
+        _start = int(get_coeff(realStart) + min)
+
+        # print(f"{_end =}")
+        # print(f"{_start =}")
+
+        self.setRange(_end, _start)
+
+    def setRealRangeMax(self, value):
+        real_start = self.real_start
+        self.setRealRange(real_start, value)
+
+    def setRealRangeMin(self, value):
+        real_end = self.real_end
+        self.setRealRange(value, real_end)
+
     def keyPressEvent(self, event):
         """overrides key press event to move range left and right"""
         key = event.key()
@@ -606,7 +651,6 @@ class QRangeSlider(QWidget, RangeSliderForm):
     def _handleMoveSplitter(self, pos, index):
         """private method for handling moving splitter handles"""
         hw = self._splitter.handleWidth()
-        
         if index == self._SPLIT_START:
             v = self._posToValue(pos)
             #_lockPos(self._tail)
@@ -624,23 +668,35 @@ class QRangeSlider(QWidget, RangeSliderForm):
             self.setEnd(v)
 
 
+class FakeKey:
+    _key = QtCore.Qt.Key_Up
+
+    def key(self):
+        return self._key
+
+    def ignore(self):
+        return False
+
+    def accept(self):
+        return True
+
 
 #-------------------------------------------------------------------------------
 # MAIN
 #-------------------------------------------------------------------------------
-
-
-#-------------------------------------------------------------------------------
-# MAIN
-#-------------------------------------------------------------------------------
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    rs = QRangeSlider(splitterWidth=10, vertical=True, min_at_the_bottom=False)
+    rs = QRangeSlider(splitterWidth=20, vertical=True, min_at_the_bottom=True)
     rs.setMin(0)
     rs.setMax(1000)
-    rs.setRange(400, 600, 100)
-    rs.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #222, stop:1 #333);')
-    rs.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #393);')
+    rs.setRealMax(15.0)
+    rs.setRealMin(1.0)
+    app.processEvents()
+    rs.setRealRange(5, 10)  # mandatory
+    # rs.setRealRangeMin(3)
+    rs.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:1 #333);')
+    rs.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #222);')
     rs.show()
+    my_fake_key = FakeKey()
+    rs.keyPressEvent(my_fake_key)
     app.exec_()
