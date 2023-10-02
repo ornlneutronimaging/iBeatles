@@ -63,7 +63,8 @@ import sys
 
 from qtpy import QtGui
 from qtpy import QtCore
-from qtpy.QtWidgets import QWidget, QHBoxLayout, QApplication, QGridLayout, QSplitter, QGroupBox
+from qtpy.QtWidgets import QWidget, QHBoxLayout, QApplication, QGridLayout, QSplitter, QGroupBox, QStyleOption
+from qtpy.QtWidgets import QStyle
 from qtpy.QtCore import Signal
 
 try:
@@ -148,8 +149,8 @@ class RangeSliderForm:
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QApplication.translate("QRangeSlider",
-                                                         "QRangeSlider",
-                                                         None))
+                                                  "QRangeSlider",
+                                                 None))
 
 
 class RangeSliderElement(QGroupBox):
@@ -178,8 +179,12 @@ class RangeSliderElement(QGroupBox):
 
     def paintEvent(self, event):
         """overrides paint event to handle text"""
+        # o = QStyleOption()
+        # o.initFrom(self)
+
         qp = QtGui.QPainter()
         qp.begin(self)
+        # self.style().drawPrimitive(QStyle.PE_Widget, o, qp, self)
         if self.main.drawValues():
             self.drawText(event, qp)
         qp.end()
@@ -475,12 +480,14 @@ class QRangeSlider(QWidget, RangeSliderForm):
         """sets minimum value"""
         assert type(value) is int
         setattr(self, '__min', value)
+        self.range_slider_min = value
         self.minValueChanged.emit(value)
 
     def setMax(self, value):
         """sets maximum value"""
         assert type(value) is int
         setattr(self, '__max', value)
+        self.range_slider_max = value
         self.maxValueChanged.emit(value)
     
     def start(self):
@@ -573,6 +580,19 @@ class QRangeSlider(QWidget, RangeSliderForm):
         if minimumRange is not None:
             self.setMinimumRange(minimumRange)
 
+    def get_real_value_from_slider_value(self, value):
+        slider_min = self.range_slider_min
+        slider_max = self.range_slider_max
+
+        if self.real_start is None:
+            return
+
+        if self.real_end is None:
+            return
+
+        coeff = ((value - slider_min) / (slider_max - slider_min))
+        return coeff * (self.real_start - self.real_end) + self.real_end
+
     def setRealRange(self, realStart, realEnd):
         real_min = self.real_min
         real_max = self.real_max
@@ -609,8 +629,9 @@ class QRangeSlider(QWidget, RangeSliderForm):
 
     def keyPressEvent(self, event):
         """overrides key press event to move range left and right"""
+
         key = event.key()
-        if key in  (QtCore.Qt.Key_Up, QtCore.Qt.Key_Left):
+        if key in (QtCore.Qt.Key_Up, QtCore.Qt.Key_Left):
             s = self.start()-1
             e = self.end()-1
         elif key in (QtCore.Qt.Key_Down, QtCore.Qt.Key_Right):
@@ -669,7 +690,18 @@ class QRangeSlider(QWidget, RangeSliderForm):
 
 
 class FakeKey:
-    _key = QtCore.Qt.Key_Up
+
+    _key = None
+
+    def __init__(self, key='up'):
+        if key == 'up':
+            self._key = QtCore.Qt.Key_Up
+        elif key == 'down':
+            self._key = QtCore.Qt.Key_Down
+        elif key == 'left':
+            self._key = QtCore.Qt.Key_Left
+        else:
+            self._key = QtCore.Qt.Key_Right
 
     def key(self):
         return self._key
@@ -691,11 +723,39 @@ if __name__ == '__main__':
     rs.setMax(1000)
     rs.setRealMax(15.0)
     rs.setRealMin(1.0)
-    app.processEvents()
+    # app.processEvents()
     rs.setRealRange(5, 10)  # mandatory
     # rs.setRealRangeMin(3)
     rs.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:1 #333);')
     rs.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #222);')
+    rs.setStyleSheet("""
+QRangeSlider * {
+    border: 0px;
+    padding: 0px;
+}
+QRangeSlider #Head {
+    background: #222;
+}
+QRangeSlider #Span {
+    background: #393;         
+}
+QRangeSlider #Span:active {
+    background: #3d3;        
+}
+QRangeSlider #Tail {
+    background: #222;
+}
+QRangeSlider > QSplitter::handle {
+    background: #fff;
+}
+QRangeSlider > QSplitter::handle:vertical {
+    height: 4px;
+}
+QRangeSlider > QSplitter::handle:pressed {
+    background: #ddd;
+}
+
+""")
     rs.show()
     my_fake_key = FakeKey()
     rs.keyPressEvent(my_fake_key)

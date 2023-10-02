@@ -43,15 +43,6 @@ class EventHandler:
         self.parent.d_dict = d_dict
 
     def min_max_changed(self):
-        o_get = Get(parent=self.parent)
-        parameters_to_display = o_get.parameter_to_display()
-
-        min_value = float(str(self.parent.ui.min_value_lineEdit.text()))
-        max_value = float(str(self.parent.ui.max_value_lineEdit.text()))
-
-        self.parent.min_max[parameters_to_display] = {'min': min_value,
-                                                      'max': max_value}
-
         o_display = Display(parent=self.parent,
                             grand_parent=self.grand_parent)
         o_display.run()

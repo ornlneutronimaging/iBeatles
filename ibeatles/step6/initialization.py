@@ -42,14 +42,21 @@ class Initialization:
         self.parent.ui.range_slider = QRangeSlider(splitterWidth=50,
                                                    vertical=True,
                                                    min_at_the_bottom=True)
+
+        self.parent.ui.range_slider.blockSignals(True)
         self.parent.ui.range_slider.setMin(self.parent.slider_min)
         self.parent.ui.range_slider.setMax(self.parent.slider_max)
+
         self.parent.ui.range_slider.startValueChanged.connect(
             self.parent.range_slider_start_value_changed)
         self.parent.ui.range_slider.endValueChanged.connect(
             self.parent.range_slider_end_value_changed)
         layout.addWidget(self.parent.ui.range_slider)
         self.parent.ui.vertical_range_slider_widget.setLayout(layout)
+        self.parent.ui.range_slider.blockSignals(False)
+
+        self.parent.ui.range_slider.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:1 #333);')
+        self.parent.ui.range_slider.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #222);')
 
     def parameters(self):
         from_lambda = self.grand_parent.fitting_ui.ui.lambda_min_lineEdit.text()

@@ -328,8 +328,6 @@ class EventHandler:
         logging.info(f" - bin row: {row_index}")
         logging.info(f" - bin column: {column_index}")
 
-        logging.info(f" - metadata_for_this_row: {metadata_for_this_row}")
-
         # {'high_tof': {'xaxis': None, 'yaxis': None},
         #  'low_tof': {'xaxis': None, 'yaxis': None},
         #  'bragg_peak': {'xaxis': None, 'yaxis': None},
@@ -340,7 +338,7 @@ class EventHandler:
         output_folder = select_folder(start_folder=str(parent_folder))
 
         full_output_filename = PurePath(output_folder) / f"{str(base_parent_folder)}_bin#{bin_number}.json"
-        logging.info(f" - file name: {full_output_filename}")
+        logging.info(f" - output file name: {full_output_filename}")
 
         # cleanup data
         cleaned_dict = {}

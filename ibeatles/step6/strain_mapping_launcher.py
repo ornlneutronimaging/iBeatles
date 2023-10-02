@@ -3,6 +3,7 @@ from qtpy.QtWidgets import QApplication
 
 from ibeatles import load_ui
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from ibeatles.widgets.qrangeslider import FakeKey
 
 from ibeatles.step6.initialization import Initialization
 from ibeatles.step6.display import Display
@@ -25,6 +26,7 @@ class StrainMappingLauncher:
         else:
             strain_mapping_window = StrainMappingWindow(parent=parent)
             strain_mapping_window.show()
+            strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key='down'))
             self.parent.strain_mapping_ui = strain_mapping_window
 
 
@@ -62,15 +64,16 @@ class StrainMappingWindow(QMainWindow):
         o_init = Initialization(parent=self, grand_parent=self.parent)
         o_init.all()
 
-        o_event = EventHandler(parent=self, grand_parent=self.parent)
-        o_event.calculate_d_array()
-        o_init.min_max_values()
+        # o_event = EventHandler(parent=self, grand_parent=self.parent)
+        # o_event.calculate_d_array()
+        #
+        # o_init.min_max_values()
 
-        self.update_display()
-
-        o_get = Get(parent=self)
-        self.previous_parameter_displayed = o_get.parameter_to_display()
-        self.update_min_max_values()
+        # self.update_display()
+        #
+        # o_get = Get(parent=self)
+        # self.previous_parameter_displayed = o_get.parameter_to_display()
+        # self.update_min_max_values()
 
     def fitting_algorithm_changed(self):
         self.update_display()
@@ -125,46 +128,29 @@ class StrainMappingWindow(QMainWindow):
         self.ui.max_value_lineEdit.setText(f"{max_value:.8f}")
         self.ui.min_value_lineEdit.setText(f"{min_value:.8f}")
 
-        # global_min_value = self.min_max[parameter_displayed]['global_min']
-        # global_max_value = self.min_max[parameter_displayed]['global_max']
+        global_min_value = self.min_max[parameter_displayed]['global_min']
+        global_max_value = self.min_max[parameter_displayed]['global_max']
 
-        # self.ui.range_slider.setRealMin(global_min_value)
-        # self.ui.range_slider.setRealMax(global_max_value)
+        self.ui.range_slider.setRealMin(global_min_value)
+        self.ui.range_slider.setRealMax(global_max_value)
 
-        self.ui.range_slider.setRealMin(min_value)
-        self.ui.range_slider.setRealMax(max_value)
+        # self.ui.range_slider.setRealRange(min_value, max_value)
+        # self.ui.range_slider.setRealRange(global_min_value, global_max_value)
 
-        int_min_value = self.calculate_int_value_from_real(float_value=min_value,
-                                                           max_float=max_value,
-                                                           min_float=min_value)
-
-        self.ui.range_slider.setMin(int_min_value)
-
-        int_max_value = self.calculate_int_value_from_real(float_value=max_value,
-                                                           max_float=max_value,
-                                                           min_float=min_value)
-        self.ui.range_slider.setMax(int_max_value)
-
-        # int_start_value = self.calculate_int_value_from_real(float_value=min_value,
-        #                                                      max_float=max_value,
-        #                                                      min_float=min_value)
-        # int_end_value = self.calculate_int_value_from_real(float_value=max_value,
-        #                                                    max_float=max_value,
-        #                                                    min_float=min_value)
-        self.ui.range_slider.setRange(start=int_min_value,
-                                      end=int_max_value)
-        # self.ui.range_slider._setEnd(int_start_value)
-
-        print(f"{int_min_value =}")
-        print(f"{int_max_value =}")
-
-
-        QApplication.processEvents()
+        self.ui.range_slider.setFocus(True)
+        # my_fake_key = FakeKey(key='down')
+        # self.ui.range_slider.keyPressEvent(my_fake_key)
 
     def range_slider_start_value_changed(self, value):
-        # print(f"start value changed: {value}")
-        pass
+        real_start_value = self.ui.range_slider.get_real_value_from_slider_value(value)
+        o_get = Get(parent=self)
+        parameters_to_display = o_get.parameter_to_display()
+        self.parent.min_max[parameters_to_display]['min'] = real_start_value
+        self.min_max_value_changed()
 
     def range_slider_end_value_changed(self, value):
-        # print(f"end value changed: {value}")
-        pass
+        real_end_value = self.ui.range_slider.get_real_value_from_slider_value(value)
+        o_get = Get(parent=self)
+        parameters_to_display = o_get.parameter_to_display()
+        self.parent.min_max[parameters_to_display]['max'] = real_end_value
+        self.min_max_value_changed()
