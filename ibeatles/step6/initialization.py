@@ -54,12 +54,13 @@ class Initialization:
         self.parent.ui.range_slider.setRealMin(real_min)
         self.parent.ui.range_slider.setRealMax(real_max)
 
-        self.parent.ui.range_slider.setRealRange(real_min, real_max)
+        self.parent.ui.range_slider.setRealRange(real_min + 1e-10, real_max)    # trick to display full range #BUG
 
         self.parent.ui.range_slider.startValueChanged.connect(
             self.parent.range_slider_start_value_changed)
         self.parent.ui.range_slider.endValueChanged.connect(
             self.parent.range_slider_end_value_changed)
+
         layout.addWidget(self.parent.ui.range_slider)
         self.parent.ui.vertical_range_slider_widget.setLayout(layout)
 
