@@ -584,14 +584,14 @@ class QRangeSlider(QWidget, RangeSliderForm):
         slider_min = self.range_slider_min
         slider_max = self.range_slider_max
 
-        if self.real_start is None:
+        if self.real_min is None:
             return
 
-        if self.real_end is None:
+        if self.real_max is None:
             return
 
         coeff = ((value - slider_min) / (slider_max - slider_min))
-        return coeff * (self.real_start - self.real_end) + self.real_end
+        return coeff * (self.real_min - self.real_max) + self.real_max
 
     def setRealRange(self, realStart, realEnd):
         real_min = self.real_min
@@ -728,34 +728,6 @@ if __name__ == '__main__':
     # rs.setRealRangeMin(3)
     rs.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:1 #333);')
     rs.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #222);')
-    rs.setStyleSheet("""
-QRangeSlider * {
-    border: 0px;
-    padding: 0px;
-}
-QRangeSlider #Head {
-    background: #222;
-}
-QRangeSlider #Span {
-    background: #393;         
-}
-QRangeSlider #Span:active {
-    background: #3d3;        
-}
-QRangeSlider #Tail {
-    background: #222;
-}
-QRangeSlider > QSplitter::handle {
-    background: #fff;
-}
-QRangeSlider > QSplitter::handle:vertical {
-    height: 4px;
-}
-QRangeSlider > QSplitter::handle:pressed {
-    background: #ddd;
-}
-
-""")
     rs.show()
     my_fake_key = FakeKey()
     rs.keyPressEvent(my_fake_key)

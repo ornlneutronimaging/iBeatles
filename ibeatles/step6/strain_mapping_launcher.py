@@ -45,8 +45,8 @@ class StrainMappingWindow(QMainWindow):
     #            'strain_mapping': {min: -1,
     #                               max: -1},
     #            }
-    min_max = {ParametersToDisplay.d: None,
-               ParametersToDisplay.strain_mapping: None}
+    min_max = {ParametersToDisplay.d: {'min': None, 'max': None},
+               ParametersToDisplay.strain_mapping: {'min': None, 'max': None}}
 
     histogram = {'d': None,
                  'strain_mapping': None,
@@ -64,16 +64,17 @@ class StrainMappingWindow(QMainWindow):
         o_init = Initialization(parent=self, grand_parent=self.parent)
         o_init.all()
 
-        # o_event = EventHandler(parent=self, grand_parent=self.parent)
-        # o_event.calculate_d_array()
-        #
-        # o_init.min_max_values()
+        o_event = EventHandler(parent=self, grand_parent=self.parent)
+        o_event.calculate_d_array()
 
-        # self.update_display()
-        #
-        # o_get = Get(parent=self)
-        # self.previous_parameter_displayed = o_get.parameter_to_display()
-        # self.update_min_max_values()
+        o_init.min_max_values()
+        o_init.range_slider()
+
+        self.update_display()
+
+        o_get = Get(parent=self)
+        self.previous_parameter_displayed = o_get.parameter_to_display()
+        self.update_min_max_values()
 
     def fitting_algorithm_changed(self):
         self.update_display()
@@ -145,12 +146,12 @@ class StrainMappingWindow(QMainWindow):
         real_start_value = self.ui.range_slider.get_real_value_from_slider_value(value)
         o_get = Get(parent=self)
         parameters_to_display = o_get.parameter_to_display()
-        self.parent.min_max[parameters_to_display]['min'] = real_start_value
+        self.min_max[parameters_to_display]['max'] = real_start_value
         self.min_max_value_changed()
 
     def range_slider_end_value_changed(self, value):
         real_end_value = self.ui.range_slider.get_real_value_from_slider_value(value)
         o_get = Get(parent=self)
         parameters_to_display = o_get.parameter_to_display()
-        self.parent.min_max[parameters_to_display]['max'] = real_end_value
+        self.min_max[parameters_to_display]['min'] = real_end_value
         self.min_max_value_changed()
