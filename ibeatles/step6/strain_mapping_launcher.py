@@ -123,11 +123,11 @@ class StrainMappingWindow(QMainWindow):
         if parameter_displayed == ParametersToDisplay.integrated_image:
             return
 
-        min_value = self.min_max[parameter_displayed]['min']
-        max_value = self.min_max[parameter_displayed]['max']
+        # min_value = self.min_max[parameter_displayed]['min']
+        # max_value = self.min_max[parameter_displayed]['max']
 
-        self.ui.max_value_lineEdit.setText(f"{max_value:.8f}")
-        self.ui.min_value_lineEdit.setText(f"{min_value:.8f}")
+        # self.ui.max_value_lineEdit.setText(f"{max_value:.8f}")
+        # self.ui.min_value_lineEdit.setText(f"{min_value:.8f}")
 
         global_min_value = self.min_max[parameter_displayed]['global_min']
         global_max_value = self.min_max[parameter_displayed]['global_max']

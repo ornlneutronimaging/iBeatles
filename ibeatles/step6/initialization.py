@@ -23,7 +23,6 @@ class Initialization:
 
     def all(self):
         self.labels()
-        # self.range_slider()
         self.parameters()
         self.pyqtgraph()
         self.matplotlib()
@@ -42,16 +41,19 @@ class Initialization:
         self.parent.ui.range_slider = QRangeSlider(splitterWidth=50,
                                                    vertical=True,
                                                    min_at_the_bottom=True)
-        self.parent.ui.range_slider.blockSignals(True)
+
         self.parent.ui.range_slider.setMin(self.parent.slider_min)
         self.parent.ui.range_slider.setMax(self.parent.slider_max)
 
         o_get = Get(parent=self.parent)
         parameter_displayed = o_get.parameter_to_display()
-        self.parent.ui.range_slider.setRealMin(self.parent.min_max[parameter_displayed]['global_min'])
-        self.parent.ui.range_slider.setRealMax(self.parent.min_max[parameter_displayed]['global_max'])
+
         real_min = self.parent.min_max[parameter_displayed]['min']
         real_max = self.parent.min_max[parameter_displayed]['max']
+
+        self.parent.ui.range_slider.setRealMin(real_min)
+        self.parent.ui.range_slider.setRealMax(real_max)
+
         self.parent.ui.range_slider.setRealRange(real_min, real_max)
 
         self.parent.ui.range_slider.startValueChanged.connect(
@@ -60,7 +62,6 @@ class Initialization:
             self.parent.range_slider_end_value_changed)
         layout.addWidget(self.parent.ui.range_slider)
         self.parent.ui.vertical_range_slider_widget.setLayout(layout)
-        self.parent.ui.range_slider.blockSignals(False)
 
         self.parent.ui.range_slider.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:1 #333);')
         self.parent.ui.range_slider.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #222);')

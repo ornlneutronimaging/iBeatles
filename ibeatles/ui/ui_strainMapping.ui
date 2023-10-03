@@ -464,63 +464,6 @@
         <item>
          <widget class="QWidget" name="vertical_range_slider_widget" native="true"/>
         </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Max</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="max_value_lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
-             <string>Min</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="min_value_lineEdit">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
        </layout>
       </widget>
      </widget>
@@ -764,38 +707,6 @@
     <hint type="destinationlabel">
      <x>11</x>
      <y>761</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>max_value_lineEdit</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>min_max_value_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1027</x>
-     <y>275</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1069</x>
-     <y>419</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>min_value_lineEdit</sender>
-   <signal>returnPressed()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>min_max_value_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>954</x>
-     <y>744</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>874</x>
-     <y>825</y>
     </hint>
    </hints>
   </connection>
