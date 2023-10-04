@@ -2,15 +2,13 @@ from qtpy.QtWidgets import QFileDialog
 import os
 import logging
 
-from NeuNorm.normalization import Normalization
-
 from ibeatles import DataType
 from ibeatles.step6 import ParametersToDisplay
-from ibeatles.step6.get import Get
 from ibeatles.fitting.kropff.get import Get as KropffGet
 from ibeatles.utilities.file_handler import FileHandler, create_full_export_file_name
 from ibeatles.fitting import FittingKeys
 from ibeatles.utilities.array_utilities import from_nparray_to_list
+from ibeatles.fitting.kropff import SessionSubKeys
 
 
 class FileType:
@@ -79,17 +77,50 @@ class Export:
 
     @staticmethod
     def format_kropff_dict(table: dict = None, d_dict: dict = None, strain_dict: dict = None):
+
+        cleaned_table = {}
         for _row in table.keys():
 
-            table[_row][FittingKeys.y_axis] = from_nparray_to_list(table[_row][FittingKeys.y_axis])
-            table[_row][FittingKeys.y_axis] = from_nparray_to_list(table[_row][FittingKeys.y_axis])
-            table[_row][]
+            cleaned_table[_row] = {}
+            cleaned_table[_row][FittingKeys.y_axis] = from_nparray_to_list(table[_row][FittingKeys.y_axis])
+            cleaned_table[_row][FittingKeys.x_axis] = from_nparray_to_list(table[_row][FittingKeys.x_axis])
 
-            table[_row]['strain'] = {'val': strain_dict[_row]['val'],
-                                     'err': strain_dict[_row]['err']}
-            table[_row]['d'] = {'val': d_dict[_row]['val'],
-                                'err': d_dict[_row]['err']}
-        return table
+            cleaned_table[_row][SessionSubKeys.fitted] = {}
+
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof] = {}
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.x_axis] = \
+                from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.x_axis])
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.y_axis] = \
+                from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.y_axis])
+
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof] = {}
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.x_axis] = \
+                from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.x_axis])
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.y_axis] = \
+                from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.y_axis])
+
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak] = {}
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.x_axis] = \
+                from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.x_axis])
+            cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis] = \
+                from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis])
+
+            cleaned_table[_row]['strain'] = {'val': strain_dict[_row]['val'],
+                                             'err': strain_dict[_row]['err']}
+            cleaned_table[_row]['d'] = {'val': d_dict[_row]['val'],
+                                        'err': d_dict[_row]['err']}
+
+            cleaned_table[_row]['a0'] = table[_row]['a0']
+            cleaned_table[_row]['b0'] = table[_row]['b0']
+            cleaned_table[_row]['ahkl'] = table[_row]['ahkl']
+            cleaned_table[_row]['bhkl'] = table[_row]['bhkl']
+            cleaned_table[_row]['tau'] = table[_row]['tau']
+            cleaned_table[_row]['sigma'] = table[_row]['sigma']
+            cleaned_table[_row]['lambda_hkl'] = table[_row]['lambda_hkl']
+
+            cleaned_table[_row]['bragg peak threshold'] = table[_row]['bragg peak threshold']
+
+        return cleaned_table
 
     @staticmethod
     def format_kropff_table(table: dict = None, d_dict: dict = None, strain_dict: dict = None):
