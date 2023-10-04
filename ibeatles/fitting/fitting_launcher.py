@@ -28,6 +28,7 @@ from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import KropffAut
 from ibeatles.fitting.kropff.display import Display as KropffDisplay
 from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import KropffLambdaHKLSettings
 from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import KropffGoodFitSettingsLauncher
+from ibeatles.fitting.kropff.export import Export as KropffExport
 # from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher \
 #     as KropffFittingParametersViewerEditorLauncher
 
@@ -209,8 +210,23 @@ class FittingWindow(QMainWindow):
         self.kropff_bragg_peak_row_rejections_conditions = \
             self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak_row_rejections_conditions]
 
+    # MENU
     def action_strain_mapping_clicked(self):
         StrainMappingLauncher(parent=self.parent)
+
+    def menu_export_table_as_ascii_clicked(self):
+        o_export = KropffExport(parent=self,
+                                grand_parent=self.parent)
+        o_export.ascii()
+        self.ui.setFocus()
+        self.ui.activateWindow()
+
+    def menu_export_table_as_json_clicked(self):
+        o_export = KropffExport(parent=self,
+                                grand_parent=self.parent)
+        o_export.json()
+        self.ui.setFocus()
+        self.ui.activateWindow()
 
     def re_fill_table(self):
         o_fitting = FittingHandler(parent=self, grand_parent=self.parent)

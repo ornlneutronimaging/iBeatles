@@ -4,8 +4,8 @@ from qtpy import QtCore
 import os
 import shutil
 
-from ..fitting.fitting_functions import basic_fit, advanced_fit
-from ..utilities.file_handler import FileHandler
+from ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
+from ibeatles.utilities.file_handler import FileHandler
 
 
 class ExportFittingHandler(object):

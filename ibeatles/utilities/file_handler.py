@@ -6,6 +6,7 @@ import os
 import shutil
 from datetime import datetime
 from qtpy.QtWidgets import QFileDialog
+import json
 
 
 class FileHandler:
@@ -87,6 +88,10 @@ class FileHandler:
                 f.write(_data)
 
         f.close()
+
+    def make_json_file(data_dict: dict = None, output_file_name: str = None):
+        with open(output_file_name, 'w') as json_file:
+            json.dump(data_dict, json_file)
 
     @staticmethod
     def make_or_reset_folder(folder_name):

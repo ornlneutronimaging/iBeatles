@@ -3,7 +3,7 @@ from qtpy import  QtGui
 import numpy as np
 
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
-from .export_fitting_handler import ExportFittingHandler
+from ibeatles.fitting.march_dollase.export_fitting_handler import ExportFittingHandler
 from ibeatles.fitting.march_dollase.advanced_selection_launcher import AdvancedSelectionLauncher
 from .filling_table_handler import FillingTableHandler
 from .set_fitting_variables_launcher import SetFittingVariablesLauncher

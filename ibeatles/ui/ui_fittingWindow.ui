@@ -1174,7 +1174,7 @@
             </property>
             <widget class="QWidget" name="tab_15">
              <attribute name="title">
-              <string>Initial settings</string>
+              <string>Initial Settings</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_23">
               <item>
@@ -2000,7 +2000,7 @@
      <x>0</x>
      <y>0</y>
      <width>1653</width>
-     <height>37</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSteps">
@@ -2009,7 +2009,21 @@
     </property>
     <addaction name="action6_Strain_Mapping"/>
    </widget>
+   <widget class="QMenu" name="menuExport">
+    <property name="title">
+     <string>Export</string>
+    </property>
+    <widget class="QMenu" name="menuFitting_table">
+     <property name="title">
+      <string>Fitting table</string>
+     </property>
+     <addaction name="action_export_ASCII"/>
+     <addaction name="action_export_JSON"/>
+    </widget>
+    <addaction name="menuFitting_table"/>
+   </widget>
    <addaction name="menuSteps"/>
+   <addaction name="menuExport"/>
   </widget>
   <action name="action6_Strain_Mapping">
    <property name="text">
@@ -2017,6 +2031,16 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+6</string>
+   </property>
+  </action>
+  <action name="action_export_ASCII">
+   <property name="text">
+    <string>as ASCII ...</string>
+   </property>
+  </action>
+  <action name="action_export_JSON">
+   <property name="text">
+    <string>as JSON ...</string>
    </property>
   </action>
  </widget>
@@ -2616,6 +2640,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_export_ASCII</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_export_table_as_ascii_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>599</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_export_JSON</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_export_table_as_json_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>599</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>kropff_fitting_conditions_clicked()</signal>
@@ -2711,5 +2767,7 @@
   <slot>kropff_initial_guess_sigma_range_clicked()</slot>
   <slot>kropff_automatic_fit_clicked()</slot>
   <slot>slot1()</slot>
+  <slot>menu_export_table_as_ascii_clicked()</slot>
+  <slot>menu_export_table_as_json_clicked()</slot>
  </slots>
 </ui>

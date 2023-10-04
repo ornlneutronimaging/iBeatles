@@ -5,12 +5,17 @@ import ibeatles.utilities.error as fitting_error
 from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.fitting import KropffTabSelected, FittingTabSelected
+from ibeatles import DataType
 
 
 class Get:
 
-    def __init__(self, parent=None):
+    image_size = {'height': None,
+                  'width': None}
+
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
+        self.grand_parent = grand_parent
 
     def a0(self):
         a0 = self.parent.ui.kropff_high_lda_a0_init.text()
@@ -221,3 +226,61 @@ class Get:
             return None
         else:
             raise ValueError("Tab selected is invalid!")
+
+    def active_d0(self):
+        lambda0 = float(self.parent.ui.bragg_edge_calculated.text())
+        return lambda0/2.
+
+    def calculate_image_size(self):
+        live_data = self.grand_parent.data_metadata[DataType.normalized]['data']
+        integrated_image = np.mean(live_data, 0)
+        self.parent.integrated_image = np.transpose(integrated_image)
+        [self.image_size['height'], self.image_size['width']] = np.shape(integrated_image)
+
+    def calculate_d_array(self):
+        self.calculate_image_size()
+        width = self.image_size['width']
+        height = self.image_size['height']
+
+        d_array = np.zeros((height, width))
+        # d_array[:] = np.NaN
+        d_dict = {}
+
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        for _row_index in kropff_table_dictionary.keys():
+            _row_entry = kropff_table_dictionary[_row_index]
+
+            bin_coordinates = _row_entry['bin_coordinates']
+
+            x0 = bin_coordinates['x0']
+            x1 = bin_coordinates['x1']
+            y0 = bin_coordinates['y0']
+            y1 = bin_coordinates['y1']
+
+            lambda_hkl = _row_entry['lambda_hkl']['val']
+            lambda_hkl_err = _row_entry['lambda_hkl']['err']
+            if lambda_hkl_err is None:
+                lambda_hkl_err = np.sqrt(lambda_hkl)
+
+            d_array[y0:y1, x0:x1] = float(lambda_hkl) / 2.
+            d_dict[_row_index] = {'val': float(lambda_hkl) / 2.,
+                                  'err': float(lambda_hkl_err) / 2.}
+
+        # self.parent.d_array = d_array
+        self.parent.d_dict = d_dict
+
+    def strain_mapping_dictionary(self):
+        self.calculate_d_array()
+        d_dict = self.parent.d_dict
+        strain_mapping_dict = {}
+        for _row in d_dict.keys():
+            d0 = self.active_d0()
+            d = d_dict[_row]['val']
+            d_error = d_dict[_row]['err']
+            strain_mapping = (d - d0) / d0
+            strain_mapping_err = d_error + np.sqrt(d0)
+
+            strain_mapping_dict[_row] = {'val': strain_mapping,
+                                         'err': strain_mapping_err}
+
+        return strain_mapping_dict

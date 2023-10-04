@@ -17,6 +17,7 @@ from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.fitting.kropff.get import Get as KropffGet
 from ibeatles.fitting import KropffTabSelected
 from ibeatles.utilities.file_handler import select_folder
+from ibeatles.utilities.array_utilities import from_nparray_to_list
 
 from ibeatles.fitting import FittingTabSelected, FittingKeys
 from ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
@@ -343,8 +344,8 @@ class EventHandler:
         # cleanup data
         cleaned_dict = {}
 
-        cleaned_dict[FittingKeys.x_axis] = EventHandler.from_nparray_to_list(metadata_for_this_row[FittingKeys.x_axis])
-        cleaned_dict[FittingKeys.y_axis] = EventHandler.from_nparray_to_list(metadata_for_this_row[FittingKeys.y_axis])
+        cleaned_dict[FittingKeys.x_axis] = from_nparray_to_list(metadata_for_this_row[FittingKeys.x_axis])
+        cleaned_dict[FittingKeys.y_axis] = from_nparray_to_list(metadata_for_this_row[FittingKeys.y_axis])
 
         # fitted
         cleaned_dict[KropffSessionSubKeys.fitted] = {}
@@ -352,28 +353,28 @@ class EventHandler:
         # high tof
         cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof] = {}
         cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][FittingKeys.x_axis] = \
-            EventHandler.from_nparray_to_list(fitted_dict
+            from_nparray_to_list(fitted_dict
                                               [KropffSessionSubKeys.high_tof][FittingKeys.x_axis])
         cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][FittingKeys.y_axis] = \
-            EventHandler.from_nparray_to_list(fitted_dict
+            from_nparray_to_list(fitted_dict
                                               [KropffSessionSubKeys.high_tof][FittingKeys.y_axis])
 
         # low tof
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof] = {}
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][FittingKeys.x_axis] = \
-            EventHandler.from_nparray_to_list(fitted_dict
+            from_nparray_to_list(fitted_dict
                                               [KropffTabSelected.low_tof][FittingKeys.x_axis])
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][FittingKeys.y_axis] = \
-            EventHandler.from_nparray_to_list(fitted_dict
+            from_nparray_to_list(fitted_dict
                                               [KropffTabSelected.low_tof][FittingKeys.y_axis])
 
         # bragg peak
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak] = {}
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][FittingKeys.x_axis] = \
-            EventHandler.from_nparray_to_list(fitted_dict
+            from_nparray_to_list(fitted_dict
                                               [KropffTabSelected.bragg_peak][FittingKeys.x_axis])
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][FittingKeys.y_axis] = \
-            EventHandler.from_nparray_to_list(fitted_dict
+            from_nparray_to_list(fitted_dict
                                               [KropffTabSelected.bragg_peak][FittingKeys.y_axis])
 
         # fitting parameters
@@ -402,14 +403,6 @@ class EventHandler:
 
         with open(full_output_filename, 'w') as json_file:
             json.dump(cleaned_dict, json_file)
-
-
-
-    @staticmethod
-    def from_nparray_to_list(nparray=None):
-        if nparray is None:
-            return None
-        return list(nparray)
 
     def replace_bragg_peak_row_values(self):
         """replace by median of surrounding pixels"""

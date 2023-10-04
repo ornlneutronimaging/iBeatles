@@ -100,3 +100,9 @@ def calculate_median(array_of_value=None):
         return None
 
     return np.nanmedian(array_of_value)
+
+
+def from_nparray_to_list(nparray=None):
+    if nparray is None:
+        return None
+    return list(nparray)
