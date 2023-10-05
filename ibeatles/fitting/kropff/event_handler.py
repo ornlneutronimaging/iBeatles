@@ -291,8 +291,6 @@ class EventHandler:
         menu.addSeparator()
 
         display_fitting_parameters = menu.addAction("Fitting parameters viewer ...")
-        # button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state']
-
         button_state = self.did_we_perform_the_fitting()
 
         display_fitting_parameters.setEnabled(button_state)

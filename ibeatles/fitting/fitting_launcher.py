@@ -538,8 +538,7 @@ class FittingWindow(QMainWindow):
         o_display.update_fitting_parameters_matplotlib()
         self.update_locked_and_rejected_rows_in_bragg_peak_table()
         self.update_summary_table()
-        self.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state'] = True
-        self.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state'] = True
+        # self.kropff_bragg_table_right_click_menu[RightClickTableMenu.replace_values]['state'] = True
 
     # fitting settings
 

@@ -28,744 +28,70 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_7">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>1</number>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
       </property>
-      <widget class="QWidget" name="tab">
-       <attribute name="title">
-        <string>March-Dollase</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>1627</width>
+         <height>1123</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_15">
         <item>
-         <widget class="QSplitter" name="splitter_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="currentIndex">
+           <number>1</number>
           </property>
-          <property name="handleWidth">
-           <number>25</number>
-          </property>
-          <widget class="QWidget" name="layoutWidget_2">
-           <layout class="QHBoxLayout" name="horizontalLayout_23">
+          <widget class="QWidget" name="tab">
+           <attribute name="title">
+            <string>March-Dollase</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QWidget" name="widget_2" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <widget class="QSplitter" name="splitter_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QGroupBox" name="groupBox_13">
-              <property name="minimumSize">
-               <size>
-                <width>270</width>
-                <height>0</height>
-               </size>
+              <property name="handleWidth">
+               <number>25</number>
               </property>
-              <property name="title">
-               <string>Bragg Edge Infos</string>
-              </property>
-              <widget class="QGroupBox" name="material_groupBox_2">
-               <property name="geometry">
-                <rect>
-                 <x>15</x>
-                 <y>33</y>
-                 <width>244</width>
-                 <height>90</height>
-                </rect>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="title">
-                <string/>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
+              <widget class="QWidget" name="layoutWidget_2">
+               <layout class="QHBoxLayout" name="horizontalLayout_23">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_9">
-                  <item>
-                   <widget class="QLabel" name="label_4">
-                    <property name="text">
-                     <string>h,k,l</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QComboBox" name="hkl_list_ui_2">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>100</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>100</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_8">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="automatic_hkl0_checkBox_2">
-                    <property name="text">
-                     <string>Auto</string>
-                    </property>
-                    <property name="checked">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QWidget" name="widget_2" native="true">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_24">
-                  <item>
-                   <widget class="QLabel" name="bragg_edge_infos_lambda_0_label_2">
-                    <property name="minimumSize">
-                     <size>
-                      <width>30</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>30</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>l0</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="bragg_edge_calculated_2">
-                    <property name="minimumSize">
-                     <size>
-                      <width>50</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>50</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>N/A</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="bragg_edge_units_2">
-                    <property name="text">
-                     <string>A</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_10">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
-              <widget class="QGroupBox" name="lambda_range_selected_2">
-               <property name="geometry">
-                <rect>
-                 <x>15</x>
-                 <y>123</y>
-                 <width>244</width>
-                 <height>101</height>
-                </rect>
-               </property>
-               <property name="title">
-                <string>Range Selected</string>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_2">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="lambda_min_label_2">
-                  <property name="text">
-                   <string>Lambda min</string>
+                 <widget class="QGroupBox" name="groupBox_13">
+                  <property name="minimumSize">
+                   <size>
+                    <width>270</width>
+                    <height>0</height>
+                   </size>
                   </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QLineEdit" name="lambda_min_lineEdit_2"/>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="lambda_min_units_2">
-                  <property name="text">
-                   <string>A</string>
+                  <property name="title">
+                   <string>Bragg Edge Infos</string>
                   </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="lambda_max_label_2">
-                  <property name="text">
-                   <string>Lambda max</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="lambda_max_lineEdit_2"/>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QLabel" name="lambda_max_units_2">
-                  <property name="text">
-                   <string>A</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QWidget" name="layoutWidget">
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <widget class="QGroupBox" name="groupBox_8">
-              <property name="title">
-               <string>Instructions</string>
-              </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_10">
-               <item>
-                <widget class="QGroupBox" name="groupBox">
-                 <property name="title">
-                  <string>Step 1</string>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_11">
-                  <item>
-                   <widget class="QLabel" name="step1_instruction_label">
-                    <property name="enabled">
-                     <bool>true</bool>
-                    </property>
-                    <property name="text">
-                     <string>Activate bins you want to work on</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_9">
-                 <property name="title">
-                  <string>Step 2</string>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_13">
-                  <item>
-                   <widget class="QLabel" name="step2_instruction_label">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="text">
-                     <string>Select Bragg edge peak</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_10">
-                 <property name="title">
-                  <string>Step 3</string>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_19">
-                  <item>
-                   <widget class="QPushButton" name="step3_button">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Program determines inital guess value of parameters and fits data using 1 global bin</string>
-                    </property>
-                    <property name="text">
-                     <string>Initialize All Parameters</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QGroupBox" name="groupBox_11">
-                 <property name="title">
-                  <string>Step 4</string>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_20">
-                  <item>
-                   <widget class="QPushButton" name="step4_button">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="text">
-                     <string>Create Fitting Story ...</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
-              <item>
-               <widget class="QGroupBox" name="groupBox_2">
-                <property name="title">
-                 <string>Bins To Display</string>
-                </property>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <item>
-                  <widget class="QRadioButton" name="show_all_bins">
-                   <property name="text">
-                    <string>Show All</string>
+                  <widget class="QGroupBox" name="material_groupBox_2">
+                   <property name="geometry">
+                    <rect>
+                     <x>15</x>
+                     <y>33</y>
+                     <width>244</width>
+                     <height>90</height>
+                    </rect>
                    </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QRadioButton" name="show_only_active_bins">
-                   <property name="text">
-                    <string>Show Only Active</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QRadioButton" name="show_only_lock_bins">
-                   <property name="text">
-                    <string>Show Only Lock</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="advanced_table_checkBox">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="text">
-                 <string>Advanced Fitting</string>
-                </property>
-                <property name="checked">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_3">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QTableWidget" name="header_table">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>1400</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>1400</width>
-                <height>22</height>
-               </size>
-              </property>
-              <property name="verticalScrollBarPolicy">
-               <enum>Qt::ScrollBarAsNeeded</enum>
-              </property>
-              <property name="horizontalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOff</enum>
-              </property>
-              <property name="autoScroll">
-               <bool>true</bool>
-              </property>
-              <property name="selectionMode">
-               <enum>QAbstractItemView::MultiSelection</enum>
-              </property>
-              <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectColumns</enum>
-              </property>
-              <property name="cornerButtonEnabled">
-               <bool>true</bool>
-              </property>
-              <attribute name="horizontalHeaderVisible">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="horizontalHeaderHighlightSections">
-               <bool>true</bool>
-              </attribute>
-              <attribute name="horizontalHeaderStretchLastSection">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="verticalHeaderVisible">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="verticalHeaderHighlightSections">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="verticalHeaderStretchLastSection">
-               <bool>false</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string>Row</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Col</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Lock</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Active</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Fit. Confidence</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>D-spacing</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Sigma</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Alpha</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>A1</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>A2</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>A5</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>A6</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Intensity</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTableWidget" name="value_table">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>1400</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>1400</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="contextMenuPolicy">
-               <enum>Qt::CustomContextMenu</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Sunken</enum>
-              </property>
-              <property name="lineWidth">
-               <number>1</number>
-              </property>
-              <property name="horizontalScrollBarPolicy">
-               <enum>Qt::ScrollBarAlwaysOff</enum>
-              </property>
-              <property name="selectionMode">
-               <enum>QAbstractItemView::MultiSelection</enum>
-              </property>
-              <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectRows</enum>
-              </property>
-              <attribute name="verticalHeaderVisible">
-               <bool>false</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string/>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string/>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string/>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string/>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string/>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Val.</string>
-               </property>
-              </column>
-              <column>
-               <property name="text">
-                <string>Err.</string>
-               </property>
-              </column>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Kropff</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QSplitter" name="splitter_4">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <widget class="QSplitter" name="splitter">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <widget class="QSplitter" name="kropff_top_horizontal_splitter">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="handleWidth">
-             <number>25</number>
-            </property>
-            <widget class="QWidget" name="widget_kropff_left" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
-            <widget class="QWidget" name="widget_kropff_right" native="true">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-            </widget>
-           </widget>
-           <widget class="QGroupBox" name="groupBox_17">
-            <property name="minimumSize">
-             <size>
-              <width>340</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>300</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="title">
-             <string>Fitting Scenario</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_24">
-             <item>
-              <widget class="QTabWidget" name="tabWidget_6">
-               <property name="currentIndex">
-                <number>1</number>
-               </property>
-               <widget class="QWidget" name="tab_14">
-                <attribute name="title">
-                 <string>Bragg Edge Infos</string>
-                </attribute>
-                <layout class="QVBoxLayout" name="verticalLayout_25">
-                 <item>
-                  <widget class="QGroupBox" name="material_groupBox">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                      <horstretch>0</horstretch>
@@ -775,18 +101,18 @@
                    <property name="title">
                     <string/>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_3">
+                   <layout class="QVBoxLayout" name="verticalLayout_4">
                     <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout">
+                     <layout class="QHBoxLayout" name="horizontalLayout_9">
                       <item>
-                       <widget class="QLabel" name="label">
+                       <widget class="QLabel" name="label_4">
                         <property name="text">
                          <string>h,k,l</string>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QComboBox" name="hkl_list_ui">
+                       <widget class="QComboBox" name="hkl_list_ui_2">
                         <property name="enabled">
                          <bool>false</bool>
                         </property>
@@ -805,7 +131,7 @@
                        </widget>
                       </item>
                       <item>
-                       <spacer name="horizontalSpacer_2">
+                       <spacer name="horizontalSpacer_8">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
@@ -818,7 +144,7 @@
                        </spacer>
                       </item>
                       <item>
-                       <widget class="QCheckBox" name="automatic_hkl0_checkBox">
+                       <widget class="QCheckBox" name="automatic_hkl0_checkBox_2">
                         <property name="text">
                          <string>Auto</string>
                         </property>
@@ -830,9 +156,9 @@
                      </layout>
                     </item>
                     <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_2">
+                     <layout class="QHBoxLayout" name="horizontalLayout_24">
                       <item>
-                       <widget class="QLabel" name="bragg_edge_infos_lambda_0_label">
+                       <widget class="QLabel" name="bragg_edge_infos_lambda_0_label_2">
                         <property name="minimumSize">
                          <size>
                           <width>30</width>
@@ -851,7 +177,7 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QLabel" name="bragg_edge_calculated">
+                       <widget class="QLabel" name="bragg_edge_calculated_2">
                         <property name="minimumSize">
                          <size>
                           <width>50</width>
@@ -870,14 +196,14 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QLabel" name="bragg_edge_units">
+                       <widget class="QLabel" name="bragg_edge_units_2">
                         <property name="text">
                          <string>A</string>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <spacer name="horizontalSpacer">
+                       <spacer name="horizontalSpacer_10">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
@@ -893,42 +219,48 @@
                     </item>
                    </layout>
                   </widget>
-                 </item>
-                 <item>
-                  <widget class="QGroupBox" name="lambda_range_selected">
+                  <widget class="QGroupBox" name="lambda_range_selected_2">
+                   <property name="geometry">
+                    <rect>
+                     <x>15</x>
+                     <y>123</y>
+                     <width>244</width>
+                     <height>101</height>
+                    </rect>
+                   </property>
                    <property name="title">
                     <string>Range Selected</string>
                    </property>
-                   <layout class="QGridLayout" name="gridLayout">
+                   <layout class="QGridLayout" name="gridLayout_2">
                     <item row="0" column="0">
-                     <widget class="QLabel" name="lambda_min_label">
+                     <widget class="QLabel" name="lambda_min_label_2">
                       <property name="text">
                        <string>Lambda min</string>
                       </property>
                      </widget>
                     </item>
                     <item row="0" column="1">
-                     <widget class="QLineEdit" name="lambda_min_lineEdit"/>
+                     <widget class="QLineEdit" name="lambda_min_lineEdit_2"/>
                     </item>
                     <item row="0" column="2">
-                     <widget class="QLabel" name="lambda_min_units">
+                     <widget class="QLabel" name="lambda_min_units_2">
                       <property name="text">
                        <string>A</string>
                       </property>
                      </widget>
                     </item>
                     <item row="1" column="0">
-                     <widget class="QLabel" name="lambda_max_label">
+                     <widget class="QLabel" name="lambda_max_label_2">
                       <property name="text">
                        <string>Lambda max</string>
                       </property>
                      </widget>
                     </item>
                     <item row="1" column="1">
-                     <widget class="QLineEdit" name="lambda_max_lineEdit"/>
+                     <widget class="QLineEdit" name="lambda_max_lineEdit_2"/>
                     </item>
                     <item row="1" column="2">
-                     <widget class="QLabel" name="lambda_max_units">
+                     <widget class="QLabel" name="lambda_max_units_2">
                       <property name="text">
                        <string>A</string>
                       </property>
@@ -936,201 +268,684 @@
                     </item>
                    </layout>
                   </widget>
-                 </item>
-                </layout>
-               </widget>
-               <widget class="QWidget" name="tab_16">
-                <attribute name="title">
-                 <string>Fitting</string>
-                </attribute>
-                <layout class="QVBoxLayout" name="verticalLayout_26">
-                 <item>
-                  <widget class="QGroupBox" name="groupBox_12">
-                   <property name="title">
-                    <string>Step 0</string>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_18">
-                    <item>
-                     <widget class="QLabel" name="label_5">
-                      <property name="palette">
-                       <palette>
-                        <active>
-                         <colorrole role="WindowText">
-                          <brush brushstyle="SolidPattern">
-                           <color alpha="255">
-                            <red>25</red>
-                            <green>193</green>
-                            <blue>27</blue>
-                           </color>
-                          </brush>
-                         </colorrole>
-                        </active>
-                        <inactive>
-                         <colorrole role="WindowText">
-                          <brush brushstyle="SolidPattern">
-                           <color alpha="255">
-                            <red>25</red>
-                            <green>193</green>
-                            <blue>27</blue>
-                           </color>
-                          </brush>
-                         </colorrole>
-                        </inactive>
-                        <disabled>
-                         <colorrole role="WindowText">
-                          <brush brushstyle="SolidPattern">
-                           <color alpha="63">
-                            <red>0</red>
-                            <green>0</green>
-                            <blue>0</blue>
-                           </color>
-                          </brush>
-                         </colorrole>
-                        </disabled>
-                       </palette>
-                      </property>
-                      <property name="text">
-                       <string>Select the peak to fit</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QTabWidget" name="tabWidget_2">
-                   <property name="currentIndex">
-                    <number>0</number>
-                   </property>
-                   <widget class="QWidget" name="tab_12">
-                    <attribute name="title">
-                     <string>Automatic Mode</string>
-                    </attribute>
-                    <layout class="QHBoxLayout" name="horizontalLayout_14">
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="layoutWidget">
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QGroupBox" name="groupBox_8">
+                  <property name="title">
+                   <string>Instructions</string>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_10">
+                   <item>
+                    <widget class="QGroupBox" name="groupBox">
+                     <property name="title">
+                      <string>Step 1</string>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_11">
+                      <item>
+                       <widget class="QLabel" name="step1_instruction_label">
+                        <property name="enabled">
+                         <bool>true</bool>
+                        </property>
+                        <property name="text">
+                         <string>Activate bins you want to work on</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QGroupBox" name="groupBox_9">
+                     <property name="title">
+                      <string>Step 2</string>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_13">
+                      <item>
+                       <widget class="QLabel" name="step2_instruction_label">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
+                        <property name="text">
+                         <string>Select Bragg edge peak</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QGroupBox" name="groupBox_10">
+                     <property name="title">
+                      <string>Step 3</string>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_19">
+                      <item>
+                       <widget class="QPushButton" name="step3_button">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="toolTip">
+                         <string>Program determines inital guess value of parameters and fits data using 1 global bin</string>
+                        </property>
+                        <property name="text">
+                         <string>Initialize All Parameters</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QGroupBox" name="groupBox_11">
+                     <property name="title">
+                      <string>Step 4</string>
+                     </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_20">
+                      <item>
+                       <widget class="QPushButton" name="step4_button">
+                        <property name="enabled">
+                         <bool>false</bool>
+                        </property>
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="text">
+                         <string>Create Fitting Story ...</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_2">
+                    <property name="title">
+                     <string>Bins To Display</string>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
                      <item>
-                      <widget class="QPushButton" name="automatic_kropff_fitting_pushButton">
+                      <widget class="QRadioButton" name="show_all_bins">
                        <property name="text">
-                        <string>Fit selected peak</string>
+                        <string>Show All</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
                        </property>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="kropff_fitting_conditions_pushButton_1">
-                       <property name="minimumSize">
-                        <size>
-                         <width>20</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>20</width>
-                         <height>20</height>
-                        </size>
-                       </property>
+                      <widget class="QRadioButton" name="show_only_active_bins">
                        <property name="text">
-                        <string/>
+                        <string>Show Only Active</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QRadioButton" name="show_only_lock_bins">
+                       <property name="text">
+                        <string>Show Only Lock</string>
                        </property>
                       </widget>
                      </item>
                     </layout>
                    </widget>
-                   <widget class="QWidget" name="tab_13">
+                  </item>
+                  <item>
+                   <widget class="QCheckBox" name="advanced_table_checkBox">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="text">
+                     <string>Advanced Fitting</string>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="QTableWidget" name="header_table">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>1400</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>1400</width>
+                    <height>22</height>
+                   </size>
+                  </property>
+                  <property name="verticalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAsNeeded</enum>
+                  </property>
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                  <property name="autoScroll">
+                   <bool>true</bool>
+                  </property>
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::MultiSelection</enum>
+                  </property>
+                  <property name="selectionBehavior">
+                   <enum>QAbstractItemView::SelectColumns</enum>
+                  </property>
+                  <property name="cornerButtonEnabled">
+                   <bool>true</bool>
+                  </property>
+                  <attribute name="horizontalHeaderVisible">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="horizontalHeaderHighlightSections">
+                   <bool>true</bool>
+                  </attribute>
+                  <attribute name="horizontalHeaderStretchLastSection">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="verticalHeaderVisible">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="verticalHeaderHighlightSections">
+                   <bool>false</bool>
+                  </attribute>
+                  <attribute name="verticalHeaderStretchLastSection">
+                   <bool>false</bool>
+                  </attribute>
+                  <column>
+                   <property name="text">
+                    <string>Row</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Col</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Lock</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Active</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Fit. Confidence</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>D-spacing</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Sigma</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Alpha</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>A1</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>A2</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>A5</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>A6</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Intensity</string>
+                   </property>
+                  </column>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QTableWidget" name="value_table">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>1400</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>1400</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="contextMenuPolicy">
+                   <enum>Qt::CustomContextMenu</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Sunken</enum>
+                  </property>
+                  <property name="lineWidth">
+                   <number>1</number>
+                  </property>
+                  <property name="horizontalScrollBarPolicy">
+                   <enum>Qt::ScrollBarAlwaysOff</enum>
+                  </property>
+                  <property name="selectionMode">
+                   <enum>QAbstractItemView::MultiSelection</enum>
+                  </property>
+                  <property name="selectionBehavior">
+                   <enum>QAbstractItemView::SelectRows</enum>
+                  </property>
+                  <attribute name="verticalHeaderVisible">
+                   <bool>false</bool>
+                  </attribute>
+                  <column>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Val.</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Err.</string>
+                   </property>
+                  </column>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Kropff</string>
+           </attribute>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QSplitter" name="splitter_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <widget class="QSplitter" name="splitter">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <widget class="QSplitter" name="kropff_top_horizontal_splitter">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="handleWidth">
+                 <number>25</number>
+                </property>
+                <widget class="QWidget" name="widget_kropff_left" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
+                <widget class="QWidget" name="widget_kropff_right" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                </widget>
+               </widget>
+               <widget class="QGroupBox" name="groupBox_17">
+                <property name="minimumSize">
+                 <size>
+                  <width>340</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>300</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="title">
+                 <string>Fitting Scenario</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_24">
+                 <item>
+                  <widget class="QTabWidget" name="tabWidget_6">
+                   <property name="currentIndex">
+                    <number>0</number>
+                   </property>
+                   <widget class="QWidget" name="tab_14">
                     <attribute name="title">
-                     <string>Manual Mode</string>
+                     <string>Bragg Edge Infos</string>
                     </attribute>
-                    <layout class="QVBoxLayout" name="verticalLayout">
+                    <layout class="QVBoxLayout" name="verticalLayout_25">
                      <item>
-                      <widget class="QGroupBox" name="groupBox_7">
+                      <widget class="QGroupBox" name="material_groupBox">
                        <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
                        <property name="title">
-                        <string>Step 2</string>
+                        <string/>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_6">
+                       <layout class="QVBoxLayout" name="verticalLayout_3">
                         <item>
-                         <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_pushButton">
-                          <property name="minimumSize">
-                           <size>
-                            <width>0</width>
-                            <height>0</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string>Auto. peak threshold finder</string>
-                          </property>
-                         </widget>
+                         <layout class="QHBoxLayout" name="horizontalLayout">
+                          <item>
+                           <widget class="QLabel" name="label">
+                            <property name="text">
+                             <string>h,k,l</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QComboBox" name="hkl_list_ui">
+                            <property name="enabled">
+                             <bool>false</bool>
+                            </property>
+                            <property name="minimumSize">
+                             <size>
+                              <width>100</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>100</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_2">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                          <item>
+                           <widget class="QCheckBox" name="automatic_hkl0_checkBox">
+                            <property name="text">
+                             <string>Auto</string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
                         </item>
                         <item>
-                         <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_settings">
-                          <property name="minimumSize">
-                           <size>
-                            <width>20</width>
-                            <height>20</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>20</width>
-                            <height>20</height>
-                           </size>
-                          </property>
-                          <property name="text">
-                           <string/>
-                          </property>
-                         </widget>
+                         <layout class="QHBoxLayout" name="horizontalLayout_2">
+                          <item>
+                           <widget class="QLabel" name="bragg_edge_infos_lambda_0_label">
+                            <property name="minimumSize">
+                             <size>
+                              <width>30</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>30</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                            <property name="text">
+                             <string>l0</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="bragg_edge_calculated">
+                            <property name="minimumSize">
+                             <size>
+                              <width>50</width>
+                              <height>0</height>
+                             </size>
+                            </property>
+                            <property name="maximumSize">
+                             <size>
+                              <width>50</width>
+                              <height>16777215</height>
+                             </size>
+                            </property>
+                            <property name="text">
+                             <string>N/A</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="bragg_edge_units">
+                            <property name="text">
+                             <string>A</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
                         </item>
                        </layout>
                       </widget>
                      </item>
                      <item>
-                      <widget class="QGroupBox" name="groupBox_18">
+                      <widget class="QGroupBox" name="lambda_range_selected">
                        <property name="title">
-                        <string>Step 3</string>
+                        <string>Range Selected</string>
                        </property>
-                       <layout class="QHBoxLayout" name="horizontalLayout_31">
-                        <item>
-                         <widget class="QPushButton" name="kropff_fit_allregions_pushButton">
-                          <property name="enabled">
-                           <bool>false</bool>
-                          </property>
-                          <property name="minimumSize">
-                           <size>
-                            <width>0</width>
-                            <height>0</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>16777215</width>
-                            <height>16777215</height>
-                           </size>
-                          </property>
+                       <layout class="QGridLayout" name="gridLayout">
+                        <item row="0" column="0">
+                         <widget class="QLabel" name="lambda_min_label">
                           <property name="text">
-                           <string>Fit All Regions</string>
+                           <string>Lambda min</string>
                           </property>
                          </widget>
                         </item>
-                        <item>
-                         <widget class="QPushButton" name="kropff_fitting_conditions_pushButton">
-                          <property name="minimumSize">
-                           <size>
-                            <width>20</width>
-                            <height>20</height>
-                           </size>
-                          </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>20</width>
-                            <height>20</height>
-                           </size>
-                          </property>
+                        <item row="0" column="1">
+                         <widget class="QLineEdit" name="lambda_min_lineEdit"/>
+                        </item>
+                        <item row="0" column="2">
+                         <widget class="QLabel" name="lambda_min_units">
                           <property name="text">
-                           <string/>
+                           <string>A</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="0">
+                         <widget class="QLabel" name="lambda_max_label">
+                          <property name="text">
+                           <string>Lambda max</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item row="1" column="1">
+                         <widget class="QLineEdit" name="lambda_max_lineEdit"/>
+                        </item>
+                        <item row="1" column="2">
+                         <widget class="QLabel" name="lambda_max_units">
+                          <property name="text">
+                           <string>A</string>
                           </property>
                          </widget>
                         </item>
@@ -1139,524 +954,214 @@
                      </item>
                     </layout>
                    </widget>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </widget>
-             </item>
-             <item>
-              <spacer name="verticalSpacer">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-          <widget class="QSplitter" name="splitter_3">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <widget class="QTabWidget" name="kropff_tabWidget">
-            <property name="tabPosition">
-             <enum>QTabWidget::West</enum>
-            </property>
-            <property name="currentIndex">
-             <number>3</number>
-            </property>
-            <widget class="QWidget" name="tab_15">
-             <attribute name="title">
-              <string>Initial Settings</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_23">
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_12">
-                <item>
-                 <widget class="QGroupBox" name="groupBox_22">
-                  <property name="title">
-                   <string>Low TOF</string>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_38">
-                   <item>
-                    <widget class="QLabel" name="label_20">
-                     <property name="text">
-                      <string>ahkl</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="kropff_low_lda_ahkl_init">
-                     <property name="minimumSize">
-                      <size>
-                       <width>60</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>60</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="Line" name="line_6">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_21">
-                     <property name="text">
-                      <string>bhkl</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="kropff_low_lda_bhkl_init">
-                     <property name="minimumSize">
-                      <size>
-                       <width>60</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>60</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_20">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QGroupBox" name="groupBox_21">
-                  <property name="title">
-                   <string>High TOF</string>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_26">
-                   <item>
-                    <widget class="QLabel" name="label_13">
-                     <property name="text">
-                      <string>a0</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="kropff_high_lda_a0_init">
-                     <property name="minimumSize">
-                      <size>
-                       <width>60</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>60</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="Line" name="line_5">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_16">
-                     <property name="text">
-                      <string>b0</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="kropff_high_lda_b0_init">
-                     <property name="minimumSize">
-                      <size>
-                       <width>60</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>60</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_19">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="groupBox_23">
-                <property name="title">
-                 <string>Bragg Peak</string>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_22">
-                 <item>
-                  <widget class="QGroupBox" name="fitting_kropff_bragg_peak_lambda_hkl_groupBox">
-                   <property name="title">
-                    <string>lambda_hkl</string>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_7">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_40">
-                      <item>
-                       <widget class="QRadioButton" name="lambda_hkl_fix_radioButton">
-                        <property name="text">
-                         <string>fix</string>
-                        </property>
-                        <property name="checked">
-                         <bool>false</bool>
-                        </property>
+                   <widget class="QWidget" name="tab_16">
+                    <attribute name="title">
+                     <string>Fitting</string>
+                    </attribute>
+                    <layout class="QVBoxLayout" name="verticalLayout_26">
+                     <item>
+                      <widget class="QGroupBox" name="groupBox_12">
+                       <property name="title">
+                        <string>Step 0</string>
+                       </property>
+                       <layout class="QHBoxLayout" name="horizontalLayout_18">
+                        <item>
+                         <widget class="QLabel" name="label_5">
+                          <property name="palette">
+                           <palette>
+                            <active>
+                             <colorrole role="WindowText">
+                              <brush brushstyle="SolidPattern">
+                               <color alpha="255">
+                                <red>25</red>
+                                <green>193</green>
+                                <blue>27</blue>
+                               </color>
+                              </brush>
+                             </colorrole>
+                            </active>
+                            <inactive>
+                             <colorrole role="WindowText">
+                              <brush brushstyle="SolidPattern">
+                               <color alpha="255">
+                                <red>25</red>
+                                <green>193</green>
+                                <blue>27</blue>
+                               </color>
+                              </brush>
+                             </colorrole>
+                            </inactive>
+                            <disabled>
+                             <colorrole role="WindowText">
+                              <brush brushstyle="SolidPattern">
+                               <color alpha="63">
+                                <red>0</red>
+                                <green>0</green>
+                                <blue>0</blue>
+                               </color>
+                              </brush>
+                             </colorrole>
+                            </disabled>
+                           </palette>
+                          </property>
+                          <property name="text">
+                           <string>Select the peak to fit</string>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTabWidget" name="tabWidget_2">
+                       <property name="currentIndex">
+                        <number>0</number>
+                       </property>
+                       <widget class="QWidget" name="tab_12">
+                        <attribute name="title">
+                         <string>Automatic Mode</string>
+                        </attribute>
+                        <layout class="QHBoxLayout" name="horizontalLayout_14">
+                         <item>
+                          <widget class="QPushButton" name="automatic_kropff_fitting_pushButton">
+                           <property name="text">
+                            <string>Fit selected peak</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QPushButton" name="kropff_fitting_conditions_pushButton_1">
+                           <property name="minimumSize">
+                            <size>
+                             <width>20</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>20</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
                        </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lambda_hkl_fix_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>5e-8</string>
-                        </property>
+                       <widget class="QWidget" name="tab_13">
+                        <attribute name="title">
+                         <string>Manual Mode</string>
+                        </attribute>
+                        <layout class="QVBoxLayout" name="verticalLayout">
+                         <item>
+                          <widget class="QGroupBox" name="groupBox_7">
+                           <property name="sizePolicy">
+                            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                             <horstretch>0</horstretch>
+                             <verstretch>0</verstretch>
+                            </sizepolicy>
+                           </property>
+                           <property name="title">
+                            <string>Step 2</string>
+                           </property>
+                           <layout class="QHBoxLayout" name="horizontalLayout_6">
+                            <item>
+                             <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_pushButton">
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>0</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string>Auto. peak threshold finder</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QPushButton" name="automatic_bragg_peak_threshold_finder_settings">
+                              <property name="minimumSize">
+                               <size>
+                                <width>20</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>20</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QGroupBox" name="groupBox_18">
+                           <property name="title">
+                            <string>Step 3</string>
+                           </property>
+                           <layout class="QHBoxLayout" name="horizontalLayout_31">
+                            <item>
+                             <widget class="QPushButton" name="kropff_fit_allregions_pushButton">
+                              <property name="enabled">
+                               <bool>false</bool>
+                              </property>
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>0</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>16777215</width>
+                                <height>16777215</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string>Fit All Regions</string>
+                              </property>
+                             </widget>
+                            </item>
+                            <item>
+                             <widget class="QPushButton" name="kropff_fitting_conditions_pushButton">
+                              <property name="minimumSize">
+                               <size>
+                                <width>20</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                              <property name="maximumSize">
+                               <size>
+                                <width>20</width>
+                                <height>20</height>
+                               </size>
+                              </property>
+                              <property name="text">
+                               <string/>
+                              </property>
+                             </widget>
+                            </item>
+                           </layout>
+                          </widget>
+                         </item>
+                        </layout>
                        </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_21">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_41">
-                      <item>
-                       <widget class="QRadioButton" name="lambda_hkl_range_radioButton">
-                        <property name="text">
-                         <string>from </string>
-                        </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lambda_hkl_from_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>1e-8</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="to_label">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>to</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lambda_hkl_to_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>1e-7</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="step_label">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>step</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="lambda_hkl_step_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>1e-8</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QGroupBox" name="fitting_kropff_bragg_peak_tau_groupBox">
-                   <property name="title">
-                    <string>tau</string>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_9">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_42">
-                      <item>
-                       <widget class="QRadioButton" name="tau_fix_radioButton">
-                        <property name="text">
-                         <string>fix</string>
-                        </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="tau_fix_lineEdit">
-                        <property name="text">
-                         <string>1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_22">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_43">
-                      <item>
-                       <widget class="QRadioButton" name="tau_range_radioButton">
-                        <property name="text">
-                         <string>from </string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="tau_from_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>0.1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="to_label_1">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>to</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="tau_to_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="step_label_1">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>step</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="tau_step_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>0.1</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QGroupBox" name="fitting_kropff_bragg_peak_sigma_groupBox">
-                   <property name="title">
-                    <string>sigma</string>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_21">
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_44">
-                      <item>
-                       <widget class="QRadioButton" name="sigma_fix_radioButton">
-                        <property name="text">
-                         <string>fix</string>
-                        </property>
-                        <property name="checked">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="sigma_fix_lineEdit">
-                        <property name="text">
-                         <string>1e-2</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_23">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
-                    </item>
-                    <item>
-                     <layout class="QHBoxLayout" name="horizontalLayout_45">
-                      <item>
-                       <widget class="QRadioButton" name="sigma_range_radioButton">
-                        <property name="text">
-                         <string>from </string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="sigma_from_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>1e-7</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="to_label_2">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>to</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="sigma_to_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>1e-1</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="step_label_2">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>step</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QLineEdit" name="sigma_step_lineEdit">
-                        <property name="enabled">
-                         <bool>true</bool>
-                        </property>
-                        <property name="text">
-                         <string>10</string>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="verticalSpacer_2">
+                  <spacer name="verticalSpacer">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
                    </property>
@@ -1670,320 +1175,834 @@
                  </item>
                 </layout>
                </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="tab_4">
-             <attribute name="title">
-              <string>Low TOF</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <item>
-               <widget class="QTabWidget" name="tabWidget_4">
-                <property name="currentIndex">
-                 <number>0</number>
+              </widget>
+              <widget class="QSplitter" name="splitter_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <widget class="QTabWidget" name="kropff_tabWidget">
+                <property name="tabPosition">
+                 <enum>QTabWidget::West</enum>
                 </property>
-                <widget class="QWidget" name="tab_7">
+                <property name="currentIndex">
+                 <number>3</number>
+                </property>
+                <widget class="QWidget" name="tab_15">
                  <attribute name="title">
-                  <string>Table</string>
+                  <string>Initial Settings</string>
                  </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_17">
+                 <layout class="QVBoxLayout" name="verticalLayout_23">
                   <item>
-                   <widget class="QTableWidget" name="low_lda_tableWidget">
-                    <property name="alternatingRowColors">
-                     <bool>true</bool>
-                    </property>
-                    <property name="selectionMode">
-                     <enum>QAbstractItemView::SingleSelection</enum>
-                    </property>
-                    <property name="selectionBehavior">
-                     <enum>QAbstractItemView::SelectRows</enum>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="tab_8">
-                 <attribute name="title">
-                  <string>Graph</string>
-                 </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_18">
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_16">
+                   <layout class="QHBoxLayout" name="horizontalLayout_12">
                     <item>
-                     <widget class="QRadioButton" name="kropff_ahkl_radioButton">
-                      <property name="text">
-                       <string>ahkl</string>
+                     <widget class="QGroupBox" name="groupBox_22">
+                      <property name="title">
+                       <string>Low TOF</string>
                       </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_38">
+                       <item>
+                        <widget class="QLabel" name="label_20">
+                         <property name="text">
+                          <string>ahkl</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="kropff_low_lda_ahkl_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="Line" name="line_6">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_21">
+                         <property name="text">
+                          <string>bhkl</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="kropff_low_lda_bhkl_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_20">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="kropff_bhkl_radioButton">
-                      <property name="text">
-                       <string>bhkl</string>
+                     <widget class="QGroupBox" name="groupBox_21">
+                      <property name="title">
+                       <string>High TOF</string>
                       </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_26">
+                       <item>
+                        <widget class="QLabel" name="label_13">
+                         <property name="text">
+                          <string>a0</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="kropff_high_lda_a0_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="Line" name="line_5">
+                         <property name="orientation">
+                          <enum>Qt::Vertical</enum>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_16">
+                         <property name="text">
+                          <string>b0</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="kropff_high_lda_b0_init">
+                         <property name="minimumSize">
+                          <size>
+                           <width>60</width>
+                           <height>0</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>60</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_19">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
                      </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_16">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
                     </item>
                    </layout>
                   </item>
                   <item>
-                   <widget class="QWidget" name="low_widget" native="true">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
+                   <widget class="QGroupBox" name="groupBox_23">
+                    <property name="title">
+                     <string>Bragg Peak</string>
                     </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_22">
+                     <item>
+                      <widget class="QGroupBox" name="fitting_kropff_bragg_peak_lambda_hkl_groupBox">
+                       <property name="title">
+                        <string>lambda_hkl</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_7">
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_40">
+                          <item>
+                           <widget class="QRadioButton" name="lambda_hkl_fix_radioButton">
+                            <property name="text">
+                             <string>fix</string>
+                            </property>
+                            <property name="checked">
+                             <bool>false</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="lambda_hkl_fix_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>5e-8</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_21">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_41">
+                          <item>
+                           <widget class="QRadioButton" name="lambda_hkl_range_radioButton">
+                            <property name="text">
+                             <string>from </string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="lambda_hkl_from_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>1e-8</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="to_label">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>to</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="lambda_hkl_to_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>1e-7</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="step_label">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>step</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="lambda_hkl_step_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>1e-8</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="fitting_kropff_bragg_peak_tau_groupBox">
+                       <property name="title">
+                        <string>tau</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_9">
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_42">
+                          <item>
+                           <widget class="QRadioButton" name="tau_fix_radioButton">
+                            <property name="text">
+                             <string>fix</string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="tau_fix_lineEdit">
+                            <property name="text">
+                             <string>1</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_22">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_43">
+                          <item>
+                           <widget class="QRadioButton" name="tau_range_radioButton">
+                            <property name="text">
+                             <string>from </string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="tau_from_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>0.1</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="to_label_1">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>to</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="tau_to_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>2</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="step_label_1">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>step</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="tau_step_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>0.1</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QGroupBox" name="fitting_kropff_bragg_peak_sigma_groupBox">
+                       <property name="title">
+                        <string>sigma</string>
+                       </property>
+                       <layout class="QVBoxLayout" name="verticalLayout_21">
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_44">
+                          <item>
+                           <widget class="QRadioButton" name="sigma_fix_radioButton">
+                            <property name="text">
+                             <string>fix</string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="sigma_fix_lineEdit">
+                            <property name="text">
+                             <string>1e-2</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <spacer name="horizontalSpacer_23">
+                            <property name="orientation">
+                             <enum>Qt::Horizontal</enum>
+                            </property>
+                            <property name="sizeHint" stdset="0">
+                             <size>
+                              <width>40</width>
+                              <height>20</height>
+                             </size>
+                            </property>
+                           </spacer>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <layout class="QHBoxLayout" name="horizontalLayout_45">
+                          <item>
+                           <widget class="QRadioButton" name="sigma_range_radioButton">
+                            <property name="text">
+                             <string>from </string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="sigma_from_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>1e-7</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="to_label_2">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>to</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="sigma_to_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>1e-1</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLabel" name="step_label_2">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>step</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QLineEdit" name="sigma_step_lineEdit">
+                            <property name="enabled">
+                             <bool>true</bool>
+                            </property>
+                            <property name="text">
+                             <string>10</string>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                       </layout>
+                      </widget>
+                     </item>
+                     <item>
+                      <spacer name="verticalSpacer_2">
+                       <property name="orientation">
+                        <enum>Qt::Vertical</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>20</width>
+                         <height>40</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
                    </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="tab_4">
+                 <attribute name="title">
+                  <string>Low TOF</string>
+                 </attribute>
+                 <layout class="QVBoxLayout" name="verticalLayout_10">
+                  <item>
+                   <widget class="QTabWidget" name="tabWidget_4">
+                    <property name="currentIndex">
+                     <number>0</number>
+                    </property>
+                    <widget class="QWidget" name="tab_7">
+                     <attribute name="title">
+                      <string>Table</string>
+                     </attribute>
+                     <layout class="QVBoxLayout" name="verticalLayout_17">
+                      <item>
+                       <widget class="QTableWidget" name="low_lda_tableWidget">
+                        <property name="alternatingRowColors">
+                         <bool>true</bool>
+                        </property>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::SingleSelection</enum>
+                        </property>
+                        <property name="selectionBehavior">
+                         <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="tab_8">
+                     <attribute name="title">
+                      <string>Graph</string>
+                     </attribute>
+                     <layout class="QVBoxLayout" name="verticalLayout_18">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_16">
+                        <item>
+                         <widget class="QRadioButton" name="kropff_ahkl_radioButton">
+                          <property name="text">
+                           <string>ahkl</string>
+                          </property>
+                          <property name="checked">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QRadioButton" name="kropff_bhkl_radioButton">
+                          <property name="text">
+                           <string>bhkl</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_16">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QWidget" name="low_widget" native="true">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="tab_3">
+                 <attribute name="title">
+                  <string>High TOF</string>
+                 </attribute>
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <item>
+                   <widget class="QTabWidget" name="tabWidget_3">
+                    <property name="currentIndex">
+                     <number>0</number>
+                    </property>
+                    <widget class="QWidget" name="tab_5">
+                     <attribute name="title">
+                      <string>Table</string>
+                     </attribute>
+                     <layout class="QVBoxLayout" name="verticalLayout_15">
+                      <item>
+                       <widget class="QTableWidget" name="high_lda_tableWidget">
+                        <property name="alternatingRowColors">
+                         <bool>true</bool>
+                        </property>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::SingleSelection</enum>
+                        </property>
+                        <property name="selectionBehavior">
+                         <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="tab_6">
+                     <attribute name="title">
+                      <string>Graph </string>
+                     </attribute>
+                     <layout class="QVBoxLayout" name="verticalLayout_16">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_8">
+                        <item>
+                         <widget class="QRadioButton" name="kropff_a0_radioButton">
+                          <property name="text">
+                           <string>a0</string>
+                          </property>
+                          <property name="checked">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QRadioButton" name="kropff_b0_radioButton">
+                          <property name="text">
+                           <string>b0</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_13">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QWidget" name="high_widget" native="true">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="tab_9">
+                 <attribute name="title">
+                  <string>Bragg Peak</string>
+                 </attribute>
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <item>
+                   <widget class="QTabWidget" name="tabWidget_5">
+                    <property name="currentIndex">
+                     <number>0</number>
+                    </property>
+                    <widget class="QWidget" name="tab_10">
+                     <attribute name="title">
+                      <string>Table</string>
+                     </attribute>
+                     <layout class="QVBoxLayout" name="verticalLayout_19">
+                      <item>
+                       <widget class="QTableWidget" name="bragg_edge_tableWidget">
+                        <property name="contextMenuPolicy">
+                         <enum>Qt::CustomContextMenu</enum>
+                        </property>
+                        <property name="alternatingRowColors">
+                         <bool>false</bool>
+                        </property>
+                        <property name="selectionMode">
+                         <enum>QAbstractItemView::SingleSelection</enum>
+                        </property>
+                        <property name="selectionBehavior">
+                         <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_21">
+                        <item>
+                         <spacer name="horizontalSpacer_4">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="label_2">
+                          <property name="text">
+                           <string>Number of digits</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QSpinBox" name="kropff_bragg_peak_number_of_digits_spinBox">
+                          <property name="maximum">
+                           <number>10</number>
+                          </property>
+                          <property name="value">
+                           <number>4</number>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                     </layout>
+                    </widget>
+                    <widget class="QWidget" name="tab_11">
+                     <attribute name="title">
+                      <string>Graph</string>
+                     </attribute>
+                     <layout class="QVBoxLayout" name="verticalLayout_20">
+                      <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_17">
+                        <item>
+                         <widget class="QRadioButton" name="kropff_lda_hkl_radioButton">
+                          <property name="text">
+                           <string>lambda_hkl</string>
+                          </property>
+                          <property name="checked">
+                           <bool>true</bool>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QRadioButton" name="kropff_tau_radioButton">
+                          <property name="text">
+                           <string>tau</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QRadioButton" name="kropff_sigma_radioButton">
+                          <property name="text">
+                           <string>sigma</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <spacer name="horizontalSpacer_17">
+                          <property name="orientation">
+                           <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                           <size>
+                            <width>40</width>
+                            <height>20</height>
+                           </size>
+                          </property>
+                         </spacer>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
+                       <widget class="QWidget" name="bragg_peak_widget" native="true">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
+                    </widget>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="Summary">
+                 <attribute name="title">
+                  <string>Summary</string>
+                 </attribute>
+                 <layout class="QHBoxLayout" name="horizontalLayout_29">
+                  <item>
+                   <widget class="QTableWidget" name="kropff_summary_tableWidget"/>
                   </item>
                  </layout>
                 </widget>
                </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="tab_3">
-             <attribute name="title">
-              <string>High TOF</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <item>
-               <widget class="QTabWidget" name="tabWidget_3">
-                <property name="currentIndex">
-                 <number>0</number>
-                </property>
-                <widget class="QWidget" name="tab_5">
-                 <attribute name="title">
-                  <string>Table</string>
-                 </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_15">
-                  <item>
-                   <widget class="QTableWidget" name="high_lda_tableWidget">
-                    <property name="alternatingRowColors">
-                     <bool>true</bool>
-                    </property>
-                    <property name="selectionMode">
-                     <enum>QAbstractItemView::SingleSelection</enum>
-                    </property>
-                    <property name="selectionBehavior">
-                     <enum>QAbstractItemView::SelectRows</enum>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="tab_6">
-                 <attribute name="title">
-                  <string>Graph </string>
-                 </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_16">
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_8">
-                    <item>
-                     <widget class="QRadioButton" name="kropff_a0_radioButton">
-                      <property name="text">
-                       <string>a0</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="kropff_b0_radioButton">
-                      <property name="text">
-                       <string>b0</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_13">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QWidget" name="high_widget" native="true">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="tab_9">
-             <attribute name="title">
-              <string>Bragg Peak</string>
-             </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item>
-               <widget class="QTabWidget" name="tabWidget_5">
-                <property name="currentIndex">
-                 <number>0</number>
-                </property>
-                <widget class="QWidget" name="tab_10">
-                 <attribute name="title">
-                  <string>Table</string>
-                 </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_19">
-                  <item>
-                   <widget class="QTableWidget" name="bragg_edge_tableWidget">
-                    <property name="contextMenuPolicy">
-                     <enum>Qt::CustomContextMenu</enum>
-                    </property>
-                    <property name="alternatingRowColors">
-                     <bool>false</bool>
-                    </property>
-                    <property name="selectionMode">
-                     <enum>QAbstractItemView::SingleSelection</enum>
-                    </property>
-                    <property name="selectionBehavior">
-                     <enum>QAbstractItemView::SelectRows</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_21">
-                    <item>
-                     <spacer name="horizontalSpacer_4">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_2">
-                      <property name="text">
-                       <string>Number of digits</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSpinBox" name="kropff_bragg_peak_number_of_digits_spinBox">
-                      <property name="maximum">
-                       <number>10</number>
-                      </property>
-                      <property name="value">
-                       <number>4</number>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-                <widget class="QWidget" name="tab_11">
-                 <attribute name="title">
-                  <string>Graph</string>
-                 </attribute>
-                 <layout class="QVBoxLayout" name="verticalLayout_20">
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_17">
-                    <item>
-                     <widget class="QRadioButton" name="kropff_lda_hkl_radioButton">
-                      <property name="text">
-                       <string>lambda_hkl</string>
-                      </property>
-                      <property name="checked">
-                       <bool>true</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="kropff_tau_radioButton">
-                      <property name="text">
-                       <string>tau</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QRadioButton" name="kropff_sigma_radioButton">
-                      <property name="text">
-                       <string>sigma</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <spacer name="horizontalSpacer_17">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QWidget" name="bragg_peak_widget" native="true">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-            <widget class="QWidget" name="Summary">
-             <attribute name="title">
-              <string>Summary</string>
-             </attribute>
-             <layout class="QHBoxLayout" name="horizontalLayout_29">
-              <item>
-               <widget class="QTableWidget" name="kropff_summary_tableWidget"/>
-              </item>
-             </layout>
-            </widget>
-           </widget>
-           <widget class="QWidget" name="kropff_widget" native="true"/>
+               <widget class="QWidget" name="kropff_widget" native="true"/>
+              </widget>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
