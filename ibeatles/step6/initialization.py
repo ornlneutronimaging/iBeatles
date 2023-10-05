@@ -38,7 +38,7 @@ class Initialization:
 
     def range_slider(self):
         layout = QVBoxLayout()
-        self.parent.ui.range_slider = QRangeSlider(splitterWidth=50,
+        self.parent.ui.range_slider = QRangeSlider(splitterWidth=100,
                                                    vertical=True,
                                                    min_at_the_bottom=True)
 
@@ -50,6 +50,9 @@ class Initialization:
 
         real_min = self.parent.min_max[parameter_displayed]['min']
         real_max = self.parent.min_max[parameter_displayed]['max']
+
+        self.parent.ui.max_range_lineEdit.setText(f"{real_max:.5f}")
+        self.parent.ui.min_range_lineEdit.setText(f"{real_min:.5f}")
 
         self.parent.ui.range_slider.setRealMin(real_min)
         self.parent.ui.range_slider.setRealMax(real_max)
@@ -140,7 +143,7 @@ class Initialization:
         self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.nanmin(strain_mapping_roi),
                                                                    'max': np.nanmax(strain_mapping_roi),
                                                                    'global_min': np.nanmin(strain_mapping_roi),
-                                                                   'global_max': np.nanxmax(strain_mapping_roi)}
+                                                                   'global_max': np.nanmax(strain_mapping_roi)}
 
         # self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.min(strain_mapping_roi),
         #                                                            'max': np.max(strain_mapping_roi),

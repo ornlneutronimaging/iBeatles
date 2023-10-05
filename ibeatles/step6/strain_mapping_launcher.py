@@ -98,6 +98,23 @@ class StrainMappingWindow(QMainWindow):
         o_event = EventHandler(parent=self)
         o_event.min_max_changed()
 
+    def min_max_lineEdit_value_changed(self):
+        min_value = float(self.ui.min_range_lineEdit.text())
+        max_value = float(self.ui.max_range_lineEdit.text())
+        o_get = Get(parent=self)
+        parameter_displayed = o_get.parameter_to_display()
+        self.min_max[parameter_displayed]['global_min'] = min_value
+        self.min_max[parameter_displayed]['global_max'] = max_value
+
+        if self.min_max[parameter_displayed]['min'] < min_value:
+            self.min_max[parameter_displayed]['min'] = min_value
+
+        if self.min_max[parameter_displayed]['max'] > max_value:
+            self.min_max[parameter_displayed]['max'] = max_value
+
+        self.update_min_max_values()
+        self.update_display()
+
     def update_display(self):
         o_display = Display(parent=self,
                             grand_parent=self.parent)
@@ -134,6 +151,9 @@ class StrainMappingWindow(QMainWindow):
 
         self.ui.range_slider.setRealMin(global_min_value)
         self.ui.range_slider.setRealMax(global_max_value)
+
+        self.ui.max_range_lineEdit.setText(f"{global_max_value:.5f}")
+        self.ui.min_range_lineEdit.setText(f"{global_min_value:.5f}")
 
         # self.ui.range_slider.setRealRange(min_value, max_value)
         # self.ui.range_slider.setRealRange(global_min_value, global_max_value)
