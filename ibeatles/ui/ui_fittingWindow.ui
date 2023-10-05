@@ -772,7 +772,7 @@
                  <item>
                   <widget class="QTabWidget" name="tabWidget_6">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="tab_14">
                     <attribute name="title">

@@ -178,11 +178,8 @@ class VariableTableHandler:
 
         _lock = menu.addAction("Lock Selection")
         _lock.setEnabled(state_button)
-        _unlock = menu.addAction("Unlock Selection")
+        _unlock = menu.addAction("Unlock and replace by median of surrounding pixels")
         _unlock.setEnabled(state_button)
-        menu.addSeparator()
-        _median = menu.addAction("Replace by median of surrounding pixels")
-        _median.setEnabled(state_button)
 
         action = menu.exec_(QtGui.QCursor.pos())
 
@@ -190,7 +187,6 @@ class VariableTableHandler:
             self.lock_selection()
         elif action == _unlock:
             self.unlock_selection()
-        elif action == _median:
             self.replace_by_median_of_surrounding_pixels()
 
     def replace_by_median_of_surrounding_pixels(self):

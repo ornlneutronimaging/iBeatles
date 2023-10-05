@@ -218,15 +218,15 @@ class FittingWindow(QMainWindow):
         o_export = KropffExport(parent=self,
                                 grand_parent=self.parent)
         o_export.ascii()
-        self.ui.setFocus()
         self.ui.activateWindow()
+        self.ui.setFocus()
 
     def menu_export_table_as_json_clicked(self):
         o_export = KropffExport(parent=self,
                                 grand_parent=self.parent)
         o_export.json()
-        self.ui.setFocus()
         self.ui.activateWindow()
+        self.ui.setFocus()
 
     def re_fill_table(self):
         o_fitting = FittingHandler(parent=self, grand_parent=self.parent)
