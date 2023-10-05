@@ -312,20 +312,20 @@ class VariableTableHandler:
     def lock_selection(self):
         self.change_state_of_bins(name='lock', state=True)
         self.parent.update_table()
-        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
-        o_table.select_everything(False)
+        # o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        # o_table.select_everything(False)
 
     def unlock_selection(self):
         self.change_state_of_bins(name='lock', state=False)
         self.parent.update_table()
-        o_table = TableHandler(table_ui=self.parent.ui.variable_table)
-        o_table.select_everything(False)
+        # o_table = TableHandler(table_ui=self.parent.ui.variable_table)
+        # o_table.select_everything(False)
 
     def change_state_of_bins(self, name='lock', state=True):
 
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         all_selection = o_table.get_selection()
-        table_dictionary = self.parent.kropff_table_dictionary
+        # table_dictionary = self.parent.kropff_table_dictionary
         logging.info("Changing lock state of selection")
 
         for _selection in all_selection:
@@ -346,24 +346,3 @@ class VariableTableHandler:
 
             for _key in list_keys:
                 self.parent.kropff_table_dictionary[_key][SessionSubKeys.lock] = state
-
-    # def update_fitting_ui(self, name='active'):
-    #     o_event = EventHandler(parent=self.parent,
-    #                            grand_parent=self.grand_parent)
-    #     if name == 'lock':
-    #         o_event.update_image_view_lock()
-    #     elif name == 'active':
-    #         o_event.update_image_view_selection()
-    #
-    #     o_filling_table = FillingTableHandler(grand_parent=self.grand_parent)
-    #     self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
-    #     o_filling_table.fill_table()
-    #
-    #     self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
-    #
-    # def update_advanced_selection_ui(self, name='active'):
-    #     if self.grand_parent.advanced_selection_ui:
-    #         if name == 'lock':
-    #             self.grand_parent.advanced_selection_ui.update_lock_table()
-    #         elif name == 'active':
-    #             self.grand_parent.advanced_selection_ui.update_selected_table()

@@ -140,7 +140,7 @@ class Initialization:
         self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.nanmin(strain_mapping_roi),
                                                                    'max': np.nanmax(strain_mapping_roi),
                                                                    'global_min': np.nanmin(strain_mapping_roi),
-                                                                   'global_max': np.nanmax(strain_mapping_roi)}
+                                                                   'global_max': np.nanxmax(strain_mapping_roi)}
 
         # self.parent.min_max[ParametersToDisplay.strain_mapping] = {'min': np.min(strain_mapping_roi),
         #                                                            'max': np.max(strain_mapping_roi),
