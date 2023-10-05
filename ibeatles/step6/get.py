@@ -30,8 +30,10 @@ class Get:
         strain_mapping = (d_array - d0) / d0
 
         if self.parent.min_max['strain_mapping'] is None:
-            self.parent.min_max['strain_mapping'] = {'min': np.min(strain_mapping),
-                                                     'max': np.max(strain_mapping)}
+            self.parent.min_max['strain_mapping'] = {'min': np.nanmin(strain_mapping),
+                                                     'max': np.nanmax(strain_mapping)}
+            self.parent.min_max['strain_mapping'] = {'global_min': np.nanmin(strain_mapping),
+                                                     'global_max': np.nanmax(strain_mapping)}
 
         return strain_mapping
 

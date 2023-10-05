@@ -85,6 +85,7 @@ class StrainMappingWindow(QMainWindow):
 
     def d0_to_use_changed(self):
         self.update_display()
+        self.update_slider_and_lineEdit()
 
     def export_clicked(self):
         o_export = Export(parent=self, grand_parent=self.parent)
@@ -97,6 +98,15 @@ class StrainMappingWindow(QMainWindow):
     def min_max_value_changed(self):
         o_event = EventHandler(parent=self)
         o_event.min_max_changed()
+
+    def update_slider_and_lineEdit(self):
+        self.update_min_max_values()
+        o_get = Get(parent=self)
+        parameter_displayed = o_get.parameter_to_display()
+        min_value = self.min_max[parameter_displayed]['global_min']
+        max_value = self.min_max[parameter_displayed]['global_max']
+        self.ui.max_range_lineEdit.setText(f"{max_value:.5f}")
+        self.ui.min_range_lineEdit.setText(f"{min_value:.5f}")
 
     def min_max_lineEdit_value_changed(self):
         min_value = float(self.ui.min_range_lineEdit.text())
