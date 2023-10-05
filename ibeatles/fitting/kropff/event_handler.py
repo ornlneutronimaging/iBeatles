@@ -18,6 +18,7 @@ from ibeatles.fitting.kropff.get import Get as KropffGet
 from ibeatles.fitting import KropffTabSelected
 from ibeatles.utilities.file_handler import select_folder
 from ibeatles.utilities.array_utilities import from_nparray_to_list
+from ibeatles.utilities.check import is_float, is_nan
 
 from ibeatles.fitting import FittingTabSelected, FittingKeys
 from ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
@@ -290,7 +291,10 @@ class EventHandler:
         menu.addSeparator()
 
         display_fitting_parameters = menu.addAction("Fitting parameters viewer ...")
-        button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state']
+        # button_state = self.parent.kropff_bragg_table_right_click_menu[RightClickTableMenu.display_fitting_parameters]['state']
+
+        button_state = self.did_we_perform_the_fitting()
+
         display_fitting_parameters.setEnabled(button_state)
         # unlock_all_rows = menu.addAction("Un-lock/Un-reject all rows")
 
@@ -308,6 +312,24 @@ class EventHandler:
             self.display_fitting_parameters()
         elif action == export_bin:
             self.export_bin()
+
+    def did_we_perform_the_fitting(self) -> bool:
+        """
+        do we have the fitting table filled with values
+         if at least one lambda_hkl value is found, return True, otherwise return False
+
+        Returns
+            bool
+        """
+        table = self.grand_parent.kropff_table_dictionary
+        for _row in table.keys():
+            lambda_hkl_value = table[_row][KropffSessionSubKeys.lambda_hkl]['val']
+            if is_nan(lambda_hkl_value):
+                continue
+
+            if is_float(lambda_hkl_value):
+                return True
+        return False
 
     def export_bin(self):
         logging.info(f"Exporting bin:")
