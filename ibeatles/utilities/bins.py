@@ -28,6 +28,9 @@ def create_list_of_surrounding_bins(central_bin=None, full_bin_width=None, full_
     """
     this will return the list of bins surrounding the central_bin coordinates (row, column)
 
+    bin_width = 6
+    bin_height = 5
+
     example1:
         central_bin = (0,0)
         surrounding_bins = [(1,0), (1,1), (0,1)]
@@ -44,10 +47,10 @@ def create_list_of_surrounding_bins(central_bin=None, full_bin_width=None, full_
     column = central_bin[1]
 
     left_row_value = np.max([row-1, 0])
-    right_row_value = row if (row+1) >= full_bin_width else (row+1)
+    right_row_value = row if (row+1) >= full_bin_height else (row+1)
 
     top_column_value = np.max([column-1, 0])
-    bottom_column_value = column if (column+1) >= full_bin_height else (column+1)
+    bottom_column_value = column if (column+1) >= full_bin_width else (column+1)
 
     list_surrounding_bins = []
     for _row in np.arange(left_row_value, right_row_value+1):

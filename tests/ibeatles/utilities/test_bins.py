@@ -96,50 +96,62 @@ class TestCreateListOfSurroundingBins(TestCase):
 
         self.assertEqual(expected_surrounding_bins, surrounding_bins)
 
-    def test_case_bottom_left_corner(self):
-        """assert case for bottom left corner"""
+    def test_case_bottom_left_middle(self):
+        """assert case for left middle"""
         central_bin = (4, 0)
         surrounding_bins = create_list_of_surrounding_bins(central_bin=central_bin,
                                                            full_bin_width=self.full_bin_width,
                                                            full_bin_height=self.full_bin_height)
-        expected_surrounding_bins = [(3, 0), (3, 1), (4, 1)]
+        expected_surrounding_bins = [(3, 0), (3, 1), (4, 1), (5, 1), (5, 0)]
         expected_surrounding_bins.sort()
 
         self.assertEqual(expected_surrounding_bins, surrounding_bins)
 
     def test_case_top_right_corner(self):
         """assert case for top right corner"""
-        central_bin = (0, 9)
+        central_bin = (0, 4)
         surrounding_bins = create_list_of_surrounding_bins(central_bin=central_bin,
                                                            full_bin_width=self.full_bin_width,
                                                            full_bin_height=self.full_bin_height)
-        expected_surrounding_bins = [(0, 8), (1, 8), (1, 9)]
+        expected_surrounding_bins = [(0, 3), (1, 3), (1, 4)]
         expected_surrounding_bins.sort()
 
         self.assertEqual(expected_surrounding_bins, surrounding_bins)
 
     def test_case_bottom_right_corner(self):
         """assert case for bottom right corner"""
-        central_bin = (4, 9)
+        central_bin = (9, 4)
         surrounding_bins = create_list_of_surrounding_bins(central_bin=central_bin,
                                                            full_bin_width=self.full_bin_width,
                                                            full_bin_height=self.full_bin_height)
-        expected_surrounding_bins = [(3, 8), (3, 9), (4, 8)]
+        expected_surrounding_bins = [(9, 3), (8, 3), (8, 4)]
         expected_surrounding_bins.sort()
 
         self.assertEqual(expected_surrounding_bins, surrounding_bins)
 
     def test_case_central_bin(self):
         """assert case for bin inside the image, not on the edge"""
-        central_bin = (3, 4)
+        central_bin = (3, 2)
         surrounding_bins = create_list_of_surrounding_bins(central_bin=central_bin,
                                                            full_bin_width=self.full_bin_width,
                                                            full_bin_height=self.full_bin_height)
-        expected_surrounding_bins = [(2, 3), (2, 4), (2, 5), (3, 3), (3, 5), (4, 3), (4, 4), (4, 5)]
+        expected_surrounding_bins = [(2, 1), (2, 2), (2, 3), (3, 1), (3, 3), (4, 1), (4, 2), (4, 3)]
         expected_surrounding_bins.sort()
 
         self.assertEqual(expected_surrounding_bins, surrounding_bins)
 
+    def test_case_last_column_large_array(self):
+        """assert case for bin in last column with a large 2D array"""
+        central_bin = (14, 25)
+        self.full_bin_height = 26
+        self.full_bin_width = 25
+        surrounding_bins = create_list_of_surrounding_bins(central_bin=central_bin,
+                                                           full_bin_width=self.full_bin_width,
+                                                           full_bin_height=self.full_bin_height)
+        expected_surrounding_bins = [(13, 24), (14, 24), (15, 24), (13, 25), (15, 25)]
+        expected_surrounding_bins.sort()
+
+        self.assertEqual(expected_surrounding_bins, surrounding_bins)
 
 class TestConvertBinsToKeys(TestCase):
 

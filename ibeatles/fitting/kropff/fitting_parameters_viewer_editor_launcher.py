@@ -218,6 +218,9 @@ class VariableTableHandler:
 
                 [central_key] = convert_bins_to_keys(list_of_bins=[central_bin],
                                                      full_bin_height=self.nbr_row)
+
+                print(f"{central_key =}")
+
                 if self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lock]:
                     logging.info(f"-> bin #{central_key} is locked and won't be modified!")
                     # we don't do anything if the cell is locked !
@@ -230,43 +233,45 @@ class VariableTableHandler:
                 surrounding_keys = convert_bins_to_keys(list_of_bins=surrounding_bins,
                                                         full_bin_height=self.nbr_row)
 
-                list_lambda_value = []
-                list_tau_value = []
-                list_sigma_value = []
+                print(f"{surrounding_keys =}")
 
-                list_lambda_error = []
-                list_tau_error = []
-                list_sigma_error = []
-
-                for _key in surrounding_keys:
-
-                    list_lambda_value.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['val'])
-                    list_tau_value.append(table_dictionary[_key][SessionSubKeys.tau]['val'])
-                    list_sigma_value.append(table_dictionary[_key][SessionSubKeys.sigma]['val'])
-
-                    list_lambda_error.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['err'])
-                    list_tau_error.append(table_dictionary[_key][SessionSubKeys.tau]['err'])
-                    list_sigma_error.append(table_dictionary[_key][SessionSubKeys.sigma]['err'])
-
-                new_lambda_value = calculate_median(array_of_value=list_lambda_value)
-                new_lambda_error = calculate_median(array_of_value=list_lambda_error)
-
-                new_tau_value = calculate_median(array_of_value=list_tau_value)
-                new_tau_error = calculate_median(array_of_value=list_tau_error)
-
-                new_sigma_value = calculate_median(array_of_value=list_sigma_value)
-                new_sigma_error = calculate_median(array_of_value=list_sigma_error)
-
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['val'] = new_lambda_value
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['err'] = new_lambda_error
-
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['val'] = new_tau_value
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['err'] = new_tau_error
-
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['val'] = new_sigma_value
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['err'] = new_sigma_error
-
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lock] = True
+                # list_lambda_value = []
+                # list_tau_value = []
+                # list_sigma_value = []
+                #
+                # list_lambda_error = []
+                # list_tau_error = []
+                # list_sigma_error = []
+                #
+                # for _key in surrounding_keys:
+                #
+                #     list_lambda_value.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['val'])
+                #     list_tau_value.append(table_dictionary[_key][SessionSubKeys.tau]['val'])
+                #     list_sigma_value.append(table_dictionary[_key][SessionSubKeys.sigma]['val'])
+                #
+                #     list_lambda_error.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]['err'])
+                #     list_tau_error.append(table_dictionary[_key][SessionSubKeys.tau]['err'])
+                #     list_sigma_error.append(table_dictionary[_key][SessionSubKeys.sigma]['err'])
+                #
+                # new_lambda_value = calculate_median(array_of_value=list_lambda_value)
+                # new_lambda_error = calculate_median(array_of_value=list_lambda_error)
+                #
+                # new_tau_value = calculate_median(array_of_value=list_tau_value)
+                # new_tau_error = calculate_median(array_of_value=list_tau_error)
+                #
+                # new_sigma_value = calculate_median(array_of_value=list_sigma_value)
+                # new_sigma_error = calculate_median(array_of_value=list_sigma_error)
+                #
+                # self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['val'] = new_lambda_value
+                # self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]['err'] = new_lambda_error
+                #
+                # self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['val'] = new_tau_value
+                # self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]['err'] = new_tau_error
+                #
+                # self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['val'] = new_sigma_value
+                # self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]['err'] = new_sigma_error
+                #
+                # self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lock] = True
 
         # refresh table
         self.parent.update_table()
