@@ -204,7 +204,7 @@ class RangeSliderElement(QGroupBox):
         """
         term1 = (int_value - self.main.min())/(self.main.max() - self.main.min())
         term2 = term1 * (self.main.real_max - self.main.real_min)
-        return f"{term2 + self.main.real_min: 0.3f}"
+        return f"{term2 + self.main.real_min: 0.5f}"
 
 
 class Head(RangeSliderElement):
