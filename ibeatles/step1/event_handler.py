@@ -61,7 +61,7 @@ class EventHandler(TopEventHandler):
 
     def update_default_path(self, folder="./"):
 
-        parent_folder = os.path.abspath(os.path.dirname(folder))
+        parent_folder = os.path.abspath(folder)
         if self.data_type == DataType.sample:
             self.parent.default_path[DataType.ob] = parent_folder
             self.parent.default_path[DataType.normalization] = parent_folder

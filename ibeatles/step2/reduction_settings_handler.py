@@ -2,6 +2,7 @@ from qtpy.QtWidgets import QDialog
 import os
 
 from ibeatles import load_ui
+from ibeatles.session import SessionSubKeys
 
 
 class ReductionSettingsHandler(QDialog):
@@ -40,7 +41,7 @@ class ReductionSettingsHandler(QDialog):
         self.dimension_radio_button_clicked()
         if reduction_dict["type"] == "gaussian":
             self.ui.kernel_type_gaussian_radioButton.setChecked(True)
-        if reduction_dict["processes order"] == 'option1':
+        if reduction_dict[SessionSubKeys.process_order] == 'option1':
             self.ui.processes_order_option1_radio_button.setChecked(True)
         else:
             self.ui.processes_order_option2_radio_button.setChecked(True)
@@ -81,7 +82,7 @@ class ReductionSettingsHandler(QDialog):
         reduction_dict["size"]["x"] = self.ui.kernel_size_custom_x_spinBox.value()
         reduction_dict["size"]["l"] = self.ui.kernel_size_custom_lambda_spinBox.value()
         reduction_dict["type"] = "box" if self.ui.kernel_type_box_radioButton.isChecked() else "gaussian"
-        reduction_dict["processes order"] = 'option1' if self.ui.processes_order_option1_radio_button.isChecked() \
+        reduction_dict[SessionSubKeys.process_order] = 'option1' if self.ui.processes_order_option1_radio_button.isChecked() \
             else 'option2'
 
         self.parent.session_dict["reduction"] = reduction_dict
