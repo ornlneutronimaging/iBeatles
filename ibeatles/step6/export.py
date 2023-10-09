@@ -110,7 +110,7 @@ class Export:
             _strain_value_err = strain_dict[_row]['err']
 
             line = [_row_index,
-                    _bin_x0, _bin_y0, _bin_y0, _bin_y1,
+                    _bin_x0, _bin_y0, _bin_x1, _bin_y1,
                     _lambda_hkl_val, _lambda_hkl_err,
                     _d_value, _d_err,
                     _strain_value, _strain_value_err]
