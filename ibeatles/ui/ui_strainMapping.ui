@@ -492,72 +492,6 @@
       </widget>
      </widget>
     </item>
-    <item>
-     <widget class="QGroupBox" name="groupBox_8">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QPushButton" name="export_table_pushButton">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Export Table ...</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>881</width>
-           <height>16</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="export_image_pushButton">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Export Image ...</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -566,11 +500,86 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>24</height>
+     <height>43</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuExport">
+    <property name="title">
+     <string>Export</string>
+    </property>
+    <widget class="QMenu" name="menuTable">
+     <property name="title">
+      <string>Table</string>
+     </property>
+     <addaction name="actionASCII"/>
+     <addaction name="actionJSON"/>
+    </widget>
+    <widget class="QMenu" name="actionExportImagesAll">
+     <property name="title">
+      <string>Images</string>
+     </property>
+     <addaction name="actionall"/>
+     <addaction name="separator"/>
+     <addaction name="actiond"/>
+     <addaction name="actionstrain_mapping"/>
+     <addaction name="actionintegrated_image"/>
+    </widget>
+    <widget class="QMenu" name="menuTable_and_integrated_image">
+     <property name="title">
+      <string>All</string>
+     </property>
+     <addaction name="actionASCII_JSON_and_TIF"/>
+     <addaction name="actionHDF5"/>
+    </widget>
+    <addaction name="menuTable"/>
+    <addaction name="separator"/>
+    <addaction name="actionExportImagesAll"/>
+    <addaction name="separator"/>
+    <addaction name="menuTable_and_integrated_image"/>
+   </widget>
+   <addaction name="menuExport"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionASCII">
+   <property name="text">
+    <string>ASCII ...</string>
+   </property>
+  </action>
+  <action name="actionJSON">
+   <property name="text">
+    <string>JSON ...</string>
+   </property>
+  </action>
+  <action name="actiond">
+   <property name="text">
+    <string>d ...</string>
+   </property>
+  </action>
+  <action name="actionstrain_mapping">
+   <property name="text">
+    <string>strain mapping ...</string>
+   </property>
+  </action>
+  <action name="actionall">
+   <property name="text">
+    <string>all ...</string>
+   </property>
+  </action>
+  <action name="actionASCII_JSON_and_TIF">
+   <property name="text">
+    <string>ASCII, JSON and TIF ...</string>
+   </property>
+  </action>
+  <action name="actionHDF5">
+   <property name="text">
+    <string>HDF5 ...</string>
+   </property>
+  </action>
+  <action name="actionintegrated_image">
+   <property name="text">
+    <string>integrated image ...</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections>
@@ -687,22 +696,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>export_image_pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>export_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>984</x>
-     <y>802</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>995</x>
-     <y>736</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>display_integrated_image_radioButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -715,22 +708,6 @@
     <hint type="destinationlabel">
      <x>5</x>
      <y>481</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>export_table_pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>export_table()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>89</x>
-     <y>799</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>11</x>
-     <y>761</y>
     </hint>
    </hints>
   </connection>
@@ -766,6 +743,134 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionASCII</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_table_ascii()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionJSON</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_table_json()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionall</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_images_all_tiff()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>201</x>
+     <y>116</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actiond</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_images_d_tiff()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionstrain_mapping</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_images_strain_mapping_tiff()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionintegrated_image</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_images_integrated_tiff()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionASCII_JSON_and_TIF</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_all_ascii_json_tiff()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionHDF5</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_all_hdf5()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>fitting_algorithm_changed()</slot>
@@ -776,5 +881,13 @@
   <slot>export_table()</slot>
   <slot>min_max_value_changed()</slot>
   <slot>min_max_lineEdit_value_changed()</slot>
+  <slot>export_table_ascii()</slot>
+  <slot>export_table_json()</slot>
+  <slot>export_images_d_tiff()</slot>
+  <slot>export_images_strain_mapping_tiff()</slot>
+  <slot>export_images_integrated_tiff()</slot>
+  <slot>export_all_hdf5()</slot>
+  <slot>export_all_ascii_json_tiff()</slot>
+  <slot>export_images_all_tiff()</slot>
  </slots>
 </ui>

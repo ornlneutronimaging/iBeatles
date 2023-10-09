@@ -76,6 +76,50 @@ class StrainMappingWindow(QMainWindow):
         self.previous_parameter_displayed = o_get.parameter_to_display()
         self.update_min_max_values()
 
+    ## menu
+
+    # export table
+    def export_table_ascii(self):
+        """export table only in ASCII"""
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.export_table()
+
+    def export_table_json(self):
+        """export table only in JSON"""
+        pass
+
+    # export images
+    def export_images_all_tiff(self):
+        """export d, strain mapping and integrated in TIFF"""
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.image(d_spacing_image=True,
+                       strain_mapping_image=True,
+                       integrated_image=True)
+
+    def export_images_d_tiff(self):
+        """export d in TIFF"""
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.image(d_spacing_image=True)
+
+    def export_images_strain_mapping_tiff(self):
+        """export strain mapping in TIFF"""
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.image(strain_mapping_image=True)
+
+    def exptort_images_integrated_tiff(self):
+        """export integrated image in TIFF"""
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.image(integrated_image=True)
+
+    # export table and images
+    def export_all_ascii_json_tiff(self):
+        """export table (ASCII and JSON) and all images as TIFF"""
+        pass
+
+    def export_all_hdf5(self):
+        """export table and images in HDF5"""
+        pass
+
     def fitting_algorithm_changed(self):
         self.update_display()
 
@@ -86,14 +130,6 @@ class StrainMappingWindow(QMainWindow):
     def d0_to_use_changed(self):
         self.update_display()
         self.update_slider_and_lineEdit()
-
-    def export_clicked(self):
-        o_export = Export(parent=self, grand_parent=self.parent)
-        o_export.export_image()
-
-    def export_table(self):
-        o_export = Export(parent=self, grand_parent=self.parent)
-        o_export.export_table()
 
     def min_max_value_changed(self):
         o_event = EventHandler(parent=self)

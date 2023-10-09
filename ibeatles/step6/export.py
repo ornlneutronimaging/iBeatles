@@ -23,41 +23,50 @@ class Export:
         base_file_name = os.path.basename(normalized_folder) + "_" + parameters + f".{ext}"
         return base_file_name
 
-    def export_image(self):
+    def image(self, d_spacing_image=False, strain_mapping_image=False, integrated_image=False):
         output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
-                                                             "Select where to save the d and strain mapping images",
-                                                             self.working_dir))
+                                                             "Select where to export ...",
+                                                              self.working_dir))
 
         if output_folder:
 
             output_folder = os.path.abspath(output_folder)
             o_get = Get(parent=self.parent)
 
-            # d_spacing
-            d_spacing_file_name = Export._make_image_base_name(output_folder)
-            full_d_output_file_name = os.path.join(self.working_dir, d_spacing_file_name)
-            d_array = o_get.d_array()
+            if d_spacing_image:
+                d_spacing_file_name = Export._make_image_base_name(self.working_dir)
+                full_d_output_file_name = os.path.join(output_folder, d_spacing_file_name)
+                d_array = o_get.d_array()
 
-            o_norm = Normalization()
-            o_norm.load(data=d_array, notebook=False)
-            o_norm.data['sample']['file_name'][0] = d_spacing_file_name
-            o_norm.export(data_type='sample', folder=output_folder)
+                o_norm = Normalization()
+                o_norm.load(data=d_array, notebook=False)
+                o_norm.data['sample']['file_name'][0] = d_spacing_file_name
+                o_norm.export(data_type='sample', folder=output_folder)
+                logging.info(f"Export d_spacing: {full_d_output_file_name}")
 
-            # dxchange.write_tiff(d_array, full_d_output_file_name, dtype=float)
-            logging.info(f"Export d_spacing: {full_d_output_file_name}")
+            if strain_mapping_image:
+                strain_mapping_file_name = Export._make_image_base_name(
+                        self.working_dir, parameters=ParametersToDisplay.strain_mapping)
+                full_strain_output_file_name = os.path.join(output_folder, strain_mapping_file_name)
+                strain_mapping_array = o_get.strain_mapping()
 
-            # strain mapping
-            strain_mapping_file_name = Export._make_image_base_name(
-                    self.working_dir, parameters=ParametersToDisplay.strain_mapping)
-            full_strain_output_file_name = os.path.join(output_folder, strain_mapping_file_name)
-            strain_mapping_array = o_get.strain_mapping()
+                o_norm = Normalization()
+                o_norm.load(data=strain_mapping_array, notebook=False)
+                o_norm.data['sample']['file_name'][0] = strain_mapping_file_name
+                o_norm.export(data_type='sample', folder=output_folder)
+                logging.info(f"Export strain mapping: {full_strain_output_file_name}")
 
-            o_norm = Normalization()
-            o_norm.load(data=strain_mapping_array, notebook=False)
-            o_norm.data['sample']['file_name'][0] = strain_mapping_file_name
-            o_norm.export(data_type='sample', folder=output_folder)
+            if integrated_image:
+                integrated_image_file_name = Export._make_image_base_name(self.working_dir,
+                                                                          parameters=ParametersToDisplay.integrated_image)
+                full_image_output_file_name = os.path.join(output_folder, integrated_image_file_name)
+                integrated_image = o_get.integrated_image()
 
-            logging.info(f"Export strain mapping: {full_strain_output_file_name}")
+                o_norm = Normalization()
+                o_norm.load(data=integrated_image, notebook=False)
+                o_norm.data['sample']['file_name'][0] = integrated_image_file_name
+                o_norm.export(data_type='sample', folder=output_folder)
+                logging.info(f"Export strain mapping: {full_image_output_file_name}")
 
     def export_table(self):
         output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
