@@ -115,7 +115,16 @@ class StrainMappingWindow(QMainWindow):
     # export table and images
     def export_all_ascii_json_tiff(self):
         """export table (ASCII and JSON) and all images as TIFF"""
-        pass
+        o_export = Export(parent=self, grand_parent=self.parent)
+        output_folder = o_export.select_output_folder()
+        o_export.image(d_spacing_image=True,
+                       strain_mapping_image=True,
+                       integrated_image=True,
+                       output_folder=output_folder)
+        o_export.table(file_type=FileType.ascii,
+                       output_folder=output_folder)
+        o_export.table(file_type=FileType.json,
+                       output_folder=output_folder)
 
     def export_all_hdf5(self):
         """export table and images in HDF5"""

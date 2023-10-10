@@ -24,11 +24,18 @@ class Export:
         base_file_name = os.path.basename(normalized_folder) + "_" + parameters + f".{ext}"
         return base_file_name
 
-    def image(self, d_spacing_image=False, strain_mapping_image=False, integrated_image=False):
-
-        output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
+    def select_output_folder(self):
+        output_folder = str(QFileDialog.getExistingDirectory(self.parent,
                                                              "Select where to export ...",
                                                               self.working_dir))
+        return output_folder
+
+    def image(self, d_spacing_image=False, strain_mapping_image=False, integrated_image=False, output_folder=None):
+
+        if output_folder is None:
+            output_folder = str(QFileDialog.getExistingDirectory(self.parent,
+                                                                 "Select where to export ...",
+                                                                  self.working_dir))
 
         if output_folder:
 
@@ -70,10 +77,12 @@ class Export:
                 o_norm.export(data_type='sample', folder=output_folder)
                 logging.info(f"Export strain mapping: {full_image_output_file_name}")
 
-    def table(self, file_type=FileType.ascii):
-        output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
-                                                             "Select where to export the table as an ASCII file",
-                                                             self.working_dir))
+    def table(self, file_type=FileType.ascii, output_folder=None):
+
+        if output_folder is None:
+            output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
+                                                                 "Select where to export the table as an ASCII file",
+                                                                 self.working_dir))
 
         if output_folder:
 
