@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QMainWindow
 from qtpy.QtWidgets import QApplication
 
-from ibeatles import load_ui
+from ibeatles import load_ui, FileType
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.widgets.qrangeslider import FakeKey
 
@@ -86,7 +86,8 @@ class StrainMappingWindow(QMainWindow):
 
     def export_table_json(self):
         """export table only in JSON"""
-        pass
+        o_export = Export(parent=self, grand_parent=self.parent)
+        o_export.table(file_type=FileType.json)
 
     # export images
     def export_images_all_tiff(self):
@@ -106,7 +107,7 @@ class StrainMappingWindow(QMainWindow):
         o_export = Export(parent=self, grand_parent=self.parent)
         o_export.image(strain_mapping_image=True)
 
-    def exptort_images_integrated_tiff(self):
+    def export_images_integrated_tiff(self):
         """export integrated image in TIFF"""
         o_export = Export(parent=self, grand_parent=self.parent)
         o_export.image(integrated_image=True)

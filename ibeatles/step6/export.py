@@ -25,6 +25,7 @@ class Export:
         return base_file_name
 
     def image(self, d_spacing_image=False, strain_mapping_image=False, integrated_image=False):
+
         output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
                                                              "Select where to export ...",
                                                               self.working_dir))

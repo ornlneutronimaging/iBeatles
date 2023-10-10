@@ -1476,7 +1476,7 @@
                              <string>fix</string>
                             </property>
                             <property name="checked">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                            </widget>
                           </item>
@@ -1508,6 +1508,9 @@
                            <widget class="QRadioButton" name="tau_range_radioButton">
                             <property name="text">
                              <string>from </string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
                             </property>
                            </widget>
                           </item>
@@ -1580,7 +1583,7 @@
                              <string>fix</string>
                             </property>
                             <property name="checked">
-                             <bool>true</bool>
+                             <bool>false</bool>
                             </property>
                            </widget>
                           </item>
@@ -1612,6 +1615,9 @@
                            <widget class="QRadioButton" name="sigma_range_radioButton">
                             <property name="text">
                              <string>from </string>
+                            </property>
+                            <property name="checked">
+                             <bool>true</bool>
                             </property>
                            </widget>
                           </item>
