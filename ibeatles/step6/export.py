@@ -4,10 +4,11 @@ import logging
 
 from NeuNorm.normalization import Normalization
 
-from ibeatles import DataType
+from ibeatles import DataType, FileType
 from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
 from ibeatles.utilities.file_handler import FileHandler, create_full_export_file_name
+from ibeatles.utilities.export import format_kropff_dict, format_kropff_table
 
 
 class Export:
@@ -68,7 +69,7 @@ class Export:
                 o_norm.export(data_type='sample', folder=output_folder)
                 logging.info(f"Export strain mapping: {full_image_output_file_name}")
 
-    def export_table(self):
+    def table(self, file_type=FileType.ascii):
         output_folder = str(QFileDialog.getExistingDirectory(self.grand_parent,
                                                              "Select where to export the table as an ASCII file",
                                                              self.working_dir))
@@ -76,23 +77,37 @@ class Export:
         if output_folder:
 
             output_folder = os.path.abspath(output_folder)
-            # output_file_name = os.path.join(output_folder, "strain_mapping_table.txt")
             output_file_name = create_full_export_file_name(os.path.join(output_folder, "strain_mapping_table"),
-                                                            'txt')
+                                                            file_type)
 
             kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
             d_dict = self.parent.d_dict
-
             o_get = Get(parent=self.parent)
             strain_mapping_dict = o_get.strain_mapping_dictionary()
-            formatted_table = Export.format_kropff_table(table=kropff_table_dictionary,
-                                                         d_dict=d_dict,
-                                                         strain_dict=strain_mapping_dict)
-            FileHandler.make_ascii_file(data=formatted_table,
-                                        output_file_name=output_file_name)
 
-            logging.info(f"Exported strain mapping table: {output_file_name}")
-            logging.info(f"formatted table: {formatted_table}")
+            if file_type == FileType.ascii:
+                formatted_table = format_kropff_table(table=kropff_table_dictionary,
+                                                      d_dict=self.parent.d_dict,
+                                                      strain_dict=strain_mapping_dict)
+                FileHandler.make_ascii_file(data=formatted_table,
+                                            output_file_name=output_file_name)
+            else:
+                formatted_dict = format_kropff_dict(table=kropff_table_dictionary,
+                                                    d_dict=self.parent.d_dict,
+                                                    strain_dict=strain_mapping_dict)
+                FileHandler.make_json_file(data_dict=formatted_dict,
+                                           output_file_name=output_file_name)
+
+            logging.info(f"Exported {file_type} strain mapping table: {output_file_name}")
+
+            # formatted_table = Export.format_kropff_table(table=kropff_table_dictionary,
+            #                                              d_dict=d_dict,
+            #                                              strain_dict=strain_mapping_dict)
+            # FileHandler.make_ascii_file(data=formatted_table,
+            #                             output_file_name=output_file_name)
+            #
+            # logging.info(f"Exported strain mapping table: {output_file_name}")
+            # logging.info(f"formatted table: {formatted_table}")
 
     @staticmethod
     def format_kropff_table(table=None, d_dict={}, strain_dict={}):

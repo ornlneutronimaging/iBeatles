@@ -116,3 +116,8 @@ def get_version():
             break
 
     return _version
+
+
+class FileType:
+    ascii = "txt"
+    json = 'json'

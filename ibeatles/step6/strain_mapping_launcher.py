@@ -82,7 +82,7 @@ class StrainMappingWindow(QMainWindow):
     def export_table_ascii(self):
         """export table only in ASCII"""
         o_export = Export(parent=self, grand_parent=self.parent)
-        o_export.export_table()
+        o_export.table()
 
     def export_table_json(self):
         """export table only in JSON"""
