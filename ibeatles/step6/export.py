@@ -223,3 +223,7 @@ class Export:
                 bragg_peak_threshold = fitted_group.create_group('bragg peak threshold')
                 bragg_peak_threshold.create_dataset('left', data=_item1['bragg peak threshold']['left'])
                 bragg_peak_threshold.create_dataset('right', data=_item1['bragg peak threshold']['right'])
+
+            # integrated image
+            integrated_image_group = entry.create_group('integrated normalized radiographs')
+            integrated_image_group.create_dataset('2D array', data=integrated_image)
