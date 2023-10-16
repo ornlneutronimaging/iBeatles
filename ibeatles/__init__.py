@@ -121,3 +121,4 @@ def get_version():
 class FileType:
     ascii = "txt"
     json = 'json'
+    hdf5 = 'h5'

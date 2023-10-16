@@ -143,6 +143,9 @@ def create_full_export_file_name(base_name, ext):
     Create the name of the file to export all tabs
     '''
     file_name = f"{base_name}_{get_current_timestamp()}.{ext}"
+    if os.path.exists(file_name):
+        file_name = f"{base_name}_{get_current_timestamp()}_{get_current_timestamp()}.{ext}"
+
     return file_name
 
 

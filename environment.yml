@@ -29,6 +29,7 @@ dependencies:
   - versioneer
   - astropy
   - ipython
+  - h5py
   - pip:
       - neutronbraggedge
       - changepy

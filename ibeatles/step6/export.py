@@ -1,6 +1,7 @@
 from qtpy.QtWidgets import QFileDialog
 import os
 import logging
+import h5py
 
 from NeuNorm.normalization import Normalization
 
@@ -91,7 +92,6 @@ class Export:
                                                             file_type)
 
             kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
-            d_dict = self.parent.d_dict
             o_get = Get(parent=self.parent)
             strain_mapping_dict = o_get.strain_mapping_dictionary()
 
@@ -109,15 +109,6 @@ class Export:
                                            output_file_name=output_file_name)
 
             logging.info(f"Exported {file_type} strain mapping table: {output_file_name}")
-
-            # formatted_table = Export.format_kropff_table(table=kropff_table_dictionary,
-            #                                              d_dict=d_dict,
-            #                                              strain_dict=strain_mapping_dict)
-            # FileHandler.make_ascii_file(data=formatted_table,
-            #                             output_file_name=output_file_name)
-            #
-            # logging.info(f"Exported strain mapping table: {output_file_name}")
-            # logging.info(f"formatted table: {formatted_table}")
 
     @staticmethod
     def format_kropff_table(table=None, d_dict={}, strain_dict={}):
@@ -153,3 +144,82 @@ class Export:
             formatted_table.append(", ".join(line))
 
         return formatted_table
+
+    def hdf5(self, output_folder: str = None):
+        output_folder = os.path.abspath(output_folder)
+        # output_file_name = os.path.join(output_folder, "strain_mapping_table.txt")
+        output_file_name = create_full_export_file_name(os.path.join(output_folder, "fitting"),
+                                                        FileType.hdf5)
+
+        logging.info(f"Exporting fitting table and images to hdf5 file {output_file_name}")
+
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        o_get = Get(parent=self.parent)
+        integrated_image = o_get.integrated_image()
+        strain_mapping_dict = o_get.strain_mapping_dictionary()
+        formatted_dict = format_kropff_dict(table=kropff_table_dictionary,
+                                            d_dict=self.parent.d_dict,
+                                            strain_dict=strain_mapping_dict)
+
+        with h5py.File(output_file_name, 'w') as f:
+            entry = f.create_group('entry')
+
+            # strain mapping dict
+            strain_group = entry.create_group('strain mapping')
+            for key in strain_mapping_dict.keys():
+                key_group = strain_group.create_group(key)
+                key_group.create_dataset('val', data=strain_mapping_dict[key]['val'])
+                key_group.create_dataset('err', data=strain_mapping_dict[key]['err'])
+
+            # fitting
+            fitting_group = entry.create_group('fitting')
+
+            # kropff
+            kropff_group = fitting_group.create_group('kropff')
+
+            for key in formatted_dict.keys():
+
+                key_group = kropff_group.create_group(key)
+
+                _item1 = formatted_dict[key]
+                key_group.create_dataset('xaxis', data=_item1['xaxis'])
+                key_group.create_dataset('yaxis', data=_item1['yaxis'])
+
+                fitted_group = key_group.create_group('fitted')
+                _item12 = _item1['fitted']
+
+                high_tof_group = fitted_group.create_group('high_tof')
+                _item123 = _item12['high_tof']
+                if _item123['xaxis']:
+                    high_tof_group.create_dataset('xaxis', data=_item123['xaxis'])
+                    high_tof_group.create_dataset('yaxis', data=_item123['yaxis'])
+                else:
+                    high_tof_group.create_dataset('xaxis', data='None')
+                    high_tof_group.create_dataset('yaxis', data='None')
+
+                low_tof_group = fitted_group.create_group('low_tof')
+                _item123 = _item12['low_tof']
+                if _item123['xaxis']:
+                    low_tof_group.create_dataset('xaxis', data=_item123['xaxis'])
+                    low_tof_group.create_dataset('yaxis', data=_item123['yaxis'])
+                else:
+                    low_tof_group.create_dataset('xaxis', data='None')
+                    low_tof_group.create_dataset('yaxis', data='None')
+
+                bragg_peak_group = fitted_group.create_group('bragg_peak')
+                _item123 = _item12['bragg_peak']
+                if _item123['xaxis']:
+                    bragg_peak_group.create_dataset('xaxis', data=_item123['xaxis'])
+                    bragg_peak_group.create_dataset('yaxis', data=_item123['yaxis'])
+                else:
+                    bragg_peak_group.create_dataset('xaxis', data='None')
+                    bragg_peak_group.create_dataset('yaxis', data='None')
+
+                for _item in ['strain', 'd', 'a0', 'b0', 'ahkl', 'bhkl', 'tau', 'sigma', 'lambda_hkl']:
+                    _group = fitted_group.create_group(_item)
+                    _group.create_dataset('val', data=_item1[_item]['val'])
+                    _group.create_dataset('err', data=_item1[_item]['err'])
+
+                bragg_peak_threshold = fitted_group.create_group('bragg peak threshold')
+                bragg_peak_threshold.create_dataset('left', data=_item1['bragg peak threshold']['left'])
+                bragg_peak_threshold.create_dataset('right', data=_item1['bragg peak threshold']['right'])
