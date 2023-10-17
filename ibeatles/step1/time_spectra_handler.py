@@ -57,16 +57,18 @@ class TimeSpectraHandler(object):
             self.lambda_array = []
 
     def display(self):
-        self.load()
-        self.calculate_lambda_scale()
-        if len(self.tof_array) > 0:
-            _time_spectra_window = TimeSpectraDisplay(parent=self.parent,
-                                                      short_filename=str(self.short_file_name),
-                                                      full_filename=self.full_file_name,
-                                                      x_axis=self.tof_array,
-                                                      y_axis=self.counts_array,
-                                                      x2_axis=self.lambda_array)
-            _time_spectra_window.show()
+        if self.parent.time_spectra_ui is None:
+            self.load()
+            self.calculate_lambda_scale()
+            if len(self.tof_array) > 0:
+
+                self.parent.time_spectra_ui = _time_spectra_window = TimeSpectraDisplay(parent=self.parent,
+                                                                              short_filename=str(self.short_file_name),
+                                                                              full_filename=self.full_file_name,
+                                                                              x_axis=self.tof_array,
+                                                                              y_axis=self.counts_array,
+                                                                              x2_axis=self.lambda_array)
+                self.parent.time_spectra_ui.show()
 
 
 class TimeSpectraDisplay(QMainWindow):
@@ -112,6 +114,10 @@ class TimeSpectraDisplay(QMainWindow):
                                                          left=0.1)
 
         self.ui.time_spectra_plot.draw()
+
+    def closeEvent(self, event):
+        self.parent.time_spectra_ui = None
+        self.close()
 
 
 class MatplotlibView(FigureCanvas):

@@ -121,6 +121,9 @@ class MainWindow(QMainWindow):
     steps_error = {'step1': {'status': True,
                              'message': ''}}
 
+    # time spectra ui
+    time_spectra_ui = None
+
     # binning window stuff
     binning_ui = None
     binning_line_view = {'ui': None,
