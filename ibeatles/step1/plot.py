@@ -370,6 +370,7 @@ class Step1Plot(object):
                     y1 += 1
 
             else:
+
                 if roi_editor_ui is None:
                     [label, x0, y0, w, h, group] = list_roi[_index]
                     x0 = int(x0)
@@ -379,8 +380,10 @@ class Step1Plot(object):
 
                 else:
                     try:
+
                         [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui,
                                                                                _index)
+
                     except ValueError:
                         return
 
@@ -419,13 +422,14 @@ class Step1Plot(object):
                     self.update_roi_editor(_index)
                     roi_editor_ui.ui.tableWidget.blockSignals(False)
 
-            return list_data_group
+        return list_data_group
 
     def display_bragg_edge(self, mouse_selection=True):
         """
         Display the bottom right plot showing the bragg edges and the position of the material bragg peaks
         """
         _data = self.data
+        # list_roi = self.parent.list_roi[self.data_type]
 
         if len(_data) == 0:  # clear data if no data
             self.clear_bragg_edge_plot()

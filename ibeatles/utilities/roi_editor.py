@@ -4,7 +4,7 @@ import pyqtgraph as pg
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities import colors
 from ibeatles.step1.plot import Step1Plot
-from ibeatles import load_ui, DEFAULT_ROI
+from ibeatles import load_ui, DEFAULT_ROI, DataType
 
 
 class RoiEditor:
@@ -20,7 +20,7 @@ class RoiEditor:
         list_roi_editor_ui = self.parent.roi_editor_ui
         _roi_ui = list_roi_editor_ui[active_tab]
         if _roi_ui is None:
-            _interface = RoiEditorInterface(parent=self.parent, title=active_tab)
+            _interface = RoiEditorInterface(parent=self.parent, data_type=active_tab)
             _interface.show()
 
             # save ui id
@@ -35,14 +35,14 @@ class RoiEditor:
 class RoiEditorInterface(QMainWindow):
     col_width = [130, 35, 35, 43, 43]
 
-    def __init__(self, parent=None, title='sample'):
+    def __init__(self, parent=None, data_type=DataType.sample):
 
         self.parent = parent
-        self.title = title
+        self.data_type = data_type
 
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_roiEditor.ui', baseinstance=self)
-        self.setWindowTitle("{} ROI Editor".format(title))
+        self.setWindowTitle("{} ROI Editor".format(data_type))
 
         self.initialize_table()
         self.fill_table()
@@ -61,7 +61,7 @@ class RoiEditorInterface(QMainWindow):
         return _item
 
     def fill_table(self):
-        list_roi = self.parent.list_roi[self.title]
+        list_roi = self.parent.list_roi[self.data_type]
 
         # no ROI already define
         if len(list_roi) == 0:
@@ -81,6 +81,8 @@ class RoiEditorInterface(QMainWindow):
     def set_row(self, _row, label, x0, y0, width, height, group):
 
         _color = colors.roi_group_color[int(group)]
+
+        self.ui.tableWidget.blockSignals(True)
 
         # label
         _item = self.get_item(label, _color)
@@ -108,6 +110,8 @@ class RoiEditorInterface(QMainWindow):
         _widget.setCurrentIndex(int(group))
         _widget.currentIndexChanged.connect(self.changed_group)
         self.ui.tableWidget.setCellWidget(_row, 5, _widget)
+
+        self.ui.tableWidget.blockSignals(False)
 
     def get_row(self, row=0):
 
@@ -190,9 +194,10 @@ class RoiEditorInterface(QMainWindow):
 
         self.ui.tableWidget.insertRow(_new_row_index)
 
-        list_roi = self.parent.list_roi[self.title]
-        list_roi_id = self.parent.list_roi_id[self.title]
-        list_label_roi_id = self.parent.list_label_roi_id[self.title]
+        list_roi = self.parent.list_roi[self.data_type]
+
+        list_roi_id = self.parent.list_roi_id[self.data_type]
+        list_label_roi_id = self.parent.list_label_roi_id[self.data_type]
         _nbr_row = len(list_roi)
 
         init_roi = DEFAULT_ROI
@@ -212,42 +217,27 @@ class RoiEditorInterface(QMainWindow):
         # roi region in image
         roi = pg.ROI([x0, y0], [width, height])
         roi.addScaleHandle([1, 1], [0, 0])
-        if self.title == 'sample':
+        label_roi.setPos(x0, y0)
+        if self.data_type == DataType.sample:
             self.parent.ui.image_view.addItem(roi)
             self.parent.ui.image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_image_view_changed)
-        elif self.title == 'ob':
+        elif self.data_type == DataType.ob:
             self.parent.ui.ob_image_view.addItem(roi)
             self.parent.ui.ob_image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_ob_image_view_changed)
-        elif self.title == 'normalized':
+        elif self.data_type == DataType.normalized:
             self.parent.ui.normalized_image_view.addItem(roi)
             self.parent.ui.normalized_image_view.addItem(label_roi)
             roi.sigRegionChanged.connect(self.parent.roi_normalized_image_view_changed)
 
-        label_roi.setPos(x0, y0)
+        list_roi.insert(0, init_roi)
+        list_roi_id.insert(0, roi)
+        list_label_roi_id.insert(0, label_roi)
 
-        new_list_roi = []
-        new_list_roi_id = []
-        new_list_label_roi_id = []
-        if _nbr_row == 0:
-            new_list_roi.append(init_roi)
-            new_list_roi_id.append(roi)
-            new_list_label_roi_id.append(label_roi)
-        else:
-            for _index in range(_nbr_row):
-                if _index == _new_row_index:
-                    new_list_roi.append(init_roi)
-                    new_list_roi_id.append(roi)
-                    new_list_label_roi_id.append(label_roi)
-
-                new_list_roi.append(list_roi[_index])
-                new_list_roi_id.append(list_roi_id[_index])
-                new_list_label_roi_id.append(list_label_roi_id[_index])
-
-        self.parent.list_roi[self.title] = new_list_roi
-        self.parent.list_roi_id[self.title] = new_list_roi_id
-        self.parent.list_label_roi_id[self.title] = new_list_label_roi_id
+        self.parent.list_roi[self.data_type] = list_roi
+        self.parent.list_roi_id[self.data_type] = list_roi_id
+        self.parent.list_label_roi_id[self.data_type] = list_label_roi_id
 
         # nbr_groups = len(colors.roi_group_color)
         # list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
@@ -267,9 +257,9 @@ class RoiEditorInterface(QMainWindow):
 
         self.ui.tableWidget.removeRow(_row_selected)
 
-        list_roi = self.parent.list_roi[self.title]
-        list_roi_id = self.parent.list_roi_id[self.title]
-        list_label_roi_id = self.parent.list_label_roi_id[self.title]
+        list_roi = self.parent.list_roi[self.data_type]
+        list_roi_id = self.parent.list_roi_id[self.data_type]
+        list_label_roi_id = self.parent.list_label_roi_id[self.data_type]
 
         new_list_roi = []
         new_list_roi_id = []
@@ -287,17 +277,17 @@ class RoiEditorInterface(QMainWindow):
         if len(new_list_roi) == 0:
             self.ui.remove_roi_button.setEnabled(False)
 
-        self.parent.list_roi[self.title] = new_list_roi
-        self.parent.list_roi_id[self.title] = new_list_roi_id
-        self.parent.list_label_roi_id[self.title] = new_list_label_roi_id
+        self.parent.list_roi[self.data_type] = new_list_roi
+        self.parent.list_roi_id[self.data_type] = new_list_roi_id
+        self.parent.list_label_roi_id[self.data_type] = new_list_label_roi_id
 
-        if self.title == 'sample':
+        if self.data_type == DataType.sample:
             self.parent.ui.image_view.removeItem(roi_to_remove)
             self.parent.ui.image_view.removeItem(roi_label_to_remove)
-        elif self.title == 'ob':
+        elif self.data_type == DataType.ob:
             self.parent.ui.ob_image_view.removeItem(roi_to_remove)
             self.parent.ui.ob_image_view.removeItem(roi_label_to_remove)
-        elif self.title == 'normalized':
+        elif self.data_type == DataType.normalized:
             self.parent.ui.normalized_image_view.removeItem(roi_to_remove)
             self.parent.ui.normalized_image_view.removeItem(roi_label_to_remove)
 
@@ -312,7 +302,7 @@ class RoiEditorInterface(QMainWindow):
         return _row_selected
 
     def refresh(self, row):
-        [label, x0, y0, width, height, group] = self.parent.list_roi[self.title][row]
+        [label, x0, y0, width, height, group] = self.parent.list_roi[self.data_type][row]
         self.set_row(row, label, x0, y0, width, height, group)
 
     def activate_row(self, row):
@@ -335,13 +325,13 @@ class RoiEditorInterface(QMainWindow):
         except ValueError:
             return
 
-        list_roi = self.parent.list_roi[self.title]
+        list_roi = self.parent.list_roi[self.data_type]
         list_roi[_row] = row_variables
 
-        self.parent.list_roi[self.title] = list_roi
+        self.parent.list_roi[self.data_type] = list_roi
 
     def cell_changed(self, _i, _j):
-        o_plot = Step1Plot(parent=self.parent, data_type=self.title)
+        o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
         o_plot.display_bragg_edge(mouse_selection=False)
 
     def done_pushButton_clicked(self):
