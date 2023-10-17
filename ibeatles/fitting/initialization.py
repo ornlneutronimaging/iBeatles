@@ -3,7 +3,6 @@ from qtpy.QtWidgets import (QVBoxLayout, QHBoxLayout, QWidget, QProgressBar,
                             QGroupBox)
 import numpy as np
 from qtpy import QtCore
-from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 import logging
 from qtpy.QtGui import QIcon
@@ -21,6 +20,7 @@ from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.fitting.kropff import BraggPeakInitParameters
 from ibeatles.fitting import FittingTabSelected, KropffTabSelected
 from ibeatles.utilities.mplcanvas import MplCanvas
+from ibeatles.utilities.get import Get
 
 
 class Initialization:
@@ -378,8 +378,12 @@ class Initialization:
         self.parent.ui.lambda_min_units.setText(u"\u212B")
         self.parent.ui.lambda_max_units.setText(u"\u212B")
         self.parent.ui.bragg_edge_units.setText(u"\u212B")
-        self.parent.ui.material_groupBox.setTitle(self.grand_parent.selected_element_name)
         self.parent.ui.bragg_edge_infos_lambda_0_label.setText(u"\u03BB<sub>0</sub>")
+
+        # material name
+        o_get = Get(parent=self.grand_parent)
+        material_name = o_get.get_material()
+        self.parent.ui.material_groupBox.setTitle(material_name)
 
     def widgets(self):
         """
@@ -402,7 +406,6 @@ class Initialization:
                 return None
 
             return kropff_session_dict[KropffSessionSubKeys.bragg_peak][variable_key].get(key, None)
-
 
         hkl_list = self.grand_parent.selected_element_hkl_array
 
@@ -533,23 +536,12 @@ class Initialization:
         self.parent.ui.kropff_fitting_conditions_pushButton.setIcon(icon)
         self.parent.ui.kropff_fitting_conditions_pushButton_1.setIcon(icon)
 
-        # self.parent.ui.kropff_bragg_peak_lambda_label.setText(u"\u03BB<sub>hkl</sub>")
-        # self.parent.ui.kropff_bragg_peak_tau_label.setText(u"\u03c4")
-        # self.parent.ui.kropff_bragg_peak_sigma_label.setText(u"\u03c3")
-
         self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
         self.parent.ui.automatic_kropff_fitting_pushButton.setStyleSheet(interact_me_style)
 
         self.parent.ui.fitting_kropff_bragg_peak_lambda_hkl_groupBox.setTitle(u"\u03BB\u2095\u2096\u2097")
         self.parent.ui.fitting_kropff_bragg_peak_tau_groupBox.setTitle(u"\u03c4")
         self.parent.ui.fitting_kropff_bragg_peak_sigma_groupBox.setTitle(u"\u03c3")
-
-        # self.parent.ui.l_hkl_error_label.setText(u"\u03BB<sub>hkl</sub>")
-        # self.parent.ui.t_error_label.setText(u"\u03c4")
-        # self.parent.ui.sigma_error_label.setText(u"\u03c3")
-
-        # self.parent.ui.l_hkl_less_than_label.setText(u"\u03BB<sub>hkl</sub>")
-        # self.parent.ui.l_hkl_more_than_label.setText(u"\u03BB<sub>hkl</sub>")
 
     def ui(self):
         ui_dict = self.grand_parent.session_dict[DataType.fitting]['ui']

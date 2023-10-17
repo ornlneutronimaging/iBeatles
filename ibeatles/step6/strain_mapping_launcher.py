@@ -24,11 +24,16 @@ class StrainMappingLauncher:
                                 status=StatusMessageStatus.error,
                                 duration_s=10)
         else:
-            strain_mapping_window = StrainMappingWindow(parent=parent)
-            strain_mapping_window.show()
-            strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key='down'))
-            self.parent.strain_mapping_ui = strain_mapping_window
-
+            try:
+                strain_mapping_window = StrainMappingWindow(parent=parent)
+                strain_mapping_window.show()
+                strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key='down'))
+                self.parent.strain_mapping_ui = strain_mapping_window
+            except ValueError:
+                show_status_message(parent=self.parent,
+                                    message="Please perform a fitting first",
+                                    status=StatusMessageStatus.error,
+                                    duration_s=10)
 
 class StrainMappingWindow(QMainWindow):
 
