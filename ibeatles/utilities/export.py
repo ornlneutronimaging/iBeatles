@@ -1,50 +1,91 @@
 from ibeatles.fitting import FittingKeys
 from ibeatles.utilities.array_utilities import from_nparray_to_list
+from ibeatles.utilities.json_handler import make_value_json_friendly
 from ibeatles.fitting.kropff import SessionSubKeys
 
 
 @staticmethod
-def format_kropff_dict(table: dict = None, d_dict: dict = None, strain_dict: dict = None):
+def format_kropff_dict(table: dict = None, d_dict: dict = None, strain_dict: dict = None, json_friendly : bool = False):
+    """
+
+    Parameters
+    ----------
+    table
+    d_dict
+    strain_dict
+    json_friendly if True, the NaN will be replaced by 'NULL'
+
+    Returns
+    -------
+
+    """
+
     cleaned_table = {}
     for _row in table.keys():
         cleaned_table[_row] = {}
-        cleaned_table[_row][FittingKeys.y_axis] = from_nparray_to_list(table[_row][FittingKeys.y_axis])
-        cleaned_table[_row][FittingKeys.x_axis] = from_nparray_to_list(table[_row][FittingKeys.x_axis])
+        cleaned_table[_row][FittingKeys.y_axis] = from_nparray_to_list(table[_row][FittingKeys.y_axis],
+                                                                       json_friendly=json_friendly)
+        cleaned_table[_row][FittingKeys.x_axis] = from_nparray_to_list(table[_row][FittingKeys.x_axis],
+                                                                       json_friendly=json_friendly)
 
         cleaned_table[_row][SessionSubKeys.fitted] = {}
 
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof] = {}
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.x_axis] = \
-            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.x_axis])
+            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.x_axis],
+                                 json_friendly=json_friendly)
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.y_axis] = \
-            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.y_axis])
+            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.y_axis],
+                                 json_friendly=json_friendly)
 
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof] = {}
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.x_axis] = \
-            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.x_axis])
+            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.x_axis],
+                                 json_friendly=json_friendly)
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.y_axis] = \
-            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.y_axis])
+            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.y_axis],
+                                 json_friendly=json_friendly)
 
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak] = {}
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.x_axis] = \
-            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.x_axis])
+            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.x_axis],
+                                 json_friendly=json_friendly)
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis] = \
-            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis])
+            from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis],
+                                 json_friendly=json_friendly)
 
-        cleaned_table[_row]['strain'] = {'val': strain_dict[_row]['val'],
-                                         'err': strain_dict[_row]['err']}
-        cleaned_table[_row]['d'] = {'val': d_dict[_row]['val'],
-                                    'err': d_dict[_row]['err']}
+        if json_friendly:
+            cleaned_table[_row]['strain'] = {'val': make_value_json_friendly(strain_dict[_row]['val']),
+                                             'err': make_value_json_friendly(strain_dict[_row]['err'])}
+            cleaned_table[_row]['d'] = {'val': make_value_json_friendly(d_dict[_row]['val']),
+                                        'err': make_value_json_friendly(d_dict[_row]['err'])}
 
-        cleaned_table[_row]['a0'] = table[_row]['a0']
-        cleaned_table[_row]['b0'] = table[_row]['b0']
-        cleaned_table[_row]['ahkl'] = table[_row]['ahkl']
-        cleaned_table[_row]['bhkl'] = table[_row]['bhkl']
-        cleaned_table[_row]['tau'] = table[_row]['tau']
-        cleaned_table[_row]['sigma'] = table[_row]['sigma']
-        cleaned_table[_row]['lambda_hkl'] = table[_row]['lambda_hkl']
+            cleaned_table[_row]['a0'] = make_value_json_friendly(table[_row]['a0'])
+            cleaned_table[_row]['b0'] = make_value_json_friendly(table[_row]['b0'])
+            cleaned_table[_row]['ahkl'] = make_value_json_friendly(table[_row]['ahkl'])
+            cleaned_table[_row]['bhkl'] = make_value_json_friendly(table[_row]['bhkl'])
+            cleaned_table[_row]['tau'] = make_value_json_friendly(table[_row]['tau'])
+            cleaned_table[_row]['sigma'] = make_value_json_friendly(table[_row]['sigma'])
+            cleaned_table[_row]['lambda_hkl'] = make_value_json_friendly(table[_row]['lambda_hkl'])
 
-        cleaned_table[_row]['bragg peak threshold'] = table[_row]['bragg peak threshold']
+            cleaned_table[_row]['bragg peak threshold'] = make_value_json_friendly(table[_row]['bragg peak threshold'])
+
+        else:
+
+            cleaned_table[_row]['strain'] = {'val': strain_dict[_row]['val'],
+                                             'err': strain_dict[_row]['err']}
+            cleaned_table[_row]['d'] = {'val': d_dict[_row]['val'],
+                                        'err': d_dict[_row]['err']}
+
+            cleaned_table[_row]['a0'] = table[_row]['a0']
+            cleaned_table[_row]['b0'] = table[_row]['b0']
+            cleaned_table[_row]['ahkl'] = table[_row]['ahkl']
+            cleaned_table[_row]['bhkl'] = table[_row]['bhkl']
+            cleaned_table[_row]['tau'] = table[_row]['tau']
+            cleaned_table[_row]['sigma'] = table[_row]['sigma']
+            cleaned_table[_row]['lambda_hkl'] = table[_row]['lambda_hkl']
+
+            cleaned_table[_row]['bragg peak threshold'] = table[_row]['bragg peak threshold']
 
     return cleaned_table
 

@@ -102,7 +102,13 @@ def calculate_median(array_of_value=None):
     return np.nanmedian(array_of_value)
 
 
-def from_nparray_to_list(nparray=None):
+def from_nparray_to_list(nparray=None, json_friendly=False) -> list:
     if nparray is None:
         return None
+
+    if json_friendly:
+        nparray = [str(_value) for _value in nparray]
+
     return list(nparray)
+
+

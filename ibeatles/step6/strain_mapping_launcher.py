@@ -1,5 +1,4 @@
 from qtpy.QtWidgets import QMainWindow
-from qtpy.QtWidgets import QApplication
 
 from ibeatles import load_ui, FileType
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
@@ -203,12 +202,6 @@ class StrainMappingWindow(QMainWindow):
         if parameter_displayed == ParametersToDisplay.integrated_image:
             return
 
-        # min_value = self.min_max[parameter_displayed]['min']
-        # max_value = self.min_max[parameter_displayed]['max']
-
-        # self.ui.max_value_lineEdit.setText(f"{max_value:.8f}")
-        # self.ui.min_value_lineEdit.setText(f"{min_value:.8f}")
-
         global_min_value = self.min_max[parameter_displayed]['global_min']
         global_max_value = self.min_max[parameter_displayed]['global_max']
 
@@ -218,12 +211,7 @@ class StrainMappingWindow(QMainWindow):
         self.ui.max_range_lineEdit.setText(f"{global_max_value:.5f}")
         self.ui.min_range_lineEdit.setText(f"{global_min_value:.5f}")
 
-        # self.ui.range_slider.setRealRange(min_value, max_value)
-        # self.ui.range_slider.setRealRange(global_min_value, global_max_value)
-
         self.ui.range_slider.setFocus(True)
-        # my_fake_key = FakeKey(key='down')
-        # self.ui.range_slider.keyPressEvent(my_fake_key)
 
     def range_slider_start_value_changed(self, value):
         real_start_value = self.ui.range_slider.get_real_value_from_slider_value(value)

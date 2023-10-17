@@ -62,7 +62,8 @@ class Export:
         else:
             formatted_dict = format_kropff_dict(table=kropff_table_dictionary,
                                                 d_dict=self.parent.d_dict,
-                                                strain_dict=strain_mapping_dict)
+                                                strain_dict=strain_mapping_dict,
+                                                json_friendly=True)
             FileHandler.make_json_file(data_dict=formatted_dict,
                                        output_file_name=output_file_name)
 
