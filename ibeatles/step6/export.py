@@ -170,6 +170,11 @@ class Export:
                 key_group = strain_group.create_group(key)
                 key_group.create_dataset('val', data=strain_mapping_dict[key]['val'])
                 key_group.create_dataset('err', data=strain_mapping_dict[key]['err'])
+                coordinate_group = key_group.create_group('bin coordinates')
+                coordinate_group.create_dataset('x0', data=formatted_dict[key]['bin_coordinates']['x0'])
+                coordinate_group.create_dataset('y0', data=formatted_dict[key]['bin_coordinates']['y0'])
+                coordinate_group.create_dataset('x1', data=formatted_dict[key]['bin_coordinates']['x1'])
+                coordinate_group.create_dataset('y1', data=formatted_dict[key]['bin_coordinates']['y1'])
 
             # fitting
             fitting_group = entry.create_group('fitting')

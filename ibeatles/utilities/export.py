@@ -87,6 +87,11 @@ def format_kropff_dict(table: dict = None, d_dict: dict = None, strain_dict: dic
 
             cleaned_table[_row]['bragg peak threshold'] = table[_row]['bragg peak threshold']
 
+        cleaned_table[_row]['bin_coordinates'] = {'x0': table[_row]['bin_coordinates']['x0'],
+                                                  'y0': table[_row]['bin_coordinates']['y0'],
+                                                  'x1': table[_row]['bin_coordinates']['x1'],
+                                                  'y1': table[_row]['bin_coordinates']['y1']}
+
     return cleaned_table
 
 
