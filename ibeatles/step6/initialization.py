@@ -8,7 +8,7 @@ import pyqtgraph as pg
 
 from ibeatles import ANGSTROMS, LAMBDA, SUB_0
 from ibeatles import DataType
-from ibeatles.utilities.mplcanvas import MplCanvas
+from ibeatles.utilities.mplcanvas import MplCanvasColorbar
 from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
 from ibeatles.session import SessionSubKeys, SessionKeys
@@ -103,7 +103,7 @@ class Initialization:
     def matplotlib(self):
 
         def _matplotlib(parent=None, widget=None):
-            sc = MplCanvas(parent, width=5, height=2, dpi=100)
+            sc = MplCanvasColorbar(parent, width=5, height=2, dpi=100)
             # sc.axes.plot([0,1,2,3,4,5], [10, 1, 20 ,3, 40, 50])
             toolbar = NavigationToolbar(sc, parent)
             layout = QVBoxLayout()

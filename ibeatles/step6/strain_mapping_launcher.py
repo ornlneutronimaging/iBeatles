@@ -14,10 +14,14 @@ from ibeatles.step6 import ParametersToDisplay
 
 class StrainMappingLauncher:
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, fitting_parent=None):
         self.parent = parent
 
         if self.parent.fitting_ui is None:
+            show_status_message(parent=fitting_parent,
+                                message="Strain Mapping requires to first launch the fitting window!",
+                                status=StatusMessageStatus.error,
+                                duration_s=10)
             show_status_message(parent=self.parent,
                                 message="Strain Mapping requires to first launch the fitting window!",
                                 status=StatusMessageStatus.error,
@@ -29,6 +33,10 @@ class StrainMappingLauncher:
                 strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key='down'))
                 self.parent.strain_mapping_ui = strain_mapping_window
             except ValueError:
+                show_status_message(parent=fitting_parent,
+                                    message="Please perform a fitting first",
+                                    status=StatusMessageStatus.error,
+                                    duration_s=10)
                 show_status_message(parent=self.parent,
                                     message="Please perform a fitting first",
                                     status=StatusMessageStatus.error,

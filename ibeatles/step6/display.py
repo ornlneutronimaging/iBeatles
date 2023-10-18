@@ -57,7 +57,7 @@ class Display:
 
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
         cmap = self.parent.ui.matplotlib_plot.axes.imshow(d_array, vmin=min_value, vmax=max_value, alpha=0.5)
-        # self.parent.ui.matplotlib_plot.colorbar(cmap)
+        # self.parent.ui.matplotlib_plot.fig.colorbar(cmap, cax=self.parent.ui.matplotlib_plot.cax)
         self.parent.ui.matplotlib_plot.draw()
 
     def strain_mapping(self):

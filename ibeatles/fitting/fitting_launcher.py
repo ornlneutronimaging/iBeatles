@@ -212,7 +212,8 @@ class FittingWindow(QMainWindow):
 
     # MENU
     def action_strain_mapping_clicked(self):
-        StrainMappingLauncher(parent=self.parent)
+        StrainMappingLauncher(parent=self.parent,
+                              fitting_parent=self)
 
     def menu_export_table_as_ascii_clicked(self):
         o_export = KropffExport(parent=self,
