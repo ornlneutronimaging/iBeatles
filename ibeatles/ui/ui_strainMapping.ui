@@ -274,13 +274,13 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer">
+           <spacer name="horizontalSpacer_3">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>13</width>
+              <width>40</width>
               <height>20</height>
              </size>
             </property>
@@ -316,7 +316,7 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_7">
+           <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -332,26 +332,6 @@
            <widget class="QRadioButton" name="display_strain_mapping_radioButton">
             <property name="text">
              <string>Strain mapping</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>30</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QRadioButton" name="display_integrated_image_radioButton">
-            <property name="text">
-             <string>Integrated image</string>
             </property>
            </widget>
           </item>
@@ -411,21 +391,21 @@
             </property>
            </widget>
           </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>34</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
          </layout>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>
@@ -500,7 +480,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>24</height>
+     <height>43</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuExport">
@@ -692,22 +672,6 @@
     <hint type="destinationlabel">
      <x>998</x>
      <y>195</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>display_integrated_image_radioButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>parameters_to_display_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>660</x>
-     <y>186</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>5</x>
-     <y>481</y>
     </hint>
    </hints>
   </connection>

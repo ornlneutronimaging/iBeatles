@@ -199,8 +199,6 @@ class StrainMappingWindow(QMainWindow):
     def update_min_max_values(self):
         o_get = Get(parent=self)
         parameter_displayed = o_get.parameter_to_display()
-        if parameter_displayed == ParametersToDisplay.integrated_image:
-            return
 
         global_min_value = self.min_max[parameter_displayed]['global_min']
         global_max_value = self.min_max[parameter_displayed]['global_max']

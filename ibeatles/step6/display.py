@@ -29,9 +29,6 @@ class Display:
         elif self.parameters_to_display == ParametersToDisplay.strain_mapping:
             self.strain_mapping()
             self.parent.ui.stackedWidget.setCurrentIndex(1)
-        elif self.parameters_to_display == ParametersToDisplay.integrated_image:
-            self.integrated_image()
-            self.parent.ui.stackedWidget.setCurrentIndex(0)
         else:
             raise NotImplementedError("Display not implemented!")
 
@@ -53,21 +50,26 @@ class Display:
     def d_array(self):
         o_get = Get(parent=self.parent)
         d_array = o_get.d_array()
+        integrated_image = o_get.integrated_image()
 
         min_value = self.parent.min_max[ParametersToDisplay.d]['min']
         max_value = self.parent.min_max[ParametersToDisplay.d]['max']
 
-        self.parent.ui.matplotlib_plot.axes.imshow(d_array, vmin=min_value, vmax=max_value)
+        self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
+        cmap = self.parent.ui.matplotlib_plot.axes.imshow(d_array, vmin=min_value, vmax=max_value, alpha=0.5)
+        # self.parent.ui.matplotlib_plot.colorbar(cmap)
         self.parent.ui.matplotlib_plot.draw()
 
     def strain_mapping(self):
         o_get = Get(parent=self.parent)
         strain_mapping = o_get.strain_mapping()
+        integrated_image = o_get.integrated_image()
 
         min_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['min']
         max_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['max']
 
-        self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping, vmin=min_value, vmax=max_value)
+        self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
+        self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping, vmin=min_value, vmax=max_value, alpha=0.5)
         self.parent.ui.matplotlib_plot.draw()
 
     def _get_view_box(self):

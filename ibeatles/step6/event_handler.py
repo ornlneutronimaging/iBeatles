@@ -15,8 +15,8 @@ class EventHandler:
         width = self.parent.image_size['width']
         height = self.parent.image_size['height']
 
-        d_array = np.zeros((height, width))
-        # d_array[:] = np.NaN
+        d_array = np.empty((height, width))
+        d_array[:] = np.NaN
         d_dict = {}
 
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
