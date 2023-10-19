@@ -122,21 +122,21 @@ class SessionHandler:
                                                                KropffSessionSubKeys.bragg_peak: {
                                                                    KropffSessionSubKeys.lambda_hkl: {
                                                                        BraggPeakInitParameters.fix_value: '5e-8',
-                                                                       BraggPeakInitParameters.fix_flag: True,
+                                                                       BraggPeakInitParameters.fix_flag: False,
                                                                        BraggPeakInitParameters.range_from: '1e-8',
                                                                        BraggPeakInitParameters.range_to: '1e-7',
                                                                        BraggPeakInitParameters.range_step: '1e-8',
                                                                    },
                                                                    KropffSessionSubKeys.tau: {
                                                                        BraggPeakInitParameters.fix_value: '1',
-                                                                       BraggPeakInitParameters.fix_flag: True,
+                                                                       BraggPeakInitParameters.fix_flag: False,
                                                                        BraggPeakInitParameters.range_from: '0.1',
                                                                        BraggPeakInitParameters.range_to: '2',
                                                                        BraggPeakInitParameters.range_step: '0.1',
                                                                    },
                                                                    KropffSessionSubKeys.sigma: {
                                                                        BraggPeakInitParameters.fix_value: '1e-7',
-                                                                       BraggPeakInitParameters.fix_flag: True,
+                                                                       BraggPeakInitParameters.fix_flag: False,
                                                                        BraggPeakInitParameters.range_from: '1e-7',
                                                                        BraggPeakInitParameters.range_to: '1e-1',
                                                                        BraggPeakInitParameters.range_step: '10',
