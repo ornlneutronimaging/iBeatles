@@ -60,3 +60,6 @@ class Get:
 
     def interpolation_method(self):
         return self.parent.ui.interpolation_comboBox.currentText()
+
+    def cmap(self):
+        return self.parent.ui.cmap_comboBox.currentText()

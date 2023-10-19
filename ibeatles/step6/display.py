@@ -22,7 +22,7 @@ class Display:
 
     def run(self):
 
-        self.image_view.clear()
+        # self.image_view.clear()
         if self.parameters_to_display == ParametersToDisplay.d:
             self.d_array()
             self.parent.ui.stackedWidget.setCurrentIndex(1)
@@ -52,15 +52,18 @@ class Display:
         d_array = o_get.d_array()
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
+        cmap = o_get.cmap()
 
         min_value = self.parent.min_max[ParametersToDisplay.d]['min']
         max_value = self.parent.min_max[ParametersToDisplay.d]['max']
 
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
-        cmap = self.parent.ui.matplotlib_plot.axes.imshow(d_array, vmin=min_value, vmax=max_value,
-                                                          alpha=0.5,
-                                                          interpolation=interpolation_method)
-        # self.parent.ui.matplotlib_plot.fig.colorbar(cmap, cax=self.parent.ui.matplotlib_plot.cax)
+        self.parent.ui.matplotlib_plot.axes.imshow(d_array,
+                                                   cmap=cmap,
+                                                   interpolation=interpolation_method,
+                                                   vmin=min_value, vmax=max_value,
+                                                   alpha=0.5)
+        # # self.parent.ui.matplotlib_plot.fig.colorbar(cmap, cax=self.parent.ui.matplotlib_plot.cax)
         self.parent.ui.matplotlib_plot.draw()
 
     def strain_mapping(self):

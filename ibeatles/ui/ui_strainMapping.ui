@@ -339,13 +339,25 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_8">
+        <widget class="QGroupBox" name="interpolation_groupBox">
          <property name="title">
           <string>Interpolation method</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <widget class="QComboBox" name="interpolation_comboBox"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_9">
+         <property name="title">
+          <string>cmap</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <widget class="QComboBox" name="cmap_comboBox"/>
           </item>
          </layout>
         </widget>
@@ -598,8 +610,8 @@
    <slot>fitting_algorithm_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>238</x>
-     <y>186</y>
+     <x>235</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -614,7 +626,7 @@
    <slot>parameters_to_display_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>338</x>
+     <x>312</x>
      <y>189</y>
     </hint>
     <hint type="destinationlabel">
@@ -646,8 +658,8 @@
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>716</x>
-     <y>184</y>
+     <x>846</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
      <x>993</x>
@@ -662,8 +674,8 @@
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>833</x>
-     <y>185</y>
+     <x>903</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
      <x>1001</x>
@@ -678,8 +690,8 @@
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>911</x>
-     <y>182</y>
+     <x>999</x>
+     <y>188</y>
     </hint>
     <hint type="destinationlabel">
      <x>998</x>
@@ -851,7 +863,7 @@
    <sender>interpolation_comboBox</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>interpolation_method_changed()</slot>
+   <slot>interpolation_cmap_method_changed()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>601</x>
@@ -860,6 +872,22 @@
     <hint type="destinationlabel">
      <x>1073</x>
      <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cmap_comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>interpolation_cmap_method_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>682</x>
+     <y>175</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1072</x>
+     <y>95</y>
     </hint>
    </hints>
   </connection>
@@ -881,6 +909,6 @@
   <slot>export_all_hdf5()</slot>
   <slot>export_all_ascii_json_tiff()</slot>
   <slot>export_images_all_tiff()</slot>
-  <slot>interpolation_method_changed()</slot>
+  <slot>interpolation_cmap_method_changed()</slot>
  </slots>
 </ui>

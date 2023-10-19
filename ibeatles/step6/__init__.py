@@ -10,3 +10,8 @@ INTERPOLATION_METHODS = ['none', 'nearest', 'bilinear', 'bicubic', 'spline16',
 
 
 DEFAULT_INTERPOLATION_INDEX = 0
+
+
+CMAPS = ['viridis', 'jet']
+
+DEFAULT_CMAP_INDEX = 0

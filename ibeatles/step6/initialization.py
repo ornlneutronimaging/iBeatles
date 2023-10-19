@@ -13,7 +13,7 @@ from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
 from ibeatles.session import SessionSubKeys, SessionKeys
 from ibeatles.widgets.qrangeslider import QRangeSlider
-from ibeatles.step6 import INTERPOLATION_METHODS, DEFAULT_INTERPOLATION_INDEX
+from ibeatles.step6 import INTERPOLATION_METHODS, DEFAULT_INTERPOLATION_INDEX, CMAPS, DEFAULT_CMAP_INDEX
 
 
 class Initialization:
@@ -31,8 +31,16 @@ class Initialization:
         self.combobox()
 
     def combobox(self):
+        self.parent.ui.interpolation_comboBox.blockSignals(True)
         self.parent.ui.interpolation_comboBox.addItems(INTERPOLATION_METHODS)
         self.parent.ui.interpolation_comboBox.setCurrentIndex(DEFAULT_INTERPOLATION_INDEX)
+        self.parent.ui.interpolation_comboBox.blockSignals(False)
+        self.parent.ui.interpolation_groupBox.setVisible(False)
+
+        self.parent.ui.cmap_comboBox.blockSignals(True)
+        self.parent.ui.cmap_comboBox.addItems(CMAPS)
+        self.parent.ui.cmap_comboBox.setCurrentIndex(DEFAULT_CMAP_INDEX)
+        self.parent.ui.cmap_comboBox.blockSignals(False)
 
     def labels(self):
         self.parent.ui.range_selected_from_units_label.setText(ANGSTROMS)

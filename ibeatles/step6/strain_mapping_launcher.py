@@ -42,6 +42,7 @@ class StrainMappingLauncher:
                                     status=StatusMessageStatus.error,
                                     duration_s=10)
 
+
 class StrainMappingWindow(QMainWindow):
 
     # slider_nbr_steps = 1000
@@ -147,9 +148,11 @@ class StrainMappingWindow(QMainWindow):
     def fitting_algorithm_changed(self):
         self.update_display()
 
-    def interpolation_method_changed(self, _):
+    def interpolation_cmap_method_changed(self, _):
+        self.ui.matplotlib_plot.axes.cla()
+        self.ui.matplotlib_plot.draw()
         o_event = EventHandler(parent=self)
-        o_event.interpolation_method_changed()
+        o_event.interpolation_cmap_method_changed()
 
     def parameters_to_display_changed(self):
         self.update_min_max_values()
