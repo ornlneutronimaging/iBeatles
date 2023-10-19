@@ -67,6 +67,8 @@ class StrainMappingWindow(QMainWindow):
 
     previous_parameters_displayed = ParametersToDisplay.d
 
+    colorbar = None
+
     def __init__(self, parent=None):
 
         self.parent = parent

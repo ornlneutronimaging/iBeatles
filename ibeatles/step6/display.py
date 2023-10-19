@@ -53,17 +53,19 @@ class Display:
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
         cmap = o_get.cmap()
+        if self.parent.colorbar:
+            self.parent.colorbar.remove()
 
         min_value = self.parent.min_max[ParametersToDisplay.d]['min']
         max_value = self.parent.min_max[ParametersToDisplay.d]['max']
 
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
-        self.parent.ui.matplotlib_plot.axes.imshow(d_array,
-                                                   cmap=cmap,
-                                                   interpolation=interpolation_method,
-                                                   vmin=min_value, vmax=max_value,
-                                                   alpha=0.5)
-        # # self.parent.ui.matplotlib_plot.fig.colorbar(cmap, cax=self.parent.ui.matplotlib_plot.cax)
+        d_plot = self.parent.ui.matplotlib_plot.axes.imshow(d_array,
+                                                            cmap=cmap,
+                                                            interpolation=interpolation_method,
+                                                            vmin=min_value, vmax=max_value,
+                                                            alpha=0.5)
+        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(d_plot, ax=self.parent.ui.matplotlib_plot.axes)
         self.parent.ui.matplotlib_plot.draw()
 
     def strain_mapping(self):
@@ -71,14 +73,20 @@ class Display:
         strain_mapping = o_get.strain_mapping()
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
+        cmap = o_get.cmap()
+        if self.parent.colorbar:
+            self.parent.colorbar.remove()
 
         min_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['min']
         max_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['max']
 
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
-        self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping, vmin=min_value, vmax=max_value,
-                                                   alpha=0.5,
-                                                   interpolation=interpolation_method)
+        strain_plot = self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping,
+                                                                 vmin=min_value, vmax=max_value,
+                                                                 cmap=cmap,
+                                                                 alpha=0.5,
+                                                                 interpolation=interpolation_method)
+        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(strain_plot, ax=self.parent.ui.matplotlib_plot.axes)
         self.parent.ui.matplotlib_plot.draw()
 
     def _get_view_box(self):
