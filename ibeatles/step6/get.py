@@ -57,3 +57,6 @@ class Get:
                                          'err': strain_mapping_err}
 
         return strain_mapping_dict
+
+    def interpolation_method(self):
+        return self.parent.ui.interpolation_comboBox.currentText()

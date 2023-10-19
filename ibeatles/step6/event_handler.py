@@ -46,3 +46,8 @@ class EventHandler:
         o_display = Display(parent=self.parent,
                             grand_parent=self.grand_parent)
         o_display.run()
+
+    def interpolation_method_changed(self):
+        o_display = Display(parent=self.parent,
+                            grand_parent=self.grand_parent)
+        o_display.run()

@@ -147,6 +147,10 @@ class StrainMappingWindow(QMainWindow):
     def fitting_algorithm_changed(self):
         self.update_display()
 
+    def interpolation_method_changed(self, _):
+        o_event = EventHandler(parent=self)
+        o_event.interpolation_method_changed()
+
     def parameters_to_display_changed(self):
         self.update_min_max_values()
         self.update_display()

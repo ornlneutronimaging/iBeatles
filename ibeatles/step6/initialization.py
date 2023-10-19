@@ -13,6 +13,7 @@ from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
 from ibeatles.session import SessionSubKeys, SessionKeys
 from ibeatles.widgets.qrangeslider import QRangeSlider
+from ibeatles.step6 import INTERPOLATION_METHODS, DEFAULT_INTERPOLATION_INDEX
 
 
 class Initialization:
@@ -27,6 +28,11 @@ class Initialization:
         self.pyqtgraph()
         self.matplotlib()
         self.data()
+        self.combobox()
+
+    def combobox(self):
+        self.parent.ui.interpolation_comboBox.addItems(INTERPOLATION_METHODS)
+        self.parent.ui.interpolation_comboBox.setCurrentIndex(DEFAULT_INTERPOLATION_INDEX)
 
     def labels(self):
         self.parent.ui.range_selected_from_units_label.setText(ANGSTROMS)
