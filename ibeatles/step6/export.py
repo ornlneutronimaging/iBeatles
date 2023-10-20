@@ -10,6 +10,7 @@ from ibeatles.step6 import ParametersToDisplay
 from ibeatles.step6.get import Get
 from ibeatles.utilities.file_handler import FileHandler, create_full_export_file_name
 from ibeatles.utilities.export import format_kropff_dict, format_kropff_table
+from ibeatles.utilities.get import Get as UtilitiesGet
 
 
 class Export:
@@ -155,6 +156,8 @@ class Export:
 
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         o_get = Get(parent=self.parent)
+        o_get_utilities = UtilitiesGet(parent=self.grand_parent)
+
         integrated_image = o_get.integrated_image()
         strain_mapping_dict = o_get.strain_mapping_dictionary()
         formatted_dict = format_kropff_dict(table=kropff_table_dictionary,
@@ -163,6 +166,19 @@ class Export:
 
         with h5py.File(output_file_name, 'w') as f:
             entry = f.create_group('entry')
+
+            # general infos
+            d0 = o_get.active_d0()
+            material_name = o_get.material_name()
+            hkl_value = o_get.hkl_value()
+            distance_source_detector = o_get_utilities.distance_source_detector()
+            detector_offset = o_get_utilities.detector_offset()
+            metadata_group = entry.create_group('metadata')
+            metadata_group.create_dataset('d0', data=d0)
+            metadata_group.create_dataset('hkl_value', data=hkl_value)
+            metadata_group.create_dataset('material_name', data=material_name)
+            metadata_group.create_dataset('distance_source_detector', data=distance_source_detector)
+            metadata_group.create_dataset('detector_offset', data=detector_offset)
 
             # strain mapping dict
             strain_group = entry.create_group('strain mapping')

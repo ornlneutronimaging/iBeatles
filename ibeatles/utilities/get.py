@@ -1,5 +1,6 @@
 import os
 from os.path import expanduser
+from ibeatles.session import SessionSubKeys
 
 
 class Get:
@@ -30,3 +31,10 @@ class Get:
         full_log_file_name = os.path.join(home_folder, base_file_name)
         return full_log_file_name
 
+    def distance_source_detector(self) -> str:
+        session_dict = self.parent.session_dict
+        return str(session_dict[SessionSubKeys.distance_source_detector])
+
+    def detector_offset(self) -> str:
+        session_dict = self.parent.session_dict
+        return str(session_dict[SessionSubKeys.detector_value])
