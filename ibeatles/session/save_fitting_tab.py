@@ -120,6 +120,8 @@ class SaveFittingTab(SaveTab):
             bragg_peak_threshold = _entry['bragg peak threshold']
             lock = _entry['lock']
             rejected = _entry['rejected']
+            row_index = _entry[FittingKeys.row_index]
+            column_index = _entry[FittingKeys.column_index]
 
             formatted_table_dictionary[_row] = {'a0': a0,
                                                 'b0': b0,
@@ -131,6 +133,8 @@ class SaveFittingTab(SaveTab):
                                                 'bragg_peak_threshold': bragg_peak_threshold,
                                                 'lock': lock,
                                                 'rejected': rejected,
+                                                FittingKeys.row_index: row_index,
+                                                FittingKeys.column_index: column_index,
                                                 }
 
         self.import_from_parent_session_dict(key=KropffSessionSubKeys.table_dictionary, source=formatted_table_dictionary)

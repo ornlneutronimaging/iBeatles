@@ -54,43 +54,50 @@ def format_kropff_dict(table: dict = None, d_dict: dict = None, strain_dict: dic
             from_nparray_to_list(table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis],
                                  json_friendly=json_friendly)
 
-        if json_friendly:
-            cleaned_table[_row]['strain'] = {'val': make_value_json_friendly(strain_dict[_row]['val']),
-                                             'err': make_value_json_friendly(strain_dict[_row]['err'])}
-            cleaned_table[_row]['d'] = {'val': make_value_json_friendly(d_dict[_row]['val']),
-                                        'err': make_value_json_friendly(d_dict[_row]['err'])}
+        def format_output(input=None, json_friendly=False):
+            """create a json friendly version of the input if required"""
+            if json_friendly:
+                return make_value_json_friendly(input)
+            else:
+                return input
 
-            cleaned_table[_row]['a0'] = make_value_json_friendly(table[_row]['a0'])
-            cleaned_table[_row]['b0'] = make_value_json_friendly(table[_row]['b0'])
-            cleaned_table[_row]['ahkl'] = make_value_json_friendly(table[_row]['ahkl'])
-            cleaned_table[_row]['bhkl'] = make_value_json_friendly(table[_row]['bhkl'])
-            cleaned_table[_row]['tau'] = make_value_json_friendly(table[_row]['tau'])
-            cleaned_table[_row]['sigma'] = make_value_json_friendly(table[_row]['sigma'])
-            cleaned_table[_row]['lambda_hkl'] = make_value_json_friendly(table[_row]['lambda_hkl'])
+        # if json_friendly:
+        cleaned_table[_row]['strain'] = {'val': format_output(strain_dict[_row]['val']),
+                                         'err': format_output(strain_dict[_row]['err'])}
+        cleaned_table[_row]['d'] = {'val': format_output(d_dict[_row]['val']),
+                                    'err': format_output(d_dict[_row]['err'])}
 
-            cleaned_table[_row]['bragg peak threshold'] = make_value_json_friendly(table[_row]['bragg peak threshold'])
+        cleaned_table[_row]['a0'] = format_output(table[_row]['a0'])
+        cleaned_table[_row]['b0'] = format_output(table[_row]['b0'])
+        cleaned_table[_row]['ahkl'] = format_output(table[_row]['ahkl'])
+        cleaned_table[_row]['bhkl'] = format_output(table[_row]['bhkl'])
+        cleaned_table[_row]['tau'] = format_output(table[_row]['tau'])
+        cleaned_table[_row]['sigma'] = format_output(table[_row]['sigma'])
+        cleaned_table[_row]['lambda_hkl'] = format_output(table[_row]['lambda_hkl'])
 
-        else:
+        cleaned_table[_row]['bragg peak threshold'] = format_output(table[_row]['bragg peak threshold'])
 
-            cleaned_table[_row]['strain'] = {'val': strain_dict[_row]['val'],
-                                             'err': strain_dict[_row]['err']}
-            cleaned_table[_row]['d'] = {'val': d_dict[_row]['val'],
-                                        'err': d_dict[_row]['err']}
+        # else:
+        #
+        #     cleaned_table[_row]['strain'] = {'val': format_output(strain_dict[_row]['val']),
+        #                                      'err': format_output(strain_dict[_row]['err'])}
+        #     cleaned_table[_row]['d'] = {'val': format_output(d_dict[_row]['val']),
+        #                                 'err': format_output(d_dict[_row]['err'])}
+        #
+        #     cleaned_table[_row]['a0'] = format_output(table[_row]['a0'])
+        #     cleaned_table[_row]['b0'] = format_output(table[_row]['b0'])
+        #     cleaned_table[_row]['ahkl'] = format_output(table[_row]['ahkl'])
+        #     cleaned_table[_row]['bhkl'] = format_output(table[_row]['bhkl'])
+        #     cleaned_table[_row]['tau'] = format_output(table[_row]['tau'])
+        #     cleaned_table[_row]['sigma'] = format_output(table[_row]['sigma'])
+        #     cleaned_table[_row]['lambda_hkl'] = format_output(table[_row]['lambda_hkl'])
+        #
+        #     cleaned_table[_row]['bragg peak threshold'] = format_output(table[_row]['bragg peak threshold'])
 
-            cleaned_table[_row]['a0'] = table[_row]['a0']
-            cleaned_table[_row]['b0'] = table[_row]['b0']
-            cleaned_table[_row]['ahkl'] = table[_row]['ahkl']
-            cleaned_table[_row]['bhkl'] = table[_row]['bhkl']
-            cleaned_table[_row]['tau'] = table[_row]['tau']
-            cleaned_table[_row]['sigma'] = table[_row]['sigma']
-            cleaned_table[_row]['lambda_hkl'] = table[_row]['lambda_hkl']
-
-            cleaned_table[_row]['bragg peak threshold'] = table[_row]['bragg peak threshold']
-
-        cleaned_table[_row]['bin_coordinates'] = {'x0': table[_row]['bin_coordinates']['x0'],
-                                                  'y0': table[_row]['bin_coordinates']['y0'],
-                                                  'x1': table[_row]['bin_coordinates']['x1'],
-                                                  'y1': table[_row]['bin_coordinates']['y1']}
+        cleaned_table[_row]['bin_coordinates'] = {'x0': format_output(table[_row]['bin_coordinates']['x0']),
+                                                  'y0': format_output(table[_row]['bin_coordinates']['y0']),
+                                                  'x1': format_output(table[_row]['bin_coordinates']['x1']),
+                                                  'y1': format_output(table[_row]['bin_coordinates']['y1'])}
 
     return cleaned_table
 
