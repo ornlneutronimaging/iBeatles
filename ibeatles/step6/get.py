@@ -63,3 +63,9 @@ class Get:
 
     def cmap(self):
         return self.parent.ui.cmap_comboBox.currentText()
+
+    def material_name(self):
+        return str(self.parent.ui.material_name.text())
+
+    def hkl_value(self):
+        return str(self.parent.ui.hkl_value.text())
