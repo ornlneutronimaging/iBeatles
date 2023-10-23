@@ -35,7 +35,7 @@ class Initialization:
         self.parent.ui.interpolation_comboBox.addItems(INTERPOLATION_METHODS)
         self.parent.ui.interpolation_comboBox.setCurrentIndex(DEFAULT_INTERPOLATION_INDEX)
         self.parent.ui.interpolation_comboBox.blockSignals(False)
-        self.parent.ui.interpolation_groupBox.setVisible(False)
+        self.parent.ui.interpolation_groupBox.setVisible(True)
 
         self.parent.ui.cmap_comboBox.blockSignals(True)
         self.parent.ui.cmap_comboBox.addItems(CMAPS)
