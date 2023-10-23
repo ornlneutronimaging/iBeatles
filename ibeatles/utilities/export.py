@@ -74,6 +74,8 @@ def format_kropff_dict(table: dict = None, d_dict: dict = None, strain_dict: dic
         cleaned_table[_row]['tau'] = format_output(table[_row]['tau'])
         cleaned_table[_row]['sigma'] = format_output(table[_row]['sigma'])
         cleaned_table[_row]['lambda_hkl'] = format_output(table[_row]['lambda_hkl'])
+        cleaned_table[_row][FittingKeys.row_index] = format_output(table[_row][FittingKeys.row_index])
+        cleaned_table[_row][FittingKeys.column_index] = format_output(table[_row][FittingKeys.column_index])
 
         cleaned_table[_row]['bragg peak threshold'] = format_output(table[_row]['bragg peak threshold'])
 

@@ -11,6 +11,7 @@ from ibeatles.step6.get import Get
 from ibeatles.utilities.file_handler import FileHandler, create_full_export_file_name
 from ibeatles.utilities.export import format_kropff_dict, format_kropff_table
 from ibeatles.utilities.get import Get as UtilitiesGet
+from ibeatles.fitting import FittingKeys
 
 
 class Export:
@@ -240,6 +241,9 @@ class Export:
                     _group = fitted_group.create_group(_item)
                     _group.create_dataset('val', data=_item1[_item]['val'])
                     _group.create_dataset('err', data=_item1[_item]['err'])
+
+                fitted_group.create_dataset('row_index', _item1[FittingKeys.row_index])
+                fitted_group.create_dataset('column_index', _item1[FittingKeys.column_index])
 
                 bragg_peak_threshold = fitted_group.create_group('bragg peak threshold')
                 bragg_peak_threshold.create_dataset('left', data=_item1['bragg peak threshold']['left'])
