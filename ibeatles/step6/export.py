@@ -242,8 +242,8 @@ class Export:
                     _group.create_dataset('val', data=_item1[_item]['val'])
                     _group.create_dataset('err', data=_item1[_item]['err'])
 
-                fitted_group.create_dataset('row_index', _item1[FittingKeys.row_index])
-                fitted_group.create_dataset('column_index', _item1[FittingKeys.column_index])
+                fitted_group.create_dataset('row_index', data=_item1[FittingKeys.row_index])
+                fitted_group.create_dataset('column_index', data=_item1[FittingKeys.column_index])
 
                 bragg_peak_threshold = fitted_group.create_group('bragg peak threshold')
                 bragg_peak_threshold.create_dataset('left', data=_item1['bragg peak threshold']['left'])
