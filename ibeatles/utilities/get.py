@@ -38,3 +38,7 @@ class Get:
     def detector_offset(self) -> str:
         session_dict = self.parent.session_dict
         return str(session_dict[SessionKeys.instrument][SessionSubKeys.detector_value])
+
+    def bin_size(self):
+        session_dict = self.parent.session_dict
+        return session_dict[SessionKeys.bin][SessionSubKeys.roi][-1]

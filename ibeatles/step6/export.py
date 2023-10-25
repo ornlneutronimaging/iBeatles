@@ -174,12 +174,15 @@ class Export:
             hkl_value = o_get.hkl_value()
             distance_source_detector = o_get_utilities.distance_source_detector()
             detector_offset = o_get_utilities.detector_offset()
+            bin_size = o_get_utilities.bin_size()
+
             metadata_group = entry.create_group('metadata')
             metadata_group.create_dataset('d0', data=d0)
             metadata_group.create_dataset('hkl_value', data=hkl_value)
             metadata_group.create_dataset('material_name', data=material_name)
             metadata_group.create_dataset('distance_source_detector', data=distance_source_detector)
             metadata_group.create_dataset('detector_offset', data=detector_offset)
+            metadata_group.create_dataset('bin_size', data=bin_size)
 
             # strain mapping dict
             strain_group = entry.create_group('strain mapping')

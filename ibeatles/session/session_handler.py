@@ -94,6 +94,7 @@ class SessionHandler:
                                       SessionSubKeys.image_view_state: None,
                                       SessionSubKeys.image_view_histogram: None,
                                       SessionSubKeys.ui_accessed: False,
+                                      SessionSubKeys.bin_size: 5,
                                       },
                     DataType.fitting: {SessionSubKeys.lambda_range_index: None,
                                        SessionSubKeys.x_axis: None,

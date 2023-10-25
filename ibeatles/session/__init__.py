@@ -60,6 +60,7 @@ class SessionSubKeys:
     binning_line_view = 'binning line view'
     nbr_row = "nbr row"
     nbr_column = "nbr column"
+    bin_size = "bin size"
 
     # fitting
     ui_accessed = "ui_accessed"
