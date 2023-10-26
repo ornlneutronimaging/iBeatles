@@ -6,6 +6,7 @@ from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.fitting import KropffTabSelected, FittingTabSelected
 from ibeatles import DataType
+from ibeatles.fitting import FittingKeys
 
 
 class Get:
@@ -284,3 +285,21 @@ class Get:
                                          'err': strain_mapping_err}
 
         return strain_mapping_dict
+
+    def nbr_row(self):
+        list_row = []
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        for _row_index in kropff_table_dictionary.keys():
+            _row = kropff_table_dictionary[_row_index][FittingKeys.row_index]
+            list_row.append(_row)
+        set_list_row = set(list(list_row))
+        return len(set_list_row)
+
+    def nbr_column(self):
+        list_column = []
+        kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
+        for _row_index in kropff_table_dictionary.keys():
+            _row = kropff_table_dictionary[_row_index][FittingKeys.column_index]
+            list_column.append(_row)
+        set_list_column = set(list(list_column))
+        return len(set_list_column)

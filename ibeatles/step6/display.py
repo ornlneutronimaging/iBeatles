@@ -22,7 +22,7 @@ class Display:
 
     def run(self):
         self.d_array()
-        self.parent.ui.stackedWidget.setCurrentIndex(1)
+        # self.parent.ui.stackedWidget.setCurrentIndex(1)
         self.cleanup()
 
     def cleanup(self):
@@ -41,23 +41,35 @@ class Display:
     def d_array(self):
         o_get = Get(parent=self.parent)
         d_array = o_get.d_array()
+
+        print(f"d_array: {np.shape(d_array)}")
+
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
         cmap = o_get.cmap()
-        if self.parent.colorbar:
-            self.parent.colorbar.remove()
 
-        min_value = self.parent.min_max[ParametersToDisplay.d]['min']
-        max_value = self.parent.min_max[ParametersToDisplay.d]['max']
 
-        self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
-        d_plot = self.parent.ui.matplotlib_plot.axes.imshow(d_array,
-                                                            cmap=cmap,
-                                                            interpolation=interpolation_method,
-                                                            vmin=min_value, vmax=max_value,
-                                                            alpha=0.5)
-        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(d_plot, ax=self.parent.ui.matplotlib_plot.axes)
-        self.parent.ui.matplotlib_plot.draw()
+
+
+
+
+
+
+        # if self.parent.colorbar:
+        #     self.parent.colorbar.remove()
+        #
+        # min_value = self.parent.min_max[ParametersToDisplay.d]['min']
+        # max_value = self.parent.min_max[ParametersToDisplay.d]['max']
+        #
+        # self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
+        # d_plot = self.parent.ui.matplotlib_plot.axes.imshow(d_array,
+        #                                                     cmap=cmap,
+        #                                                     interpolation=interpolation_method,
+        #                                                     vmin=min_value, vmax=max_value,
+        #                                                     alpha=0.5)
+        # self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(d_plot,
+        #                                                                    ax=self.parent.ui.matplotlib_plot.axes)
+        # self.parent.ui.matplotlib_plot.draw()
 
     def strain_mapping(self):
         o_get = Get(parent=self.parent)
@@ -77,7 +89,8 @@ class Display:
                                                                  cmap=cmap,
                                                                  alpha=0.5,
                                                                  interpolation=interpolation_method)
-        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(strain_plot, ax=self.parent.ui.matplotlib_plot.axes)
+        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(strain_plot,
+                                                                           ax=self.parent.ui.matplotlib_plot.axes)
         self.parent.ui.matplotlib_plot.draw()
 
     # def _get_view_box(self):

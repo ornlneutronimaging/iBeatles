@@ -19,8 +19,6 @@ class Get:
             return ParametersToDisplay.d
         elif self.parent.ui.display_strain_mapping_radioButton.isChecked():
             return ParametersToDisplay.strain_mapping
-        elif self.parent.ui.display_integrated_image_radioButton.isChecked():
-            return ParametersToDisplay.integrated_image
         else:
             raise NotImplementedError("Parameters to display not implemented!")
 
