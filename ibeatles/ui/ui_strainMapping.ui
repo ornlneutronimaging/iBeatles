@@ -240,6 +240,13 @@
            </property>
           </spacer>
          </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox">
+           <property name="text">
+            <string>display hidden plot</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -437,12 +444,12 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <widget class="QWidget" name="integrated_widget" native="true">
+         <widget class="QWidget" name="matplotlib_interpolation_widget" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -504,7 +511,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>24</height>
+     <height>43</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuExport">
@@ -594,8 +601,8 @@
    <slot>fitting_algorithm_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>185</y>
+     <x>136</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -642,8 +649,8 @@
    <slot>parameters_to_display_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>393</x>
-     <y>185</y>
+     <x>449</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -658,8 +665,8 @@
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>846</x>
-     <y>189</y>
+     <x>834</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>993</x>
@@ -674,8 +681,8 @@
    <slot>d0_to_use_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>903</x>
-     <y>188</y>
+     <x>897</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
      <x>1001</x>
@@ -706,8 +713,8 @@
    <slot>min_max_lineEdit_value_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>962</x>
-     <y>248</y>
+     <x>1051</x>
+     <y>284</y>
     </hint>
     <hint type="destinationlabel">
      <x>1069</x>
@@ -866,8 +873,8 @@
    <slot>interpolation_cmap_method_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>601</x>
-     <y>180</y>
+     <x>614</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel">
      <x>1073</x>
@@ -882,12 +889,28 @@
    <slot>interpolation_cmap_method_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>682</x>
-     <y>175</y>
+     <x>745</x>
+     <y>214</y>
     </hint>
     <hint type="destinationlabel">
      <x>1072</x>
      <y>95</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>display_hidden_plot_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>967</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1061</x>
+     <y>45</y>
     </hint>
    </hints>
   </connection>
@@ -910,5 +933,6 @@
   <slot>export_all_ascii_json_tiff()</slot>
   <slot>export_images_all_tiff()</slot>
   <slot>interpolation_cmap_method_changed()</slot>
+  <slot>display_hidden_plot_changed()</slot>
  </slots>
 </ui>

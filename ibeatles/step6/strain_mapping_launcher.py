@@ -241,3 +241,9 @@ class StrainMappingWindow(QMainWindow):
         parameters_to_display = o_get.parameter_to_display()
         self.min_max[parameters_to_display]['min'] = real_end_value
         self.min_max_value_changed()
+
+    def display_hidden_plot_changed(self):
+        if self.ui.checkBox.isChecked():
+            self.ui.stackedWidget.setCurrentIndex(0)
+        else:
+            self.ui.stackedWidget.setCurrentIndex(1)

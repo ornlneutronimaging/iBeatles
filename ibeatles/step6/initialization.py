@@ -25,7 +25,7 @@ class Initialization:
     def all(self):
         self.labels()
         self.parameters()
-        self.pyqtgraph()
+        # self.pyqtgraph()
         self.matplotlib()
         self.data()
         self.combobox()
@@ -105,14 +105,11 @@ class Initialization:
         self.parent.integrated_image = np.transpose(integrated_image)
         [self.parent.image_size['height'], self.parent.image_size['width']] = np.shape(integrated_image)
 
-    def pyqtgraph(self):
-        image_view = pg.ImageView(view=pg.PlotItem())
-        image_view.ui.roiBtn.hide()
-        image_view.ui.menuBtn.hide()
-        self.parent.image_view = image_view
-        layout = QVBoxLayout()
-        layout.addWidget(image_view)
-        self.parent.ui.integrated_widget.setLayout(layout)
+    # def pyqtgraph(self):
+    #     image_view = pg.ImageView(view=pg.PlotItem())
+    #     image_view.ui.roiBtn.hide()
+    #     image_view.ui.menuBtn.hide()
+    #     self.parent.image_view = image_view
 
     def matplotlib(self):
 
@@ -128,6 +125,9 @@ class Initialization:
 
         self.parent.matplotlib_plot = _matplotlib(parent=self.parent,
                                                   widget=self.parent.ui.matplotlib_widget)
+
+        self.parent.matplotlib_interpolation_plot = _matplotlib(parent=self.parent,
+                                                                widget=self.parent.ui.matplotlib_interpolation_widget)
 
     def min_max_values(self):
 
