@@ -1,4 +1,6 @@
 import numpy as np
+from matplotlib.image import _resample
+from matplotlib.transforms import Affine2D
 
 from ibeatles.step6.get import Get
 from ibeatles.step6 import ParametersToDisplay
@@ -7,12 +9,19 @@ from ibeatles.step6 import ParametersToDisplay
 class Display:
 
     histo_widget = None
+    image_width = None
+    image_height = None
 
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
         self.grand_parent = grand_parent
+
+        self.image_height = self.parent.image_size['height']
+        self.image_width = self.parent.image_size['width']
+
         o_get = Get(parent=self.parent)
         self.parameters_to_display = o_get.parameter_to_display()
+
         # self.image_view = self.parent.image_view
         # self.view_box = self._get_view_box()
         # self.state = self._get_state()
@@ -22,7 +31,8 @@ class Display:
 
     def run(self):
         self.d_array()
-        # self.parent.ui.stackedWidget.setCurrentIndex(1)
+        # self.strain_mapping()
+        self.parent.ui.stackedWidget.setCurrentIndex(1)
         self.cleanup()
 
     def cleanup(self):
@@ -40,18 +50,35 @@ class Display:
 
     def d_array(self):
         o_get = Get(parent=self.parent)
-        d_array = o_get.d_array()
-
-        print(f"d_array: {np.shape(d_array)}")
-
+        d_array = self.parent.compact_d_array
+        max_value = np.nanmax(d_array)
+        d_array = d_array / max_value   # FIXME
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
+        interpolation_method = 'gaussian'  # FIXME
         cmap = o_get.cmap()
+        scale_factor = self.parent.bin_size
+        out_dimensions = (d_array.shape[0] * scale_factor,
+                          d_array.shape[1] * scale_factor)
+        transform = Affine2D().scale(scale_factor, scale_factor)
+        img = self.parent.ui.matplotlib_interpolation_plot.axes.imshow(d_array, cmap=cmap,
+                                                                       interpolation=interpolation_method)
+        interpolated = _resample(img, d_array, out_dimensions, transform=transform)
+        self.parent.ui.matplotlib_interpolation_plot.axes.imshow(interpolated, cmap=cmap)
+        interpolated *= max_value
 
+        # with overlap
+        interpolated_d_array_2d = np.empty((self.image_height, self.image_width))
+        interpolated_d_array_2d[:] = np.nan
 
-
-
-
+        [y0, x0] = self.parent.top_left_corner_of_roi
+        inter_height, inter_width = np.shape(interpolated)
+        interpolated_d_array_2d[y0: y0 + inter_height, x0: x0 + inter_width] = interpolated
+        self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap='gray', vmin=0, vmax=1)
+        im = self.parent.ui.matplotlib_plot.axes.imshow(interpolated_d_array_2d,
+                                                        interpolation=interpolation_method)
+        colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
+                                                               ax=self.parent.ui.matplotlib_plot.axes)
 
 
 
@@ -73,40 +100,45 @@ class Display:
 
     def strain_mapping(self):
         o_get = Get(parent=self.parent)
-        strain_mapping = o_get.strain_mapping()
+        strain_mapping = o_get.compact_strain_mapping()
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
+        interpolation_method = 'gaussian'  #  FIXME
         cmap = o_get.cmap()
-        if self.parent.colorbar:
-            self.parent.colorbar.remove()
+        scale_factor = self.parent.bin_size
+        out_dimensions = (strain_mapping.shape[0] * scale_factor,
+                          strain_mapping.shape[1] * scale_factor)
+        transform = Affine2D().scale(scale_factor, scale_factor)
+        img = self.parent.ui.matplotlib_interpolation_plot.axes.imshow(strain_mapping, cmap=cmap, interpolation=interpolation_method)
+        interpolated = _resample(img, strain_mapping, out_dimensions, transform=transform)
+        self.parent.ui.matplotlib_interpolation_plot.axes.imshow(interpolated, cmap=cmap)
 
-        min_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['min']
-        max_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['max']
+        # with overlap
+        interpolated_strain_mapping_2d = np.empty((self.image_height, self.image_width))
+        interpolated_strain_mapping_2d[:] = np.nan
 
-        self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
-        strain_plot = self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping,
-                                                                 vmin=min_value, vmax=max_value,
-                                                                 cmap=cmap,
-                                                                 alpha=0.5,
-                                                                 interpolation=interpolation_method)
-        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(strain_plot,
-                                                                           ax=self.parent.ui.matplotlib_plot.axes)
-        self.parent.ui.matplotlib_plot.draw()
+        [y0, x0] = self.parent.top_left_corner_of_roi
+        inter_height, inter_width = np.shape(interpolated)
+        interpolated_strain_mapping_2d[y0: y0+inter_height, x0: x0+inter_width] = interpolated
+        self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap='gray', vmin=0, vmax=1)
+        im = self.parent.ui.matplotlib_plot.axes.imshow(interpolated_strain_mapping_2d,
+                                                   interpolation=interpolation_method)
+        colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
+                                                               ax=self.parent.ui.matplotlib_plot.axes)
 
-    # def _get_view_box(self):
-    #     _view = self.image_view.getView()
-    #     _view_box = _view.getViewBox()
-    #     return _view_box
-    #
-    # def _get_state(self):
-    #     return self.view_box.getState()
-    #
-    # def _save_histogram(self):
-    #     self.histo_widget = self.image_view.getHistogramWidget()
-    #     histogram_level = self.histo_widget.getLevels()
-    #     self.parent.histogram[self.previous_parameters_displayed] = histogram_level
-    #
-    # def _is_first_histogram_for_this_parameter(self):
-    #     if self.parent.histogram[self.parameters_to_display] is None:
-    #         return True
-    #     return False
+
+        # if self.parent.colorbar:
+        #     self.parent.colorbar.remove()
+        #
+        # min_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['min']
+        # max_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['max']
+        #
+        # self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
+        # strain_plot = self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping,
+        #                                                          vmin=min_value, vmax=max_value,
+        #                                                          cmap=cmap,
+        #                                                          alpha=0.5,
+        #                                                          interpolation=interpolation_method)
+        # self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(strain_plot,
+        #                                                                    ax=self.parent.ui.matplotlib_plot.axes)
+        # self.parent.ui.matplotlib_plot.draw()

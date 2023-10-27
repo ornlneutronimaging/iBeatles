@@ -31,6 +31,8 @@ class EventHandler:
 
         d_dict = {}
 
+        top_left_corner_of_roi = [self.height, self.width]
+
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         for _row_index in kropff_table_dictionary.keys():
             _row_entry = kropff_table_dictionary[_row_index]
@@ -43,6 +45,12 @@ class EventHandler:
 
             row_index = _row_entry['row_index']
             column_index = _row_entry['column_index']
+
+            if x0 < top_left_corner_of_roi[1]:
+                top_left_corner_of_roi[1] = x0
+
+            if y0 < top_left_corner_of_roi[0]:
+                top_left_corner_of_roi[0] = y0
 
             lambda_hkl = _row_entry['lambda_hkl']['val']
             lambda_hkl_err = _row_entry['lambda_hkl']['err']
@@ -58,6 +66,7 @@ class EventHandler:
         self.parent.d_array = d_array
         self.parent.compact_d_array = compact_d_array
         self.parent.d_dict = d_dict
+        self.parent.top_left_corner_of_roi = top_left_corner_of_roi
 
     def calculate_strain_mapping_array(self):
         d_array = self.parent.d_array

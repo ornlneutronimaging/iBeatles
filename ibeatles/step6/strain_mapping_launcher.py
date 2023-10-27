@@ -69,6 +69,7 @@ class StrainMappingWindow(QMainWindow):
 
     colorbar = None
 
+    bin_size = None
     d_array = None
     compact_d_array = None
     strain_mapping_array = None
@@ -87,11 +88,11 @@ class StrainMappingWindow(QMainWindow):
         o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.process_data()
 
-        # o_init.min_max_values()
-        # o_init.range_slider()
-        #
-        # self.update_display()
-        #
+        o_init.min_max_values()
+        o_init.range_slider()
+
+        self.update_display()
+
         # o_get = Get(parent=self)
         # self.previous_parameter_displayed = o_get.parameter_to_display()
         # self.update_min_max_values()

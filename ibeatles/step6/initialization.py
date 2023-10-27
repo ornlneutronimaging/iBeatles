@@ -99,6 +99,8 @@ class Initialization:
         self.parent.ui.lambda_0.setText("{:.03f}".format(lambda_0))
         self.parent.ui.d0_user_value.setText("{:.03f}".format(lambda_0 / 2.))
 
+        self.parent.bin_size = self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.bin_size]
+
     def data(self):
         live_data = self.grand_parent.data_metadata[DataType.normalized]['data']
         integrated_image = np.mean(live_data, 0)
