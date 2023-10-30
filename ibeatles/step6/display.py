@@ -30,16 +30,15 @@ class Display:
         # self.is_first_histogram = self._is_first_histogram_for_this_parameter()
 
     def run(self):
-        self.d_array()
-        # self.strain_mapping()
+        o_get = Get(parent=self.parent)
+        if o_get.parameter_to_display() == ParametersToDisplay.d:
+            self.d_array()
+        else:
+            self.strain_mapping()
         self.parent.ui.stackedWidget.setCurrentIndex(1)
         self.cleanup()
 
     def cleanup(self):
-        # self.view_box.setState(self.state)
-        # if not (self.parent.histogram[self.parameters_to_display] is None):
-        #     self.histo_widget.setLevels(self.parent.histogram[self.parameters_to_display][0],
-        #                                 self.parent.histogram[self.parameters_to_display][1])
         self.parent.previous_parameters_displayed = self.parameters_to_display
 
     # def integrated_image(self):
@@ -55,7 +54,6 @@ class Display:
         d_array = d_array / max_value   # FIXME
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
-        interpolation_method = 'gaussian'  # FIXME
         cmap = o_get.cmap()
         scale_factor = self.parent.bin_size
         out_dimensions = (d_array.shape[0] * scale_factor,
@@ -75,18 +73,26 @@ class Display:
         inter_height, inter_width = np.shape(interpolated)
         interpolated_d_array_2d[y0: y0 + inter_height, x0: x0 + inter_width] = interpolated
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap='gray', vmin=0, vmax=1)
+
+        min_value = self.parent.min_max[ParametersToDisplay.d]['min']
+        max_value = self.parent.min_max[ParametersToDisplay.d]['max']
+
         im = self.parent.ui.matplotlib_plot.axes.imshow(interpolated_d_array_2d,
-                                                        interpolation=interpolation_method)
-        colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
-                                                               ax=self.parent.ui.matplotlib_plot.axes)
+                                                        interpolation=interpolation_method,
+                                                        vmin=min_value,
+                                                        vmax=max_value,
+                                                        cmap=cmap)
+        if self.parent.colorbar:
+            self.parent.colorbar.remove()
+
+        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
+                                                                           ax=self.parent.ui.matplotlib_plot.axes)
+        self.parent.ui.matplotlib_plot.draw()
 
 
 
-        # if self.parent.colorbar:
-        #     self.parent.colorbar.remove()
+
         #
-        # min_value = self.parent.min_max[ParametersToDisplay.d]['min']
-        # max_value = self.parent.min_max[ParametersToDisplay.d]['max']
         #
         # self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
         # d_plot = self.parent.ui.matplotlib_plot.axes.imshow(d_array,
@@ -96,7 +102,6 @@ class Display:
         #                                                     alpha=0.5)
         # self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(d_plot,
         #                                                                    ax=self.parent.ui.matplotlib_plot.axes)
-        # self.parent.ui.matplotlib_plot.draw()
 
     def strain_mapping(self):
         o_get = Get(parent=self.parent)
