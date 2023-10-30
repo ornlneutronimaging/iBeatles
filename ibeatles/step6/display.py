@@ -85,14 +85,14 @@ class Display:
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap='gray', vmin=0, vmax=1)
         self.parent.ui.matplotlib_plot.draw()
 
-        # min_value = self.parent.min_max[ParametersToDisplay.d]['min']
-        # max_value = self.parent.min_max[ParametersToDisplay.d]['max']
+        min_value = self.parent.min_max[ParametersToDisplay.d]['min']
+        max_value = self.parent.min_max[ParametersToDisplay.d]['max']
 
         # self.parent.ui.matplotlib_plot.axes.cla()
         im = self.parent.ui.matplotlib_plot.axes.imshow(interpolated_d_array_2d,
                                                         interpolation=interpolation_method,
-                                                        # vmin=min_value,
-                                                        # vmax=max_value,
+                                                        vmin=min_value,
+                                                        vmax=max_value,
                                                         cmap=cmap,
                                                         alpha=0.5)
         if self.parent.colorbar:
@@ -140,14 +140,14 @@ class Display:
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap='gray', vmin=0, vmax=1)
         self.parent.ui.matplotlib_plot.draw()
 
-        min_value = self.parent.min_max[ParametersToDisplay.d]['min']
-        max_value = self.parent.min_max[ParametersToDisplay.d]['max']
+        min_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['min']
+        max_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['max']
 
         # self.parent.ui.matplotlib_plot.axes.cla()
         im = self.parent.ui.matplotlib_plot.axes.imshow(interpolated_strain_mapping_2d,
                                                         interpolation=interpolation_method,
-                                                        # vmin=min_value,
-                                                        # vmax=max_value,
+                                                        vmin=min_value,
+                                                        vmax=max_value,
                                                         cmap=cmap,
                                                         alpha=0.5)
 

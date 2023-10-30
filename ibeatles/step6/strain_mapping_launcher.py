@@ -30,7 +30,7 @@ class StrainMappingLauncher:
             try:
                 strain_mapping_window = StrainMappingWindow(parent=parent)
                 strain_mapping_window.show()
-                # strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key='down'))
+                strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key='down'))
                 self.parent.strain_mapping_ui = strain_mapping_window
             except ValueError:
                 show_status_message(parent=fitting_parent,
@@ -93,9 +93,9 @@ class StrainMappingWindow(QMainWindow):
 
         self.update_display()
 
-        # o_get = Get(parent=self)
-        # self.previous_parameter_displayed = o_get.parameter_to_display()
-        # self.update_min_max_values()
+        o_get = Get(parent=self)
+        self.previous_parameter_displayed = o_get.parameter_to_display()
+        self.update_min_max_values()
 
     ## menu
 
@@ -172,7 +172,7 @@ class StrainMappingWindow(QMainWindow):
         self.update_slider_and_lineEdit()
 
     def min_max_value_changed(self):
-        o_event = EventHandler(parent=self)
+        o_event = EventHandler(parent=self, grand_parent=self.parent)
         o_event.min_max_changed()
 
     def update_slider_and_lineEdit(self):
