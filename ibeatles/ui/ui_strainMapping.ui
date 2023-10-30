@@ -511,7 +511,7 @@
      <x>0</x>
      <y>0</y>
      <width>1077</width>
-     <height>43</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuExport">

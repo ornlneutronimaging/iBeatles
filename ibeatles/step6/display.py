@@ -35,7 +35,7 @@ class Display:
             self.d_array()
         else:
             self.strain_mapping()
-        self.parent.ui.stackedWidget.setCurrentIndex(1)
+        self.parent.ui.stackedWidget.setCurrentIndex(1)     # 0 for debugging, 1 otherwise
         self.cleanup()
 
     def cleanup(self):
@@ -59,10 +59,18 @@ class Display:
         out_dimensions = (d_array.shape[0] * scale_factor,
                           d_array.shape[1] * scale_factor)
         transform = Affine2D().scale(scale_factor, scale_factor)
+
+        self.parent.ui.matplotlib_interpolation_plot.axes.cla()
         img = self.parent.ui.matplotlib_interpolation_plot.axes.imshow(d_array, cmap=cmap,
                                                                        interpolation=interpolation_method)
+        self.parent.ui.matplotlib_interpolation_plot.draw()
+
         interpolated = _resample(img, d_array, out_dimensions, transform=transform)
+
+        self.parent.ui.matplotlib_interpolation_plot.axes.cla()
         self.parent.ui.matplotlib_interpolation_plot.axes.imshow(interpolated, cmap=cmap)
+        self.parent.ui.matplotlib_interpolation_plot.draw()
+
         interpolated *= max_value
 
         # with overlap
@@ -72,51 +80,53 @@ class Display:
         [y0, x0] = self.parent.top_left_corner_of_roi
         inter_height, inter_width = np.shape(interpolated)
         interpolated_d_array_2d[y0: y0 + inter_height, x0: x0 + inter_width] = interpolated
+
+        self.parent.ui.matplotlib_plot.axes.cla()
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap='gray', vmin=0, vmax=1)
+        self.parent.ui.matplotlib_plot.draw()
 
-        min_value = self.parent.min_max[ParametersToDisplay.d]['min']
-        max_value = self.parent.min_max[ParametersToDisplay.d]['max']
+        # min_value = self.parent.min_max[ParametersToDisplay.d]['min']
+        # max_value = self.parent.min_max[ParametersToDisplay.d]['max']
 
+        # self.parent.ui.matplotlib_plot.axes.cla()
         im = self.parent.ui.matplotlib_plot.axes.imshow(interpolated_d_array_2d,
                                                         interpolation=interpolation_method,
-                                                        vmin=min_value,
-                                                        vmax=max_value,
-                                                        cmap=cmap)
+                                                        # vmin=min_value,
+                                                        # vmax=max_value,
+                                                        cmap=cmap,
+                                                        alpha=0.5)
         if self.parent.colorbar:
             self.parent.colorbar.remove()
-
         self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
                                                                            ax=self.parent.ui.matplotlib_plot.axes)
         self.parent.ui.matplotlib_plot.draw()
 
-
-
-
-        #
-        #
-        # self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
-        # d_plot = self.parent.ui.matplotlib_plot.axes.imshow(d_array,
-        #                                                     cmap=cmap,
-        #                                                     interpolation=interpolation_method,
-        #                                                     vmin=min_value, vmax=max_value,
-        #                                                     alpha=0.5)
-        # self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(d_plot,
-        #                                                                    ax=self.parent.ui.matplotlib_plot.axes)
-
     def strain_mapping(self):
         o_get = Get(parent=self.parent)
         strain_mapping = o_get.compact_strain_mapping()
+        max_value = np.nanmax(strain_mapping)
+        # strain_mapping = strain_mapping / max_value
         integrated_image = o_get.integrated_image()
         interpolation_method = o_get.interpolation_method()
-        interpolation_method = 'gaussian'  #  FIXME
         cmap = o_get.cmap()
         scale_factor = self.parent.bin_size
         out_dimensions = (strain_mapping.shape[0] * scale_factor,
                           strain_mapping.shape[1] * scale_factor)
         transform = Affine2D().scale(scale_factor, scale_factor)
-        img = self.parent.ui.matplotlib_interpolation_plot.axes.imshow(strain_mapping, cmap=cmap, interpolation=interpolation_method)
+
+        self.parent.ui.matplotlib_interpolation_plot.axes.cla()
+        img = self.parent.ui.matplotlib_interpolation_plot.axes.imshow(strain_mapping,
+                                                                       cmap=cmap,
+                                                                       interpolation=interpolation_method)
+        self.parent.ui.matplotlib_interpolation_plot.draw()
+
         interpolated = _resample(img, strain_mapping, out_dimensions, transform=transform)
+
+        self.parent.ui.matplotlib_interpolation_plot.axes.cla()
         self.parent.ui.matplotlib_interpolation_plot.axes.imshow(interpolated, cmap=cmap)
+        self.parent.ui.matplotlib_interpolation_plot.draw()
+
+        # interpolated *= max_value
 
         # with overlap
         interpolated_strain_mapping_2d = np.empty((self.image_height, self.image_width))
@@ -125,25 +135,25 @@ class Display:
         [y0, x0] = self.parent.top_left_corner_of_roi
         inter_height, inter_width = np.shape(interpolated)
         interpolated_strain_mapping_2d[y0: y0+inter_height, x0: x0+inter_width] = interpolated
+
+        self.parent.ui.matplotlib_plot.axes.cla()
         self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap='gray', vmin=0, vmax=1)
+        self.parent.ui.matplotlib_plot.draw()
+
+        min_value = self.parent.min_max[ParametersToDisplay.d]['min']
+        max_value = self.parent.min_max[ParametersToDisplay.d]['max']
+
+        # self.parent.ui.matplotlib_plot.axes.cla()
         im = self.parent.ui.matplotlib_plot.axes.imshow(interpolated_strain_mapping_2d,
-                                                   interpolation=interpolation_method)
-        colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
-                                                               ax=self.parent.ui.matplotlib_plot.axes)
+                                                        interpolation=interpolation_method,
+                                                        # vmin=min_value,
+                                                        # vmax=max_value,
+                                                        cmap=cmap,
+                                                        alpha=0.5)
 
+        if self.parent.colorbar:
+            self.parent.colorbar.remove()
 
-        # if self.parent.colorbar:
-        #     self.parent.colorbar.remove()
-        #
-        # min_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['min']
-        # max_value = self.parent.min_max[ParametersToDisplay.strain_mapping]['max']
-        #
-        # self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, vmin=0, vmax=1, cmap='gray')
-        # strain_plot = self.parent.ui.matplotlib_plot.axes.imshow(strain_mapping,
-        #                                                          vmin=min_value, vmax=max_value,
-        #                                                          cmap=cmap,
-        #                                                          alpha=0.5,
-        #                                                          interpolation=interpolation_method)
-        # self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(strain_plot,
-        #                                                                    ax=self.parent.ui.matplotlib_plot.axes)
-        # self.parent.ui.matplotlib_plot.draw()
+        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
+                                                                           ax=self.parent.ui.matplotlib_plot.axes)
+        self.parent.ui.matplotlib_plot.draw()
