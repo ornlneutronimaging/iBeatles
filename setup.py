@@ -17,7 +17,7 @@ def read_requirements_from_file(filepath):
 
 setup(name="ibeatles",
       #      version=versioneer.get_version(),
-      version="10.18.23",
+      version="10.31.23",
       description="Bragg Edge Fitting and Strain Calculator",
       author="Jean Bilheux",
       author_email="bilheuxjm@ornl.gov",
