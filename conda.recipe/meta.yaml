@@ -2,7 +2,7 @@
 
 package:
   name: "ibeatles"
-  version: "1.0.28"
+  version: "10.31.23
 
 source:
   path: ..
@@ -25,6 +25,7 @@ requirements:
     - qt=5
     - qtpy
     - pyqt
+    - h5py
     - args
     - Pillow
     - versioneer

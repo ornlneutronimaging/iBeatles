@@ -8,8 +8,7 @@ dependencies:
   - cycler
   - freetype
   - libpng
-  - matplotlib
-#  - mkl
+  - matplotlib=3.6.3
   - numpy
   - openssl
   - pyparsing

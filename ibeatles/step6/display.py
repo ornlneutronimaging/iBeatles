@@ -109,6 +109,7 @@ class Display:
                                                         alpha=0.5)
         if self.parent.colorbar:
             self.parent.colorbar.remove()
+
         self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
                                                                            ax=self.parent.ui.matplotlib_plot.axes)
         self.parent.ui.matplotlib_plot.draw()
