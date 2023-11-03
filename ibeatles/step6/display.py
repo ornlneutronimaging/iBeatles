@@ -108,10 +108,13 @@ class Display:
                                                         cmap=cmap,
                                                         alpha=0.5)
         if self.parent.colorbar:
-            self.parent.colorbar.remove()
-
-        self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
+            self.parent.colorbar.mappable = im
+            self.parent.colorbar.update_normal(im)
+            #self.parent.colorbar.remove()
+        else:
+            self.parent.colorbar = self.parent.ui.matplotlib_plot.fig.colorbar(im,
                                                                            ax=self.parent.ui.matplotlib_plot.axes)
+
         self.parent.ui.matplotlib_plot.draw()
 
 
