@@ -552,6 +552,9 @@ class MainWindow(QMainWindow):
 
                 material_instrument_group_visible = self.ui.action_Instrument_Material_Settings.isChecked()
 
+            elif (tab_selected == 3):
+                material_instrument_group_visible = False
+
             self.current_tab = tab_selected
             self.ui.instrument_and_material_settings.setVisible(material_instrument_group_visible)
 
