@@ -22,6 +22,7 @@ error_icon_file = os.path.join(root, "icons/error_icon.png")
 step1_icon = os.path.join(root, "static/step1.png")
 step2_icon = os.path.join(root, "static/step2.png")
 step3_icon = os.path.join(root, "static/step3.png")
+step4_icon = os.path.join(root, "static/step4.png")
 
 DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
 DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', 'background']

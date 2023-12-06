@@ -38,7 +38,7 @@
          <x>0</x>
          <y>0</y>
          <width>1727</width>
-         <height>1049</height>
+         <height>1043</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -990,6 +990,11 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
            </layout>
+          </widget>
+          <widget class="QWidget" name="tab_10">
+           <attribute name="title">
+            <string>Analysis</string>
+           </attribute>
           </widget>
          </widget>
         </item>
