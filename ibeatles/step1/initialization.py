@@ -1,15 +1,18 @@
 from qtpy.QtWidgets import (QProgressBar, QVBoxLayout, QPushButton, QHBoxLayout, QRadioButton, QWidget, QSpacerItem,
                             QSizePolicy, QScrollBar, QLabel)
-from qtpy.QtGui import QPixmap
+from qtpy.QtGui import QPixmap, QImage
 from qtpy import QtCore
 from qtpy.QtGui import QIcon
+from qtpy.QtCore import QSize
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 import numpy as np
+from imageio import imread
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 from neutronbraggedge.braggedge import BraggEdge
 
+from ibeatles import fitting_image, pixel_binning_image, rotate_image, strain_mapping_image, tof_binning_image
 from ibeatles.icons import icons_rc  # do not remove
 from ibeatles import step1_icon, step2_icon, step3_icon, step4_icon, infos_file, preview_file, error_icon_file
 from ibeatles import DataType
@@ -17,6 +20,12 @@ from ibeatles import refresh_image
 from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
 from ibeatles.step1.roi import Roi
 from ibeatles.utilities.table_handler import TableHandler
+
+tab6_top_button_width = 250
+tab6_top_button_height = 150
+
+tab6_bottom_buttom_width = 150
+tab6_bottom_button_height = 150
 
 
 class Initialization:
@@ -395,3 +404,34 @@ class Initialization:
         preview_icon = QIcon(preview_file)
         self.parent.ui.preview_time_spectra_button.setIcon(preview_icon)
         self.parent.ui.preview_time_spectra_normalized_button.setIcon(preview_icon)
+
+        # tab 6 - top buttons
+
+        rotate_icon = QIcon(rotate_image)
+        self.parent.ui.rotate_pushButton.setIcon(rotate_icon)
+        self.parent.ui.rotate_pushButton.setIconSize(QSize(tab6_top_button_width,
+                                                           tab6_top_button_height))
+
+        tof_binning_icon = QIcon(tof_binning_image)
+        self.parent.ui.tof_binning_pushButton.setIcon(tof_binning_icon)
+        self.parent.ui.tof_binning_pushButton.setIconSize(QSize(tab6_top_button_width,
+                                                                tab6_top_button_height))
+
+        # tab6 - bottom buttons
+
+        pixel_binning_icon = QIcon(pixel_binning_image)
+        self.parent.ui.roi_pixel_binning_pushButton.setIcon(pixel_binning_icon)
+        self.parent.ui.roi_pixel_binning_pushButton.setIconSize(QSize(tab6_bottom_buttom_width,
+                                                                      tab6_bottom_button_height))
+
+        fitting_icon = QIcon(fitting_image)
+        self.parent.ui.fitting_pushButton.setIcon(fitting_icon)
+        self.parent.ui.fitting_pushButton.setIconSize(QSize(tab6_bottom_buttom_width,
+                                                            tab6_bottom_button_height))
+
+        strain_mapping_icon = QIcon(strain_mapping_image)
+        self.parent.ui.strain_mapping_pushButton.setIcon(strain_mapping_icon)
+        self.parent.ui.strain_mapping_pushButton.setIconSize(QSize(tab6_bottom_buttom_width,
+                                                                   tab6_bottom_button_height))
+
+

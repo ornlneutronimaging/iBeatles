@@ -4,7 +4,6 @@ matplotlib.use('Qt5Agg')
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 from qtpy.QtWidgets import QVBoxLayout
-import pyqtgraph as pg
 
 from ibeatles import ANGSTROMS, LAMBDA, SUB_0
 from ibeatles import DataType

@@ -38,7 +38,7 @@
          <x>0</x>
          <y>0</y>
          <width>1727</width>
-         <height>1043</height>
+         <height>1030</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -1003,18 +1003,81 @@ p, li { white-space: pre-wrap; }
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
-                <widget class="QPushButton" name="pushButton">
+                <spacer name="horizontalSpacer_14">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="rotate_pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>300</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>200</height>
+                  </size>
+                 </property>
                  <property name="text">
-                  <string>Rotation of sample ...</string>
+                  <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_2">
+                <spacer name="horizontalSpacer_15">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="tof_binning_pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>300</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>200</height>
+                  </size>
+                 </property>
                  <property name="text">
-                  <string>TOF binning ...</string>
+                  <string/>
                  </property>
                 </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_18">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
@@ -1026,25 +1089,113 @@ p, li { white-space: pre-wrap; }
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_11">
                <item>
-                <widget class="QPushButton" name="pushButton_3">
+                <spacer name="horizontalSpacer_13">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="roi_pixel_binning_pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
                  <property name="text">
-                  <string>ROI &amp; Pixel binning ...</string>
+                  <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_4">
+                <spacer name="horizontalSpacer_5">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="fitting_pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
                  <property name="text">
-                  <string>Fitting ...</string>
+                  <string/>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_5">
+                <spacer name="horizontalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QPushButton" name="strain_mapping_pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>200</height>
+                  </size>
+                 </property>
                  <property name="text">
-                  <string>Strain mapping ...</string>
+                  <string/>
                  </property>
                 </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_11">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
@@ -2106,7 +2257,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>1753</width>
-     <height>24</height>
+     <height>37</height>
     </rect>
    </property>
    <property name="sizePolicy">

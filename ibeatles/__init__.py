@@ -19,6 +19,13 @@ infos_file = os.path.join(root, "icons/info.png")
 preview_file = os.path.join(root, "icons/preview.png")
 error_icon_file = os.path.join(root, "icons/error_icon.png")
 
+# tab 4
+fitting_image = os.path.join(root, "icons/fitting_logo.png")
+pixel_binning_image = os.path.join(root, "icons/pixel_binning_logo.png")
+rotate_image = os.path.join(root, "icons/rotate_logo.png")
+strain_mapping_image = os.path.join(root, "icons/strain_mapping_logo.png")
+tof_binning_image = os.path.join(root, "icons/tof_binning_logo.png")
+
 step1_icon = os.path.join(root, "static/step1.png")
 step2_icon = os.path.join(root, "static/step2.png")
 step3_icon = os.path.join(root, "static/step3.png")
