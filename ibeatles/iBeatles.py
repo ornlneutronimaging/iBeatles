@@ -1045,6 +1045,11 @@ class MainWindow(QMainWindow):
         o_plot = Step1Plot(parent=self, data_type=DataType.normalized)
         o_plot.display_bragg_edge()
 
+    # TAB 4 - analysis
+
+    def tof_binning_clicked(self):
+        print(f"TOF binning clicked!")
+
     # GENERAL UI =======================================================================================
     def closeEvent(self, event):
         o_session = SessionHandler(parent=self)

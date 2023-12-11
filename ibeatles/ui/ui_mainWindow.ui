@@ -2436,8 +2436,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>255</x>
-     <y>1002</y>
+     <x>259</x>
+     <y>996</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -2517,7 +2517,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1297</x>
-     <y>1006</y>
+     <y>1000</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -2564,8 +2564,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>253</x>
-     <y>1002</y>
+     <x>259</x>
+     <y>996</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2581,7 +2581,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1052</x>
-     <y>1006</y>
+     <y>1000</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2597,7 +2597,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1072</x>
-     <y>774</y>
+     <y>768</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2613,7 +2613,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1040</x>
-     <y>774</y>
+     <y>768</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2628,8 +2628,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1245</x>
-     <y>1031</y>
+     <x>1285</x>
+     <y>1025</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2644,8 +2644,8 @@ p, li { white-space: pre-wrap; }
    <slot>tab_widget_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>776</x>
-     <y>47</y>
+     <x>788</x>
+     <y>96</y>
     </hint>
     <hint type="destinationlabel">
      <x>799</x>
@@ -2884,8 +2884,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_moving_average_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1347</x>
-     <y>1031</y>
+     <x>1387</x>
+     <y>1025</y>
     </hint>
     <hint type="destinationlabel">
      <x>1538</x>
@@ -2996,8 +2996,8 @@ p, li { white-space: pre-wrap; }
    <slot>pre_defined_element_dropBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1579</x>
-     <y>369</y>
+     <x>1665</x>
+     <y>402</y>
     </hint>
     <hint type="destinationlabel">
      <x>1250</x>
@@ -3012,8 +3012,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method2_clear_table_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1667</x>
-     <y>940</y>
+     <x>1589</x>
+     <y>470</y>
     </hint>
     <hint type="destinationlabel">
      <x>1235</x>
@@ -3044,8 +3044,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_element_name_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1643</x>
-     <y>363</y>
+     <x>1648</x>
+     <y>394</y>
     </hint>
     <hint type="destinationlabel">
      <x>1027</x>
@@ -3060,8 +3060,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1565</x>
-     <y>321</y>
+     <x>1707</x>
+     <y>653</y>
     </hint>
     <hint type="destinationlabel">
      <x>1122</x>
@@ -3076,8 +3076,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1596</x>
-     <y>405</y>
+     <x>1684</x>
+     <y>806</y>
     </hint>
     <hint type="destinationlabel">
      <x>1167</x>
@@ -3092,8 +3092,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_lattice_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1580</x>
-     <y>503</y>
+     <x>1626</x>
+     <y>539</y>
     </hint>
     <hint type="destinationlabel">
      <x>1649</x>
@@ -3124,8 +3124,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method2_table_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1603</x>
-     <y>607</y>
+     <x>1583</x>
+     <y>460</y>
     </hint>
     <hint type="destinationlabel">
      <x>1649</x>
@@ -3140,8 +3140,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_crystal_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1622</x>
-     <y>541</y>
+     <x>1653</x>
+     <y>584</y>
     </hint>
     <hint type="destinationlabel">
      <x>1655</x>
@@ -3156,12 +3156,92 @@ p, li { white-space: pre-wrap; }
    <slot>display_material_bragg_peaks_checkbox_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1486</x>
-     <y>255</y>
+     <x>1707</x>
+     <y>286</y>
     </hint>
     <hint type="destinationlabel">
      <x>1747</x>
      <y>418</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rotate_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>rotate_normalized_images_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>474</x>
+     <y>207</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>10</x>
+     <y>456</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>roi_pixel_binning_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_binning_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>328</x>
+     <y>476</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>608</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>fitting_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_fitting_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>756</x>
+     <y>445</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>841</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>strain_mapping_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>menu_view_strain_mapping_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1136</x>
+     <y>484</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1751</x>
+     <y>808</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tof_binning_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>tof_binning_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1002</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1745</x>
+     <y>498</y>
     </hint>
    </hints>
   </connection>
@@ -3239,5 +3319,6 @@ p, li { white-space: pre-wrap; }
   <slot>user_defined_method2_table_changed()</slot>
   <slot>user_defined_method1_crystal_changed()</slot>
   <slot>display_material_bragg_peaks_checkbox_clicked()</slot>
+  <slot>tof_binning_clicked()</slot>
  </slots>
 </ui>
