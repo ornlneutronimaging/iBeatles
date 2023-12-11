@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="MPL Toolbar">
+    <file>right_blue_arrow.png</file>
     <file>check_icon.png</file>
     <file>horizontal_splitter_handle.png</file>
     <file>vertical_splitter_handle.png</file>
