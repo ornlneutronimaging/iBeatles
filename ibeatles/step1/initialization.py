@@ -13,6 +13,7 @@ from neutronbraggedge.material_handler.retrieve_material_metadata import Retriev
 from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles import fitting_image, pixel_binning_image, rotate_image, strain_mapping_image, tof_binning_image
+from ibeatles import right_blue_arrow
 from ibeatles.icons import icons_rc  # do not remove
 from ibeatles import step1_icon, step2_icon, step3_icon, step4_icon, infos_file, preview_file, error_icon_file
 from ibeatles import DataType
@@ -24,8 +25,8 @@ from ibeatles.utilities.table_handler import TableHandler
 tab6_top_button_width = 250
 tab6_top_button_height = 150
 
-tab6_bottom_buttom_width = 150
-tab6_bottom_button_height = 150
+tab6_bottom_buttom_width = 250
+tab6_bottom_button_height = 250
 
 
 class Initialization:
@@ -183,6 +184,10 @@ class Initialization:
         # Angstroms
         self.parent.ui.pre_defined_lattice_units.setText(u"\u212B")
         self.parent.ui.method1_lattice_units.setText(u"\u212B")
+
+        # # tab 4
+        # self.parent.ui.analysis_tab_arrow_label1.setStyleSheet(f"background-image: {right_blue_arrow}")
+        # self.parent.ui.analysis_tab_arrow_label1.resize(200, 200)
 
     def general_init_pyqtgrpah(self, roi_function,
                                base_widget,

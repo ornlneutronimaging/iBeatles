@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1753</width>
-    <height>1120</height>
+    <width>1994</width>
+    <height>1250</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>3</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
@@ -37,8 +43,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1727</width>
-         <height>1030</height>
+         <width>1968</width>
+         <height>1173</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -1105,18 +1111,53 @@ p, li { white-space: pre-wrap; }
                 <widget class="QPushButton" name="roi_pixel_binning_pushButton">
                  <property name="minimumSize">
                   <size>
-                   <width>200</width>
-                   <height>200</height>
+                   <width>300</width>
+                   <height>300</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>200</width>
+                   <width>300</width>
+                   <height>300</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_19">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="analysis_tab_arrow_label1">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>250</width>
                    <height>200</height>
                   </size>
                  </property>
                  <property name="text">
                   <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="../icons/icons.qrc">:/MPL Toolbar/right_blue_arrow.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -1137,18 +1178,41 @@ p, li { white-space: pre-wrap; }
                 <widget class="QPushButton" name="fitting_pushButton">
                  <property name="minimumSize">
                   <size>
-                   <width>200</width>
-                   <height>200</height>
+                   <width>300</width>
+                   <height>300</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>200</width>
-                   <height>200</height>
+                   <width>300</width>
+                   <height>300</height>
                   </size>
                  </property>
                  <property name="text">
                   <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_20">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="analysis_tab_arrow_label2">
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="../icons/icons.qrc">:/MPL Toolbar/right_blue_arrow.png</pixmap>
                  </property>
                 </widget>
                </item>
@@ -1169,14 +1233,14 @@ p, li { white-space: pre-wrap; }
                 <widget class="QPushButton" name="strain_mapping_pushButton">
                  <property name="minimumSize">
                   <size>
-                   <width>200</width>
-                   <height>200</height>
+                   <width>300</width>
+                   <height>300</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>200</width>
-                   <height>200</height>
+                   <width>300</width>
+                   <height>300</height>
                   </size>
                  </property>
                  <property name="text">
@@ -2256,8 +2320,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1753</width>
-     <height>37</height>
+     <width>1994</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -2411,6 +2475,7 @@ p, li { white-space: pre-wrap; }
  </widget>
  <resources>
   <include location="../icons/icons.qrc"/>
+  <include location="Users/j35/git/iBeatles/ibeatles/icons/icons.qrc"/>
  </resources>
  <connections>
   <connection>
