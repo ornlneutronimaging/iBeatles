@@ -1,24 +1,18 @@
 from qtpy.QtWidgets import (QProgressBar, QVBoxLayout, QPushButton, QHBoxLayout, QRadioButton, QWidget, QSpacerItem,
                             QSizePolicy, QScrollBar, QLabel)
-from qtpy.QtGui import QPixmap, QImage
+from qtpy.QtGui import QPixmap
 from qtpy import QtCore
 from qtpy.QtGui import QIcon
 from qtpy.QtCore import QSize
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
-import numpy as np
-from imageio import imread
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
-from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles import fitting_image, pixel_binning_image, rotate_image, strain_mapping_image, tof_binning_image
-from ibeatles import right_blue_arrow
 from ibeatles.icons import icons_rc  # do not remove
 from ibeatles import step1_icon, step2_icon, step3_icon, step4_icon, infos_file, preview_file, error_icon_file
 from ibeatles import DataType
-from ibeatles import refresh_image
-from ibeatles.step1.gui_handler import Step1GuiHandler as GuiHandler
 from ibeatles.step1.roi import Roi
 from ibeatles.utilities.table_handler import TableHandler
 

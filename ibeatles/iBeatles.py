@@ -26,7 +26,7 @@ from ibeatles.step1.initialization import Initialization
 
 from ibeatles.utilities.get import Get
 from ibeatles.session.load_previous_session_launcher import LoadPreviousSessionLauncher
-from ibeatles.session.session_handler import SessionHandler, SessionKeys, SessionSubKeys
+from ibeatles.session.session_handler import SessionHandler
 
 from ibeatles.step2.initialization import Initialization as Step2Initialization
 from ibeatles.step2.gui_handler import Step2GuiHandler
@@ -39,6 +39,8 @@ from ibeatles.step3.gui_handler import Step3GuiHandler
 from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 
 from ibeatles.binning.binning_launcher import BinningLauncher
+
+from ibeatles.tof_combining_binning.tof_combining_binning_launcher import TofCombiningBinningLauncher
 
 from ibeatles.fitting import FittingKeys
 from ibeatles.fitting.fitting_launcher import FittingLauncher
@@ -136,6 +138,9 @@ class MainWindow(QMainWindow):
     binning_roi = None    # x0, x1, width, height, bin_size
     # binning_bin_size = 20
     binning_done = False
+
+    # TOF binning window
+    tof_combining_binning_ui = None
 
     # list hkl, lambda and d0
     list_hkl_lambda_d0_ui = None
@@ -1048,7 +1053,7 @@ class MainWindow(QMainWindow):
     # TAB 4 - analysis
 
     def tof_binning_clicked(self):
-        print(f"TOF binning clicked!")
+        TofCombiningBinningLauncher(parent=self)
 
     # GENERAL UI =======================================================================================
     def closeEvent(self, event):
