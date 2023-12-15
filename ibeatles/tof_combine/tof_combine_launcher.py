@@ -45,6 +45,9 @@ class TofCombine(QMainWindow):
     # full path to the top folder selected and used to fill the table
     top_folder = None
 
+    # folder we will use or not
+    list_of_folders_status = None
+
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
     # version = None   # current version of application

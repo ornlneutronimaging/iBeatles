@@ -38,10 +38,10 @@ class EventHandler:
                                                        directory=default_path,
                                                        options=QFileDialog.ShowDirsOnly))
         if folder == "":
-            self.logger.info("User Canceled the selection of top folder dialog!")
+            logging.info("User Canceled the selection of top folder dialog!")
             return
 
-        self.logger.info(f"Users selected a new top folder: {folder}")
+        logging.info(f"Users selected a new top folder: {folder}")
 
         # get list of folders in top folder
         list_folders = FileHandler.get_list_of_folders(folder)
@@ -52,10 +52,10 @@ class EventHandler:
         self.reset_data()
 
         # # display the full path of the top folder selected
-        # self.parent.ui.top_folder_label.setText(folder)
+        self.parent.ui.top_folder_label.setText(folder)
         #
         # # display list of folders in widget and column showing working folders used
-        # self.populate_list_of_folders_to_combine()
+        self.populate_list_of_folders_to_combine()
         #
         # # update ui
         # self.check_widgets()
@@ -128,7 +128,7 @@ class EventHandler:
         self.parent.ui.time_spectra_preview_pushButton.setEnabled(False)
 
     def populate_list_of_folders_to_combine(self):
-        list_of_folders = self.parent.session[SessionKeys.list_working_folders]
+        list_of_folders = self.parent.list_folders
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         o_table.remove_all_rows()
 
@@ -139,7 +139,8 @@ class EventHandler:
             self.insert_row_entry(folder=_folder)
 
     def insert_row_entry(self, folder=None):
-        list_of_folders_status = self.parent.session.get(SessionKeys.list_working_folders_status, None)
+        
+        list_of_folders_status = self.parent.list_of_folders_status
         raw_data_folders = self.parent.raw_data_folders
 
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
