@@ -13,7 +13,7 @@ from ibeatles.tof_combine.utilities.time_spectra import TimeSpectraLauncher
 # from .session import session
 # from .session.session_handler import SessionHandler
 # from .session import SessionKeys
-# from .initialization import Initialization
+from ibeatles.tof_combine.initialization import Initialization
 # from .utilities.check import Check
 from ibeatles.tof_combine.combine.event_handler import EventHandler as CombineEventHandler
 # from maverick.export.export_images import ExportImages
@@ -25,17 +25,16 @@ from ibeatles import load_ui
 class TofCombineLauncher:
 
     def __init__(self, parent=None):
-        self.parent = parent
 
-        if self.parent.binning_ui is None:
+        if parent.binning_ui is None:
             tof_combine_window = TofCombine(parent=parent)
             tof_combine_window.show()
-            self.parent.tof_combining_binning_ui = tof_combine_window
+            parent.tof_combining_binning_ui = tof_combine_window
             # o_binning = BinningHandler(parent=self.parent)
             # o_binning.display_image()
         else:
-            self.parent.binning_ui.setFocus()
-            self.parent.binning_ui.activateWindow()
+            parent.binning_ui.setFocus()
+            parent.binning_ui.activateWindow()
 
 
 class TofCombine(QMainWindow):
@@ -139,7 +138,8 @@ class TofCombine(QMainWindow):
         """
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_tof_combine.ui', baseinstance=self)
-        # self.initialization()
+        self.parent = parent
+        self.initialization()
         # self.setup()
         # self.setWindowTitle(f"maverick - v{self.version}")
 
@@ -248,8 +248,7 @@ class TofCombine(QMainWindow):
         # o_export = ExportImages(parent=self)
         # o_export.run()
 
-
     def closeEvent(self, event):
         logging.info(" #### Leaving combine ####")
-        self.parent.tof_combining_binning_ui = None
+        self.parent.tof_combine_ui = None
         self.close()
