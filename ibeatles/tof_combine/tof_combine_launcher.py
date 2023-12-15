@@ -1,5 +1,4 @@
-from qtpy.QtWidgets import QApplication, QMainWindow
-import sys
+from qtpy.QtWidgets import QMainWindow
 import os
 import logging
 import warnings
@@ -17,16 +16,8 @@ from ibeatles.tof_combine.utilities.time_spectra import TimeSpectraLauncher
 # from .initialization import Initialization
 # from .utilities.check import Check
 from ibeatles.tof_combine.combine.event_handler import EventHandler as CombineEventHandler
-# from .bin.event_hander import EventHandler as BinEventHandler
-# from .bin.manual_event_handler import ManualEventHandler as BinManualEventHandler
-# from .bin.auto_event_handler import AutoEventHandler as BinAutoEventHandler
-# from .bin.preview_full_bin_axis import PreviewFullBinAxis
-# from .bin.statistics import Statistics
-# from .bin.settings import Settings as BinSettings
-# from .bin.manual_right_click import ManualRightClick
 # from maverick.export.export_images import ExportImages
 # from maverick.export.export_bin_table import ExportBinTable
-# from .log.log_launcher import LogLauncher
 
 from ibeatles import load_ui
 
@@ -257,18 +248,8 @@ class TofCombine(QMainWindow):
         # o_export = ExportImages(parent=self)
         # o_export.run()
 
-    def bin_export_table_pushButton_clicked(self):
-        pass
-        # o_export = ExportBinTable(parent=self)
-        # o_export.run()
 
     def closeEvent(self, event):
-        # o_session = SessionHandler(parent=self)
-        # o_session.save_from_ui()
-        # o_session.automatic_save()
-        #
-        # o_event = Check(parent=self)
-        # o_event.log_file_size()
-        #
-        logging.info(" #### Leaving combine/binning ####")
+        logging.info(" #### Leaving combine ####")
+        self.parent.tof_combining_binning_ui = None
         self.close()

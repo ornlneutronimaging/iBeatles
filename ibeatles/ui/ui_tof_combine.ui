@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1199</width>
-    <height>884</height>
+    <width>1601</width>
+    <height>971</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,6 +24,12 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QGroupBox" name="groupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="title">
            <string>Input data sets</string>
           </property>
@@ -307,8 +313,81 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="combine_widget" native="true"/>
+      <widget class="QWidget" name="combine_widget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="cancel_pushButton">
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="combine_and_use_pushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Combine and use</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -317,7 +396,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1199</width>
+     <width>1601</width>
      <height>24</height>
     </rect>
    </property>
@@ -357,8 +436,8 @@
    <slot>select_top_folder_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>130</y>
+     <x>178</x>
+     <y>100</y>
     </hint>
     <hint type="destinationlabel">
      <x>1086</x>
@@ -373,8 +452,8 @@
    <slot>time_spectra_preview_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>147</x>
-     <y>880</y>
+     <x>178</x>
+     <y>556</y>
     </hint>
     <hint type="destinationlabel">
      <x>1089</x>
@@ -389,8 +468,8 @@
    <slot>combine_algorithm_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>137</x>
-     <y>799</y>
+     <x>114</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -405,8 +484,8 @@
    <slot>combine_algorithm_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>217</x>
-     <y>799</y>
+     <x>194</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -421,12 +500,12 @@
    <slot>refresh_table_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1131</x>
-     <y>130</y>
+     <x>1334</x>
+     <y>100</y>
     </hint>
     <hint type="destinationlabel">
      <x>1078</x>
-     <y>-10</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -437,8 +516,8 @@
    <slot>combine_instrument_settings_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>828</x>
-     <y>792</y>
+     <x>889</x>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
      <x>1219</x>
@@ -453,12 +532,28 @@
    <slot>combine_instrument_settings_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>828</x>
-     <y>837</y>
+     <x>889</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
      <x>866</x>
      <y>956</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancel_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>456</x>
+     <y>763</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>337</x>
+     <y>870</y>
     </hint>
    </hints>
   </connection>
