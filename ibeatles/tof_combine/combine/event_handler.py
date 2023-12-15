@@ -44,7 +44,8 @@ class EventHandler:
         logging.info(f"Users selected a new top folder: {folder}")
 
         # get list of folders in top folder
-        list_folders = FileHandler.get_list_of_folders(folder)
+        list_folders = FileHandler.get_list_of_all_subfolders(folder)
+        list_folders = self.keep_only_folders_with_tiff_files(list_folders)
         self.parent.list_folders = list_folders
         self.parent.top_folder = folder
 
@@ -91,6 +92,17 @@ class EventHandler:
                         'nbr_files': nbr_files}
                 self.parent.raw_data_folders[_folder] = data
                 self.insert_row_entry(_folder)
+
+    def keep_only_folders_with_tiff_files(self, list_folders):
+        """will go over the list of folders and will only keep the one with tiff in it"""
+        list_folders.sort()
+        clean_list_folders = []
+        for _folder in list_folders:
+            list_files = FileHandler.get_list_of_tif(_folder)
+            if len(list_files) > 0:
+                clean_list_folders.append(_folder)
+
+        return clean_list_folders
 
     def reset_data(self):
         """
@@ -139,7 +151,7 @@ class EventHandler:
             self.insert_row_entry(folder=_folder)
 
     def insert_row_entry(self, folder=None):
-        
+
         list_of_folders_status = self.parent.list_of_folders_status
         raw_data_folders = self.parent.raw_data_folders
 

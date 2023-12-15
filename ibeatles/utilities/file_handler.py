@@ -23,6 +23,11 @@ class FileHandler:
         return list_folders
 
     @classmethod
+    def get_list_of_all_subfolders(cls, top_folder):
+        tuple_folders = os.walk(top_folder)
+        return [x[0] for x in tuple_folders]
+
+    @classmethod
     def get_list_of_tif(cls, folder):
         full_list = glob.glob(folder + '/*.tif*')
         full_list.sort()
