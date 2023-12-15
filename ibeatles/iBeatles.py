@@ -40,7 +40,8 @@ from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 
 from ibeatles.binning.binning_launcher import BinningLauncher
 
-from ibeatles.tof_combining_binning.tof_combining_binning_launcher import TofCombiningBinningLauncher
+# from ibeatles.tof_bin.tof_combining_binning_launcher import TofCombiningBinningLauncher
+from ibeatles.tof_combine.tof_combine_launcher import TofCombineLauncher
 
 from ibeatles.fitting import FittingKeys
 from ibeatles.fitting.fitting_launcher import FittingLauncher
@@ -139,8 +140,9 @@ class MainWindow(QMainWindow):
     # binning_bin_size = 20
     binning_done = False
 
-    # TOF binning window
-    tof_combining_binning_ui = None
+    # window ui
+    tof_combine_ui = None
+    tof_rebin_ui = None
 
     # list hkl, lambda and d0
     list_hkl_lambda_d0_ui = None
@@ -1053,7 +1055,11 @@ class MainWindow(QMainWindow):
     # TAB 4 - analysis
 
     def tof_binning_clicked(self):
-        TofCombiningBinningLauncher(parent=self)
+        pass
+        # TofCombiningBinningLauncher(parent=self)
+
+    def tof_combine_clicked(self):
+        TofCombineLauncher(parent=self)
 
     # GENERAL UI =======================================================================================
     def closeEvent(self, event):

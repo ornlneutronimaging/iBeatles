@@ -9,7 +9,7 @@ import pyqtgraph as pg
 
 from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
 
-from ibeatles import fitting_image, pixel_binning_image, rotate_image, strain_mapping_image, tof_binning_image
+from ibeatles import fitting_image, pixel_binning_image, rotate_image, strain_mapping_image, tof_binning_image, tof_combine_image
 from ibeatles.icons import icons_rc  # do not remove
 from ibeatles import step1_icon, step2_icon, step3_icon, step4_icon, infos_file, preview_file, error_icon_file
 from ibeatles import DataType
@@ -410,6 +410,11 @@ class Initialization:
         self.parent.ui.rotate_pushButton.setIcon(rotate_icon)
         self.parent.ui.rotate_pushButton.setIconSize(QSize(tab6_top_button_width,
                                                            tab6_top_button_height))
+
+        tof_combine_icon = QIcon(tof_combine_image)
+        self.parent.ui.tof_combine_pushButton.setIcon(tof_combine_icon)
+        self.parent.ui.tof_combine_pushButton.setIconSize(QSize(tab6_top_button_width,
+                                                                tab6_top_button_height))
 
         tof_binning_icon = QIcon(tof_binning_image)
         self.parent.ui.tof_binning_pushButton.setIcon(tof_binning_icon)

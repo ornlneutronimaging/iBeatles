@@ -1057,6 +1057,41 @@ p, li { white-space: pre-wrap; }
                 </spacer>
                </item>
                <item>
+                <widget class="QPushButton" name="tof_combine_pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>300</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>Click to rotate the sample within the image </string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_21">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
                 <widget class="QPushButton" name="tof_binning_pushButton">
                  <property name="minimumSize">
                   <size>
@@ -2493,7 +2528,7 @@ p, li { white-space: pre-wrap; }
  </widget>
  <resources>
   <include location="../icons/icons.qrc"/>
-  <include location="Users/j35/git/iBeatles/ibeatles/icons/icons.qrc"/>
+  <include location="../icons/icons.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -2520,7 +2555,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>259</x>
-     <y>996</y>
+     <y>1126</y>
     </hint>
     <hint type="destinationlabel">
      <x>607</x>
@@ -2535,8 +2570,8 @@ p, li { white-space: pre-wrap; }
    <slot>open_beam_import_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>154</y>
+     <x>88</x>
+     <y>122</y>
     </hint>
     <hint type="destinationlabel">
      <x>910</x>
@@ -2567,8 +2602,8 @@ p, li { white-space: pre-wrap; }
    <slot>open_beam_list_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>788</x>
-     <y>804</y>
+     <x>130</x>
+     <y>128</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -2599,8 +2634,8 @@ p, li { white-space: pre-wrap; }
    <slot>time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1297</x>
-     <y>1000</y>
+     <x>1522</x>
+     <y>1130</y>
     </hint>
     <hint type="destinationlabel">
      <x>545</x>
@@ -2648,7 +2683,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>259</x>
-     <y>996</y>
+     <y>1126</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2663,8 +2698,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalized_time_spectra_preview_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1052</x>
-     <y>1000</y>
+     <x>1233</x>
+     <y>1130</y>
     </hint>
     <hint type="destinationlabel">
      <x>766</x>
@@ -2679,8 +2714,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_remove_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1072</x>
-     <y>768</y>
+     <x>1313</x>
+     <y>898</y>
     </hint>
     <hint type="destinationlabel">
      <x>1525</x>
@@ -2695,8 +2730,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_add_roi_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1040</x>
-     <y>768</y>
+     <x>1281</x>
+     <y>898</y>
     </hint>
     <hint type="destinationlabel">
      <x>1528</x>
@@ -2711,8 +2746,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1285</x>
-     <y>1025</y>
+     <x>1526</x>
+     <y>1155</y>
     </hint>
     <hint type="destinationlabel">
      <x>1527</x>
@@ -2759,8 +2794,8 @@ p, li { white-space: pre-wrap; }
    <slot>beam_rate_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1652</x>
-     <y>145</y>
+     <x>1893</x>
+     <y>151</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -2775,7 +2810,7 @@ p, li { white-space: pre-wrap; }
    <slot>distance_source_detector_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1656</x>
+     <x>1897</x>
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
@@ -2791,8 +2826,8 @@ p, li { white-space: pre-wrap; }
    <slot>detector_offset_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1656</x>
-     <y>172</y>
+     <x>1897</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -2967,8 +3002,8 @@ p, li { white-space: pre-wrap; }
    <slot>normalization_moving_average_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1387</x>
-     <y>1025</y>
+     <x>1628</x>
+     <y>1155</y>
     </hint>
     <hint type="destinationlabel">
      <x>1538</x>
@@ -3015,7 +3050,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1289</x>
+     <x>1514</x>
      <y>152</y>
     </hint>
     <hint type="destinationlabel">
@@ -3031,8 +3066,8 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1288</x>
-     <y>153</y>
+     <x>145</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
      <x>1653</x>
@@ -3047,7 +3082,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1067</x>
+     <x>1248</x>
      <y>115</y>
     </hint>
     <hint type="destinationlabel">
@@ -3079,8 +3114,8 @@ p, li { white-space: pre-wrap; }
    <slot>pre_defined_element_dropBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1665</x>
-     <y>402</y>
+     <x>1906</x>
+     <y>389</y>
     </hint>
     <hint type="destinationlabel">
      <x>1250</x>
@@ -3095,8 +3130,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method2_clear_table_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1589</x>
-     <y>470</y>
+     <x>1830</x>
+     <y>457</y>
     </hint>
     <hint type="destinationlabel">
      <x>1235</x>
@@ -3111,8 +3146,8 @@ p, li { white-space: pre-wrap; }
    <slot>fill_fields_with_selected_element_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1692</x>
-     <y>463</y>
+     <x>1933</x>
+     <y>477</y>
     </hint>
     <hint type="destinationlabel">
      <x>1217</x>
@@ -3127,8 +3162,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_element_name_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1648</x>
-     <y>394</y>
+     <x>1889</x>
+     <y>381</y>
     </hint>
     <hint type="destinationlabel">
      <x>1027</x>
@@ -3143,8 +3178,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1707</x>
-     <y>653</y>
+     <x>1948</x>
+     <y>972</y>
     </hint>
     <hint type="destinationlabel">
      <x>1122</x>
@@ -3159,8 +3194,8 @@ p, li { white-space: pre-wrap; }
    <slot>material_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1684</x>
-     <y>806</y>
+     <x>1925</x>
+     <y>971</y>
     </hint>
     <hint type="destinationlabel">
      <x>1167</x>
@@ -3175,8 +3210,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_lattice_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1626</x>
-     <y>539</y>
+     <x>1867</x>
+     <y>526</y>
     </hint>
     <hint type="destinationlabel">
      <x>1649</x>
@@ -3191,8 +3226,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_table_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1557</x>
-     <y>742</y>
+     <x>1902</x>
+     <y>948</y>
     </hint>
     <hint type="destinationlabel">
      <x>1648</x>
@@ -3207,8 +3242,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method2_table_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1583</x>
-     <y>460</y>
+     <x>1824</x>
+     <y>447</y>
     </hint>
     <hint type="destinationlabel">
      <x>1649</x>
@@ -3223,8 +3258,8 @@ p, li { white-space: pre-wrap; }
    <slot>user_defined_method1_crystal_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1653</x>
-     <y>584</y>
+     <x>1894</x>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
      <x>1655</x>
@@ -3239,8 +3274,8 @@ p, li { white-space: pre-wrap; }
    <slot>display_material_bragg_peaks_checkbox_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1707</x>
-     <y>286</y>
+     <x>1948</x>
+     <y>273</y>
     </hint>
     <hint type="destinationlabel">
      <x>1747</x>
@@ -3303,8 +3338,8 @@ p, li { white-space: pre-wrap; }
    <slot>menu_view_strain_mapping_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1136</x>
-     <y>484</y>
+     <x>1568</x>
+     <y>637</y>
     </hint>
     <hint type="destinationlabel">
      <x>1751</x>
@@ -3319,12 +3354,28 @@ p, li { white-space: pre-wrap; }
    <slot>tof_binning_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1002</x>
-     <y>203</y>
+     <x>1470</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>1745</x>
      <y>498</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tof_combine_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>tof_combine_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>873</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>202</y>
     </hint>
    </hints>
   </connection>
@@ -3403,5 +3454,6 @@ p, li { white-space: pre-wrap; }
   <slot>user_defined_method1_crystal_changed()</slot>
   <slot>display_material_bragg_peaks_checkbox_clicked()</slot>
   <slot>tof_binning_clicked()</slot>
+  <slot>tof_combine_clicked()</slot>
  </slots>
 </ui>
