@@ -39,6 +39,12 @@ class TofCombineLauncher:
 
 class TofCombine(QMainWindow):
 
+    # list of folders listed in the combine table
+    list_folders = None
+
+    # full path to the top folder selected and used to fill the table
+    top_folder = None
+
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
     # version = None   # current version of application
@@ -192,7 +198,8 @@ class TofCombine(QMainWindow):
         o_event.check_widgets()
 
     def select_top_folder_button_clicked(self):
-        o_event = CombineEventHandler(parent=self)
+        o_event = CombineEventHandler(parent=self,
+                                      grand_parent=self.parent)
         o_event.select_top_folder()
 
     def refresh_table_clicked(self):

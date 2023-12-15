@@ -1,7 +1,6 @@
 import os
 from os.path import expanduser
 from pathlib import Path
-import configparser
 import tomli
 import copy
 import numpy as np
@@ -15,16 +14,6 @@ class Get:
 
     def __init__(self, parent=None):
         self.parent = parent
-
-    def log_file_name(self):
-        log_file_name = self.parent.config['log_file_name']
-        full_log_file_name = Get.full_home_file_name(log_file_name)
-        return full_log_file_name
-
-    def automatic_config_file_name(self):
-        config_file_name = self.parent.config['session_file_name']
-        full_config_file_name = Get.full_home_file_name(config_file_name)
-        return full_config_file_name
 
     def combine_algorithm(self):
         if self.parent.ui.combine_mean_radioButton.isChecked():
@@ -77,17 +66,7 @@ class Get:
                 status = False
             list_of_folders_to_use_status.append(status)
 
-        self.parent.session[SessionKeys.list_working_folders_status] = list_of_folders_to_use_status
-
         return list_of_folders_to_use
-
-        # session = self.parent.session
-        # list_working_folders_status = session[SessionKeys.list_working_folders_status]
-        # list_working_folders = np.array(session[SessionKeys.list_working_folders])
-        # try:
-        #     return_list = list_working_folders[list_working_folders_status]
-        # except IndexError:
-        #     return [None]
 
     def manual_working_row(self, working_item_id=None):
         list_item_id = self.parent.list_of_manual_bins_item

@@ -4,10 +4,12 @@ import logging
 import numpy as np
 import copy
 
+from ibeatles.session import SessionSubKeys
+from ibeatles import DataType
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.tof_combine.utilities.table_handler import TableHandler
 from ibeatles.tof_combine.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
-from ibeatles.tof_combine.utilities.get import Get
+from ibeatles.tof_combine.utilities.get import Get as TofCombineGet
 from ibeatles.tof_combine.utilities import CombineAlgorithm, TimeSpectraKeys
 from ibeatles.tof_combine.load.load_files import LoadFiles
 from ibeatles.tof_combine.combine.combine import Combine
@@ -18,55 +20,48 @@ class EventHandler:
 
     no_data_loaded = False
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
-        self.logger = logging.getLogger('maverick')
+        self.grand_parent = grand_parent
 
-        o_get = Get(parent=parent)
+        o_get = TofCombineGet(parent=parent)
         list_working_folders = o_get.list_of_folders_to_use()
         if list_working_folders == [None]:
             self.no_data_loaded = True
-
-        # if not list_working_folders:
-        #     self.no_data_loaded = True
-
-        self.parent.session[SessionKeys.detector_offset] = self.parent.ui.detector_offset_spinBox.value()
-        self.parent.session[SessionKeys.distance_source_detector] = \
-            self.parent.ui.distance_source_detector_doubleSpinBox.value()
-        self.parent.session[SessionKeys.sample_position] = self.parent.ui.combine_sample_position_doubleSpinBox.value()
 
     def select_top_folder(self):
         if self.no_data_loaded:
             return
 
-        _folder = str(QFileDialog.getExistingDirectory(caption="Select Top Working Folder",
-                                                       directory=self.parent.session[SessionKeys.top_folder],
+        default_path = self.grand_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
+        folder = str(QFileDialog.getExistingDirectory(caption="Select Top Working Folder",
+                                                       directory=default_path,
                                                        options=QFileDialog.ShowDirsOnly))
-        if _folder == "":
+        if folder == "":
             self.logger.info("User Canceled the selection of top folder dialog!")
             return
 
-        self.logger.info(f"Users selected a new top folder: {_folder}")
+        self.logger.info(f"Users selected a new top folder: {folder}")
 
         # get list of folders in top folder
-        self.parent.session[SessionKeys.top_folder] = os.path.abspath(_folder)
-        list_folders = FileHandler.get_list_of_folders(_folder)
-        self.parent.session[SessionKeys.list_working_folders] = list_folders
+        list_folders = FileHandler.get_list_of_folders(folder)
+        self.parent.list_folders = list_folders
+        self.parent.top_folder = folder
 
         # initialize parameters when using new working folder
         self.reset_data()
 
-        # display the full path of the top folder selected
-        self.parent.ui.top_folder_label.setText(_folder)
-
-        # display list of folders in widget and column showing working folders used
-        self.populate_list_of_folders_to_combine()
-
-        # update ui
-        self.check_widgets()
+        # # display the full path of the top folder selected
+        # self.parent.ui.top_folder_label.setText(folder)
+        #
+        # # display list of folders in widget and column showing working folders used
+        # self.populate_list_of_folders_to_combine()
+        #
+        # # update ui
+        # self.check_widgets()
 
     def check_widgets(self):
-        o_get = Get(parent=self.parent)
+        o_get = TofCombineGet(parent=self.parent)
 
         if (o_get.list_of_folders_to_use() == []) or (o_get.list_of_folders_to_use() is None):
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
@@ -79,7 +74,8 @@ class EventHandler:
 
     def refresh_table_clicked(self):
         self.logger.info("User clicked the refresh table!")
-        top_folder = self.parent.session[SessionKeys.top_folder]
+        top_folder = self.parent.top_folder
+
         list_folders = FileHandler.get_list_of_folders(top_folder)
         # checking if there is any new folder
         current_list_of_folders = self.parent.session[SessionKeys.list_working_folders]
@@ -102,7 +98,7 @@ class EventHandler:
         """
 
         # reset master dictionary that contains the raw data
-        list_folders = self.parent.session[SessionKeys.list_working_folders]
+        list_folders = self.parent.list_folders
         if list_folders is None:
             return
 
@@ -117,7 +113,7 @@ class EventHandler:
         self.parent.raw_data_folders = _data_dict
 
         # initialize list of selected folders
-        self.parent.session[SessionKeys.list_working_folders_status] = [False for _index in np.arange(len(list_folders))]
+        # self.parent.session[SessionKeys.list_working_folders_status] = [False for _index in np.arange(len(list_folders))]
 
         # reset time spectra
         self.parent.time_spectra = {TimeSpectraKeys.file_name: None,

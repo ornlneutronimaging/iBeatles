@@ -7,9 +7,26 @@ import shutil
 from datetime import datetime
 from qtpy.QtWidgets import QFileDialog
 import json
+import glob
 
 
 class FileHandler:
+
+    @classmethod
+    def get_list_of_folders(cls, top_folder):
+        full_list = glob.glob(top_folder + "/*")
+        full_list.sort()
+        list_folders = []
+        for _entry in full_list:
+            if os.path.isdir(_entry):
+                list_folders.append(_entry)
+        return list_folders
+
+    @classmethod
+    def get_list_of_tif(cls, folder):
+        full_list = glob.glob(folder + '/*.tif*')
+        full_list.sort()
+        return full_list
 
     @classmethod
     def get_parent_folder(cls, full_folder):

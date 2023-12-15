@@ -130,33 +130,17 @@
               </sizepolicy>
              </property>
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="tab_3">
               <attribute name="title">
                <string>Instrument Settings</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_3">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_3">
                  <property name="text">
-                  <string>distance source-detector</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QDoubleSpinBox" name="distance_source_detector_doubleSpinBox">
-                 <property name="decimals">
-                  <number>3</number>
-                 </property>
-                 <property name="minimum">
-                  <double>5.000000000000000</double>
-                 </property>
-                 <property name="maximum">
-                  <double>30.000000000000000</double>
-                 </property>
-                 <property name="value">
-                  <double>19.855000000000000</double>
+                  <string>detector offset</string>
                  </property>
                 </widget>
                </item>
@@ -167,27 +151,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_3">
+               <item row="2" column="1">
+                <widget class="QLabel" name="combine_sample_position_label">
                  <property name="text">
-                  <string>detector offset</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QSpinBox" name="detector_offset_spinBox">
-                 <property name="maximum">
-                  <number>20000</number>
-                 </property>
-                 <property name="value">
-                  <number>9600</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="combine_detector_offset_units">
-                 <property name="text">
-                  <string>micros</string>
+                  <string>N/A</string>
                  </property>
                 </widget>
                </item>
@@ -198,8 +165,51 @@
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QDoubleSpinBox" name="combine_sample_position_doubleSpinBox"/>
+               <item row="0" column="1">
+                <widget class="QLabel" name="distance_source_detector_label">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>N/A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="detector_offset_label">
+                 <property name="text">
+                  <string>N/A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>distance source-detector</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="combine_detector_offset_units">
+                 <property name="text">
+                  <string>micros</string>
+                 </property>
+                </widget>
                </item>
                <item row="2" column="2">
                 <widget class="QLabel" name="label_6">
@@ -506,38 +516,6 @@
     <hint type="destinationlabel">
      <x>1078</x>
      <y>0</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>distance_source_detector_doubleSpinBox</sender>
-   <signal>editingFinished()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>combine_instrument_settings_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>889</x>
-     <y>444</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1219</x>
-     <y>961</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>detector_offset_spinBox</sender>
-   <signal>editingFinished()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>combine_instrument_settings_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>889</x>
-     <y>488</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>866</x>
-     <y>956</y>
     </hint>
    </hints>
   </connection>
