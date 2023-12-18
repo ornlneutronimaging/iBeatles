@@ -129,6 +129,12 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>140</height>
+              </size>
+             </property>
              <property name="currentIndex">
               <number>0</number>
              </property>
@@ -137,24 +143,10 @@
                <string>Instrument Settings</string>
               </attribute>
               <layout class="QGridLayout" name="gridLayout_3">
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_3">
-                 <property name="text">
-                  <string>detector offset</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="2">
                 <widget class="QLabel" name="label_2">
                  <property name="text">
                   <string>m</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLabel" name="combine_sample_position_label">
-                 <property name="text">
-                  <string>N/A</string>
                  </property>
                 </widget>
                </item>
@@ -165,23 +157,17 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="distance_source_detector_label">
-                 <property name="maximumSize">
-                  <size>
-                   <width>100</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
+               <item row="2" column="2">
+                <widget class="QLabel" name="label_6">
                  <property name="text">
-                  <string>N/A</string>
+                  <string>mm</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="detector_offset_label">
+               <item row="1" column="2">
+                <widget class="QLabel" name="combine_detector_offset_units">
                  <property name="text">
-                  <string>N/A</string>
+                  <string>micros</string>
                  </property>
                 </widget>
                </item>
@@ -204,17 +190,37 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="combine_detector_offset_units">
+               <item row="1" column="1">
+                <widget class="QLabel" name="detector_offset_label">
                  <property name="text">
-                  <string>micros</string>
+                  <string>N/A</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="2">
-                <widget class="QLabel" name="label_6">
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_3">
                  <property name="text">
-                  <string>mm</string>
+                  <string>detector offset</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QLabel" name="combine_sample_position_label">
+                 <property name="text">
+                  <string>N/A</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="distance_source_detector_label">
+                 <property name="maximumSize">
+                  <size>
+                   <width>100</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>N/A</string>
                  </property>
                 </widget>
                </item>
@@ -228,7 +234,7 @@
                <item>
                 <widget class="QLabel" name="time_spectra_name_label">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -237,6 +243,19 @@
                   <string>N/A</string>
                  </property>
                 </widget>
+               </item>
+               <item>
+                <spacer name="verticalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
                <item>
                 <widget class="QPushButton" name="time_spectra_preview_pushButton">

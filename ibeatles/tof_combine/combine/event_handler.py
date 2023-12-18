@@ -194,7 +194,7 @@ class EventHandler:
                             editable=False)
 
     def update_list_of_folders_to_use(self, force_recalculation_of_time_spectra=False):
-        o_get = Get(parent=self.parent)
+        o_get = TofCombineGet(parent=self.parent)
         list_of_folders_to_use = o_get.list_of_folders_to_use()
 
         # o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
@@ -215,8 +215,8 @@ class EventHandler:
         #
         # self.parent.session[SessionKeys.list_working_folders_status] = list_of_folders_to_use_status
 
-        self.logger.info("Updating list of folders to use:")
-        self.logger.info(f"{list_of_folders_to_use}")
+        logging.info("Updating list of folders to use:")
+        logging.info(f"{list_of_folders_to_use}")
 
         # check or load the selected rows
         loading_worked = True

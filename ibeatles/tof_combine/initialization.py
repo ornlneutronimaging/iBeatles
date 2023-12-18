@@ -38,6 +38,12 @@ class Initialization:
 
     def splitter(self):
         self.parent.ui.combine_horizontal_splitter.setSizes([200, 500])
+        self.parent.ui.combine_horizontal_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.combine_horizontal_splitter.setHandleWidth(15)
 
     def table(self):
         # combine table
