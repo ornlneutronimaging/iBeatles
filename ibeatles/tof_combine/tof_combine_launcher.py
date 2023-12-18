@@ -20,6 +20,7 @@ from ibeatles.tof_combine.combine.event_handler import EventHandler as CombineEv
 # from maverick.export.export_bin_table import ExportBinTable
 
 from ibeatles import load_ui
+from ibeatles.tof_combine import SessionKeys
 
 
 class TofCombineLauncher:
@@ -30,8 +31,7 @@ class TofCombineLauncher:
             tof_combine_window = TofCombine(parent=parent)
             tof_combine_window.show()
             parent.tof_combining_binning_ui = tof_combine_window
-            # o_binning = BinningHandler(parent=self.parent)
-            # o_binning.display_image()
+
         else:
             parent.binning_ui.setFocus()
             parent.binning_ui.activateWindow()
@@ -48,7 +48,20 @@ class TofCombine(QMainWindow):
     # folder we will use or not
     list_of_folders_status = None
 
-    # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
+    combine_roi = {'x0': None,
+                   'y0': None,
+                   'width': None,
+                   'height': None}
+
+    # dictionary that will keep record of the entire UI and used to load and save the session
+    session = {SessionKeys.list_working_folders: None,
+               SessionKeys.list_working_folders_status: None,
+               SessionKeys.combine_roi: combine_roi,
+               }
+
+    combine_image_view = None
+    combine_roi_item_id = None
+
     # log_id = None  # ui id of the log QDialog
     # version = None   # current version of application
     #
@@ -109,7 +122,7 @@ class TofCombine(QMainWindow):
     # combine_image_view = None  # combine image view id - top right plot
     # combine_profile_view = None  # combine profile plot view id - bottom right plot
     # bin_profile_view = None  # bin profile
-    # combine_roi_item_id = None  # pyqtgraph item id of the roi (combine tab)
+
     # combine_file_index_radio_button = None  # in combine view
     # tof_radio_button = None  # in combine view
     # lambda_radio_button = None  # in combine view
@@ -158,6 +171,11 @@ class TofCombine(QMainWindow):
 
     def setup(self):
         logging.info(f"Starting the TOF combine tool!")
+        distance_source_detector = self.parent.ui.distance_source_detector.text()
+        self.ui.distance_source_detector_label.setText(distance_source_detector)
+
+        detector_offset = self.parent.ui.detector_offset.text()
+        self.ui.detector_offset_label.setText(detector_offset)
 
     # combine events
     def check_combine_widgets(self):

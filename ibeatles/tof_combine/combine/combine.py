@@ -3,6 +3,7 @@ import pyqtgraph as pg
 
 from ibeatles.tof_combine.utilities import CombineAlgorithm
 from ibeatles.tof_combine.utilities.get import Get
+from ibeatles.tof_combine import SessionKeys as TofCombineSessionKeys
 
 
 class Combine:
@@ -11,12 +12,11 @@ class Combine:
         self.parent = parent
 
     def run(self):
-        combine_algorithm = self.parent.session[SessionKeys.combine_algorithm]
-        # get list of data to combine
         o_get = Get(parent=self.parent)
+        combine_algorithm = o_get.combine_algorithm()
         list_array_to_combine = o_get.list_array_to_combine()
 
-        if list_array_to_combine == []:
+        if list_array_to_combine is None:
             self.parent.combine_image_view.clear()
             self.parent.combine_image_view.removeItem(self.parent.combine_roi_item_id)
             self.parent.combine_data = None
@@ -45,7 +45,7 @@ class Combine:
             self.parent.combine_image_view.setImage(integrated_arrays)
 
             # initialize ROI if first time, otherwise use same region
-            [x0, y0, width, height] = self.parent.session[SessionKeys.combine_roi]
+            [x0, y0, width, height] = self.parent.session[TofCombineSessionKeys.combine_roi]
             if self.parent.combine_roi_item_id:
                 self.parent.combine_image_view.removeItem(self.parent.combine_roi_item_id)
 

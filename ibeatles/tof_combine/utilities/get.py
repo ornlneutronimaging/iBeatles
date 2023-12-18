@@ -7,7 +7,7 @@ import numpy as np
 
 from ibeatles.tof_combine.utilities.table_handler import TableHandler
 from ibeatles.tof_combine.utilities import CombineAlgorithm, TimeSpectraKeys
-from ibeatles.session import SessionKeys
+from ibeatles.tof_combine import SessionKeys
 
 
 class Get:
@@ -42,10 +42,13 @@ class Get:
         if list_working_folders is None:
             return
 
-        list_array = []
+        list_array = None
         for _status, _folder_name in zip(list_working_folders_status, list_working_folders):
             if _status:
-                list_array.append(copy.deepcopy(raw_data_folders[_folder_name]['data']))
+                if list_array is None:
+                    list_array = [copy.deepcopy(raw_data_folders[_folder_name]['data'])]
+                else:
+                    list_array.append(copy.deepcopy(raw_data_folders[_folder_name]['data']))
 
         return list_array
 

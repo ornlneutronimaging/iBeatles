@@ -5,6 +5,7 @@ import numpy as np
 import copy
 
 from ibeatles.session import SessionSubKeys
+from ibeatles.tof_combine import SessionKeys as TofCombineSessionKeys
 from ibeatles import DataType
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.tof_combine.utilities.table_handler import TableHandler
@@ -52,38 +53,36 @@ class EventHandler:
         # initialize parameters when using new working folder
         self.reset_data()
 
-        # # display the full path of the top folder selected
+        # display the full path of the top folder selected
         self.parent.ui.top_folder_label.setText(folder)
-        #
-        # # display list of folders in widget and column showing working folders used
+
+        # display list of folders in widget and column showing working folders used
         self.populate_list_of_folders_to_combine()
-        #
-        # # update ui
-        # self.check_widgets()
+
+        # update ui
+        self.check_widgets()
 
     def check_widgets(self):
         o_get = TofCombineGet(parent=self.parent)
 
         if (o_get.list_of_folders_to_use() == []) or (o_get.list_of_folders_to_use() is None):
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
-            self.parent.ui.combine_bin_tabWidget.setTabEnabled(1, False)
             self.parent.ui.combine_widget.setEnabled(False)
         else:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(True)
-            self.parent.ui.combine_bin_tabWidget.setTabEnabled(1, True)
             self.parent.ui.combine_widget.setEnabled(True)
 
     def refresh_table_clicked(self):
-        self.logger.info("User clicked the refresh table!")
+        logging.info("User clicked the refresh table!")
         top_folder = self.parent.top_folder
 
         list_folders = FileHandler.get_list_of_folders(top_folder)
         # checking if there is any new folder
-        current_list_of_folders = self.parent.session[SessionKeys.list_working_folders]
+        current_list_of_folders = self.parent.session[TofCombineSessionKeys.list_working_folders]
         for _folder in list_folders:
             if not (_folder in current_list_of_folders):
-                self.parent.session[SessionKeys.list_working_folders].append(_folder)
-                self.parent.session[SessionKeys.list_working_folders_status].append(False)
+                self.parent.session[TofCombineSessionKeys.list_working_folders].append(_folder)
+                self.parent.session[TofCombineSessionKeys.list_working_folders_status].append(False)
 
                 list_files = FileHandler.get_list_of_files(_folder)
                 nbr_files = len(list_files)
@@ -197,23 +196,23 @@ class EventHandler:
         o_get = TofCombineGet(parent=self.parent)
         list_of_folders_to_use = o_get.list_of_folders_to_use()
 
-        # o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
-        # nbr_row = o_table.row_count()
-        # list_of_folders_to_use = []
-        # list_of_folders_to_use_status = []
-        # for _row_index in np.arange(nbr_row):
-        #     _horizontal_widget = o_table.get_widget(row=_row_index,
-        #                                             column=0)
-        #     radio_button = _horizontal_widget.layout().itemAt(1).widget()
-        #     if radio_button.isChecked():
-        #         list_of_folders_to_use.append(o_table.get_item_str_from_cell(row=_row_index,
-        #                                                                      column=2))
-        #         status = True
-        #     else:
-        #         status = False
-        #     list_of_folders_to_use_status.append(status)
-        #
-        # self.parent.session[SessionKeys.list_working_folders_status] = list_of_folders_to_use_status
+        o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
+        nbr_row = o_table.row_count()
+        list_of_folders_to_use = []
+        list_of_folders_to_use_status = []
+        for _row_index in np.arange(nbr_row):
+            _horizontal_widget = o_table.get_widget(row=_row_index,
+                                                    column=0)
+            radio_button = _horizontal_widget.layout().itemAt(1).widget()
+            if radio_button.isChecked():
+                list_of_folders_to_use.append(o_table.get_item_str_from_cell(row=_row_index,
+                                                                             column=2))
+                status = True
+            else:
+                status = False
+            list_of_folders_to_use_status.append(status)
+
+        self.parent.session[TofCombineSessionKeys.list_working_folders_status] = list_of_folders_to_use_status
 
         logging.info("Updating list of folders to use:")
         logging.info(f"{list_of_folders_to_use}")
@@ -271,7 +270,7 @@ class EventHandler:
         :return: True if the loading worked, False otherwise
         """
         if not os.path.exists(folder_name):
-            self.logger.info(f"Unable to load data from folder {folder_name}")
+            logging.info(f"Unable to load data from folder {folder_name}")
             return False
 
         # load the data
@@ -286,11 +285,11 @@ class EventHandler:
         if self.no_data_loaded:
             return
 
-        o_get = Get(parent=self.parent)
-
+        o_get = TofCombineGet(parent=self.parent)
         combine_algorithm = o_get.combine_algorithm()
-        self.parent.session[SessionKeys.combine_algorithm] = combine_algorithm
-        self.logger.info(f"Algorithm to combine changed to: {combine_algorithm}")
+
+        self.parent.session[TofCombineSessionKeys.combine_algorithm] = combine_algorithm
+        logging.info(f"Algorithm to combine changed to: {combine_algorithm}")
         self.combine_folders()
         self.display_profile()
 
@@ -316,7 +315,10 @@ class EventHandler:
         width = x1 - x0
         height = y1 - y0
 
-        self.parent.session[SessionKeys.combine_roi] = [x0, y0, width, height]
+        self.parent.combine_roi = {'x0': x0,
+                                   'y0': y0,
+                                   'width': width,
+                                   'height': height}
 
     def display_profile(self):
         if self.no_data_loaded:
@@ -328,9 +330,12 @@ class EventHandler:
             self.parent.combine_profile_view.clear()
             return
 
-        [x0, y0, width, height] = self.parent.session[SessionKeys.combine_roi]
+        x0 = self.parent.combine_roi['x0']
+        y0 = self.parent.combine_roi['y0']
+        width = self.parent.combine_roi['width']
+        height = self.parent.combine_roi['height']
 
-        o_get = Get(parent=self.parent)
+        o_get = TofCombineGet(parent=self.parent)
         combine_algorithm = o_get.combine_algorithm()
         time_spectra_x_axis_name = o_get.combine_x_axis_selected()
 
@@ -373,11 +378,7 @@ class EventHandler:
         max_lambda = float(lambda_array[-1]) * 1e10
         min_lambda = float(lambda_array[0]) * 1e10
 
-        self.parent.ui.auto_linear_file_index_spinBox.setMaximum(max_file_index)
-        self.parent.ui.auto_linear_tof_doubleSpinBox.setMaximum(max_tof-min_tof)
-        self.parent.ui.auto_linear_lambda_doubleSpinBox.setMaximum(max_lambda-min_lambda)
-
-        self.logger.info(f"Max values of bin linear spin box has been fixed:")
-        self.logger.info(f"-> file index: {max_file_index}")
-        self.logger.info(f"-> tof: {max_tof}")
-        self.logger.info(f"-> lambda: {max_lambda}")
+        logging.info(f"Max values of bin linear spin box has been fixed:")
+        logging.info(f"-> file index: {max_file_index}")
+        logging.info(f"-> tof: {min_tof =} to {max_tof =}")
+        logging.info(f"-> lambda: {min_lambda =} to {max_lambda =}")

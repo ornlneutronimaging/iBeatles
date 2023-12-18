@@ -59,8 +59,8 @@ class TimeSpectraHandler:
             self.counts_array = _tof_handler.counts_array
 
     def calculate_lambda_scale(self):
-        distance_source_detector = self.parent.ui.distance_source_detector_doubleSpinBox.value()
-        detector_offset = self.parent.ui.detector_offset_spinBox.value()
+        distance_source_detector = float(self.parent.ui.distance_source_detector_label.text())
+        detector_offset = float(self.parent.ui.detector_offset_label.text())
 
         _exp = Experiment(tof=self.tof_array,
                           distance_source_detector_m=distance_source_detector,

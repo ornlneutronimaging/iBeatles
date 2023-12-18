@@ -16,3 +16,13 @@ LAMBDA = u"\u03BB"
 MICRO = u"\u00B5"
 SUB_0 = u"\u2080"
 DELTA = u"\u0394"
+
+
+class SessionKeys:
+
+    list_working_folders_status = 'list_working_folders_status'
+    list_working_folders = 'list_working_folders'
+    combine_algorithm = 'combine_algorithm'
+    combine_roi = 'combine_roi'
+    combine_roi_item_id = 'combine_roi_item_id'
+    combine_image_view = 'combine_image_view'
