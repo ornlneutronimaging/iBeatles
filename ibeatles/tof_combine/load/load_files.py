@@ -1,6 +1,8 @@
 from qtpy.QtWidgets import QApplication
 
 from ibeatles.tof_combine.utilities.image_handler import ImageHandler
+from ibeatles.tof_combine.utilities.get import Get
+from ibeatles.tof_combine import SessionKeys as TofSessionKeys
 
 
 class LoadFiles:
@@ -10,7 +12,10 @@ class LoadFiles:
         self.folder = folder
 
     def retrieve_data(self):
-        list_of_files = self.parent.raw_data_folders[self.folder]['list_files']
+
+        o_get = Get(parent=self.parent)
+        _row = o_get.row_of_that_folder(folder=self.folder)
+        list_of_files = self.parent.dict_data_folders[_row][TofSessionKeys.list_files]
 
         self.parent.eventProgress.setMinimum(0)
         self.parent.eventProgress.setMaximum(len(list_of_files))
@@ -32,4 +37,3 @@ class LoadFiles:
         self.parent.eventProgress.setVisible(False)
 
         return image_array
-

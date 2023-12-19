@@ -49,10 +49,10 @@ class TofCombine(QMainWindow):
     # folder we will use or not
     list_of_folders_status = None
 
-    combine_roi = {'x0': None,
-                   'y0': None,
-                   'width': None,
-                   'height': None}
+    combine_roi = {'x0': 0,
+                   'y0': 0,
+                   'width': 200,
+                   'height': 200}
 
     # dictionary that will keep record of the entire UI and used to load and save the session
     session = {SessionKeys.list_folders: None,
@@ -218,6 +218,7 @@ class TofCombine(QMainWindow):
         o_event.display_profile()
         o_event.check_widgets()
         self.ui.setEnabled(True)
+        self.ui.combine_widget.setEnabled(True)
 
     def time_spectra_preview_clicked(self):
         TimeSpectraLauncher(parent=self)

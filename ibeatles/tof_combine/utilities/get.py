@@ -7,7 +7,7 @@ import numpy as np
 
 from ibeatles.tof_combine.utilities.table_handler import TableHandler
 from ibeatles.tof_combine.utilities import CombineAlgorithm, TimeSpectraKeys
-from ibeatles.tof_combine import SessionKeys
+from ibeatles.tof_combine import SessionKeys as TofSessionKeys
 
 
 class Get:
@@ -49,47 +49,29 @@ class Get:
 
         return dict_folders_status
 
+    def row_of_that_folder(self, folder):
+        """returns the row number where the folder has been found"""
+        for _row in self.parent.dict_data_folders.keys():
+            if self.parent.dict_data_folders[_row][TofSessionKeys.folder] == folder:
+                return _row
+        return -1
+
     def list_array_to_combine(self):
         """return the list of array to combine (list folders with checkbox checked"""
 
-        list_working_folders_status = self.list_of_folders_status()
+        list_row_to_use = []
+        for _row in self.parent.dict_data_folders.keys():
+            if self.parent.dict_data_folders[_row][TofSessionKeys.use]:
+                list_row_to_use.append(_row)
 
-        raw_data_folders = self.parent.raw_data_folders
-        print(f"{raw_data_folders.keys() =}")
-
-        list_folders = self.parent.list_folders
-        # print(f"{list_folders =}")
-
-        if list_folders is None:
+        if not list_row_to_use:
             return None
 
         list_array = []
-        for _status, _folder_name in zip(list_working_folders_status, list_folders):
-            if _status:
-                # print(f"{_status =} amd {_folder_name =}")
-                list_array.append(copy.deepcopy(raw_data_folders[_folder_name]['data']))
-                # print(f"{np.shape(list_array) =}")
+        for _row in list_row_to_use:
+            list_array.append(copy.deepcopy(self.parent.dict_data_folders[_row][TofSessionKeys.data]))
 
         return list_array
-
-    def list_of_folders_to_use(self):
-        o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
-        nbr_row = o_table.row_count()
-        list_of_folders_to_use = []
-        list_of_folders_to_use_status = []
-        for _row_index in np.arange(nbr_row):
-            _horizontal_widget = o_table.get_widget(row=_row_index,
-                                                    column=0)
-            radio_button = _horizontal_widget.layout().itemAt(1).widget()
-            if radio_button.isChecked():
-                list_of_folders_to_use.append(o_table.get_item_str_from_cell(row=_row_index,
-                                                                             column=2))
-                status = True
-            else:
-                status = False
-            list_of_folders_to_use_status.append(status)
-
-        return list_of_folders_to_use
 
     def manual_working_row(self, working_item_id=None):
         list_item_id = self.parent.list_of_manual_bins_item

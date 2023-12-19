@@ -25,10 +25,10 @@ class EventHandler:
         self.parent = parent
         self.grand_parent = grand_parent
 
-        o_get = TofCombineGet(parent=parent)
-        list_working_folders = o_get.list_of_folders_to_use()
-        if list_working_folders == [None]:
-            self.no_data_loaded = True
+        # o_get = TofCombineGet(parent=parent)
+        # list_working_folders = o_get.list_of_folders_to_use()
+        # if list_working_folders == [None]:
+        #     self.no_data_loaded = True
 
     def select_top_folder(self):
         if self.no_data_loaded:
@@ -64,10 +64,14 @@ class EventHandler:
         # update ui
         self.check_widgets()
 
-    def check_widgets(self):
-        o_get = TofCombineGet(parent=self.parent)
+    def at_least_one_folder_selected(self):
+        for key in self.parent.dict_data_folders.keys():
+            if self.parent.dict_data_folders[key][TofCombineSessionKeys.use]:
+                return True
+        return False
 
-        if (o_get.list_of_folders_to_use() == []) or (o_get.list_of_folders_to_use() is None):
+    def check_widgets(self):
+        if self.at_least_one_folder_selected():
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
             self.parent.ui.combine_widget.setEnabled(False)
         else:
@@ -193,46 +197,37 @@ class EventHandler:
                             editable=False)
 
     def update_list_of_folders_to_use(self, force_recalculation_of_time_spectra=False):
-        o_get = TofCombineGet(parent=self.parent)
-        list_of_folders_to_use = o_get.list_of_folders_to_use()
-
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         nbr_row = o_table.row_count()
-        # list_of_folders_to_use = []
-        list_of_folders_to_use_status = []
         for _row_index in np.arange(nbr_row):
             _horizontal_widget = o_table.get_widget(row=_row_index,
                                                     column=0)
             radio_button = _horizontal_widget.layout().itemAt(1).widget()
-            if radio_button.isChecked():
-                list_of_folders_to_use.append(o_table.get_item_str_from_cell(row=_row_index,
-                                                                             column=2))
-                status = True
-            else:
-                status = False
-            list_of_folders_to_use_status.append(status)
+            self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use] = radio_button.isChecked()
 
-        self.parent.session[TofCombineSessionKeys.list_working_folders_status] = list_of_folders_to_use_status
+            # if radio_button.isChecked():
+            #     status = True
+            # else:
+            #     status = False
+            # self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use] = status
 
-        logging.info("Updating list of folders to use:")
-        logging.info(f"{list_of_folders_to_use}")
+        for _row_index in np.arange(nbr_row):
 
-        # check or load the selected rows
-        loading_worked = True
+            if self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use]:
 
-        for _folder_name in list_of_folders_to_use:
+                _folder_name = self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.folder]
 
-            if force_recalculation_of_time_spectra:
-                self.load_time_spectra_file(folder=_folder_name)
-                self.fix_linear_bin_radio_button_max_values()
-
-            if self.parent.raw_data_folders[_folder_name]['data'] is None:
-                loading_worked = self.load_that_folder(folder_name=_folder_name)
-
-                # load time spectra if not already there
-                if self.parent.time_spectra['file_name'] is None:
+                if force_recalculation_of_time_spectra:
                     self.load_time_spectra_file(folder=_folder_name)
                     self.fix_linear_bin_radio_button_max_values()
+
+                if self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.data] is None:
+                    loading_worked = self.load_that_folder(folder_name=_folder_name)
+
+                    # load time spectra if not already there
+                    if self.parent.time_spectra[TimeSpectraKeys.file_name] is None:
+                        self.load_time_spectra_file(folder=_folder_name)
+                        self.fix_linear_bin_radio_button_max_values()
 
     def load_time_spectra_file(self, folder=None):
         """
@@ -277,7 +272,10 @@ class EventHandler:
         o_load = LoadFiles(parent=self.parent,
                            folder=folder_name)
         data = o_load.retrieve_data()
-        self.parent.raw_data_folders[folder_name]['data'] = data
+
+        o_get = TofCombineGet(parent=self.parent)
+        row = o_get.row_of_that_folder(folder=folder_name)
+        self.parent.dict_data_folders[row][TofCombineSessionKeys.data] = data
 
         return True
 
@@ -294,7 +292,6 @@ class EventHandler:
         self.display_profile()
 
     def combine_folders(self):
-        print("combine folders")
         if self.no_data_loaded:
             return
 
@@ -322,7 +319,6 @@ class EventHandler:
                                    'height': height}
 
     def display_profile(self):
-        print("display profile")
         if self.no_data_loaded:
             return
 
