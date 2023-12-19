@@ -33,22 +33,42 @@ class Get:
         else:
             raise NotImplementedError("xaxis not implemented in the combine tab!")
 
+    def list_of_folders_status(self):
+        """return a dict of the folder status (True if the checkbox is checked)"""
+        o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
+        nbr_row = o_table.row_count()
+        dict_folders_status = {}
+        for _row_index in np.arange(nbr_row):
+            _horizontal_widget = o_table.get_widget(row=_row_index,
+                                                    column=0)
+            radio_button = _horizontal_widget.layout().itemAt(1).widget()
+            if radio_button.isChecked():
+                dict_folders_status[_row_index] = True
+            else:
+                dict_folders_status[_row_index] = False
+
+        return dict_folders_status
+
     def list_array_to_combine(self):
-        session = self.parent.session
-        list_working_folders_status = session[SessionKeys.list_working_folders_status]
+        """return the list of array to combine (list folders with checkbox checked"""
+
+        list_working_folders_status = self.list_of_folders_status()
+
         raw_data_folders = self.parent.raw_data_folders
-        list_working_folders = session[SessionKeys.list_working_folders]
+        print(f"{raw_data_folders.keys() =}")
 
-        if list_working_folders is None:
-            return
+        list_folders = self.parent.list_folders
+        # print(f"{list_folders =}")
 
-        list_array = None
-        for _status, _folder_name in zip(list_working_folders_status, list_working_folders):
+        if list_folders is None:
+            return None
+
+        list_array = []
+        for _status, _folder_name in zip(list_working_folders_status, list_folders):
             if _status:
-                if list_array is None:
-                    list_array = [copy.deepcopy(raw_data_folders[_folder_name]['data'])]
-                else:
-                    list_array.append(copy.deepcopy(raw_data_folders[_folder_name]['data']))
+                # print(f"{_status =} amd {_folder_name =}")
+                list_array.append(copy.deepcopy(raw_data_folders[_folder_name]['data']))
+                # print(f"{np.shape(list_array) =}")
 
         return list_array
 

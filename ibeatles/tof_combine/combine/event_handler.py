@@ -47,8 +47,10 @@ class EventHandler:
         # get list of folders in top folder
         list_folders = FileHandler.get_list_of_all_subfolders(folder)
         list_folders = self.keep_only_folders_with_tiff_files(list_folders)
-        self.parent.list_folders = list_folders
-        self.parent.top_folder = folder
+        list_folders.sort()
+
+        self.parent.session[TofCombineSessionKeys.list_folders] = list_folders
+        self.parent.session[TofCombineSessionKeys.top_folder] = folder
 
         # initialize parameters when using new working folder
         self.reset_data()
@@ -109,22 +111,21 @@ class EventHandler:
         """
 
         # reset master dictionary that contains the raw data
-        list_folders = self.parent.list_folders
+        list_folders = self.parent.session[TofCombineSessionKeys.list_folders]
         if list_folders is None:
             return
 
         _data_dict = {}
-        for _folder in list_folders:
+        for _row, _folder in enumerate(list_folders):
             list_files = FileHandler.get_list_of_tif(_folder)
             nbr_files = len(list_files)
-            _data_dict[_folder] = {'data': None,
-                                   'list_files': list_files,
-                                   'nbr_files': nbr_files,
-                                   }
-        self.parent.raw_data_folders = _data_dict
-
-        # initialize list of selected folders
-        # self.parent.session[SessionKeys.list_working_folders_status] = [False for _index in np.arange(len(list_folders))]
+            _data_dict[_row] = {TofCombineSessionKeys.folder: _folder,
+                                TofCombineSessionKeys.data: None,
+                                TofCombineSessionKeys.list_files: list_files,
+                                TofCombineSessionKeys.nbr_files: nbr_files,
+                                TofCombineSessionKeys.use: False,
+                                }
+        self.parent.dict_data_folders = _data_dict
 
         # reset time spectra
         self.parent.time_spectra = {TimeSpectraKeys.file_name: None,
@@ -139,20 +140,24 @@ class EventHandler:
         self.parent.ui.time_spectra_preview_pushButton.setEnabled(False)
 
     def populate_list_of_folders_to_combine(self):
-        list_of_folders = self.parent.list_folders
+        list_of_folders = self.parent.session[TofCombineSessionKeys.list_folders]
+
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         o_table.remove_all_rows()
 
         if list_of_folders is None:
             return
 
-        for _folder in list_of_folders:
-            self.insert_row_entry(folder=_folder)
+        for _row, _folder in enumerate(list_of_folders):
+            self.insert_row_entry(_row)
 
-    def insert_row_entry(self, folder=None):
+    def insert_row_entry(self, row=0):
 
-        list_of_folders_status = self.parent.list_of_folders_status
-        raw_data_folders = self.parent.raw_data_folders
+        folder_dict = self.parent.dict_data_folders[row]
+
+        status_of_folder = folder_dict[TofCombineSessionKeys.use]
+        nbr_files = folder_dict[TofCombineSessionKeys.nbr_files]
+        folder_name = folder_dict[TofCombineSessionKeys.folder]
 
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         row = o_table.row_count()
@@ -160,16 +165,11 @@ class EventHandler:
 
         # use or not that row
         check_box = QCheckBox()
-        if list_of_folders_status is None:
-            status = False
-        else:
-            status = list_of_folders_status[row]
-        check_box.setChecked(status)
+        check_box.setChecked(status_of_folder)
 
         # check if this file has more than 1 file
         # if not disable radio button
         # number of images in that folder
-        nbr_files = raw_data_folders[folder]['nbr_files']
         if nbr_files > 0:
             check_box.setEnabled(True)
         else:
@@ -189,7 +189,7 @@ class EventHandler:
         # full path of the folder
         o_table.insert_item(row=row,
                             column=2,
-                            value=folder,
+                            value=folder_name,
                             editable=False)
 
     def update_list_of_folders_to_use(self, force_recalculation_of_time_spectra=False):
@@ -198,7 +198,7 @@ class EventHandler:
 
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         nbr_row = o_table.row_count()
-        list_of_folders_to_use = []
+        # list_of_folders_to_use = []
         list_of_folders_to_use_status = []
         for _row_index in np.arange(nbr_row):
             _horizontal_widget = o_table.get_widget(row=_row_index,
@@ -294,6 +294,7 @@ class EventHandler:
         self.display_profile()
 
     def combine_folders(self):
+        print("combine folders")
         if self.no_data_loaded:
             return
 
@@ -321,6 +322,7 @@ class EventHandler:
                                    'height': height}
 
     def display_profile(self):
+        print("display profile")
         if self.no_data_loaded:
             return
 

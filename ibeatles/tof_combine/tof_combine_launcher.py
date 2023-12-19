@@ -18,6 +18,7 @@ from ibeatles.tof_combine.initialization import Initialization
 from ibeatles.tof_combine.combine.event_handler import EventHandler as CombineEventHandler
 # from maverick.export.export_images import ExportImages
 # from maverick.export.export_bin_table import ExportBinTable
+from ibeatles.tof_combine.utilities import TimeSpectraKeys
 
 from ibeatles import load_ui
 from ibeatles.tof_combine import SessionKeys
@@ -54,13 +55,31 @@ class TofCombine(QMainWindow):
                    'height': None}
 
     # dictionary that will keep record of the entire UI and used to load and save the session
-    session = {SessionKeys.list_working_folders: None,
-               SessionKeys.list_working_folders_status: None,
+    session = {SessionKeys.list_folders: None,
+               SessionKeys.list_folders_status: None,
+               SessionKeys.top_folder: None,
                SessionKeys.combine_roi: combine_roi,
                }
 
+    # save info from all the folders
+    # {0: {SessionKeys.folder: None,
+    #      SessionKeys.data: None,
+    #      SessionKeys.list_files: None,
+    #      SessionKeys.nbr_files: None,
+    #      SessionKeys.use: False,
+    #      },
+    #  1: ....,
+    # }
+    dict_data_folders = {}
+
     combine_image_view = None
     combine_roi_item_id = None
+
+    # time spectra dict
+    time_spectra = {TimeSpectraKeys.file_name: None,
+                    TimeSpectraKeys.tof_array: None,
+                    TimeSpectraKeys.lambda_array: None,
+                    TimeSpectraKeys.file_index_array: None}
 
     # log_id = None  # ui id of the log QDialog
     # version = None   # current version of application
