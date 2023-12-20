@@ -41,6 +41,8 @@ class TofCombineLauncher:
 
 class TofCombine(QMainWindow):
 
+    visualize_flag = False
+
     # list of folders listed in the combine table
     list_folders = None
 
@@ -198,6 +200,10 @@ class TofCombine(QMainWindow):
         self.ui.detector_offset_label.setText(detector_offset)
 
     # combine events
+    def visualize_clicked(self):
+        o_event = CombineEventHandler(parent=self)
+        o_event.visualize_flag_changed()
+
     def check_combine_widgets(self):
         o_event = CombineEventHandler(parent=self)
         o_event.check_widgets()

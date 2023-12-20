@@ -92,6 +92,19 @@
                </property>
               </widget>
              </item>
+             <item>
+              <widget class="QCheckBox" name="visualize_checkBox">
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Visualize?</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </item>
            <item>
@@ -472,8 +485,8 @@
    <slot>time_spectra_preview_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>178</x>
-     <y>556</y>
+     <x>209</x>
+     <y>510</y>
     </hint>
     <hint type="destinationlabel">
      <x>1089</x>
@@ -489,7 +502,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>114</x>
-     <y>452</y>
+     <y>451</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -505,7 +518,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>194</x>
-     <y>452</y>
+     <y>451</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -536,12 +549,28 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>456</x>
-     <y>763</y>
+     <x>488</x>
+     <y>753</y>
     </hint>
     <hint type="destinationlabel">
      <x>337</x>
      <y>870</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>visualize_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>visualize_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1283</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1599</x>
+     <y>305</y>
     </hint>
    </hints>
   </connection>
@@ -577,5 +606,6 @@
   <slot>export_combined_and_binned_images_clicked()</slot>
   <slot>bin_settings_clicked()</slot>
   <slot>bin_export_table_pushButton_clicked()</slot>
+  <slot>visualize_clicked()</slot>
  </slots>
 </ui>

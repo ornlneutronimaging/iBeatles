@@ -30,6 +30,14 @@ class EventHandler:
         # if list_working_folders == [None]:
         #     self.no_data_loaded = True
 
+    def visualize_flag_changed(self):
+        self.parent.visualize_flag = self.parent.ui.visualize_checkBox.isChecked()
+        if self.parent.visualize_flag:
+            self.parent.ui.combine_horizontal_splitter.setSizes([20, 500])
+        else:
+            self.parent.ui.combine_horizontal_splitter.setSizes([100, 0])
+
+
     def select_top_folder(self):
         if self.no_data_loaded:
             return

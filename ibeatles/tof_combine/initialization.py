@@ -37,7 +37,7 @@ class Initialization:
         self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
     def splitter(self):
-        self.parent.ui.combine_horizontal_splitter.setSizes([200, 500])
+        self.parent.ui.combine_horizontal_splitter.setSizes([100, 0])
         self.parent.ui.combine_horizontal_splitter.setStyleSheet("""
                                      QSplitter::handle{
                                      image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
