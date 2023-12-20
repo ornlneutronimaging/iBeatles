@@ -127,13 +127,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>Combine</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QTabWidget" name="combine_bottom_tabWidget">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
@@ -392,6 +385,16 @@
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="combine_pushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Combine</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="combine_and_use_pushButton">
         <property name="enabled">
          <bool>false</bool>
@@ -403,7 +406,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Combine and use</string>
+         <string>Combine and reload in iBeatles</string>
         </property>
        </widget>
       </item>
@@ -486,7 +489,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>209</x>
-     <y>510</y>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>1089</x>
@@ -502,7 +505,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>114</x>
-     <y>451</y>
+     <y>446</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -518,7 +521,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>194</x>
-     <y>451</y>
+     <y>446</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -549,8 +552,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>488</x>
-     <y>753</y>
+     <x>456</x>
+     <y>750</y>
     </hint>
     <hint type="destinationlabel">
      <x>337</x>
@@ -574,38 +577,47 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>combine_and_use_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>combine_and_reload_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1071</x>
+     <y>734</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1360</x>
+     <y>849</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>combine_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>combine_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>886</x>
+     <y>732</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>963</x>
+     <y>839</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>select_top_folder_button_clicked()</slot>
   <slot>time_spectra_preview_clicked()</slot>
   <slot>combine_algorithm_changed()</slot>
   <slot>refresh_table_clicked()</slot>
-  <slot>combine_instrument_settings_changed()</slot>
-  <slot>bin_xaxis_changed()</slot>
-  <slot>combine_bin_tab_changed()</slot>
-  <slot>bin_auto_radioButton_clicked()</slot>
-  <slot>bin_auto_log_linear_radioButton_changed()</slot>
-  <slot>bin_auto_log_lambda_changed()</slot>
-  <slot>bin_auto_log_tof_changed()</slot>
-  <slot>bin_auto_log_file_index_changed()</slot>
-  <slot>bin_auto_linear_file_index_changed()</slot>
-  <slot>bin_auto_linear_tof_changed()</slot>
-  <slot>bin_auto_linear_lambda_changed()</slot>
-  <slot>auto_linear_radioButton_changed()</slot>
-  <slot>auto_log_radioButton_changed()</slot>
-  <slot>bin_auto_visualize_axis_generated_button_clicked()</slot>
-  <slot>bin_auto_hide_empty_bins()</slot>
-  <slot>bin_auto_table_right_clicked()</slot>
-  <slot>bin_auto_table_selection_changed()</slot>
-  <slot>bin_auto_table_selection_with_keyboard_changed()</slot>
-  <slot>bin_auto_manual_tab_changed()</slot>
-  <slot>bin_manual_add_bin_clicked()</slot>
-  <slot>bin_manual_populate_table_with_auto_mode_bins_clicked()</slot>
-  <slot>bin_manual_table_right_click()</slot>
-  <slot>bin_statistics_comboBox_changed()</slot>
   <slot>export_combined_and_binned_images_clicked()</slot>
-  <slot>bin_settings_clicked()</slot>
-  <slot>bin_export_table_pushButton_clicked()</slot>
   <slot>visualize_clicked()</slot>
+  <slot>combine_and_reload_clicked()</slot>
+  <slot>combine_clicked()</slot>
  </slots>
 </ui>

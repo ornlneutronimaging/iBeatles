@@ -72,16 +72,26 @@ class EventHandler:
         self.check_widgets()
 
     def at_least_one_folder_selected(self):
-        for key in self.parent.dict_data_folders.keys():
-            if self.parent.dict_data_folders[key][TofCombineSessionKeys.use]:
+        o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
+        nbr_row = o_table.row_count()
+        for _row in np.arange(nbr_row):
+            _horizontal_widget = o_table.get_widget(row=_row,
+                                                    column=0)
+            radio_button = _horizontal_widget.layout().itemAt(1).widget()
+            if radio_button.isChecked():
                 return True
         return False
 
     def at_least_two_folder_selected(self):
         """check if there are at least 2 folders selected"""
         nbr_folder_selected = 0
-        for key in self.parent.dict_data_folders.keys():
-            if self.parent.dict_data_folders[key][TofCombineSessionKeys.use]:
+        o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
+        nbr_row = o_table.row_count()
+        for _row in np.arange(nbr_row):
+            _horizontal_widget = o_table.get_widget(row=_row,
+                                                    column=0)
+            radio_button = _horizontal_widget.layout().itemAt(1).widget()
+            if radio_button.isChecked():
                 nbr_folder_selected += 1
 
         if nbr_folder_selected >= 2:
@@ -97,8 +107,12 @@ class EventHandler:
 
         if self.at_least_two_folder_selected():
             self.parent.ui.combine_widget.setEnabled(True)
+            self.parent.ui.combine_and_use_pushButton.setEnabled(True)
+            self.parent.ui.combine_pushButton.setEnabled(True)
         else:
             self.parent.ui.combine_widget.setEnabled(False)
+            self.parent.ui.combine_and_use_pushButton.setEnabled(False)
+            self.parent.ui.combine_pushButton.setEnabled(False)
 
     def refresh_table_clicked(self):
         self.parent.ui.combine_tableWidget.blockSignals(True)

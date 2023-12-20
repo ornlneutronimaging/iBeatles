@@ -9,6 +9,7 @@ warnings.filterwarnings("ignore")
 # from .utilities.get import Get
 # from .utilities.config_handler import ConfigHandler
 # from .utilities import TimeSpectraKeys, BinAutoMode
+from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.tof_combine.utilities.time_spectra import TimeSpectraLauncher
 # from .event_hander import EventHandler
 # from .session import session
@@ -205,9 +206,9 @@ class TofCombine(QMainWindow):
         o_event.visualize_flag_changed()
         self.radio_buttons_of_folder_changed()
 
-    def check_combine_widgets(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.check_widgets()
+    # def check_combine_widgets(self):
+    #     o_event = CombineEventHandler(parent=self)
+    #     o_event.check_widgets()
 
     def select_top_folder_button_clicked(self):
         o_event = CombineEventHandler(parent=self,
@@ -219,15 +220,15 @@ class TofCombine(QMainWindow):
         o_event.refresh_table_clicked()
 
     def radio_buttons_of_folder_changed(self):
+        o_event = CombineEventHandler(parent=self)
         if self.visualize_flag:
             self.ui.setEnabled(False)
-            o_event = CombineEventHandler(parent=self)
             o_event.update_list_of_folders_to_use()
             o_event.combine_folders()
             o_event.display_profile()
-            o_event.check_widgets()
             self.ui.setEnabled(True)
             self.ui.combine_widget.setEnabled(True)
+        o_event.check_widgets()
 
     def time_spectra_preview_clicked(self):
         TimeSpectraLauncher(parent=self)
@@ -237,19 +238,6 @@ class TofCombine(QMainWindow):
             o_event = CombineEventHandler(parent=self)
             o_event.combine_algorithm_changed()
             o_event.display_profile()
-
-    # def combine_instrument_settings_changed(self):
-    #     if not self.visualize_flag:
-    #         return
-    #
-    #     if self.combine_data is None:
-    #         return
-    #     QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-    #     o_event = CombineEventHandler(parent=self)
-    #     o_event.update_list_of_folders_to_use(force_recalculation_of_time_spectra=True)
-    #     o_event.combine_folders()
-    #     o_event.display_profile()
-    #     QApplication.restoreOverrideCursor()
 
     def combine_xaxis_changed(self):
         o_event = CombineEventHandler(parent=self)
@@ -270,6 +258,22 @@ class TofCombine(QMainWindow):
         pass
         # o_export = ExportImages(parent=self)
         # o_export.run()
+
+    def combine_clicked(self):
+        self.ui.setEnabled(False)
+        show_status_message(parent=self,
+                            message="Combining folders ...",
+                            status=StatusMessageStatus.working)
+        o_event = CombineEventHandler(parent=self)
+        o_event.combine_folders()
+        show_status_message(parent=self,
+                            message="Combining folders ... Done!",
+                            status=StatusMessageStatus.ready,
+                            duration_s=5)
+        self.ui.setEnabled(True)
+
+    def combine_and_reload_clicked(self):
+        pass
 
     def closeEvent(self, event):
         logging.info(" #### Leaving combine TOF####")
