@@ -37,7 +37,6 @@ class EventHandler:
         else:
             self.parent.ui.combine_horizontal_splitter.setSizes([100, 0])
 
-
     def select_top_folder(self):
         if self.no_data_loaded:
             return

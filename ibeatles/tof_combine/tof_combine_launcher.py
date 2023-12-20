@@ -203,6 +203,7 @@ class TofCombine(QMainWindow):
     def visualize_clicked(self):
         o_event = CombineEventHandler(parent=self)
         o_event.visualize_flag_changed()
+        self.radio_buttons_of_folder_changed()
 
     def check_combine_widgets(self):
         o_event = CombineEventHandler(parent=self)
@@ -218,41 +219,47 @@ class TofCombine(QMainWindow):
         o_event.refresh_table_clicked()
 
     def radio_buttons_of_folder_changed(self):
-        self.ui.setEnabled(False)
-        o_event = CombineEventHandler(parent=self)
-        o_event.update_list_of_folders_to_use()
-        o_event.combine_folders()
-        o_event.display_profile()
-        o_event.check_widgets()
-        self.ui.setEnabled(True)
-        self.ui.combine_widget.setEnabled(True)
+        if self.visualize_flag:
+            self.ui.setEnabled(False)
+            o_event = CombineEventHandler(parent=self)
+            o_event.update_list_of_folders_to_use()
+            o_event.combine_folders()
+            o_event.display_profile()
+            o_event.check_widgets()
+            self.ui.setEnabled(True)
+            self.ui.combine_widget.setEnabled(True)
 
     def time_spectra_preview_clicked(self):
         TimeSpectraLauncher(parent=self)
 
     def combine_algorithm_changed(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.combine_algorithm_changed()
-        o_event.display_profile()
+        if self.visualize_flag:
+            o_event = CombineEventHandler(parent=self)
+            o_event.combine_algorithm_changed()
+            o_event.display_profile()
 
-    def combine_instrument_settings_changed(self):
-        if self.combine_data is None:
-            return
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        o_event = CombineEventHandler(parent=self)
-        o_event.update_list_of_folders_to_use(force_recalculation_of_time_spectra=True)
-        o_event.combine_folders()
-        o_event.display_profile()
-        QApplication.restoreOverrideCursor()
+    # def combine_instrument_settings_changed(self):
+    #     if not self.visualize_flag:
+    #         return
+    #
+    #     if self.combine_data is None:
+    #         return
+    #     QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+    #     o_event = CombineEventHandler(parent=self)
+    #     o_event.update_list_of_folders_to_use(force_recalculation_of_time_spectra=True)
+    #     o_event.combine_folders()
+    #     o_event.display_profile()
+    #     QApplication.restoreOverrideCursor()
 
     def combine_xaxis_changed(self):
         o_event = CombineEventHandler(parent=self)
         o_event.display_profile()
 
     def combine_roi_changed(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.combine_roi_changed()
-        o_event.display_profile()
+        if self.visualize_flag:
+            o_event = CombineEventHandler(parent=self)
+            o_event.combine_roi_changed()
+            o_event.display_profile()
 
     def mouse_moved_in_combine_image_preview(self):
         """Mouse moved in the combine pyqtgraph image preview (top right)"""
