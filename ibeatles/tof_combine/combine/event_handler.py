@@ -70,33 +70,61 @@ class EventHandler:
                 return True
         return False
 
+    def at_least_two_folder_selected(self):
+        """check if there are at least 2 folders selected"""
+        nbr_folder_selected = 0
+        for key in self.parent.dict_data_folders.keys():
+            if self.parent.dict_data_folders[key][TofCombineSessionKeys.use]:
+                nbr_folder_selected += 1
+
+        if nbr_folder_selected >= 2:
+            return True
+
+        return False
+
     def check_widgets(self):
-        if self.at_least_one_folder_selected():
-            self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
-            self.parent.ui.combine_widget.setEnabled(False)
-        else:
+        if self.parent.session[TofCombineSessionKeys.top_folder]:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(True)
+        else:
+            self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
+
+        if self.at_least_two_folder_selected():
             self.parent.ui.combine_widget.setEnabled(True)
+        else:
+            self.parent.ui.combine_widget.setEnabled(False)
 
     def refresh_table_clicked(self):
-        logging.info("User clicked the refresh table!")
-        top_folder = self.parent.top_folder
+        self.parent.ui.combine_tableWidget.blockSignals(True)
 
-        list_folders = FileHandler.get_list_of_folders(top_folder)
+        logging.info("User clicked the refresh table!")
+        top_folder = self.parent.session[TofCombineSessionKeys.top_folder]
+        list_folders = FileHandler.get_list_of_all_subfolders(top_folder)
+        list_folders = self.keep_only_folders_with_tiff_files(list_folders=list_folders)
+
         # checking if there is any new folder
-        current_list_of_folders = self.parent.session[TofCombineSessionKeys.list_working_folders]
+        current_list_of_folders = []
+        for _row in self.parent.dict_data_folders.keys():
+            current_list_of_folders.append(self.parent.dict_data_folders[_row][TofCombineSessionKeys.folder])
+
+        row = len(current_list_of_folders)
         for _folder in list_folders:
             if not (_folder in current_list_of_folders):
-                self.parent.session[TofCombineSessionKeys.list_working_folders].append(_folder)
-                self.parent.session[TofCombineSessionKeys.list_working_folders_status].append(False)
 
-                list_files = FileHandler.get_list_of_files(_folder)
+                list_folders.append(_folder)
+                list_files = FileHandler.get_list_of_tif(_folder)
                 nbr_files = len(list_files)
-                data = {'data': None,
-                        'list_files': list_files,
-                        'nbr_files': nbr_files}
-                self.parent.raw_data_folders[_folder] = data
-                self.insert_row_entry(_folder)
+
+                self.parent.dict_data_folders[row] = {TofCombineSessionKeys.folder: _folder,
+                                                      TofCombineSessionKeys.data: None,
+                                                      TofCombineSessionKeys.list_files: list_files,
+                                                      TofCombineSessionKeys.nbr_files: nbr_files,
+                                                      TofCombineSessionKeys.use: False,
+                                                      }
+                self.insert_row_entry(row)
+                row += 1
+
+        self.parent.session[TofCombineSessionKeys.list_folders] = list_folders
+        self.parent.ui.combine_tableWidget.blockSignals(False)
 
     def keep_only_folders_with_tiff_files(self, list_folders):
         """will go over the list of folders and will only keep the one with tiff in it"""
@@ -204,12 +232,6 @@ class EventHandler:
                                                     column=0)
             radio_button = _horizontal_widget.layout().itemAt(1).widget()
             self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use] = radio_button.isChecked()
-
-            # if radio_button.isChecked():
-            #     status = True
-            # else:
-            #     status = False
-            # self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use] = status
 
         for _row_index in np.arange(nbr_row):
 

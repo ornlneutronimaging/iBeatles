@@ -29,18 +29,20 @@ class Combine:
             if nbr_folder_to_combine > 1:
                 if combine_algorithm == CombineAlgorithm.mean:
                     combine_arrays = np.mean(list_array_to_combine, axis=0)
+                    integrated_arrays = np.transpose(np.mean(combine_arrays, axis=0))
+
                 elif combine_algorithm == CombineAlgorithm.median:
                     combine_arrays = np.median(list_array_to_combine, axis=0)
+                    integrated_arrays = np.transpose(np.median(combine_arrays, axis=0))
+
                 else:
                     raise NotImplementedError("Algorithm not implemented!")
             else:
                 combine_arrays = list_array_to_combine[0]
+                integrated_arrays = np.transpose(np.mean(combine_arrays, axis=0))
 
             combine_arrays = np.squeeze(combine_arrays)
-
             self.parent.combine_data = combine_arrays
-            integrated_arrays = np.mean(combine_arrays, axis=0)
-            integrated_arrays = np.transpose(integrated_arrays)
             self.parent.live_combine_image = integrated_arrays
 
             # display integrated

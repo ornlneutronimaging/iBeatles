@@ -1,5 +1,6 @@
 from qtpy.QtWidgets import QMainWindow
-import os
+from qtpy.QtWidgets import QApplication
+from qtpy import QtCore
 import logging
 import warnings
 
@@ -224,11 +225,6 @@ class TofCombine(QMainWindow):
         TimeSpectraLauncher(parent=self)
 
     def combine_algorithm_changed(self):
-        o_get = Get(parent=self)
-        list_working_folders = o_get.list_of_folders_to_use()
-        if list_working_folders == []:
-            return
-
         o_event = CombineEventHandler(parent=self)
         o_event.combine_algorithm_changed()
         o_event.display_profile()
@@ -236,10 +232,12 @@ class TofCombine(QMainWindow):
     def combine_instrument_settings_changed(self):
         if self.combine_data is None:
             return
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         o_event = CombineEventHandler(parent=self)
         o_event.update_list_of_folders_to_use(force_recalculation_of_time_spectra=True)
         o_event.combine_folders()
         o_event.display_profile()
+        QApplication.restoreOverrideCursor()
 
     def combine_xaxis_changed(self):
         o_event = CombineEventHandler(parent=self)
@@ -261,6 +259,6 @@ class TofCombine(QMainWindow):
         # o_export.run()
 
     def closeEvent(self, event):
-        logging.info(" #### Leaving combine ####")
+        logging.info(" #### Leaving combine TOF####")
         self.parent.tof_combine_ui = None
         self.close()
