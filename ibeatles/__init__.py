@@ -66,6 +66,7 @@ class DataType:
     fitting = "fitting"
     time_spectra = 'time_spectra'
     time_spectra_normalized = 'time_spectra_normalized'
+    none = 'none'
 
 
 class ScrollBarParameters:

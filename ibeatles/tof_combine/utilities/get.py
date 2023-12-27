@@ -5,6 +5,7 @@ import tomli
 import copy
 import numpy as np
 
+from ibeatles import DataType
 from ibeatles.tof_combine.utilities.table_handler import TableHandler
 from ibeatles.tof_combine.utilities import CombineAlgorithm, TimeSpectraKeys
 from ibeatles.tof_combine import SessionKeys as TofSessionKeys
@@ -49,6 +50,20 @@ class Get:
 
         return dict_folders_status
 
+    def number_of_folders_we_want_to_combine(self):
+        """return the number of folders with the radio button checked (we want to be part of the combine)"""
+        nbr_folders = 0
+        o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
+        nbr_row = o_table.row_count()
+        for _row_index in np.arange(nbr_row):
+            _horizontal_widget = o_table.get_widget(row=_row_index,
+                                                    column=0)
+            radio_button = _horizontal_widget.layout().itemAt(1).widget()
+            if radio_button.isChecked():
+                nbr_folders += 1
+
+        return nbr_folders
+
     def row_of_that_folder(self, folder):
         """returns the row number where the folder has been found"""
         for _row in self.parent.dict_data_folders.keys():
@@ -79,6 +94,18 @@ class Get:
             if item == working_item_id:
                 return _row
         return -1
+
+    def combine_export_mode(self):
+        if self.parent.ui.none_radioButton.isChecked():
+            return DataType.none
+        elif self.parent.ui.sample_radioButton.isChecked():
+            return DataType.sample
+        elif self.parent.ui.ob_radioButton.isChecked():
+            return DataType.ob
+        elif self.parent.ui.normalized_radioButton.isChecked():
+            return DataType.normalized
+        else:
+            raise NotImplementedError("export mode not implemented yet!")
 
     @staticmethod
     def full_home_file_name(base_file_name):

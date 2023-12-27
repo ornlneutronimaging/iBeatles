@@ -107,11 +107,9 @@ class EventHandler:
 
         if self.at_least_two_folder_selected():
             self.parent.ui.combine_widget.setEnabled(True)
-            self.parent.ui.combine_and_use_pushButton.setEnabled(True)
             self.parent.ui.combine_pushButton.setEnabled(True)
         else:
             self.parent.ui.combine_widget.setEnabled(False)
-            self.parent.ui.combine_and_use_pushButton.setEnabled(False)
             self.parent.ui.combine_pushButton.setEnabled(False)
 
     def refresh_table_clicked(self):

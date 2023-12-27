@@ -122,6 +122,10 @@ class FileHandler:
         os.makedirs(folder_name)
 
     @staticmethod
+    def make_folder(folder_name):
+        os.makedirs(folder_name)
+
+    @staticmethod
     def make_or_append_date_time_to_folder(folder_name):
         if os.path.exists(folder_name):
             _current_date_time = FileHandler.get_current_timestamp()

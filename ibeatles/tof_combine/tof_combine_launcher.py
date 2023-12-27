@@ -18,11 +18,15 @@ from ibeatles.tof_combine.utilities.time_spectra import TimeSpectraLauncher
 from ibeatles.tof_combine.initialization import Initialization
 # from .utilities.check import Check
 from ibeatles.tof_combine.combine.event_handler import EventHandler as CombineEventHandler
+from ibeatles.tof_combine.export.export_images import ExportImages
+
 # from maverick.export.export_images import ExportImages
 # from maverick.export.export_bin_table import ExportBinTable
 from ibeatles.tof_combine.utilities import TimeSpectraKeys
+from ibeatles.tof_combine.tof_combine_export_launcher import TofCombineExportLauncher
 
 from ibeatles import load_ui
+from ibeatles import DataType
 from ibeatles.tof_combine import SessionKeys
 
 
@@ -260,20 +264,26 @@ class TofCombine(QMainWindow):
         # o_export.run()
 
     def combine_clicked(self):
+        tof_combine_export_ui = TofCombineExportLauncher(parent=self)
+        tof_combine_export_ui.show()
+
+    def combine_run(self, data_type_selected=DataType.none):
         self.ui.setEnabled(False)
+
         show_status_message(parent=self,
                             message="Combining folders ...",
                             status=StatusMessageStatus.working)
         o_event = CombineEventHandler(parent=self)
+        o_event.update_list_of_folders_to_use()
         o_event.combine_folders()
+        o_export = ExportImages(parent=self)
+        o_export.run()
+
         show_status_message(parent=self,
                             message="Combining folders ... Done!",
                             status=StatusMessageStatus.ready,
                             duration_s=5)
         self.ui.setEnabled(True)
-
-    def combine_and_reload_clicked(self):
-        pass
 
     def closeEvent(self, event):
         logging.info(" #### Leaving combine TOF####")
