@@ -257,7 +257,7 @@ class TofCombine(QMainWindow):
         """Mouse moved in the combine pyqtgraph image preview (top right)"""
         pass
 
-       # export images
+    # export images
     def export_combined_and_binned_images_clicked(self):
         pass
         # o_export = ExportImages(parent=self)

@@ -39,7 +39,7 @@ class ExportImages:
         nbr_folder = o_get.number_of_folders_we_want_to_combine()
         time_stamp = FileHandler.get_current_timestamp()
         output_folder = os.path.join(_folder, f"combined_{time_stamp}")
-        output_folder = FileHandler.make_or_reset_folder(output_folder)
+        FileHandler.make_or_reset_folder(output_folder)
         logging.info(f"Combined images will be exported to {output_folder}!")
 
         # initialize progress bar
@@ -52,15 +52,13 @@ class ExportImages:
         combine_arrays = self.parent.combine_data
         for _index, _array in enumerate(combine_arrays):
             short_file_name = f"image_{_index:04d}.tif"
-            output_file_name = str(Path(output_folder) / short_file_name)
+            output_file_name = os.path.join(output_folder, short_file_name)
             o_norm = Normalization()
             o_norm.load(data=_array)
-            print(f"{output_file_name =}")
             o_norm.data['sample']['file_name'][0] = os.path.basename(output_file_name)
             # o_norm.export(folder=_folder, data_type='sample', file_type='tiff')
             self.parent.eventProgress.setValue(_index+1)
 
-        print(f"{output_folder =}")
         self.parent.eventProgress.setVisible(False)
 
         # copy the timestamp of the first selected folder to final folder
