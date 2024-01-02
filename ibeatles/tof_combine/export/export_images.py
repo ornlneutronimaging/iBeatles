@@ -51,12 +51,12 @@ class ExportImages:
         # export the arrays
         combine_arrays = self.parent.combine_data
         for _index, _array in enumerate(combine_arrays):
-            short_file_name = f"image_{_index:04d}.tif"
+            short_file_name = f"image_{_index:04d}"
             output_file_name = os.path.join(output_folder, short_file_name)
             o_norm = Normalization()
             o_norm.load(data=_array)
             o_norm.data['sample']['file_name'][0] = os.path.basename(output_file_name)
-            # o_norm.export(folder=_folder, data_type='sample', file_type='tiff')
+            o_norm.export(folder=_folder, data_type='sample', file_type='tif')
             self.parent.eventProgress.setValue(_index+1)
 
         self.parent.eventProgress.setVisible(False)
