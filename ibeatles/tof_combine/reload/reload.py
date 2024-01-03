@@ -7,6 +7,8 @@ from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.session.load_load_data_tab import LoadLoadDataTab
 from ibeatles.session.load_normalized_tab import LoadNormalized
 from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
 
 
 class Reload:
@@ -27,11 +29,17 @@ class Reload:
 
         if data_type == DataType.sample:
             logging.info(f"Reloading TOF combine data in {data_type}")
-            o_load = LoadLoadDataTab(parent=self.top_parent)
-            o_load.sample()
-            o_gui.set_tab(tab_index=0)
-            self.top_parent.load_data_tab_changed(0)
-            self.top_parent.ui.sample_ob_splitter.setSizes([20, 450])
+            o_load = DataHandler(parent=self.top_parent,
+                                 data_type=data_type)
+            folder = os.path.dirname(list_tiff[0])
+            o_load.import_files_from_folder(folder=folder,
+                                            extension=[".tiff", ".tif"])
+            o_event_step1 = Step1EventHandler(parent=self.top_parent,
+                                              data_type=data_type)
+            o_event_step1.import_button_clicked_step2(folder=folder)
+
+            # self.top_parent.load_data_tab_changed(0)
+            # self.top_parent.ui.sample_ob_splitter.setSizes([20, 450])
             return
 
         if data_type == DataType.ob:
@@ -47,5 +55,4 @@ class Reload:
             logging.info(f"Reloading TOF combine in {data_type}")
             o_load = LoadNormalized(parent=self.top_parent)
             o_load.all()
-
             return

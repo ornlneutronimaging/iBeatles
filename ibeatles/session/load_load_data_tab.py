@@ -34,6 +34,8 @@ class LoadLoadDataTab:
             time_spectra_file = session_dict[data_type][SessionSubKeys.time_spectra_filename]
             o_data_handler.load_time_spectra(time_spectra_file=time_spectra_file)
             list_files_selected = session_dict[data_type][SessionSubKeys.list_files_selected]
+            if not list_files_selected:
+                list_files_selected = [0]
             self.parent.list_roi[data_type] = session_dict[data_type][SessionSubKeys.list_rois]
             o_gui = Step1GuiHandler(parent=self.parent, data_type=data_type)
             o_gui.initialize_rois_and_labels()

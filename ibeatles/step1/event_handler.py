@@ -25,31 +25,34 @@ class EventHandler(TopEventHandler):
         state = o_load.import_files_from_folder(folder=_folder, extension=[".fits", ".tiff", ".tif"])
 
         if state:
-            o_load.import_time_spectra()
-            self.parent.select_load_data_row(data_type=self.data_type, row=0)
-            self.parent.retrieve_general_infos(data_type=self.data_type)
-            self.parent.retrieve_general_data_infos(data_type=self.data_type)
-            BraggEdgeElementHandler(parent=self.parent)
-            o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
-            o_plot.initialize_default_roi()
-            o_plot.display_bragg_edge(mouse_selection=False)
-            o_gui = Step1GuiHandler(parent=self.parent, data_type=self.data_type)
-            o_gui.check_time_spectra_widgets()
-            o_gui.check_step1_widgets()
-            # self.parent.check_files_error()
-            o_step2_gui = Step2Initialization(parent=self.parent)
-            o_step2_gui.roi()
-            self.update_default_path(folder=_folder)
-            # activate or not infos button
-            self.parent.infos_window_update(data_type=self.data_type)
-
-            if self.data_type == DataType.sample:
-                self.parent.data_metadata['normalization']['data'] = []
-
-            self.parent.ui.sample_ob_splitter.setSizes([20, 450])
-
+            self.import_button_clicked_step2(folder=_folder)
         else:
             logging.info(f"Import button clicked ... operation canceled!")
+
+    def import_button_clicked_step2(self, folder):
+        o_load = DataHandler(parent=self.parent, data_type=self.data_type)
+        o_load.import_time_spectra()
+        self.parent.select_load_data_row(data_type=self.data_type, row=0)
+        self.parent.retrieve_general_infos(data_type=self.data_type)
+        self.parent.retrieve_general_data_infos(data_type=self.data_type)
+        BraggEdgeElementHandler(parent=self.parent)
+        o_plot = Step1Plot(parent=self.parent, data_type=self.data_type)
+        o_plot.initialize_default_roi()
+        o_plot.display_bragg_edge(mouse_selection=False)
+        o_gui = Step1GuiHandler(parent=self.parent, data_type=self.data_type)
+        o_gui.check_time_spectra_widgets()
+        o_gui.check_step1_widgets()
+        # self.parent.check_files_error()
+        o_step2_gui = Step2Initialization(parent=self.parent)
+        o_step2_gui.roi()
+        self.update_default_path(folder=folder)
+        # activate or not infos button
+        self.parent.infos_window_update(data_type=self.data_type)
+
+        if self.data_type == DataType.sample:
+            self.parent.data_metadata['normalization']['data'] = []
+
+        self.parent.ui.sample_ob_splitter.setSizes([20, 450])
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:
