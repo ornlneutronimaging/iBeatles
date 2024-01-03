@@ -22,6 +22,8 @@ class TofCombineExportLauncher(QDialog):
         data_type_selected = o_get.combine_export_mode()
         self.close()
         output_folder = self.parent.combine_run(data_type_selected=data_type_selected)
+        self.parent.reload_run_in_main_ui(data_type_selected=data_type_selected,
+                                          output_folder=output_folder)
         self.parent.close()
 
         message = f"TOF combined exported to {output_folder}"
