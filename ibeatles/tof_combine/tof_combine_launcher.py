@@ -24,7 +24,7 @@ from ibeatles.tof_combine.export.export_images import ExportImages
 # from maverick.export.export_bin_table import ExportBinTable
 from ibeatles.tof_combine.utilities import TimeSpectraKeys
 from ibeatles.tof_combine.tof_combine_export_launcher import TofCombineExportLauncher
-from ibeatles.tof_combine.reload import Reload
+from ibeatles.tof_combine.reload.reload import Reload
 
 from ibeatles import load_ui
 from ibeatles import DataType
@@ -292,11 +292,11 @@ class TofCombine(QMainWindow):
         self.ui.setEnabled(True)
         return output_folder
 
-    def reload_run_in_main_ui(self, data_type_selected=DataType.normalized, output_folder=None):
+    def reload_run_in_main_ui(self,
+                              data_type_selected=DataType.normalized,
+                              output_folder=None):
         o_reload = Reload(parent=self,
-                          top_parent=self.parent,
-                          data_type_selected=data_type_selected,
-                          output_folder=output_folder)
+                          top_parent=self.parent)
         o_reload.run(data_type=data_type_selected,
                      output_folder=output_folder)
 

@@ -26,6 +26,9 @@ class GuiHandler:
             if load_data_tab_index == 1:
                 return DataType.ob
 
+    def set_tab(self, tab_index=0):
+        self.parent.ui.tabWidget.setCurrentIndex(tab_index)
+
     def get_material_active_tab(self):
         """
         return either MaterialMode.pre_defined, MaterialMode.custom_method1 or MaterialMode.custom_method2

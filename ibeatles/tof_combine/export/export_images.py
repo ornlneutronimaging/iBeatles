@@ -5,13 +5,15 @@ from pathlib import Path
 import inflect
 import numpy as np
 import json
+import shutil
 
 from NeuNorm.normalization import Normalization
 
 from ibeatles.tof_combine.utilities.get import Get
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles import DataType
-from ..utilities import TimeSpectraKeys
+from ibeatles.tof_combine.utilities import TimeSpectraKeys
+from ibeatles.tof_combine.utilities.time_spectra import GetTimeSpectraFilename
 
 
 class ExportImages:
@@ -59,12 +61,20 @@ class ExportImages:
             self.parent.eventProgress.setValue(_index+1)
 
         # export time spectra file
-        # FIXME
-
-
-
-
-
-
+        self.export_time_spectra_file()
 
         self.parent.eventProgress.setVisible(False)
+
+    def export_time_spectra_file(self):
+        """use the time spectra file from the first folder selected and export it to the output folder"""
+        logging.info("Export time spectra file:")
+        output_folder = self.output_folder
+
+        # retrieve full path of the time spectra file from first folder selected
+        full_path_time_spectra_file = self.parent.time_spectra[TimeSpectraKeys.file_name]
+
+        logging.info(f" - time spectra file: {full_path_time_spectra_file}")
+        logging.info(f" - to output folder: {output_folder}")
+
+        # copy that spectra file to final location
+        shutil.copy(full_path_time_spectra_file, output_folder)
