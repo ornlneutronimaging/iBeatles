@@ -20,6 +20,8 @@ from ..utilities import TimeSpectraKeys
 
 class ExportImages:
 
+    output_folder = None
+
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -39,6 +41,7 @@ class ExportImages:
         nbr_folder = o_get.number_of_folders_we_want_to_combine()
         time_stamp = FileHandler.get_current_timestamp()
         output_folder = os.path.join(_folder, f"combined_{time_stamp}")
+        self.output_folder = output_folder
         FileHandler.make_or_reset_folder(output_folder)
         logging.info(f"Combined images will be exported to {output_folder}!")
 
@@ -52,11 +55,12 @@ class ExportImages:
         combine_arrays = self.parent.combine_data
         for _index, _array in enumerate(combine_arrays):
             short_file_name = f"image_{_index:04d}"
-            output_file_name = os.path.join(output_folder, short_file_name)
+            # output_file_name = os.path.join(output_folder, short_file_name)
             o_norm = Normalization()
             o_norm.load(data=_array)
-            o_norm.data['sample']['file_name'][0] = os.path.basename(output_file_name)
-            o_norm.export(folder=_folder, data_type='sample', file_type='tif')
+            # o_norm.data['sample']['file_name'][0] = os.path.basename(output_file_name)
+            o_norm.data['sample']['file_name'][0] = short_file_name
+            o_norm.export(folder=output_folder, data_type='sample', file_type='tif')
             self.parent.eventProgress.setValue(_index+1)
 
         self.parent.eventProgress.setVisible(False)
@@ -69,10 +73,18 @@ class ExportImages:
         if data_type == DataType.none:
             return
 
+        if data_type == DataType.sample:
+            logging.info(f"Reloading TOF combine data in {data_type}")
+            return
 
+        if data_type == DataType.ob:
+            logging.info(f"Reloading TOF combine in {data_type}")
+            return
 
-        #
-        #
+        if data_type == DataType.normalized:
+            logging.info(f"Reloading TOF combine in {data_type}")
+            return
+
         # number_of_file_created = 0
         # counts_array = []
         #

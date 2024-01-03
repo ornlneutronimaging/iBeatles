@@ -46,6 +46,8 @@ class TofCombineLauncher:
 
 class TofCombine(QMainWindow):
 
+    output_folder = None
+
     visualize_flag = False
 
     # list of folders listed in the combine table
@@ -264,7 +266,8 @@ class TofCombine(QMainWindow):
         # o_export.run()
 
     def combine_clicked(self):
-        tof_combine_export_ui = TofCombineExportLauncher(parent=self)
+        tof_combine_export_ui = TofCombineExportLauncher(parent=self,
+                                                         grand_parent=self.parent)
         tof_combine_export_ui.show()
 
     def combine_run(self, data_type_selected=DataType.none):
@@ -278,12 +281,14 @@ class TofCombine(QMainWindow):
         o_event.combine_folders()
         o_export = ExportImages(parent=self)
         o_export.run()
+        output_folder = o_export.output_folder
 
         show_status_message(parent=self,
                             message="Combining folders ... Done!",
                             status=StatusMessageStatus.ready,
                             duration_s=5)
         self.ui.setEnabled(True)
+        return output_folder
 
     def closeEvent(self, event):
         logging.info(" #### Leaving combine TOF####")
