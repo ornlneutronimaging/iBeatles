@@ -28,39 +28,31 @@ class Reload:
         o_gui = GuiHandler(parent=self.top_parent)
 
         if data_type == DataType.sample:
-            logging.info(f"Reloading TOF combine data in {data_type}")
-            o_load = DataHandler(parent=self.top_parent,
-                                 data_type=data_type)
-            folder = os.path.dirname(list_tiff[0])
-            o_load.import_files_from_folder(folder=folder,
-                                            extension=[".tiff", ".tif"])
-            o_event_step1 = Step1EventHandler(parent=self.top_parent,
-                                              data_type=data_type)
-            o_event_step1.import_button_clicked_step2(folder=folder)
-            self.top_parent.ui.load_data_tab.setCurrentIndex(0)
-            self.top_parent.load_data_tab_changed(tab_index=0)
-            self.top_parent.ui.tabWidget.setCurrentIndex(0)
-            self.top_parent.ui.main_tools_tabWidget.setCurrentIndex(0)
-            return
-
-        if data_type == DataType.ob:
-            logging.info(f"Reloading TOF combine in {data_type}")
-            o_load = DataHandler(parent=self.top_parent,
-                                 data_type=data_type)
-            folder = os.path.dirname(list_tiff[0])
-            o_load.import_files_from_folder(folder=folder,
-                                            extension=[".tiff", ".tif"])
-            o_event_step1 = Step1EventHandler(parent=self.top_parent,
-                                              data_type=data_type)
-            o_event_step1.import_button_clicked_step2(folder=folder)
-            self.top_parent.ui.load_data_tab.setCurrentIndex(1)
-            self.top_parent.load_data_tab_changed(tab_index=1)
-            self.top_parent.ui.tabWidget.setCurrentIndex(0)
-            self.top_parent.ui.main_tools_tabWidget.setCurrentIndex(0)
-            return
-
-        if data_type == DataType.normalized:
+            self._raw_data(list_files=list_tiff,
+                           load_data_tab_index=0,
+                           data_type=data_type)
+        elif data_type == DataType.ob:
+            self._raw_data(list_files=list_tiff,
+                           load_data_tab_index=1,
+                           data_type=data_type)
+        elif data_type == DataType.normalized:
             logging.info(f"Reloading TOF combine in {data_type}")
             o_load = LoadNormalized(parent=self.top_parent)
             o_load.all()
             return
+
+    def _raw_data(self, list_files=None, load_data_tab_index=0, data_type=DataType.sample):
+        """This takes care of loading the files into the appropriate sample or OB tab"""
+        logging.info(f"Reloading TOF combine data in {data_type}")
+        o_load = DataHandler(parent=self.top_parent,
+                             data_type=data_type)
+        folder = os.path.dirname(list_files[0])
+        o_load.import_files_from_folder(folder=folder,
+                                        extension=[".tiff", ".tif"])
+        o_event_step1 = Step1EventHandler(parent=self.top_parent,
+                                          data_type=data_type)
+        o_event_step1.import_button_clicked_step2(folder=folder)
+        self.top_parent.ui.load_data_tab.setCurrentIndex(load_data_tab_index)
+        self.top_parent.load_data_tab_changed(tab_index=load_data_tab_index)
+        self.top_parent.ui.tabWidget.setCurrentIndex(0)
+        self.top_parent.ui.main_tools_tabWidget.setCurrentIndex(0)
