@@ -4,9 +4,6 @@ import os
 from ibeatles import DataType
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.session.load_load_data_tab import LoadLoadDataTab
-from ibeatles.session.load_normalized_tab import LoadNormalized
-from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
 from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
@@ -39,6 +36,7 @@ class Reload:
             self._normalized_data(list_files=list_tiff)
 
     def _normalized_data(self, list_files=None):
+        """this takes care of loading the files back in the normalized tab"""
         data_type = DataType.normalized
         logging.info(f"Reloading TOF combine data in {data_type}")
         o_load = DataHandler(parent=self.top_parent, data_type=data_type)
