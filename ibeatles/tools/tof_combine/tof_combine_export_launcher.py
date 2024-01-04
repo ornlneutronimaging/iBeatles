@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore")
 from ibeatles import load_ui
 from ibeatles import DataType
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
-from ibeatles.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine.utilities.get import Get
 
 
 class TofCombineExportLauncher(QDialog):

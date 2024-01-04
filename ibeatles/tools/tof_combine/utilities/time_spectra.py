@@ -6,7 +6,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.tof_combine.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_combine.utilities import TimeSpectraKeys
 from ibeatles import load_ui
 
 from neutronbraggedge.experiment_handler.tof import TOF

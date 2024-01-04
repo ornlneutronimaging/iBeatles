@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1562</width>
-    <height>1081</height>
+    <width>2037</width>
+    <height>1262</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -56,8 +56,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1467</width>
-             <height>966</height>
+             <width>1942</width>
+             <height>1147</height>
             </rect>
            </property>
            <property name="minimumSize">
@@ -2210,7 +2210,7 @@ p, li { white-space: pre-wrap; }
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>74</height>
+            <height>119</height>
            </size>
           </property>
          </spacer>
@@ -2275,7 +2275,7 @@ p, li { white-space: pre-wrap; }
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>74</height>
+            <height>120</height>
            </size>
           </property>
          </spacer>
@@ -2340,7 +2340,7 @@ p, li { white-space: pre-wrap; }
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>74</height>
+            <height>119</height>
            </size>
           </property>
          </spacer>
@@ -2405,7 +2405,7 @@ p, li { white-space: pre-wrap; }
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>74</height>
+            <height>119</height>
            </size>
           </property>
          </spacer>
@@ -2421,7 +2421,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1562</width>
+     <width>2037</width>
      <height>24</height>
     </rect>
    </property>
@@ -2983,7 +2983,7 @@ p, li { white-space: pre-wrap; }
    <sender>actionRotate_Images</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>rotate_normalized_images_clicked()</slot>
+   <slot>rotate_images_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -3114,7 +3114,7 @@ p, li { white-space: pre-wrap; }
    <slot>infos_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1536</x>
+     <x>1110</x>
      <y>168</y>
     </hint>
     <hint type="destinationlabel">
@@ -3383,11 +3383,11 @@ p, li { white-space: pre-wrap; }
    <sender>rotate_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>rotate_normalized_images_clicked()</slot>
+   <slot>rotate_images_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>528</x>
-     <y>497</y>
+     <x>804</x>
+     <y>226</y>
     </hint>
     <hint type="destinationlabel">
      <x>761</x>
@@ -3418,8 +3418,8 @@ p, li { white-space: pre-wrap; }
    <slot>tof_binning_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1242</x>
-     <y>561</y>
+     <x>806</x>
+     <y>884</y>
     </hint>
     <hint type="destinationlabel">
      <x>1395</x>
@@ -3477,7 +3477,7 @@ p, li { white-space: pre-wrap; }
   <slot>menu_view_binning_clicked()</slot>
   <slot>menu_view_fitting_clicked()</slot>
   <slot>menu_view_strain_mapping_clicked()</slot>
-  <slot>rotate_normalized_images_clicked()</slot>
+  <slot>rotate_images_clicked()</slot>
   <slot>log_clicked()</slot>
   <slot>close_clicked()</slot>
   <slot>load_session_clicked()</slot>

@@ -1,8 +1,8 @@
 from qtpy.QtWidgets import QApplication
 
-from ibeatles.tof_combine.utilities.image_handler import ImageHandler
-from ibeatles.tof_combine.utilities.get import Get
-from ibeatles.tof_combine import SessionKeys as TofSessionKeys
+from ibeatles.tools.tof_combine.utilities.image_handler import ImageHandler
+from ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
 
 
 class LoadFiles:

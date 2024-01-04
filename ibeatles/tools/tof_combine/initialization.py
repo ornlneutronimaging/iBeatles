@@ -4,11 +4,9 @@ from qtpy.QtGui import QIcon
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 
-from ibeatles.tof_combine.utilities.table_handler import TableHandler
-from ibeatles.tof_combine.utilities.matplotlibview import MatplotlibView
-from ibeatles.tof_combine import MICRO, LAMBDA, ANGSTROMS, DELTA
-from ibeatles.tof_combine import combine_image, auto_image, manual_image, settings_image, more_infos_image
-from ibeatles.tof_combine import stats_table_image, stats_plot_image
+from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
+from ibeatles.tools.tof_combine import MICRO, LAMBDA, ANGSTROMS
+from ibeatles.tools.tof_combine import settings_image
 
 
 class Initialization:

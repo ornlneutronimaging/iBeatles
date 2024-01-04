@@ -1,23 +1,14 @@
 from qtpy.QtWidgets import QFileDialog
 import logging
 import os
-from pathlib import Path
-import inflect
-import numpy as np
-import json
 import shutil
 
 from NeuNorm.normalization import Normalization
 
-from ibeatles.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine.utilities.get import Get
 from ibeatles.utilities.file_handler import FileHandler
-from ibeatles import DataType
-from ibeatles.tof_combine.utilities import TimeSpectraKeys
-from ibeatles.tof_combine.utilities.time_spectra import GetTimeSpectraFilename
-
-
+from ibeatles.tools.tof_combine.utilities import TimeSpectraKeys
 class ExportImages:
-
     output_folder = None
 
     def __init__(self, parent=None, top_parent=None):

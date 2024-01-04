@@ -41,15 +41,14 @@ from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 from ibeatles.binning.binning_launcher import BinningLauncher
 
 # from ibeatles.tof_bin.tof_combining_binning_launcher import TofCombiningBinningLauncher
-from ibeatles.tof_combine.tof_combine_launcher import TofCombineLauncher
+from ibeatles.tools.tof_combine.tof_combine_launcher import TofCombineLauncher
+from ibeatles.tools.rotate.rotate_images import RotateImages
 
 from ibeatles.fitting import FittingKeys
 from ibeatles.fitting.fitting_launcher import FittingLauncher
 from ibeatles.fitting.kropff import KropffThresholdFinder
 
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
-
-from ibeatles.tools.rotate_images import RotateImages
 
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos, RetrieveGeneralFileInfos
 from ibeatles.utilities.list_data_handler import ListDataHandler
@@ -503,7 +502,7 @@ class MainWindow(QMainWindow):
         if o_event.is_step_selected_allowed(step_index_requested=5):
             StrainMappingLauncher(parent=self)
 
-    def rotate_normalized_images_clicked(self):
+    def rotate_images_clicked(self):
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=6):
             RotateImages(parent=self)

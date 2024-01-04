@@ -6,9 +6,9 @@ import copy
 import numpy as np
 
 from ibeatles import DataType
-from ibeatles.tof_combine.utilities.table_handler import TableHandler
-from ibeatles.tof_combine.utilities import CombineAlgorithm, TimeSpectraKeys
-from ibeatles.tof_combine import SessionKeys as TofSessionKeys
+from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
+from ibeatles.tools.tof_combine.utilities import CombineAlgorithm, TimeSpectraKeys
+from ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
 
 
 class Get:

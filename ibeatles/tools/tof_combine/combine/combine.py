@@ -1,9 +1,9 @@
 import numpy as np
 import pyqtgraph as pg
 
-from ibeatles.tof_combine.utilities import CombineAlgorithm
-from ibeatles.tof_combine.utilities.get import Get
-from ibeatles.tof_combine import SessionKeys as TofCombineSessionKeys
+from ibeatles.tools.tof_combine.utilities import CombineAlgorithm
+from ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
 
 
 class Combine:
