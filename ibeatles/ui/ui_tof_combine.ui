@@ -379,6 +379,18 @@
         <property name="enabled">
          <bool>false</bool>
         </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>300</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="text">
          <string>Combine ...</string>
         </property>
@@ -394,7 +406,7 @@
      <x>0</x>
      <y>0</y>
      <width>1408</width>
-     <height>37</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

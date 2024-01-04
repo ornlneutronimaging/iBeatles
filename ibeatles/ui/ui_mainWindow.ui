@@ -34,7 +34,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_22">
     <item>
-     <widget class="QTabWidget" name="tabWidget_2">
+     <widget class="QTabWidget" name="main_tools_tabWidget">
       <property name="tabPosition">
        <enum>QTabWidget::West</enum>
       </property>

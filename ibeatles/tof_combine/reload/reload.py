@@ -37,9 +37,9 @@ class Reload:
             o_event_step1 = Step1EventHandler(parent=self.top_parent,
                                               data_type=data_type)
             o_event_step1.import_button_clicked_step2(folder=folder)
-
-            # self.top_parent.load_data_tab_changed(0)
-            # self.top_parent.ui.sample_ob_splitter.setSizes([20, 450])
+            self.top_parent.load_data_tab_changed(tab_index=0)
+            self.top_parent.ui.tabWidget.setCurrentIndex(0)
+            self.top_parent.ui.main_tools_tabWidget.setCurrentIndex(0)
             return
 
         if data_type == DataType.ob:
