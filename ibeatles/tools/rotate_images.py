@@ -19,7 +19,7 @@ class RotateImages:
         if self.parent.rotate_ui is None:
             rotate_ui = RotateImagesWindow(parent=parent)
             rotate_ui.show()
-            rotate_ui.display_rotated_images()
+            # rotate_ui.display_rotated_images()
             self.parent.rotate_ui = rotate_ui
         else:
             self.parent.rotate_ui.setFocus()
@@ -58,14 +58,17 @@ class RotateImagesWindow(QMainWindow):
 
         self.ui.line_view = None
 
-    def display_rotated_images(self):
-        data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
-        rotation_value = self.ui.angle_horizontalSlider.value()
+    def select_folder_clicked(self):
+        pass
 
-        rotated_data = scipy.ndimage.interpolation.rotate(data, rotation_value)
-        self.ui.image_view.setImage(rotated_data)
-
-        self.display_grid(data=rotated_data)
+    # def display_rotated_images(self):
+    #     data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
+    #     rotation_value = self.ui.angle_horizontalSlider.value()
+    #
+    #     rotated_data = scipy.ndimage.interpolation.rotate(data, rotation_value)
+    #     self.ui.image_view.setImage(rotated_data)
+    #
+    #     self.display_grid(data=rotated_data)
 
     def slider_value_changed(self, value):
         self.ui.angle_value.setText(str(value))
