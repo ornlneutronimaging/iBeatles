@@ -503,9 +503,7 @@ class MainWindow(QMainWindow):
             StrainMappingLauncher(parent=self)
 
     def rotate_images_clicked(self):
-        o_event = GeneralEventHandler(parent=self)
-        if o_event.is_step_selected_allowed(step_index_requested=6):
-            RotateImages(parent=self)
+        RotateImages(parent=self)
 
     def view_instrument_and_material_settings_clicked(self, state):
         """will make the instrument and material widgets visible, only if we are not working with the

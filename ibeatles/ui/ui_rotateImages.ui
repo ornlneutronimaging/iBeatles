@@ -21,7 +21,7 @@
     <item>
      <widget class="QPushButton" name="select_folder_pushButton">
       <property name="text">
-       <string>Select folder containing data to load ...</string>
+       <string>Select folder of images to rotate ...</string>
       </property>
      </widget>
     </item>
