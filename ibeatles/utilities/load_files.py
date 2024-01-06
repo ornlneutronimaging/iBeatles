@@ -64,7 +64,6 @@ class LoadFiles:
 
         self.parent.eventProgress.setVisible(False)
 
-
     @classmethod
     def load_interactive_data(cls, parent=None, list_tif_files=None):
         dict = {'width': None,

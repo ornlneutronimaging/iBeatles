@@ -25,6 +25,7 @@ class EventHandler:
             logging.info("User Canceled the selection of folder!")
             return
 
+        self.parent.ui.folder_selected_label.setText(folder)
         logging.info(f"Users selected the folder: {folder}")
 
         list_tif_files = FileHandler.get_list_of_tif(folder=folder)
@@ -49,11 +50,11 @@ class EventHandler:
             return
 
     def display_rotated_images(self):
-        if not self.parent.integrated_image:
+        if self.parent.integrated_image is None:
             return
 
         data = self.parent.integrated_image
-        rotation_value = self.parent.ui.angle_horizontalSlider.value()
+        rotation_value = self.parent.ui.rotation_doubleSpinBox.value()
 
         rotated_data = scipy.ndimage.interpolation.rotate(data, rotation_value)
         self.parent.ui.image_view.setImage(rotated_data)
@@ -100,7 +101,7 @@ class EventHandler:
 
         # remove old line_view
         if self.parent.ui.line_view:
-            self.parent.ui.image_view.removeItem(self.ui.line_view)
+            self.parent.ui.image_view.removeItem(self.parent.ui.line_view)
         line_view = pg.GraphItem()
         self.parent.ui.image_view.addItem(line_view)
         line_view.setData(pos=pos,
@@ -113,7 +114,7 @@ class EventHandler:
     def check_widgets(self):
 
         # enable the slider if there is something to rotate
-        if self.parent.integrated_image:
+        if not (self.parent.integrated_image is None):
             enable_group_widgets = True
 
             # enable the process button if the slider is not at zero and there are data loaded
