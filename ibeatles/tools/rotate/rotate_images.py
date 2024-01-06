@@ -10,6 +10,8 @@ import logging
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles import load_ui, DataType
 
+from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
+
 
 class RotateImages:
 
@@ -28,7 +30,12 @@ class RotateImages:
 
 class RotateImagesWindow(QMainWindow):
     grid_size = 100  # pixels
-    rotated_normalized_array = []
+
+    integrated_image = None
+
+    list_tif_files = None
+    image_size = {'width': None,
+                  'height': None}
 
     def __init__(self, parent=None):
 
@@ -59,10 +66,15 @@ class RotateImagesWindow(QMainWindow):
         self.ui.line_view = None
 
     def select_folder_clicked(self):
-        pass
+        o_event = RotateEventHandler(parent=self,
+                                     top_parent=self.parent)
+        o_event.select_folder()
+        o_event.load_data()
+        o_event.display_rotated_images()
+        o_event.check_widgets()
 
     # def display_rotated_images(self):
-    #     data = np.array(self.parent.data_metadata['normalized']['data_live_selection'])
+    #     data = self.integrated_image
     #     rotation_value = self.ui.angle_horizontalSlider.value()
     #
     #     rotated_data = scipy.ndimage.interpolation.rotate(data, rotation_value)
@@ -74,55 +86,55 @@ class RotateImagesWindow(QMainWindow):
         self.ui.angle_value.setText(str(value))
         self.display_rotated_images()
 
-    def display_grid(self, data=None):
-        [height, width] = np.shape(data)
-
-        pos = []
-        adj = []
-
-        # vertical lines
-        x = self.grid_size
-        index = 0
-        while (x <= width):
-            one_edge = [x, 0]
-            other_edge = [x, height]
-            pos.append(one_edge)
-            pos.append(other_edge)
-            adj.append([index, index + 1])
-            x += self.grid_size
-            index += 2
-
-        # horizontal lines
-        y = self.grid_size
-        while (y <= height):
-            one_edge = [0, y]
-            other_edge = [width, y]
-            pos.append(one_edge)
-            pos.append(other_edge)
-            adj.append([index, index + 1])
-            y += self.grid_size
-            index += 2
-
-        pos = np.array(pos)
-        adj = np.array(adj)
-
-        line_color = (0, 255, 0, 255, 0.5)
-        lines = np.array([line_color for n in np.arange(len(pos))],
-                         dtype=[('red', np.ubyte), ('green', np.ubyte),
-                                ('blue', np.ubyte), ('alpha', np.ubyte),
-                                ('width', float)])
-
-        # remove old line_view
-        if self.ui.line_view:
-            self.ui.image_view.removeItem(self.ui.line_view)
-        line_view = pg.GraphItem()
-        self.ui.image_view.addItem(line_view)
-        line_view.setData(pos=pos,
-                          adj=adj,
-                          pen=lines,
-                          symbol=None,
-                          pxMode=False)
-        self.ui.line_view = line_view
+    # def display_grid(self, data=None):
+    #     [height, width] = np.shape(data)
+    #
+    #     pos = []
+    #     adj = []
+    #
+    #     # vertical lines
+    #     x = self.grid_size
+    #     index = 0
+    #     while (x <= width):
+    #         one_edge = [x, 0]
+    #         other_edge = [x, height]
+    #         pos.append(one_edge)
+    #         pos.append(other_edge)
+    #         adj.append([index, index + 1])
+    #         x += self.grid_size
+    #         index += 2
+    #
+    #     # horizontal lines
+    #     y = self.grid_size
+    #     while (y <= height):
+    #         one_edge = [0, y]
+    #         other_edge = [width, y]
+    #         pos.append(one_edge)
+    #         pos.append(other_edge)
+    #         adj.append([index, index + 1])
+    #         y += self.grid_size
+    #         index += 2
+    #
+    #     pos = np.array(pos)
+    #     adj = np.array(adj)
+    #
+    #     line_color = (0, 255, 0, 255, 0.5)
+    #     lines = np.array([line_color for n in np.arange(len(pos))],
+    #                      dtype=[('red', np.ubyte), ('green', np.ubyte),
+    #                             ('blue', np.ubyte), ('alpha', np.ubyte),
+    #                             ('width', float)])
+    #
+    #     # remove old line_view
+    #     if self.ui.line_view:
+    #         self.ui.image_view.removeItem(self.ui.line_view)
+    #     line_view = pg.GraphItem()
+    #     self.ui.image_view.addItem(line_view)
+    #     line_view.setData(pos=pos,
+    #                       adj=adj,
+    #                       pen=lines,
+    #                       symbol=None,
+    #                       pxMode=False)
+    #     self.ui.line_view = line_view
 
     def save_and_use_clicked(self):
         logging.info("Rotating normalized images")

@@ -63,3 +63,31 @@ class LoadFiles:
                                                                           'height': height}
 
         self.parent.eventProgress.setVisible(False)
+
+
+    @classmethod
+    def load_interactive_data(cls, parent=None, list_tif_files=None):
+        dict = {'width': None,
+                'height': None,
+                'image_array': []}
+
+        parent.eventProgress.setMinimum(0)
+        parent.eventProgress.setMaximum(len(list_tif_files))
+        parent.eventProgress.setValue(0)
+        parent.eventProgress.setVisible(True)
+
+        for _index, _file in enumerate(list_tif_files):
+            o_handler = ImageHandler(parent=parent, filename=_file)
+            _data = o_handler.get_data()
+            dict['image_array'].append(_data)
+            parent.eventProgress.setValue(_index + 1)
+            QApplication.processEvents()
+
+            if _index == 0:
+                [height, width] = np.shape(_data)
+                dict['width'] = width
+                dict['height'] = height
+
+        parent.eventProgress.setVisible(False)
+
+        return dict
