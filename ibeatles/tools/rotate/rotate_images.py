@@ -11,6 +11,7 @@ from ibeatles.utilities.file_handler import FileHandler
 from ibeatles import load_ui, DataType
 
 from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
+from ibeatles.tools.rotate.rotate_export_launcher import RotateExportLauncher
 
 
 class RotateImages:
@@ -81,34 +82,39 @@ class RotateImagesWindow(QMainWindow):
                                      top_parent=self.parent)
         o_event.display_rotated_images()
 
-    def save_and_use_clicked(self):
-        logging.info("Rotating normalized images")
+    def export_button_clicked(self):
+        rotate_export_ui = RotateExportLauncher(parent=self,
+                                                top_parent=self.parent)
+        rotate_export_ui.show()
 
-        # select folder
-        folder = os.path.dirname(self.parent.data_metadata[DataType.normalized]['folder'])
-        output_folder = str(QFileDialog.getExistingDirectory(caption='Select Folder for Rotated Images ...',
-                                                             directory=folder))
-
-        if not output_folder:
-            logging.info(" User cancel rotating the images")
-            return
-
-        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-
-        # create folder inside this selected folder
-        rotation_value = self.ui.angle_horizontalSlider.value()
-        if rotation_value < 0:
-            rotation_value = f"minus{np.abs(rotation_value)}"
-
-        output_folder = os.path.join(output_folder, f"rotated_by_{rotation_value}degrees")
-        FileHandler.make_or_reset_folder(output_folder)
-
-        self.rotate_and_save_all_images(target_folder=output_folder)
-        self.reload_rotated_images()
-        self.copy_time_spectra(target_folder=output_folder)
-        QApplication.restoreOverrideCursor()
-
-        self.close()
+    # def save_and_use_clicked(self):
+    #     logging.info("Rotating normalized images")
+    #
+    #     # select folder
+    #     folder = os.path.dirname(self.parent.data_metadata[DataType.normalized]['folder'])
+    #     output_folder = str(QFileDialog.getExistingDirectory(caption='Select Folder for Rotated Images ...',
+    #                                                          directory=folder))
+    #
+    #     if not output_folder:
+    #         logging.info(" User cancel rotating the images")
+    #         return
+    #
+    #     QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+    #
+    #     # create folder inside this selected folder
+    #     rotation_value = self.ui.angle_horizontalSlider.value()
+    #     if rotation_value < 0:
+    #         rotation_value = f"minus{np.abs(rotation_value)}"
+    #
+    #     output_folder = os.path.join(output_folder, f"rotated_by_{rotation_value}degrees")
+    #     FileHandler.make_or_reset_folder(output_folder)
+    #
+    #     self.rotate_and_save_all_images(target_folder=output_folder)
+    #     self.reload_rotated_images()
+    #     self.copy_time_spectra(target_folder=output_folder)
+    #     QApplication.restoreOverrideCursor()
+    #
+    #     self.close()
 
     def copy_time_spectra(self, target_folder=None):
         time_spectra = self.parent.data_metadata[DataType.normalized]['time_spectra']['filename']

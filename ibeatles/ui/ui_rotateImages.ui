@@ -178,7 +178,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="save_and_use_button">
+       <widget class="QPushButton" name="export_button">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -189,7 +189,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Rotate ...</string>
+         <string>Export ...</string>
         </property>
        </widget>
       </item>
@@ -203,7 +203,7 @@
      <x>0</x>
      <y>0</y>
      <width>878</width>
-     <height>24</height>
+     <height>43</height>
     </rect>
    </property>
   </widget>
@@ -224,22 +224,6 @@
     <hint type="destinationlabel">
      <x>163</x>
      <y>548</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>save_and_use_button</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>save_and_use_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>865</x>
-     <y>920</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>559</x>
-     <y>545</y>
     </hint>
    </hints>
   </connection>
@@ -275,13 +259,29 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>export_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>export_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>659</x>
+     <y>904</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>691</x>
+     <y>857</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>cancel_clicked()</slot>
   <slot>display_rotated_images()</slot>
-  <slot>save_and_use_clicked()</slot>
   <slot>slider_value_changed()</slot>
   <slot>select_folder_clicked()</slot>
   <slot>rotation_value_changed()</slot>
+  <slot>export_button_clicked()</slot>
  </slots>
 </ui>
