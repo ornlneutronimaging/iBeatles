@@ -57,7 +57,26 @@ class EventHandler:
         rotation_value = self.parent.ui.rotation_doubleSpinBox.value()
 
         rotated_data = scipy.ndimage.interpolation.rotate(data, rotation_value)
+
+        _view = self.parent.ui.image_view.getView()
+        _view_box = _view.getViewBox()
+        _state = _view_box.getState()
+
+        histogram_level = self.parent.histogram_level
+        if histogram_level is None:
+            self.parent.first_update = True
+        else:
+            self.parent.first_update = False
+            
+        histogram_widget = self.parent.ui.image_view.getHistogramWidget()
+        self.parent.histogram_level = histogram_widget.getLevels()
+
         self.parent.ui.image_view.setImage(rotated_data)
+
+        _view_box.setState(_state)
+        if not self.parent.first_update:
+            histogram_widget.setLevels(self.parent.histogram_level[0],
+                                       self.parent.histogram_level[1])
 
         self.display_grid(data=rotated_data)
 
@@ -118,7 +137,7 @@ class EventHandler:
             enable_group_widgets = True
 
             # enable the process button if the slider is not at zero and there are data loaded
-            if self.parent.ui.angle_horizontalSlider.value == 0:
+            if self.parent.ui.rotation_doubleSpinBox.value == 0:
                 enable_button = False
             else:
                 enable_button = True

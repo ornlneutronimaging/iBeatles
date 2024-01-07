@@ -261,7 +261,7 @@
   </connection>
   <connection>
    <sender>rotation_doubleSpinBox</sender>
-   <signal>editingFinished()</signal>
+   <signal>valueChanged(double)</signal>
    <receiver>MainWindow</receiver>
    <slot>rotation_value_changed()</slot>
    <hints>

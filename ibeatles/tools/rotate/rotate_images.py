@@ -33,6 +33,9 @@ class RotateImagesWindow(QMainWindow):
 
     integrated_image = None
 
+    histogram_level = None
+    first_update = False
+
     list_tif_files = None
     image_size = {'width': None,
                   'height': None}
@@ -55,7 +58,7 @@ class RotateImagesWindow(QMainWindow):
         self.ui.statusbar.addPermanentWidget(self.eventProgress)
 
     def init_pyqtgraph(self):
-        self.ui.image_view = pg.ImageView()
+        self.ui.image_view = pg.ImageView(view=pg.PlotItem())
         self.ui.image_view.ui.roiBtn.hide()
         self.ui.image_view.ui.menuBtn.hide()
 
@@ -73,7 +76,7 @@ class RotateImagesWindow(QMainWindow):
         o_event.display_rotated_images()
         o_event.check_widgets()
 
-    def rotate_value_changed(self, rotation_value):
+    def rotation_value_changed(self, rotation_value):
         o_event = RotateEventHandler(parent=self,
                                      top_parent=self.parent)
         o_event.display_rotated_images()

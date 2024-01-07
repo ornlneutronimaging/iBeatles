@@ -72,7 +72,6 @@ class Pyqtgrah:
             self.first_update = True
         _histo_widget = self.image_view.getHistogramWidget()
 
-
         if self.data_type == DataType.normalization:
             self.parent.image_view_settings[data_type_of_data]['histogram'] = _histo_widget.getLevels()
         else:
