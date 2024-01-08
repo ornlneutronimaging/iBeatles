@@ -46,20 +46,21 @@ class Combine:
             self.parent.live_combine_image = integrated_arrays
 
             # display integrated
-            self.parent.combine_image_view.setImage(integrated_arrays)
+            if self.parent.visualize_flag:
+                self.parent.combine_image_view.setImage(integrated_arrays)
 
-            # initialize ROI if first time, otherwise use same region
-            roi_dict = self.parent.session[TofCombineSessionKeys.combine_roi]
-            x0 = roi_dict['x0']
-            y0 = roi_dict['y0']
-            width = roi_dict['width']
-            height = roi_dict['height']
-            if self.parent.combine_roi_item_id:
-                self.parent.combine_image_view.removeItem(self.parent.combine_roi_item_id)
+                # initialize ROI if first time, otherwise use same region
+                roi_dict = self.parent.session[TofCombineSessionKeys.combine_roi]
+                x0 = roi_dict['x0']
+                y0 = roi_dict['y0']
+                width = roi_dict['width']
+                height = roi_dict['height']
+                if self.parent.combine_roi_item_id:
+                    self.parent.combine_image_view.removeItem(self.parent.combine_roi_item_id)
 
-            roi_item = pg.ROI([x0, y0],
-                              [width, height])
-            roi_item.addScaleHandle([1, 1], [0, 0])
-            self.parent.combine_image_view.addItem(roi_item)
-            roi_item.sigRegionChanged.connect(self.parent.combine_roi_changed)
-            self.parent.combine_roi_item_id = roi_item
+                roi_item = pg.ROI([x0, y0],
+                                  [width, height])
+                roi_item.addScaleHandle([1, 1], [0, 0])
+                self.parent.combine_image_view.addItem(roi_item)
+                roi_item.sigRegionChanged.connect(self.parent.combine_roi_changed)
+                self.parent.combine_roi_item_id = roi_item

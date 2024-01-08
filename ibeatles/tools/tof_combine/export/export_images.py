@@ -48,7 +48,7 @@ class ExportImages:
             o_norm = Normalization()
             o_norm.load(data=_array)
             o_norm.data['sample']['file_name'][0] = short_file_name
-            o_norm.export(folder=output_folder, data_type='sample', file_type='tif')
+            o_norm.export(folder=output_folder, data_type='sample', file_type='tiff')
             self.parent.eventProgress.setValue(_index+1)
 
         # export time spectra file
