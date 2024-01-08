@@ -26,16 +26,22 @@ class TofCombineExportLauncher(QDialog):
         data_type_selected = o_get.combine_export_mode()
         self.close()
         output_folder = self.parent.combine_run(data_type_selected=data_type_selected)
-        self.parent.reload_run_in_main_ui(data_type_selected=data_type_selected,
-                                          output_folder=output_folder)
-        self.parent.close()
+        if output_folder:
+            self.parent.reload_run_in_main_ui(data_type_selected=data_type_selected,
+                                              output_folder=output_folder)
+            self.parent.close()
 
-        message = f"TOF combined exported to {output_folder}"
-        if not (data_type_selected == DataType.none):
-            message += f" and loaded back in {data_type_selected}"
-        message += "!"
+            message = f"TOF combined exported to {output_folder}"
+            if not (data_type_selected == DataType.none):
+                message += f" and loaded back in {data_type_selected}"
+            message += "!"
+            status = StatusMessageStatus.ready
+
+        else:
+            message = "User cancel export process!"
+            status = StatusMessageStatus.warning
 
         show_status_message(parent=self.grand_parent,
                             message=message,
-                            status=StatusMessageStatus.ready,
+                            status=status,
                             duration_s=10)
