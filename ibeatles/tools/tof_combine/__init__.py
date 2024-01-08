@@ -1,6 +1,6 @@
 import os
 
-root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 refresh_image = os.path.join(root, "icons/refresh.png")
 settings_image = os.path.join(root, "icons/plotSettings.png")
 combine_image = os.path.join(root, "icons/combine.png")

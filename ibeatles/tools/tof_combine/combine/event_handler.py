@@ -106,11 +106,16 @@ class EventHandler:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
 
         if self.at_least_two_folder_selected():
-            self.parent.ui.combine_widget.setEnabled(True)
             self.parent.ui.combine_pushButton.setEnabled(True)
         else:
             self.parent.ui.combine_widget.setEnabled(False)
             self.parent.ui.combine_pushButton.setEnabled(False)
+
+        if self.at_least_one_folder_selected():
+            # enable display widgets
+            self.parent.ui.combine_widget.setEnabled(True)
+        else:
+            self.parent.ui.combine_widget.setEnabled(False)
 
     def refresh_table_clicked(self):
         self.parent.ui.combine_tableWidget.blockSignals(True)
