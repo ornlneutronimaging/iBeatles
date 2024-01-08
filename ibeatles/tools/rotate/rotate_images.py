@@ -1,7 +1,5 @@
-from qtpy.QtWidgets import QMainWindow, QProgressBar, QVBoxLayout, QFileDialog, QApplication
-from qtpy import QtCore
-import pyqtgraph as pg
-import numpy as np
+from qtpy.QtWidgets import QMainWindow, QApplication
+
 import scipy
 import shutil
 import os
@@ -12,6 +10,8 @@ from ibeatles import load_ui, DataType
 
 from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
 from ibeatles.tools.rotate.rotate_export_launcher import RotateExportLauncher
+from ibeatles.tools.rotate.initialization import Initialization
+
 
 
 class RotateImages:
@@ -22,7 +22,6 @@ class RotateImages:
         if self.parent.rotate_ui is None:
             rotate_ui = RotateImagesWindow(parent=parent)
             rotate_ui.show()
-            # rotate_ui.display_rotated_images()
             self.parent.rotate_ui = rotate_ui
         else:
             self.parent.rotate_ui.setFocus()
@@ -47,27 +46,8 @@ class RotateImagesWindow(QMainWindow):
         QMainWindow.__init__(self, parent=parent)
         self.ui = load_ui('ui_rotateImages.ui', baseinstance=self)
 
-        self.init_pyqtgraph()
-        self.init_widgets()
-
-    def init_widgets(self):
-        # progress bar
-        self.eventProgress = QProgressBar(self.ui.statusbar)
-        self.eventProgress.setMinimumSize(20, 14)
-        self.eventProgress.setMaximumSize(540, 100)
-        self.eventProgress.setVisible(False)
-        self.ui.statusbar.addPermanentWidget(self.eventProgress)
-
-    def init_pyqtgraph(self):
-        self.ui.image_view = pg.ImageView(view=pg.PlotItem())
-        self.ui.image_view.ui.roiBtn.hide()
-        self.ui.image_view.ui.menuBtn.hide()
-
-        vertical_layout = QVBoxLayout()
-        vertical_layout.addWidget(self.ui.image_view)
-        self.ui.widget.setLayout(vertical_layout)
-
-        self.ui.line_view = None
+        o_init = Initialization(parent=self)
+        o_init.all()
 
     def select_folder_clicked(self):
         o_event = RotateEventHandler(parent=self,
