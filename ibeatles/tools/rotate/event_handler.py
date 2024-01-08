@@ -142,7 +142,7 @@ class EventHandler:
             enable_group_widgets = True
 
             # enable the process button if the slider is not at zero and there are data loaded
-            if self.parent.ui.rotation_doubleSpinBox.value == 0:
+            if float(self.parent.ui.rotation_doubleSpinBox.value()) == 0.0:
                 enable_button = False
             else:
                 enable_button = True

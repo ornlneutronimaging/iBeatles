@@ -61,6 +61,7 @@ class RotateImagesWindow(QMainWindow):
         o_event = RotateEventHandler(parent=self,
                                      top_parent=self.parent)
         o_event.display_rotated_images()
+        o_event.check_widgets()
 
     def export_button_clicked(self):
         rotate_export_ui = RotateExportLauncher(parent=self,
