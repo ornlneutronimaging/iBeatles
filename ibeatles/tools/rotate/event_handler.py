@@ -5,6 +5,7 @@ import scipy
 import pyqtgraph as pg
 
 from ibeatles import DataType
+from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.load_files import LoadFiles
@@ -25,13 +26,17 @@ class EventHandler:
             logging.info("User Canceled the selection of folder!")
             return
 
-        self.parent.ui.folder_selected_label.setText(folder)
-        logging.info(f"Users selected the folder: {folder}")
-
         list_tif_files = FileHandler.get_list_of_tif(folder=folder)
         if not list_tif_files:
             logging.info(f"-> folder does not contain any tif file!")
+            show_status_message(parent=self.parent,
+                                message=f"Folder {folder} does not contain any TIFF files!",
+                                duration_s=5,
+                                status=StatusMessageStatus.error)
+            return
 
+        self.parent.ui.folder_selected_label.setText(folder)
+        logging.info(f"Users selected the folder: {folder}")
         self.parent.list_tif_files = list_tif_files
 
     def load_data(self):
@@ -142,7 +147,7 @@ class EventHandler:
             else:
                 enable_button = True
 
-            self.parent.ui.save_and_use_button.setEnabled(enable_button)
+            self.parent.ui.export_button.setEnabled(enable_button)
 
         else:
             enable_group_widgets = False
