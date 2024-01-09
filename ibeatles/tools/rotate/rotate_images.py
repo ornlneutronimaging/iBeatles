@@ -32,6 +32,7 @@ class RotateImagesWindow(QMainWindow):
     grid_size = 100  # pixels
 
     integrated_image = None
+    images_array = None
 
     histogram_level = None
     first_update = False
@@ -52,7 +53,7 @@ class RotateImagesWindow(QMainWindow):
     def select_folder_clicked(self):
         o_event = RotateEventHandler(parent=self,
                                      top_parent=self.parent)
-        o_event.select_folder()
+        o_event.select_input_folder()
         o_event.load_data()
         o_event.display_rotated_images()
         o_event.check_widgets()

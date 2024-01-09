@@ -1,9 +1,11 @@
 from qtpy.QtWidgets import QDialog
+import logging
 
 import warnings
 warnings.filterwarnings("ignore")
 
 from ibeatles import load_ui
+from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
 from ibeatles import DataType
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.tools.tof_combine.utilities.get import Get
@@ -15,14 +17,19 @@ class RotateExportLauncher(QDialog):
         self.parent = parent
         self.top_parent = top_parent
         QDialog.__init__(self, parent=parent)
-        self.ui = load_ui('ui_tof_combine_export.ui', baseinstance=self)
-
-        # disable the ob if there are no sample yet
-        if not self.grand_parent.list_files[DataType.sample]:
-            self.ui.ob_radioButton.setEnabled(False)
+        self.ui = load_ui('ui_rotate_export.ui', baseinstance=self)
 
     def ok_clicked(self):
-        print("ok clicked!")
+        o_event = RotateEventHandler(parent=self.parent,
+                                     top_parent=self.top_parent)
+        output_folder = o_event.select_output_folder()
+        if output_folder is None:
+            logging.info("User canceled file browser!")
+            self.close()
+
+        o_event.rotate_data(output_folder=output_folder)
+
+
         # o_get = Get(parent=self)
         # data_type_selected = o_get.combine_export_mode()
         # self.close()

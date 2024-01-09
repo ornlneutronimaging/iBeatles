@@ -1,8 +1,10 @@
 import logging
-from qtpy.QtWidgets import QFileDialog
+from qtpy.QtWidgets import QFileDialog, QApplication
+from qtpy import QtCore
 import numpy as np
 import scipy
 import pyqtgraph as pg
+import os
 
 from ibeatles import DataType
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
@@ -17,7 +19,7 @@ class EventHandler:
         self.parent = parent
         self.top_parent = top_parent
 
-    def select_folder(self):
+    def select_input_folder(self):
         default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
         folder = str(QFileDialog.getExistingDirectory(caption="Select folder containing images to load",
                                                       directory=default_path,
@@ -47,6 +49,7 @@ class EventHandler:
                                                list_tif_files=self.parent.list_tif_files)
         self.parent.image_size['height'] = dict['height']
         self.parent.image_size['width'] = dict['width']
+        self.parent.images_array = dict['image_array']
 
         self.parent.integrated_image = np.mean(dict['image_array'], axis=0)
 
@@ -154,3 +157,56 @@ class EventHandler:
 
         self.parent.ui.rotation_angle_groupBox.setEnabled(enable_group_widgets)
 
+    def select_output_folder(self):
+        folder = os.path.dirname(self.parent.ui.folder_selected_label.text())
+        output_folder = str(QFileDialog.getExistingDirectory(caption='Select output folder ...',
+                                                             directory=folder))
+
+        if not output_folder:
+            logging.info(" User cancel rotating the images")
+            return
+
+        return output_folder
+
+    def rotate_data(self, output_folder=None):
+        if output_folder is None:
+            return
+
+        logging.info("Rotating normalized images")
+        angle = self.parent.ui.rotation_doubleSpinBox.value()
+        data = self.parent.images_array
+
+        QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+
+        full_output_folder_name = self._create_full_output_folder_name(angle=angle,
+                                                                       output_folder=output_folder)
+        print(f"{full_output_folder_name =}")
+
+
+
+    def _create_full_output_folder_name(self, angle=0.0, output_folder=None):
+        """use the angle value and the folder name of the input data to create the
+        output folder name
+
+        ex:
+            angle = -1.5
+            input_folder = "/users/folder/data/my_input_folder/
+            output_folder = "/users/folder/my_output_folder
+
+            output_folder = "/users/folder/my_output_folder/my_input_folder_rotated_by_minus_1_5"
+        """
+        # define and create output folder file name
+        if angle > 0:
+            str_rotation_value = f"{angle}"
+        else:
+            str_rotation_value = f"minus_{np.abs(angle)}"
+        str_rotation_value = f"rotated_by_{str_rotation_value}"
+
+        str_rotation_value_parsed = str_rotation_value.split(".")
+        new_rotation_value = "_".join(str_rotation_value_parsed)
+
+        input_folder_name = os.path.basename(self.parent.ui.folder_selected_label.text())
+        full_output_folder_name = os.path.join(output_folder, f"{input_folder_name}_{new_rotation_value}")
+        FileHandler.make_or_reset_folder(folder_name=full_output_folder_name)
+        logging.info(f" Created folder {full_output_folder_name}")
+        return full_output_folder_name
