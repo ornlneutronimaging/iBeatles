@@ -214,6 +214,7 @@ class EventHandler:
                                               input_folder=import_folder_name)
 
         self.parent.eventProgress.setVisible(False)
+        return full_output_folder_name
 
     @staticmethod
     def export_time_spectra_file(output_folder=None, input_folder=None):

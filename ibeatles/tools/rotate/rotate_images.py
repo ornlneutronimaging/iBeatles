@@ -5,13 +5,11 @@ import shutil
 import os
 import logging
 
-from ibeatles.utilities.file_handler import FileHandler
 from ibeatles import load_ui, DataType
 
 from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
 from ibeatles.tools.rotate.rotate_export_launcher import RotateExportLauncher
 from ibeatles.tools.rotate.initialization import Initialization
-
 
 
 class RotateImages:

@@ -62,7 +62,6 @@ class DataHandler:
                                                            directory=os.path.dirname(self.parent.default_path[
                                                                                          self.data_type]),
                                                            options=QFileDialog.DontUseNativeDialog))
-
         return _folder
 
     def import_files_from_folder(self, folder='', extension=".fits"):

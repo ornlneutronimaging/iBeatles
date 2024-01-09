@@ -21,8 +21,10 @@ class Reload:
             return
 
         list_tiff = FileHandler.get_list_of_tif(folder=output_folder)
-        self.top_parent.session_dict[data_type][SessionSubKeys.list_files] = [os.path.basename(_file) for _file in list_tiff]
-        self.top_parent.session_dict[data_type][SessionSubKeys.current_folder] = os.path.dirname(list_tiff[0])
+        self.top_parent.session_dict[data_type][SessionSubKeys.list_files] = \
+            [os.path.basename(_file) for _file in list_tiff]
+        self.top_parent.session_dict[data_type][SessionSubKeys.current_folder] = (
+            os.path.dirname(list_tiff[0]))
 
         if data_type == DataType.sample:
             self._raw_data(list_files=list_tiff,
