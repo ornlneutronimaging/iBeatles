@@ -28,7 +28,8 @@ class RotateExportLauncher(QDialog):
             self.close()
 
         o_event.rotate_data(output_folder=output_folder)
-
+        self.close()
+        self.parent.close()
 
         # o_get = Get(parent=self)
         # data_type_selected = o_get.combine_export_mode()

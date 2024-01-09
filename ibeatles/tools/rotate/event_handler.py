@@ -6,7 +6,7 @@ import scipy
 import pyqtgraph as pg
 import os
 
-from ibeatles import DataType
+from ibeatles import DataType, interact_me_style, normal_style
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
@@ -147,10 +147,14 @@ class EventHandler:
             # enable the process button if the slider is not at zero and there are data loaded
             if float(self.parent.ui.rotation_doubleSpinBox.value()) == 0.0:
                 enable_button = False
+                self.parent.ui.export_button.setStyleSheet(normal_style)
             else:
                 enable_button = True
+                self.parent.ui.export_button.setStyleSheet(interact_me_style)
 
             self.parent.ui.export_button.setEnabled(enable_button)
+            self.parent.ui.select_folder_pushButton.setStyleSheet(normal_style)
+            self.parent.ui.rotation_doubleSpinBox.setStyleSheet(interact_me_style)
 
         else:
             enable_group_widgets = False
@@ -175,16 +179,21 @@ class EventHandler:
         logging.info("Rotating normalized images")
         angle = self.parent.ui.rotation_doubleSpinBox.value()
         data = self.parent.images_array
+        import_folder_name = self.parent.ui.folder_selected_label.text()
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
-        full_output_folder_name = self._create_full_output_folder_name(angle=angle,
-                                                                       output_folder=output_folder)
+        full_output_folder_name = EventHandler._create_full_output_folder_name(angle=angle,
+                                                                               import_folder=import_folder_name,
+                                                                               output_folder=output_folder)
         print(f"{full_output_folder_name =}")
 
 
 
-    def _create_full_output_folder_name(self, angle=0.0, output_folder=None):
+
+
+    @staticmethod
+    def _create_full_output_folder_name(angle=0.0, import_folder=None, output_folder=None):
         """use the angle value and the folder name of the input data to create the
         output folder name
 
@@ -205,7 +214,7 @@ class EventHandler:
         str_rotation_value_parsed = str_rotation_value.split(".")
         new_rotation_value = "_".join(str_rotation_value_parsed)
 
-        input_folder_name = os.path.basename(self.parent.ui.folder_selected_label.text())
+        input_folder_name = os.path.basename(import_folder)
         full_output_folder_name = os.path.join(output_folder, f"{input_folder_name}_{new_rotation_value}")
         FileHandler.make_or_reset_folder(folder_name=full_output_folder_name)
         logging.info(f" Created folder {full_output_folder_name}")

@@ -1,6 +1,8 @@
 from qtpy.QtWidgets import QProgressBar, QVBoxLayout
 import pyqtgraph as pg
 
+from ibeatles import interact_me_style
+
 
 class Initialization:
 
@@ -18,6 +20,9 @@ class Initialization:
         self.parent.eventProgress.setMaximumSize(540, 100)
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
+
+        # show what to do next
+        self.parent.ui.select_folder_pushButton.setStyleSheet(interact_me_style)
 
     def pyqtgraph(self):
         self.parent.ui.image_view = pg.ImageView(view=pg.PlotItem())
