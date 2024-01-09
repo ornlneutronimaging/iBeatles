@@ -12,7 +12,7 @@ from ibeatles.tools.tof_combine.export.export_images import ExportImages
 
 from ibeatles.tools.tof_combine.utilities import TimeSpectraKeys
 from ibeatles.tools.tof_combine.tof_combine_export_launcher import TofCombineExportLauncher
-from ibeatles.tools.tof_combine.reload.reload import Reload
+from ibeatles.tools.utilities.reload.reload import Reload
 
 from ibeatles import load_ui
 from ibeatles import DataType

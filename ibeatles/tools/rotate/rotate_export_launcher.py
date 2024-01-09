@@ -6,10 +6,8 @@ warnings.filterwarnings("ignore")
 
 from ibeatles import load_ui
 from ibeatles import DataType
-from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.session import SessionSubKeys
 from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
-from ibeatles.tools.tof_combine.reload.reload import Reload
+from ibeatles.tools.utilities.reload.reload import Reload
 
 
 class RotateExportLauncher(QDialog):
