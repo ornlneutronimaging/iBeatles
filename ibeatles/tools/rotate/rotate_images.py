@@ -113,18 +113,18 @@ class RotateImagesWindow(QMainWindow):
         # update plot
         pass
 
-    def _save_image(self, filename='', data=[]):
-        if os.path.exists(filename):
-            os.remove(filename)
-
-        file_name, file_extension = os.path.splitext(filename)
-        if file_extension.lower() in ['.tif', '.tiff']:
-            FileHandler.make_tiff(data=data, filename=filename)
-        elif file_extension.lower() == '.fits':
-            FileHandler.make_fits(data=data, filename=filename)
-        else:
-            logging.info(f"file format {file_extension} not supported!")
-            raise NotImplemented(f"file format {file_extension} not supported!")
+    # def _save_image(self, filename='', data=[]):
+    #     if os.path.exists(filename):
+    #         os.remove(filename)
+    #
+    #     file_name, file_extension = os.path.splitext(filename)
+    #     if file_extension.lower() in ['.tif', '.tiff']:
+    #         FileHandler.make_tiff(data=data, filename=filename)
+    #     elif file_extension.lower() == '.fits':
+    #         FileHandler.make_fits(data=data, filename=filename)
+    #     else:
+    #         logging.info(f"file format {file_extension} not supported!")
+    #         raise NotImplemented(f"file format {file_extension} not supported!")
 
     def rotate_and_save_all_images(self, target_folder=''):
         rotation_value = self.ui.angle_horizontalSlider.value()

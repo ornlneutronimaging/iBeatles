@@ -9,6 +9,8 @@ from qtpy.QtWidgets import QFileDialog
 import json
 import glob
 
+TIME_SPECTRA_NAME_FORMAT = '*_Spectra.txt'
+
 
 class FileHandler:
 
@@ -141,6 +143,15 @@ class FileHandler:
         """
         now = datetime.now()
         return now.strftime("y%Y_m%m_d%d_h%H_mn%M")
+
+
+def retrieve_timestamp_file_name(folder):
+    time_spectra = glob.glob(folder + "/" + TIME_SPECTRA_NAME_FORMAT)
+    if time_spectra and os.path.exists(time_spectra[0]):
+        return f"{time_spectra[0]}"
+
+    else:
+        return ""
 
 
 def read_ascii(filename=''):

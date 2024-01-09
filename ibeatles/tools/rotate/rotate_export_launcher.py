@@ -6,9 +6,6 @@ warnings.filterwarnings("ignore")
 
 from ibeatles import load_ui
 from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
-from ibeatles import DataType
-from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
-from ibeatles.tools.tof_combine.utilities.get import Get
 
 
 class RotateExportLauncher(QDialog):
@@ -27,8 +24,8 @@ class RotateExportLauncher(QDialog):
             logging.info("User canceled file browser!")
             self.close()
 
-        o_event.rotate_data(output_folder=output_folder)
         self.close()
+        o_event.rotate_data(output_folder=output_folder)
         self.parent.close()
 
         # o_get = Get(parent=self)

@@ -5,11 +5,13 @@ import numpy as np
 import scipy
 import pyqtgraph as pg
 import os
+import shutil
 
 from ibeatles import DataType, interact_me_style, normal_style
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.file_handler import retrieve_timestamp_file_name
 from ibeatles.utilities.load_files import LoadFiles
 
 
@@ -32,7 +34,7 @@ class EventHandler:
         if not list_tif_files:
             logging.info(f"-> folder does not contain any tif file!")
             show_status_message(parent=self.parent,
-                                message=f"Folder {folder} does not contain any TIFF files!",
+                                message=f"Folder {os.path.basename(folder)} does not contain any TIFF files!",
                                 duration_s=5,
                                 status=StatusMessageStatus.error)
             return
@@ -180,17 +182,52 @@ class EventHandler:
         angle = self.parent.ui.rotation_doubleSpinBox.value()
         data = self.parent.images_array
         import_folder_name = self.parent.ui.folder_selected_label.text()
+        list_tiff_files = self.parent.list_tif_files
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
         full_output_folder_name = EventHandler._create_full_output_folder_name(angle=angle,
                                                                                import_folder=import_folder_name,
                                                                                output_folder=output_folder)
-        print(f"{full_output_folder_name =}")
 
+        nbr_images = len(data)
+        self.parent.eventProgress.setMinimum(0)
+        self.parent.eventProgress.setMaximum(nbr_images)
+        self.parent.eventProgress.setValue(0)
+        self.parent.eventProgress.setVisible(True)
 
+        for _index, _data in enumerate(self.parent.images_array):
 
+            rotated_data = scipy.ndimage.interpolation.rotate(_data, angle)
 
+            _input_file = os.path.basename(list_tiff_files[_index])
+            new_filename = os.path.join(full_output_folder_name, _input_file)
+
+            EventHandler._save_image(filename=new_filename,
+                                     data=rotated_data)
+
+            self.parent.eventProgress.setValue(_index+1)
+            QApplication.processEvents()
+
+        # export time stamp data
+        EventHandler.export_time_spectra_file(output_folder=full_output_folder_name,
+                                              input_folder=import_folder_name)
+
+        self.parent.eventProgress.setVisible(False)
+
+    @staticmethod
+    def export_time_spectra_file(output_folder=None, input_folder=None):
+        """use the time spectra file from the first folder selected and export it to the output folder"""
+        logging.info("Export time spectra file:")
+
+        # retrieve full path of the time spectra file from first folder selected
+        time_spectra_filename = retrieve_timestamp_file_name(folder=input_folder)
+
+        logging.info(f" - time spectra file: {time_spectra_filename}")
+        logging.info(f" - to output folder: {output_folder}")
+
+        # copy that spectra file to final location
+        shutil.copy(time_spectra_filename, output_folder)
 
     @staticmethod
     def _create_full_output_folder_name(angle=0.0, import_folder=None, output_folder=None):
@@ -219,3 +256,17 @@ class EventHandler:
         FileHandler.make_or_reset_folder(folder_name=full_output_folder_name)
         logging.info(f" Created folder {full_output_folder_name}")
         return full_output_folder_name
+
+    @staticmethod
+    def _save_image(filename='', data=None):
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        file_name, file_extension = os.path.splitext(filename)
+        if file_extension.lower() in ['.tif', '.tiff']:
+            FileHandler.make_tiff(data=data, filename=filename)
+        elif file_extension.lower() == '.fits':
+            FileHandler.make_fits(data=data, filename=filename)
+        else:
+            logging.info(f"file format {file_extension} not supported!")
+            raise NotImplemented(f"file format {file_extension} not supported!")
