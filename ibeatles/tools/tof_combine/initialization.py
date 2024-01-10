@@ -4,6 +4,7 @@ from qtpy.QtGui import QIcon
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 
+from ibeatles import interact_me_style
 from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
 from ibeatles.tools.tof_combine import MICRO, LAMBDA, ANGSTROMS
 from ibeatles.tools.tof_combine import settings_image
@@ -109,3 +110,4 @@ class Initialization:
 
     def widgets(self):
         self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
+        self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(interact_me_style)

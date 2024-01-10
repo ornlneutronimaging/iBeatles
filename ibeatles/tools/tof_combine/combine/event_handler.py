@@ -4,6 +4,7 @@ import logging
 import numpy as np
 import copy
 
+from ibeatles import interact_me_style, normal_style
 from ibeatles.session import SessionSubKeys
 from ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
 from ibeatles import DataType
@@ -100,16 +101,28 @@ class EventHandler:
         return False
 
     def check_widgets(self):
+
+        o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
+        nbr_row = o_table.row_count()
+        if nbr_row == 0:
+            self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(interact_me_style)
+        else:
+            self.parent.ui
+
         if self.parent.session[TofCombineSessionKeys.top_folder]:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(True)
+            self.parent.ui.combine_refresh_top_folder_pushButton.setStyleSheet(interact_me_style)
         else:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
+            self.parent.ui.combine_refresh_top_folder_pushButton.setStyleSheet(normal_style)
 
         if self.at_least_two_folder_selected():
             self.parent.ui.combine_pushButton.setEnabled(True)
+            self.parent.ui.combine_pushButton.setStyleSheet(interact_me_style)
         else:
             self.parent.ui.combine_widget.setEnabled(False)
             self.parent.ui.combine_pushButton.setEnabled(False)
+            self.parent.ui.combine_pushButton.setStyleSheet(normal_style)
 
         if self.at_least_one_folder_selected():
             # enable display widgets
