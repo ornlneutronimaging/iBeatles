@@ -40,7 +40,7 @@ from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 
 from ibeatles.binning.binning_launcher import BinningLauncher
 
-# from ibeatles.tof_bin.tof_combining_binning_launcher import TofCombiningBinningLauncher
+from ibeatles.tools.tof_bin.tof_binning_launcher import TofBinningLauncher
 from ibeatles.tools.tof_combine.tof_combine_launcher import TofCombineLauncher
 from ibeatles.tools.rotate.rotate_images import RotateImages
 
@@ -501,9 +501,6 @@ class MainWindow(QMainWindow):
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=5):
             StrainMappingLauncher(parent=self)
-
-    def rotate_images_clicked(self):
-        RotateImages(parent=self)
 
     def view_instrument_and_material_settings_clicked(self, state):
         """will make the instrument and material widgets visible, only if we are not working with the
@@ -1049,14 +1046,16 @@ class MainWindow(QMainWindow):
         o_plot = Step1Plot(parent=self, data_type=DataType.normalized)
         o_plot.display_bragg_edge()
 
-    # TAB 4 - analysis
+    # TAB tools
 
-    def tof_binning_clicked(self):
-        pass
-        # TofCombiningBinningLauncher(parent=self)
+    def rotate_images_clicked(self):
+        RotateImages(parent=self)
 
     def tof_combine_clicked(self):
         TofCombineLauncher(parent=self)
+
+    def tof_binning_clicked(self):
+        TofBinningLauncher(parent=self)
 
     # GENERAL UI =======================================================================================
     def closeEvent(self, event):

@@ -31,13 +31,13 @@ warnings.filterwarnings("ignore")
 from ibeatles import load_ui
 
 
-class TofCombiningBinningLauncher:
+class TofBinningLauncher:
 
     def __init__(self, parent=None):
         self.parent = parent
 
         if self.parent.binning_ui is None:
-            tof_combining_binning_window = TofCombiningBinning(parent=parent)
+            tof_combining_binning_window = TofBinning(parent=parent)
             tof_combining_binning_window.show()
             self.parent.tof_combining_binning_ui = tof_combining_binning_window
             # o_binning = BinningHandler(parent=self.parent)
@@ -47,7 +47,7 @@ class TofCombiningBinningLauncher:
             self.parent.binning_ui.activateWindow()
 
 
-class TofCombiningBinning(QMainWindow):
+class TofBinning(QMainWindow):
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
     # version = None   # current version of application
@@ -145,8 +145,8 @@ class TofCombiningBinning(QMainWindow):
         Parameters
         ----------
         """
-        super(TofCombiningBinning, self).__init__(parent)
-        self.ui = load_ui('ui_tof_combining_binning.ui', baseinstance=self)
+        super(TofBinning, self).__init__(parent)
+        self.ui = load_ui('ui_tof_binning.ui', baseinstance=self)
         # self.initialization()
         # self.setup()
         # self.setWindowTitle(f"maverick - v{self.version}")
