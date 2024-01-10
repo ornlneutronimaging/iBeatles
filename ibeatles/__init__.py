@@ -19,7 +19,7 @@ infos_file = os.path.join(root, "icons/info.png")
 preview_file = os.path.join(root, "icons/preview.png")
 error_icon_file = os.path.join(root, "icons/error_icon.png")
 
-# tab 4
+# tools
 fitting_image = os.path.join(root, "icons/fitting_logo.png")
 pixel_binning_image = os.path.join(root, "icons/pixel_binning_logo.png")
 rotate_image = os.path.join(root, "icons/rotate_logo.png")
@@ -28,6 +28,15 @@ tof_binning_image = os.path.join(root, "icons/tof_binning_logo.png")
 tof_combine_image = os.path.join(root, "icons/combine_tof_logo.png")
 right_blue_arrow = os.path.join(root, "icons/right_blue_arrow.png")
 
+# tof bin
+bin_image = os.path.join(root, "icons/bin.png")
+auto_image = os.path.join(root, "icons/auto.png")
+manual_image = os.path.join(root, "icons/manual.png")
+more_infos_image = os.path.join(root, "icons/more_infos.png")
+stats_table_image = os.path.join(root, "icons/stats_table.png")
+stats_plot_image = os.path.join(root, "icons/stats_plot.png")
+
+# steps
 step1_icon = os.path.join(root, "static/step1.png")
 step2_icon = os.path.join(root, "static/step2.png")
 step3_icon = os.path.join(root, "static/step3.png")
@@ -46,6 +55,7 @@ ANGSTROMS = u"\u212B"
 LAMBDA = u"\u03BB"
 MICRO = u"\u00B5"
 SUB_0 = u"\u2080"
+DELTA = u"\u0394"
 
 MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME = 4
 

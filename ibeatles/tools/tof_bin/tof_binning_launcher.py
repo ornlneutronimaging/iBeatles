@@ -6,6 +6,8 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
+from ibeatles.tools.tof_bin.initialization import Initialization
+
 # from .utilities.get import Get
 # from .utilities.config_handler import ConfigHandler
 # from .utilities import TimeSpectraKeys, BinAutoMode
@@ -147,13 +149,12 @@ class TofBinning(QMainWindow):
         """
         super(TofBinning, self).__init__(parent)
         self.ui = load_ui('ui_tof_binning.ui', baseinstance=self)
-        # self.initialization()
-        # self.setup()
-        # self.setWindowTitle(f"maverick - v{self.version}")
 
-    def initialization(self):
         o_init = Initialization(parent=self)
         o_init.all()
+
+        # self.setup()
+        # self.setWindowTitle(f"maverick - v{self.version}")
 
     def setup(self):
         """
@@ -194,79 +195,13 @@ class TofBinning(QMainWindow):
         o_event = EventHandler(parent=self)
         o_event.automatically_load_previous_session()
 
-    # Menu
-    def session_load_clicked(self):
-        o_session = SessionHandler(parent=self)
-        o_session.load_from_file()
-        o_session.load_to_ui()
-
-    def session_save_clicked(self):
-        o_session = SessionHandler(parent=self)
-        o_session.save_from_ui()
-        o_session.save_to_file()
 
     def help_log_clicked(self):
         LogLauncher(parent=self)
 
-    # combine events
-    def check_combine_widgets(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.check_widgets()
+    def select_folder_clicked(self):
+        print("select folder clicked!")
 
-    def combine_bin_tab_changed(self, new_tab_index):
-        if new_tab_index == 1:  # bin
-            o_event = BinEventHandler(parent=self)
-            o_event.entering_tab()
-            self.update_statistics()
-
-    def select_top_folder_button_clicked(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.select_top_folder()
-
-    def refresh_table_clicked(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.refresh_table_clicked()
-
-    def radio_buttons_of_folder_changed(self):
-        self.ui.setEnabled(False)
-        o_event = CombineEventHandler(parent=self)
-        o_event.update_list_of_folders_to_use()
-        o_event.combine_folders()
-        o_event.display_profile()
-        o_event.check_widgets()
-        self.ui.setEnabled(True)
-
-    def time_spectra_preview_clicked(self):
-        TimeSpectraLauncher(parent=self)
-
-    def combine_algorithm_changed(self):
-        o_get = Get(parent=self)
-        list_working_folders = o_get.list_of_folders_to_use()
-        if list_working_folders == []:
-            return
-
-        o_event = CombineEventHandler(parent=self)
-        o_event.combine_algorithm_changed()
-        o_event.display_profile()
-
-    def combine_instrument_settings_changed(self):
-        if self.combine_data is None:
-            return
-        o_event = CombineEventHandler(parent=self)
-        o_event.update_list_of_folders_to_use(force_recalculation_of_time_spectra=True)
-        o_event.combine_folders()
-        o_event.display_profile()
-
-    def combine_xaxis_changed(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.display_profile()
-
-    def combine_roi_changed(self):
-        o_event = CombineEventHandler(parent=self)
-        o_event.combine_roi_changed()
-        o_event.display_profile()
-
-    # bin events
     def bin_xaxis_changed(self):
         o_event = BinEventHandler(parent=self)
         o_event.bin_axis_changed()

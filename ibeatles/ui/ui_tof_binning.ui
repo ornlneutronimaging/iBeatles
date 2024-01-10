@@ -16,6 +16,55 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QPushButton" name="select_folder_pushButton">
+      <property name="text">
+       <string>Select folder of images to rebin ...</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Folder: </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="folder_selected">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>N/A</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
      <widget class="QSplitter" name="bin_horizontal_splitter">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -714,6 +763,214 @@
      </widget>
     </item>
     <item>
+     <widget class="QTabWidget" name="bin_bottom_tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>140</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Instrument Settings</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="1" column="2">
+         <widget class="QLabel" name="combine_detector_offset_units">
+          <property name="text">
+           <string>micros</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>detector offset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="distance_source_detector_label">
+          <property name="maximumSize">
+           <size>
+            <width>100</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>N/A</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>200</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>distance source-detector</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>m</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="detector_offset_label">
+          <property name="text">
+           <string>N/A</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_4">
+       <attribute name="title">
+        <string>Time Spectra</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QLabel" name="time_spectra_name_label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>N/A</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="time_spectra_preview_pushButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Preview</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string/>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>How to combine the folders</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <item>
+            <widget class="QRadioButton" name="combine_mean_radioButton">
+             <property name="text">
+              <string>mean</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="combine_median_radioButton">
+             <property name="text">
+              <string>median</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Integrated image (top right view) is an average of the entire stack of images selected.</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="bin_settings_pushButton">
@@ -753,31 +1010,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1547</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuSession">
-    <property name="title">
-     <string>Session</string>
-    </property>
-    <addaction name="actionLoad"/>
-    <addaction name="actionSave"/>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionLog"/>
-   </widget>
-   <addaction name="menuSession"/>
-   <addaction name="menuHelp"/>
-  </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoad">
    <property name="text">
@@ -807,62 +1039,14 @@
  <resources/>
  <connections>
   <connection>
-   <sender>actionLoad</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>session_load_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>749</x>
-     <y>491</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSave</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>session_save_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>749</x>
-     <y>491</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionLog</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>help_log_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>749</x>
-     <y>491</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>bin_file_index_radioButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>bin_xaxis_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1020</x>
-     <y>200</y>
+     <x>1066</x>
+     <y>401</y>
     </hint>
     <hint type="destinationlabel">
      <x>1002</x>
@@ -877,8 +1061,8 @@
    <slot>bin_xaxis_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1134</x>
-     <y>200</y>
+     <x>1180</x>
+     <y>401</y>
     </hint>
     <hint type="destinationlabel">
      <x>1143</x>
@@ -893,8 +1077,8 @@
    <slot>bin_xaxis_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1240</x>
-     <y>200</y>
+     <x>1286</x>
+     <y>401</y>
     </hint>
     <hint type="destinationlabel">
      <x>1307</x>
@@ -909,8 +1093,8 @@
    <slot>bin_auto_manual_tab_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>334</x>
-     <y>77</y>
+     <x>346</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
      <x>289</x>
@@ -925,8 +1109,8 @@
    <slot>bin_auto_log_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>117</y>
+     <x>82</x>
+     <y>328</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -941,8 +1125,8 @@
    <slot>bin_auto_log_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>289</y>
+     <x>89</x>
+     <y>486</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -957,8 +1141,8 @@
    <slot>bin_auto_log_lambda_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>193</x>
-     <y>228</y>
+     <x>199</x>
+     <y>430</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -973,8 +1157,8 @@
    <slot>bin_auto_log_tof_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>181</x>
-     <y>195</y>
+     <x>199</x>
+     <y>399</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -989,8 +1173,8 @@
    <slot>bin_auto_linear_tof_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>274</x>
-     <y>367</y>
+     <x>410</x>
+     <y>557</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1005,8 +1189,8 @@
    <slot>bin_auto_linear_lambda_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>283</x>
-     <y>401</y>
+     <x>419</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1021,8 +1205,8 @@
    <slot>bin_auto_linear_file_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>295</x>
-     <y>333</y>
+     <x>419</x>
+     <y>526</y>
     </hint>
     <hint type="destinationlabel">
      <x>424</x>
@@ -1037,8 +1221,8 @@
    <slot>bin_auto_log_file_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>178</x>
-     <y>162</y>
+     <x>199</x>
+     <y>368</y>
     </hint>
     <hint type="destinationlabel">
      <x>396</x>
@@ -1053,8 +1237,8 @@
    <slot>auto_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>327</y>
+     <x>136</x>
+     <y>526</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1069,8 +1253,8 @@
    <slot>auto_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>95</x>
-     <y>358</y>
+     <x>121</x>
+     <y>557</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1085,8 +1269,8 @@
    <slot>auto_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>102</x>
-     <y>393</y>
+     <x>128</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1101,8 +1285,8 @@
    <slot>auto_log_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>154</y>
+     <x>123</x>
+     <y>368</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1117,8 +1301,8 @@
    <slot>auto_log_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>187</y>
+     <x>114</x>
+     <y>399</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1133,8 +1317,8 @@
    <slot>auto_log_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>120</x>
-     <y>225</y>
+     <x>125</x>
+     <y>430</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1149,8 +1333,8 @@
    <slot>bin_auto_visualize_axis_generated_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>706</y>
+     <x>705</x>
+     <y>893</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -1165,8 +1349,8 @@
    <slot>bin_auto_hide_empty_bins()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>462</y>
+     <x>705</x>
+     <y>649</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1181,8 +1365,8 @@
    <slot>bin_auto_table_right_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>602</y>
+     <x>412</x>
+     <y>857</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1197,8 +1381,8 @@
    <slot>bin_auto_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>263</x>
-     <y>541</y>
+     <x>278</x>
+     <y>857</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1213,8 +1397,8 @@
    <slot>bin_manual_add_bin_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>131</y>
+     <x>705</x>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1229,8 +1413,8 @@
    <slot>bin_manual_populate_table_with_auto_mode_bins_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>157</x>
-     <y>135</y>
+     <x>172</x>
+     <y>342</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1245,8 +1429,8 @@
    <slot>bin_manual_table_right_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>229</y>
+     <x>150</x>
+     <y>564</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1261,8 +1445,8 @@
    <slot>bin_statistics_comboBox_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>799</x>
-     <y>260</y>
+     <x>1514</x>
+     <y>491</y>
     </hint>
     <hint type="destinationlabel">
      <x>1493</x>
@@ -1277,8 +1461,8 @@
    <slot>export_combined_and_binned_images_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1265</x>
-     <y>833</y>
+     <x>1534</x>
+     <y>1044</y>
     </hint>
     <hint type="destinationlabel">
      <x>1496</x>
@@ -1293,8 +1477,8 @@
    <slot>bin_settings_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>78</x>
-     <y>835</y>
+     <x>90</x>
+     <y>1044</y>
     </hint>
     <hint type="destinationlabel">
      <x>112</x>
@@ -1309,8 +1493,8 @@
    <slot>bin_export_table_pushButton_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>233</x>
-     <y>838</y>
+     <x>277</x>
+     <y>1044</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1318,18 +1502,29 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>select_folder_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>select_folder_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>743</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>811</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
-  <slot>session_load_clicked()</slot>
-  <slot>session_save_clicked()</slot>
   <slot>help_log_clicked()</slot>
   <slot>select_top_folder_button_clicked()</slot>
   <slot>time_spectra_preview_clicked()</slot>
-  <slot>combine_algorithm_changed()</slot>
   <slot>refresh_table_clicked()</slot>
-  <slot>combine_instrument_settings_changed()</slot>
   <slot>bin_xaxis_changed()</slot>
-  <slot>combine_bin_tab_changed()</slot>
   <slot>bin_auto_radioButton_clicked()</slot>
   <slot>bin_auto_log_linear_radioButton_changed()</slot>
   <slot>bin_auto_log_lambda_changed()</slot>
@@ -1353,5 +1548,6 @@
   <slot>export_combined_and_binned_images_clicked()</slot>
   <slot>bin_settings_clicked()</slot>
   <slot>bin_export_table_pushButton_clicked()</slot>
+  <slot>select_folder_clicked()</slot>
  </slots>
 </ui>
