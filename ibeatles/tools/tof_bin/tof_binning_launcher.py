@@ -51,6 +51,9 @@ class TofBinningLauncher:
 
 
 class TofBinning(QMainWindow):
+
+    list_tif_files = None
+
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
     # version = None   # current version of application
@@ -159,6 +162,12 @@ class TofBinning(QMainWindow):
 
         self.setWindowTitle(f"TOF bin")
 
+    # event
+    def select_folder_clicked(self):
+        o_event = TofBinEventHandler(parent=self,
+                                     top_parent=self.parent)
+        o_event.select_input_folder()
+
     def setup(self):
         """
         This is taking care of
@@ -201,9 +210,6 @@ class TofBinning(QMainWindow):
 
     def help_log_clicked(self):
         LogLauncher(parent=self)
-
-    def select_folder_clicked(self):
-        print("select folder clicked!")
 
     def bin_xaxis_changed(self):
         o_event = BinEventHandler(parent=self)
