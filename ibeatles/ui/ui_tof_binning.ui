@@ -618,7 +618,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_3">
+          <widget class="QGroupBox" name="x_axis_groupBox">
            <property name="title">
             <string>X axis</string>
            </property>
@@ -1000,9 +1000,9 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="export_pushButton">
         <property name="text">
-         <string>Export combined and binned images ...</string>
+         <string>Export ...</string>
         </property>
        </widget>
       </item>
@@ -1455,7 +1455,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>export_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>export_combined_and_binned_images_clicked()</slot>

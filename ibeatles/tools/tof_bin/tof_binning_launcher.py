@@ -7,6 +7,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 from ibeatles.tools.tof_bin.initialization import Initialization
+from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 
 # from .utilities.get import Get
 # from .utilities.config_handler import ConfigHandler
@@ -153,8 +154,10 @@ class TofBinning(QMainWindow):
         o_init = Initialization(parent=self)
         o_init.all()
 
-        # self.setup()
-        # self.setWindowTitle(f"maverick - v{self.version}")
+        o_event = TofBinEventHandler(parent=self, top_parent=self.parent)
+        o_event.check_widgets()
+
+        self.setWindowTitle(f"TOF bin")
 
     def setup(self):
         """
