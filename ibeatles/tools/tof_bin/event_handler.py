@@ -164,6 +164,9 @@ class EventHandler:
         self.parent.bin_profile_view.setLabel("left", f"Average counts")
         self.parent.bin_profile_view.setLabel("bottom", x_axis_label)
 
+
+
+
         # o_get = Get(parent=self.parent)
         # combine_algorithm = o_get.combine_algorithm()
         # time_spectra_x_axis_name = o_get.combine_x_axis_selected()

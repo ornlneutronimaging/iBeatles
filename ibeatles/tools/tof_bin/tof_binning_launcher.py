@@ -202,52 +202,51 @@ class TofBinning(QMainWindow):
         o_event = TofBinEventHandler(parent=self)
         o_event.display_profile()
 
-    def setup(self):
-        """
-        This is taking care of
-            - initializing the session dict
-            - setting up the logging
-            - retrieving the config file
-            - loading or not the previous session
-        """
-        o_config = ConfigHandler(parent=self)
-        o_config.load()
+    # def setup(self):
+    #     """
+    #     This is taking care of
+    #         - initializing the session dict
+    #         - setting up the logging
+    #         - retrieving the config file
+    #         - loading or not the previous session
+    #     """
+    #     o_config = ConfigHandler(parent=self)
+    #     o_config.load()
+    #
+    #     current_folder = None
+    #     if self.config['debugging']:
+    #         list_homepath = self.config['homepath']
+    #         for _path in list_homepath:
+    #             if os.path.exists(_path):
+    #                 current_folder = _path
+    #         if current_folder is None:
+    #             current_folder = os.path.expanduser('~')
+    #     else:
+    #         current_folder = os.path.expanduser('~')
+    #     self.session[SessionKeys.top_folder] = current_folder
+    #
+    #     o_get = Get(parent=self)
+    #     log_file_name = o_get.log_file_name()
+    #     version = Get.version()
+    #     self.version = version
+    #     self.log_file_name = log_file_name
+    #     logging.basicConfig(filename=log_file_name,
+    #                         filemode='a',
+    #                         format='[%(levelname)s] - %(asctime)s - %(message)s',
+    #                         level=logging.INFO)
+    #     logger = logging.getLogger("maverick")
+    #     logger.info("*** Starting a new session ***")
+    #     logger.info(f" Version: {version}")
+    #
+    #     o_event = EventHandler(parent=self)
+    #     o_event.automatically_load_previous_session()
 
-        current_folder = None
-        if self.config['debugging']:
-            list_homepath = self.config['homepath']
-            for _path in list_homepath:
-                if os.path.exists(_path):
-                    current_folder = _path
-            if current_folder is None:
-                current_folder = os.path.expanduser('~')
-        else:
-            current_folder = os.path.expanduser('~')
-        self.session[SessionKeys.top_folder] = current_folder
-
-        o_get = Get(parent=self)
-        log_file_name = o_get.log_file_name()
-        version = Get.version()
-        self.version = version
-        self.log_file_name = log_file_name
-        logging.basicConfig(filename=log_file_name,
-                            filemode='a',
-                            format='[%(levelname)s] - %(asctime)s - %(message)s',
-                            level=logging.INFO)
-        logger = logging.getLogger("maverick")
-        logger.info("*** Starting a new session ***")
-        logger.info(f" Version: {version}")
-
-        o_event = EventHandler(parent=self)
-        o_event.automatically_load_previous_session()
-
+    def bin_xaxis_changed(self):
+        o_event = TofBinEventHandler(parent=self)
+        o_event.display_profile()
 
     def help_log_clicked(self):
         LogLauncher(parent=self)
-
-    def bin_xaxis_changed(self):
-        o_event = BinEventHandler(parent=self)
-        o_event.bin_axis_changed()
 
     def bin_auto_manual_tab_changed(self, new_tab_index):
         o_event = BinEventHandler(parent=self)
