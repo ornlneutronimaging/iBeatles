@@ -4,19 +4,20 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
+from ibeatles import load_ui
+from ibeatles import DataType
+
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
-from ibeatles.tools.tof_combine.utilities.time_spectra import TimeSpectraLauncher
+
+from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities.reload.reload import Reload
+
+from ibeatles.tools.tof_combine import SessionKeys
 from ibeatles.tools.tof_combine.initialization import Initialization
 from ibeatles.tools.tof_combine.combine.event_handler import EventHandler as CombineEventHandler
 from ibeatles.tools.tof_combine.export.export_images import ExportImages
-
-from ibeatles.tools.tof_combine.utilities import TimeSpectraKeys
 from ibeatles.tools.tof_combine.tof_combine_export_launcher import TofCombineExportLauncher
-from ibeatles.tools.utilities.reload.reload import Reload
-
-from ibeatles import load_ui
-from ibeatles import DataType
-from ibeatles.tools.tof_combine import SessionKeys
 
 
 class TofCombineLauncher:

@@ -53,6 +53,8 @@ class TofBinningLauncher:
 class TofBinning(QMainWindow):
 
     list_tif_files = None
+    images_array = None
+    integrated_image = None
 
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
@@ -153,6 +155,7 @@ class TofBinning(QMainWindow):
         """
         super(TofBinning, self).__init__(parent)
         self.ui = load_ui('ui_tof_binning.ui', baseinstance=self)
+        self.top_parent = parent
 
         o_init = Initialization(parent=self)
         o_init.all()
@@ -165,8 +168,10 @@ class TofBinning(QMainWindow):
     # event
     def select_folder_clicked(self):
         o_event = TofBinEventHandler(parent=self,
-                                     top_parent=self.parent)
+                                     top_parent=self.top_parent)
         o_event.select_input_folder()
+        o_event.load_data()
+        o_event.display_profile()
 
     def setup(self):
         """

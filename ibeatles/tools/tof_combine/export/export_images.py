@@ -5,9 +5,12 @@ import shutil
 
 from NeuNorm.normalization import Normalization
 
-from ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.tools.tof_combine.utilities import TimeSpectraKeys
+
+from ibeatles.tools.tof_combine.utilities.get import Get
+
+
 class ExportImages:
     output_folder = None
 

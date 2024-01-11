@@ -5,14 +5,18 @@ import numpy as np
 import copy
 
 from ibeatles import interact_me_style, normal_style
-from ibeatles.session import SessionSubKeys
-from ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
 from ibeatles import DataType
+
+from ibeatles.session import SessionSubKeys
+
 from ibeatles.utilities.file_handler import FileHandler
+
+from ibeatles.tools.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
+from ibeatles.tools.utilities import TimeSpectraKeys
+
+from ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
 from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
-from ibeatles.tools.tof_combine.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
 from ibeatles.tools.tof_combine.utilities.get import Get as TofCombineGet
-from ibeatles.tools.tof_combine.utilities import TimeSpectraKeys
 from ibeatles.tools.tof_combine.load.load_files import LoadFiles
 from ibeatles.tools.tof_combine.combine.combine import Combine
 from ibeatles.tools.tof_combine import LAMBDA, MICRO, ANGSTROMS
