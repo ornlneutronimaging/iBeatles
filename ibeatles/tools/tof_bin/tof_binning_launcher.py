@@ -9,6 +9,7 @@ warnings.filterwarnings("ignore")
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
+from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
 
 # from .utilities.get import Get
 # from .utilities.config_handler import ConfigHandler
@@ -248,15 +249,20 @@ class TofBinning(QMainWindow):
     def help_log_clicked(self):
         LogLauncher(parent=self)
 
-    def bin_auto_manual_tab_changed(self, new_tab_index):
-        o_event = BinEventHandler(parent=self)
-        o_event.bin_auto_manual_tab_changed(new_tab_index)
-        self.update_statistics()
-
     # - auto mode
     def bin_auto_log_linear_radioButton_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.bin_auto_radioButton_clicked()
+        # self.update_statistics()
+
+
+
+
+
+
+    def bin_auto_manual_tab_changed(self, new_tab_index):
+        o_event = AutoEventHandler(parent=self)
+        o_event.bin_auto_manual_tab_changed(new_tab_index)
         self.update_statistics()
 
     def bin_auto_log_file_index_changed(self):
