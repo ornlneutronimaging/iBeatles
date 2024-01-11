@@ -29,6 +29,13 @@ class Initialization:
         self.combobox()
         self.widgets()
 
+    def setup(self):
+        distance_source_detector = self.top_parent.ui.distance_source_detector.text()
+        self.parent.ui.distance_source_detector_label.setText(distance_source_detector)
+
+        detector_offset = self.top_parent.ui.detector_offset.text()
+        self.parent.ui.detector_offset_label.setText(detector_offset)
+
     def statusbar(self):
         self.parent.eventProgress = QProgressBar(self.parent.ui.statusbar)
         self.parent.eventProgress.setMinimumSize(20, 14)
@@ -110,6 +117,17 @@ class Initialization:
         self.parent.statistics_plot = statistics_plot
 
     def pyqtgraph_bin(self):
+        # integrated image
+        image_view = pg.ImageView(view=pg.PlotItem())
+        image_view.ui.roiBtn.hide()
+        image_view.ui.menuBtn.hide()
+        self.parent.integrated_view = image_view
+        # image_view.scene.sigMouseMoved.connect(self.parent.mouse_moved_in_integrated_view)
+        layout = QVBoxLayout()
+        layout.addWidget(image_view)
+        self.parent.ui.integrated_image_widget.setLayout(layout)
+
+        # profile
         bin_view = pg.PlotWidget(title="")
         bin_view.plot()
         self.parent.bin_profile_view = bin_view

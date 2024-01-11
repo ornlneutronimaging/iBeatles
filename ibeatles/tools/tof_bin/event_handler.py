@@ -2,6 +2,7 @@ import os
 from qtpy.QtWidgets import QFileDialog
 import logging
 import numpy as np
+import pyqtgraph as pg
 
 from ibeatles import DataType
 from ibeatles.session import SessionSubKeys
@@ -33,6 +34,7 @@ class EventHandler:
         self.parent.ui.bin_settings_pushButton.setEnabled(enabled_state)
         self.parent.ui.export_bin_table_pushButton.setEnabled(enabled_state)
         self.parent.ui.export_pushButton.setEnabled(enabled_state)
+        self.parent.ui.image_tabWidget.setEnabled(enabled_state)
 
     def select_input_folder(self):
         default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
@@ -91,6 +93,24 @@ class EventHandler:
         # update time spectra tab
         self.parent.ui.time_spectra_name_label.setText(os.path.basename(full_path_to_time_spectra))
         self.parent.ui.time_spectra_preview_pushButton.setEnabled(True)
+
+    def display_integrated_image(self):
+        self.parent.integrated_view.clear()
+
+        if self.parent.integrated_image is None:
+            return
+
+        self.parent.integrated_view.setImage(self.parent.integrated_image)
+
+        roi = self.parent.bin_roi
+        x0 = roi['x0']
+        y0 = roi['y0']
+        width = roi['width']
+        height = roi['height']
+        roi_item = pg.ROI([x0, y0], [width, height])
+        roi_item.addScaleHandle([1, 1], [0, 0])
+        self.parent.integrated_view.addItem(roi_item)
+        roi_item.sigRegionChanged.connect(self.parent.bin_roi_changed)
 
     def display_profile(self):
 

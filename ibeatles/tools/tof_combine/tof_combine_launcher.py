@@ -99,7 +99,6 @@ class TofCombine(QMainWindow):
         o_init.all()
 
     def setup(self):
-        logging.info(f"Starting the TOF combine tool!")
         distance_source_detector = self.parent.ui.distance_source_detector.text()
         self.ui.distance_source_detector_label.setText(distance_source_detector)
 

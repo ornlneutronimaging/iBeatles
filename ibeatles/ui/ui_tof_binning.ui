@@ -608,7 +608,7 @@
        <widget class="QWidget" name="layoutWidget">
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
-          <widget class="QTabWidget" name="tabWidget">
+          <widget class="QTabWidget" name="image_tabWidget">
            <property name="currentIndex">
             <number>0</number>
            </property>
@@ -801,7 +801,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">

@@ -6,6 +6,7 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
+from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 
@@ -55,6 +56,23 @@ class TofBinning(QMainWindow):
     list_tif_files = None
     images_array = None
     integrated_image = None
+
+    integrated_view = None  # pg integrated image (for ROI selection)
+    bin_profile_view = None  # pg profile
+
+    image_size = {'width': None,
+                  'height': None}
+
+    # time spectra dict
+    time_spectra = {TimeSpectraKeys.file_name: None,
+                    TimeSpectraKeys.tof_array: None,
+                    TimeSpectraKeys.lambda_array: None,
+                    TimeSpectraKeys.file_index_array: None}
+
+    bin_roi = {'x0': 0,
+               'y0': 0,
+               'width': 100,
+               'height': 100}
 
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
@@ -157,10 +175,11 @@ class TofBinning(QMainWindow):
         self.ui = load_ui('ui_tof_binning.ui', baseinstance=self)
         self.top_parent = parent
 
-        o_init = Initialization(parent=self)
+        o_init = Initialization(parent=self, top_parent=parent)
         o_init.all()
+        o_init.setup()
 
-        o_event = TofBinEventHandler(parent=self, top_parent=self.parent)
+        o_event = TofBinEventHandler(parent=self, top_parent=parent)
         o_event.check_widgets()
 
         self.setWindowTitle(f"TOF bin")
@@ -171,6 +190,12 @@ class TofBinning(QMainWindow):
                                      top_parent=self.top_parent)
         o_event.select_input_folder()
         o_event.load_data()
+        o_event.display_integrated_image()
+        o_event.display_profile()
+        o_event.check_widgets()
+
+    def bin_roi_changed(self):
+        o_event = TofBinEventHandler(parent=self)
         o_event.display_profile()
 
     def setup(self):
