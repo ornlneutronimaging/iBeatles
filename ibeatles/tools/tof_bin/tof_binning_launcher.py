@@ -198,6 +198,7 @@ class TofBinning(QMainWindow):
         o_event.load_time_spectra_file()
         o_event.display_integrated_image()
         o_event.display_profile()
+
         o_event.check_widgets()
 
     def bin_roi_changed(self):

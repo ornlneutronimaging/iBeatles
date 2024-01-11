@@ -6,6 +6,7 @@ from qtpy import QtGui
 
 # from .log_bin import LogBin
 from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.tof_bin.log_bin import LogBin
 # from . import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 from ibeatles.tools.tof_bin import BinAutoMode
 from ibeatles.tools.utilities import TimeSpectraKeys
@@ -126,7 +127,7 @@ class AutoEventHandler:
         self.parent.ui.auto_log_tof_doubleSpinBox.setEnabled(tof_status)
         self.parent.ui.auto_log_lambda_doubleSpinBox.setEnabled(lambda_status)
 
-        # self.bin_auto_log_changed(source_radio_button=source_button)
+        self.bin_auto_log_changed(source_radio_button=source_button)
 
     def bin_auto_radioButton_clicked(self):
         state_auto = self.parent.ui.auto_log_radioButton.isChecked()
@@ -140,55 +141,55 @@ class AutoEventHandler:
         else:
             self.auto_linear_radioButton_changed()
 
-    # def bin_auto_log_changed(self, source_radio_button=TimeSpectraKeys.file_index_array):
-    #     self.logger.info(f"bin auto log changed: radio button changed -> {source_radio_button}")
-    #     o_bin = LogBin(parent=self.parent,
-    #                    source_radio_button=source_radio_button)
-    #
-    #     self.parent.ui.auto_log_file_index_spinBox.blockSignals(True)
-    #     self.parent.ui.auto_log_tof_doubleSpinBox.blockSignals(True)
-    #     self.parent.ui.auto_log_lambda_doubleSpinBox.blockSignals(True)
-    #
-    #     self.logger.info(f"-> original raw_file_index_array_binned:"
-    #                      f" {self.parent.time_spectra[TimeSpectraKeys.file_index_array]}")
-    #     self.logger.info(f"-> original raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}")
-    #     self.logger.info(f"-> original raw_lambda_array_binned:"
-    #                      f" {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}")
-    #
-    #     o_get = Get(parent=self.parent)
-    #     log_bin_requested = o_get.auto_log_bin_requested()
-    #     self.logger.info(f"--> bin requested: {log_bin_requested}")
-    #
-    #     if source_radio_button == TimeSpectraKeys.file_index_array:
-    #         o_bin.create_log_file_index_bin_array(bin_value=log_bin_requested)
-    #
-    #     elif source_radio_button == TimeSpectraKeys.tof_array:
-    #         o_bin.create_log_file_index_bin_array(bin_value=log_bin_requested)
-    #         o_bin.create_log_bin_arrays()
-    #
-    #     elif source_radio_button == TimeSpectraKeys.lambda_array:
-    #         o_bin.create_log_file_index_bin_array(bin_value=log_bin_requested)
-    #         o_bin.create_log_bin_arrays()
-    #
-    #     else:
-    #         raise NotImplementedError("bin auto log algorithm not implemented!")
-    #
-    #     self.logger.info(f"-> file_index_array_binned: {o_bin.log_bins[TimeSpectraKeys.file_index_array]}")
-    #     self.logger.info(f"-> tof_array_binned: {o_bin.log_bins[TimeSpectraKeys.tof_array]}")
-    #     self.logger.info(f"-> lambda_array_binned: {o_bin.log_bins[TimeSpectraKeys.lambda_array]}")
-    #
-    #     self.parent.log_bins = {TimeSpectraKeys.file_index_array: o_bin.get_log_file_index(),
-    #                             TimeSpectraKeys.tof_array       : o_bin.get_log_tof(),
-    #                             TimeSpectraKeys.lambda_array    : o_bin.get_log_lambda()}
-    #
-    #     self.fill_auto_table()
-    #     self.update_auto_table()
-    #     self.refresh_auto_tab()
-    #
-    #     self.parent.ui.auto_log_file_index_spinBox.blockSignals(False)
-    #     self.parent.ui.auto_log_tof_doubleSpinBox.blockSignals(False)
-    #     self.parent.ui.auto_log_lambda_doubleSpinBox.blockSignals(False)
-    #
+    def bin_auto_log_changed(self, source_radio_button=TimeSpectraKeys.file_index_array):
+        self.logger.info(f"bin auto log changed: radio button changed -> {source_radio_button}")
+        o_bin = LogBin(parent=self.parent,
+                       source_radio_button=source_radio_button)
+
+        self.parent.ui.auto_log_file_index_spinBox.blockSignals(True)
+        self.parent.ui.auto_log_tof_doubleSpinBox.blockSignals(True)
+        self.parent.ui.auto_log_lambda_doubleSpinBox.blockSignals(True)
+
+        self.logger.info(f"-> original raw_file_index_array_binned:"
+                         f" {self.parent.time_spectra[TimeSpectraKeys.file_index_array]}")
+        self.logger.info(f"-> original raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}")
+        self.logger.info(f"-> original raw_lambda_array_binned:"
+                         f" {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}")
+
+        o_get = Get(parent=self.parent)
+        log_bin_requested = o_get.auto_log_bin_requested()
+        self.logger.info(f"--> bin requested: {log_bin_requested}")
+
+        if source_radio_button == TimeSpectraKeys.file_index_array:
+            o_bin.create_log_file_index_bin_array(bin_value=log_bin_requested)
+
+        elif source_radio_button == TimeSpectraKeys.tof_array:
+            o_bin.create_log_file_index_bin_array(bin_value=log_bin_requested)
+            o_bin.create_log_bin_arrays()
+
+        elif source_radio_button == TimeSpectraKeys.lambda_array:
+            o_bin.create_log_file_index_bin_array(bin_value=log_bin_requested)
+            o_bin.create_log_bin_arrays()
+
+        else:
+            raise NotImplementedError("bin auto log algorithm not implemented!")
+
+        self.logger.info(f"-> file_index_array_binned: {o_bin.log_bins[TimeSpectraKeys.file_index_array]}")
+        self.logger.info(f"-> tof_array_binned: {o_bin.log_bins[TimeSpectraKeys.tof_array]}")
+        self.logger.info(f"-> lambda_array_binned: {o_bin.log_bins[TimeSpectraKeys.lambda_array]}")
+
+        self.parent.log_bins = {TimeSpectraKeys.file_index_array: o_bin.get_log_file_index(),
+                                TimeSpectraKeys.tof_array       : o_bin.get_log_tof(),
+                                TimeSpectraKeys.lambda_array    : o_bin.get_log_lambda()}
+
+        self.fill_auto_table()
+        self.update_auto_table()
+        self.refresh_auto_tab()
+
+        self.parent.ui.auto_log_file_index_spinBox.blockSignals(False)
+        self.parent.ui.auto_log_tof_doubleSpinBox.blockSignals(False)
+        self.parent.ui.auto_log_lambda_doubleSpinBox.blockSignals(False)
+
     # def fill_auto_table(self):
     #     o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
     #     o_table.remove_all_rows()
