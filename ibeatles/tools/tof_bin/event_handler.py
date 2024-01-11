@@ -3,6 +3,7 @@ from qtpy.QtWidgets import QFileDialog
 import logging
 import numpy as np
 import pyqtgraph as pg
+import copy
 
 from ibeatles import DataType
 from ibeatles.session import SessionSubKeys
@@ -10,8 +11,11 @@ from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.utilities.load_files import LoadFiles
 
+from ibeatles.tools import ANGSTROMS, LAMBDA, MICRO
 from ibeatles.tools.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
 from ibeatles.tools.utilities import TimeSpectraKeys
+
+from ibeatles.tools.tof_bin.utilities.get import Get as TofBinGet
 
 
 class EventHandler:
@@ -70,7 +74,7 @@ class EventHandler:
         """
         load the time spectra file
         """
-        folder = self.parent.ui.folder_selected.Text()
+        folder = self.parent.ui.folder_selected.text()
 
         o_time_spectra = GetTimeSpectraFilename(parent=self.parent, folder=folder)
         full_path_to_time_spectra = o_time_spectra.retrieve_file_name()
@@ -111,11 +115,54 @@ class EventHandler:
         roi_item.addScaleHandle([1, 1], [0, 0])
         self.parent.integrated_view.addItem(roi_item)
         roi_item.sigRegionChanged.connect(self.parent.bin_roi_changed)
+        self.parent.roi_item = roi_item
 
     def display_profile(self):
 
         if self.parent.integrated_image is None:
             return
+
+        integrated_image = self.parent.integrated_image
+        image_view = self.parent.integrated_view
+        roi_item = self.parent.roi_item
+
+        region = roi_item.getArraySlice(integrated_image,
+                                        image_view.imageItem)
+        x0 = region[0][0].start
+        x1 = region[0][0].stop - 1
+        y0 = region[0][1].start
+        y1 = region[0][1].stop - 1
+
+        width = x1 - x0
+        height = y1 - y0
+
+        self.parent.bin_roi = {'x0': x0,
+                               'y0': y0,
+                               'width': width,
+                               'height': height}
+
+        o_get = TofBinGet(parent=self.parent)
+        time_spectra_x_axis_name = o_get.x_axis_selected()
+        x_axis = copy.deepcopy(self.parent.time_spectra[time_spectra_x_axis_name])
+
+        array_of_data = self.parent.images_array
+        profile_signal = [np.mean(_data[y0:y0 + height, x0:x0 + width]) for _data in array_of_data]
+
+        self.parent.profile_signal = profile_signal
+        self.parent.bin_profile_view.clear()
+
+        if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
+            x_axis_label = "file index"
+        elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
+            x_axis *= 1e6    # to display axis in micros
+            x_axis_label = "tof (" + MICRO + "s)"
+        elif time_spectra_x_axis_name == TimeSpectraKeys.lambda_array:
+            x_axis *= 1e10    # to display axis in Angstroms
+            x_axis_label = LAMBDA + "(" + ANGSTROMS + ")"
+
+        self.parent.bin_profile_view.plot(x_axis, profile_signal, pen='r', symbol='x')
+        self.parent.bin_profile_view.setLabel("left", f"Average counts")
+        self.parent.bin_profile_view.setLabel("bottom", x_axis_label)
 
         # o_get = Get(parent=self.parent)
         # combine_algorithm = o_get.combine_algorithm()

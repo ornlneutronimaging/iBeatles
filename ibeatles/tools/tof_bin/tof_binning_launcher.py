@@ -56,6 +56,7 @@ class TofBinning(QMainWindow):
     list_tif_files = None
     images_array = None
     integrated_image = None
+    roi_item = None
 
     integrated_view = None  # pg integrated image (for ROI selection)
     bin_profile_view = None  # pg profile
@@ -73,6 +74,8 @@ class TofBinning(QMainWindow):
                'y0': 0,
                'width': 100,
                'height': 100}
+
+    profile_signal = None
 
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
@@ -190,6 +193,7 @@ class TofBinning(QMainWindow):
                                      top_parent=self.top_parent)
         o_event.select_input_folder()
         o_event.load_data()
+        o_event.load_time_spectra_file()
         o_event.display_integrated_image()
         o_event.display_profile()
         o_event.check_widgets()

@@ -8,9 +8,9 @@ import numpy as np
 from ibeatles import DataType
 
 from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities import CombineAlgorithm
 
 from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
-from ibeatles.tools.tof_combine.utilities import CombineAlgorithm
 from ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
 
 
