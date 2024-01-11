@@ -13,6 +13,9 @@ class TableHandler:
     def __init__(self, table_ui=None):
         self.table_ui = table_ui
 
+    def set_row_hidden(self, row=0, hide=True):
+        self.table_ui.setRowHidden(row, hide)
+
     def select_everything(self, state):
         nbr_row = self.table_ui.rowCount()
         nbr_column = self.table_ui.columnCount()

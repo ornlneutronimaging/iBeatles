@@ -8,6 +8,7 @@ warnings.filterwarnings("ignore")
 
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
+from ibeatles.tools.tof_bin import session
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
@@ -55,6 +56,8 @@ class TofBinningLauncher:
 
 class TofBinning(QMainWindow):
 
+    session = session
+
     list_tif_files = None
     images_array = None
     integrated_image = None
@@ -78,6 +81,14 @@ class TofBinning(QMainWindow):
                'height': 100}
 
     profile_signal = None
+
+    # dictionary of all the bins pg item
+    # {0: pg.regionitem1,
+    #  2: pg.regionitem2,
+    #  ...
+    # }
+    dict_of_bins_item = None
+
 
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog
@@ -255,6 +266,8 @@ class TofBinning(QMainWindow):
     def bin_auto_log_linear_radioButton_changed(self):
         o_event = AutoEventHandler(parent=self)
         o_event.bin_auto_radioButton_clicked()
+
+
         # self.update_statistics()
 
     def time_spectra_preview_clicked(self):
@@ -263,7 +276,7 @@ class TofBinning(QMainWindow):
 
 
 
-    def bin_auto_manual_tab_changed(self, new_tab_index):
+    def bin_auto_manual_tab_changed(self, new_tab_index=-1):
         o_event = AutoEventHandler(parent=self)
         o_event.bin_auto_manual_tab_changed(new_tab_index)
         self.update_statistics()

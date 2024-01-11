@@ -11,6 +11,7 @@ from ibeatles.tools.tof_bin import BinAutoMode
 
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.utilities import CombineAlgorithm
+from ibeatles.tools.tof_bin import BinMode
 
 # from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
 # from ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
@@ -38,3 +39,23 @@ class Get:
             return BinAutoMode.linear
         else:
             raise NotImplementedError("auto bin mode not implemented!")
+
+    def bin_mode(self):
+        if self.parent.ui.bin_tabWidget.currentIndex() == 0:
+            return BinMode.auto
+        elif self.parent.ui.bin_tabWidget.currentIndex() == 1:
+            return BinMode.manual
+        elif self.parent.ui.bin_tabWidget.currentIndex() == 2:
+            return BinMode.settings
+        else:
+            raise NotImplementedError("bin mode not implemented!")
+
+    def auto_log_bin_requested(self):
+        if self.parent.ui.bin_auto_log_file_index_radioButton.isChecked():
+            return self.parent.ui.auto_log_file_index_spinBox.value()
+        elif self.parent.ui.bin_auto_log_tof_radioButton.isChecked():
+            return self.parent.ui.auto_log_tof_doubleSpinBox.value()
+        elif self.parent.ui.bin_auto_log_lambda_radioButton.isChecked():
+            return self.parent.ui.auto_log_lambda_doubleSpinBox.value()
+        else:
+            raise NotImplementedError(f"auto log bin algorithm not implemented!")

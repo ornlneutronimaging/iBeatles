@@ -11,9 +11,14 @@ from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.utilities.load_files import LoadFiles
 
+from ibeatles.tools.tof_bin import BinMode, BinAutoMode
+from ibeatles.tools.tof_bin.plot import Plot
 from ibeatles.tools import ANGSTROMS, LAMBDA, MICRO
 from ibeatles.tools.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
+from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
+from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
 
 from ibeatles.tools.tof_bin.utilities.get import Get as TofBinGet
 
@@ -141,28 +146,31 @@ class EventHandler:
                                'width': width,
                                'height': height}
 
-        o_get = TofBinGet(parent=self.parent)
-        time_spectra_x_axis_name = o_get.x_axis_selected()
-        x_axis = copy.deepcopy(self.parent.time_spectra[time_spectra_x_axis_name])
+        o_plot = Plot(parent=self.parent)
+        o_plot.refresh_profile_plot()
 
-        array_of_data = self.parent.images_array
-        profile_signal = [np.mean(_data[y0:y0 + height, x0:x0 + width]) for _data in array_of_data]
-
-        self.parent.profile_signal = profile_signal
-        self.parent.bin_profile_view.clear()
-
-        if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
-            x_axis_label = "file index"
-        elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
-            x_axis *= 1e6    # to display axis in micros
-            x_axis_label = "tof (" + MICRO + "s)"
-        elif time_spectra_x_axis_name == TimeSpectraKeys.lambda_array:
-            x_axis *= 1e10    # to display axis in Angstroms
-            x_axis_label = LAMBDA + "(" + ANGSTROMS + ")"
-
-        self.parent.bin_profile_view.plot(x_axis, profile_signal, pen='r', symbol='x')
-        self.parent.bin_profile_view.setLabel("left", f"Average counts")
-        self.parent.bin_profile_view.setLabel("bottom", x_axis_label)
+        # o_get = TofBinGet(parent=self.parent)
+        # time_spectra_x_axis_name = o_get.x_axis_selected()
+        # x_axis = copy.deepcopy(self.parent.time_spectra[time_spectra_x_axis_name])
+        #
+        # array_of_data = self.parent.images_array
+        # profile_signal = [np.mean(_data[y0:y0 + height, x0:x0 + width]) for _data in array_of_data]
+        #
+        # self.parent.profile_signal = profile_signal
+        # self.parent.bin_profile_view.clear()
+        #
+        # if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
+        #     x_axis_label = "file index"
+        # elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
+        #     x_axis *= 1e6    # to display axis in micros
+        #     x_axis_label = "tof (" + MICRO + "s)"
+        # elif time_spectra_x_axis_name == TimeSpectraKeys.lambda_array:
+        #     x_axis *= 1e10    # to display axis in Angstroms
+        #     x_axis_label = LAMBDA + "(" + ANGSTROMS + ")"
+        #
+        # self.parent.bin_profile_view.plot(x_axis, profile_signal, pen='r', symbol='x')
+        # self.parent.bin_profile_view.setLabel("left", f"Average counts")
+        # self.parent.bin_profile_view.setLabel("bottom", x_axis_label)
 
 
 
@@ -197,3 +205,36 @@ class EventHandler:
         # self.parent.combine_profile_view.plot(x_axis, profile_signal, pen="r", symbol="x")
         # self.parent.combine_profile_view.setLabel("left", f"{combine_algorithm} counts")
         # self.parent.combine_profile_view.setLabel("bottom", x_axis_label)
+
+    def bin_auto_manual_tab_changed(self, new_tab_index=0):
+        if new_tab_index == 0:
+            self.parent.session[SessionSubKeys.bin_mode] = BinMode.auto
+
+        elif new_tab_index == 1:
+            self.parent.session[SessionSubKeys.bin_mode] = BinMode.manual
+
+        elif new_tab_index == 2:
+            pass
+
+        else:
+            raise NotImplementedError("LinearBin mode not implemented!")
+
+        self.entering_tab()
+
+    def entering_tab(self):
+        o_get = Get(parent=self.parent)
+        if o_get.bin_mode() == BinMode.auto:
+            o_auto_event = AutoEventHandler(parent=self.parent)
+            if o_get.bin_auto_mode() == BinAutoMode.linear:
+                o_auto_event.auto_linear_radioButton_changed()
+            elif o_get.bin_auto_mode() == BinAutoMode.log:
+                o_auto_event.auto_log_radioButton_changed()
+            o_auto_event.refresh_auto_tab()
+
+        elif o_get.bin_mode() == BinMode.manual:
+            o_manual_event = ManualEventHandler(parent=self.parent)
+            o_manual_event.refresh_manual_tab()
+            o_manual_event.display_all_items()
+
+        else:
+            pass

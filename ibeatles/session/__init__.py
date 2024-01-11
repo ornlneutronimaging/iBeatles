@@ -81,3 +81,15 @@ class SessionSubKeys:
     size = "size"
     type = "type"
     process_order = "process order"
+
+    # bin in TOF
+    top_folder = "top_folder"
+    list_working_folders = "list_working_folders"
+    list_working_folders_status = "list_working_folders_status"
+    version = "version"
+    detector_offset = 'detector_offset'
+    combine_algorithm = 'combine_algorithm'
+    combine_roi = 'combine_roi'
+    sample_position = 'sample_position'
+    bin_mode = 'bin_mode'
+    bin_algorithm = 'bin_algorithm'
