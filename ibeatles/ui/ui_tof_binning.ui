@@ -1004,7 +1004,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1066</x>
-     <y>401</y>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>1002</x>
@@ -1020,7 +1020,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1180</x>
-     <y>401</y>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>1143</x>
@@ -1036,7 +1036,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1286</x>
-     <y>401</y>
+     <y>293</y>
     </hint>
     <hint type="destinationlabel">
      <x>1307</x>
@@ -1067,8 +1067,8 @@
    <slot>bin_auto_log_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>82</x>
-     <y>328</y>
+     <x>97</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -1083,8 +1083,8 @@
    <slot>bin_auto_log_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>89</x>
-     <y>486</y>
+     <x>104</x>
+     <y>402</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -1100,7 +1100,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>199</x>
-     <y>430</y>
+     <y>346</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1116,7 +1116,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>199</x>
-     <y>399</y>
+     <y>315</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1131,8 +1131,8 @@
    <slot>bin_auto_linear_tof_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>410</x>
-     <y>557</y>
+     <x>419</x>
+     <y>473</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1148,7 +1148,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>419</x>
-     <y>588</y>
+     <y>504</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1164,7 +1164,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>419</x>
-     <y>526</y>
+     <y>442</y>
     </hint>
     <hint type="destinationlabel">
      <x>424</x>
@@ -1180,7 +1180,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>199</x>
-     <y>368</y>
+     <y>284</y>
     </hint>
     <hint type="destinationlabel">
      <x>396</x>
@@ -1195,8 +1195,8 @@
    <slot>auto_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
-     <y>526</y>
+     <x>145</x>
+     <y>442</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1211,8 +1211,8 @@
    <slot>auto_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>557</y>
+     <x>145</x>
+     <y>473</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1227,8 +1227,8 @@
    <slot>auto_linear_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>128</x>
-     <y>588</y>
+     <x>145</x>
+     <y>504</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1243,8 +1243,8 @@
    <slot>auto_log_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>123</x>
-     <y>368</y>
+     <x>125</x>
+     <y>284</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1259,8 +1259,8 @@
    <slot>auto_log_radioButton_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>399</y>
+     <x>125</x>
+     <y>315</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1276,7 +1276,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>125</x>
-     <y>430</y>
+     <y>346</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1292,7 +1292,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>705</x>
-     <y>893</y>
+     <y>809</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -1308,7 +1308,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>705</x>
-     <y>649</y>
+     <y>565</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1323,8 +1323,8 @@
    <slot>bin_auto_table_right_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>412</x>
-     <y>857</y>
+     <x>427</x>
+     <y>773</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -1339,8 +1339,8 @@
    <slot>bin_auto_table_selection_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>278</x>
-     <y>857</y>
+     <x>293</x>
+     <y>773</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1356,7 +1356,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>705</x>
-     <y>336</y>
+     <y>252</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -1371,8 +1371,8 @@
    <slot>bin_manual_populate_table_with_auto_mode_bins_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>172</x>
-     <y>342</y>
+     <x>187</x>
+     <y>258</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -1404,7 +1404,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1514</x>
-     <y>491</y>
+     <y>406</y>
     </hint>
     <hint type="destinationlabel">
      <x>1493</x>
@@ -1467,12 +1467,28 @@
    <slot>select_folder_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>743</x>
-     <y>43</y>
+     <x>749</x>
+     <y>39</y>
     </hint>
     <hint type="destinationlabel">
      <x>811</x>
      <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>time_spectra_preview_pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>time_spectra_preview_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>765</x>
+     <y>959</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>677</x>
+     <y>1029</y>
     </hint>
    </hints>
   </connection>

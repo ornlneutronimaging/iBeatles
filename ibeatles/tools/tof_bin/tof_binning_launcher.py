@@ -7,6 +7,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
@@ -255,7 +256,8 @@ class TofBinning(QMainWindow):
         o_event.bin_auto_radioButton_clicked()
         # self.update_statistics()
 
-
+    def time_spectra_preview_clicked(self):
+        TimeSpectraLauncher(parent=self)
 
 
 
