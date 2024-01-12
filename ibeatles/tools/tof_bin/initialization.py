@@ -106,7 +106,6 @@ class Initialization:
         self.parent.ui.bin_tabWidget.setTabIcon(1, QIcon(manual_image))
         self.parent.ui.stats_tabWidget.setTabIcon(0, QIcon(stats_table_image))
         self.parent.ui.stats_tabWidget.setTabIcon(1, QIcon(stats_plot_image))
-
         self.parent.ui.bin_bottom_tabWidget.setTabIcon(2, QIcon(settings_image))
 
     def plot_widgets(self):

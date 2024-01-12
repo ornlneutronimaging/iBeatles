@@ -8,6 +8,7 @@ warnings.filterwarnings("ignore")
 
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
+from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 
 from ibeatles.tools.tof_bin import session
 from ibeatles.tools.tof_bin.initialization import Initialization
@@ -209,12 +210,13 @@ class TofBinning(QMainWindow):
         o_event = TofBinEventHandler(parent=self,
                                      top_parent=self.top_parent)
         o_event.select_input_folder()
-        o_event.load_data()
-        o_event.load_time_spectra_file()
-        o_event.display_integrated_image()
-        o_event.display_profile()
-        self.bin_auto_manual_tab_changed()
-        o_event.check_widgets()
+        if self.list_tif_files:
+            o_event.load_data()
+            o_event.load_time_spectra_file()
+            o_event.display_integrated_image()
+            o_event.display_profile()
+            self.bin_auto_manual_tab_changed()
+            o_event.check_widgets()
 
     def bin_roi_changed(self):
         o_event = TofBinEventHandler(parent=self)
@@ -281,30 +283,35 @@ class TofBinning(QMainWindow):
 
 
     def bin_auto_manual_tab_changed(self, new_tab_index=-1):
-        o_event = TofBinEventHandler(parent=self)
-        o_event.bin_auto_manual_tab_changed(new_tab_index)
-        self.update_statistics()
+        if self.images_array:
+            o_event = TofBinEventHandler(parent=self)
+            o_event.bin_auto_manual_tab_changed(new_tab_index)
+            self.update_statistics()
 
     def bin_auto_log_file_index_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
-        o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.file_index_array)
-        self.update_statistics()
+        if self.images_array:
+            o_event = BinAutoEventHandler(parent=self)
+            o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.file_index_array)
+            self.update_statistics()
 
     def bin_auto_log_tof_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
-        o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.tof_array)
-        self.update_statistics()
+        if self.images_array:
+            o_event = BinAutoEventHandler(parent=self)
+            o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.tof_array)
+            self.update_statistics()
 
     def bin_auto_log_lambda_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
-        o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.lambda_array)
-        self.update_statistics()
+        if self.images_array:
+            o_event = BinAutoEventHandler(parent=self)
+            o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.lambda_array)
+            self.update_statistics()
 
     def bin_auto_linear_file_index_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
-        o_event.clear_selection(auto_mode=BinAutoMode.linear)
-        o_event.bin_auto_linear_changed(source_radio_button=TimeSpectraKeys.file_index_array)
-        self.update_statistics()
+        if self.images_array:
+            o_event = BinAutoEventHandler(parent=self)
+            o_event.clear_selection(auto_mode=BinAutoMode.linear)
+            o_event.bin_auto_linear_changed(source_radio_button=TimeSpectraKeys.file_index_array)
+            self.update_statistics()
 
     def bin_auto_linear_tof_changed(self):
         o_event = BinAutoEventHandler(parent=self)

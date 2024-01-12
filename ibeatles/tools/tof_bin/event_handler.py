@@ -47,11 +47,17 @@ class EventHandler:
 
     def select_input_folder(self):
         default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
-        folder = str(QFileDialog.getExistingDirectory(caption="Select folder containing images to load",
-                                                      directory=default_path,
-                                                      options=QFileDialog.ShowDirsOnly))
+        folder = QFileDialog.getExistingDirectory(parent=self.parent,
+                                                  caption="Select folder containing images to load",
+                                                  directory=default_path,
+                                                  options=QFileDialog.ShowDirsOnly)
+
         if folder == "":
             logging.info("User Canceled the selection of folder!")
+            show_status_message(parent=self.parent,
+                                message=f"User cancelled the file dialog window",
+                                duration_s=5,
+                                status=StatusMessageStatus.warning)
             return
 
         list_tif_files = FileHandler.get_list_of_tif(folder=folder)
@@ -68,6 +74,9 @@ class EventHandler:
         self.parent.list_tif_files = list_tif_files
 
     def load_data(self):
+        if not self.parent.list_tif_files:
+            return
+
         dict = LoadFiles.load_interactive_data(parent=self.parent,
                                                list_tif_files=self.parent.list_tif_files)
         self.parent.image_size['height'] = dict['height']

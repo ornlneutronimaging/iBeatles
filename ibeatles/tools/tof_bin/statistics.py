@@ -210,17 +210,25 @@ class Statistics:
 
     def extract_data_for_this_bin(self, list_runs=None):
         """
-        this method isolate the data of only the runs of the corresponding runs, and only for the ROI selected
+        this method calculate the mean or median of full image and ROI selected of all the runs that
+        belongs to that bin (list_runs are the run of that particular bin)
 
         :param list_runs:
         :return:
         """
         # retrieve statistics
-        [x0, y0, width, height] = self.parent.session[SessionSubKeys.combine_roi]
+        bin_roi = self.parent.bin_roi
+        x0 = bin_roi['x0']
+        y0 = bin_roi['y0']
+        width = bin_roi['width']
+        height = bin_roi['height']
 
         data_to_work_with = []
         for _run_index in list_runs:
-            data_to_work_with.append(self.parent.combine_data[_run_index])
+            data_to_work_with.append(self.parent.images_array[_run_index])
+
+        print(f"{np.shape(data_to_work_with) =}")
+        print(f"{list_runs =}")
 
         region_to_work_with = [_data[y0: y0+height, x0: x0+width] for _data in data_to_work_with]
 
