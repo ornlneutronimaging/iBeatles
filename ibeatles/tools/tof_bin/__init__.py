@@ -18,6 +18,28 @@ class BinMode:
     settings = 'settings'
 
 
+class BinAlgorithm:
+    """list of algorithm used to bin the images"""
+
+    mean = 'mean'
+    median = 'median'
+
+
+class StatisticsName:
+
+    mean = 'mean'
+    median = 'median'
+    std = 'std'
+    min = 'min'
+    max = 'max'
+
+
+class StatisticsRegion:
+
+    full = 'full'
+    roi = 'roi'
+
+
 session = {SessionSubKeys.top_folder: None,  # the base folder to start looking at images folder to combine
            SessionSubKeys.list_working_folders: None,  # list of working folders
            SessionSubKeys.list_working_folders_status: None,  # list of working folders status [True, True, False..]

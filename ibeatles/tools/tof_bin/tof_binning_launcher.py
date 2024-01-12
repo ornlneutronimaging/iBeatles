@@ -8,10 +8,12 @@ warnings.filterwarnings("ignore")
 
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
+
 from ibeatles.tools.tof_bin import session
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
+from ibeatles.tools.tof_bin.statistics import Statistics
 
 # from .utilities.get import Get
 # from .utilities.config_handler import ConfigHandler
@@ -89,6 +91,8 @@ class TofBinning(QMainWindow):
     # }
     dict_of_bins_item = None
 
+    linear_bins_selected = None
+    log_bins_selected = None
 
     # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
     # log_id = None  # ui id of the log QDialog

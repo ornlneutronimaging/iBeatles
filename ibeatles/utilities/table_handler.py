@@ -1,7 +1,7 @@
 import numpy as np
 from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QTableWidgetItem, QTableWidgetSelectionRange
-from qtpy.QtWidgets import QApplication
+from qtpy.QtWidgets import QApplication, QSpacerItem, QSizePolicy, QWidget, QHBoxLayout
 
 from ibeatles.utilities.widgets_handler import WidgetsHandler
 
@@ -228,8 +228,19 @@ class TableHandler:
 
         self.table_ui.setItem(row, column, _item)
 
-    def insert_widget(self, row=0, column=0, widget=None):
-        self.table_ui.setCellWidget(row, column, widget)
+    def insert_widget(self, row=0, column=0, widget=None, centered=False):
+        if not centered:
+            self.table_ui.setCellWidget(row, column, widget)
+        else:
+            spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+            spacer2 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+            line_widget = QWidget()
+            hori_layout = QHBoxLayout()
+            hori_layout.addItem(spacer1)
+            hori_layout.addWidget(widget)
+            hori_layout.addItem(spacer2)
+            line_widget.setLayout(hori_layout)
+            self.table_ui.setCellWidget(row, column, line_widget)
 
     def set_background_color(self, row=0, column=0, qcolor=QtGui.QColor(0, 255, 255)):
         _item = self.table_ui.item(row, column)
