@@ -29,7 +29,7 @@ class Plot:
 
         array_of_data = self.parent.images_array
         profile_signal = [np.mean(_data[y0:y0 + height, x0:x0 + width]) for _data in array_of_data]
-        profile_signal = self.parent.profile_signal
+        # profile_signal = self.parent.profile_signal
 
         o_get = Get(parent=self.parent)
         time_spectra_x_axis_name = o_get.x_axis_selected()

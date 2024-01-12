@@ -117,8 +117,6 @@ class AutoEventHandler:
 
     def auto_log_radioButton_changed(self):
 
-        print("auto log button changed")
-
         file_index_status = False
         tof_status = False
         lambda_status = False

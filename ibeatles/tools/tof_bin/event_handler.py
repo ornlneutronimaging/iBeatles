@@ -206,7 +206,11 @@ class EventHandler:
         # self.parent.combine_profile_view.setLabel("left", f"{combine_algorithm} counts")
         # self.parent.combine_profile_view.setLabel("bottom", x_axis_label)
 
-    def bin_auto_manual_tab_changed(self, new_tab_index=0):
+    def bin_auto_manual_tab_changed(self, new_tab_index=-1):
+
+        if new_tab_index == -1:
+            new_tab_index = self.parent.ui.bin_tabWidget.currentIndex()
+
         if new_tab_index == 0:
             self.parent.session[SessionSubKeys.bin_mode] = BinMode.auto
 

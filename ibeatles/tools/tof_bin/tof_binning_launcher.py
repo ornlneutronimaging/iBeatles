@@ -209,7 +209,7 @@ class TofBinning(QMainWindow):
         o_event.load_time_spectra_file()
         o_event.display_integrated_image()
         o_event.display_profile()
-
+        self.bin_auto_manual_tab_changed()
         o_event.check_widgets()
 
     def bin_roi_changed(self):
@@ -277,7 +277,7 @@ class TofBinning(QMainWindow):
 
 
     def bin_auto_manual_tab_changed(self, new_tab_index=-1):
-        o_event = AutoEventHandler(parent=self)
+        o_event = TofBinEventHandler(parent=self)
         o_event.bin_auto_manual_tab_changed(new_tab_index)
         self.update_statistics()
 
