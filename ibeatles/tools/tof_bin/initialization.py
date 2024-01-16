@@ -46,7 +46,20 @@ class Initialization:
 
     def splitter(self):
         self.parent.ui.bin_horizontal_splitter.setSizes([300, 800])
+        self.parent.ui.bin_horizontal_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/horizontal_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.bin_horizontal_splitter.setHandleWidth(15)
+
         self.parent.ui.bin_vertical_splitter.setSizes([500, 50])
+        self.parent.ui.bin_vertical_splitter.setStyleSheet("""
+                                     QSplitter::handle{
+                                     image: url(":/MPL Toolbar/vertical_splitter_handle.png");
+                                     }
+                                     """)
+        self.parent.ui.bin_vertical_splitter.setHandleWidth(15)
 
     def combobox(self):
         list_of_options = ['mean', 'median', 'std', 'min', 'max']
