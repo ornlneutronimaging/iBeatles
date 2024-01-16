@@ -436,11 +436,11 @@ class AutoEventHandler:
     #         self.parent.linear_bins_selected = clean_list_of_new_rows_to_highlight
     #     else:
     #         self.parent.log_bins_selected = clean_list_of_new_rows_to_highlight
-    #
-    # def clear_selection(self, auto_mode=BinAutoMode.linear):
-    #     if auto_mode == BinAutoMode.linear:
-    #         self.parent.linear_bins_selected = None
-    #     else:
-    #         self.parent.log_bins_selected = None
-    #     o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
-    #     o_table.select_everything(False)
+
+    def clear_selection(self, auto_mode=BinAutoMode.linear):
+        if auto_mode == BinAutoMode.linear:
+            self.parent.linear_bins_selected = None
+        else:
+            self.parent.log_bins_selected = None
+        o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
+        o_table.select_everything(False)

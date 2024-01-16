@@ -11,6 +11,7 @@ from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 
 from ibeatles.tools.tof_bin import session
+from ibeatles.tools.tof_bin import BinAutoMode
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
@@ -290,62 +291,62 @@ class TofBinning(QMainWindow):
 
     def bin_auto_log_file_index_changed(self):
         if self.images_array:
-            o_event = BinAutoEventHandler(parent=self)
+            o_event = AutoEventHandler(parent=self)
             o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.file_index_array)
             self.update_statistics()
 
     def bin_auto_log_tof_changed(self):
         if self.images_array:
-            o_event = BinAutoEventHandler(parent=self)
+            o_event = AutoEventHandler(parent=self)
             o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.tof_array)
             self.update_statistics()
 
     def bin_auto_log_lambda_changed(self):
         if self.images_array:
-            o_event = BinAutoEventHandler(parent=self)
+            o_event = AutoEventHandler(parent=self)
             o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.lambda_array)
             self.update_statistics()
 
     def bin_auto_linear_file_index_changed(self):
         if self.images_array:
-            o_event = BinAutoEventHandler(parent=self)
+            o_event = AutoEventHandler(parent=self)
             o_event.clear_selection(auto_mode=BinAutoMode.linear)
             o_event.bin_auto_linear_changed(source_radio_button=TimeSpectraKeys.file_index_array)
             self.update_statistics()
 
     def bin_auto_linear_tof_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.clear_selection(auto_mode=BinAutoMode.linear)
         o_event.bin_auto_linear_changed(source_radio_button=TimeSpectraKeys.tof_array)
         self.update_statistics()
 
     def bin_auto_linear_lambda_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.clear_selection(auto_mode=BinAutoMode.linear)
         o_event.bin_auto_linear_changed(source_radio_button=TimeSpectraKeys.lambda_array)
         self.update_statistics()
 
     def auto_log_radioButton_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.clear_selection(auto_mode=BinAutoMode.log)
         o_event.auto_log_radioButton_changed()
         self.update_statistics()
 
     def auto_linear_radioButton_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.clear_selection(auto_mode=BinAutoMode.linear)
         o_event.auto_linear_radioButton_changed()
         self.update_statistics()
 
     def auto_table_use_checkbox_changed(self, state, row):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         state = True if state == 2 else False
         o_event.use_auto_bin_state_changed(row=row, state=state)
         self.bin_auto_table_selection_changed()
         self.update_statistics()
 
     def bin_auto_hide_empty_bins(self):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.update_auto_table()
 
     def bin_auto_visualize_axis_generated_button_clicked(self):
