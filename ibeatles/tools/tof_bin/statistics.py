@@ -227,9 +227,6 @@ class Statistics:
         for _run_index in list_runs:
             data_to_work_with.append(self.parent.images_array[_run_index])
 
-        print(f"{np.shape(data_to_work_with) =}")
-        print(f"{list_runs =}")
-
         region_to_work_with = [_data[y0: y0+height, x0: x0+width] for _data in data_to_work_with]
 
         # how to add images

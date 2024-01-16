@@ -8,11 +8,13 @@ from qtpy import QtGui
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 
 from ibeatles.tools.tof_bin import BinMode
 from ibeatles.tools.tof_bin.plot import Plot
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.tof_bin.log_bin import LogBin
+from ibeatles.tools.tof_bin.linear_bin import LinearBin
 # from . import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 from ibeatles.tools.tof_bin import BinAutoMode
 from ibeatles.tools.utilities import TimeSpectraKeys
@@ -113,7 +115,7 @@ class AutoEventHandler:
         self.parent.ui.auto_linear_lambda_doubleSpinBox.setEnabled(lambda_status)
         self.parent.ui.bin_auto_linear_lambda_units_label.setEnabled(lambda_status)
 
-        # self.bin_auto_linear_changed(source_radio_button=source_button)
+        self.bin_auto_linear_changed(source_radio_button=source_button)
 
     def auto_log_radioButton_changed(self):
 
@@ -261,59 +263,59 @@ class AutoEventHandler:
             o_table.insert_item(row=_row, column=2, value=str_file_index, editable=False)
             o_table.insert_item(row=_row, column=3, value=str_tof, editable=False)
             o_table.insert_item(row=_row, column=4, value=str_lambda, editable=False)
-    #
-    # def bin_auto_linear_changed(self, source_radio_button=TimeSpectraKeys.file_index_array):
-    #     self.logger.info(f"bin auto linear changed: radio button changed -> {source_radio_button}")
-    #     o_bin = LinearBin(parent=self.parent,
-    #                       source_array=source_radio_button)
-    #     self.parent.ui.auto_linear_file_index_spinBox.blockSignals(True)
-    #     self.parent.ui.auto_linear_tof_doubleSpinBox.blockSignals(True)
-    #     self.parent.ui.auto_linear_lambda_doubleSpinBox.blockSignals(True)
-    #
-    #     self.logger.info(f"-> raw_file_index_array_binned: {self.parent.time_spectra[TimeSpectraKeys.file_index_array]}")
-    #     self.logger.info(f"-> raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}")
-    #     self.logger.info(f"-> raw_lambda_array_binned: {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}")
-    #
-    #     if source_radio_button == TimeSpectraKeys.file_index_array:
-    #         file_index_value = self.parent.ui.auto_linear_file_index_spinBox.value()
-    #         self.logger.info(f"--> bin requested: {file_index_value}")
-    #         o_bin.create_linear_file_index_bin_array(bin_value=file_index_value)
-    #         o_bin.create_linear_bin_arrays()
-    #
-    #     elif source_radio_button == TimeSpectraKeys.tof_array:
-    #         tof_value = self.parent.ui.auto_linear_tof_doubleSpinBox.value()
-    #         self.logger.info(f"--> bin requested: {tof_value}")
-    #         o_bin.create_linear_file_index_bin_array(bin_value=tof_value * 1e-6)   # to switch to seconds
-    #         o_bin.create_linear_bin_arrays()
-    #
-    #     elif source_radio_button == TimeSpectraKeys.lambda_array:
-    #         lambda_value = self.parent.ui.auto_linear_lambda_doubleSpinBox.value()
-    #         self.logger.info(f"--> bin requested: {lambda_value}")
-    #         o_bin.create_linear_file_index_bin_array(bin_value=lambda_value * 1e-10)   # to switch to seconds
-    #         o_bin.create_linear_bin_arrays()
-    #
-    #     else:
-    #         raise NotImplementedError("bin auto linear algorithm not implemented!")
-    #
-    #     self.logger.info(f"-> file_index_array_binned: {o_bin.linear_bins[TimeSpectraKeys.file_index_array]}")
-    #     self.logger.info(f"-> tof_array_binned: {o_bin.linear_bins[TimeSpectraKeys.tof_array]}")
-    #     self.logger.info(f"-> lambda_array_binned: {o_bin.linear_bins[TimeSpectraKeys.lambda_array]}")
-    #
-    #     self.parent.linear_bins = {TimeSpectraKeys.file_index_array: o_bin.get_linear_file_index(),
-    #                                TimeSpectraKeys.tof_array: o_bin.get_linear_tof(),
-    #                                TimeSpectraKeys.lambda_array: o_bin.get_linear_lambda()}
-    #
-    #     self.fill_auto_table()
-    #     self.refresh_auto_tab()
-    #
-    #     show_status_message(parent=self.parent,
-    #                         message=f"New {source_radio_button} bin size selected!",
-    #                         status=StatusMessageStatus.ready,
-    #                         duration_s=5)
-    #
-    #     self.parent.ui.auto_linear_file_index_spinBox.blockSignals(False)
-    #     self.parent.ui.auto_linear_tof_doubleSpinBox.blockSignals(False)
-    #     self.parent.ui.auto_linear_lambda_doubleSpinBox.blockSignals(False)
+
+    def bin_auto_linear_changed(self, source_radio_button=TimeSpectraKeys.file_index_array):
+        self.logger.info(f"bin auto linear changed: radio button changed -> {source_radio_button}")
+        o_bin = LinearBin(parent=self.parent,
+                          source_array=source_radio_button)
+        self.parent.ui.auto_linear_file_index_spinBox.blockSignals(True)
+        self.parent.ui.auto_linear_tof_doubleSpinBox.blockSignals(True)
+        self.parent.ui.auto_linear_lambda_doubleSpinBox.blockSignals(True)
+
+        self.logger.info(f"-> raw_file_index_array_binned: {self.parent.time_spectra[TimeSpectraKeys.file_index_array]}")
+        self.logger.info(f"-> raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}")
+        self.logger.info(f"-> raw_lambda_array_binned: {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}")
+
+        if source_radio_button == TimeSpectraKeys.file_index_array:
+            file_index_value = self.parent.ui.auto_linear_file_index_spinBox.value()
+            self.logger.info(f"--> bin requested: {file_index_value}")
+            o_bin.create_linear_file_index_bin_array(bin_value=file_index_value)
+            o_bin.create_linear_bin_arrays()
+
+        elif source_radio_button == TimeSpectraKeys.tof_array:
+            tof_value = self.parent.ui.auto_linear_tof_doubleSpinBox.value()
+            self.logger.info(f"--> bin requested: {tof_value}")
+            o_bin.create_linear_file_index_bin_array(bin_value=tof_value * 1e-6)   # to switch to seconds
+            o_bin.create_linear_bin_arrays()
+
+        elif source_radio_button == TimeSpectraKeys.lambda_array:
+            lambda_value = self.parent.ui.auto_linear_lambda_doubleSpinBox.value()
+            self.logger.info(f"--> bin requested: {lambda_value}")
+            o_bin.create_linear_file_index_bin_array(bin_value=lambda_value * 1e-10)   # to switch to seconds
+            o_bin.create_linear_bin_arrays()
+
+        else:
+            raise NotImplementedError("bin auto linear algorithm not implemented!")
+
+        self.logger.info(f"-> file_index_array_binned: {o_bin.linear_bins[TimeSpectraKeys.file_index_array]}")
+        self.logger.info(f"-> tof_array_binned: {o_bin.linear_bins[TimeSpectraKeys.tof_array]}")
+        self.logger.info(f"-> lambda_array_binned: {o_bin.linear_bins[TimeSpectraKeys.lambda_array]}")
+
+        self.parent.linear_bins = {TimeSpectraKeys.file_index_array: o_bin.get_linear_file_index(),
+                                   TimeSpectraKeys.tof_array: o_bin.get_linear_tof(),
+                                   TimeSpectraKeys.lambda_array: o_bin.get_linear_lambda()}
+
+        self.fill_auto_table()
+        self.refresh_auto_tab()
+
+        show_status_message(parent=self.parent,
+                            message=f"New {source_radio_button} bin size selected!",
+                            status=StatusMessageStatus.ready,
+                            duration_s=5)
+
+        self.parent.ui.auto_linear_file_index_spinBox.blockSignals(False)
+        self.parent.ui.auto_linear_tof_doubleSpinBox.blockSignals(False)
+        self.parent.ui.auto_linear_lambda_doubleSpinBox.blockSignals(False)
 
     def update_auto_table(self):
         o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)

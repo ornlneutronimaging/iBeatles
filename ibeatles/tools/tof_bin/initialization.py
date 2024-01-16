@@ -120,6 +120,7 @@ class Initialization:
         self.parent.ui.stats_tabWidget.setTabIcon(0, QIcon(stats_table_image))
         self.parent.ui.stats_tabWidget.setTabIcon(1, QIcon(stats_plot_image))
         self.parent.ui.bin_bottom_tabWidget.setTabIcon(2, QIcon(settings_image))
+        self.parent.ui.image_tabWidget.setCurrentIndex(1)
 
     def plot_widgets(self):
         graphics_view_layout = QVBoxLayout()
