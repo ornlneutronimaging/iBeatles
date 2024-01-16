@@ -273,15 +273,13 @@ class TofBinning(QMainWindow):
     def bin_auto_log_linear_radioButton_changed(self):
         o_event = AutoEventHandler(parent=self)
         o_event.bin_auto_radioButton_clicked()
-
-
-        # self.update_statistics()
+        self.update_statistics()
 
     def time_spectra_preview_clicked(self):
         TimeSpectraLauncher(parent=self)
 
-
-
+    def combine_mean_median_changed(self):
+        self.update_statistics()
 
     def bin_auto_manual_tab_changed(self, new_tab_index=-1):
         if self.images_array:

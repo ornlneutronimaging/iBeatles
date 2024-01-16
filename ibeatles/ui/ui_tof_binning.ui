@@ -1055,8 +1055,8 @@
    <slot>bin_xaxis_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1066</x>
-     <y>293</y>
+     <x>1047</x>
+     <y>367</y>
     </hint>
     <hint type="destinationlabel">
      <x>1002</x>
@@ -1071,8 +1071,8 @@
    <slot>bin_xaxis_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1180</x>
-     <y>293</y>
+     <x>1161</x>
+     <y>367</y>
     </hint>
     <hint type="destinationlabel">
      <x>1143</x>
@@ -1087,8 +1087,8 @@
    <slot>bin_xaxis_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1286</x>
-     <y>293</y>
+     <x>1267</x>
+     <y>367</y>
     </hint>
     <hint type="destinationlabel">
      <x>1307</x>
@@ -1183,7 +1183,7 @@
    <slot>bin_auto_linear_tof_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>419</x>
+     <x>400</x>
      <y>473</y>
     </hint>
     <hint type="destinationlabel">
@@ -1199,7 +1199,7 @@
    <slot>bin_auto_linear_lambda_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>419</x>
+     <x>400</x>
      <y>504</y>
     </hint>
     <hint type="destinationlabel">
@@ -1215,7 +1215,7 @@
    <slot>bin_auto_linear_file_index_changed()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>419</x>
+     <x>400</x>
      <y>442</y>
     </hint>
     <hint type="destinationlabel">
@@ -1343,7 +1343,7 @@
    <slot>bin_auto_visualize_axis_generated_button_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>705</x>
+     <x>667</x>
      <y>809</y>
     </hint>
     <hint type="destinationlabel">
@@ -1359,7 +1359,7 @@
    <slot>bin_auto_hide_empty_bins()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>705</x>
+     <x>667</x>
      <y>565</y>
     </hint>
     <hint type="destinationlabel">
@@ -1407,7 +1407,7 @@
    <slot>bin_manual_add_bin_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>705</x>
+     <x>667</x>
      <y>252</y>
     </hint>
     <hint type="destinationlabel">
@@ -1456,7 +1456,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1514</x>
-     <y>406</y>
+     <y>480</y>
     </hint>
     <hint type="destinationlabel">
      <x>1493</x>
@@ -1544,6 +1544,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>combine_mean_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>combine_mean_median_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>64</x>
+     <y>931</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>49</x>
+     <y>1006</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>combine_median_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>combine_mean_median_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>930</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>412</x>
+     <y>1025</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>help_log_clicked()</slot>
@@ -1575,5 +1607,6 @@
   <slot>bin_settings_clicked()</slot>
   <slot>bin_export_table_pushButton_clicked()</slot>
   <slot>select_folder_clicked()</slot>
+  <slot>combine_mean_median_changed()</slot>
  </slots>
 </ui>
