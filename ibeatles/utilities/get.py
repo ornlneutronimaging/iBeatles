@@ -42,3 +42,12 @@ class Get:
     def bin_size(self):
         session_dict = self.parent.session_dict
         return session_dict[SessionKeys.bin][SessionSubKeys.roi][-1]
+
+    # def auto_bins_currently_activated(self):
+    #     auto_bin_mode = self.bin_auto_mode()
+    #     if auto_bin_mode == BinAutoMode.linear:
+    #         return self.parent.linear_bins
+    #     elif auto_bin_mode == BinAutoMode.log:
+    #         return self.parent.log_bins
+    #     else:
+    #         raise NotImplementedError("Auto bin mode not implemented!")

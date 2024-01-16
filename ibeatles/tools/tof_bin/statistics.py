@@ -36,12 +36,12 @@ class Statistics:
 
             list_bins = self.parent.manual_bins
 
+        o_table = TableHandler(table_ui=self.parent.ui.statistics_tableWidget)
+        o_table.remove_all_rows()
+
         # if no bins to display, stop here
         if list_bins[TimeSpectraKeys.file_index_array] is None:
             return
-
-        o_table = TableHandler(table_ui=self.parent.ui.statistics_tableWidget)
-        o_table.remove_all_rows()
 
         file_index_bins = list_bins[TimeSpectraKeys.file_index_array]
         tof_bins = list_bins[TimeSpectraKeys.tof_array]

@@ -15,6 +15,7 @@ from ibeatles.tools.tof_bin import BinAutoMode
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
+from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
 from ibeatles.tools.tof_bin.statistics import Statistics
 from ibeatles.tools.tof_bin.preview_full_bin_axis import PreviewFullBinAxis
 
@@ -129,15 +130,15 @@ class TofBinning(QMainWindow):
     # log_bins = {TimeSpectraKeys.tof_array: None,
     #             TimeSpectraKeys.file_index_array: None,
     #             TimeSpectraKeys.lambda_array: None}
-    #
-    # # each will be a dictionaries of ranges
-    # # ex: TimeSpectraKeys.tof_array = {0: [1],
-    # #                                  1: [2,6],
-    # #                                  3: [7,8,9,10], ...}
-    # manual_bins = {TimeSpectraKeys.tof_array: None,
-    #                TimeSpectraKeys.file_index_array: None,
-    #                TimeSpectraKeys.lambda_array: None}
-    #
+
+    # each will be a dictionaries of ranges
+    # ex: TimeSpectraKeys.tof_array = {0: [1],
+    #                                  1: [2,6],
+    #                                  3: [7,8,9,10], ...}
+    manual_bins = {TimeSpectraKeys.tof_array: None,
+                   TimeSpectraKeys.file_index_array: None,
+                   TimeSpectraKeys.lambda_array: None}
+
     # # dictionary that will record the range for each bin
     # # {0: [0, 3], 1: [1, 10], ...}
     # manual_snapping_indexes_bins = None
@@ -173,11 +174,11 @@ class TofBinning(QMainWindow):
     # #  ...
     # # }
     # dict_of_bins_item = None
-    #
-    # # list of manual bins.
-    # # using a list because any of the bin can be removed by the user
-    # list_of_manual_bins_item = []
-    #
+
+    # list of manual bins.
+    # using a list because any of the bin can be removed by the user
+    list_of_manual_bins_item = []
+
     # current_auto_bin_rows_highlighted = []
     #
     # # stats currently displayed in the bin stats table
@@ -352,11 +353,11 @@ class TofBinning(QMainWindow):
         o_preview.show()
 
     def bin_auto_table_right_clicked(self, position):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.auto_table_right_click(position=position)
 
     def bin_auto_table_selection_changed(self):
-        o_event = BinAutoEventHandler(parent=self)
+        o_event = AutoEventHandler(parent=self)
         o_event.auto_table_selection_changed()
 
     def mouse_moved_in_combine_image_preview(self):
@@ -365,23 +366,23 @@ class TofBinning(QMainWindow):
 
     # - manual mode
     def bin_manual_add_bin_clicked(self):
-        o_event = BinManualEventHandler(parent=self)
+        o_event = ManualEventHandler(parent=self)
         o_event.add_bin()
         self.update_statistics()
 
     def bin_manual_populate_table_with_auto_mode_bins_clicked(self):
-        o_event = BinManualEventHandler(parent=self)
+        o_event = ManualEventHandler(parent=self)
         o_event.clear_all_items()
         o_event.populate_table_with_auto_mode()
         self.update_statistics()
 
     def bin_manual_region_changed(self, item_id):
-        o_event = BinManualEventHandler(parent=self)
+        o_event = ManualEventHandler(parent=self)
         o_event.bin_manually_moved(item_id=item_id)
         self.update_statistics()
 
     def bin_manual_region_changing(self, item_id):
-        o_event = BinManualEventHandler(parent=self)
+        o_event = ManualEventHandler(parent=self)
         o_event.bin_manually_moving(item_id=item_id)
 
     def bin_manual_table_right_click(self, position):
@@ -397,10 +398,6 @@ class TofBinning(QMainWindow):
     def bin_statistics_comboBox_changed(self):
         o_stat = Statistics(parent=self)
         o_stat.plot_statistics()
-
-    def bin_settings_clicked(self):
-        o_bin = BinSettings(parent=self)
-        o_bin.show()
 
     # export images
     def export_combined_and_binned_images_clicked(self):

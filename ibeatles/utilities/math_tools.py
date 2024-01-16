@@ -68,3 +68,27 @@ def calculate_inflection_point(data=[]):
 
     _peak_value = _working_array.index(max(_working_array))
     return _peak_value
+
+
+def get_value_of_closest_match(array_to_look_for=None, value=None, left_margin=True):
+    """
+    for example if the array_to_look = [1,2,3,4] and the value is 2.3,
+    the method will return 2.
+    for 2.5, it will return the closest or less than value, in this case 2 again.
+
+    :param array_to_look_for: array where to find the closest match
+    :param value: input value to use
+    :return: return the closest value to the input value found in the array_to_look
+    """
+    array_to_look_for_in_float = [float(_value) for _value in array_to_look_for]
+    value_float = float(value)
+
+    diff_array = [np.abs(_v - value_float) for _v in array_to_look_for_in_float]
+    array_of_matches = np.where(np.min(diff_array) == diff_array)
+
+    if left_margin and len(array_of_matches[0]) == 2:
+        index = -1
+    else:
+        index = 0
+    best_match = array_of_matches[0][index]
+    return best_match

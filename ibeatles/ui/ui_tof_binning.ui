@@ -983,14 +983,10 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="bin_settings_pushButton">
-        <property name="text">
-         <string>Settings ...</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="export_bin_table_pushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Export Bin Table ...</string>
         </property>
@@ -1012,7 +1008,7 @@
       <item>
        <widget class="QPushButton" name="export_pushButton">
         <property name="text">
-         <string>Export ...</string>
+         <string>Bin ...</string>
         </property>
        </widget>
       </item>
@@ -1481,22 +1477,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>bin_settings_pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>bin_settings_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>90</x>
-     <y>1044</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>112</x>
-     <y>952</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>export_bin_table_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
@@ -1604,7 +1584,6 @@
   <slot>bin_manual_table_right_click()</slot>
   <slot>bin_statistics_comboBox_changed()</slot>
   <slot>export_combined_and_binned_images_clicked()</slot>
-  <slot>bin_settings_clicked()</slot>
   <slot>bin_export_table_pushButton_clicked()</slot>
   <slot>select_folder_clicked()</slot>
   <slot>combine_mean_median_changed()</slot>

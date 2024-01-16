@@ -40,7 +40,6 @@ class EventHandler:
         self.parent.ui.x_axis_groupBox.setEnabled(enabled_state)
         self.parent.ui.stats_tabWidget.setEnabled(enabled_state)
         self.parent.ui.bin_bottom_tabWidget.setEnabled(enabled_state)
-        self.parent.ui.bin_settings_pushButton.setEnabled(enabled_state)
         self.parent.ui.export_bin_table_pushButton.setEnabled(enabled_state)
         self.parent.ui.export_pushButton.setEnabled(enabled_state)
         self.parent.ui.image_tabWidget.setEnabled(enabled_state)

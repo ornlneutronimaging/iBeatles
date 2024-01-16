@@ -106,3 +106,10 @@ class Get:
             return TimeSpectraKeys.lambda_array
         else:
             raise NotImplementedError(f"type not supported")
+
+    def manual_working_row(self, working_item_id=None):
+        list_item_id = self.parent.list_of_manual_bins_item
+        for _row, item in enumerate(list_item_id):
+            if item == working_item_id:
+                return _row
+        return -1

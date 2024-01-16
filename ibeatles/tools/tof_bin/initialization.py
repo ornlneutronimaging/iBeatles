@@ -151,6 +151,4 @@ class Initialization:
     def widgets(self):
         self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setIcon(QIcon(more_infos_image))
         self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setToolTip("Display full original bin axis")
-        self.parent.ui.bin_settings_pushButton.setIcon(QIcon(settings_image))
-
         self.parent.ui.select_folder_pushButton.setStyleSheet(interact_me_style)
