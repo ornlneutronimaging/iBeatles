@@ -269,9 +269,6 @@ class TofBinning(QMainWindow):
         self.bin_auto_manual_tab_changed()
         o_event.check_widgets()
 
-    def help_log_clicked(self):
-        LogLauncher(parent=self)
-
     # - auto mode
     def bin_auto_log_linear_radioButton_changed(self):
         o_event = AutoEventHandler(parent=self)
