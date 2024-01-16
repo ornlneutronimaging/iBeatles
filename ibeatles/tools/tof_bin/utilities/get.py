@@ -64,7 +64,7 @@ class Get:
     def bin_add_method(self):
         if self.parent.ui.combine_mean_radioButton.isChecked():
             return CombineAlgorithm.mean
-        elif self.parent.ui.combine_median_radioButton.ischecked():
+        elif self.parent.ui.combine_median_radioButton.isChecked():
             return CombineAlgorithm.median
         else:
             raise NotImplementedError("Combine algorithm is not implemented!")
