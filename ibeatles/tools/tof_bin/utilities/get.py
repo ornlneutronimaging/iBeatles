@@ -8,6 +8,7 @@ import numpy as np
 from ibeatles import DataType
 
 from ibeatles.tools.tof_bin import BinAutoMode
+from ibeatles.tools.tof_bin import StatisticsName
 
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.utilities import CombineAlgorithm
@@ -59,3 +60,20 @@ class Get:
             return self.parent.ui.auto_log_lambda_doubleSpinBox.value()
         else:
             raise NotImplementedError(f"auto log bin algorithm not implemented!")
+
+    def bin_add_method(self):
+        if self.parent.ui.combine_mean_radioButton.isChecked():
+            return CombineAlgorithm.mean
+        elif self.parent.ui.combine_median_radioButton.ischecked():
+            return CombineAlgorithm.median
+        else:
+            raise NotImplementedError("Combine algorithm is not implemented!")
+
+    def bin_statistics_plot_requested(self):
+        current_index = self.parent.ui.bin_stats_comboBox.currentIndex()
+        list_name = [StatisticsName.mean,
+                     StatisticsName.median,
+                     StatisticsName.std,
+                     StatisticsName.min,
+                     StatisticsName.max]
+        return list_name[current_index]

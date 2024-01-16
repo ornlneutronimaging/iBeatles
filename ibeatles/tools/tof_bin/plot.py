@@ -28,6 +28,7 @@ class Plot:
                 self.parent.bin_profile_view.removeItem(self.parent.dict_of_bins_item[_key])
 
         array_of_data = self.parent.images_array
+
         profile_signal = [np.mean(_data[y0:y0 + height, x0:x0 + width]) for _data in array_of_data]
         # profile_signal = self.parent.profile_signal
 
