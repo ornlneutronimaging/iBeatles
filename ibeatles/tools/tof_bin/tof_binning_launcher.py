@@ -266,6 +266,8 @@ class TofBinning(QMainWindow):
     def bin_xaxis_changed(self):
         o_event = TofBinEventHandler(parent=self)
         o_event.display_profile()
+        self.bin_auto_manual_tab_changed()
+        o_event.check_widgets()
 
     def help_log_clicked(self):
         LogLauncher(parent=self)
