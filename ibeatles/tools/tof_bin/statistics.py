@@ -69,7 +69,7 @@ class Statistics:
                                 value=str(_row),
                                 editable=False)
 
-            if _bin == []:
+            if not _bin:
 
                 mean_array_full.append(np.nan)
                 median_array_full.append(np.nan)
@@ -245,11 +245,27 @@ class Statistics:
                 'roi_of_image': roi_image_to_work_with}
 
     def plot_statistics(self):
-        if self.parent.current_stats is None:
+
+        o_get = Get(parent=self.parent)
+        bin_mode = o_get.bin_mode()
+
+        if bin_mode == BinMode.auto:
+
+            bin_auto_mode = o_get.bin_auto_mode()
+            if bin_auto_mode == BinAutoMode.linear:
+                list_bins = self.parent.linear_bins
+            else:
+                list_bins = self.parent.log_bins
+
+        else:
+
+            list_bins = self.parent.manual_bins
+
+        # if no bins to display, stop here
+        if list_bins[TimeSpectraKeys.file_index_array] is None:
             self.parent.statistics_plot.ax1.clear()
             return
 
-        o_get = Get(parent=self.parent)
         stats_requested = o_get.bin_statistics_plot_requested()
 
         stat_data_dict = self.parent.current_stats[stats_requested]
