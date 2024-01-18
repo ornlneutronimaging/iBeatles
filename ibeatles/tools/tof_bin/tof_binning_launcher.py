@@ -11,7 +11,7 @@ from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 
 from ibeatles.tools.tof_bin import session
-from ibeatles.tools.tof_bin import BinAutoMode
+from ibeatles.tools.tof_bin import BinAutoMode, BinMode
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
@@ -179,15 +179,17 @@ class TofBinning(QMainWindow):
     # using a list because any of the bin can be removed by the user
     list_of_manual_bins_item = []
 
-    # current_auto_bin_rows_highlighted = []
-    #
-    # # stats currently displayed in the bin stats table
-    # # {StatisticsName.mean: {Statistics.full: [],
-    # #                        Statistics.roi: [],
-    # #                        },
-    # # StatisticsName.median: ....
-    # #  }
-    # current_stats = None
+    current_auto_bin_rows_highlighted = []
+
+    # stats currently displayed in the bin stats table
+    # {StatisticsName.mean: {Statistics.full: [],
+    #                        Statistics.roi: [],
+    #                        },
+    # StatisticsName.median: ....
+    #  }
+    current_stats = {BinMode.auto: None,
+                     BinMode.manual: None
+                     }
 
     def __init__(self, parent=None):
         """

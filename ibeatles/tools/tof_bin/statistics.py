@@ -1,4 +1,5 @@
 import numpy as np
+from qtpy.QtWidgets import QApplication
 
 from ibeatles.utilities import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 from ibeatles.utilities.table_handler import TableHandler
@@ -195,18 +196,16 @@ class Statistics:
 
             _row += 1
 
-        current_stats = {StatisticsName.mean: {StatisticsRegion.full: mean_array_full,
-                                               StatisticsRegion.roi: mean_array_roi},
-                         StatisticsName.median: {StatisticsRegion.full: median_array_full,
-                                                 StatisticsRegion.roi: median_array_roi},
-                         StatisticsName.std: {StatisticsRegion.full: std_array_full,
-                                              StatisticsRegion.roi: std_array_roi},
-                         StatisticsName.min: {StatisticsRegion.full: min_array_full,
-                                              StatisticsRegion.roi: min_array_roi},
-                         StatisticsName.max: {StatisticsRegion.full: max_array_full,
-                                              StatisticsRegion.roi: max_array_roi}}
-
-        self.parent.current_stats = current_stats
+        self.parent.current_stats[bin_mode] = {StatisticsName.mean: {StatisticsRegion.full: mean_array_full,
+                                                                     StatisticsRegion.roi: mean_array_roi},
+                                               StatisticsName.median: {StatisticsRegion.full: median_array_full,
+                                                                       StatisticsRegion.roi: median_array_roi},
+                                               StatisticsName.std: {StatisticsRegion.full: std_array_full,
+                                                                    StatisticsRegion.roi: std_array_roi},
+                                               StatisticsName.min: {StatisticsRegion.full: min_array_full,
+                                                                    StatisticsRegion.roi: min_array_roi},
+                                               StatisticsName.max: {StatisticsRegion.full: max_array_full,
+                                                                    StatisticsRegion.roi: max_array_roi}}
 
     def extract_data_for_this_bin(self, list_runs=None):
         """
@@ -264,11 +263,13 @@ class Statistics:
         # if no bins to display, stop here
         if list_bins[TimeSpectraKeys.file_index_array] is None:
             self.parent.statistics_plot.ax1.clear()
+            QApplication.processEvents()
             return
 
         stats_requested = o_get.bin_statistics_plot_requested()
 
-        stat_data_dict = self.parent.current_stats[stats_requested]
+        stat_data_dict = self.parent.current_stats[bin_mode][stats_requested]
+
         full_array = stat_data_dict[StatisticsRegion.full]
         roi_array = stat_data_dict[StatisticsRegion.roi]
 

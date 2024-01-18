@@ -133,7 +133,7 @@ class ManualEventHandler:
         _row = 0
         for _index, _bin in enumerate(file_index_array):
 
-            if _bin == []:
+            if not _bin:
                 continue
 
             o_table.insert_empty_row(_row)
@@ -273,6 +273,7 @@ class ManualEventHandler:
     # #     print("sort and remove duplicates")
 
     def bin_manually_moved(self, item_id=None):
+
         self.bin_manually_moving(item_id=item_id)
 
         # 1. using region selected threshold, and the current axis, find the snapping left and right indexes
@@ -283,7 +284,7 @@ class ManualEventHandler:
         self.update_items_displayed()
 
         # 3. using those indexes create the ranges for each bins and for each time axis and save those in
-        #    self.parent.manual_bins['file_index_array': {0: [0, 1, 2, 3], 1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ...},...}
+        #    self.parent.manual_bins['file_index_array': [[0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ...], ...]
         self.create_all_ranges()
 
         # 4. update table
@@ -298,6 +299,36 @@ class ManualEventHandler:
         o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
         o_table.select_rows(list_of_rows=[working_row])
 
+    # def update_table(self):
+    #
+    #     o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
+    #
+    #     file_index_array = self.parent.manual_bins[TimeSpectraKeys.file_index_array]
+    #     tof_array = self.parent.manual_bins[TimeSpectraKeys.tof_array]
+    #     lambda_array = self.parent.manual_bins[TimeSpectraKeys.lambda_array]
+    #
+    #     for _row in file_index_array.keys():
+    #         list_runs = file_index_array[_row]
+    #         list_runs_formatted = format_str(list_runs,
+    #                                          format_str="{:d}",
+    #                                          factor=1,
+    #                                          data_type=TimeSpectraKeys.file_index_array)
+    #         o_table.set_item_with_str(row=_row, column=1, cell_str=list_runs_formatted)
+    #
+    #         list_tof = tof_array[_row]
+    #         list_tof_formatted = format_str(list_tof,
+    #                                         format_str="{:.2f}",
+    #                                         factor=TO_MICROS_UNITS,
+    #                                         data_type=TimeSpectraKeys.tof_array)
+    #         o_table.set_item_with_str(row=_row, column=2, cell_str=list_tof_formatted)
+    #
+    #         list_lambda = lambda_array[_row]
+    #         list_lambda_formatted = format_str(list_lambda,
+    #                                            format_str="{:.3f}",
+    #                                            factor=TO_ANGSTROMS_UNITS,
+    #                                            data_type=TimeSpectraKeys.lambda_array)
+    #         o_table.set_item_with_str(row=_row, column=3, cell_str=list_lambda_formatted)
+
     def update_table(self):
 
         o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
@@ -306,8 +337,8 @@ class ManualEventHandler:
         tof_array = self.parent.manual_bins[TimeSpectraKeys.tof_array]
         lambda_array = self.parent.manual_bins[TimeSpectraKeys.lambda_array]
 
-        for _row in file_index_array.keys():
-            list_runs = file_index_array[_row]
+        for _row, list_runs in enumerate(file_index_array):
+            # list_runs = file_index_array[_row]
             list_runs_formatted = format_str(list_runs,
                                              format_str="{:d}",
                                              factor=1,
@@ -328,31 +359,61 @@ class ManualEventHandler:
                                                data_type=TimeSpectraKeys.lambda_array)
             o_table.set_item_with_str(row=_row, column=3, cell_str=list_lambda_formatted)
 
+    # def create_all_ranges(self):
+    #     manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
+    #
+    #     file_index_array = {}
+    #     tof_array = {}
+    #     lambda_array = {}
+    #
+    #     for _bin in manual_snapping_indexes_bins.keys():
+    #         left_index, right_index = manual_snapping_indexes_bins[_bin]
+    #
+    #         # tof_array
+    #         bins_file_index_array = self.parent.time_spectra[TimeSpectraKeys.file_index_array]
+    #         bins_file_index_range = bins_file_index_array[left_index: right_index + 1]
+    #         file_index_array[_bin] = bins_file_index_range
+    #
+    #         # tof_array
+    #         bins_tof_array = self.parent.time_spectra[TimeSpectraKeys.tof_array]
+    #         bins_tof_range = bins_tof_array[left_index: right_index + 1]
+    #         tof_array[_bin] = bins_tof_range
+    #
+    #         # lambda_array
+    #         bins_lambda_array = self.parent.time_spectra[TimeSpectraKeys.lambda_array]
+    #         bins_lambda_range = bins_lambda_array[left_index: right_index + 1]
+    #         lambda_array[_bin] = bins_lambda_range
+    #
+    #     self.parent.manual_bins[TimeSpectraKeys.file_index_array] = file_index_array
+    #     self.parent.manual_bins[TimeSpectraKeys.tof_array] = tof_array
+    #     self.parent.manual_bins[TimeSpectraKeys.lambda_array] = lambda_array
+
     def create_all_ranges(self):
         manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
-
-        file_index_array = {}
-        tof_array = {}
-        lambda_array = {}
+    
+        file_index_array = []
+        tof_array = []
+        lambda_array = []
 
         for _bin in manual_snapping_indexes_bins.keys():
             left_index, right_index = manual_snapping_indexes_bins[_bin]
-
+    
             # tof_array
-            bins_file_index_array = self.parent.time_spectra[TimeSpectraKeys.file_index_array]
+            bins_file_index_array = list(self.parent.time_spectra[
+                TimeSpectraKeys.file_index_array])
             bins_file_index_range = bins_file_index_array[left_index: right_index + 1]
-            file_index_array[_bin] = bins_file_index_range
+            file_index_array.append(bins_file_index_range)
 
             # tof_array
             bins_tof_array = self.parent.time_spectra[TimeSpectraKeys.tof_array]
             bins_tof_range = bins_tof_array[left_index: right_index + 1]
-            tof_array[_bin] = bins_tof_range
-
+            tof_array.append(bins_tof_range)
+    
             # lambda_array
             bins_lambda_array = self.parent.time_spectra[TimeSpectraKeys.lambda_array]
             bins_lambda_range = bins_lambda_array[left_index: right_index + 1]
-            lambda_array[_bin] = bins_lambda_range
-
+            lambda_array.append(bins_lambda_range)
+    
         self.parent.manual_bins[TimeSpectraKeys.file_index_array] = file_index_array
         self.parent.manual_bins[TimeSpectraKeys.tof_array] = tof_array
         self.parent.manual_bins[TimeSpectraKeys.lambda_array] = lambda_array

@@ -528,13 +528,6 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QPushButton" name="bin_import_auto_mode_table_button">
-             <property name="text">
-              <string>Import auto. mode table</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <spacer name="horizontalSpacer_9">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -1409,22 +1402,6 @@
     <hint type="destinationlabel">
      <x>6</x>
      <y>189</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bin_import_auto_mode_table_button</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>bin_manual_populate_table_with_auto_mode_bins_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>187</x>
-     <y>258</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>5</x>
-     <y>35</y>
     </hint>
    </hints>
   </connection>
