@@ -246,7 +246,7 @@ class EventHandler:
         elif o_get.bin_mode() == BinMode.manual:
             o_manual_event = ManualEventHandler(parent=self.parent)
             o_manual_event.refresh_manual_tab()
-            o_manual_event.display_all_items()
+            # o_manual_event.display_all_items()
 
         else:
             pass
