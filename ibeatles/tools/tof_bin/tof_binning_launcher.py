@@ -269,7 +269,8 @@ class TofBinning(QMainWindow):
     def bin_xaxis_changed(self):
         o_event = TofBinEventHandler(parent=self)
         o_event.display_profile()
-        self.bin_auto_manual_tab_changed()
+        o_event.bin_xaxis_changed()
+        # self.bin_auto_manual_tab_changed()
         o_event.check_widgets()
 
     # - auto mode
@@ -381,11 +382,21 @@ class TofBinning(QMainWindow):
     def bin_manual_region_changed(self, item_id):
         o_event = ManualEventHandler(parent=self)
         o_event.bin_manually_moved(item_id=item_id)
+        print("changed: ")
+        print(len(self.list_of_manual_bins_item))
         self.update_statistics()
 
     def bin_manual_region_changing(self, item_id):
         o_event = ManualEventHandler(parent=self)
         o_event.bin_manually_moving(item_id=item_id)
+        print("changing")
+        print(len(self.list_of_manual_bins_item))
+
+
+
+
+
+
 
     def bin_manual_table_right_click(self, position):
         o_event = ManualRightClick(parent=self)

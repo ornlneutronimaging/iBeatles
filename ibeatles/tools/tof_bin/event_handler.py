@@ -158,6 +158,20 @@ class EventHandler:
         o_plot = Plot(parent=self.parent)
         o_plot.refresh_profile_plot_and_clear_bins()
 
+    def bin_xaxis_changed(self):
+        o_get = Get(parent=self.parent)
+        if o_get.bin_mode() == BinMode.auto:
+            self.entering_tab_auto()
+        elif o_get.bin_mode() == BinMode.manual:
+            print("bin xaxis manual changed")
+            o_event = ManualEventHandler(parent=self.parent)
+            o_event.update_items_displayed()
+
+
+
+
+
+
         # o_get = TofBinGet(parent=self.parent)
         # time_spectra_x_axis_name = o_get.x_axis_selected()
         # x_axis = copy.deepcopy(self.parent.time_spectra[time_spectra_x_axis_name])

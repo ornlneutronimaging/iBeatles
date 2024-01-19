@@ -32,51 +32,45 @@ class ManualEventHandler:
         o_plot = Plot(parent=self.parent)
         o_plot.refresh_profile_plot_and_clear_bins()
 
-        o_get = Get(parent=self.parent)
-        time_spectra_x_axis_name = o_get.x_axis_selected()
-
-        return
-
-        bins = self.parent.manual_bins[time_spectra_x_axis_name]
-        if not bins:
-            return
-
-        dict_of_bins_item = {}
-        for _index, _bin in enumerate(bins):
-
-            print("in index: {_index}")
-            if len(_bin) == 0:
-                continue
-
-            if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
-
-                scale_bin = [_bin[0] - FILE_INDEX_BIN_MARGIN,
-                             _bin[-1] + FILE_INDEX_BIN_MARGIN]
-
-            elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
-
-                scale_bin = [_bin[0] - self.tof_bin_margin,
-                             _bin[-1] + self.tof_bin_margin]
-                scale_bin = [_value * TO_MICROS_UNITS for _value in scale_bin]
-
-            else:
-
-                scale_bin = [_bin[0] - self.lambda_bin_margin,
-                             _bin[-1] + self.lambda_bin_margin]
-                scale_bin = [_value * TO_ANGSTROMS_UNITS for _value in scale_bin]
-
-            item = pg.LinearRegionItem(values=scale_bin,
-                                       orientation='vertical',
-                                       brush=UNSELECTED_BIN,
-                                       movable=True,
-                                       bounds=None)
-            item.setZValue(-10)
-            self.parent.bin_profile_view.addItem(item)
-            item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
-            item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
-            dict_of_bins_item[_index] = item
-
-        self.parent.dict_of_bins_item = dict_of_bins_item
+    # def save_bins_in_all_units(self):
+    #
+    #     bins = self.parent.manual_bins[time_spectra_x_axis_name]
+    #     if not bins:
+    #         return
+    #
+    #     dict_of_bins_item = {}
+    #     for _index, _bin in enumerate(bins):
+    #         if len(_bin) == 0:
+    #             continue
+    #
+    #         if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
+    #             scale_bin = [_bin[0] - FILE_INDEX_BIN_MARGIN, _bin[-1] + FILE_INDEX_BIN_MARGIN]
+    #
+    #         elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
+    #             scale_bin = [_bin[0] - self.tof_bin_margin, _bin[-1] + self.tof_bin_margin]
+    #             scale_bin = [_value * TO_MICROS_UNITS for _value in scale_bin]
+    #
+    #         else:
+    #             scale_bin = [
+    #                 _bin[0] - self.lambda_bin_margin,
+    #                 _bin[-1] + self.lambda_bin_margin,
+    #             ]
+    #             scale_bin = [_value * TO_ANGSTROMS_UNITS for _value in scale_bin]
+    #
+    #         item = pg.LinearRegionItem(
+    #             values=scale_bin,
+    #             orientation="vertical",
+    #             brush=UNSELECTED_BIN,
+    #             movable=True,
+    #             bounds=None,
+    #         )
+    #         item.setZValue(-10)
+    #         self.parent.bin_profile_view.addItem(item)
+    #         item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
+    #         item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
+    #         dict_of_bins_item[_index] = item
+    #
+    #     self.parent.dict_of_bins_item = dict_of_bins_item
 
     def add_bin(self):
 
@@ -328,7 +322,7 @@ class ManualEventHandler:
         self.record_snapping_indexes_bin()
 
         # # 2. reposition the clean bins into the plot
-        self.update_items_displayed()
+        # self.update_items_displayed()
 
         # # 3. using those indexes create the ranges for each bins and for each time axis and save those in
         # #    self.parent.manual_bins['file_index_array': [[0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ...], ...]
@@ -492,18 +486,18 @@ class ManualEventHandler:
             self.parent.bin_profile_view.addItem(_item)
             list_of_manual_bins_item.append(_item)
 
-            # self.parent.bin_profile_view.removeItem(_item)
-            #
-            # item = pg.LinearRegionItem(values=[left_value_checked, right_value_checked],
-            #                            orientation='vertical',
-            #                            brush=SELECTED_BIN,
-            #                            movable=True,
-            #                            bounds=None)
-            # item.setZValue(-10)
-            # item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
-            # item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
-            # self.parent.bin_profile_view.addItem(item)
-            # list_of_manual_bins_item.append(item)
+            self.parent.bin_profile_view.removeItem(_item)
+
+            item = pg.LinearRegionItem(values=[left_value_checked, right_value_checked],
+                                       orientation='vertical',
+                                       brush=SELECTED_BIN,
+                                       movable=True,
+                                       bounds=None)
+            item.setZValue(-10)
+            item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
+            item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
+            self.parent.bin_profile_view.addItem(item)
+            list_of_manual_bins_item.append(item)
 
         self.parent.list_of_manual_bins_item = list_of_manual_bins_item
 
