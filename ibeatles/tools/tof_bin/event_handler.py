@@ -8,6 +8,7 @@ import copy
 from ibeatles import DataType
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.utilities.load_files import LoadFiles
 
@@ -155,7 +156,7 @@ class EventHandler:
                                'height': height}
 
         o_plot = Plot(parent=self.parent)
-        o_plot.refresh_profile_plot()
+        o_plot.refresh_profile_plot_and_clear_bins()
 
         # o_get = TofBinGet(parent=self.parent)
         # time_spectra_x_axis_name = o_get.x_axis_selected()
@@ -236,17 +237,31 @@ class EventHandler:
     def entering_tab(self):
         o_get = Get(parent=self.parent)
         if o_get.bin_mode() == BinMode.auto:
-            o_auto_event = AutoEventHandler(parent=self.parent)
-            if o_get.bin_auto_mode() == BinAutoMode.linear:
-                o_auto_event.auto_linear_radioButton_changed()
-            elif o_get.bin_auto_mode() == BinAutoMode.log:
-                o_auto_event.auto_log_radioButton_changed()
-            o_auto_event.refresh_auto_tab()
-
+            self.entering_tab_auto()
         elif o_get.bin_mode() == BinMode.manual:
-            o_manual_event = ManualEventHandler(parent=self.parent)
-            o_manual_event.refresh_manual_tab()
-            # o_manual_event.display_all_items()
-
+            self.entering_tab_manual()
         else:
-            pass
+            raise NotImplementedError("tab not implemented yet!")
+
+    def entering_tab_manual(self):
+        # if table has one entry, select first row
+        o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
+        nbr_row = o_table.row_count()
+        if nbr_row > 0:
+            o_table.select_row(0)
+
+        o_plot = Plot(parent=self.parent)
+        o_plot.refresh_profile_plot_and_clear_bins()
+
+        o_manual_event = ManualEventHandler(parent=self.parent)
+        # o_manual_event.refresh_manual_tab()
+        o_manual_event.display_all_items()
+
+    def entering_tab_auto(self):
+        o_get = Get(parent=self.parent)
+        o_auto_event = AutoEventHandler(parent=self.parent)
+        if o_get.bin_auto_mode() == BinAutoMode.linear:
+            o_auto_event.auto_linear_radioButton_changed()
+        elif o_get.bin_auto_mode() == BinAutoMode.log:
+            o_auto_event.auto_log_radioButton_changed()
+        o_auto_event.refresh_auto_tab()

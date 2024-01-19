@@ -44,7 +44,7 @@ class AutoEventHandler:
     def refresh_auto_tab(self):
         # refresh the right plot with profile + bin selected when the auto tab is selected
         o_plot = Plot(parent=self.parent)
-        o_plot.refresh_profile_plot()
+        o_plot.refresh_profile_plot_and_clear_bins()
 
         o_get = Get(parent=self.parent)
         time_spectra_x_axis_name = o_get.x_axis_selected()

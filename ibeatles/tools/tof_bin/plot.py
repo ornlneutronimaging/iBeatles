@@ -13,7 +13,7 @@ class Plot:
     def __init__(self, parent=None):
         self.parent = parent
 
-    def refresh_profile_plot(self):
+    def refresh_profile_plot_and_clear_bins(self):
         """
         this clear, remove all bin items and just replot the profile on the bin right imageView
         """
@@ -26,6 +26,7 @@ class Plot:
         if not (self.parent.dict_of_bins_item is None):  # remove previous bins
             for _key in self.parent.dict_of_bins_item.keys():
                 self.parent.bin_profile_view.removeItem(self.parent.dict_of_bins_item[_key])
+            self.parent.dict_of_bins_item = None
 
         array_of_data = self.parent.images_array
 

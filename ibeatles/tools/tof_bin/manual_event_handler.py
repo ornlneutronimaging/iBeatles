@@ -30,12 +30,12 @@ class ManualEventHandler:
     def refresh_manual_tab(self):
         """refresh the right plot with profile + bin selected when the manual tab is selected"""
         o_plot = Plot(parent=self.parent)
-        o_plot.refresh_profile_plot()
-
-        #FIXME should we remove all the bins here first
+        o_plot.refresh_profile_plot_and_clear_bins()
 
         o_get = Get(parent=self.parent)
         time_spectra_x_axis_name = o_get.x_axis_selected()
+
+        return
 
         bins = self.parent.manual_bins[time_spectra_x_axis_name]
         if not bins:
@@ -44,6 +44,7 @@ class ManualEventHandler:
         dict_of_bins_item = {}
         for _index, _bin in enumerate(bins):
 
+            print("in index: {_index}")
             if len(_bin) == 0:
                 continue
 
@@ -70,8 +71,9 @@ class ManualEventHandler:
                                        movable=True,
                                        bounds=None)
             item.setZValue(-10)
-            item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
             self.parent.bin_profile_view.addItem(item)
+            item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
+            item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
             dict_of_bins_item[_index] = item
 
         self.parent.dict_of_bins_item = dict_of_bins_item
@@ -115,6 +117,7 @@ class ManualEventHandler:
                                    bounds=None)
         item.setZValue(-10)
         item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
+        item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
 
         self.parent.bin_profile_view.addItem(item)
         # dict_of_bins_item[last_row] = item
@@ -324,14 +327,14 @@ class ManualEventHandler:
         #    and save them into a manual_snapping_indexes_bins = {0: [0, 3], 1: [1, 10], ..}
         self.record_snapping_indexes_bin()
 
-        # 2. reposition the clean bins into the plot
+        # # 2. reposition the clean bins into the plot
         self.update_items_displayed()
 
-        # 3. using those indexes create the ranges for each bins and for each time axis and save those in
-        #    self.parent.manual_bins['file_index_array': [[0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ...], ...]
+        # # 3. using those indexes create the ranges for each bins and for each time axis and save those in
+        # #    self.parent.manual_bins['file_index_array': [[0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ...], ...]
         self.create_all_ranges()
-
-        # 4. update table
+        #
+        # # 4. update table
         self.update_table()
 
     def bin_manually_moving(self, item_id=None):
@@ -341,7 +344,9 @@ class ManualEventHandler:
 
     def select_working_row(self, working_row=0):
         o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
+        o_table.block_signals(True)
         o_table.select_rows(list_of_rows=[working_row])
+        o_table.block_signals(False)
 
     # def update_table(self):
     #
@@ -376,6 +381,7 @@ class ManualEventHandler:
     def update_table(self):
 
         o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
+        o_table.block_signals(True)
 
         file_index_array = self.parent.manual_bins[TimeSpectraKeys.file_index_array]
         tof_array = self.parent.manual_bins[TimeSpectraKeys.tof_array]
@@ -402,6 +408,8 @@ class ManualEventHandler:
                                                factor=TO_ANGSTROMS_UNITS,
                                                data_type=TimeSpectraKeys.lambda_array)
             o_table.set_item_with_str(row=_row, column=3, cell_str=list_lambda_formatted)
+
+        o_table.block_signals(False)
 
     # def create_all_ranges(self):
     #     manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
@@ -481,18 +489,21 @@ class ManualEventHandler:
             right_value_checked = x_axis[right_value_checked] + margin
 
             _item = self.parent.list_of_manual_bins_item[_row]
-            self.parent.bin_profile_view.removeItem(_item)
+            self.parent.bin_profile_view.addItem(_item)
+            list_of_manual_bins_item.append(_item)
 
-            item = pg.LinearRegionItem(values=[left_value_checked, right_value_checked],
-                                       orientation='vertical',
-                                       brush=SELECTED_BIN,
-                                       movable=True,
-                                       bounds=None)
-            item.setZValue(-10)
-            item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
-            item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
-            self.parent.bin_profile_view.addItem(item)
-            list_of_manual_bins_item.append(item)
+            # self.parent.bin_profile_view.removeItem(_item)
+            #
+            # item = pg.LinearRegionItem(values=[left_value_checked, right_value_checked],
+            #                            orientation='vertical',
+            #                            brush=SELECTED_BIN,
+            #                            movable=True,
+            #                            bounds=None)
+            # item.setZValue(-10)
+            # item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
+            # item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
+            # self.parent.bin_profile_view.addItem(item)
+            # list_of_manual_bins_item.append(item)
 
         self.parent.list_of_manual_bins_item = list_of_manual_bins_item
 
