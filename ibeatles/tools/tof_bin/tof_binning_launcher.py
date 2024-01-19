@@ -382,21 +382,11 @@ class TofBinning(QMainWindow):
     def bin_manual_region_changed(self, item_id):
         o_event = ManualEventHandler(parent=self)
         o_event.bin_manually_moved(item_id=item_id)
-        print("changed: ")
-        print(len(self.list_of_manual_bins_item))
         self.update_statistics()
 
     def bin_manual_region_changing(self, item_id):
         o_event = ManualEventHandler(parent=self)
         o_event.bin_manually_moving(item_id=item_id)
-        print("changing")
-        print(len(self.list_of_manual_bins_item))
-
-
-
-
-
-
 
     def bin_manual_table_right_click(self, position):
         o_event = ManualRightClick(parent=self)

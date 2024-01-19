@@ -321,14 +321,11 @@ class ManualEventHandler:
         #    and save them into a manual_snapping_indexes_bins = {0: [0, 3], 1: [1, 10], ..}
         self.record_snapping_indexes_bin()
 
-        # # 2. reposition the clean bins into the plot
-        # self.update_items_displayed()
-
-        # # 3. using those indexes create the ranges for each bins and for each time axis and save those in
-        # #    self.parent.manual_bins['file_index_array': [[0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ...], ...]
+        # 2. using those indexes create the ranges for each bins and for each time axis and save those in
+        #    self.parent.manual_bins['file_index_array': [[0, 1, 2, 3], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], ...], ...]
         self.create_all_ranges()
-        #
-        # # 4. update table
+
+        # 3. update table
         self.update_table()
 
     def bin_manually_moving(self, item_id=None):
@@ -464,27 +461,61 @@ class ManualEventHandler:
         self.parent.manual_bins[TimeSpectraKeys.tof_array] = tof_array
         self.parent.manual_bins[TimeSpectraKeys.lambda_array] = lambda_array
 
+    # def update_manual_snapping_indexes_bins(self):
+    #     """this will take the manual_bins list, use the x-axis currently selected and replace the
+    #     manual_snapping_indexes_bins [[left, right], [left, right]....] of the current xaxis"""
+    #     manual_snapping_indexes_bin = {}
+    #     for _row, _bin_range in enumerate(self.parent.manual_bins[TimeSpectraKeys.file_index_array]):
+    #         print(f"{_bin_range =}")
+    #         manual_snapping_indexes_bin[_row] = [_bin_range[0], _bin_range[-1]]
+    #     self.parent.manual_snapping_indexes_bins = manual_snapping_indexes_bin
+    #     print(f"{self.parent.manual_snapping_indexes_bins =}")
+
     def update_items_displayed(self):
         """
         this will remove the old item and put the new one with the edges snap to the x-axis
         """
         o_get = Get(parent=self.parent)
         x_axis_type_selected = o_get.x_axis_selected()
-        x_axis = self.parent.time_spectra[x_axis_type_selected]
+        # x_axis = self.parent.time_spectra[x_axis_type_selected]
+        if x_axis_type_selected == TimeSpectraKeys.tof_array:
+            factor = TO_MICROS_UNITS
+        elif x_axis_type_selected == TimeSpectraKeys.lambda_array:
+            factor = TO_ANGSTROMS_UNITS
+        else:
+            factor = 1
 
         manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
+
+        file_index_array = self.parent.manual_bins[TimeSpectraKeys.file_index_array]
+        # tof_array = self.parent.manual_bins[TimeSpectraKeys.tof_array]
+        # lambda_array = self.parent.manual_bins[TimeSpectraKeys.lambda_array]
+
+        x_axis = self.parent.manual_bins[x_axis_type_selected]
 
         margin = self.margin()
 
         list_of_manual_bins_item = []
-        for _row in manual_snapping_indexes_bins.keys():
-            left_value_checked, right_value_checked = manual_snapping_indexes_bins[_row]
-            left_value_checked = x_axis[left_value_checked] - margin
-            right_value_checked = x_axis[right_value_checked] + margin
+        # for _row in manual_snapping_indexes_bins.keys():
+        for _row, _x in enumerate(x_axis):
+
+            # left_value_checked = _file_index[0]
+            # right_value_checked = _file_index[-1]
+            # left_value_checked, right_value_checked = manual_snapping_indexes_bins[_row]
+
+            left_value_checked = _x[0] * factor
+            right_value_checked = _x[-1] * factor
+
+            # left_value_checked = x_axis[left_value_checked] - margin
+            # right_value_checked = x_axis[right_value_checked] + margin
+
+            # if x_axis_type_selected == TimeSpectraKeys.tof_array:
+            #     left_value_checked *= 1e6
+            #     right_value_checked *= 1e6
 
             _item = self.parent.list_of_manual_bins_item[_row]
-            self.parent.bin_profile_view.addItem(_item)
-            list_of_manual_bins_item.append(_item)
+            # self.parent.bin_profile_view.addItem(_item)
+            # list_of_manual_bins_item.append(_item)
 
             self.parent.bin_profile_view.removeItem(_item)
 
@@ -501,11 +532,18 @@ class ManualEventHandler:
 
         self.parent.list_of_manual_bins_item = list_of_manual_bins_item
 
-    def record_bin_ranges(self):
-        """
-        record all the bins ranges in all the x-axis values
-        """
-        pass
+    # def record_bin_ranges(self):
+    #     """
+    #     record all the bins ranges in all the x-axis values
+    #     """
+    #     manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
+    #     print(f"{manual_snapping_indexes_bins =}")
+    #
+
+
+
+
+
 
     def record_snapping_indexes_bin(self):
         """

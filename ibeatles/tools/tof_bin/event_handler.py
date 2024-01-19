@@ -163,8 +163,8 @@ class EventHandler:
         if o_get.bin_mode() == BinMode.auto:
             self.entering_tab_auto()
         elif o_get.bin_mode() == BinMode.manual:
-            print("bin xaxis manual changed")
             o_event = ManualEventHandler(parent=self.parent)
+            # o_event.update_manual_snapping_indexes_bins()
             o_event.update_items_displayed()
 
 
