@@ -477,7 +477,6 @@ class ManualEventHandler:
         """
         o_get = Get(parent=self.parent)
         x_axis_type_selected = o_get.x_axis_selected()
-        #x_axis = self.parent.time_spectra[x_axis_type_selected]
         if x_axis_type_selected == TimeSpectraKeys.tof_array:
             factor = TO_MICROS_UNITS
         elif x_axis_type_selected == TimeSpectraKeys.lambda_array:
@@ -485,39 +484,17 @@ class ManualEventHandler:
         else:
             factor = 1
 
-        # manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
-        # file_index_array = self.parent.manual_bins[TimeSpectraKeys.file_index_array]
-
-        # tof_array = self.parent.manual_bins[TimeSpectraKeys.tof_array]
-        # lambda_array = self.parent.manual_bins[TimeSpectraKeys.lambda_array]
-
         x_axis = self.parent.manual_bins[x_axis_type_selected]
         if x_axis is None:
             return
 
-        # margin = self.margin()
-
         list_of_manual_bins_item = []
-        # for _row in manual_snapping_indexes_bins.keys():
         for _row, _x in enumerate(x_axis):
-
-            # left_value_checked = _file_index[0]
-            # right_value_checked = _file_index[-1]
-            # left_value_checked, right_value_checked = manual_snapping_indexes_bins[_row]
 
             left_value_checked = _x[0] * factor
             right_value_checked = _x[-1] * factor
 
-            # left_value_checked = x_axis[left_value_checked] - margin
-            # right_value_checked = x_axis[right_value_checked] + margin
-
-            # if x_axis_type_selected == TimeSpectraKeys.tof_array:
-            #     left_value_checked *= 1e6
-            #     right_value_checked *= 1e6
-
             _item = self.parent.list_of_manual_bins_item[_row]
-            # self.parent.bin_profile_view.addItem(_item)
-            # list_of_manual_bins_item.append(_item)
 
             self.parent.bin_profile_view.removeItem(_item)
 
