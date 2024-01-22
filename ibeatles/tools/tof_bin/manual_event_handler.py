@@ -96,13 +96,16 @@ class ManualEventHandler:
 
         manual_bins = self.parent.manual_bins
         if manual_bins[TimeSpectraKeys.file_index_array] is None:
-            manual_bins[TimeSpectraKeys.file_index_array] = [[x_axis[0]]]
+            manual_bins[TimeSpectraKeys.file_index_array] = [
+                self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]]
             manual_bins[TimeSpectraKeys.tof_array] = [[self.parent.time_spectra[TimeSpectraKeys.tof_array][0]]]
             manual_bins[TimeSpectraKeys.lambda_array] = [[self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]]]
         else:
-            manual_bins[TimeSpectraKeys.file_index_array].append([x_axis[0]])
+            manual_bins[TimeSpectraKeys.file_index_array].append([
+                self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]])
             manual_bins[TimeSpectraKeys.tof_array].append([self.parent.time_spectra[TimeSpectraKeys.tof_array][0]])
-            manual_bins[TimeSpectraKeys.lambda_array].append([self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]])
+            manual_bins[TimeSpectraKeys.lambda_array].append([
+                self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]])
         self.parent.manual_bins = manual_bins
 
         item = pg.LinearRegionItem(values=default_bin,
@@ -451,7 +454,6 @@ class ManualEventHandler:
             left_value_checked, right_value_checked = self.checked_range(left=left, right=right)
             manual_snapping_indexes_bins[_row] = [left_value_checked, right_value_checked]
 
-        print(f"{manual_snapping_indexes_bins =}")
         self.parent.manual_snapping_indexes_bins = manual_snapping_indexes_bins
 
     def margin(self, axis_type=TimeSpectraKeys.file_index_array):
