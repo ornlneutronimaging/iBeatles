@@ -3,7 +3,7 @@ from qtpy.QtWidgets import QMenu
 import logging
 
 from ibeatles.utilities.table_handler import TableHandler
-# from maverick.load.load_bin_table import LoadBinTable
+from ibeatles.tools.utilities import TimeSpectraKeys
 
 
 class ManualRightClick:
@@ -55,3 +55,8 @@ class ManualRightClick:
         self.parent.list_of_manual_bins_item.pop(row_selected)
         o_table.remove_row(row=row_selected)
         self.logger.info(f"User manually removed row: {row_selected}")
+
+        # remove the bins for statistics table
+        self.parent.manual_bins[TimeSpectraKeys.file_index_array].pop(row_selected)
+        self.parent.manual_bins[TimeSpectraKeys.tof_array].pop(row_selected)
+        self.parent.manual_bins[TimeSpectraKeys.lambda_array].pop(row_selected)
