@@ -1,17 +1,16 @@
-from qtpy.QtWidgets import QApplication, QMainWindow
-import sys
-import os
+from qtpy.QtWidgets import QMainWindow
 import logging
 import warnings
 
 warnings.filterwarnings("ignore")
 
+from ibeatles import load_ui
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
-from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 
 from ibeatles.tools.tof_bin import session
 from ibeatles.tools.tof_bin import BinAutoMode, BinMode
+from ibeatles.tools.tof_bin.event_handler import EventHandler
 from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
@@ -19,30 +18,7 @@ from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
 from ibeatles.tools.tof_bin.manual_right_click import ManualRightClick
 from ibeatles.tools.tof_bin.statistics import Statistics
 from ibeatles.tools.tof_bin.preview_full_bin_axis import PreviewFullBinAxis
-
-# from .utilities.get import Get
-# from .utilities.config_handler import ConfigHandler
-# from .utilities import TimeSpectraKeys, BinAutoMode
-# from .utilities.time_spectra import TimeSpectraLauncher
-# from .event_hander import EventHandler
-# from .session import session
-# from .session.session_handler import SessionHandler
-# from .session import SessionKeys
-# from .initialization import Initialization
-# from .utilities.check import Check
-# from .combine.event_handler import EventHandler as CombineEventHandler
-# from .bin.event_hander import EventHandler as BinEventHandler
-# from .bin.manual_event_handler import ManualEventHandler as BinManualEventHandler
-# from .bin.auto_event_handler import AutoEventHandler as BinAutoEventHandler
-# from .bin.preview_full_bin_axis import PreviewFullBinAxis
-# from .bin.statistics import Statistics
-# from .bin.settings import Settings as BinSettings
-# from .bin.manual_right_click import ManualRightClick
-# from maverick.export.export_images import ExportImages
-# from maverick.export.export_bin_table import ExportBinTable
-# from .log.log_launcher import LogLauncher
-
-from ibeatles import load_ui
+from ibeatles.tools.tof_bin.tof_bin_export_launcher import TofBinExportLauncher
 
 
 class TofBinningLauncher:
@@ -54,8 +30,7 @@ class TofBinningLauncher:
             tof_combining_binning_window = TofBinning(parent=parent)
             tof_combining_binning_window.show()
             self.parent.tof_combining_binning_ui = tof_combining_binning_window
-            # o_binning = BinningHandler(parent=self.parent)
-            # o_binning.display_image()
+
         else:
             self.parent.binning_ui.setFocus()
             self.parent.binning_ui.activateWindow()
@@ -347,6 +322,8 @@ class TofBinning(QMainWindow):
         o_event.use_auto_bin_state_changed(row=row, state=state)
         self.bin_auto_table_selection_changed()
         self.update_statistics()
+        o_event_global = EventHandler(parent=self)
+        o_event_global.check_widgets()
 
     def bin_auto_hide_empty_bins(self):
         o_event = AutoEventHandler(parent=self)
@@ -404,13 +381,14 @@ class TofBinning(QMainWindow):
         o_stat.plot_statistics()
 
     # export images
-    def export_combined_and_binned_images_clicked(self):
-        o_export = ExportImages(parent=self)
+    def export_bin_images_clicked(self):
+        o_export = TofBinExportLauncher(parent=self, top_parent=self.parent)
         o_export.run()
 
     def bin_export_table_pushButton_clicked(self):
-        o_export = ExportBinTable(parent=self)
-        o_export.run()
+        pass
+        # o_export = ExportBinTable(parent=self)
+        # o_export.run()
 
     def closeEvent(self, event):
         # o_session = SessionHandler(parent=self)

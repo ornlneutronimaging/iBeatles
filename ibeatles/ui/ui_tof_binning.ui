@@ -1000,8 +1000,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="export_pushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Bin ...</string>
+         <string>Bin Images ...</string>
         </property>
        </widget>
       </item>
@@ -1441,7 +1444,7 @@
    <sender>export_pushButton</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>export_combined_and_binned_images_clicked()</slot>
+   <slot>export_bin_images_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1534</x>
@@ -1560,9 +1563,9 @@
   <slot>bin_manual_populate_table_with_auto_mode_bins_clicked()</slot>
   <slot>bin_manual_table_right_click()</slot>
   <slot>bin_statistics_comboBox_changed()</slot>
-  <slot>export_combined_and_binned_images_clicked()</slot>
   <slot>bin_export_table_pushButton_clicked()</slot>
   <slot>select_folder_clicked()</slot>
   <slot>combine_mean_median_changed()</slot>
+  <slot>export_bin_images_clicked()</slot>
  </slots>
 </ui>

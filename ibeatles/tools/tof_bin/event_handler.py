@@ -3,9 +3,9 @@ from qtpy.QtWidgets import QFileDialog
 import logging
 import numpy as np
 import pyqtgraph as pg
-import copy
 
 from ibeatles import DataType
+from ibeatles.tools.tof_bin import BinMode
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.table_handler import TableHandler
@@ -14,14 +14,11 @@ from ibeatles.utilities.load_files import LoadFiles
 
 from ibeatles.tools.tof_bin import BinMode, BinAutoMode
 from ibeatles.tools.tof_bin.plot import Plot
-from ibeatles.tools import ANGSTROMS, LAMBDA, MICRO
 from ibeatles.tools.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
 from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
-
-from ibeatles.tools.tof_bin.utilities.get import Get as TofBinGet
 
 
 class EventHandler:
@@ -31,6 +28,7 @@ class EventHandler:
         self.top_parent = top_parent
 
     def check_widgets(self):
+        # enable widgets when a folder has been selected
         folder_selected = self.parent.ui.folder_selected.text()
         if os.path.exists(folder_selected):
             enabled_state = True
@@ -44,6 +42,34 @@ class EventHandler:
         self.parent.ui.export_bin_table_pushButton.setEnabled(enabled_state)
         self.parent.ui.export_pushButton.setEnabled(enabled_state)
         self.parent.ui.image_tabWidget.setEnabled(enabled_state)
+
+        # enable export bin when there are bins selected
+        o_get = Get(parent=self.parent)
+        bin_mode = o_get.bin_mode()
+        if bin_mode == BinMode.auto:
+            state_auto_table_has_at_least_one_row_checked = self._auto_table_has_at_least_one_row_checked()
+            self.parent.ui.export_pushButton.setEnabled(state_auto_table_has_at_least_one_row_checked)
+        elif bin_mode == BinMode.manual:
+            state_manual_table_has_at_least_one_bin = self._manual_table_has_at_least_one_bin()
+            self.parent.ui.export_pushButton.setEnabled(state_manual_table_has_at_least_one_bin)
+
+    def _manual_table_has_at_least_one_bin(self):
+        """return True if there is at least one bin defined"""
+        if len(self.parent.manual_bins) > 0:
+            return True
+        return False
+
+    def _auto_table_has_at_least_one_row_checked(self):
+        """check that the auto table has at least one row enabled (first column widget is checked)"""
+        o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
+        nbr_row = o_table.row_count()
+        for _row in np.arange(nbr_row):
+            widget = o_table.get_widget(row=_row, column=0)
+            if widget:
+                checkbox = widget.children()[1]
+                if checkbox.isChecked():
+                    return True
+        return False
 
     def select_input_folder(self):
         default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]

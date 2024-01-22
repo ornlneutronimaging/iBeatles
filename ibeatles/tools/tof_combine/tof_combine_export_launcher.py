@@ -17,10 +17,6 @@ class TofCombineExportLauncher(QDialog):
         QDialog.__init__(self, parent=parent)
         self.ui = load_ui('ui_tof_combine_export.ui', baseinstance=self)
 
-        # disable the ob if there are no sample yet
-        if not self.grand_parent.list_files[DataType.sample]:
-            self.ui.ob_radioButton.setEnabled(False)
-
     def ok_clicked(self):
         o_get = Get(parent=self)
         data_type_selected = o_get.combine_export_mode()
