@@ -332,110 +332,110 @@ class AutoEventHandler:
             for _row in np.arange(nbr_rows):
                 o_table.set_row_hidden(_row, False)
 
-    # def use_auto_bin_state_changed(self, row=0, state=True):
-    #     """
-    #     user change the state of any of the bin checkbox
-    #     :param row:
-    #     :param state: True or False
-    #     """
-    #     o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
-    #     rows_selected = o_table.get_rows_of_table_selected()
-    #
-    #     if row in rows_selected:
-    #
-    #         for _row in rows_selected:
-    #             item = self.parent.dict_of_bins_item.get(_row, None)
-    #             if item:
-    #
-    #                 if state:
-    #                     self.parent.bin_profile_view.addItem(item)
-    #                 else:
-    #                     self.parent.bin_profile_view.removeItem(item)
-    #
-    #                 widget = o_table.get_widget(row=_row, column=0)
-    #                 if widget:
-    #                     checkbox = widget.children()[1]
-    #                     if state:
-    #                         checkbox.setChecked(2)
-    #                     else:
-    #                         checkbox.setChecked(0)
-    #
-    #     else:
-    #
-    #         item = self.parent.dict_of_bins_item.get(row, None)
-    #         if item:
-    #
-    #             if state:
-    #                 self.parent.bin_profile_view.addItem(item)
-    #             else:
-    #                 self.parent.bin_profile_view.removeItem(item)
-    #
-    # def auto_table_right_click(self, position=None):
-    #     menu = QMenu(self.parent)
-    #
-    #     select_all = menu.addAction("Select all bins")
-    #     unselect_all = menu.addAction("Unselect all bins")
-    #
-    #     action = menu.exec_(QtGui.QCursor.pos())
-    #     if action == select_all:
-    #         self.all_auto_bins_checkbox(state=True)
-    #     elif action == unselect_all:
-    #         self.all_auto_bins_checkbox(state=False)
-    #     else:
-    #         pass
-    #
-    # def all_auto_bins_checkbox(self, state=True):
-    #     o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
-    #     nbr_rows = o_table.row_count()
-    #     for _row in np.arange(nbr_rows):
-    #         widget = o_table.get_widget(row=_row, column=0)
-    #         if widget:
-    #             checkbox = widget.children()[1]
-    #             checkbox.setChecked(state)
-    #             self.use_auto_bin_state_changed(row=_row, state=state)
-    #
-    # def use_this_bin(self, row=0):
-    #     o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
-    #     widget = o_table.get_widget(row=row, column=0)
-    #     if widget:
-    #         checkbox = widget.children()[1]
-    #         return checkbox.isChecked()
-    #     else:
-    #         return False
-    #
-    # def auto_table_selection_changed(self):
-    #     o_get = Get(parent=self.parent)
-    #     if o_get.bin_auto_mode() == BinAutoMode.linear:
-    #         previous_rows_highlighted = self.parent.linear_bins_selected
-    #     else:
-    #         previous_rows_highlighted = self.parent.log_bins_selected
-    #
-    #     if previous_rows_highlighted:
-    #         for _row in previous_rows_highlighted:
-    #             previous_item = self.parent.dict_of_bins_item.get(_row, None)
-    #             if previous_item:
-    #                 self.parent.bin_profile_view.removeItem(previous_item)
-    #                 previous_item.setBrush(pg.mkBrush(UNSELECTED_BIN))
-    #                 if self.use_this_bin(row=_row):
-    #                     self.parent.bin_profile_view.addItem(previous_item)
-    #
-    #     o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
-    #     new_rows_to_highlight = o_table.get_rows_of_table_selected()
-    #     clean_list_of_new_rows_to_highlight = []  # removing rows that can not be selected (empty bins)
-    #     for _row in new_rows_to_highlight:
-    #         new_item = self.parent.dict_of_bins_item.get(_row, None)
-    #         if new_item:
-    #             self.parent.bin_profile_view.removeItem(new_item)
-    #             new_item.setBrush(pg.mkBrush(SELECTED_BIN))
-    #             self.parent.bin_profile_view.addItem(new_item)
-    #             clean_list_of_new_rows_to_highlight.append(_row)
-    #
-    #     self.parent.current_auto_bin_rows_highlighted = clean_list_of_new_rows_to_highlight
-    #
-    #     if o_get.bin_auto_mode() == BinAutoMode.linear:
-    #         self.parent.linear_bins_selected = clean_list_of_new_rows_to_highlight
-    #     else:
-    #         self.parent.log_bins_selected = clean_list_of_new_rows_to_highlight
+    def use_auto_bin_state_changed(self, row=0, state=True):
+        """
+        user change the state of any of the bin checkbox
+        :param row:
+        :param state: True or False
+        """
+        o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
+        rows_selected = o_table.get_rows_of_table_selected()
+
+        if row in rows_selected:
+
+            for _row in rows_selected:
+                item = self.parent.dict_of_bins_item.get(_row, None)
+                if item:
+
+                    if state:
+                        self.parent.bin_profile_view.addItem(item)
+                    else:
+                        self.parent.bin_profile_view.removeItem(item)
+
+                    widget = o_table.get_widget(row=_row, column=0)
+                    if widget:
+                        checkbox = widget.children()[1]
+                        if state:
+                            checkbox.setChecked(2)
+                        else:
+                            checkbox.setChecked(0)
+
+        else:
+
+            item = self.parent.dict_of_bins_item.get(row, None)
+            if item:
+
+                if state:
+                    self.parent.bin_profile_view.addItem(item)
+                else:
+                    self.parent.bin_profile_view.removeItem(item)
+
+    def auto_table_right_click(self, position=None):
+        menu = QMenu(self.parent)
+
+        select_all = menu.addAction("Select all bins")
+        unselect_all = menu.addAction("Unselect all bins")
+
+        action = menu.exec_(QtGui.QCursor.pos())
+        if action == select_all:
+            self.all_auto_bins_checkbox(state=True)
+        elif action == unselect_all:
+            self.all_auto_bins_checkbox(state=False)
+        else:
+            pass
+
+    def all_auto_bins_checkbox(self, state=True):
+        o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
+        nbr_rows = o_table.row_count()
+        for _row in np.arange(nbr_rows):
+            widget = o_table.get_widget(row=_row, column=0)
+            if widget:
+                checkbox = widget.children()[1]
+                checkbox.setChecked(state)
+                self.use_auto_bin_state_changed(row=_row, state=state)
+
+    def use_this_bin(self, row=0):
+        o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
+        widget = o_table.get_widget(row=row, column=0)
+        if widget:
+            checkbox = widget.children()[1]
+            return checkbox.isChecked()
+        else:
+            return False
+
+    def auto_table_selection_changed(self):
+        o_get = Get(parent=self.parent)
+        if o_get.bin_auto_mode() == BinAutoMode.linear:
+            previous_rows_highlighted = self.parent.linear_bins_selected
+        else:
+            previous_rows_highlighted = self.parent.log_bins_selected
+
+        if previous_rows_highlighted:
+            for _row in previous_rows_highlighted:
+                previous_item = self.parent.dict_of_bins_item.get(_row, None)
+                if previous_item:
+                    self.parent.bin_profile_view.removeItem(previous_item)
+                    previous_item.setBrush(pg.mkBrush(UNSELECTED_BIN))
+                    if self.use_this_bin(row=_row):
+                        self.parent.bin_profile_view.addItem(previous_item)
+
+        o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
+        new_rows_to_highlight = o_table.get_rows_of_table_selected()
+        clean_list_of_new_rows_to_highlight = []  # removing rows that can not be selected (empty bins)
+        for _row in new_rows_to_highlight:
+            new_item = self.parent.dict_of_bins_item.get(_row, None)
+            if new_item:
+                self.parent.bin_profile_view.removeItem(new_item)
+                new_item.setBrush(pg.mkBrush(SELECTED_BIN))
+                self.parent.bin_profile_view.addItem(new_item)
+                clean_list_of_new_rows_to_highlight.append(_row)
+
+        self.parent.current_auto_bin_rows_highlighted = clean_list_of_new_rows_to_highlight
+
+        if o_get.bin_auto_mode() == BinAutoMode.linear:
+            self.parent.linear_bins_selected = clean_list_of_new_rows_to_highlight
+        else:
+            self.parent.log_bins_selected = clean_list_of_new_rows_to_highlight
 
     def clear_selection(self, auto_mode=BinAutoMode.linear):
         if auto_mode == BinAutoMode.linear:
