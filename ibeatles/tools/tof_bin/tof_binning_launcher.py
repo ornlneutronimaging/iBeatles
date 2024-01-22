@@ -16,6 +16,7 @@ from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
 from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
+from ibeatles.tools.tof_bin.manual_right_click import ManualRightClick
 from ibeatles.tools.tof_bin.statistics import Statistics
 from ibeatles.tools.tof_bin.preview_full_bin_axis import PreviewFullBinAxis
 
