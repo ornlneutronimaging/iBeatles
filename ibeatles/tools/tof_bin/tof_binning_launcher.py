@@ -372,7 +372,7 @@ class TofBinning(QMainWindow):
     def bin_manual_add_bin_clicked(self):
         o_event = ManualEventHandler(parent=self)
         o_event.add_bin()
-        self.update_statistics()
+        # self.update_statistics()
 
     def bin_manual_populate_table_with_auto_mode_bins_clicked(self):
         o_event = ManualEventHandler(parent=self)

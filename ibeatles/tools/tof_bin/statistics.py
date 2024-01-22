@@ -96,6 +96,7 @@ class Statistics:
             else:
 
                 list_runs = file_index_bins[_bin_index]
+
                 list_runs_formatted = format_str(list_runs,
                                                  format_str="{:d}",
                                                  factor=1,

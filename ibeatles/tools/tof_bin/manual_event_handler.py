@@ -1,5 +1,6 @@
 import logging
 import pyqtgraph as pg
+import numpy as np
 
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.tof_bin.plot import Plot
@@ -7,7 +8,7 @@ from ibeatles.tools.tof_bin.plot import Plot
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 from ibeatles.utilities.table_handler import TableHandler
-from ibeatles.utilities.math_tools import get_value_of_closest_match
+from ibeatles.utilities.math_tools import get_value_of_closest_match, get_index_of_closest_match
 from ibeatles.utilities.string import format_str
 
 FILE_INDEX_BIN_MARGIN = 0.5
@@ -292,36 +293,6 @@ class ManualEventHandler:
         o_table.select_rows(list_of_rows=[working_row])
         o_table.block_signals(False)
 
-    # def update_table(self):
-    #
-    #     o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
-    #
-    #     file_index_array = self.parent.manual_bins[TimeSpectraKeys.file_index_array]
-    #     tof_array = self.parent.manual_bins[TimeSpectraKeys.tof_array]
-    #     lambda_array = self.parent.manual_bins[TimeSpectraKeys.lambda_array]
-    #
-    #     for _row in file_index_array.keys():
-    #         list_runs = file_index_array[_row]
-    #         list_runs_formatted = format_str(list_runs,
-    #                                          format_str="{:d}",
-    #                                          factor=1,
-    #                                          data_type=TimeSpectraKeys.file_index_array)
-    #         o_table.set_item_with_str(row=_row, column=1, cell_str=list_runs_formatted)
-    #
-    #         list_tof = tof_array[_row]
-    #         list_tof_formatted = format_str(list_tof,
-    #                                         format_str="{:.2f}",
-    #                                         factor=TO_MICROS_UNITS,
-    #                                         data_type=TimeSpectraKeys.tof_array)
-    #         o_table.set_item_with_str(row=_row, column=2, cell_str=list_tof_formatted)
-    #
-    #         list_lambda = lambda_array[_row]
-    #         list_lambda_formatted = format_str(list_lambda,
-    #                                            format_str="{:.3f}",
-    #                                            factor=TO_ANGSTROMS_UNITS,
-    #                                            data_type=TimeSpectraKeys.lambda_array)
-    #         o_table.set_item_with_str(row=_row, column=3, cell_str=list_lambda_formatted)
-
     def update_table(self):
 
         o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
@@ -332,7 +303,7 @@ class ManualEventHandler:
         lambda_array = self.parent.manual_bins[TimeSpectraKeys.lambda_array]
 
         for _row, list_runs in enumerate(file_index_array):
-            # list_runs = file_index_array[_row]
+
             list_runs_formatted = format_str(list_runs,
                                              format_str="{:d}",
                                              factor=1,
@@ -393,7 +364,7 @@ class ManualEventHandler:
 
         for _bin in manual_snapping_indexes_bins.keys():
             left_index, right_index = manual_snapping_indexes_bins[_bin]
-    
+
             # tof_array
             bins_file_index_array = list(self.parent.time_spectra[
                 TimeSpectraKeys.file_index_array])
@@ -467,23 +438,10 @@ class ManualEventHandler:
 
         self.parent.list_of_manual_bins_item = list_of_manual_bins_item
 
-    # def record_bin_ranges(self):
-    #     """
-    #     record all the bins ranges in all the x-axis values
-    #     """
-    #     manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
-    #     print(f"{manual_snapping_indexes_bins =}")
-    #
-
-
-
-
-
-
     def record_snapping_indexes_bin(self):
         """
         This will check each bin from the manual table and move, if necessary, any of the edges
-        to snap to the closet x axis values
+        to snap to the closet x-axis values
         """
         manual_snapping_indexes_bins = {}
         for _row, _item in enumerate(self.parent.list_of_manual_bins_item):
@@ -493,6 +451,7 @@ class ManualEventHandler:
             left_value_checked, right_value_checked = self.checked_range(left=left, right=right)
             manual_snapping_indexes_bins[_row] = [left_value_checked, right_value_checked]
 
+        print(f"{manual_snapping_indexes_bins =}")
         self.parent.manual_snapping_indexes_bins = manual_snapping_indexes_bins
 
     def margin(self, axis_type=TimeSpectraKeys.file_index_array):
@@ -512,25 +471,28 @@ class ManualEventHandler:
         x_axis_type_selected = o_get.x_axis_selected()
         x_axis = self.parent.time_spectra[x_axis_type_selected]
 
+        if x_axis_type_selected == TimeSpectraKeys.tof_array:
+            factor = TO_MICROS_UNITS
+        elif x_axis_type_selected == TimeSpectraKeys.lambda_array:
+            factor = TO_ANGSTROMS_UNITS
+        else:
+            factor = 1
+
+        left /= factor
+        right /= factor
+
         if left < x_axis[0]:
             left = x_axis[0]
 
         if right >= x_axis[-1]:
             right = x_axis[-1]
 
-        index_clean_left_value = get_value_of_closest_match(array_to_look_for=x_axis,
+        index_clean_left_value = get_index_of_closest_match(array_to_look_for=x_axis,
                                                             value=left,
                                                             left_margin=True)
-        index_clean_right_value = get_value_of_closest_match(array_to_look_for=x_axis,
+        index_clean_right_value = get_index_of_closest_match(array_to_look_for=x_axis,
                                                              value=right,
                                                              left_margin=False)
 
-        clean_left_value = x_axis[index_clean_left_value]
-        if clean_left_value < left:
-            clean_left_value = x_axis[index_clean_left_value + 1]
-
-        clean_right_value = x_axis[index_clean_right_value]
-        if clean_right_value > right:
-            clean_right_value = x_axis[index_clean_right_value - 1]
-
-        return clean_left_value, clean_right_value
+        return (np.min([index_clean_left_value, index_clean_right_value]),
+                np.max([index_clean_left_value, index_clean_right_value]))
