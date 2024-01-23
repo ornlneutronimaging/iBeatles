@@ -39,6 +39,27 @@ class Get:
         else:
             raise NotImplementedError("bin mode not implemented!")
 
+    def current_bins_activated(self):
+        """
+        Looking at the active auto or manual tab and linear or log to figure out which bins
+        are currently used in the displayed
+        :return: dictionary of the bins to use. Can be either self.parent.linear_bins, self.parent.log_bins
+        or self.parent.manual_bins
+        """
+        bin_mode = self.bin_mode()
+        if bin_mode == BinMode.manual:
+            return self.parent.manual_bins
+        elif bin_mode == BinMode.auto:
+            bin_auto_mode = self.bin_auto_mode()
+            if bin_auto_mode == BinAutoMode.linear:
+                return self.parent.linear_bins
+            elif bin_auto_mode == BinAutoMode.log:
+                return self.parent.log_bins
+            else:
+                raise NotImplementedError("bin auto mode not implemented")
+        else:
+            raise NotImplementedError("bin mode not implemented!")
+
     def auto_log_bin_requested(self):
         if self.parent.ui.bin_auto_log_file_index_radioButton.isChecked():
             return self.parent.ui.auto_log_file_index_spinBox.value()

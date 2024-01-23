@@ -388,8 +388,8 @@ class TofBinning(QMainWindow):
 
     # export images
     def export_bin_images_clicked(self):
-        o_export = TofBinExportLauncher(parent=self, top_parent=self.parent)
-        o_export.run()
+        o_export = TofBinExportLauncher(parent=self, top_parent=self.top_parent)
+        o_export.show()
 
     def bin_export_table_pushButton_clicked(self):
         pass
