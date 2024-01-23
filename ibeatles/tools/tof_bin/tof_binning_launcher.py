@@ -266,6 +266,8 @@ class TofBinning(QMainWindow):
             o_event = TofBinEventHandler(parent=self)
             o_event.bin_auto_manual_tab_changed(new_tab_index)
             self.update_statistics()
+            o_event_global = EventHandler(parent=self)
+            o_event_global.check_widgets()
 
     def bin_auto_log_file_index_changed(self):
         if self.images_array:
@@ -350,6 +352,8 @@ class TofBinning(QMainWindow):
         o_event = ManualEventHandler(parent=self)
         o_event.add_bin()
         self.update_statistics()
+        o_event_global = EventHandler(parent=self)
+        o_event_global.check_widgets()
 
     def bin_manual_populate_table_with_auto_mode_bins_clicked(self):
         o_event = ManualEventHandler(parent=self)
@@ -369,6 +373,8 @@ class TofBinning(QMainWindow):
     def bin_manual_table_right_click(self, position):
         o_event = ManualRightClick(parent=self)
         o_event.manual_table_right_click()
+        o_event_global = EventHandler(parent=self)
+        o_event_global.check_widgets()
 
     # - statistics
     def update_statistics(self):

@@ -55,7 +55,8 @@ class EventHandler:
 
     def _manual_table_has_at_least_one_bin(self):
         """return True if there is at least one bin defined"""
-        if len(self.parent.manual_bins) > 0:
+
+        if self.parent.manual_bins[TimeSpectraKeys.file_index_array]:
             return True
         return False
 
