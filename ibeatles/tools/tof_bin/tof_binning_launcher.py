@@ -397,12 +397,5 @@ class TofBinning(QMainWindow):
         # o_export.run()
 
     def closeEvent(self, event):
-        # o_session = SessionHandler(parent=self)
-        # o_session.save_from_ui()
-        # o_session.automatic_save()
-        #
-        # o_event = Check(parent=self)
-        # o_event.log_file_size()
-        #
         logging.info(" #### Leaving combine/binning ####")
         self.close()

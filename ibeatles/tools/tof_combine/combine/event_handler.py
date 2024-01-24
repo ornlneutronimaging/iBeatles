@@ -111,7 +111,7 @@ class EventHandler:
         if nbr_row == 0:
             self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(interact_me_style)
         else:
-            self.parent.ui
+            self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(normal_style)
 
         if self.parent.session[TofCombineSessionKeys.top_folder]:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(True)

@@ -2,6 +2,7 @@ from qtpy.QtWidgets import QDialog, QApplication, QFileDialog
 import logging
 import os
 import numpy as np
+import json
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -12,11 +13,18 @@ from ibeatles import load_ui
 from ibeatles import DataType
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.tools.utilities.reload.reload import Reload
 from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
 from ibeatles.tools.utilities import CombineAlgorithm
 
 from ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from ibeatles.tools.tof_bin.utilities.get import Get
+
+# label for combobox
+NONE = "None"
+FULL_IMAGE_LABEL = 'Full image'
+ROI_LABEL = "Images of ROI selected"
 
 
 class ExportDataType:
@@ -33,6 +41,7 @@ class TofBinExportLauncher(QDialog):
         self.top_parent = top_parent
         QDialog.__init__(self, parent=parent)
         self.ui = load_ui('ui_tof_bin_export.ui', baseinstance=self)
+        self.check_buttons()
 
     def bin_and_export_radio_button_clicked(self):
         self.check_buttons()
@@ -47,6 +56,14 @@ class TofBinExportLauncher(QDialog):
         else:
             self.ui.ok_pushButton.setEnabled(True)
             self.ui.reload_groupBox.setEnabled(True)
+
+        combobox_list = [NONE]
+        if self.ui.full_image_checkBox.isChecked():
+            combobox_list.append(FULL_IMAGE_LABEL)
+        if self.ui.roi_checkBox.isChecked():
+            combobox_list.append(ROI_LABEL)
+        self.ui.reload_comboBox.clear()
+        self.ui.reload_comboBox.addItems(combobox_list)
 
     def _at_least_one_image_checked(self):
         """we need to check if at least one bin/export option has been checked"""
@@ -112,8 +129,19 @@ class TofBinExportLauncher(QDialog):
             self.parent.eventProgress.setValue(_index + 1)
             QApplication.processEvents()
 
+        # export the json file
+        metadata_file_name = os.path.join(output_folder, "metadata.json")
+        with open(metadata_file_name, 'w') as json_file:
+            json.dump(file_info_dict, json_file)
+
         self.parent.eventProgress.setVisible(False)
-    QApplication.processEvents()
+        QApplication.processEvents()
+
+        # export the new time stamp file
+        export_time_stamp_file(counts_array=counts_array,
+                               tof_array=self.parent.time_spectra[TimeSpectraKeys.tof_array],
+                               file_index_array=file_index_array,
+                               export_folder=output_folder)
 
     def ok_clicked(self):
         working_dir = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
@@ -133,11 +161,13 @@ class TofBinExportLauncher(QDialog):
         base_folder_name = os.path.basename(os.path.dirname(self.parent.list_tif_files[0]))
         time_stamp = FileHandler.get_current_timestamp()
 
+        output_folder_full_image = ""
         if self.ui.full_image_checkBox.isChecked():
             output_folder_full_image = os.path.join(_folder, f"{base_folder_name}_full_image_binned_{time_stamp}")
             self.bin_and_export(output_folder=output_folder_full_image,
                                 data_type=ExportDataType.full_image)
 
+        output_folder_roi = ""
         if self.ui.roi_checkBox.isChecked():
             output_folder_roi = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}")
             self.bin_and_export(output_folder=output_folder_roi,
@@ -145,12 +175,23 @@ class TofBinExportLauncher(QDialog):
 
         # reload if user requested it
         what_to_reload = self.ui.reload_comboBox.currentText()
-        if not what_to_reload:
+        if what_to_reload == NONE:
             logging.info("Nothing to reload, we are done here!")
             self.parent.close()
+            QApplication.processEvents()
             return
 
+        if what_to_reload == "Full image":
+            input_folder = output_folder_full_image
+        else:
+            input_folder = output_folder_roi
 
+        if not os.path.exists(input_folder):
+            o_reload = Reload(parent=self.parent,
+                              top_parent=self.top_parent)
+            o_reload.run(data_type=DataType.normalized,
+                         output_folder=input_folder)
+            self.parent.close()
 
     def extract_data_for_this_bin(self, list_runs=None, full_image=True):
         """

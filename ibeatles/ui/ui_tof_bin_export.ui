@@ -50,23 +50,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QComboBox" name="reload_comboBox">
-        <item>
-         <property name="text">
-          <string>None</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Full image</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>images of ROI selected</string>
-         </property>
-        </item>
-       </widget>
+       <widget class="QComboBox" name="reload_comboBox"/>
       </item>
      </layout>
     </widget>
