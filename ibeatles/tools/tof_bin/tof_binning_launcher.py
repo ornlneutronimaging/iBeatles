@@ -291,6 +291,8 @@ class TofBinning(QMainWindow):
         o_event.clear_all_items()
         o_event.populate_table_with_auto_mode()
         self.update_statistics()
+        o_event_global = EventHandler(parent=self)
+        o_event_global.check_widgets()
 
     def bin_manual_region_changed(self, item_id):
         o_event = ManualEventHandler(parent=self)
@@ -323,11 +325,6 @@ class TofBinning(QMainWindow):
     def export_bin_images_clicked(self):
         o_export = TofBinExportLauncher(parent=self, top_parent=self.top_parent)
         o_export.show()
-
-    def bin_export_table_pushButton_clicked(self):
-        pass
-        # o_export = ExportBinTable(parent=self)
-        # o_export.run()
 
     def closeEvent(self, event):
         logging.info(" #### Leaving combine/binning ####")

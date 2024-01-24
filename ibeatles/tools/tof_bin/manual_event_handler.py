@@ -8,7 +8,7 @@ from ibeatles.tools.tof_bin.plot import Plot
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 from ibeatles.utilities.table_handler import TableHandler
-from ibeatles.utilities.math_tools import get_value_of_closest_match, get_index_of_closest_match
+from ibeatles.utilities.math_tools import get_index_of_closest_match
 from ibeatles.utilities.string import format_str
 
 FILE_INDEX_BIN_MARGIN = 0.5
@@ -195,7 +195,7 @@ class ManualEventHandler:
                                                data_type=TimeSpectraKeys.file_index_array)
             o_table.insert_item(row=_row,
                                 column=1,
-                                format_str=_file_index_formatted,
+                                value=_file_index_formatted,
                                 editable=False)
 
             _tof = tof_array[_index]
@@ -203,10 +203,9 @@ class ManualEventHandler:
                                         format_str="{:.2f}",
                                         factor=TO_MICROS_UNITS,
                                         data_type=TimeSpectraKeys.tof_array)
-
             o_table.insert_item(row=_row,
                                 column=2,
-                                format_str=_tof_formatted,
+                                value=_tof_formatted,
                                 editable=False)
 
             _lambda = lambda_array[_index]
@@ -216,7 +215,7 @@ class ManualEventHandler:
                                            data_type=TimeSpectraKeys.lambda_array)
             o_table.insert_item(row=_row,
                                 column=3,
-                                format_str=_lambda_formatted,
+                                value=_lambda_formatted,
                                 editable=False)
 
             item = self.add_bin_in_plot(row=_row,
@@ -230,11 +229,11 @@ class ManualEventHandler:
 
         o_table.select_rows([0])
 
-    # def populate_table_with_auto_mode(self):
-    #     o_get = Get(parent=self.parent)
-    #     bins = o_get.auto_bins_currently_activated()
-    #     self.parent.manual_bins = bins
-    #     self.populate_table_with_this_table(table=bins)
+    def populate_table_with_auto_mode(self):
+        o_get = Get(parent=self.parent)
+        bins = o_get.auto_bins_currently_activated()
+        self.parent.manual_bins = bins
+        self.populate_table_with_this_table(table=bins)
 
     def add_bin_in_plot(self, row=0, file_index_bin=None, tof_bin=None, lambda_bin=None):
         o_get = Get(parent=self.parent)

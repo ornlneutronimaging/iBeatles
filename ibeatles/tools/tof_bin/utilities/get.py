@@ -11,6 +11,15 @@ class Get:
     def __init__(self, parent=None):
         self.parent = parent
 
+    def auto_bins_currently_activated(self):
+        auto_bin_mode = self.bin_auto_mode()
+        if auto_bin_mode == BinAutoMode.linear:
+            return self.parent.linear_bins
+        elif auto_bin_mode == BinAutoMode.log:
+            return self.parent.log_bins
+        else:
+            raise NotImplementedError("Auto bin mode not implemented!")
+
     def x_axis_selected(self):
         if self.parent.bin_file_index_radioButton.isChecked():
             return TimeSpectraKeys.file_index_array
