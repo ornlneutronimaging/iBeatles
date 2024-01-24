@@ -5,7 +5,8 @@ import numpy as np
 import pyqtgraph as pg
 
 from ibeatles import DataType
-from ibeatles.tools.tof_bin import BinMode
+from ibeatles import interact_me_style, normal_style
+
 from ibeatles.session import SessionSubKeys
 from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.utilities.table_handler import TableHandler
@@ -50,14 +51,20 @@ class EventHandler:
             state_auto_table_has_at_least_one_row_checked = self._auto_table_has_at_least_one_row_checked()
             self.parent.ui.export_pushButton.setEnabled(state_auto_table_has_at_least_one_row_checked)
         elif bin_mode == BinMode.manual:
-            state_manual_table_has_at_least_one_bin = self._manual_table_has_at_least_one_bin()
-            self.parent.ui.export_pushButton.setEnabled(state_manual_table_has_at_least_one_bin)
+            state_manual_table_has_at_least_one_real_bin = self._manual_table_has_at_least_one_real_bin()
+            self.parent.ui.export_pushButton.setEnabled(state_manual_table_has_at_least_one_real_bin)
 
-    def _manual_table_has_at_least_one_bin(self):
+        # if data loaded, change stylesheet of buttons
+        if self.parent.list_tif_files:
+            self.parent.ui.select_folder_pushButton.setStyleSheet(normal_style)
+            self.parent.ui.export_pushButton.setStyleSheet(interact_me_style)
+
+    def _manual_table_has_at_least_one_real_bin(self):
         """return True if there is at least one bin defined"""
 
         if self.parent.manual_bins[TimeSpectraKeys.file_index_array]:
-            return True
+            if isinstance(self.parent.manual_bins[TimeSpectraKeys.file_index_array][0], list):
+                return True
         return False
 
     def _auto_table_has_at_least_one_row_checked(self):

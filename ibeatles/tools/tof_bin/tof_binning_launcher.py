@@ -74,39 +74,6 @@ class TofBinning(QMainWindow):
     linear_bins_selected = None
     log_bins_selected = None
 
-    # session = session  # dictionary that will keep record of the entire UI and used to load and save the session
-    # log_id = None  # ui id of the log QDialog
-    # version = None   # current version of application
-    #
-    # # raw_data_folders = {'full_path_to_folder1': {'data': [image1, image2, image3...],
-    # #                                              'list_files': [file1, file2, file3,...],
-    # #                                              'nbr_files': 0,
-    # #                                              },
-    # #                     'full_path_to_folder2': {'data': [image1, image2, image3...],
-    # #                                              'list_files': [file1, file2, file3,...],
-    # #                                              'nbr_files': 0,
-    # #                                              },
-    # #                     ....
-    # #                    }
-    # raw_data_folders = None  # dictionary of data for each of the folders
-    #
-    # # combine_data = [image1, image2, image3...]
-    # combine_data = None
-    #
-    # # time spectra file and arrays
-    # time_spectra = {TimeSpectraKeys.file_name: None,
-    #                 TimeSpectraKeys.tof_array: None,
-    #                 TimeSpectraKeys.lambda_array: None,
-    #                 TimeSpectraKeys.file_index_array: None}
-    #
-    # linear_bins = {TimeSpectraKeys.tof_array: None,
-    #                TimeSpectraKeys.file_index_array: None,
-    #                TimeSpectraKeys.lambda_array: None}
-    #
-    # log_bins = {TimeSpectraKeys.tof_array: None,
-    #             TimeSpectraKeys.file_index_array: None,
-    #             TimeSpectraKeys.lambda_array: None}
-
     # each will be a dictionaries of ranges
     # ex: TimeSpectraKeys.tof_array = {0: [1],
     #                                  1: [2,6],
@@ -114,42 +81,6 @@ class TofBinning(QMainWindow):
     manual_bins = {TimeSpectraKeys.tof_array: None,
                    TimeSpectraKeys.file_index_array: None,
                    TimeSpectraKeys.lambda_array: None}
-
-    # # dictionary that will record the range for each bin
-    # # {0: [0, 3], 1: [1, 10], ...}
-    # manual_snapping_indexes_bins = None
-    #
-    # # list of rows selected by each of the linear and log bins
-    # linear_bins_selected = None
-    # log_bins_selected = None
-    #
-    # # use to preview the full axis
-    # # ex: [1,2,3,4,5,6,7] or [0.1, 0.2, 0.4, 0.8, 1.6....]
-    # full_bin_axis_requested = None
-    #
-    # # profile signal (displayed on the top right of combine and bin tab)
-    # # 1D array
-    # profile_signal = None
-    #
-    # # pyqtgraph view
-    # combine_image_view = None  # combine image view id - top right plot
-    # combine_profile_view = None  # combine profile plot view id - bottom right plot
-    # bin_profile_view = None  # bin profile
-    # combine_roi_item_id = None  # pyqtgraph item id of the roi (combine tab)
-    # combine_file_index_radio_button = None  # in combine view
-    # tof_radio_button = None  # in combine view
-    # lambda_radio_button = None  # in combine view
-    # live_combine_image = None  # live combine image used by ROI
-    #
-    # # matplotlib plot
-    # statistics_plot = None  # matplotlib plot
-    #
-    # # dictionary of all the bins pg item
-    # # {0: pg.regionitem1,
-    # #  2: pg.regionitem2,
-    # #  ...
-    # # }
-    # dict_of_bins_item = None
 
     # list of manual bins.
     # using a list because any of the bin can be removed by the user
@@ -365,6 +296,8 @@ class TofBinning(QMainWindow):
         o_event = ManualEventHandler(parent=self)
         o_event.bin_manually_moved(item_id=item_id)
         self.update_statistics()
+        o_event_global = EventHandler(parent=self)
+        o_event_global.check_widgets()
 
     def bin_manual_region_changing(self, item_id):
         o_event = ManualEventHandler(parent=self)
