@@ -186,7 +186,7 @@ class TofBinExportLauncher(QDialog):
         else:
             input_folder = output_folder_roi
 
-        if not os.path.exists(input_folder):
+        if os.path.exists(input_folder):
             o_reload = Reload(parent=self.parent,
                               top_parent=self.top_parent)
             o_reload.run(data_type=DataType.normalized,

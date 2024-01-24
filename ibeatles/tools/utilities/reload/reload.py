@@ -51,7 +51,7 @@ class Reload:
         o_event_step3.check_time_spectra_status()
         self.top_parent.infos_window_update(data_type=data_type)
         self.top_parent.ui.normalized_splitter.setSizes([20, 450])
-        self.top_parent.ui.main_tools_tabWidget.setCurrentIndex(0)
+        self.top_parent.ui.main_tools_tabWidget.setCurrentIndex(1)
         self.top_parent.ui.tabWidget.setCurrentIndex(2)
 
     def _raw_data(self, list_files=None, load_data_tab_index=0, data_type=DataType.sample):
