@@ -5,7 +5,7 @@ import logging
 import warnings
 
 from src.ibeatles import load_ui
-# from src.ibeatles import get_version
+from src.ibeatles._version import __version__
 from src.ibeatles import DataType, RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI, ScrollBarParameters
 from src.ibeatles import XAxisMode
 
@@ -348,7 +348,7 @@ class MainWindow(QMainWindow):
                             format='[%(levelname)s] - %(asctime)s - %(message)s',
                             level=logging.INFO)
         logging.info("*** Starting a new session ***")
-        # logging.info(f" Version: {get_version()}")   # FIXME
+        logging.info(f" Version: {__version__}")
 
         self.automatic_load_of_previous_session()
 

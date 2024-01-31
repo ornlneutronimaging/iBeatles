@@ -1,8 +1,7 @@
 from qtpy.QtWidgets import QDialog
-import os
-import re
 
 from src.ibeatles import load_ui
+from src.ibeatles._version import __version__
 
 
 class AboutLauncher(QDialog):
@@ -14,22 +13,7 @@ class AboutLauncher(QDialog):
 
         self.ui = load_ui('about.ui', baseinstance=self)
         self.setWindowTitle("About")
-
-        root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
-        setup_py_file = os.path.join(root, "setup.py")
-        with open(setup_py_file, 'r') as setup_file_handler:
-            content = setup_file_handler.read()
-        content_formatted = content.split("\n")
-
-        _version = "unknown"
-        for _line in content_formatted:
-            if _line.strip().startswith("version"):
-                _tag, _version = _line.strip().split("=")
-                m = re.match('"(\d*.\d*.\d*)",', _version)
-                if m:
-                    _version = m.group(1)
-                break
-        self.ui.application_version_label.setText(f"iBeatles: {_version}")
+        self.ui.application_version_label.setText(f"iBeatles: {__version__}")
 
         list_version = []
         try:
