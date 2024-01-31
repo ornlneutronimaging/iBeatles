@@ -7,7 +7,7 @@ from NeuNorm.normalization import Normalization
 
 from src.ibeatles import DataType, FileType
 from src.ibeatles.step6 import ParametersToDisplay
-from src.ibeatles.step6 import Get
+from src.ibeatles.step6.get import Get
 from src.ibeatles.utilities.file_handler import FileHandler, create_full_export_file_name
 from src.ibeatles.utilities.export import format_kropff_dict, format_kropff_table
 from src.ibeatles.utilities.get import Get as UtilitiesGet

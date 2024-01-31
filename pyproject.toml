@@ -4,12 +4,12 @@ description = "Bragg edge strain mapping"
 dynamic = ["version"]
 requires-python = ">=3.10"
 dependencies = [
-    "python",
+#    "python",
     "numpy",
     "matplotlib",
-    "qt",
-    "qtpy",
-    "pyqt",
+#    "qt",
+    "QtPy",
+    "PyQt5",
     "h5py",
     "args",
     "Pillow",

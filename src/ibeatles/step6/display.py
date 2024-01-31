@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib.image import _resample
 from matplotlib.transforms import Affine2D
 
-from src.ibeatles.step6 import Get
+from src.ibeatles.step6.get import Get
 from src.ibeatles.step6 import ParametersToDisplay
 
 

@@ -1,7 +1,7 @@
 import numpy as np
 
-from src.ibeatles.step6 import Get
-from src.ibeatles.step6 import Display
+from src.ibeatles.step6.get import Get
+from src.ibeatles.step6.display import Display
 from src.ibeatles.fitting.kropff.get import Get as GetKropff
 
 

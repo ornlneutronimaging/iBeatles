@@ -9,7 +9,7 @@ from src.ibeatles import ANGSTROMS, LAMBDA, SUB_0
 from src.ibeatles import DataType
 from src.ibeatles.utilities.mplcanvas import MplCanvasColorbar
 from src.ibeatles.step6 import ParametersToDisplay
-from src.ibeatles.step6 import Get
+from src.ibeatles.step6.get import Get
 from src.ibeatles.session import SessionSubKeys, SessionKeys
 from src.ibeatles.widgets.qrangeslider import QRangeSlider
 from src.ibeatles.step6 import INTERPOLATION_METHODS, DEFAULT_INTERPOLATION_INDEX, CMAPS, DEFAULT_CMAP_INDEX

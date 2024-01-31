@@ -4,11 +4,11 @@ from src.ibeatles import load_ui, FileType
 from src.ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
 from src.ibeatles.widgets.qrangeslider import FakeKey
 
-from src.ibeatles.step6 import Initialization
-from src.ibeatles.step6 import Display
-from src.ibeatles.step6 import EventHandler
-from src.ibeatles.step6 import Get
-from src.ibeatles.step6 import Export
+from src.ibeatles.step6.initialization import Initialization
+from src.ibeatles.step6.display import Display
+from src.ibeatles.step6.event_handler import EventHandler
+from src.ibeatles.step6.get import Get
+from src.ibeatles.step6.export import Export
 from src.ibeatles.step6 import ParametersToDisplay
 
 
