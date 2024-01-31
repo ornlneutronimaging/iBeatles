@@ -1,19 +1,31 @@
+{% set pyproject = load_file_data('pyproject.toml') %}
+{% set project = pyproject.get('project', {}) %}
 {% set data = load_setup_py_data() %}
+{% set version = environ.get('VERSION') %}
+{% set version_number = environ.get('GIT_DESCRIBE_NUMBER', '0') | string %}
+{% set url = project_url.get('homepage') %}
+{% set license = project.get('license').get('text') %}
+{% set description = project.get('description') %}
 
 package:
-  name: "ibeatles"
-  version: "10.31.23
+  name: ibeatles
+  version: {{ version_number }}
 
 source:
   path: ..
 
 build:
+  noarch: python
+  number: {{ version_number }}
   string: py{{py}}
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
 
 requirements:
-  build:
+
+  host:
     - python
+
+  build:
     - pip
     - setuptools
 
@@ -34,16 +46,12 @@ requirements:
     - scipy
     - lmfit
 
-test:
-  imports:
-    - ibeatles
-
 about:
-  home: https://github.com/neutronimaging/iBeatles
-  license: GPL (version 3)
-  license_family: GPL3
-  license_file:
-  summary: Bragg edge analysis
+  home: {{ url } }
+  license: {{ license }}
+  license_family: GPL
+  license_file: ../LICENSE
+  summary: {{ description }}
 
 extra:
   recipe-maintainers:
