@@ -2,33 +2,39 @@ name: ibeatles
 channels:
   - conda-forge
 dependencies:
-  - pip
-  - cycler
-  - freetype
-  - libpng
-  - matplotlib=3.6.3
-  - openssl
-  - pyparsing
-  - pyqt
-  - pytz
-  - qt
-  - readline
-  - setuptools
-  - sip
-  - six
-  - sqlite
-  - tk
-  - wheel
-  - zlib
-  - pyqtgraph
-  - qtpy
-  - versioneer
-  - astropy
+  # base
+  - python
+  - versioningit
   - ipython
+  # packaging
+  - boa
+  - conda-build
+  - conda-verify
+  - python-build
+  # test
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  # compute
+  - astropy
+  - lmfit
+  # storage
   - h5py
+  - sqlite
+  - zlib
+  # Qt
+  - qt=5.15.8 # Avoid unexpected qt upgrades
+  - qtpy>=1.9.0
+  - pyqt>=5.15,<6
+  - pyqtgraph
+  # visualization
+  - matplotlib
+  # utilities
+  - pyparsing  # grammar
+  - pytz  # time zone
+  - readline  # reading command line
+  # pip
   - pip:
-      - neutronbraggedge
-      - changepy
-      - NeuNorm
-      - lmfit
-      - pytest
+      - neutronbraggedge  # brag edge analysis
+      - NeuNorm  # image normalization
+      - changepy  # change point detection 
