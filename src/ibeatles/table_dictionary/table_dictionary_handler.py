@@ -13,11 +13,9 @@ class ColumnNameIndex:
 
 
 class TableDictionaryHandler:
-    selected_color = {'pen': (0, 0, 0, 30),
-                      'brush': (0, 255, 0, 150)}
+    selected_color = {"pen": (0, 0, 0, 30), "brush": (0, 255, 0, 150)}
 
-    lock_color = {'pen': (0, 0, 0, 30),
-                  'brush': (255, 0, 0, 240)}
+    lock_color = {"pen": (0, 0, 0, 30), "brush": (255, 0, 0, 240)}
 
     # header = ['x0', 'y0', 'x1', 'y1', 'row_index', 'column_index', 'lock', 'active',
     #           'fitting_confidence', 'd_spacing_value', 'd_spacing_err', 'd_spacing_fixed',
@@ -31,60 +29,49 @@ class TableDictionaryHandler:
 
     def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent  # iBeatles main
-        self.parent = parent   # fitting ui
+        self.parent = parent  # fitting ui
         self.value_table_ui = self.parent.ui.value_table
 
-    def fill_table_with_variable(self, variable_name='d_spacing', value=np.NaN, list_keys=[], all_keys=False):
+    def fill_table_with_variable(
+        self, variable_name="d_spacing", value=np.nan, list_keys=[], all_keys=False
+    ):
         table_dictionary = self.grand_parent.march_table_dictionary
         if all_keys:
             list_keys = table_dictionary.keys()
 
         for _key in list_keys:
-            table_dictionary[_key][variable_name]['val'] = value
+            table_dictionary[_key][variable_name]["val"] = value
 
         self.grand_parent.march_table_dictionary = table_dictionary
 
     def populate_table_dictionary_entry(self, index=0, array=[]):
         table_dictionary = self.grand_parent.march_table_dictionary
 
-        table_dictionary[str(index)] = {'bin_coordinates': {'x0': array[0],
-                                                            'x1': array[2],
-                                                            'y0': array[1],
-                                                            'y1': array[3]},
-                                        'selected_item': None,
-                                        'locked_item': None,
-                                        'row_index': array[4],
-                                        'column_index': array[5],
-                                        'selected': False,
-                                        'lock': array[6],
-                                        'active': array[7],
-                                        'rejected': False,  # use when bin is outside of the sample
-                                        'fitting_confidence': array[8],
-                                        'd_spacing': {'val': array[9],
-                                                      'err': array[10],
-                                                      'fixed': array[11]},
-                                        'sigma': {'val': array[12],
-                                                  'err': array[13],
-                                                  'fixed': array[14]},
-                                        'intensity': {'val': array[15],
-                                                      'err': array[16],
-                                                      'fixed': array[17]},
-                                        'alpha': {'val': array[18],
-                                                  'err': array[19],
-                                                  'fixed': array[20]},
-                                        'a1': {'val': array[21],
-                                               'err': array[22],
-                                               'fixed': array[23]},
-                                        'a2': {'val': array[24],
-                                               'err': array[25],
-                                               'fixed': array[26]},
-                                        'a5': {'val': array[27],
-                                               'err': array[28],
-                                               'fixed': array[29]},
-                                        'a6': {'val': array[30],
-                                               'err': array[31],
-                                               'fixed': array[32]},
-                                        }
+        table_dictionary[str(index)] = {
+            "bin_coordinates": {
+                "x0": array[0],
+                "x1": array[2],
+                "y0": array[1],
+                "y1": array[3],
+            },
+            "selected_item": None,
+            "locked_item": None,
+            "row_index": array[4],
+            "column_index": array[5],
+            "selected": False,
+            "lock": array[6],
+            "active": array[7],
+            "rejected": False,  # use when bin is outside of the sample
+            "fitting_confidence": array[8],
+            "d_spacing": {"val": array[9], "err": array[10], "fixed": array[11]},
+            "sigma": {"val": array[12], "err": array[13], "fixed": array[14]},
+            "intensity": {"val": array[15], "err": array[16], "fixed": array[17]},
+            "alpha": {"val": array[18], "err": array[19], "fixed": array[20]},
+            "a1": {"val": array[21], "err": array[22], "fixed": array[23]},
+            "a2": {"val": array[24], "err": array[25], "fixed": array[26]},
+            "a5": {"val": array[27], "err": array[28], "fixed": array[29]},
+            "a6": {"val": array[30], "err": array[31], "fixed": array[32]},
+        }
 
         self.grand_parent.march_table_dictionary = table_dictionary
 
@@ -131,8 +118,8 @@ class TableDictionaryHandler:
     def clear_y_axis_and_x_axis_from_kropff_table_dictionary(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         for _row in kropff_table_dictionary.keys():
-            kropff_table_dictionary[_row]['yaxis'] = None
-            kropff_table_dictionary[_row]['xaxis'] = None
+            kropff_table_dictionary[_row]["yaxis"] = None
+            kropff_table_dictionary[_row]["xaxis"] = None
 
     # def create_table_dictionary(self):
     #     '''
@@ -178,22 +165,22 @@ class TableDictionaryHandler:
     #                                                    'selected': False,
     #                                                    'lock': False,
     #                                                    'active': False,
-    #                                                    'a0': {'val': np.NaN,
-    #                                                           'err': np.NaN},
-    #                                                    'b0': {'val': np.NaN,
-    #                                                           'err': np.NaN},
-    #                                                    'ahkl': {'val': np.NaN,
-    #                                                             'err': np.NaN},
-    #                                                    'bhkl': {'val': np.NaN,
-    #                                                             'err': np.NaN},
-    #                                                    'lambda_hkl': {'val': np.NaN,
-    #                                                                   'err': np.NaN},
-    #                                                    'tau': {'val': np.NaN,
-    #                                                            'err': np.NaN},
-    #                                                    'sigma': {'val': np.NaN,
-    #                                                              'err': np.NaN},
-    #                                                    'bragg peak threshold': {'left': np.NaN,
-    #                                                                             'right': np.NaN},
+    #                                                    'a0': {'val': np.nan,
+    #                                                           'err': np.nan},
+    #                                                    'b0': {'val': np.nan,
+    #                                                           'err': np.nan},
+    #                                                    'ahkl': {'val': np.nan,
+    #                                                             'err': np.nan},
+    #                                                    'bhkl': {'val': np.nan,
+    #                                                             'err': np.nan},
+    #                                                    'lambda_hkl': {'val': np.nan,
+    #                                                                   'err': np.nan},
+    #                                                    'tau': {'val': np.nan,
+    #                                                            'err': np.nan},
+    #                                                    'sigma': {'val': np.nan,
+    #                                                              'err': np.nan},
+    #                                                    'bragg peak threshold': {'left': np.nan,
+    #                                                                             'right': np.nan},
     #                                                    }
     #
     #             # create the box to show when bin is selected
@@ -215,30 +202,30 @@ class TableDictionaryHandler:
     #                                                    'selected': False,
     #                                                    'lock': False,
     #                                                    'active': False,
-    #                                                    'fitting_confidence': np.NaN,
-    #                                                    'd_spacing': {'val': np.NaN,
-    #                                                                  'err': np.NaN,
+    #                                                    'fitting_confidence': np.nan,
+    #                                                    'd_spacing': {'val': np.nan,
+    #                                                                  'err': np.nan,
     #                                                                  'fixed': False},
-    #                                                    'sigma': {'val': np.NaN,
-    #                                                              'err': np.NaN,
+    #                                                    'sigma': {'val': np.nan,
+    #                                                              'err': np.nan,
     #                                                              'fixed': False},
-    #                                                    'intensity': {'val': np.NaN,
-    #                                                                  'err': np.NaN,
+    #                                                    'intensity': {'val': np.nan,
+    #                                                                  'err': np.nan,
     #                                                                  'fixed': False},
-    #                                                    'alpha': {'val': np.NaN,
-    #                                                              'err': np.NaN,
+    #                                                    'alpha': {'val': np.nan,
+    #                                                              'err': np.nan,
     #                                                              'fixed': False},
-    #                                                    'a1': {'val': np.NaN,
-    #                                                           'err': np.NaN,
+    #                                                    'a1': {'val': np.nan,
+    #                                                           'err': np.nan,
     #                                                           'fixed': False},
-    #                                                    'a2': {'val': np.NaN,
-    #                                                           'err': np.NaN,
+    #                                                    'a2': {'val': np.nan,
+    #                                                           'err': np.nan,
     #                                                           'fixed': False},
-    #                                                    'a5': {'val': np.NaN,
-    #                                                           'err': np.NaN,
+    #                                                    'a5': {'val': np.nan,
+    #                                                           'err': np.nan,
     #                                                           'fixed': False},
-    #                                                    'a6': {'val': np.NaN,
-    #                                                           'err': np.NaN,
+    #                                                    'a6': {'val': np.nan,
+    #                                                           'err': np.nan,
     #                                                           'fixed': False},
     #                                                   }
     #
@@ -333,15 +320,21 @@ class TableDictionaryHandler:
 
     # def get_mean_value(self, array=[]):
     #     if array == []:
-    #         return np.NaN
+    #         return np.nan
     #     else:
     #         return np.mean(array)
 
     def import_table(self):
-        default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + '_fitting_table.csv'
-        table_file = str(QFileDialog.getOpenFileName(self.grand_parent,
-                                                     'Define Location and File Name Where to Export the Table!',
-                                                     os.path.join(self.grand_parent.normalized_folder, default_file_name)))
+        default_file_name = (
+            str(self.grand_parent.ui.normalized_folder.text()) + "_fitting_table.csv"
+        )
+        table_file = str(
+            QFileDialog.getOpenFileName(
+                self.grand_parent,
+                "Define Location and File Name Where to Export the Table!",
+                os.path.join(self.grand_parent.normalized_folder, default_file_name),
+            )
+        )
 
         if table_file:
             pandas_data_frame = pd.read_csv(table_file)
@@ -350,8 +343,7 @@ class TableDictionaryHandler:
             numpy_table = pandas_data_frame.values
             # loop over each row in the pandas data frame
             for _index, _row_values in enumerate(numpy_table):
-                o_table.populate_table_dictionary_entry(index=_index,
-                                                        array=_row_values)
+                o_table.populate_table_dictionary_entry(index=_index, array=_row_values)
 
             o_fitting = fitting_handler.FittingHandler(grand_parent=self.grand_parent)
             o_fitting.fill_table()

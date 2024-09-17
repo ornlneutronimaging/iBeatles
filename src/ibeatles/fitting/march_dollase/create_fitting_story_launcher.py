@@ -1,23 +1,32 @@
-from qtpy.QtWidgets import (QMainWindow, QProgressBar, QTableWidgetItem,
-                            QHBoxLayout, QCheckBox, QWidget, QTableWidgetSelectionRange)
+from qtpy.QtWidgets import (
+    QMainWindow,
+    QProgressBar,
+    QTableWidgetItem,
+    QHBoxLayout,
+    QCheckBox,
+    QWidget,
+    QTableWidgetSelectionRange,
+)
 from qtpy import QtGui
 import numpy as np
 
-from src.ibeatles.table_dictionary.table_fitting_story_dictionary_handler import TableFittingStoryDictionaryHandler
+from src.ibeatles.table_dictionary.table_fitting_story_dictionary_handler import (
+    TableFittingStoryDictionaryHandler,
+)
 from src.ibeatles.fitting.fitting_job_handler import FittingJobHandler
 from src.ibeatles import load_ui
 from src.ibeatles import up_image, down_image
 
 
 class CreateFittingStoryLauncher(object):
-
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
         self.grand_parent = grand_parent
 
         if self.grand_parent.fitting_story_ui is None:
-            fitting_story_window = FittingStoryWindow(parent=parent,
-                                                      grand_parent=grand_parent)
+            fitting_story_window = FittingStoryWindow(
+                parent=parent, grand_parent=grand_parent
+            )
             fitting_story_window.show()
             self.grand_parent.fitting_story_ui = fitting_story_window
 
@@ -27,20 +36,21 @@ class CreateFittingStoryLauncher(object):
 
 
 class FittingStoryWindow(QMainWindow):
-    list_column_tag = ['d_spacing',
-                       'sigma',
-                       'alpha',
-                       'a1',
-                       'a2',
-                       'a5',
-                       'a6',
-                       ]
+    list_column_tag = [
+        "d_spacing",
+        "sigma",
+        "alpha",
+        "a1",
+        "a2",
+        "a5",
+        "a6",
+    ]
 
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
         self.grand_parent = grand_parent
         QMainWindow.__init__(self, parent=grand_parent)
-        self.ui = load_ui('ui_fittingStoryTable.ui', baseinstance=self)
+        self.ui = load_ui("ui_fittingStoryTable.ui", baseinstance=self)
         # self.ui= UiMainWindow()
         # self.ui.setupUi(self)
 
@@ -80,20 +90,24 @@ class FittingStoryWindow(QMainWindow):
 
     def initialize_table(self):
         if self.grand_parent.table_fitting_story_dictionary == {}:
-            o_table = TableFittingStoryDictionaryHandler(parent=self.parent,
-                                                         grand_parent=self.grand_parent)
+            o_table = TableFittingStoryDictionaryHandler(
+                parent=self.parent, grand_parent=self.grand_parent
+            )
             o_table.initialize_table()
 
     def reset_table(self):
-        o_table = TableFittingStoryDictionaryHandler(parent=self.parent,
-                                                     grand_parent=self.grand_parent)
+        o_table = TableFittingStoryDictionaryHandler(
+            parent=self.parent, grand_parent=self.grand_parent
+        )
         o_table.initialize_table()
         self.fill_table()
         self.select_row(row=0)
         self.check_status_buttons(row=0)
 
     def fill_table(self):
-        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
+        table_fitting_story_dictionary = (
+            self.grand_parent.table_fitting_story_dictionary
+        )
 
         story_table = self.ui.story_table
 
@@ -123,16 +137,19 @@ class FittingStoryWindow(QMainWindow):
             # story_table.setItem(_index, 0, _item)
 
             for _index_tag, _tag in enumerate(self.list_column_tag):
-                _widget = self.set_widget(status=_entry[_tag], row=_index, column=_index_tag)
+                _widget = self.set_widget(
+                    status=_entry[_tag], row=_index, column=_index_tag
+                )
                 story_table.setCellWidget(_index, _index_tag, _widget)
 
-    def set_item(self, text=''):
+    def set_item(self, text=""):
         _item = QTableWidgetItem(text)
         return _item
 
     def widget_state_changed(self, state=0, row=0, column=0):
-
-        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
+        table_fitting_story_dictionary = (
+            self.grand_parent.table_fitting_story_dictionary
+        )
         _entry = table_fitting_story_dictionary[row]
 
         # _widget = self.ui.story_table.cellWidget(row, column)
@@ -144,15 +161,18 @@ class FittingStoryWindow(QMainWindow):
 
         _entry[self.list_column_tag[column]] = status
         table_fitting_story_dictionary[row] = _entry
-        self.grand_parent.table_fitting_story_dictionary = table_fitting_story_dictionary
+        self.grand_parent.table_fitting_story_dictionary = (
+            table_fitting_story_dictionary
+        )
 
     def set_widget(self, status=False, row=0, column=0):
         _layout = QHBoxLayout()
         _widget = QCheckBox()
-        _widget.stateChanged.connect(lambda state=0, row=row, column=column:
-                                     self.widget_state_changed(state=state,
-                                                               row=row,
-                                                               column=column))
+        _widget.stateChanged.connect(
+            lambda state=0, row=row, column=column: self.widget_state_changed(
+                state=state, row=row, column=column
+            )
+        )
         _widget.blockSignals(True)
         _widget.setChecked(status)
         _widget.blockSignals(False)
@@ -171,8 +191,9 @@ class FittingStoryWindow(QMainWindow):
         else:
             row = -1
 
-        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent,
-                                                             grand_parent=self.grand_parent)
+        o_table_handler = TableFittingStoryDictionaryHandler(
+            parent=self.parent, grand_parent=self.grand_parent
+        )
         o_table_handler.add_entry(index_to_add=row + 1)
 
         self.fill_table()
@@ -184,8 +205,9 @@ class FittingStoryWindow(QMainWindow):
         selection = self.ui.story_table.selectedRanges()[0]
         row = selection.topRow()
 
-        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent,
-                                                             grand_parent=self.grand_parent)
+        o_table_handler = TableFittingStoryDictionaryHandler(
+            parent=self.parent, grand_parent=self.grand_parent
+        )
         o_table_handler.remove_entry(index_to_remove=row)
 
         self.fill_table()
@@ -205,22 +227,24 @@ class FittingStoryWindow(QMainWindow):
         self.check_status_add_remove_buttons()
 
     def start_fitting_button_clicked(self):
-        o_fitting = FittingJobHandler(parent=self.parent,
-                                      grand_parent=self.grand_parent)
+        o_fitting = FittingJobHandler(
+            parent=self.parent, grand_parent=self.grand_parent
+        )
         o_fitting.run_story()
 
-    def _move_row_clicked(self, direction='up'):
+    def _move_row_clicked(self, direction="up"):
         selection = self.ui.story_table.selectedRanges()[0]
         row = selection.topRow()
 
-        o_table_handler = TableFittingStoryDictionaryHandler(parent=self.parent,
-                                                             grand_parent=self.grand_parent)
+        o_table_handler = TableFittingStoryDictionaryHandler(
+            parent=self.parent, grand_parent=self.grand_parent
+        )
         o_table_handler.move_entry(current_index_row=row, direction=direction)
 
         self.fill_table()
 
         # make selection follows new position of row
-        if direction == 'up':
+        if direction == "up":
             new_row = row - 1
         else:
             new_row = row + 1
@@ -240,18 +264,18 @@ class FittingStoryWindow(QMainWindow):
         self.ui.story_table.setRangeSelected(_selection, status)
 
     def move_row_up_clicked(self):
-        self._move_row_clicked(direction='up')
+        self._move_row_clicked(direction="up")
 
     def move_row_down_clicked(self):
-        self._move_row_clicked(direction='down')
+        self._move_row_clicked(direction="down")
 
     def cell_clicked(self, row, column):
         self.check_status_buttons(row=row)
 
-    def check_status_buttons(self, row=np.NaN):
-        '''
+    def check_status_buttons(self, row=np.nan):
+        """
         check the enabled status of the arrow buttons according to row clicked
-        '''
+        """
         nbr_row = self.ui.story_table.rowCount()
 
         up_status = True
