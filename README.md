@@ -2,6 +2,7 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/67521112.svg)](https://zenodo.org/badge/latestdoi/67521112)
 [![Build Status](https://travis-ci.org/ornlneutronimaging/iBeatles.svg?branch=master)](https://travis-ci.org/ornlneutronimaging/iBeatles)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/ornlneutronimaging/iBeatles/next.svg?badge_token=p_Gk0Ah-RaOMf-8Gw3vGaQ)](https://results.pre-commit.ci/latest/github/ornlneutronimaging/iBeatles/next?badge_token=p_Gk0Ah-RaOMf-8Gw3vGaQ)
 
 GUI to automatically fit Bragg Edges, calculate and display strain mapping factors.
 
