@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Pydantic configuration model for CLI and GUI application settings (user)"""
 
 from typing import Dict, Optional, Union, Tuple, Literal
