@@ -7,10 +7,15 @@ import logging
 from pathlib import Path
 from typing import Dict, Any, Optional
 
-from ibeatles.app.config import IBeatlesUserConfig
+from ibeatles.core.config import IBeatlesUserConfig
+from ibeatles.core.io.data_loading import (
+    load_raw_data,
+    load_open_beam,
+    load_time_spectra,
+    get_time_spectra_filename,
+)
 
 # Placeholder imports (to be implemented later)
-# from ibeatles.core.io.data_loading import load_raw_data, load_open_beam, load_spectra
 # from ibeatles.core.normalization import normalize_data
 # from ibeatles.core.fitting import perform_fitting
 # from ibeatles.core.strain_calculation import calculate_strain
@@ -216,9 +221,30 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
     setup_logging(log_file)
 
     try:
+        # Load configuration
         config = load_config(config_path)
-        data = load_data(config)
-        normalized_data = normalize_data(data, config)
+
+        # Load raw data
+        raw_data = load_raw_data(config.input["raw_data_dir"])
+
+        # Load open data if available
+        open_beam = (
+            load_open_beam(config.input["open_beam_data_dir"])
+            if config.input.get("open_beam_data_dir")
+            else None
+        )
+
+        # Load time spectra
+        time_spectra_file = get_time_spectra_filename(config.input["raw_data_dir"])
+        time_spectra = (
+            load_time_spectra(time_spectra_file) if time_spectra_file else None
+        )
+        print(time_spectra)  # Placeholder print statement
+
+        # Proceed with normalization, fitting, etc.
+        normalized_data = normalize_data(
+            {"raw_data": raw_data, "open_beam": open_beam}, config
+        )
         save_normalization_results(normalized_data, config)
 
         fitting_results = perform_fitting(normalized_data, config)

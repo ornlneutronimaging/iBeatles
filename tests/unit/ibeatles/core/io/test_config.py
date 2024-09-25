@@ -3,7 +3,7 @@
 
 import pytest
 from pathlib import Path
-from ibeatles.app.config import IBeatlesUserConfig, CustomMaterial
+from ibeatles.core.config import IBeatlesUserConfig, CustomMaterial
 
 
 @pytest.fixture
