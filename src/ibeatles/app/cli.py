@@ -9,8 +9,7 @@ from typing import Dict, Any, Optional
 
 from ibeatles.core.config import IBeatlesUserConfig
 from ibeatles.core.io.data_loading import (
-    load_raw_data,
-    load_open_beam,
+    load_data_from_folder,
     load_time_spectra,
     get_time_spectra_filename,
 )
@@ -77,12 +76,39 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
     Dict[str, Any]
         Dictionary containing loaded data.
     """
-    # Placeholder implementation
     logging.info("Loading data...")
-    # raw_data = load_raw_data(config.input['raw_data_dir'])
-    # open_beam = load_open_beam(config.input['open_beam_data_dir']) if config.input['open_beam_data_dir'] else None
-    # spectra = load_spectra(config.input['spectra_file_path'] or config.input['raw_data_dir'])
-    return {"raw_data": None, "open_beam": None, "spectra": None}
+    # Raw data is mandatory
+    raw_data = load_data_from_folder(
+        config.raw_data["raw_data_dir"],
+        file_extension=config.raw_data["raw_data_extension"],
+    )
+    # Open beam is optional
+    if config.open_beam:
+        open_beam = load_data_from_folder(
+            config.open_beam["open_beam_data_dir"],
+            file_extension=config.open_beam["open_beam_data_extension"],
+        )
+    else:
+        open_beam = None
+    # Spectra file is needed, but specify the path in the configuration file is optional
+    if config.spectra_file_path:
+        spectra = load_time_spectra(
+            config.spectra_file_path,
+            config.analysis.distance_source_detector_in_m,
+            config.analysis.detector_offset_in_us,
+        )
+    else:
+        # try to load spectra file from the raw data directory
+        spectra_file = get_time_spectra_filename(config.raw_data["raw_data_dir"])
+        if spectra_file:
+            spectra = load_time_spectra(
+                spectra_file,
+                config.analysis.distance_source_detector_in_m,
+                config.analysis.detector_offset_in_us,
+            )
+        else:
+            raise ValueError("Spectra file not found")
+    return {"raw_data": raw_data, "open_beam": open_beam, "spectra": spectra}
 
 
 def normalize_data(data: Dict[str, Any], config: IBeatlesUserConfig) -> Dict[str, Any]:
@@ -224,22 +250,11 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
         # Load configuration
         config = load_config(config_path)
 
-        # Load raw data
-        raw_data = load_raw_data(config.input["raw_data_dir"])
-
-        # Load open data if available
-        open_beam = (
-            load_open_beam(config.input["open_beam_data_dir"])
-            if config.input.get("open_beam_data_dir")
-            else None
-        )
-
-        # Load time spectra
-        time_spectra_file = get_time_spectra_filename(config.input["raw_data_dir"])
-        time_spectra = (
-            load_time_spectra(time_spectra_file) if time_spectra_file else None
-        )
-        print(time_spectra)  # Placeholder print statement
+        # Load data
+        rst_dict = load_data(config)
+        raw_data = rst_dict["raw_data"]
+        open_beam = rst_dict["open_beam"]
+        # spectra = rst_dict['spectra']
 
         # Proceed with normalization, fitting, etc.
         normalized_data = normalize_data(
