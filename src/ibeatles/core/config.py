@@ -140,27 +140,65 @@ class AnalysisConfig(BaseModel):
     )
 
 
+class RawData(BaseModel):
+    raw_data_dir: Path
+    raw_data_extension: str = ".tif"
+
+    @model_validator(mode="after")
+    def check_raw_data_dir(self) -> "RawData":
+        if not self.raw_data_dir.exists():
+            raise ValueError(f"Directory '{self.raw_data_dir}' does not exist")
+        return self
+
+    @model_validator(mode="after")
+    def check_raw_data_extension(self) -> "RawData":
+        # extension must be ".tif", ".tiff", ".fits"
+        if self.raw_data_extension not in [".tif", ".tiff", ".fits"]:
+            raise ValueError("Raw data extension must be '.tif', '.tiff', or '.fits'")
+        return self
+
+
+class OpenBeamData(BaseModel):
+    open_beam_data_dir: Path
+    open_beam_data_extension: str = ".tif"
+
+    @model_validator(mode="after")
+    def check_open_beam_data_dir(self) -> "OpenBeamData":
+        if not self.open_beam_data_dir.exists():
+            raise ValueError(f"Directory '{self.open_beam_data_dir}' does not exist")
+        return self
+
+    @model_validator(mode="after")
+    def check_open_beam_data_extension(self) -> "OpenBeamData":
+        # extension must be ".tif", ".tiff", ".fits"
+        if self.open_beam_data_extension not in [".tif", ".tiff", ".fits"]:
+            raise ValueError(
+                "Open beam data extension must be '.tif', '.tiff', or '.fits'"
+            )
+        return self
+
+
 class IBeatlesUserConfig(BaseModel):
-    input: Dict[str, Path] = Field(...)
+    raw_data: RawData
+    open_beam: Optional[OpenBeamData] = None
+    spectra_file_path: Optional[Path] = None
     normalization: NormalizationConfig = Field(default_factory=NormalizationConfig)
     analysis: AnalysisConfig
     output: Dict[str, Path] = Field(...)
-
-    @model_validator(mode="after")
-    def check_input_paths(self) -> "IBeatlesUserConfig":
-        if "raw_data_dir" not in self.input:
-            raise ValueError("'raw_data_dir' is mandatory in input paths")
-        return self
 
 
 # Example usage:
 if __name__ == "__main__":
     config_dict = {
-        "input": {
-            "raw_data_dir": "/path/to/raw_data",
-            "open_beam_data_dir": "/path/to/open_beam",
-            "spectra_file_path": "/path/to/spectra.csv",
+        "raw_data": {
+            "raw_data_dir": "/tmp",
+            "raw_data_extension": ".tif",
         },
+        "open_beam": {
+            "open_beam_data_dir": "/tmp",
+            "open_beam_data_extension": ".tif",
+        },
+        "spectra_file_path": "/tmp/spectra.txt",
         "output": {
             "normalized_data_dir": "/path/to/normalized_data",
             "analysis_results_dir": "/path/to/analysis_results",

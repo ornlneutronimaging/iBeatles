@@ -9,11 +9,15 @@ from ibeatles.core.config import IBeatlesUserConfig, CustomMaterial
 @pytest.fixture
 def valid_config_dict():
     return {
-        "input": {
+        "raw_data": {
             "raw_data_dir": "/path/to/raw_data",
-            "open_beam_data_dir": "/path/to/open_beam",
-            "spectra_file_path": "/path/to/spectra.csv",
+            "raw_data_extension": ".tif",
         },
+        "open_beam": {
+            "open_beam_data_dir": "/path/to/open_beam",
+            "open_beam_data_extension": ".tif",
+        },
+        "spectra_file_path": "/path/to/spectra.txt",
         "output": {
             "normalized_data_dir": "/path/to/normalized_data",
             "analysis_results_dir": "/path/to/analysis_results",
@@ -36,6 +40,8 @@ def valid_config_dict():
             },
             "fitting": {"lambda_min": 0.5, "lambda_max": 5.0},
             "strain_mapping": {"d0": 3.52},
+            "distance_source_detector_in_m": 19.855,
+            "detector_offset_in_us": 9600,
         },
     }
 
@@ -47,7 +53,7 @@ def test_valid_config(valid_config_dict):
 
 def test_default_values():
     minimal_config = {
-        "input": {"raw_data_dir": "/path/to/raw_data"},
+        "raw_data": {"raw_data_dir": "/path/to/raw_data"},
         "output": {
             "normalized_data_dir": "/path/to/normalized",
             "analysis_results_dir": "/path/to/analysis",
@@ -71,7 +77,7 @@ def test_default_values():
 
 def test_custom_material():
     config_dict = {
-        "input": {"raw_data_dir": "/path/to/raw_data"},
+        "raw_data": {"raw_data_dir": "/path/to/raw_data"},
         "output": {
             "normalized_data_dir": "/path/to/normalized",
             "analysis_results_dir": "/path/to/analysis",
@@ -102,7 +108,7 @@ def test_custom_material():
 
 def test_invalid_config():
     invalid_config = {
-        "input": {},  # Missing required raw_data_dir
+        "raw_data": {},  # Missing required raw_data
         "output": {
             "normalized_data_dir": "/path/to/normalized",
             "analysis_results_dir": "/path/to/analysis",
@@ -125,7 +131,7 @@ def test_invalid_config():
 
 def test_invalid_material_specification():
     invalid_material_config = {
-        "input": {"raw_data_dir": "/path/to/raw_data"},
+        "raw_data": {"raw_data_dir": "/path/to/raw_data"},
         "output": {
             "normalized_data_dir": "/path/to/normalized",
             "analysis_results_dir": "/path/to/analysis",
@@ -151,7 +157,7 @@ def test_invalid_material_specification():
 
 def test_path_conversion():
     config_dict = {
-        "input": {"raw_data_dir": "/path/to/raw_data"},
+        "raw_data": {"raw_data_dir": "/path/to/raw_data"},
         "output": {
             "normalized_data_dir": "/path/to/normalized",
             "analysis_results_dir": "/path/to/analysis",
