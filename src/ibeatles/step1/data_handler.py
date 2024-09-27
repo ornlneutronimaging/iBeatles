@@ -158,7 +158,7 @@ class DataHandler:
         )
 
     def get_time_spectra_file(self):
-        folder = self.parent.parent.default_path["sample"]
+        folder = self.parent.default_path["sample"]
         return get_time_spectra_filename(folder)
 
     def browse_file_name(self):
