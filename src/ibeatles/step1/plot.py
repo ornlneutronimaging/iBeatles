@@ -4,8 +4,11 @@ from qtpy.QtGui import QBrush
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
 
-from src.ibeatles import DataType, ScrollBarParameters, MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME, XAxisMode
-import ibeatles.step1.utilities as utilities
+from src.ibeatles import (
+    DataType,
+    ScrollBarParameters,
+    MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME,
+)
 from src.ibeatles.utilities.colors import pen_color, roi_group_color
 from src.ibeatles.utilities.gui_handler import GuiHandler
 from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
@@ -14,7 +17,6 @@ from src.ibeatles.fitting.fitting_handler import FittingHandler
 
 
 class CustomAxis(pg.AxisItem):
-
     def __init__(self, gui_parent, *args, **kwargs):
         pg.AxisItem.__init__(self, *args, **kwargs)
         self.parent = gui_parent
@@ -22,14 +24,18 @@ class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
         strings = []
 
-        _distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
+        _distance_source_detector = float(
+            str(self.parent.ui.distance_source_detector.text())
+        )
         _detector_offset_micros = float(str(self.parent.ui.detector_offset.text()))
 
         tof_s = [float(time) * 1e-6 for time in values]
 
-        _exp = Experiment(tof=tof_s,
-                          distance_source_detector_m=_distance_source_detector,
-                          detector_offset_micros=_detector_offset_micros)
+        _exp = Experiment(
+            tof=tof_s,
+            distance_source_detector_m=_distance_source_detector,
+            detector_offset_micros=_detector_offset_micros,
+        )
         lambda_array = _exp.lambda_array
 
         for _lambda in lambda_array:
@@ -41,10 +47,12 @@ class CustomAxis(pg.AxisItem):
 class Step1Plot(object):
     data = []
 
-    plot_ui = {DataType.sample: None,
-               DataType.ob: None,
-               DataType.normalized: None,
-               'binning': None}
+    plot_ui = {
+        DataType.sample: None,
+        DataType.ob: None,
+        DataType.normalized: None,
+        "binning": None,
+    }
 
     def __init__(self, parent=None, data_type=None, data=[]):
         self.parent = parent
@@ -55,7 +63,7 @@ class Step1Plot(object):
         self.data_type = data_type
 
         if len(data) == 0:
-            data = self.parent.data_metadata[data_type]['data']
+            data = self.parent.data_metadata[data_type]["data"]
         self.data = data
 
         self.plot_ui[DataType.sample] = self.parent.ui.bragg_edge_plot
@@ -79,13 +87,14 @@ class Step1Plot(object):
             self.clear_plots(data_type=self.data_type)
 
         else:
-
             _data = np.array(_data)
             if self.data_type == DataType.sample:
-                o_pyqt = PyqtgraphUtilities(parent=self.parent,
-                                            image_view=self.parent.ui.image_view,
-                                            data_type=self.data_type,
-                                            add_mean_radio_button_changed=add_mean_radio_button_changed)
+                o_pyqt = PyqtgraphUtilities(
+                    parent=self.parent,
+                    image_view=self.parent.ui.image_view,
+                    data_type=self.data_type,
+                    add_mean_radio_button_changed=add_mean_radio_button_changed,
+                )
                 _state = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
 
@@ -97,10 +106,12 @@ class Step1Plot(object):
                 o_pyqt.reload_histogram_level()
 
             elif self.data_type == DataType.ob:
-                o_pyqt = PyqtgraphUtilities(parent=self.parent,
-                                            image_view=self.parent.ui.ob_image_view,
-                                            data_type=self.data_type,
-                                            add_mean_radio_button_changed=add_mean_radio_button_changed)
+                o_pyqt = PyqtgraphUtilities(
+                    parent=self.parent,
+                    image_view=self.parent.ui.ob_image_view,
+                    data_type=self.data_type,
+                    add_mean_radio_button_changed=add_mean_radio_button_changed,
+                )
                 _state = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
                 self.parent.ui.ob_area.setVisible(True)
@@ -110,49 +121,61 @@ class Step1Plot(object):
                 o_pyqt.reload_histogram_level()
 
             elif self.data_type == DataType.normalized:
-                o_pyqt = PyqtgraphUtilities(parent=self.parent,
-                                            image_view=self.parent.ui.normalized_image_view,
-                                            data_type=self.data_type,
-                                            add_mean_radio_button_changed=add_mean_radio_button_changed)
+                o_pyqt = PyqtgraphUtilities(
+                    parent=self.parent,
+                    image_view=self.parent.ui.normalized_image_view,
+                    data_type=self.data_type,
+                    add_mean_radio_button_changed=add_mean_radio_button_changed,
+                )
                 _state = o_pyqt.get_state()
                 o_pyqt.save_histogram_level()
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
-                self.parent.data_metadata[DataType.normalized]['data_live_selection'] = _data
+                self.parent.data_metadata[DataType.normalized][
+                    "data_live_selection"
+                ] = _data
                 o_pyqt.set_state(_state)
                 o_pyqt.reload_histogram_level()
 
                 # make sure that if we have the fitting window open, we have also at least the binning
-                if not (self.parent.fitting_ui is None) and \
-                        (self.parent.binning_ui is None):
+                if self.parent.fitting_ui is not None and (
+                    self.parent.binning_ui is None
+                ):
                     self.parent.menu_view_binning_clicked()
 
-                if not (self.parent.binning_ui is None):
+                if self.parent.binning_ui is not None:
                     o_binning = BinningHandler(parent=self.parent)
                     o_binning.display_image(data=_data)
                     self.parent.binning_ui.ui.groupBox.setEnabled(True)
                     self.parent.binning_ui.ui.groupBox_2.setEnabled(True)
                     self.parent.binning_ui.ui.left_widget.setVisible(True)
-                if not (self.parent.fitting_ui is None):
+                if self.parent.fitting_ui is not None:
                     o_fitting = FittingHandler(parent=self.parent)
                     o_fitting.display_image(data=_data)
                     o_fitting.display_roi()
                     self.parent.fitting_ui.ui.area.setVisible(True)
                     o_fitting.fill_table()
-                if not (self.parent.rotate_ui is None):
+                if self.parent.rotate_ui is not None:
                     o_rotate = self.parent.rotate_ui
                     o_rotate.display_rotated_images()
 
-            self.parent.image_view_settings[self.data_type]['state'] = _state
+            self.parent.image_view_settings[self.data_type]["state"] = _state
 
     def initialize_default_roi(self):
         if self.data_type == DataType.sample:
-            self.add_origin_roi(self.parent.ui.image_view, self.parent.ui.image_view_roi)
+            self.add_origin_roi(
+                self.parent.ui.image_view, self.parent.ui.image_view_roi
+            )
         elif self.data_type == DataType.ob:
-            self.add_origin_roi(self.parent.ui.ob_image_view, self.parent.ui.ob_image_view_roi)
+            self.add_origin_roi(
+                self.parent.ui.ob_image_view, self.parent.ui.ob_image_view_roi
+            )
         elif self.data_type == DataType.normalized:
-            self.add_origin_roi(self.parent.ui.normalized_image_view, self.parent.ui.normalized_image_view_roi)
+            self.add_origin_roi(
+                self.parent.ui.normalized_image_view,
+                self.parent.ui.normalized_image_view_roi,
+            )
 
     def add_origin_roi(self, image_view, roi_id):
         image_view.addItem(roi_id)
@@ -160,22 +183,37 @@ class Step1Plot(object):
 
     def add_origin_label(self, image_ui):
         # origin label
-        text_id = pg.TextItem(html="<span style='color: yellow;'>(0,0)",
-                              anchor=(1, 1))
+        text_id = pg.TextItem(html="<span style='color: yellow;'>(0,0)", anchor=(1, 1))
         image_ui.addItem(text_id)
         text_id.setPos(-5, -5)
 
         # x and y arrows directions
-        y_arrow = pg.ArrowItem(angle=-90, tipAngle=35, baseAngle=0,
-                               headLen=20, tailLen=40, tailWidth=2, pen='y', brush=None)
+        y_arrow = pg.ArrowItem(
+            angle=-90,
+            tipAngle=35,
+            baseAngle=0,
+            headLen=20,
+            tailLen=40,
+            tailWidth=2,
+            pen="y",
+            brush=None,
+        )
         image_ui.addItem(y_arrow)
         y_arrow.setPos(0, 65)
         y_text = pg.TextItem(html="<span style='color: yellow;'>Y")
         image_ui.addItem(y_text)
         y_text.setPos(-30, 20)
 
-        x_arrow = pg.ArrowItem(angle=180, tipAngle=35, baseAngle=0,
-                               headLen=20, tailLen=40, tailWidth=2, pen='y', brush=None)
+        x_arrow = pg.ArrowItem(
+            angle=180,
+            tipAngle=35,
+            baseAngle=0,
+            headLen=20,
+            tailLen=40,
+            tailWidth=2,
+            pen="y",
+            brush=None,
+        )
         image_ui.addItem(x_arrow)
         x_arrow.setPos(65, 0)
         x_text = pg.TextItem(html="<span style='color: yellow;'>X")
@@ -185,22 +223,22 @@ class Step1Plot(object):
     def refresh_roi(self):
         pass
 
-    def clear_image(self, data_type='sample'):
-        if data_type == 'sample':
+    def clear_image(self, data_type="sample"):
+        if data_type == "sample":
             self.parent.ui.image_view.clear()
-        elif data_type == 'ob':
+        elif data_type == "ob":
             self.parent.ui.ob_image_view.clear()
-        elif data_type == 'normalized':
+        elif data_type == "normalized":
             self.parent.ui.normalized_image_view.clear()
 
-    def clear_plots(self, data_type='sample'):
-        if data_type == 'sample':
+    def clear_plots(self, data_type="sample"):
+        if data_type == "sample":
             self.parent.ui.image_view.clear()
             self.parent.ui.bragg_edge_plot.clear()
-        elif data_type == 'ob':
+        elif data_type == "ob":
             self.parent.ui.ob_image_view.clear()
             self.parent.ui.ob_bragg_edge_plot.clear()
-        elif data_type == 'normalized':
+        elif data_type == "normalized":
             self.parent.ui.normalized_image_view.clear()
             self.parent.ui.normalized_bragg_edge_plot.clear()
 
@@ -209,7 +247,7 @@ class Step1Plot(object):
             o_gui = GuiHandler(parent=self.parent)
             data_type = o_gui.get_active_tab()
 
-        data = self.parent.data_metadata[data_type]['data']
+        data = self.parent.data_metadata[data_type]["data"]
         self.data = data
         self.display_bragg_edge()
 
@@ -230,7 +268,6 @@ class Step1Plot(object):
             self.parent.list_roi[data_type][index] = _list_roi
 
     def update_roi_editor(self, index):
-
         o_roi_editor = self.parent.roi_editor_ui[self.data_type]
         o_roi_editor.refresh(row=index)
 
@@ -239,10 +276,7 @@ class Step1Plot(object):
         # o_roi_editor.activate_row(row_to_activate)
 
     def extract_data(self, list_data_group, data):
-        list_data = {'0': [],
-                     '1': [],
-                     '2': [],
-                     '3': []}
+        list_data = {"0": [], "1": [], "2": [], "3": []}
 
         for _group in list_data_group.keys():
             _list_roi = list_data_group[_group]
@@ -270,7 +304,6 @@ class Step1Plot(object):
         return list_data
 
     def get_row_parameters(self, roi_editor_ui, row):
-
         # # label
         _item = roi_editor_ui.tableWidget.item(row, 0)
         if _item is None:
@@ -311,11 +344,11 @@ class Step1Plot(object):
         return [label, x0, y0, width, height, group]
 
     def clear_bragg_edge_plot(self):
-        if self.data_type == 'sample':
+        if self.data_type == "sample":
             self.parent.ui.bragg_edge_plot.clear()
-        elif self.data_type == 'ob':
+        elif self.data_type == "ob":
             self.parent.ui.ob_bragg_edge_plot.clear()
-        elif self.data_type == 'normalized':
+        elif self.data_type == "normalized":
             self.parent.ui.normalized_bragg_edge_plot.clear()
 
     def retrieve_list_data_group(self, mouse_selection=False):
@@ -329,31 +362,26 @@ class Step1Plot(object):
 
         # collect the right image_view and image_view_item to recover the ROI
         roi_editor_ui = self.parent.roi_editor_ui[self.data_type]
-        if self.data_type == 'sample':
+        if self.data_type == "sample":
             _image_view = self.parent.ui.image_view
             _image_view_item = self.parent.ui.image_view.imageItem
-        elif self.data_type == 'ob':
+        elif self.data_type == "ob":
             _image_view = self.parent.ui.ob_image_view
             _image_view_item = self.parent.ui.ob_image_view.imageItem
-        elif self.data_type == 'normalized':
+        elif self.data_type == "normalized":
             _image_view = self.parent.ui.normalized_image_view
             _image_view_item = self.parent.ui.normalized_image_view.imageItem
 
         # used here to group rois into their group for Bragg Edge plot
-        list_data_group = {'0': [],
-                           '1': [],
-                           '2': [],
-                           '3': []}
+        list_data_group = {"0": [], "1": [], "2": [], "3": []}
 
         for _index, roi in enumerate(list_roi_id):
-
             if mouse_selection:
-                if type(self.parent.live_data) == type(list()):
+                if isinstance(self.parent.live_data, list):
                     self.parent.live_data = np.array(self.parent.live_data)
 
                 try:
-                    region = roi.getArraySlice(self.parent.live_data,
-                                               _image_view_item)
+                    region = roi.getArraySlice(self.parent.live_data, _image_view_item)
                 except IndexError:
                     return
 
@@ -370,7 +398,6 @@ class Step1Plot(object):
                     y1 += 1
 
             else:
-
                 if roi_editor_ui is None:
                     [label, x0, y0, w, h, group] = list_roi[_index]
                     x0 = int(x0)
@@ -380,9 +407,9 @@ class Step1Plot(object):
 
                 else:
                     try:
-
-                        [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui,
-                                                                               _index)
+                        [label, x0, y0, w, h, group] = self.get_row_parameters(
+                            roi_editor_ui.ui, _index
+                        )
 
                     except ValueError:
                         return
@@ -398,10 +425,13 @@ class Step1Plot(object):
             _text_array = self.parent.list_label_roi_id[self.data_type]
             if len(_text_array) == 0:
                 text_id = pg.TextItem(
-                    html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
+                    html='<div style="text-align: center"><span style="color: #ff0000;">'
+                    + label
+                    + "</span></div>",
                     anchor=(-0.3, 1.3),
-                    border='w',
-                    fill=(0, 0, 255, 50))
+                    border="w",
+                    fill=(0, 0, 255, 50),
+                )
                 _image_view.addItem(text_id)
                 text_id.setPos(x0, y0)
                 self.parent.list_label_roi_id[self.data_type].append(text_id)
@@ -409,15 +439,20 @@ class Step1Plot(object):
                 text_id = self.parent.list_label_roi_id[self.data_type][_index]
                 # text_id.setText(label)
                 text_id.setPos(x0, y0)
-                text_id.setHtml('<div style="text-align: center"><span style="color: #ff0000;">' + label + ' \
-                                                                                              ''</span></div>')
+                text_id.setHtml(
+                    '<div style="text-align: center"><span style="color: #ff0000;">'
+                    + label
+                    + " \
+                                                                                              "
+                    "</span></div>"
+                )
 
             list_data_group[group].append([x0, x1, y0, y1])
 
             self.save_roi(label, x0, y0, x1, y1, group, self.data_type, _index)
 
             if mouse_selection:
-                if not (roi_editor_ui is None):
+                if roi_editor_ui is not None:
                     roi_editor_ui.ui.tableWidget.blockSignals(True)
                     self.update_roi_editor(_index)
                     roi_editor_ui.ui.tableWidget.blockSignals(False)
@@ -435,20 +470,24 @@ class Step1Plot(object):
             self.clear_bragg_edge_plot()
 
         else:  # retrieve dictionaries of roi_id and roi data (label, x, y, w, h, group)
-
-            list_data_group = self.retrieve_list_data_group(mouse_selection=mouse_selection)
+            list_data_group = self.retrieve_list_data_group(
+                mouse_selection=mouse_selection
+            )
 
             # work over groups
-            data = self.parent.data_metadata[self.data_type]['data']
-            bragg_edges = self.extract_data(list_data_group,
-                                            data)
+            data = self.parent.data_metadata[self.data_type]["data"]
+            bragg_edges = self.extract_data(list_data_group, data)
 
             # check if xaxis can be in lambda, or tof
 
             if self.data_type in [DataType.sample, DataType.ob]:
-                time_spectra_file = self.parent.data_metadata[DataType.sample]['time_spectra']['filename']
+                time_spectra_file = self.parent.data_metadata[DataType.sample][
+                    "time_spectra"
+                ]["filename"]
             else:
-                time_spectra_file = self.parent.data_metadata[self.data_type]['time_spectra']['filename']
+                time_spectra_file = self.parent.data_metadata[self.data_type][
+                    "time_spectra"
+                ]["filename"]
             o_gui = GuiHandler(parent=self.parent)
 
             if time_spectra_file == "":
@@ -459,29 +498,33 @@ class Step1Plot(object):
             else:
                 o_gui.enable_xaxis_button(tof_flag=True)
 
-                if self.data_type == 'normalized':
-                    tof_array = self.parent.data_metadata['time_spectra']['normalized_data']
-                    lambda_array = self.parent.data_metadata['time_spectra']['normalized_lambda']
+                if self.data_type == "normalized":
+                    tof_array = self.parent.data_metadata["time_spectra"][
+                        "normalized_data"
+                    ]
+                    lambda_array = self.parent.data_metadata["time_spectra"][
+                        "normalized_lambda"
+                    ]
                 else:
-                    tof_array = self.parent.data_metadata['time_spectra']['data']
-                    lambda_array = self.parent.data_metadata['time_spectra']['lambda']
+                    tof_array = self.parent.data_metadata["time_spectra"]["data"]
+                    lambda_array = self.parent.data_metadata["time_spectra"]["lambda"]
                 self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
 
             # display of bottom bragg edge plot
-            dictionary = self.plot_bragg_edge(tof_array=tof_array,
-                                              lambda_array=lambda_array,
-                                              bragg_edges=bragg_edges)
+            dictionary = self.plot_bragg_edge(
+                tof_array=tof_array, lambda_array=lambda_array, bragg_edges=bragg_edges
+            )
 
-            x_axis = dictionary['x_axis']
-            [linear_region_left, linear_region_right] = dictionary['linear_region']
+            x_axis = dictionary["x_axis"]
+            [linear_region_left, linear_region_right] = dictionary["linear_region"]
             o_gui.xaxis_label()
 
             lr = pg.LinearRegionItem([linear_region_left, linear_region_right])
             lr.setZValue(-10)
 
-            if self.data_type == 'sample':
+            if self.data_type == "sample":
                 self.parent.ui.bragg_edge_plot.addItem(lr)
-            elif self.data_type == 'ob':
+            elif self.data_type == "ob":
                 self.parent.ui.ob_bragg_edge_plot.addItem(lr)
             else:
                 self.parent.ui.normalized_bragg_edge_plot.addItem(lr)
@@ -508,20 +551,25 @@ class Step1Plot(object):
         x_axis = []
         plot_ui.setLabel("left", "Total Counts")
 
-        _symbol = 't'
+        _symbol = "t"
 
         # use to check if bragg peaks scroll bar should be visible or not
         o_gui = GuiHandler(parent=self.parent)
 
         if len(tof_array) == 0:
-
-            plot_ui.setLabel('bottom', 'File Index')
+            plot_ui.setLabel("bottom", "File Index")
 
             for _key in bragg_edges.keys():
                 _bragg_edge = bragg_edges[_key]
                 if len(_bragg_edge) == 0:
                     continue
-                curve = plot_ui.plot(_bragg_edge, symbolPen=None, pen=pen_color[_key], symbol=_symbol, symbolSize=5)
+                curve = plot_ui.plot(
+                    _bragg_edge,
+                    symbolPen=None,
+                    pen=pen_color[_key],
+                    symbol=_symbol,
+                    symbolSize=5,
+                )
                 x_axis = np.arange(len(_bragg_edge))
 
                 curvePoint = pg.CurvePoint(curve)
@@ -537,7 +585,6 @@ class Step1Plot(object):
             o_gui.update_bragg_peak_scrollbar(force_hide_widgets=True)
 
         else:
-
             tof_array = tof_array * 1e6
 
             xaxis_choice = o_gui.get_xaxis_checked(data_type=self.data_type)
@@ -550,79 +597,92 @@ class Step1Plot(object):
                 if len(_bragg_edge) == 0:
                     continue
 
-                if xaxis_choice == 'file_index':
-                    curve = plot_ui.plot(_bragg_edge, pen=pen_color[_key],
-                                         symbolPen=None,
-                                         symbolSize=5,
-                                         symbol=_symbol)
+                if xaxis_choice == "file_index":
+                    curve = plot_ui.plot(
+                        _bragg_edge,
+                        pen=pen_color[_key],
+                        symbolPen=None,
+                        symbolSize=5,
+                        symbol=_symbol,
+                    )
                     x_axis = np.arange(len(_bragg_edge))
 
-                elif xaxis_choice == 'tof':
-
-                    curve = plot_ui.plot(tof_array, _bragg_edge,
-                                         pen=pen_color[_key],
-                                         symbolPen=None,
-                                         symbolSize=5,
-                                         symbol=_symbol)
+                elif xaxis_choice == "tof":
+                    curve = plot_ui.plot(
+                        tof_array,
+                        _bragg_edge,
+                        pen=pen_color[_key],
+                        symbolPen=None,
+                        symbolSize=5,
+                        symbol=_symbol,
+                    )
                     x_axis = tof_array
                     linear_region_left = tof_array[linear_region_left_index]
                     linear_region_right = tof_array[linear_region_right_index]
 
                 else:  # lambda
-
                     if first_index:
                         lambda_array = lambda_array * 1e10
 
-                    curve = plot_ui.plot(lambda_array, _bragg_edge,
-                                         pen=pen_color[_key],
-                                         symbolPen=None,
-                                         symbolSize=5,
-                                         )
+                    curve = plot_ui.plot(
+                        lambda_array,
+                        _bragg_edge,
+                        pen=pen_color[_key],
+                        symbolPen=None,
+                        symbolSize=5,
+                    )
                     x_axis = lambda_array
 
                     linear_region_left = lambda_array[linear_region_left_index]
                     linear_region_right = lambda_array[linear_region_right_index]
 
                     if first_index:
-                        self.display_selected_element_bragg_edges(plot_ui=plot_ui,
-                                                                  lambda_range=[lambda_array[0], lambda_array[-1]],
-                                                                  ymax=np.nanmax(_bragg_edge))
+                        self.display_selected_element_bragg_edges(
+                            plot_ui=plot_ui,
+                            lambda_range=[lambda_array[0], lambda_array[-1]],
+                            ymax=np.nanmax(_bragg_edge),
+                        )
                         first_index = False
 
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
-                _text = pg.TextItem("Group {}".format(_key),
-                                    anchor=(0.5, 0),
-                                    color=pen_color[_key])
+                _text = pg.TextItem(
+                    "Group {}".format(_key), anchor=(0.5, 0), color=pen_color[_key]
+                )
                 _text.setParentItem(curvePoint)
                 brush = QBrush()
                 brush.setColor(roi_group_color[int(_key)])
                 arrow = pg.ArrowItem(angle=0, brush=brush)
                 arrow.setParentItem(curvePoint)
 
-                if xaxis_choice == 'lambda':
+                if xaxis_choice == "lambda":
                     last_position = x_axis[-1]
                 else:
                     last_position = x_axis[-1]
 
                 curvePoint.setPos(last_position)
 
-        return {'x_axis': x_axis,
-                'linear_region': [linear_region_left, linear_region_right]}
+        return {
+            "x_axis": x_axis,
+            "linear_region": [linear_region_left, linear_region_right],
+        }
 
-    def display_selected_element_bragg_edges(self, plot_ui=plot_ui, lambda_range=None, ymax=0):
-
+    def display_selected_element_bragg_edges(
+        self, plot_ui=plot_ui, lambda_range=None, ymax=0
+    ):
         display_flag = self.parent.ui.material_display_checkbox.isChecked()
         if not display_flag:
             return
 
-        _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
+        _selected_element_bragg_edges_array = (
+            self.parent.selected_element_bragg_edges_array
+        )
         _selected_element_hkl_array = self.parent.selected_element_hkl_array
 
         # nbr_hkl_in_list = len(_selected_element_bragg_edges_array)
         # nbr_to_display_at_the_same_time = 4
 
-        hkl_scrollbar_ui = self.parent.hkl_scrollbar_ui['widget'][self.data_type]
+        hkl_scrollbar_ui = self.parent.hkl_scrollbar_ui["widget"][self.data_type]
         hkl_scrollbar_ui.blockSignals(True)
         max_value = self.parent.hkl_scrollbar_dict[ScrollBarParameters.maximum]
         hkl_scrollbar_ui.setMaximum(max_value)
@@ -630,8 +690,10 @@ class Step1Plot(object):
         hkl_scrollbar_ui.setValue(current_value)
         hkl_scrollbar_ui.blockSignals(False)
 
-        list_to_display = np.arange(max_value - current_value, max_value - current_value +
-                                    MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME)
+        list_to_display = np.arange(
+            max_value - current_value,
+            max_value - current_value + MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME,
+        )
 
         # display only the vertical lines
         for _index, _x in enumerate(_selected_element_bragg_edges_array):
@@ -643,14 +705,12 @@ class Step1Plot(object):
             _x = float(_x)
 
             if _index in list_to_display:
-
                 # label of line
                 _hkl = _selected_element_hkl_array[_index]
                 _hkl_formated = "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2])
-                _text = pg.TextItem(_hkl_formated,
-                                    anchor=(0, 1),
-                                    angle=45,
-                                    color=pg.mkColor("c"))
+                _text = pg.TextItem(
+                    _hkl_formated, anchor=(0, 1), angle=45, color=pg.mkColor("c")
+                )
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)
 
