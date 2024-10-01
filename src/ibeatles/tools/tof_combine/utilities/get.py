@@ -15,7 +15,6 @@ from src.ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
 
 
 class Get:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -43,8 +42,7 @@ class Get:
         nbr_row = o_table.row_count()
         dict_folders_status = {}
         for _row_index in np.arange(nbr_row):
-            _horizontal_widget = o_table.get_widget(row=_row_index,
-                                                    column=0)
+            _horizontal_widget = o_table.get_widget(row=_row_index, column=0)
             radio_button = _horizontal_widget.layout().itemAt(1).widget()
             if radio_button.isChecked():
                 dict_folders_status[_row_index] = True
@@ -59,8 +57,7 @@ class Get:
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         nbr_row = o_table.row_count()
         for _row_index in np.arange(nbr_row):
-            _horizontal_widget = o_table.get_widget(row=_row_index,
-                                                    column=0)
+            _horizontal_widget = o_table.get_widget(row=_row_index, column=0)
             radio_button = _horizontal_widget.layout().itemAt(1).widget()
             if radio_button.isChecked():
                 nbr_folders += 1
@@ -87,7 +84,9 @@ class Get:
 
         list_array = []
         for _row in list_row_to_use:
-            list_array.append(copy.deepcopy(self.parent.dict_data_folders[_row][TofSessionKeys.data]))
+            list_array.append(
+                copy.deepcopy(self.parent.dict_data_folders[_row][TofSessionKeys.data])
+            )
 
         return list_array
 
@@ -118,15 +117,15 @@ class Get:
 
     @staticmethod
     def version():
-        setup_cfg = 'pyproject.toml'
+        setup_cfg = "pyproject.toml"
         this_folder = os.path.abspath(os.path.dirname(__file__))
         top_path = Path(this_folder).parent.parent
         full_path_setup_cfg = str(Path(top_path) / Path(setup_cfg))
 
         ## to read from pyproject.toml file
-        with open(full_path_setup_cfg, 'rb') as fp:
+        with open(full_path_setup_cfg, "rb") as fp:
             config = tomli.load(fp)
-        version = config['project']['version']
+        version = config["project"]["version"]
 
         ## to read from setup.cfg file
         # config = configparser.ConfigParser()

@@ -5,13 +5,11 @@ from src.ibeatles._version import __version__
 
 
 class AboutLauncher(QDialog):
-
     def __init__(self, parent=None):
-
         self.parent = parent
         QDialog.__init__(self, parent=parent)
 
-        self.ui = load_ui('about.ui', baseinstance=self)
+        self.ui = load_ui("about.ui", baseinstance=self)
         self.setWindowTitle("About")
         self.ui.application_version_label.setText(f"iBeatles: {__version__}")
 

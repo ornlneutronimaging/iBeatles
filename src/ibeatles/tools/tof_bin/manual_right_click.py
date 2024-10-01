@@ -7,7 +7,6 @@ from src.ibeatles.tools.utilities import TimeSpectraKeys
 
 
 class ManualRightClick:
-
     def __init__(self, parent=None):
         self.parent = parent
         self.logger = logging.getLogger("maverick")
@@ -18,7 +17,7 @@ class ManualRightClick:
 
         menu = QMenu(self.parent)
 
-        row_selected = o_table.get_row_selected()
+        # row_selected = o_table.get_row_selected()
         remove_bin = -1
         # clean_sort = None
         # load_table = menu.addAction("Import table ...")

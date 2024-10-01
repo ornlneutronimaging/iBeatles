@@ -5,7 +5,9 @@ import logging
 from src.ibeatles.utilities.file_handler import FileHandler
 
 
-def export_time_stamp_file(counts_array=None, tof_array=None, file_index_array=None, export_folder=None):
+def export_time_stamp_file(
+    counts_array=None, tof_array=None, file_index_array=None, export_folder=None
+):
     """
     modify the time_spectra file to mirror the new bins
     :param counts_array: total counts of the given bin
@@ -28,4 +30,6 @@ def export_time_stamp_file(counts_array=None, tof_array=None, file_index_array=N
         data=file_content, output_file_name=time_spectra_file_name
     )
 
-    logging.info(f"Exported the new time spectra file: {time_spectra_file_name} ... Done!")
+    logging.info(
+        f"Exported the new time spectra file: {time_spectra_file_name} ... Done!"
+    )

@@ -12,7 +12,10 @@ from src.ibeatles import DataType
 from src.ibeatles.step2.roi_handler import Step2RoiHandler
 from src.ibeatles.step3.event_handler import EventHandler
 from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from src.ibeatles.utilities.status_message_config import (
+    StatusMessageStatus,
+    show_status_message,
+)
 from src.ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
 from src.ibeatles.step2.reduction_tools import moving_average
 from src.ibeatles.step2.get import Get
@@ -20,7 +23,6 @@ from src.ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class Normalization:
-
     coeff_array = 1  # ob / sample of ROI selected
     o_norm = None
 
@@ -28,17 +30,19 @@ class Normalization:
         self.parent = parent
 
     def run_and_export(self):
-
         logging.info("Running and exporting normalization:")
 
         # ask for output folder location
-        sample_folder = self.parent.data_metadata['sample']['folder']
+        sample_folder = self.parent.data_metadata["sample"]["folder"]
         sample_name = os.path.basename(os.path.dirname(sample_folder))
         default_dir = os.path.dirname(os.path.dirname(sample_folder))
         output_folder = str(
-            QFileDialog.getExistingDirectory(caption="Select Where the Normalized folder will be created...",
-                                             directory=default_dir,
-                                             options=QFileDialog.ShowDirsOnly))
+            QFileDialog.getExistingDirectory(
+                caption="Select Where the Normalized folder will be created...",
+                directory=default_dir,
+                options=QFileDialog.ShowDirsOnly,
+            )
+        )
 
         if not output_folder:
             logging.info(" No output folder selected, normalization stopped!")
@@ -47,20 +51,31 @@ class Normalization:
         logging.info(f" output folder selected: {output_folder}")
         full_output_folder = os.path.join(output_folder, sample_name + "_normalized")
         try:
-            full_output_folder = FileHandler.make_or_append_date_time_to_folder(full_output_folder)
+            full_output_folder = FileHandler.make_or_append_date_time_to_folder(
+                full_output_folder
+            )
         except OSError:
-            logging.info(f"ERROR: folder permission error into this folder {full_output_folder}")
-            show_status_message(parent=self.parent,
-                                message="You don't have write permission into this folder!",
-                                status=StatusMessageStatus.error,
-                                duration_s=10)
+            logging.info(
+                f"ERROR: folder permission error into this folder {full_output_folder}"
+            )
+            show_status_message(
+                parent=self.parent,
+                message="You don't have write permission into this folder!",
+                status=StatusMessageStatus.error,
+                duration_s=10,
+            )
             return False
 
         logging.info(f" full output folder will be: {full_output_folder}")
 
         o_norm = self.create_o_norm()
 
-        if self.parent.session_dict[SessionKeys.reduction][SessionSubKeys.process_order] == "option1":
+        if (
+            self.parent.session_dict[SessionKeys.reduction][
+                SessionSubKeys.process_order
+            ]
+            == "option1"
+        ):
             # running moving average before running normalization
             o_norm = self.running_moving_average(o_norm=copy.deepcopy(o_norm))
             o_norm = self.running_normalization(o_norm=copy.deepcopy(o_norm))
@@ -71,111 +86,134 @@ class Normalization:
 
         if not o_norm:
             logging.info("Normalization failed!")
-            show_status_message(parent=self.parent,
-                                message="Normalization Failed (check logbook)!",
-                                status=StatusMessageStatus.error)
+            show_status_message(
+                parent=self.parent,
+                message="Normalization Failed (check logbook)!",
+                status=StatusMessageStatus.error,
+            )
             return False
 
         self.export_normalization(o_norm=o_norm, output_folder=full_output_folder)
-        self.saving_normalization_parameters(o_norm=o_norm, output_folder=full_output_folder)
-        self.moving_time_spectra_to_normalizaton_folder(output_folder=full_output_folder)
+        self.saving_normalization_parameters(
+            o_norm=o_norm, output_folder=full_output_folder
+        )
+        self.moving_time_spectra_to_normalizaton_folder(
+            output_folder=full_output_folder
+        )
 
         # repopulate ui with normalized data
-        o_step3 = EventHandler(parent=self.parent,
-                               data_type=DataType.normalized)
+        o_step3 = EventHandler(parent=self.parent, data_type=DataType.normalized)
         o_step3.import_button_clicked_automatically(folder=full_output_folder)
 
         return True
 
     def create_o_norm(self):
-
         logging.info("Creating o_norm object (to prepare data normalization!")
 
-        _data = self.parent.data_metadata['sample']['data']
-        _ob = self.parent.data_metadata['ob']['data']
+        _data = self.parent.data_metadata["sample"]["data"]
+        _ob = self.parent.data_metadata["ob"]["data"]
 
-        show_status_message(parent=self.parent,
-                            message="Loading data ...",
-                            status=StatusMessageStatus.working)
+        show_status_message(
+            parent=self.parent,
+            message="Loading data ...",
+            status=StatusMessageStatus.working,
+        )
         o_norm = NeuNormNormalization()
         o_norm.load(data=_data)
-        show_status_message(parent=self.parent,
-                            message="Loading data ... Done!",
-                            status=StatusMessageStatus.working,
-                            duration_s=5)
+        show_status_message(
+            parent=self.parent,
+            message="Loading data ... Done!",
+            status=StatusMessageStatus.working,
+            duration_s=5,
+        )
 
         if _ob.any():
-
-            show_status_message(parent=self.parent,
-                                message="Loading ob data ...",
-                                status=StatusMessageStatus.working)
+            show_status_message(
+                parent=self.parent,
+                message="Loading ob data ...",
+                status=StatusMessageStatus.working,
+            )
             o_norm.load(data=_ob, data_type=DataType.ob)
-            show_status_message(parent=self.parent,
-                                message="Loading ob data ... Done!",
-                                status=StatusMessageStatus.working,
-                                duration_s=5)
+            show_status_message(
+                parent=self.parent,
+                message="Loading ob data ... Done!",
+                status=StatusMessageStatus.working,
+                duration_s=5,
+            )
 
         return o_norm
 
     def export_normalization(self, o_norm=None, output_folder=None):
-        show_status_message(parent=self.parent,
-                            message="Exporting normalized files ...",
-                            status=StatusMessageStatus.working)
+        show_status_message(
+            parent=self.parent,
+            message="Exporting normalized files ...",
+            status=StatusMessageStatus.working,
+        )
         o_norm.export(folder=output_folder)
-        show_status_message(parent=self.parent,
-                            message="Exporting normalized files ... Done!",
-                            status=StatusMessageStatus.working,
-                            duration_s=5)
+        show_status_message(
+            parent=self.parent,
+            message="Exporting normalized files ... Done!",
+            status=StatusMessageStatus.working,
+            duration_s=5,
+        )
 
     def moving_time_spectra_to_normalizaton_folder(self, output_folder=None):
         logging.info("Copying time spectra file from input folder to output folder.")
-        time_spectra = self.parent.data_metadata['sample']['time_spectra']
-        filename = time_spectra['filename']
-        folder = time_spectra['folder']
+        time_spectra = self.parent.data_metadata["sample"]["time_spectra"]
+        filename = time_spectra["filename"]
+        folder = time_spectra["folder"]
         full_time_spectra = os.path.join(folder, filename)
         logging.info(f"-> time_spectra: {time_spectra}")
         logging.info(f"-> full_time_spectra: {full_time_spectra}")
         shutil.copy(full_time_spectra, output_folder)
 
     def saving_normalization_parameters(self, o_norm=None, output_folder=None):
-        logging.info("Internally saving normalization parameters (data, folder, time_spectra)")
-        self.parent.data_metadata[DataType.normalized]['data'] = np.array(o_norm.get_normalized_data())
-        self.parent.data_metadata[DataType.normalized]['folder'] = output_folder
-        self.parent.data_metadata[DataType.normalized]['time_spectra'] = \
-            copy.deepcopy(self.parent.data_metadata[DataType.sample]['time_spectra'])
+        logging.info(
+            "Internally saving normalization parameters (data, folder, time_spectra)"
+        )
+        self.parent.data_metadata[DataType.normalized]["data"] = np.array(
+            o_norm.get_normalized_data()
+        )
+        self.parent.data_metadata[DataType.normalized]["folder"] = output_folder
+        self.parent.data_metadata[DataType.normalized]["time_spectra"] = copy.deepcopy(
+            self.parent.data_metadata[DataType.sample]["time_spectra"]
+        )
 
     def running_moving_average(self, o_norm=None):
-
         if o_norm is None:
             return None
 
-        running_moving_average_settings = self.parent.session_dict[SessionKeys.reduction]
+        running_moving_average_settings = self.parent.session_dict[
+            SessionKeys.reduction
+        ]
         if not running_moving_average_settings["activate"]:
             logging.info("Not running moving average! Option has been turned off")
             return o_norm
 
-        show_status_message(parent=self.parent,
-                            message="Running moving average ...",
-                            status=StatusMessageStatus.working)
+        show_status_message(
+            parent=self.parent,
+            message="Running moving average ...",
+            status=StatusMessageStatus.working,
+        )
         logging.info("Running moving average:")
         reduction_settings = self.parent.session_dict[SessionKeys.reduction]
 
-        if reduction_settings['size']['flag'] == 'default':
-            x = ReductionSettingsHandler.default_kernel_size['x']
-            y = ReductionSettingsHandler.default_kernel_size['y']
-            lda = ReductionSettingsHandler.default_kernel_size['l']
+        if reduction_settings["size"]["flag"] == "default":
+            x = ReductionSettingsHandler.default_kernel_size["x"]
+            y = ReductionSettingsHandler.default_kernel_size["y"]
+            lda = ReductionSettingsHandler.default_kernel_size["l"]
 
         else:
-            x = reduction_settings['size']['x']
-            y = reduction_settings['size']['y']
-            lda = reduction_settings['size']['l']
+            x = reduction_settings["size"]["x"]
+            y = reduction_settings["size"]["y"]
+            lda = reduction_settings["size"]["l"]
 
         kernel = [y, x]
-        if reduction_settings['dimension'] == '3d':
+        if reduction_settings["dimension"] == "3d":
             kernel.append(lda)
 
-        _data = np.array(o_norm.data[DataType.sample]['data'])   # lambda, x, y
-        _data_transposed = _data.transpose(2, 1, 0)    # x, y, lambda
+        _data = np.array(o_norm.data[DataType.sample]["data"])  # lambda, x, y
+        _data_transposed = _data.transpose(2, 1, 0)  # x, y, lambda
 
         o_get = Get(parent=self.parent)
         kernel_type = o_get.kernel_type()
@@ -191,55 +229,62 @@ class Normalization:
         # o_moving_average.run()
         # o_norm = o_moving_average.o_norm
 
-        logging.info(f"-> Starting to run moving average with sample data")
-        show_status_message(parent=self.parent,
-                            message="Moving average of sample data ...",
-                            status=StatusMessageStatus.working)
-        sample_data = moving_average(data=_data,
-                                     kernel=kernel,
-                                     kernel_type=kernel_type)
-        logging.info(f"-> Done running moving average with sample data!")
+        logging.info("-> Starting to run moving average with sample data")
+        show_status_message(
+            parent=self.parent,
+            message="Moving average of sample data ...",
+            status=StatusMessageStatus.working,
+        )
+        sample_data = moving_average(data=_data, kernel=kernel, kernel_type=kernel_type)
+        logging.info("-> Done running moving average with sample data!")
         if sample_data is None:
             logging.info("Moving average failed!")
-            show_status_message(parent=self.parent,
-                                message="Running moving average ... Failed",
-                                status=StatusMessageStatus.error)
+            show_status_message(
+                parent=self.parent,
+                message="Running moving average ... Failed",
+                status=StatusMessageStatus.error,
+            )
             return
         else:
             sample_data.transpose(2, 1, 0)  # lambda, x, y
 
-        o_norm.data[DataType.sample]['data'] = sample_data
-        show_status_message(parent=self.parent,
-                            message="Moving average of sample data ... Done!",
-                            status=StatusMessageStatus.working,
-                            duration_s=5)
+        o_norm.data[DataType.sample]["data"] = sample_data
+        show_status_message(
+            parent=self.parent,
+            message="Moving average of sample data ... Done!",
+            status=StatusMessageStatus.working,
+            duration_s=5,
+        )
 
-        _ob = np.array(o_norm.data[DataType.ob]['data'])
+        _ob = np.array(o_norm.data[DataType.ob]["data"])
         if _ob is None:
-
-            show_status_message(parent=self.parent,
-                                message="Moving average of ob data ...",
-                                status=StatusMessageStatus.ready)
-            logging.info(f"-> Starting to run moving average with ob data")
-            ob_data = moving_average(data=_ob,
-                                     kernel=kernel,
-                                     kernel_type=kernel_type)
-            logging.info(f"-> Done running moving average with ob data!")
+            show_status_message(
+                parent=self.parent,
+                message="Moving average of ob data ...",
+                status=StatusMessageStatus.ready,
+            )
+            logging.info("-> Starting to run moving average with ob data")
+            ob_data = moving_average(data=_ob, kernel=kernel, kernel_type=kernel_type)
+            logging.info("-> Done running moving average with ob data!")
             if ob_data:
                 ob_data.transpose(2, 1, 0)  # lambda, x, y
             else:
                 logging.info("Moving average failed!")
-                show_status_message(parent=self.parent,
-                                    message="Running moving average ... Failed",
-                                    status=StatusMessageStatus.error)
+                show_status_message(
+                    parent=self.parent,
+                    message="Running moving average ... Failed",
+                    status=StatusMessageStatus.error,
+                )
                 return
 
-            o_norm.data[DataType.ob]['data'] = ob_data
+            o_norm.data[DataType.ob]["data"] = ob_data
 
-            show_status_message(parent=self.parent,
-                                message="Moving average of ob data ... Done!",
-                                status=StatusMessageStatus.ready,
-                                duration_s=5)
+            show_status_message(
+                parent=self.parent,
+                message="Moving average of ob data ... Done!",
+                status=StatusMessageStatus.ready,
+                duration_s=5,
+            )
 
         return o_norm
 
@@ -263,7 +308,7 @@ class Normalization:
 
         logging.info(f" Background list of ROI: {list_roi_to_use}")
 
-        if not o_norm.data['ob']['data']:
+        if not o_norm.data["ob"]["data"]:
             # if just sample data
             return self.normalization_only_sample_data(o_norm, list_roi_to_use)
         else:
@@ -285,24 +330,29 @@ class Normalization:
 
         list_roi_object = []
         for _roi in list_roi:
-            o_roi = ROI(x0=int(_roi[0]),
-                        y0=int(_roi[1]),
-                        width=int(_roi[2]),
-                        height=int(_roi[3]))
+            o_roi = ROI(
+                x0=int(_roi[0]),
+                y0=int(_roi[1]),
+                width=int(_roi[2]),
+                height=int(_roi[3]),
+            )
             list_roi_object.append(o_roi)
 
-        show_status_message(parent=self.parent,
-                            message="Running normalization ...",
-                            status=StatusMessageStatus.working)
-        o_norm.normalization(roi=list_roi_object,
-                             use_only_sample=True)
+        show_status_message(
+            parent=self.parent,
+            message="Running normalization ...",
+            status=StatusMessageStatus.working,
+        )
+        o_norm.normalization(roi=list_roi_object, use_only_sample=True)
 
         # self.o_norm = o_norm
 
-        show_status_message(parent=self.parent,
-                            message="Running normalization ... Done!",
-                            status=StatusMessageStatus.working,
-                            duration_s=5)
+        show_status_message(
+            parent=self.parent,
+            message="Running normalization ... Done!",
+            status=StatusMessageStatus.working,
+            duration_s=5,
+        )
 
         logging.info(" running normalization with only sample data ... Done!")
         return o_norm
@@ -332,15 +382,19 @@ class Normalization:
 
         list_roi_object = []
         for _roi in list_roi:
-            o_roi = ROI(x0=int(_roi[0]),
-                        y0=int(_roi[1]),
-                        width=int(_roi[2]),
-                        height=int(_roi[3]))
+            o_roi = ROI(
+                x0=int(_roi[0]),
+                y0=int(_roi[1]),
+                width=int(_roi[2]),
+                height=int(_roi[3]),
+            )
             list_roi_object.append(o_roi)
 
-        show_status_message(parent=self.parent,
-                            message="Running normalization ...",
-                            status=StatusMessageStatus.working)
+        show_status_message(
+            parent=self.parent,
+            message="Running normalization ...",
+            status=StatusMessageStatus.working,
+        )
         if list_roi_object:
             o_norm.normalization(roi=list_roi_object)
         else:

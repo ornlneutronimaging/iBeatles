@@ -2,8 +2,7 @@ from copy import deepcopy
 
 
 class RoiHandler:
-
-    def __init__(self, parent=None, data_type='sample'):
+    def __init__(self, parent=None, data_type="sample"):
         self.parent = parent
         self.data_type = data_type
 
@@ -32,7 +31,6 @@ class RoiHandler:
         return roi_index
 
     def are_array_not_equal(self, array1, array2):
-
         for _index, _value in enumerate(array1):
             if not (_value == array2[_index]):
                 return False

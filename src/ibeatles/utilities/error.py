@@ -2,7 +2,6 @@ from src.ibeatles.fitting.kropff import FittingRegions
 
 
 class FittingErrorException(Exception):
-
     def __init__(self, fitting_region=FittingRegions.high_lambda, message=""):
         self.message = message
         self.fitting_region = fitting_region

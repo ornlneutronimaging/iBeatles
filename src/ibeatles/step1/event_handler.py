@@ -14,20 +14,20 @@ from src.ibeatles import DataType, Material
 
 
 class EventHandler(TopEventHandler):
-
     def import_button_clicked(self):
         logging.info(f"{self.data_type} import button clicked")
 
         self.parent.loading_flag = True
-        o_load = DataHandler(parent=self.parent,
-                             data_type=self.data_type)
+        o_load = DataHandler(parent=self.parent, data_type=self.data_type)
         _folder = o_load.select_folder()
-        state = o_load.import_files_from_folder(folder=_folder, extension=[".fits", ".tiff", ".tif"])
+        state = o_load.import_files_from_folder(
+            folder=_folder, extension=[".fits", ".tiff", ".tif"]
+        )
 
         if state:
             self.import_button_clicked_step2(folder=_folder)
         else:
-            logging.info(f"Import button clicked ... operation canceled!")
+            logging.info("Import button clicked ... operation canceled!")
 
     def import_button_clicked_step2(self, folder):
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)
@@ -50,20 +50,21 @@ class EventHandler(TopEventHandler):
         self.parent.infos_window_update(data_type=self.data_type)
 
         if self.data_type == DataType.sample:
-            self.parent.data_metadata['normalization']['data'] = []
+            self.parent.data_metadata["normalization"]["data"] = []
 
         self.parent.ui.sample_ob_splitter.setSizes([20, 450])
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:
-            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type=DataType.sample)
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(
+                parent=self.parent, data_type=DataType.sample
+            )
             o_retrieve_data_infos.update()
             self.parent.roi_image_view_changed(mouse_selection=False)
         else:
             self.parent.loading_flag = False
 
     def update_default_path(self, folder="./"):
-
         parent_folder = os.path.abspath(folder)
         if self.data_type == DataType.sample:
             self.parent.default_path[DataType.ob] = parent_folder
@@ -83,7 +84,10 @@ class EventHandler(TopEventHandler):
         """
         element = self.parent.ui.list_of_elements.currentText()
         if element in self.parent.user_defined_bragg_edge_list.keys():
-            if self.parent.user_defined_bragg_edge_list[element][Material.method_used] == Material.via_lattice_and_crystal_structure:
+            if (
+                self.parent.user_defined_bragg_edge_list[element][Material.method_used]
+                == Material.via_lattice_and_crystal_structure
+            ):
                 self.parent.ui.crystal_structure_groupBox.setVisible(True)
                 self.parent.ui.lattice_groupBox.setVisible(True)
             else:

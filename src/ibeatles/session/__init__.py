@@ -1,5 +1,4 @@
 class SessionKeys:
-
     material = "material"
     instrument = "instrument"
     bin = "bin"
@@ -9,14 +8,12 @@ class SessionKeys:
 
 
 class MaterialMode:
-
     pre_defined = "pre_defined"
     custom_method1 = "custom method 1"
     custom_method2 = "custom method 2"
 
 
 class SessionSubKeys:
-
     # instrument
     distance_source_detector = "distance source detector"
     detector_value = "detector value"
@@ -24,16 +21,16 @@ class SessionSubKeys:
 
     # general
     list_files = "list files"
-    current_folder = 'current folder'
-    list_files_selected = 'list files selected'
-    list_rois = 'list rois'
+    current_folder = "current folder"
+    list_files_selected = "list files selected"
+    list_rois = "list rois"
 
     # sample
     time_spectra_filename = "time spectra filename"
 
     # ob
-    image_view_state = 'image view state'
-    image_view_histogram = 'image view histogram'
+    image_view_state = "image view state"
+    image_view_histogram = "image view histogram"
 
     # material
     pre_defined_selected_element = "selected element in the pre-defined mode"
@@ -50,14 +47,16 @@ class SessionSubKeys:
     index = "index"
     name = "name"
     user_defined = "user_defined"
-    user_defined_fill_fields_with_element_index = "index of element used to fill the fields of method1"
+    user_defined_fill_fields_with_element_index = (
+        "index of element used to fill the fields of method1"
+    )
     material_hkl_table = "hkl, d0 or lambda0 table"
     column_names = "names of the columns"
 
     # bin
     state = "state"
     roi = "roi"
-    binning_line_view = 'binning line view'
+    binning_line_view = "binning line view"
     nbr_row = "nbr row"
     nbr_column = "nbr column"
     bin_size = "bin size"
@@ -87,9 +86,9 @@ class SessionSubKeys:
     list_working_folders = "list_working_folders"
     list_working_folders_status = "list_working_folders_status"
     version = "version"
-    detector_offset = 'detector_offset'
-    combine_algorithm = 'combine_algorithm'
-    combine_roi = 'combine_roi'
-    sample_position = 'sample_position'
-    bin_mode = 'bin_mode'
-    bin_algorithm = 'bin_algorithm'
+    detector_offset = "detector_offset"
+    combine_algorithm = "combine_algorithm"
+    combine_roi = "combine_roi"
+    sample_position = "sample_position"
+    bin_mode = "bin_mode"
+    bin_algorithm = "bin_algorithm"

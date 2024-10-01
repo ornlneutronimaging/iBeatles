@@ -3,19 +3,17 @@ from qtpy.QtWidgets import QDialog
 from src.ibeatles import load_ui
 from src.ibeatles.tools import MICRO, ANGSTROMS
 from src.ibeatles.tools.tof_bin.utilities.get import Get
-from src.ibeatles.tools.tof_bin import BinAutoMode
 from src.ibeatles.utilities.table_handler import TableHandler
 from src.ibeatles.tools.utilities import TimeSpectraKeys
 from src.ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 
 
 class PreviewFullBinAxis(QDialog):
-
     def __init__(self, parent=None):
         self.parent = parent
 
         QDialog.__init__(self, parent=parent)
-        self.ui = load_ui('ui_preview_full_bin_axis.ui', baseinstance=self)
+        self.ui = load_ui("ui_preview_full_bin_axis.ui", baseinstance=self)
         self.setWindowTitle("Full Bin Axis Requested")
 
         self.update_widgets()
@@ -50,13 +48,17 @@ class PreviewFullBinAxis(QDialog):
         o_table = TableHandler(table_ui=self.ui.tableWidget)
         for _row, _left_bin_value in enumerate(full_bin_axis_requested[:-1]):
             o_table.insert_empty_row(row=_row)
-            o_table.insert_item(row=_row,
-                                column=0,
-                                value=_left_bin_value * coeff,
-                                format_str=str_format,
-                                editable=False)
-            o_table.insert_item(row=_row,
-                                column=1,
-                                value=full_bin_axis_requested[_row+1] * coeff,
-                                format_str=str_format,
-                                editable=False)
+            o_table.insert_item(
+                row=_row,
+                column=0,
+                value=_left_bin_value * coeff,
+                format_str=str_format,
+                editable=False,
+            )
+            o_table.insert_item(
+                row=_row,
+                column=1,
+                value=full_bin_axis_requested[_row + 1] * coeff,
+                format_str=str_format,
+                editable=False,
+            )

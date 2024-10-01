@@ -2,11 +2,10 @@ from src.ibeatles import DataType
 from src.ibeatles.step2.initialization import Initialization as Step2Initialization
 from src.ibeatles.step2.gui_handler import Step2GuiHandler
 from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from src.ibeatles.session import SessionSubKeys
 
 
 class LoadNormalization:
-
     def __init__(self, parent=None):
         self.parent = parent
         self.session_dict = parent.session_dict
@@ -30,14 +29,18 @@ class LoadNormalization:
         data_type = self.data_type
         session_dict = self.session_dict
 
-        self.parent.image_view_settings[data_type]['state'] = \
-            session_dict[data_type][SessionSubKeys.image_view_state]
-        self.parent.image_view_settings[data_type]['histogram'] = \
-            session_dict[data_type][SessionSubKeys.image_view_histogram]
+        self.parent.image_view_settings[data_type]["state"] = session_dict[data_type][
+            SessionSubKeys.image_view_state
+        ]
+        self.parent.image_view_settings[data_type]["histogram"] = session_dict[
+            data_type
+        ][SessionSubKeys.image_view_histogram]
 
-        o_pyqt = PyqtgraphUtilities(parent=self.parent,
-                                    image_view=self.parent.step2_ui['image_view'],
-                                    data_type=data_type)
+        o_pyqt = PyqtgraphUtilities(
+            parent=self.parent,
+            image_view=self.parent.step2_ui["image_view"],
+            data_type=data_type,
+        )
         o_pyqt.set_state(session_dict[data_type][SessionSubKeys.image_view_state])
         o_pyqt.reload_histogram_level()
         histogram_level = session_dict[data_type][SessionSubKeys.image_view_histogram]

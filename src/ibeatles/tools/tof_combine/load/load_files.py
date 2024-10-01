@@ -6,13 +6,11 @@ from src.ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
 
 
 class LoadFiles:
-
     def __init__(self, parent=None, folder=None):
         self.parent = parent
         self.folder = folder
 
     def retrieve_data(self):
-
         o_get = Get(parent=self.parent)
         _row = o_get.row_of_that_folder(folder=self.folder)
         list_of_files = self.parent.dict_data_folders[_row][TofSessionKeys.list_files]

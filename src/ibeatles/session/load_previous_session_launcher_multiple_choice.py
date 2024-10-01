@@ -8,13 +8,13 @@ from src.ibeatles.session.session_handler import SessionHandler
 
 
 class LoadPreviousSessionLauncherMultipleChoice(QDialog):
-
     def __init__(self, parent=None, config=None, list_tabs_to_load=None):
         self.parent = parent
         QDialog.__init__(self, parent=parent)
-        ui_full_path = os.path.join(os.path.dirname(__file__),
-                                    os.path.join('ui',
-                                                 'ui_load_previous_session_multiple_choice.ui'))
+        ui_full_path = os.path.join(
+            os.path.dirname(__file__),
+            os.path.join("ui", "ui_load_previous_session_multiple_choice.ui"),
+        )
         self.ui = load_ui(ui_full_path, baseinstance=self)
         self.setWindowTitle("Select Tabs to Load?")
         self.ui.ok_pushButton.setFocus(True)

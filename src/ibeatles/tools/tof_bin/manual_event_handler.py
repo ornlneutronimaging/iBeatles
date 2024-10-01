@@ -17,16 +17,19 @@ SELECTED_BIN = (0, 200, 0, 50)
 
 
 class ManualEventHandler:
-
     def __init__(self, parent=None):
         self.parent = parent
-        self.logger = logging.getLogger('maverick')
+        self.logger = logging.getLogger("maverick")
 
-        self.tof_bin_margin = (self.parent.time_spectra[TimeSpectraKeys.tof_array][1] -
-                               self.parent.time_spectra[TimeSpectraKeys.tof_array][0]) / 2.
+        self.tof_bin_margin = (
+            self.parent.time_spectra[TimeSpectraKeys.tof_array][1]
+            - self.parent.time_spectra[TimeSpectraKeys.tof_array][0]
+        ) / 2.0
 
-        self.lambda_bin_margin = (self.parent.time_spectra[TimeSpectraKeys.lambda_array][1] -
-                                  self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]) / 2
+        self.lambda_bin_margin = (
+            self.parent.time_spectra[TimeSpectraKeys.lambda_array][1]
+            - self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]
+        ) / 2
 
     def refresh_manual_tab(self):
         """refresh the right plot with profile + bin selected when the manual tab is selected"""
@@ -74,7 +77,6 @@ class ManualEventHandler:
     #     self.parent.dict_of_bins_item = dict_of_bins_item
 
     def add_bin(self):
-
         o_get = Get(parent=self.parent)
         time_spectra_x_axis_name = o_get.x_axis_selected()
         x_axis = self.parent.time_spectra[time_spectra_x_axis_name]
@@ -83,36 +85,53 @@ class ManualEventHandler:
         last_row = o_table.row_count()
 
         if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
-            default_bin = [x_axis[0] - FILE_INDEX_BIN_MARGIN,
-                           x_axis[0] + FILE_INDEX_BIN_MARGIN]
+            default_bin = [
+                x_axis[0] - FILE_INDEX_BIN_MARGIN,
+                x_axis[0] + FILE_INDEX_BIN_MARGIN,
+            ]
         elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
-            default_bin = [x_axis[0] - self.tof_bin_margin,
-                           x_axis[0] + self.tof_bin_margin]
+            default_bin = [
+                x_axis[0] - self.tof_bin_margin,
+                x_axis[0] + self.tof_bin_margin,
+            ]
             default_bin = [_value * TO_MICROS_UNITS for _value in default_bin]
         else:
-            default_bin = [x_axis[0] - self.lambda_bin_margin,
-                           x_axis[0] + self.lambda_bin_margin]
+            default_bin = [
+                x_axis[0] - self.lambda_bin_margin,
+                x_axis[0] + self.lambda_bin_margin,
+            ]
             default_bin = [_value * TO_ANGSTROMS_UNITS for _value in default_bin]
 
         manual_bins = self.parent.manual_bins
         if manual_bins[TimeSpectraKeys.file_index_array] is None:
             manual_bins[TimeSpectraKeys.file_index_array] = [
-                self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]]
-            manual_bins[TimeSpectraKeys.tof_array] = [[self.parent.time_spectra[TimeSpectraKeys.tof_array][0]]]
-            manual_bins[TimeSpectraKeys.lambda_array] = [[self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]]]
+                self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]
+            ]
+            manual_bins[TimeSpectraKeys.tof_array] = [
+                [self.parent.time_spectra[TimeSpectraKeys.tof_array][0]]
+            ]
+            manual_bins[TimeSpectraKeys.lambda_array] = [
+                [self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]]
+            ]
         else:
-            manual_bins[TimeSpectraKeys.file_index_array].append([
-                self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]])
-            manual_bins[TimeSpectraKeys.tof_array].append([self.parent.time_spectra[TimeSpectraKeys.tof_array][0]])
-            manual_bins[TimeSpectraKeys.lambda_array].append([
-                self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]])
+            manual_bins[TimeSpectraKeys.file_index_array].append(
+                [self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]]
+            )
+            manual_bins[TimeSpectraKeys.tof_array].append(
+                [self.parent.time_spectra[TimeSpectraKeys.tof_array][0]]
+            )
+            manual_bins[TimeSpectraKeys.lambda_array].append(
+                [self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]]
+            )
         self.parent.manual_bins = manual_bins
 
-        item = pg.LinearRegionItem(values=default_bin,
-                                   orientation='vertical',
-                                   brush=SELECTED_BIN,
-                                   movable=True,
-                                   bounds=None)
+        item = pg.LinearRegionItem(
+            values=default_bin,
+            orientation="vertical",
+            brush=SELECTED_BIN,
+            movable=True,
+            bounds=None,
+        )
         item.setZValue(-10)
         item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
         item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
@@ -125,30 +144,23 @@ class ManualEventHandler:
         # add new entry in table
         o_table.insert_empty_row(last_row)
 
-        o_table.insert_item(row=last_row,
-                            column=0,
-                            value=f"{last_row}",
-                            editable=False)
+        o_table.insert_item(row=last_row, column=0, value=f"{last_row}", editable=False)
 
         _file_index = self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]
-        o_table.insert_item(row=last_row,
-                            column=1,
-                            value=_file_index,
-                            editable=False)
+        o_table.insert_item(row=last_row, column=1, value=_file_index, editable=False)
 
         _tof = self.parent.time_spectra[TimeSpectraKeys.tof_array][0] * TO_MICROS_UNITS
-        o_table.insert_item(row=last_row,
-                            column=2,
-                            value=_tof,
-                            format_str="{:.2f}",
-                            editable=False)
+        o_table.insert_item(
+            row=last_row, column=2, value=_tof, format_str="{:.2f}", editable=False
+        )
 
-        _lambda = self.parent.time_spectra[TimeSpectraKeys.lambda_array][0] * TO_ANGSTROMS_UNITS
-        o_table.insert_item(row=last_row,
-                            column=3,
-                            value=_lambda,
-                            format_str="{:.3f}",
-                            editable=False)
+        _lambda = (
+            self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]
+            * TO_ANGSTROMS_UNITS
+        )
+        o_table.insert_item(
+            row=last_row, column=3, value=_lambda, format_str="{:.3f}", editable=False
+        )
 
     def clear_all_items(self):
         list_of_manually_bins_item = self.parent.list_of_manual_bins_item
@@ -177,51 +189,49 @@ class ManualEventHandler:
 
         _row = 0
         for _index, _bin in enumerate(file_index_array):
-
             if not _bin:
                 continue
 
             o_table.insert_empty_row(_row)
 
-            o_table.insert_item(row=_row,
-                                column=0,
-                                value=f"{_row}",
-                                editable=False)
+            o_table.insert_item(row=_row, column=0, value=f"{_row}", editable=False)
 
             _file_index = _bin
-            _file_index_formatted = format_str(_file_index,
-                                               format_str="{:d}",
-                                               factor=1,
-                                               data_type=TimeSpectraKeys.file_index_array)
-            o_table.insert_item(row=_row,
-                                column=1,
-                                value=_file_index_formatted,
-                                editable=False)
+            _file_index_formatted = format_str(
+                _file_index,
+                format_str="{:d}",
+                factor=1,
+                data_type=TimeSpectraKeys.file_index_array,
+            )
+            o_table.insert_item(
+                row=_row, column=1, value=_file_index_formatted, editable=False
+            )
 
             _tof = tof_array[_index]
-            _tof_formatted = format_str(_tof,
-                                        format_str="{:.2f}",
-                                        factor=TO_MICROS_UNITS,
-                                        data_type=TimeSpectraKeys.tof_array)
-            o_table.insert_item(row=_row,
-                                column=2,
-                                value=_tof_formatted,
-                                editable=False)
+            _tof_formatted = format_str(
+                _tof,
+                format_str="{:.2f}",
+                factor=TO_MICROS_UNITS,
+                data_type=TimeSpectraKeys.tof_array,
+            )
+            o_table.insert_item(
+                row=_row, column=2, value=_tof_formatted, editable=False
+            )
 
             _lambda = lambda_array[_index]
-            _lambda_formatted = format_str(_lambda,
-                                           format_str="{:.3f}",
-                                           factor=TO_ANGSTROMS_UNITS,
-                                           data_type=TimeSpectraKeys.lambda_array)
-            o_table.insert_item(row=_row,
-                                column=3,
-                                value=_lambda_formatted,
-                                editable=False)
+            _lambda_formatted = format_str(
+                _lambda,
+                format_str="{:.3f}",
+                factor=TO_ANGSTROMS_UNITS,
+                data_type=TimeSpectraKeys.lambda_array,
+            )
+            o_table.insert_item(
+                row=_row, column=3, value=_lambda_formatted, editable=False
+            )
 
-            item = self.add_bin_in_plot(row=_row,
-                                        file_index_bin=_bin,
-                                        tof_bin=_tof,
-                                        lambda_bin=_lambda)
+            item = self.add_bin_in_plot(
+                row=_row, file_index_bin=_bin, tof_bin=_tof, lambda_bin=_lambda
+            )
 
             self.parent.list_of_manual_bins_item.append(item)
 
@@ -235,21 +245,23 @@ class ManualEventHandler:
         self.parent.manual_bins = bins
         self.populate_table_with_this_table(table=bins)
 
-    def add_bin_in_plot(self, row=0, file_index_bin=None, tof_bin=None, lambda_bin=None):
+    def add_bin_in_plot(
+        self, row=0, file_index_bin=None, tof_bin=None, lambda_bin=None
+    ):
         o_get = Get(parent=self.parent)
         current_x_axis = o_get.x_axis_selected()
         if current_x_axis == TimeSpectraKeys.file_index_array:
             bin = file_index_bin
-            bin_size = [bin[0] - FILE_INDEX_BIN_MARGIN,
-                        bin[-1] + FILE_INDEX_BIN_MARGIN]
+            bin_size = [bin[0] - FILE_INDEX_BIN_MARGIN, bin[-1] + FILE_INDEX_BIN_MARGIN]
         elif current_x_axis == TimeSpectraKeys.tof_array:
             bin = tof_bin
-            bin_size = [bin[0] - self.tof_bin_margin,
-                        bin[-1] + self.tof_bin_margin]
+            bin_size = [bin[0] - self.tof_bin_margin, bin[-1] + self.tof_bin_margin]
         elif current_x_axis == TimeSpectraKeys.lambda_array:
             bin = lambda_bin
-            bin_size = [bin[0] - self.lambda_bin_margin,
-                        bin[1] + self.lambda_bin_margin]
+            bin_size = [
+                bin[0] - self.lambda_bin_margin,
+                bin[1] + self.lambda_bin_margin,
+            ]
         else:
             raise NotImplementedError("x_axis not implemented!")
 
@@ -258,11 +270,13 @@ class ManualEventHandler:
         else:
             brush_selection = UNSELECTED_BIN
 
-        item = pg.LinearRegionItem(values=bin_size,
-                                   orientation='vertical',
-                                   brush=brush_selection,
-                                   movable=True,
-                                   bounds=None)
+        item = pg.LinearRegionItem(
+            values=bin_size,
+            orientation="vertical",
+            brush=brush_selection,
+            movable=True,
+            bounds=None,
+        )
         item.setZValue(-10)
         item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
         self.parent.bin_profile_view.addItem(item)
@@ -270,7 +284,6 @@ class ManualEventHandler:
         return item
 
     def bin_manually_moved(self, item_id=None):
-
         self.bin_manually_moving(item_id=item_id)
 
         # 1. using region selected threshold, and the current axis, find the snapping left and right indexes
@@ -296,7 +309,6 @@ class ManualEventHandler:
         o_table.block_signals(False)
 
     def update_table(self):
-
         o_table = TableHandler(table_ui=self.parent.ui.bin_manual_tableWidget)
         o_table.block_signals(True)
 
@@ -305,26 +317,33 @@ class ManualEventHandler:
         lambda_array = self.parent.manual_bins[TimeSpectraKeys.lambda_array]
 
         for _row, list_runs in enumerate(file_index_array):
-
-            list_runs_formatted = format_str(list_runs,
-                                             format_str="{:d}",
-                                             factor=1,
-                                             data_type=TimeSpectraKeys.file_index_array)
+            list_runs_formatted = format_str(
+                list_runs,
+                format_str="{:d}",
+                factor=1,
+                data_type=TimeSpectraKeys.file_index_array,
+            )
             o_table.set_item_with_str(row=_row, column=1, cell_str=list_runs_formatted)
 
             list_tof = tof_array[_row]
-            list_tof_formatted = format_str(list_tof,
-                                            format_str="{:.2f}",
-                                            factor=TO_MICROS_UNITS,
-                                            data_type=TimeSpectraKeys.tof_array)
+            list_tof_formatted = format_str(
+                list_tof,
+                format_str="{:.2f}",
+                factor=TO_MICROS_UNITS,
+                data_type=TimeSpectraKeys.tof_array,
+            )
             o_table.set_item_with_str(row=_row, column=2, cell_str=list_tof_formatted)
 
             list_lambda = lambda_array[_row]
-            list_lambda_formatted = format_str(list_lambda,
-                                               format_str="{:.3f}",
-                                               factor=TO_ANGSTROMS_UNITS,
-                                               data_type=TimeSpectraKeys.lambda_array)
-            o_table.set_item_with_str(row=_row, column=3, cell_str=list_lambda_formatted)
+            list_lambda_formatted = format_str(
+                list_lambda,
+                format_str="{:.3f}",
+                factor=TO_ANGSTROMS_UNITS,
+                data_type=TimeSpectraKeys.lambda_array,
+            )
+            o_table.set_item_with_str(
+                row=_row, column=3, cell_str=list_lambda_formatted
+            )
 
         o_table.block_signals(False)
 
@@ -359,7 +378,7 @@ class ManualEventHandler:
 
     def create_all_ranges(self):
         manual_snapping_indexes_bins = self.parent.manual_snapping_indexes_bins
-    
+
         file_index_array = []
         tof_array = []
         lambda_array = []
@@ -368,21 +387,22 @@ class ManualEventHandler:
             left_index, right_index = manual_snapping_indexes_bins[_bin]
 
             # tof_array
-            bins_file_index_array = list(self.parent.time_spectra[
-                TimeSpectraKeys.file_index_array])
-            bins_file_index_range = bins_file_index_array[left_index: right_index + 1]
+            bins_file_index_array = list(
+                self.parent.time_spectra[TimeSpectraKeys.file_index_array]
+            )
+            bins_file_index_range = bins_file_index_array[left_index : right_index + 1]
             file_index_array.append(bins_file_index_range)
 
             # tof_array
             bins_tof_array = self.parent.time_spectra[TimeSpectraKeys.tof_array]
-            bins_tof_range = bins_tof_array[left_index: right_index + 1]
+            bins_tof_range = bins_tof_array[left_index : right_index + 1]
             tof_array.append(bins_tof_range)
-    
+
             # lambda_array
             bins_lambda_array = self.parent.time_spectra[TimeSpectraKeys.lambda_array]
-            bins_lambda_range = bins_lambda_array[left_index: right_index + 1]
+            bins_lambda_range = bins_lambda_array[left_index : right_index + 1]
             lambda_array.append(bins_lambda_range)
-    
+
         self.parent.manual_bins[TimeSpectraKeys.file_index_array] = file_index_array
         self.parent.manual_bins[TimeSpectraKeys.tof_array] = tof_array
         self.parent.manual_bins[TimeSpectraKeys.lambda_array] = lambda_array
@@ -419,7 +439,6 @@ class ManualEventHandler:
 
         list_of_manual_bins_item = []
         for _row, _x in enumerate(x_axis):
-
             left_value_checked = _x[0] * factor
             right_value_checked = _x[-1] * factor
 
@@ -427,11 +446,13 @@ class ManualEventHandler:
 
             self.parent.bin_profile_view.removeItem(_item)
 
-            item = pg.LinearRegionItem(values=[left_value_checked, right_value_checked],
-                                       orientation='vertical',
-                                       brush=SELECTED_BIN,
-                                       movable=True,
-                                       bounds=None)
+            item = pg.LinearRegionItem(
+                values=[left_value_checked, right_value_checked],
+                orientation="vertical",
+                brush=SELECTED_BIN,
+                movable=True,
+                bounds=None,
+            )
             item.setZValue(-10)
             item.sigRegionChangeFinished.connect(self.parent.bin_manual_region_changed)
             item.sigRegionChanged.connect(self.parent.bin_manual_region_changing)
@@ -450,8 +471,13 @@ class ManualEventHandler:
             [left, right] = _item.getRegion()
 
             # bring left and right to closest correct values
-            left_value_checked, right_value_checked = self.checked_range(left=left, right=right)
-            manual_snapping_indexes_bins[_row] = [left_value_checked, right_value_checked]
+            left_value_checked, right_value_checked = self.checked_range(
+                left=left, right=right
+            )
+            manual_snapping_indexes_bins[_row] = [
+                left_value_checked,
+                right_value_checked,
+            ]
 
         self.parent.manual_snapping_indexes_bins = manual_snapping_indexes_bins
 
@@ -488,12 +514,14 @@ class ManualEventHandler:
         if right >= x_axis[-1]:
             right = x_axis[-1]
 
-        index_clean_left_value = get_index_of_closest_match(array_to_look_for=x_axis,
-                                                            value=left,
-                                                            left_margin=True)
-        index_clean_right_value = get_index_of_closest_match(array_to_look_for=x_axis,
-                                                             value=right,
-                                                             left_margin=False)
+        index_clean_left_value = get_index_of_closest_match(
+            array_to_look_for=x_axis, value=left, left_margin=True
+        )
+        index_clean_right_value = get_index_of_closest_match(
+            array_to_look_for=x_axis, value=right, left_margin=False
+        )
 
-        return (np.min([index_clean_left_value, index_clean_right_value]),
-                np.max([index_clean_left_value, index_clean_right_value]))
+        return (
+            np.min([index_clean_left_value, index_clean_right_value]),
+            np.max([index_clean_left_value, index_clean_right_value]),
+        )

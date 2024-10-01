@@ -14,7 +14,7 @@ class LoadFiles:
     list_of_files = []
     data = []
 
-    def __init__(self, parent=None, image_ext='.tif', folder=None, list_of_files=None):
+    def __init__(self, parent=None, image_ext=".tif", folder=None, list_of_files=None):
         self.parent = parent
         self.image_ext = image_ext
         self.folder = folder
@@ -27,13 +27,13 @@ class LoadFiles:
         _image_ext = self.image_ext
 
         if list_of_files is None:
-            _list_of_files = glob.glob(_folder + '/*' + _image_ext)
+            _list_of_files = glob.glob(_folder + "/*" + _image_ext)
         else:
             _list_of_files = list_of_files
 
         self.list_of_files_full_name = _list_of_files
         short_list_of_files = []
-        self.folder = os.path.dirname(_list_of_files[0]) + '/'
+        self.folder = os.path.dirname(_list_of_files[0]) + "/"
         for _file in _list_of_files:
             _short_file = os.path.basename(_file)
             short_list_of_files.append(_short_file)
@@ -59,16 +59,16 @@ class LoadFiles:
 
             if _index == 0:
                 [height, width] = np.shape(_data)
-                self.parent.data_metadata[DataType.normalized]['size'] = {'width': width,
-                                                                          'height': height}
+                self.parent.data_metadata[DataType.normalized]["size"] = {
+                    "width": width,
+                    "height": height,
+                }
 
         self.parent.eventProgress.setVisible(False)
 
     @classmethod
     def load_interactive_data(cls, parent=None, list_tif_files=None):
-        dict = {'width': None,
-                'height': None,
-                'image_array': []}
+        dict = {"width": None, "height": None, "image_array": []}
 
         parent.eventProgress.setMinimum(0)
         parent.eventProgress.setMaximum(len(list_tif_files))
@@ -78,14 +78,14 @@ class LoadFiles:
         for _index, _file in enumerate(list_tif_files):
             o_handler = ImageHandler(parent=parent, filename=_file)
             _data = o_handler.get_data()
-            dict['image_array'].append(_data)
+            dict["image_array"].append(_data)
             parent.eventProgress.setValue(_index + 1)
             QApplication.processEvents()
 
             if _index == 0:
                 [height, width] = np.shape(_data)
-                dict['width'] = width
-                dict['height'] = height
+                dict["width"] = width
+                dict["height"] = height
 
         parent.eventProgress.setVisible(False)
 
