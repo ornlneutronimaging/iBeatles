@@ -19,12 +19,15 @@ class ExportImages:
         self.top_parent = top_parent
 
     def run(self):
-
         working_dir = self.parent.top_folder
 
-        _folder = str(QFileDialog.getExistingDirectory(caption="Select Folder to ExportImages the Images",
-                                                       directory=working_dir,
-                                                       options=QFileDialog.ShowDirsOnly))
+        _folder = str(
+            QFileDialog.getExistingDirectory(
+                caption="Select Folder to ExportImages the Images",
+                directory=working_dir,
+                options=QFileDialog.ShowDirsOnly,
+            )
+        )
 
         if _folder == "":
             logging.info("User cancel export images!")
@@ -40,7 +43,7 @@ class ExportImages:
 
         # initialize progress bar
         self.parent.eventProgress.setMinimum(0)
-        self.parent.eventProgress.setMaximum(nbr_folder-1)
+        self.parent.eventProgress.setMaximum(nbr_folder - 1)
         self.parent.eventProgress.setValue(0)
         self.parent.eventProgress.setVisible(True)
 
@@ -50,9 +53,9 @@ class ExportImages:
             short_file_name = f"image_{_index:04d}"
             o_norm = Normalization()
             o_norm.load(data=_array)
-            o_norm.data['sample']['file_name'][0] = short_file_name
-            o_norm.export(folder=output_folder, data_type='sample', file_type='tiff')
-            self.parent.eventProgress.setValue(_index+1)
+            o_norm.data["sample"]["file_name"][0] = short_file_name
+            o_norm.export(folder=output_folder, data_type="sample", file_type="tiff")
+            self.parent.eventProgress.setValue(_index + 1)
 
         # export time spectra file
         self.export_time_spectra_file()
@@ -65,7 +68,9 @@ class ExportImages:
         output_folder = self.output_folder
 
         # retrieve full path of the time spectra file from first folder selected
-        full_path_time_spectra_file = self.parent.time_spectra[TimeSpectraKeys.file_name]
+        full_path_time_spectra_file = self.parent.time_spectra[
+            TimeSpectraKeys.file_name
+        ]
 
         logging.info(f" - time spectra file: {full_path_time_spectra_file}")
         logging.info(f" - to output folder: {output_folder}")

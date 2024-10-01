@@ -8,7 +8,6 @@ from src.ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
 
 
 class Combine:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -23,9 +22,10 @@ class Combine:
             self.parent.combine_data = None
 
         else:
-
             # combine using algorithm defined
-            [nbr_folder_to_combine, nbr_files, width, height] = np.shape(list_array_to_combine)
+            [nbr_folder_to_combine, nbr_files, width, height] = np.shape(
+                list_array_to_combine
+            )
 
             if nbr_folder_to_combine > 1:
                 if combine_algorithm == CombineAlgorithm.mean:
@@ -52,15 +52,16 @@ class Combine:
 
                 # initialize ROI if first time, otherwise use same region
                 roi_dict = self.parent.session[TofCombineSessionKeys.combine_roi]
-                x0 = roi_dict['x0']
-                y0 = roi_dict['y0']
-                width = roi_dict['width']
-                height = roi_dict['height']
+                x0 = roi_dict["x0"]
+                y0 = roi_dict["y0"]
+                width = roi_dict["width"]
+                height = roi_dict["height"]
                 if self.parent.combine_roi_item_id:
-                    self.parent.combine_image_view.removeItem(self.parent.combine_roi_item_id)
+                    self.parent.combine_image_view.removeItem(
+                        self.parent.combine_roi_item_id
+                    )
 
-                roi_item = pg.ROI([x0, y0],
-                                  [width, height])
+                roi_item = pg.ROI([x0, y0], [width, height])
                 roi_item.addScaleHandle([1, 1], [0, 0])
                 self.parent.combine_image_view.addItem(roi_item)
                 roi_item.sigRegionChanged.connect(self.parent.combine_roi_changed)

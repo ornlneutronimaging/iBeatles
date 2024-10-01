@@ -1,5 +1,4 @@
 class KropffTabSelected:
-
     settings = "initial settings"
     high_tof = "high_tof"
     low_tof = "low_tof"
@@ -8,13 +7,11 @@ class KropffTabSelected:
 
 
 class FittingTabSelected:
-
     march_dollase = "march_dollase"
     kropff = "kropff"
 
 
 class FittingKeys:
-
     x_axis = "xaxis"
     y_axis = "yaxis"
     transparency = "transparency"
@@ -29,8 +26,6 @@ class FittingKeys:
     lock = "lock"
 
 
-selected_color = {'pen': (0, 0, 0, 30),
-                  'brush': (0, 255, 0, 150)}
+selected_color = {"pen": (0, 0, 0, 30), "brush": (0, 255, 0, 150)}
 
-lock_color = {'pen': (0, 0, 0, 30),
-              'brush': (255, 0, 0, 240)}
+lock_color = {"pen": (0, 0, 0, 30), "brush": (255, 0, 0, 240)}

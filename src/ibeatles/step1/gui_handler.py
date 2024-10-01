@@ -3,7 +3,10 @@ import pyqtgraph as pg
 from neutronbraggedge.braggedge import BraggEdge
 
 from src.ibeatles.step1.plot import Step1Plot
-from src.ibeatles.utilities.retrieve_data_infos import RetrieveGeneralFileInfos, RetrieveGeneralDataInfos
+from src.ibeatles.utilities.retrieve_data_infos import (
+    RetrieveGeneralFileInfos,
+    RetrieveGeneralDataInfos,
+)
 from src.ibeatles.step1.math_utilities import calculate_delta_lambda
 from src.ibeatles.utilities.gui_handler import GuiHandler
 from src.ibeatles import DataType, Material
@@ -14,11 +17,10 @@ class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
         if 0 in values:
             return []
-        return ['{:.4f}'.format(1. / i) for i in values]
+        return ["{:.4f}".format(1.0 / i) for i in values]
 
 
 class Step1GuiHandler(object):
-
     def __init__(self, parent=None, data_type=None):
         self.parent = parent
 
@@ -48,7 +50,9 @@ class Step1GuiHandler(object):
 
         already_existing_list_roi = self.parent.list_roi_id[self.data_type]
         already_existing_list_label_roi = self.parent.list_label_roi_id[self.data_type]
-        for _roi_id, _label_id in zip(already_existing_list_roi, already_existing_list_label_roi):
+        for _roi_id, _label_id in zip(
+            already_existing_list_roi, already_existing_list_label_roi
+        ):
             image_view.removeItem(_roi_id)
             image_view.removeItem(_label_id)
 
@@ -64,10 +68,13 @@ class Step1GuiHandler(object):
 
             # label roi
             label_roi = pg.TextItem(
-                    html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
-                    anchor=(-0.3, 1.3),
-                    border='w',
-                    fill=(0, 0, 255, 50))
+                html='<div style="text-align: center"><span style="color: #ff0000;">'
+                + label
+                + "</span></div>",
+                anchor=(-0.3, 1.3),
+                border="w",
+                fill=(0, 0, 255, 50),
+            )
 
             # # roi region in image
             # roi = pg.ROI([x0, y0], [width, height])
@@ -81,7 +88,7 @@ class Step1GuiHandler(object):
 
         self.parent.list_label_roi_id[self.data_type] = list_label_roi_id
 
-    def sync_instrument_widgets(self, source='load_data'):
+    def sync_instrument_widgets(self, source="load_data"):
         pass
 
         # target = 'normalized'
@@ -105,36 +112,38 @@ class Step1GuiHandler(object):
         # o_gui.set_index_selected(index=beam_index, ui=list_ui[target]['beam'])
 
     def load_data_tab_changed(self, tab_index=0):
-        data_type = 'sample'
+        data_type = "sample"
 
         if tab_index == 0:
             # data_preview_box_label = "Sample Image Preview"
-            o_general_infos = RetrieveGeneralFileInfos(parent=self.parent,
-                                                       data_type='sample')
-            o_selected_infos = RetrieveGeneralDataInfos(parent=self.parent,
-                                                        data_type='sample')
+            o_general_infos = RetrieveGeneralFileInfos(
+                parent=self.parent, data_type="sample"
+            )
+            o_selected_infos = RetrieveGeneralDataInfos(
+                parent=self.parent, data_type="sample"
+            )
         else:
             # data_preview_box_label = "Open Beam Image Preview"
-            o_general_infos = RetrieveGeneralFileInfos(parent=self.parent,
-                                                       data_type='ob')
-            o_selected_infos = RetrieveGeneralDataInfos(parent=self.parent,
-                                                        data_type='ob')
-            data_type = 'ob'
+            o_general_infos = RetrieveGeneralFileInfos(
+                parent=self.parent, data_type="ob"
+            )
+            o_selected_infos = RetrieveGeneralDataInfos(
+                parent=self.parent, data_type="ob"
+            )
+            data_type = "ob"
 
         o_general_infos.update()
         o_selected_infos.update()
 
         row_selected = self.row_selected(data_type=data_type)
-        data = self.parent.data_metadata[data_type]['data']
+        data = self.parent.data_metadata[data_type]["data"]
         if len(data) > 0:
             data = data[row_selected]
-        o_gui = Step1Plot(parent=self.parent,
-                          data_type=data_type,
-                          data=data)
+        o_gui = Step1Plot(parent=self.parent, data_type=data_type, data=data)
         o_gui.all_plots()
 
-    def row_selected(self, data_type='sample'):
-        return self.parent.data_metadata[data_type]['list_widget_ui'].currentRow()
+    def row_selected(self, data_type="sample"):
+        return self.parent.data_metadata[data_type]["list_widget_ui"].currentRow()
 
     def get_element_selected(self):
         return str(self.parent.ui.list_of_elements.currentText())
@@ -147,10 +156,10 @@ class Step1GuiHandler(object):
                 self.parent.ui.crystal_structure.setCurrentIndex(_row)
 
     def retrieve_handler_from_local_bragg_edge_list(self, material=None):
-        '''
+        """
         Look if the material is in the local list of Bragg edge and if it is,
         return the dictionary of that material
-        '''
+        """
         if material is None:
             return None
 
@@ -159,43 +168,52 @@ class Step1GuiHandler(object):
             return _local_bragg_edge_list[material]
 
     def add_element_to_local_bragg_edge_list(self, material=None):
-        '''
+        """
         Add a new material into the local bragg edge list
         new entry will be
         'material': {'crystal_structure': '', 'lattice': -1}
-        '''
+        """
         if material is None:
             return None
 
         o_gui = GuiHandler(parent=self.parent)
-        _crystal_structure = o_gui.get_text_selected(ui=self.parent.ui.crystal_structure)
+        _crystal_structure = o_gui.get_text_selected(
+            ui=self.parent.ui.crystal_structure
+        )
         _lattice = o_gui.get_text(ui=self.parent.ui.lattice_parameter)
 
-        self.parent.local_bragg_edge_list[material] = {'crystal_structure': _crystal_structure,
-                                                       'lattice': _lattice}
+        self.parent.local_bragg_edge_list[material] = {
+            "crystal_structure": _crystal_structure,
+            "lattice": _lattice,
+        }
 
-    def update_lattice_and_crystal_when_index_selected(self,
-                                                       fill_lattice_flag=True,
-                                                       fill_crystal_structure_flag=True):
-
+    def update_lattice_and_crystal_when_index_selected(
+        self, fill_lattice_flag=True, fill_crystal_structure_flag=True
+    ):
         self.parent.ui.list_of_elements.blockSignals(True)
 
         _element = self.get_element_selected()
 
         if _element in self.parent.user_defined_bragg_edge_list.keys():
-
-            if self.parent.user_defined_bragg_edge_list[_element][Material.method_used] == Material.via_d0:
+            if (
+                self.parent.user_defined_bragg_edge_list[_element][Material.method_used]
+                == Material.via_d0
+            ):
                 _lattice = ""
                 _crystal_structure = ""
 
             else:
-                _lattice = self.parent.user_defined_bragg_edge_list[_element][Material.lattice]
-                _crystal_structure = self.parent.user_defined_bragg_edge_list[_element][Material.crystal_structure]
+                _lattice = self.parent.user_defined_bragg_edge_list[_element][
+                    Material.lattice
+                ]
+                _crystal_structure = self.parent.user_defined_bragg_edge_list[_element][
+                    Material.crystal_structure
+                ]
 
         else:
             _handler = BraggEdge(material=_element)
-            _crystal_structure = _handler.metadata['crystal_structure'][_element]
-            _lattice = str(_handler.metadata['lattice'][_element])
+            _crystal_structure = _handler.metadata["crystal_structure"][_element]
+            _lattice = str(_handler.metadata["lattice"][_element])
 
         _index = self.parent.ui.list_of_elements.currentIndex()
 
@@ -207,35 +225,37 @@ class Step1GuiHandler(object):
 
         self.parent.ui.list_of_elements.blockSignals(False)
 
-    def select_load_data_row(self, data_type='sample', row=0):
-        if data_type == 'sample':
+    def select_load_data_row(self, data_type="sample", row=0):
+        if data_type == "sample":
             self.parent.ui.list_sample.setCurrentRow(row)
-        elif data_type == 'ob':
+        elif data_type == "ob":
             self.parent.ui.list_open_beam.setCurrentRow(row)
-        elif data_type == 'normalized':
+        elif data_type == "normalized":
             self.parent.ui.list_normalized.setCurrentRow(row)
 
     def update_delta_lambda(self):
-        distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
+        distance_source_detector = float(
+            str(self.parent.ui.distance_source_detector.text())
+        )
         frequency = float(str(self.parent.ui.beam_rate.currentText()))
 
         delta_lambda = calculate_delta_lambda(
-            distance_source_detector=distance_source_detector,
-            frequency=frequency)
+            distance_source_detector=distance_source_detector, frequency=frequency
+        )
 
         self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
 
     def check_step1_widgets(self):
-        if self.parent.data_metadata[self.data_type]['data'].any():
+        if self.parent.data_metadata[self.data_type]["data"].any():
             self.parent.ui.load_data_tab.setTabEnabled(1, True)
             self.parent.ui.tabWidget.setTabEnabled(1, True)
 
     def check_time_spectra_widgets(self):
         if self.data_type == DataType.normalized:
-            data_location = 'data_normalized'
+            data_location = "data_normalized"
         else:
-            data_location = 'data'
-        time_spectra_data = self.parent.data_metadata['time_spectra'][data_location]
+            data_location = "data"
+        time_spectra_data = self.parent.data_metadata["time_spectra"][data_location]
 
         if self.parent.ui.material_display_checkbox.isChecked():
             if len(time_spectra_data) == 0:
@@ -251,4 +271,3 @@ class Step1GuiHandler(object):
         self.parent.ui.detector_offset.blockSignals(status)
         self.parent.ui.distance_source_detector.blockSignals(status)
         self.parent.ui.beam_rate.blockSignals(status)
-

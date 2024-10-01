@@ -1,2 +1,0 @@
-nosetests -v --rednose  --with-coverage --cover-erase --cover-package=ibeatles --cover-html
-

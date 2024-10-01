@@ -4,7 +4,6 @@ from src.ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class Get:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -16,12 +15,12 @@ class Get:
             return self.parent.ui.user_defined_element_name.text()
 
     def get_log_file_name(self):
-        log_file_name = self.parent.config['log_file_name']
+        log_file_name = self.parent.config["log_file_name"]
         full_log_file_name = Get.get_full_home_file_name(log_file_name)
         return full_log_file_name
 
     def get_automatic_config_file_name(self):
-        config_file_name = self.parent.config['session_file_name']
+        config_file_name = self.parent.config["session_file_name"]
         full_config_file_name = Get.get_full_home_file_name(config_file_name)
         return full_config_file_name
 
@@ -33,7 +32,11 @@ class Get:
 
     def distance_source_detector(self) -> str:
         session_dict = self.parent.session_dict
-        return str(session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector])
+        return str(
+            session_dict[SessionKeys.instrument][
+                SessionSubKeys.distance_source_detector
+            ]
+        )
 
     def detector_offset(self) -> str:
         session_dict = self.parent.session_dict

@@ -12,16 +12,16 @@ class KropffLambdaHKLSettings(QDialog):
         self.parent = parent
         self.grand_parent = grand_parent
         super(QDialog, self).__init__(parent)
-        self.ui = load_ui('ui_kropff_lambda_hkl_settings.ui', baseinstance=self)
+        self.ui = load_ui("ui_kropff_lambda_hkl_settings.ui", baseinstance=self)
         self.init_widgets()
 
     def init_widgets(self):
-        self.ui.fix_lineEdit.setText(str(self.parent.kropff_lambda_settings['fix']))
-        from_value, to_value, step_value = self.parent.kropff_lambda_settings['range']
+        self.ui.fix_lineEdit.setText(str(self.parent.kropff_lambda_settings["fix"]))
+        from_value, to_value, step_value = self.parent.kropff_lambda_settings["range"]
         self.ui.from_lineEdit.setText(str(from_value))
         self.ui.to_lineEdit.setText(str(to_value))
         self.ui.step_lineEdit.setText(str(step_value))
-        if self.parent.kropff_lambda_settings['state'] == 'fix':
+        if self.parent.kropff_lambda_settings["state"] == "fix":
             self.ui.fix_radioButton.setChecked(True)
         else:
             self.ui.range_radioButton.setChecked(True)
@@ -33,9 +33,9 @@ class KropffLambdaHKLSettings(QDialog):
 
     def ok_clicked(self):
         if self.ui.fix_radioButton.isChecked():
-            self.parent.kropff_lambda_settings['state'] = 'fix'
+            self.parent.kropff_lambda_settings["state"] = "fix"
         else:
-            self.parent.kropff_lambda_settings['state'] = 'range'
+            self.parent.kropff_lambda_settings["state"] = "range"
 
         try:
             fix_value = float(str(self.ui.fix_lineEdit.text()))
@@ -46,8 +46,8 @@ class KropffLambdaHKLSettings(QDialog):
             self.init_widgets()
             return
 
-        self.parent.kropff_lambda_settings['fix'] = fix_value
-        self.parent.kropff_lambda_settings['range'] = [from_value, to_value, step_value]
+        self.parent.kropff_lambda_settings["fix"] = fix_value
+        self.parent.kropff_lambda_settings["range"] = [from_value, to_value, step_value]
         self.close()
 
     def radio_button_changed(self):

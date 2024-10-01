@@ -37,51 +37,51 @@ step2_icon = os.path.join(root, "static/step2.png")
 step3_icon = os.path.join(root, "static/step3.png")
 step4_icon = os.path.join(root, "static/step4.png")
 
-DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
-DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', 'background']
+DEFAULT_ROI = ["default", "0", "0", "20", "20", "0"]
+DEFAULT_NORMALIZATION_ROI = [True, "0", "0", "20", "20", "background"]
 DEFAULT_BIN = [0, 0, 20, 20, 10]
-BINNING_LINE_COLOR = (255, 0, 0, 255, 1.)
+BINNING_LINE_COLOR = (255, 0, 0, 255, 1.0)
 
 interact_me_style = "background-color: lime"
 error_style = "background-color: red"
 normal_style = ""
 
-ANGSTROMS = u"\u212B"
-LAMBDA = u"\u03BB"
-MICRO = u"\u00B5"
-SUB_0 = u"\u2080"
-DELTA = u"\u0394"
+ANGSTROMS = "\u212b"
+LAMBDA = "\u03bb"
+MICRO = "\u00b5"
+SUB_0 = "\u2080"
+DELTA = "\u0394"
 
 MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME = 4
 
 
 class XAxisMode:
-    tof_mode = 'tof'
-    lambda_mode = 'lambda'
-    file_index_mode = 'file_index'
+    tof_mode = "tof"
+    lambda_mode = "lambda"
+    file_index_mode = "file_index"
 
 
 class DataType:
-    sample = 'sample'
-    ob = 'ob'
-    df = 'df'
-    normalized = 'normalized'
-    normalization = 'normalization'
+    sample = "sample"
+    ob = "ob"
+    df = "df"
+    normalized = "normalized"
+    normalization = "normalization"
     bin = "bin"
     fitting = "fitting"
-    time_spectra = 'time_spectra'
-    time_spectra_normalized = 'time_spectra_normalized'
-    none = 'none'
+    time_spectra = "time_spectra"
+    time_spectra_normalized = "time_spectra_normalized"
+    none = "none"
 
 
 class ScrollBarParameters:
-    maximum = 'maximumx value'
-    value = 'current value'
+    maximum = "maximumx value"
+    value = "current value"
 
 
 class RegionType:
-    sample = 'sample'
-    background = 'background'
+    sample = "sample"
+    background = "background"
 
 
 def load_ui(ui_filename, baseinstance):
@@ -100,6 +100,7 @@ class Material:
     keys to use when retrieving or saving the h, k, l, lambda and d0 value, as well as the
     lattice, crystal structure and if the user defined or not that entry.
     """
+
     element_name = "name of the element"
     lattice = "lattice"
     crystal_structure = "structure of the crystal"
@@ -109,11 +110,13 @@ class Material:
     via_d0 = "using method 2"
     method_used = "either via_lattice or via_d0"
     user_defined_bragg_edge_list = "list of hkl, d0 of the user defined material"
-    full_list_of_element_names = "list of names of element displayed in the 2 comboBoxes"
+    full_list_of_element_names = (
+        "list of names of element displayed in the 2 comboBoxes"
+    )
     local_bragg_edge_list = "local Bragg edge list of material defined byt he user"
 
 
 class FileType:
     ascii = "txt"
-    json = 'json'
-    hdf5 = 'h5'
+    json = "json"
+    hdf5 = "h5"

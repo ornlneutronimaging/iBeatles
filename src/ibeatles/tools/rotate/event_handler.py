@@ -8,7 +8,10 @@ import os
 import shutil
 
 from src.ibeatles import DataType, interact_me_style, normal_style
-from src.ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from src.ibeatles.utilities.status_message_config import (
+    StatusMessageStatus,
+    show_status_message,
+)
 from src.ibeatles.session import SessionSubKeys
 from src.ibeatles.utilities.file_handler import FileHandler
 from src.ibeatles.utilities.file_handler import retrieve_timestamp_file_name
@@ -16,27 +19,34 @@ from src.ibeatles.utilities.load_files import LoadFiles
 
 
 class EventHandler:
-
     def __init__(self, parent=None, top_parent=None):
         self.parent = parent
         self.top_parent = top_parent
 
     def select_input_folder(self):
-        default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
-        folder = str(QFileDialog.getExistingDirectory(caption="Select folder containing images to load",
-                                                      directory=default_path,
-                                                      options=QFileDialog.ShowDirsOnly))
+        default_path = self.top_parent.session_dict[DataType.sample][
+            SessionSubKeys.current_folder
+        ]
+        folder = str(
+            QFileDialog.getExistingDirectory(
+                caption="Select folder containing images to load",
+                directory=default_path,
+                options=QFileDialog.ShowDirsOnly,
+            )
+        )
         if folder == "":
             logging.info("User Canceled the selection of folder!")
             return
 
         list_tif_files = FileHandler.get_list_of_tif(folder=folder)
         if not list_tif_files:
-            logging.info(f"-> folder does not contain any tif file!")
-            show_status_message(parent=self.parent,
-                                message=f"Folder {os.path.basename(folder)} does not contain any TIFF files!",
-                                duration_s=5,
-                                status=StatusMessageStatus.error)
+            logging.info("-> folder does not contain any tif file!")
+            show_status_message(
+                parent=self.parent,
+                message=f"Folder {os.path.basename(folder)} does not contain any TIFF files!",
+                duration_s=5,
+                status=StatusMessageStatus.error,
+            )
             return
 
         self.parent.ui.folder_selected_label.setText(folder)
@@ -47,13 +57,14 @@ class EventHandler:
         if not self.parent.list_tif_files:
             return
 
-        dict = LoadFiles.load_interactive_data(parent=self.parent,
-                                               list_tif_files=self.parent.list_tif_files)
-        self.parent.image_size['height'] = dict['height']
-        self.parent.image_size['width'] = dict['width']
-        self.parent.images_array = dict['image_array']
+        dict = LoadFiles.load_interactive_data(
+            parent=self.parent, list_tif_files=self.parent.list_tif_files
+        )
+        self.parent.image_size["height"] = dict["height"]
+        self.parent.image_size["width"] = dict["width"]
+        self.parent.images_array = dict["image_array"]
 
-        self.parent.integrated_image = np.mean(dict['image_array'], axis=0)
+        self.parent.integrated_image = np.mean(dict["image_array"], axis=0)
 
     def display_data(self):
         if not self.parent.list_tif_array:
@@ -77,7 +88,7 @@ class EventHandler:
             self.parent.first_update = True
         else:
             self.parent.first_update = False
-            
+
         histogram_widget = self.parent.ui.image_view.getHistogramWidget()
         self.parent.histogram_level = histogram_widget.getLevels()
 
@@ -85,8 +96,9 @@ class EventHandler:
 
         _view_box.setState(_state)
         if not self.parent.first_update:
-            histogram_widget.setLevels(self.parent.histogram_level[0],
-                                       self.parent.histogram_level[1])
+            histogram_widget.setLevels(
+                self.parent.histogram_level[0], self.parent.histogram_level[1]
+            )
 
         self.display_grid(data=rotated_data)
 
@@ -99,7 +111,7 @@ class EventHandler:
         # vertical lines
         x = self.parent.grid_size
         index = 0
-        while (x <= width):
+        while x <= width:
             one_edge = [x, 0]
             other_edge = [x, height]
             pos.append(one_edge)
@@ -110,7 +122,7 @@ class EventHandler:
 
         # horizontal lines
         y = self.parent.grid_size
-        while (y <= height):
+        while y <= height:
             one_edge = [0, y]
             other_edge = [width, y]
             pos.append(one_edge)
@@ -123,27 +135,28 @@ class EventHandler:
         adj = np.array(adj)
 
         line_color = (0, 255, 0, 255, 0.5)
-        lines = np.array([line_color for n in np.arange(len(pos))],
-                         dtype=[('red', np.ubyte), ('green', np.ubyte),
-                                ('blue', np.ubyte), ('alpha', np.ubyte),
-                                ('width', float)])
+        lines = np.array(
+            [line_color for n in np.arange(len(pos))],
+            dtype=[
+                ("red", np.ubyte),
+                ("green", np.ubyte),
+                ("blue", np.ubyte),
+                ("alpha", np.ubyte),
+                ("width", float),
+            ],
+        )
 
         # remove old line_view
         if self.parent.ui.line_view:
             self.parent.ui.image_view.removeItem(self.parent.ui.line_view)
         line_view = pg.GraphItem()
         self.parent.ui.image_view.addItem(line_view)
-        line_view.setData(pos=pos,
-                          adj=adj,
-                          pen=lines,
-                          symbol=None,
-                          pxMode=False)
+        line_view.setData(pos=pos, adj=adj, pen=lines, symbol=None, pxMode=False)
         self.parent.ui.line_view = line_view
 
     def check_widgets(self):
-
         # enable the slider if there is something to rotate
-        if not (self.parent.integrated_image is None):
+        if self.parent.integrated_image is not None:
             enable_group_widgets = True
 
             # enable the process button if the slider is not at zero and there are data loaded
@@ -165,8 +178,11 @@ class EventHandler:
 
     def select_output_folder(self):
         folder = os.path.dirname(self.parent.ui.folder_selected_label.text())
-        output_folder = str(QFileDialog.getExistingDirectory(caption='Select output folder ...',
-                                                             directory=folder))
+        output_folder = str(
+            QFileDialog.getExistingDirectory(
+                caption="Select output folder ...", directory=folder
+            )
+        )
 
         if not output_folder:
             logging.info(" User cancel rotating the images")
@@ -186,9 +202,9 @@ class EventHandler:
 
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
 
-        full_output_folder_name = EventHandler._create_full_output_folder_name(angle=angle,
-                                                                               import_folder=import_folder_name,
-                                                                               output_folder=output_folder)
+        full_output_folder_name = EventHandler._create_full_output_folder_name(
+            angle=angle, import_folder=import_folder_name, output_folder=output_folder
+        )
 
         nbr_images = len(data)
         self.parent.eventProgress.setMinimum(0)
@@ -197,21 +213,20 @@ class EventHandler:
         self.parent.eventProgress.setVisible(True)
 
         for _index, _data in enumerate(self.parent.images_array):
-
             rotated_data = scipy.ndimage.interpolation.rotate(_data, angle)
 
             _input_file = os.path.basename(list_tiff_files[_index])
             new_filename = os.path.join(full_output_folder_name, _input_file)
 
-            EventHandler._save_image(filename=new_filename,
-                                     data=rotated_data)
+            EventHandler._save_image(filename=new_filename, data=rotated_data)
 
-            self.parent.eventProgress.setValue(_index+1)
+            self.parent.eventProgress.setValue(_index + 1)
             QApplication.processEvents()
 
         # export time stamp data
-        EventHandler.export_time_spectra_file(output_folder=full_output_folder_name,
-                                              input_folder=import_folder_name)
+        EventHandler.export_time_spectra_file(
+            output_folder=full_output_folder_name, input_folder=import_folder_name
+        )
 
         self.parent.eventProgress.setVisible(False)
         return full_output_folder_name
@@ -231,7 +246,9 @@ class EventHandler:
         shutil.copy(time_spectra_filename, output_folder)
 
     @staticmethod
-    def _create_full_output_folder_name(angle=0.0, import_folder=None, output_folder=None):
+    def _create_full_output_folder_name(
+        angle=0.0, import_folder=None, output_folder=None
+    ):
         """use the angle value and the folder name of the input data to create the
         output folder name
 
@@ -253,21 +270,23 @@ class EventHandler:
         new_rotation_value = "_".join(str_rotation_value_parsed)
 
         input_folder_name = os.path.basename(import_folder)
-        full_output_folder_name = os.path.join(output_folder, f"{input_folder_name}_{new_rotation_value}")
+        full_output_folder_name = os.path.join(
+            output_folder, f"{input_folder_name}_{new_rotation_value}"
+        )
         FileHandler.make_or_reset_folder(folder_name=full_output_folder_name)
         logging.info(f" Created folder {full_output_folder_name}")
         return full_output_folder_name
 
     @staticmethod
-    def _save_image(filename='', data=None):
+    def _save_image(filename="", data=None):
         if os.path.exists(filename):
             os.remove(filename)
 
         file_name, file_extension = os.path.splitext(filename)
-        if file_extension.lower() in ['.tif', '.tiff']:
+        if file_extension.lower() in [".tif", ".tiff"]:
             FileHandler.make_tiff(data=data, filename=filename)
-        elif file_extension.lower() == '.fits':
+        elif file_extension.lower() == ".fits":
             FileHandler.make_fits(data=data, filename=filename)
         else:
             logging.info(f"file format {file_extension} not supported!")
-            raise NotImplemented(f"file format {file_extension} not supported!")
+            raise NotImplementedError(f"file format {file_extension} not supported!")

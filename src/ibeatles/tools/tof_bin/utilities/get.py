@@ -7,7 +7,6 @@ from src.ibeatles.tools.tof_bin import BinMode
 
 
 class Get:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -77,7 +76,7 @@ class Get:
         elif self.parent.ui.bin_auto_log_lambda_radioButton.isChecked():
             return self.parent.ui.auto_log_lambda_doubleSpinBox.value()
         else:
-            raise NotImplementedError(f"auto log bin algorithm not implemented!")
+            raise NotImplementedError("auto log bin algorithm not implemented!")
 
     def bin_add_method(self):
         if self.parent.ui.combine_mean_radioButton.isChecked():
@@ -89,11 +88,13 @@ class Get:
 
     def bin_statistics_plot_requested(self):
         current_index = self.parent.ui.bin_stats_comboBox.currentIndex()
-        list_name = [StatisticsName.mean,
-                     StatisticsName.median,
-                     StatisticsName.std,
-                     StatisticsName.min,
-                     StatisticsName.max]
+        list_name = [
+            StatisticsName.mean,
+            StatisticsName.median,
+            StatisticsName.std,
+            StatisticsName.min,
+            StatisticsName.max,
+        ]
         return list_name[current_index]
 
     def current_bin_tab_working_axis(self):
@@ -103,7 +104,7 @@ class Get:
         elif bin_mode == BinAutoMode.linear:
             return self.bin_linear_axis()
         else:
-            raise NotImplementedError(f"type not supported")
+            raise NotImplementedError("type not supported")
 
     def bin_log_axis(self):
         if self.parent.ui.bin_auto_log_file_index_radioButton.isChecked():
@@ -113,7 +114,7 @@ class Get:
         elif self.parent.ui.bin_auto_log_lambda_radioButton.isChecked():
             return TimeSpectraKeys.lambda_array
         else:
-            raise NotImplementedError(f"type not supported")
+            raise NotImplementedError("type not supported")
 
     def bin_linear_axis(self):
         if self.parent.ui.auto_linear_file_index_radioButton.isChecked():
@@ -123,7 +124,7 @@ class Get:
         elif self.parent.ui.auto_linear_lambda_radioButton.isChecked():
             return TimeSpectraKeys.lambda_array
         else:
-            raise NotImplementedError(f"type not supported")
+            raise NotImplementedError("type not supported")
 
     def manual_working_row(self, working_item_id=None):
         list_item_id = self.parent.list_of_manual_bins_item

@@ -3,7 +3,6 @@ import os
 
 
 class ConfigHandler:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -13,6 +12,6 @@ class ConfigHandler:
             config = json.load(f)
         self.parent.config = config
 
-        for _homepath in config['homepath']:
+        for _homepath in config["homepath"]:
             if os.path.exists(_homepath):
                 self.parent.homepath = _homepath

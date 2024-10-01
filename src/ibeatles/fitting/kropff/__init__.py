@@ -8,14 +8,12 @@ ERROR_TOLERANCE = 100
 
 
 class KropffThresholdFinder:
-
     sliding_average = "sliding_average"
     error_function = "error_function"
     change_point = "change_point"
 
 
 class FittingKropffBraggPeakColumns:
-
     l_hkl_value = 2
     tau_value = 3
     sigma_value = 4
@@ -25,26 +23,22 @@ class FittingKropffBraggPeakColumns:
 
 
 class FittingKropffHighLambdaColumns:
-
     a0 = 2
     b0 = 3
 
 
 class FittingKropffLowLambdaColumns:
-
     ahkl = 2
     bhkl = 3
 
 
 class FittingRegions:
-
     high_lambda = "high_lambda"
     low_lambda = "low_lambda"
     bragg_peak = "bragg_peak"
 
 
 class BraggPeakInitParameters:
-
     fix_flag = "fix flag"
     fix_value = "fix value"
     range_from = "range from"
@@ -53,7 +47,6 @@ class BraggPeakInitParameters:
 
 
 class SessionSubKeys:
-
     table_dictionary = "table dictionary"
     high_tof = "high_tof"
     low_tof = "low_tof"
@@ -87,10 +80,11 @@ class SessionSubKeys:
     less_than = "less_than"
     more_than = "more_than"
     automatic_fitting_threshold_width = "automatic fitting threshold width"
-    automatic_bragg_peak_threshold_algorithm = "automatic bragg peak threshold algorithm"
+    automatic_bragg_peak_threshold_algorithm = (
+        "automatic bragg peak threshold algorithm"
+    )
 
 
 class RightClickTableMenu:
-
     replace_values = "replace values by surrounding median values"
     display_fitting_parameters = "display the fitting parameters"
