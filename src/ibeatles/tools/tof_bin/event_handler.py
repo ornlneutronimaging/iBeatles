@@ -10,23 +10,32 @@ from src.ibeatles import interact_me_style, normal_style
 from src.ibeatles.session import SessionSubKeys
 from src.ibeatles.utilities.file_handler import FileHandler
 from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.utilities.status_message_config import StatusMessageStatus, show_status_message
+from src.ibeatles.utilities.status_message_config import (
+    StatusMessageStatus,
+    show_status_message,
+)
 from src.ibeatles.utilities.load_files import LoadFiles
 
 from src.ibeatles.tools.tof_bin import BinMode, BinAutoMode
 from src.ibeatles.tools.tof_bin.plot import Plot
-from src.ibeatles.tools.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
 from src.ibeatles.tools.tof_bin.utilities.get import Get
 from src.ibeatles.tools.utilities import TimeSpectraKeys
 from src.ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
 from src.ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
 
+# backend function from core
+from ibeatles.core.io.data_loading import get_time_spectra_filename
+
+# MVP widget
+from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
+
 
 class EventHandler:
-
     def __init__(self, parent=None, top_parent=None):
         self.parent = parent
         self.top_parent = top_parent
+
+        self.time_spectra_presenter = None
 
     def check_widgets(self):
         # enable widgets when a folder has been selected
@@ -47,11 +56,19 @@ class EventHandler:
         o_get = Get(parent=self.parent)
         bin_mode = o_get.bin_mode()
         if bin_mode == BinMode.auto:
-            state_auto_table_has_at_least_one_row_checked = self._auto_table_has_at_least_one_row_checked()
-            self.parent.ui.export_pushButton.setEnabled(state_auto_table_has_at_least_one_row_checked)
+            state_auto_table_has_at_least_one_row_checked = (
+                self._auto_table_has_at_least_one_row_checked()
+            )
+            self.parent.ui.export_pushButton.setEnabled(
+                state_auto_table_has_at_least_one_row_checked
+            )
         elif bin_mode == BinMode.manual:
-            state_manual_table_has_at_least_one_real_bin = self._manual_table_has_at_least_one_real_bin()
-            self.parent.ui.export_pushButton.setEnabled(state_manual_table_has_at_least_one_real_bin)
+            state_manual_table_has_at_least_one_real_bin = (
+                self._manual_table_has_at_least_one_real_bin()
+            )
+            self.parent.ui.export_pushButton.setEnabled(
+                state_manual_table_has_at_least_one_real_bin
+            )
 
         # if data loaded, change stylesheet of buttons
         if self.parent.list_tif_files:
@@ -62,7 +79,9 @@ class EventHandler:
         """return True if there is at least one bin defined"""
 
         if self.parent.manual_bins[TimeSpectraKeys.file_index_array]:
-            if isinstance(self.parent.manual_bins[TimeSpectraKeys.file_index_array][0], list):
+            if isinstance(
+                self.parent.manual_bins[TimeSpectraKeys.file_index_array][0], list
+            ):
                 return True
         return False
 
@@ -79,27 +98,35 @@ class EventHandler:
         return False
 
     def select_input_folder(self):
-        default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
-        folder = QFileDialog.getExistingDirectory(parent=self.parent,
-                                                  caption="Select folder containing images to load",
-                                                  directory=default_path,
-                                                  options=QFileDialog.ShowDirsOnly)
+        default_path = self.top_parent.session_dict[DataType.sample][
+            SessionSubKeys.current_folder
+        ]
+        folder = QFileDialog.getExistingDirectory(
+            parent=self.parent,
+            caption="Select folder containing images to load",
+            directory=default_path,
+            options=QFileDialog.ShowDirsOnly,
+        )
 
         if folder == "":
             logging.info("User Canceled the selection of folder!")
-            show_status_message(parent=self.parent,
-                                message=f"User cancelled the file dialog window",
-                                duration_s=5,
-                                status=StatusMessageStatus.warning)
+            show_status_message(
+                parent=self.parent,
+                message="User cancelled the file dialog window",
+                duration_s=5,
+                status=StatusMessageStatus.warning,
+            )
             return
 
         list_tif_files = FileHandler.get_list_of_tif(folder=folder)
         if not list_tif_files:
-            logging.info(f"-> folder does not contain any tif file!")
-            show_status_message(parent=self.parent,
-                                message=f"Folder {os.path.basename(folder)} does not contain any TIFF files!",
-                                duration_s=5,
-                                status=StatusMessageStatus.error)
+            logging.info("-> folder does not contain any tif file!")
+            show_status_message(
+                parent=self.parent,
+                message=f"Folder {os.path.basename(folder)} does not contain any TIFF files!",
+                duration_s=5,
+                status=StatusMessageStatus.error,
+            )
             return
 
         self.parent.ui.folder_selected.setText(folder)
@@ -110,12 +137,13 @@ class EventHandler:
         if not self.parent.list_tif_files:
             return
 
-        dict = LoadFiles.load_interactive_data(parent=self.parent,
-                                               list_tif_files=self.parent.list_tif_files)
-        self.parent.image_size['height'] = dict['height']
-        self.parent.image_size['width'] = dict['width']
-        self.parent.images_array = dict['image_array']
-        self.parent.integrated_image = np.mean(dict['image_array'], axis=0)
+        dict = LoadFiles.load_interactive_data(
+            parent=self.parent, list_tif_files=self.parent.list_tif_files
+        )
+        self.parent.image_size["height"] = dict["height"]
+        self.parent.image_size["width"] = dict["width"]
+        self.parent.images_array = dict["image_array"]
+        self.parent.integrated_image = np.mean(dict["image_array"], axis=0)
 
     def load_time_spectra_file(self):
         """
@@ -123,26 +151,62 @@ class EventHandler:
         """
         folder = self.parent.ui.folder_selected.text()
 
-        o_time_spectra = GetTimeSpectraFilename(parent=self.parent, folder=folder)
-        full_path_to_time_spectra = o_time_spectra.retrieve_file_name()
-    
-        o_time_handler = TimeSpectraHandler(parent=self.parent,
-                                            time_spectra_file_name=full_path_to_time_spectra)
-        o_time_handler.load()
-        o_time_handler.calculate_lambda_scale()
-    
-        tof_array = o_time_handler.tof_array
-        lambda_array = o_time_handler.lambda_array
-        file_index_array = np.arange(len(tof_array))
-    
-        self.parent.time_spectra[TimeSpectraKeys.file_name] = full_path_to_time_spectra
-        self.parent.time_spectra[TimeSpectraKeys.tof_array] = tof_array
-        self.parent.time_spectra[TimeSpectraKeys.lambda_array] = lambda_array
-        self.parent.time_spectra[TimeSpectraKeys.file_index_array] = file_index_array
-        self.parent.time_spectra[TimeSpectraKeys.counts_array] = o_time_handler.counts_array
-    
+        time_spectra_file = get_time_spectra_filename(folder)
+        if not time_spectra_file:
+            logging.info("Time spectra file not found!")
+            show_status_message(
+                parent=self.parent,
+                message="Time spectra file not found!",
+                status=StatusMessageStatus.error,
+                duration_s=5,
+            )
+            return
+
+        if self.time_spectra_presenter is None:
+            self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
+
+        distance_source_detector_m = float(
+            self.parent.ui.distance_source_detector.text()
+        )
+        detector_offset = float(self.parent.ui.detector_offset.text())
+
+        try:
+            self.time_spectra_presenter.load_data(
+                time_spectra_file, distance_source_detector_m, detector_offset
+            )
+            self.update_time_spectra_data()
+        except Exception as e:
+            logging.error(f"Error loading time spectra: {str(e)}")
+            show_status_message(
+                parent=self.parent,
+                message=f"Error loading time spectra: {str(e)}",
+                status=StatusMessageStatus.error,
+                duration_s=5,
+            )
+
+    def update_time_spectra_data(self):
+        time_spectra_data = self.time_spectra_presenter.model.get_data()
+
+        self.parent.time_spectra[TimeSpectraKeys.file_name] = time_spectra_data[
+            "filename"
+        ]
+        self.parent.time_spectra[TimeSpectraKeys.tof_array] = time_spectra_data[
+            "tof_array"
+        ]
+        self.parent.time_spectra[TimeSpectraKeys.lambda_array] = time_spectra_data[
+            "lambda_array"
+        ]
+        self.parent.time_spectra[TimeSpectraKeys.file_index_array] = np.arange(
+            len(time_spectra_data["tof_array"])
+        )
+        self.parent.time_spectra[TimeSpectraKeys.counts_array] = time_spectra_data[
+            "counts_array"
+        ]
+
         # update time spectra tab
-        self.parent.ui.time_spectra_name_label.setText(os.path.basename(full_path_to_time_spectra))
+        self.parent.ui.time_spectra_name_label.setText(
+            os.path.basename(time_spectra_data["filename"])
+        )
         self.parent.ui.time_spectra_preview_pushButton.setEnabled(True)
 
     def display_integrated_image(self):
@@ -154,10 +218,10 @@ class EventHandler:
         self.parent.integrated_view.setImage(self.parent.integrated_image)
 
         roi = self.parent.bin_roi
-        x0 = roi['x0']
-        y0 = roi['y0']
-        width = roi['width']
-        height = roi['height']
+        x0 = roi["x0"]
+        y0 = roi["y0"]
+        width = roi["width"]
+        height = roi["height"]
         roi_item = pg.ROI([x0, y0], [width, height])
         roi_item.addScaleHandle([1, 1], [0, 0])
         self.parent.integrated_view.addItem(roi_item)
@@ -165,7 +229,6 @@ class EventHandler:
         self.parent.roi_item = roi_item
 
     def display_profile(self):
-
         if self.parent.integrated_image is None:
             return
 
@@ -173,8 +236,7 @@ class EventHandler:
         image_view = self.parent.integrated_view
         roi_item = self.parent.roi_item
 
-        region = roi_item.getArraySlice(integrated_image,
-                                        image_view.imageItem)
+        region = roi_item.getArraySlice(integrated_image, image_view.imageItem)
         x0 = region[0][0].start
         x1 = region[0][0].stop - 1
         y0 = region[0][1].start
@@ -183,10 +245,7 @@ class EventHandler:
         width = x1 - x0
         height = y1 - y0
 
-        self.parent.bin_roi = {'x0': x0,
-                               'y0': y0,
-                               'width': width,
-                               'height': height}
+        self.parent.bin_roi = {"x0": x0, "y0": y0, "width": width, "height": height}
 
         o_plot = Plot(parent=self.parent)
         o_plot.refresh_profile_plot_and_clear_bins()
@@ -200,70 +259,7 @@ class EventHandler:
             # o_event.update_manual_snapping_indexes_bins()
             o_event.update_items_displayed()
 
-
-
-
-
-
-        # o_get = TofBinGet(parent=self.parent)
-        # time_spectra_x_axis_name = o_get.x_axis_selected()
-        # x_axis = copy.deepcopy(self.parent.time_spectra[time_spectra_x_axis_name])
-        #
-        # array_of_data = self.parent.images_array
-        # profile_signal = [np.mean(_data[y0:y0 + height, x0:x0 + width]) for _data in array_of_data]
-        #
-        # self.parent.profile_signal = profile_signal
-        # self.parent.bin_profile_view.clear()
-        #
-        # if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
-        #     x_axis_label = "file index"
-        # elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
-        #     x_axis *= 1e6    # to display axis in micros
-        #     x_axis_label = "tof (" + MICRO + "s)"
-        # elif time_spectra_x_axis_name == TimeSpectraKeys.lambda_array:
-        #     x_axis *= 1e10    # to display axis in Angstroms
-        #     x_axis_label = LAMBDA + "(" + ANGSTROMS + ")"
-        #
-        # self.parent.bin_profile_view.plot(x_axis, profile_signal, pen='r', symbol='x')
-        # self.parent.bin_profile_view.setLabel("left", f"Average counts")
-        # self.parent.bin_profile_view.setLabel("bottom", x_axis_label)
-
-
-
-
-        # o_get = Get(parent=self.parent)
-        # combine_algorithm = o_get.combine_algorithm()
-        # time_spectra_x_axis_name = o_get.combine_x_axis_selected()
-        #
-        # profile_signal = [
-        #     np.mean(_data[y0 : y0 + height, x0 : x0 + width]) for _data in combine_data
-        # ]
-        # # if combine_algorithm == CombineAlgorithm.mean:
-        # #     profile_signal = [np.mean(_data[y0:y0+height, x0:x0+width]) for _data in combine_data]
-        # # elif combine_algorithm == CombineAlgorithm.median:
-        # #     profile_signal = [np.median(_data[y0:y0+height, x0:x0+width]) for _data in combine_data]
-        # # else:
-        # #     raise NotImplementedError("Combine algorithm not implemented!")
-        #
-        # self.parent.profile_signal = profile_signal
-        # self.parent.combine_profile_view.clear()
-        # x_axis = copy.deepcopy(self.parent.time_spectra[time_spectra_x_axis_name])
-        #
-        # if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
-        #     x_axis_label = "file index"
-        # elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
-        #     x_axis *= 1e6  # to display axis in micros
-        #     x_axis_label = "tof (" + MICRO + "s)"
-        # elif time_spectra_x_axis_name == TimeSpectraKeys.lambda_array:
-        #     x_axis *= 1e10  # to display axis in Angstroms
-        #     x_axis_label = LAMBDA + "(" + ANGSTROMS + ")"
-        #
-        # self.parent.combine_profile_view.plot(x_axis, profile_signal, pen="r", symbol="x")
-        # self.parent.combine_profile_view.setLabel("left", f"{combine_algorithm} counts")
-        # self.parent.combine_profile_view.setLabel("bottom", x_axis_label)
-
     def bin_auto_manual_tab_changed(self, new_tab_index=-1):
-
         if new_tab_index == -1:
             new_tab_index = self.parent.ui.bin_tabWidget.currentIndex()
 
@@ -301,7 +297,6 @@ class EventHandler:
         o_plot.refresh_profile_plot_and_clear_bins()
 
         o_manual_event = ManualEventHandler(parent=self.parent)
-        # o_manual_event.refresh_manual_tab()
         o_manual_event.display_all_items()
 
     def entering_tab_auto(self):

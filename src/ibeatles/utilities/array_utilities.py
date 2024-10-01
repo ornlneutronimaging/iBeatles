@@ -24,19 +24,15 @@ def get_min_max_xy(pos_array):
         if _y > max_y:
             max_y = _y
 
-    return {'x': {'min': min_x,
-                  'max': max_x},
-            'y': {'min': min_y,
-                  'max': max_y}
-            }
+    return {"x": {"min": min_x, "max": max_x}, "y": {"min": min_y, "max": max_y}}
 
 
 def gamma_filtering(data_array, threshold=0.1):
-    '''
+    """
     this algorithm will perform the gamma filtering. That means that
     every pixel counts that are above threshold of the total average counts
     will be replaced by the average value of the 9 pixels around it.
-    '''
+    """
 
     final_data_array = []
     for _data in data_array:
@@ -64,7 +60,7 @@ def single_gamma_filtering(data, threshold=0.1):
 
     # convolve entire image using 3x3 kerne
     mean_kernel = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]]) / 8.0
-    convolved_data = convolve(raw_data, mean_kernel, mode='constant')
+    convolved_data = convolve(raw_data, mean_kernel, mode="constant")
 
     # replace only pixel above threshold by convolved data
     for _coordinates in position:
@@ -80,8 +76,8 @@ def exclude_y_value_when_error_is_nan(axis, error_axis):
 
     for _x, _error in zip(axis, error_axis):
         if (_x == "None") or (_error == "None") or (_x is None) or (_error is None):
-            axis_cleaned.append(np.NaN)
-            error_axis_cleaned.append(np.NaN)
+            axis_cleaned.append(np.nan)
+            error_axis_cleaned.append(np.nan)
         else:
             axis_cleaned.append(float(_x))
             error_axis_cleaned.append(float(_error))
@@ -94,8 +90,8 @@ def calculate_median(array_of_value=None):
         return None
 
     try:
-        array_of_value = np.where(np.isinf(array_of_value), np.NaN, array_of_value)
-        array_of_value = np.where(np.isneginf(array_of_value), np.NaN, array_of_value)
+        array_of_value = np.where(np.isinf(array_of_value), np.nan, array_of_value)
+        array_of_value = np.where(np.isneginf(array_of_value), np.nan, array_of_value)
     except TypeError:
         return None
 
@@ -110,5 +106,3 @@ def from_nparray_to_list(nparray=None, json_friendly=False) -> list:
         nparray = [str(_value) for _value in nparray]
 
     return list(nparray)
-
-
