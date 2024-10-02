@@ -3,7 +3,7 @@
 
 import numpy as np
 import scipy.ndimage
-from typing import Any, Dict, Optional, Tuple, overload, Union
+from typing import Tuple, overload, Union
 from ibeatles.core.config import MovingAverage, KernelType
 
 
@@ -155,35 +155,3 @@ def _apply_box_filter(data: np.ndarray, kernel: Tuple[int, ...]) -> np.ndarray:
     kernel_array = np.ones(kernel)
     kernel_array /= kernel_array.sum()
     return scipy.ndimage.convolve(data, kernel_array)
-
-
-def normalize_data(
-    sample_data: np.ndarray,
-    ob_data: Optional[np.ndarray],
-    time_spectra: Dict[str, Any],
-    config: Dict[str, Any],
-    output_folder: str,
-) -> Tuple[np.ndarray, str]:
-    """
-    Normalize the input data based on the provided configuration.
-
-    Parameters:
-    -----------
-    sample_data : np.ndarray
-        The raw sample data to be normalized.
-    ob_data : Optional[np.ndarray]
-        The open beam data, if available.
-    time_spectra : Dict[str, Any]
-        Time spectra information.
-    config : Dict[str, Any]
-        Configuration dictionary containing normalization settings.
-    output_folder : str
-        Base output folder for normalized data.
-
-    Returns:
-    --------
-    Tuple[np.ndarray, str]
-        A tuple containing the normalized data and the full path to the output folder.
-    """
-    # Implementation here
-    pass

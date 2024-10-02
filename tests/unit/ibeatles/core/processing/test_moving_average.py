@@ -3,7 +3,7 @@
 
 import numpy as np
 import pytest
-from ibeatles.core.processing.normalization import moving_average, KernelType
+from ibeatles.core.processing.moving_average import moving_average, KernelType
 from ibeatles.core.config import MovingAverage
 
 
