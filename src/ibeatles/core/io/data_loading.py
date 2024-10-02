@@ -1,6 +1,6 @@
+#!/usr/bin/env python
 """Data loading functions."""
 
-#!/usr/bin/env python
 import os
 import glob
 import numpy as np

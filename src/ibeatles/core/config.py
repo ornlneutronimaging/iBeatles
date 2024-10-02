@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Pydantic configuration model for CLI and GUI application settings (user)"""
 
+from enum import Enum
 from typing import Dict, Optional, Union, Tuple, Literal
 from pydantic import BaseModel, Field, model_validator
 from pathlib import Path
@@ -13,13 +14,18 @@ class SampleBackground(BaseModel):
     height: float
 
 
+class KernelType(str, Enum):
+    box = "Box"
+    gaussian = "Gaussian"
+
+
 class MovingAverage(BaseModel):
     active: bool = True
     dimension: Literal["2D", "3D"] = "2D"
     size: Union[Dict[str, int], Tuple[int, int], Tuple[int, int, int]] = Field(
         default_factory=lambda: {"y": 3, "x": 3}
     )
-    type: Literal["Box", "Gaussian"] = "Box"
+    type: KernelType = KernelType.box
 
     @model_validator(mode="after")
     def check_size(self) -> "MovingAverage":
