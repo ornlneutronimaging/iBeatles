@@ -10,6 +10,23 @@ from ibeatles.core.config import MovingAverage
 @pytest.mark.parametrize(
     "data_shape, kernel, kernel_type, dimension",
     [
+        ((10, 10), (3, 3), "Box", "2D"),
+        ((10, 10), (3, 3), "Gaussian", "2D"),
+        ((10, 10, 5), (3, 3), "Box", "2D"),
+        ((10, 10, 5), (3, 3), "Gaussian", "2D"),
+        ((10, 10, 5), (3, 3, 3), "Box", "3D"),
+        ((10, 10, 5), (3, 3, 3), "Gaussian", "3D"),
+    ],
+)
+def test_moving_average_tuple_input(data_shape, kernel, kernel_type, dimension):
+    data = np.random.rand(*data_shape)
+    result = moving_average(data, kernel_type, kernel)
+    assert result.shape == data_shape
+
+
+@pytest.mark.parametrize(
+    "data_shape, kernel, kernel_type, dimension",
+    [
         ((10, 10), {"y": 3, "x": 3}, KernelType.box, "2D"),
         ((10, 10), {"y": 3, "x": 3}, KernelType.gaussian, "2D"),
         ((10, 10, 5), {"y": 3, "x": 3}, KernelType.box, "2D"),

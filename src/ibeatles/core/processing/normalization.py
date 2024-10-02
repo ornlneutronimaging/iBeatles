@@ -3,11 +3,16 @@
 
 import numpy as np
 import scipy.ndimage
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple, overload, Union
 from ibeatles.core.config import MovingAverage, KernelType
 
 
-def moving_average(data: np.ndarray, config: MovingAverage) -> np.ndarray:
+@overload
+def moving_average(
+    data: np.ndarray,
+    kernel_type: str,
+    kernel: Union[Tuple[int, int], Tuple[int, int, int]],
+) -> np.ndarray:
     """
     Apply moving average filter to the input data.
 
@@ -15,8 +20,35 @@ def moving_average(data: np.ndarray, config: MovingAverage) -> np.ndarray:
     ----------
     data : np.ndarray
         Input data. Must be a 2D image or 3D volume (TOF stack of 2D images).
+    kernel_type : str
+        Type of kernel to use for the filter. Must be either 'Box' or 'Gaussian'.
+    kernel : Union[Tuple[int, int], Tuple[int, int, int]]
+        Size of the kernel. For 2D data, use (y, x). For 3D data, use (y, x, lambda).
+
+    Returns
+    -------
+    np.ndarray
+        Filtered data with the same shape as the input.
+
+    Raises
+    ------
+    ValueError
+        If input data, kernel_type, or kernel is invalid.
+    """
+    pass
+
+
+@overload
+def moving_average(data: np.ndarray, config: MovingAverage) -> np.ndarray:
+    """
+    Apply moving average filter to the input data using a MovingAverage configuration.
+
+    Parameters
+    ----------
+    data : np.ndarray
+        Input data. Must be a 2D image or 3D volume (TOF stack of 2D images).
     config : MovingAverage
-        Configuration for the moving average filter from IBeatlesUserConfig.
+        Configuration for the moving average filter.
 
     Returns
     -------
@@ -28,6 +60,58 @@ def moving_average(data: np.ndarray, config: MovingAverage) -> np.ndarray:
     ValueError
         If input data or configuration is invalid.
     """
+    pass
+
+
+def moving_average(
+    data: np.ndarray,
+    arg2: Union[str, MovingAverage],
+    arg3: Union[Tuple[int, ...], None] = None,
+) -> np.ndarray:
+    """
+    Apply moving average filter to the input data.
+
+    This function supports two calling conventions:
+    1. moving_average(data, kernel_type, kernel)
+    2. moving_average(data, config)
+
+    Parameters
+    ----------
+    data : np.ndarray
+        Input data. Must be a 2D image or 3D volume (TOF stack of 2D images).
+    arg2 : Union[str, MovingAverage]
+        Either a string specifying the kernel type ('Box' or 'Gaussian') or a MovingAverage configuration object.
+    arg3 : Union[Tuple[int, ...], None], optional
+        If arg2 is a string, this should be a tuple specifying the kernel size.
+
+    Returns
+    -------
+    np.ndarray
+        Filtered data with the same shape as the input.
+
+    Raises
+    ------
+    ValueError
+        If input data, kernel type, kernel size, or configuration is invalid.
+    """
+    if isinstance(arg2, str):
+        kernel_type = arg2
+        kernel = arg3
+        if kernel is None:
+            raise ValueError(
+                "Kernel size must be provided when specifying kernel type as a string."
+            )
+        config = MovingAverage(
+            active=True,
+            dimension="2D" if len(kernel) == 2 else "3D",
+            size=kernel,
+            type=KernelType(kernel_type),
+        )
+    elif isinstance(arg2, MovingAverage):
+        config = arg2
+    else:
+        raise ValueError("Invalid argument type for kernel_type or config.")
+
     if not config.active:
         return data
 
