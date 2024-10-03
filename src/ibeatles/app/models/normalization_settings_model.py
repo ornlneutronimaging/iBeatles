@@ -69,7 +69,7 @@ class NormalizationSettingsModel:
         )
         self.config.processing_order = (
             ProcessOrder.moving_average_normalization
-            if old_config.get("process_order") == "option1"
+            if old_config.get("process order") == "option1"
             else ProcessOrder.normalization_moving_average
         )
 
@@ -94,7 +94,7 @@ class NormalizationSettingsModel:
             "type": "gaussian"
             if self.config.moving_average.type == KernelType.gaussian
             else "box",
-            "process_order": "option1"
+            "process order": "option1"
             if self.config.processing_order == ProcessOrder.moving_average_normalization
             else "option2",
         }

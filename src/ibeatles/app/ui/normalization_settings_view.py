@@ -99,7 +99,7 @@ class NormalizationSettingsView(QDialog):
             "type": "gaussian"
             if self.ui.kernel_type_gaussian_radioButton.isChecked()
             else "box",
-            "process_order": "option1"
+            "process order": "option1"
             if self.ui.processes_order_option1_radio_button.isChecked()
             else "option2",
         }
@@ -134,10 +134,10 @@ class NormalizationSettingsView(QDialog):
         )
         self.ui.kernel_type_box_radioButton.setChecked(settings["type"] == "box")
         self.ui.processes_order_option1_radio_button.setChecked(
-            settings["process_order"] == "option1"
+            settings["process order"] == "option1"
         )
         self.ui.processes_order_option2_radio_button.setChecked(
-            settings["process_order"] == "option2"
+            settings["process order"] == "option2"
         )
 
         self.activate_moving_average_clicked()
