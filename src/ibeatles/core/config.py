@@ -19,33 +19,26 @@ class KernelType(str, Enum):
     gaussian = "Gaussian"
 
 
+class KernelSize(BaseModel):
+    y: int = 3
+    x: int = 3
+    lambda_: int = Field(default=3, alias="lambda")
+
+    @model_validator(mode="after")
+    def check_size(cls, values):
+        return values
+
+
 class MovingAverage(BaseModel):
     active: bool = True
     dimension: Literal["2D", "3D"] = "2D"
-    size: Union[Dict[str, int], Tuple[int, int], Tuple[int, int, int]] = Field(
-        default_factory=lambda: {"y": 3, "x": 3}
-    )
+    size: KernelSize = Field(default_factory=KernelSize)
     type: KernelType = KernelType.box
 
     @model_validator(mode="after")
     def check_size(self) -> "MovingAverage":
-        if self.dimension == "2D":
-            if isinstance(self.size, dict):
-                assert set(self.size.keys()) == {
-                    "y",
-                    "x",
-                }, "2D size must have 'y' and 'x' keys"
-            elif isinstance(self.size, tuple):
-                assert len(self.size) == 2, "2D size tuple must have 2 elements"
-        elif self.dimension == "3D":
-            if isinstance(self.size, dict):
-                assert set(self.size.keys()) == {
-                    "y",
-                    "x",
-                    "lambda",
-                }, "3D size must have 'y', 'x', and 'lambda' keys"
-            elif isinstance(self.size, tuple):
-                assert len(self.size) == 3, "3D size tuple must have 3 elements"
+        if self.dimension == "2D" and hasattr(self.size, "lambda_"):
+            delattr(self.size, "lambda_")
         return self
 
 

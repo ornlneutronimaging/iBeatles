@@ -4,7 +4,7 @@
 import numpy as np
 import scipy.ndimage
 from typing import Tuple, overload, Union
-from ibeatles.core.config import MovingAverage, KernelType
+from ibeatles.core.config import MovingAverage, KernelType, KernelSize
 
 
 @overload
@@ -101,10 +101,21 @@ def moving_average(
             raise ValueError(
                 "Kernel size must be provided when specifying kernel type as a string."
             )
+
+        # Convert tuple to KernelSize
+        if len(kernel) == 2:
+            kernel_size = KernelSize(y=kernel[0], x=kernel[1])
+            dimension = "2D"
+        elif len(kernel) == 3:
+            kernel_size = KernelSize(y=kernel[0], x=kernel[1], lambda_=kernel[2])
+            dimension = "3D"
+        else:
+            raise ValueError("Kernel must be 2D or 3D.")
+
         config = MovingAverage(
             active=True,
-            dimension="2D" if len(kernel) == 2 else "3D",
-            size=kernel,
+            dimension=dimension,
+            size=kernel_size,
             type=KernelType(kernel_type),
         )
     elif isinstance(arg2, MovingAverage):
@@ -135,12 +146,22 @@ def moving_average(
 
 
 def _get_kernel_from_config(config: MovingAverage) -> Tuple[int, ...]:
-    if isinstance(config.size, dict):
-        kernel = (config.size["y"], config.size["x"])
-        if config.dimension == "3D":
-            kernel += (config.size["lambda"],)
-    else:
-        kernel = config.size
+    """
+    Extract kernel size from MovingAverage configuration.
+
+    Parameters
+    ----------
+    config : MovingAverage
+        The moving average configuration.
+
+    Returns
+    -------
+    Tuple[int, ...]
+        A tuple representing the kernel size.
+    """
+    kernel = (config.size.y, config.size.x)
+    if config.dimension == "3D":
+        kernel += (config.size.lambda_,)
     return kernel
 
 

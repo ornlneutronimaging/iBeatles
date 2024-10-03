@@ -6,6 +6,7 @@ from typing import Dict, Any
 from ibeatles.core.config import (
     NormalizationConfig,
     KernelType,
+    KernelSize,
     SampleBackground,
     ProcessOrder,
 )
@@ -56,12 +57,17 @@ class NormalizationSettingsModel:
         self.config.moving_average.dimension = (
             "3D" if old_config.get("dimension") == "3d" else "2D"
         )
-        self.config.moving_average.size = {
+
+        # Create KernelSize object
+        kernel_size = {
             "y": old_config["size"].get("y", 3),
             "x": old_config["size"].get("x", 3),
         }
         if old_config.get("dimension") == "3d":
-            self.config.moving_average.size["lambda"] = old_config["size"].get("l", 3)
+            kernel_size["lambda_"] = old_config["size"].get("l", 3)
+
+        self.config.moving_average.size = KernelSize(**kernel_size)
+
         self.config.moving_average.type = (
             KernelType.gaussian
             if old_config.get("type") == "gaussian"
@@ -82,14 +88,24 @@ class NormalizationSettingsModel:
         Dict[str, Any]
             The configuration in the old format.
         """
+        default_size = KernelSize()
+        is_default_size = (
+            self.config.moving_average.size.y == default_size.y
+            and self.config.moving_average.size.x == default_size.x
+            and (
+                self.config.moving_average.dimension == "2D"
+                or self.config.moving_average.size.lambda_ == default_size.lambda_
+            )
+        )
+
         old_config = {
             "activate": self.config.moving_average.active,
             "dimension": "3d" if self.config.moving_average.dimension == "3D" else "2d",
             "size": {
-                "flag": "custom",
-                "y": self.config.moving_average.size["y"],
-                "x": self.config.moving_average.size["x"],
-                "l": self.config.moving_average.size.get("lambda", 3),
+                "flag": "default" if is_default_size else "custom",
+                "y": self.config.moving_average.size.y,
+                "x": self.config.moving_average.size.x,
+                "l": default_size.lambda_,  # the old method requires this entry even if not in use
             },
             "type": "gaussian"
             if self.config.moving_average.type == KernelType.gaussian
@@ -98,6 +114,10 @@ class NormalizationSettingsModel:
             if self.config.processing_order == ProcessOrder.moving_average_normalization
             else "option2",
         }
+
+        if self.config.moving_average.dimension == "3D":
+            old_config["size"]["l"] = self.config.moving_average.size.lambda_
+
         return old_config
 
     def set_moving_average_active(self, active: bool):

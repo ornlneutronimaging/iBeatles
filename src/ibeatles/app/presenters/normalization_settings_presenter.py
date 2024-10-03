@@ -15,6 +15,20 @@ class NormalizationSettingsPresenter:
     This class acts as an intermediary between the NormalizationSettingsModel
     and NormalizationSettingsView, handling user interactions and updating
     the model and view accordingly.
+
+    Parameters
+    ----------
+    parent : QWidget, optional
+        The parent widget for the view.
+
+    Attributes
+    ----------
+    parent : QWidget
+        The parent widget for the view.
+    model : NormalizationSettingsModel
+        The model containing the normalization settings data.
+    view : NormalizationSettingsView
+        The view displaying the normalization settings UI.
     """
 
     def __init__(self, parent=None):
@@ -39,6 +53,11 @@ class NormalizationSettingsPresenter:
             The new configuration to load.
         old_config : Dict[str, Any], optional
             The old configuration format to load.
+
+        Raises
+        ------
+        ValueError
+            If neither config nor old_config is provided.
         """
         if config:
             self.model.update_from_config(config)
@@ -51,13 +70,13 @@ class NormalizationSettingsPresenter:
 
     def update_view_from_model(self):
         """Update the view with the current model state."""
-        old_config = self.model.get_old_config()
-        self.view.set_settings(old_config)
+        config = self.model.get_config()
+        self.view.set_settings(config)
 
     def update_model_from_view(self):
         """Update the model with the current view state."""
-        view_settings = self.view.get_settings()
-        self.model.update_from_old_config(view_settings)
+        view_config = self.view.get_settings()
+        self.model.update_from_config(view_config)
 
     def get_config(self) -> NormalizationConfig:
         """

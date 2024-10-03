@@ -1065,9 +1065,9 @@ class MainWindow(QMainWindow):
             self.normalization_settings_presenter = NormalizationSettingsPresenter(self)
 
         # Load current settings
-        if "reduction" in self.session_dict:
+        if SessionKeys.reduction in self.session_dict:
             self.normalization_settings_presenter.load_settings(
-                old_config=self.session_dict["reduction"]
+                old_config=self.session_dict[SessionKeys.reduction]
             )
         else:
             # If no existing configuration, load default settings
