@@ -44,7 +44,6 @@ from src.ibeatles.step2.gui_handler import Step2GuiHandler
 from src.ibeatles.step2.roi_handler import Step2RoiHandler
 from src.ibeatles.step2.plot import Step2Plot
 from src.ibeatles.step2.normalization import Normalization
-# from src.ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
 
 from src.ibeatles.step3.gui_handler import Step3GuiHandler
 from src.ibeatles.step3.event_handler import EventHandler as Step3EventHandler
