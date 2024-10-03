@@ -2,7 +2,7 @@
 """Pydantic configuration model for CLI and GUI application settings (user)"""
 
 from enum import Enum
-from typing import Dict, Optional, Union, Tuple, Literal
+from typing import Dict, Optional, Union, Tuple, Literal, List
 from pydantic import BaseModel, Field, model_validator
 from pathlib import Path
 
@@ -50,7 +50,7 @@ class MovingAverage(BaseModel):
 
 
 class NormalizationConfig(BaseModel):
-    sample_background: Optional[SampleBackground] = None
+    sample_background: Optional[List[SampleBackground]] = None
     moving_average: MovingAverage = Field(default_factory=MovingAverage)
     processing_order: Literal[
         "Moving average, Normalization", "Normalization, Moving Average"

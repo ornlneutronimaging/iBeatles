@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+"""View for Time Spectra"""
+
 from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy, QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure

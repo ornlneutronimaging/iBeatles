@@ -61,7 +61,7 @@ def config(temp_dir):
             open_beam_data_dir=str(ob_data_dir), open_beam_data_extension=".tif"
         ),
         normalization=NormalizationConfig(
-            sample_background=SampleBackground(x0=0, y0=0, width=5, height=5),
+            sample_background=[SampleBackground(x0=0, y0=0, width=5, height=5)],
             moving_average=MovingAverage(
                 active=True, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box
             ),

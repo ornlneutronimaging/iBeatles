@@ -101,8 +101,10 @@ def normalize_data(
 def _get_background_roi(config: IBeatlesUserConfig) -> Optional[List[ROI]]:
     """Extract background ROI from configuration."""
     if config.normalization.sample_background:
-        bg = config.normalization.sample_background
-        return [ROI(x0=bg.x0, y0=bg.y0, width=bg.width, height=bg.height)]
+        return [
+            ROI(x0=bg.x0, y0=bg.y0, width=bg.width, height=bg.height)
+            for bg in config.normalization.sample_background
+        ]
     return None
 
 
