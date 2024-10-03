@@ -31,7 +31,7 @@ def normalize_data(
     ob_data : Optional[np.ndarray]
         The open beam data, if available.
     time_spectra : Dict[str, Any]
-        Time spectra information.
+        Time spectra information as returned by load_time_spectra function.
     config : IBeatlesUserConfig
         Configuration object containing normalization settings.
     output_folder : str
@@ -55,16 +55,21 @@ def normalize_data(
         logging.info("Applying moving average")
         if config.normalization.processing_order == "Moving average, Normalization":
             o_norm.data["sample"]["data"] = moving_average(
-                o_norm.data["sample"]["data"], config.normalization.moving_average
+                np.array(
+                    o_norm.data["sample"]["data"]
+                ),  # NeuNorm is return a list of arrays
+                config.normalization.moving_average,
             )
             if ob_data is not None:
                 o_norm.data["ob"]["data"] = moving_average(
-                    o_norm.data["ob"]["data"], config.normalization.moving_average
+                    np.array(o_norm.data["ob"]["data"]),
+                    config.normalization.moving_average,
                 )
 
     # Perform normalization
     logging.info("Performing normalization")
     background_roi = _get_background_roi(config)
+
     if ob_data is None:
         o_norm.normalization(roi=background_roi, use_only_sample=True)
     else:
@@ -77,20 +82,20 @@ def normalize_data(
     ):
         logging.info("Applying moving average after normalization")
         normalized_data = moving_average(
-            o_norm.data["normalized"]["data"], config.normalization.moving_average
+            np.array(o_norm.get_normalized_data()),
+            config.normalization.moving_average,
         )
-        o_norm.data["normalized"]["data"] = normalized_data
+        # manual replace the normalized data
+        o_norm.data["normalized"] = normalized_data
 
     # Export normalized data
     full_output_folder = _create_output_folder(output_folder, config)
-    logging.info(f"Exporting normalized data to {full_output_folder}")
     o_norm.export(folder=full_output_folder)
 
     # Move time spectra file
-    _move_time_spectra(time_spectra, full_output_folder)
+    _copy_time_spectra(time_spectra, full_output_folder)
 
-    # Return normalized data and output folder
-    return o_norm.data["normalized"]["data"], full_output_folder
+    return o_norm.get_normalized_data(), full_output_folder
 
 
 def _get_background_roi(config: IBeatlesUserConfig) -> Optional[List[ROI]]:
@@ -109,9 +114,9 @@ def _create_output_folder(base_folder: str, config: IBeatlesUserConfig) -> str:
     return str(full_output_folder)
 
 
-def _move_time_spectra(time_spectra: Dict[str, Any], output_folder: str) -> None:
-    """Move time spectra file to the output folder."""
-    source_file = Path(time_spectra["folder"]) / time_spectra["filename"]
-    dest_file = Path(output_folder) / time_spectra["filename"]
+def _copy_time_spectra(time_spectra: Dict[str, Any], output_folder: str) -> None:
+    """Copy time spectra file to the output folder."""
+    source_file = time_spectra["filename"]
+    dest_file = Path(output_folder) / time_spectra["short_filename"]
     shutil.copy(str(source_file), str(dest_file))
-    logging.info(f"Moved time spectra file to {dest_file}")
+    logging.info(f"Copied time spectra file to {dest_file}")
