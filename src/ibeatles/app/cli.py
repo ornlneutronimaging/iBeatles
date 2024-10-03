@@ -13,9 +13,9 @@ from ibeatles.core.io.data_loading import (
     load_time_spectra,
     get_time_spectra_filename,
 )
+from ibeatles.core.processing.normalization import normalize_data
 
 # Placeholder imports (to be implemented later)
-# from ibeatles.core.normalization import normalize_data
 # from ibeatles.core.fitting import perform_fitting
 # from ibeatles.core.strain_calculation import calculate_strain
 
@@ -79,14 +79,14 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
     logging.info("Loading data...")
     # Raw data is mandatory
     raw_data = load_data_from_folder(
-        config.raw_data["raw_data_dir"],
-        file_extension=config.raw_data["raw_data_extension"],
+        config.raw_data.raw_data_dir,
+        file_extension=config.raw_data.raw_data_extension,
     )
     # Open beam is optional
     if config.open_beam:
         open_beam = load_data_from_folder(
-            config.open_beam["open_beam_data_dir"],
-            file_extension=config.open_beam["open_beam_data_extension"],
+            config.open_beam.open_beam_data_dir,
+            file_extension=config.open_beam.open_beam_data_extension,
         )
     else:
         open_beam = None
@@ -99,7 +99,7 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
         )
     else:
         # try to load spectra file from the raw data directory
-        spectra_file = get_time_spectra_filename(config.raw_data["raw_data_dir"])
+        spectra_file = get_time_spectra_filename(config.raw_data.raw_data_dir)
         if spectra_file:
             spectra = load_time_spectra(
                 spectra_file,
@@ -109,28 +109,6 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
         else:
             raise ValueError("Spectra file not found")
     return {"raw_data": raw_data, "open_beam": open_beam, "spectra": spectra}
-
-
-def normalize_data(data: Dict[str, Any], config: IBeatlesUserConfig) -> Dict[str, Any]:
-    """
-    Perform data normalization.
-
-    Parameters
-    ----------
-    data : Dict[str, Any]
-        Dictionary containing loaded data.
-    config : IBeatlesUserConfig
-        Parsed configuration object.
-
-    Returns
-    -------
-    Dict[str, Any]
-        Dictionary containing normalized data.
-    """
-    # Placeholder implementation
-    logging.info("Normalizing data...")
-    # normalized_data = normalize_data(data['raw_data'], data['open_beam'], config)
-    return {"normalized_data": None}
 
 
 def perform_fitting(data: Dict[str, Any], config: IBeatlesUserConfig) -> Dict[str, Any]:
@@ -177,30 +155,6 @@ def calculate_strain(
     logging.info("Calculating strain...")
     # strain_results = calculate_strain(data['fitting_results'], config)
     return {"strain_results": None}
-
-
-def save_normalization_results(
-    data: Dict[str, Any], config: IBeatlesUserConfig
-) -> None:
-    """
-    Save normalization results to disk.
-
-    Parameters
-    ----------
-    data : Dict[str, Any]
-        Dictionary containing normalized data.
-    config : IBeatlesUserConfig
-        Parsed configuration object.
-
-    Returns
-    -------
-    None
-    """
-    # Placeholder implementation
-    output_dir = config.output["normalized_data_dir"]
-    logging.info(f"Saving normalization results to {output_dir}...")
-    # Save normalized data
-    # Example: np.save(output_dir / "normalized_data.npy", data["normalized_data"])
 
 
 def save_analysis_results(data: Dict[str, Any], config: IBeatlesUserConfig) -> None:
@@ -252,16 +206,21 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
 
         # Load data
         rst_dict = load_data(config)
-        raw_data = rst_dict["raw_data"]
-        open_beam = rst_dict["open_beam"]
-        # spectra = rst_dict['spectra']
+        raw_data_dict = rst_dict["raw_data"]
+        open_beam_dict = rst_dict["open_beam"]
+        spectra_dict = rst_dict["spectra"]
 
-        # Proceed with normalization, fitting, etc.
-        normalized_data = normalize_data(
-            {"raw_data": raw_data, "open_beam": open_beam}, config
+        # Perform normalization
+        normalized_data, output_path = normalize_data(
+            sample_data=raw_data_dict["data"],
+            ob_data=open_beam_dict["data"] if open_beam_dict else None,
+            time_spectra=spectra_dict,
+            config=config,
+            output_folder=config.output["normalized_data_dir"],
         )
-        save_normalization_results(normalized_data, config)
+        logging.info(f"Normalized data saved to {output_path}.")
 
+        # Dummy implementation of the remaining processing steps
         fitting_results = perform_fitting(normalized_data, config)
         strain_results = calculate_strain(fitting_results, config)
 
