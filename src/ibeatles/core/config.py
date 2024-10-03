@@ -49,12 +49,15 @@ class MovingAverage(BaseModel):
         return self
 
 
+class ProcessOrder(str, Enum):
+    moving_average_normalization = "Moving average, Normalization"
+    normalization_moving_average = "Normalization, Moving Average"
+
+
 class NormalizationConfig(BaseModel):
     sample_background: Optional[List[SampleBackground]] = None
     moving_average: MovingAverage = Field(default_factory=MovingAverage)
-    processing_order: Literal[
-        "Moving average, Normalization", "Normalization, Moving Average"
-    ] = "Moving average, Normalization"
+    processing_order: ProcessOrder = ProcessOrder.moving_average_normalization
 
 
 class PixelBinning(BaseModel):
