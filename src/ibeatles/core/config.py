@@ -8,10 +8,10 @@ from pathlib import Path
 
 
 class SampleBackground(BaseModel):
-    x0: float
-    y0: float
-    width: float
-    height: float
+    x0: int
+    y0: int
+    width: int
+    height: int
 
 
 class KernelType(str, Enum):
