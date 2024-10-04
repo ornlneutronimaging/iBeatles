@@ -44,6 +44,7 @@ from src.ibeatles.step2.gui_handler import Step2GuiHandler
 from src.ibeatles.step2.roi_handler import Step2RoiHandler
 from src.ibeatles.step2.plot import Step2Plot
 from src.ibeatles.step2.normalization import Normalization
+from src.ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
 
 from src.ibeatles.step3.gui_handler import Step3GuiHandler
 from src.ibeatles.step3.event_handler import EventHandler as Step3EventHandler
@@ -76,16 +77,7 @@ from src.ibeatles.utilities.array_utilities import find_nearest_index
 
 from src.ibeatles.about.about_launcher import AboutLauncher
 
-# patch import
-from ibeatles.session import SessionKeys
-
-# import new core
-from ibeatles.core.config import NormalizationConfig
-
 # import new MVP-based widget
-from ibeatles.app.presenters.normalization_settings_presenter import (
-    NormalizationSettingsPresenter,
-)
 from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
 
 warnings.filterwarnings("ignore")
@@ -381,7 +373,6 @@ class MainWindow(QMainWindow):
         #       keep all presenters at the root
         self.time_spectra_presenter = None
         self.normalized_time_spectra_presenter = None
-        self.normalization_settings_presenter = None
 
         # configuration of config
         o_get = Get(parent=self)
@@ -1060,39 +1051,8 @@ class MainWindow(QMainWindow):
         self.range_files_to_normalized_step2["file_index"] = [left_index, right_index]
 
     def normalization_moving_average_settings_clicked(self):
-        if self.normalization_settings_presenter is None:
-            self.normalization_settings_presenter = NormalizationSettingsPresenter(self)
-
-        # Load current settings
-        if SessionKeys.reduction in self.session_dict:
-            self.normalization_settings_presenter.load_settings(
-                old_config=self.session_dict[SessionKeys.reduction]
-            )
-        else:
-            # If no existing configuration, load default settings
-            self.normalization_settings_presenter.load_settings(
-                config=NormalizationConfig()
-            )
-
-        # Show the settings dialog
-        self.normalization_settings_presenter.show_view()
-
-        # After the dialog is closed, update the session dictionary
-        new_config = self.normalization_settings_presenter.get_old_config()
-
-        # Ensure all required keys are present
-        if SessionKeys.reduction not in self.session_dict:
-            self.session_dict[SessionKeys.reduction] = {}
-
-        self.session_dict[SessionKeys.reduction].update(
-            {
-                "activate": new_config["activate"],
-                "dimension": new_config["dimension"],
-                "size": new_config["size"],
-                "type": new_config["type"],
-                "process order": new_config["process order"],
-            }
-        )
+        settings = ReductionSettingsHandler(parent=self)
+        settings.show()
 
     # TAB 3: Normalized Tab ==================================================================================
 
