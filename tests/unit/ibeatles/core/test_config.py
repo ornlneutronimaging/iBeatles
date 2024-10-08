@@ -36,7 +36,7 @@ def valid_config_dict(temp_dir):
             "analysis_results_dir": os.path.join(temp_dir, "analysis_results"),
         },
         "normalization": {
-            "sample_background": {"x0": 0, "y0": 0, "width": 10, "height": 10},
+            "sample_background": [{"x0": 0, "y0": 0, "width": 10, "height": 10}],
             "moving_average": {
                 "dimension": "3D",
                 "size": {"y": 3, "x": 3, "lambda": 3},

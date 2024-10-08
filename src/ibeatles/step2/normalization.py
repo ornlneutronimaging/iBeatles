@@ -224,11 +224,6 @@ class Normalization:
         logging.info(f"-> kernel: {kernel}")
         logging.info(f"-> kernel type: {kernel_type}")
 
-        # o_moving_average = MovingAverage(parent=self.parent,
-        #                                  o_norm=o_norm)
-        # o_moving_average.run()
-        # o_norm = o_moving_average.o_norm
-
         logging.info("-> Starting to run moving average with sample data")
         show_status_message(
             parent=self.parent,

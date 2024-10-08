@@ -1,54 +1,56 @@
 #!/usr/bin/env python
 """Pydantic configuration model for CLI and GUI application settings (user)"""
 
-from typing import Dict, Optional, Union, Tuple, Literal
+from enum import Enum
+from typing import Dict, Optional, Union, Tuple, Literal, List
 from pydantic import BaseModel, Field, model_validator
 from pathlib import Path
 
 
 class SampleBackground(BaseModel):
-    x0: float
-    y0: float
-    width: float
-    height: float
+    x0: int
+    y0: int
+    width: int
+    height: int
+
+
+class KernelType(str, Enum):
+    box = "Box"
+    gaussian = "Gaussian"
+
+
+class KernelSize(BaseModel):
+    y: int = 3
+    x: int = 3
+    lambda_: int = Field(default=3, alias="lambda")
+
+    @model_validator(mode="after")
+    def check_size(cls, values):
+        return values
 
 
 class MovingAverage(BaseModel):
     active: bool = True
     dimension: Literal["2D", "3D"] = "2D"
-    size: Union[Dict[str, int], Tuple[int, int], Tuple[int, int, int]] = Field(
-        default_factory=lambda: {"y": 3, "x": 3}
-    )
-    type: Literal["Box", "Gaussian"] = "Box"
+    size: KernelSize = Field(default_factory=KernelSize)
+    type: KernelType = KernelType.box
 
     @model_validator(mode="after")
     def check_size(self) -> "MovingAverage":
-        if self.dimension == "2D":
-            if isinstance(self.size, dict):
-                assert set(self.size.keys()) == {
-                    "y",
-                    "x",
-                }, "2D size must have 'y' and 'x' keys"
-            elif isinstance(self.size, tuple):
-                assert len(self.size) == 2, "2D size tuple must have 2 elements"
-        elif self.dimension == "3D":
-            if isinstance(self.size, dict):
-                assert set(self.size.keys()) == {
-                    "y",
-                    "x",
-                    "lambda",
-                }, "3D size must have 'y', 'x', and 'lambda' keys"
-            elif isinstance(self.size, tuple):
-                assert len(self.size) == 3, "3D size tuple must have 3 elements"
+        if self.dimension == "2D" and hasattr(self.size, "lambda_"):
+            delattr(self.size, "lambda_")
         return self
 
 
+class ProcessOrder(str, Enum):
+    moving_average_normalization = "Moving average, Normalization"
+    normalization_moving_average = "Normalization, Moving Average"
+
+
 class NormalizationConfig(BaseModel):
-    sample_background: Optional[SampleBackground] = None
+    sample_background: Optional[List[SampleBackground]] = None
     moving_average: MovingAverage = Field(default_factory=MovingAverage)
-    processing_order: Literal[
-        "Moving average, Normalization", "Normalization, Moving Average"
-    ] = "Moving average, Normalization"
+    processing_order: ProcessOrder = ProcessOrder.moving_average_normalization
 
 
 class PixelBinning(BaseModel):

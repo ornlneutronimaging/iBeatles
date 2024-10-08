@@ -1,7 +1,7 @@
 import os
 from qtpy.uic import loadUi
 
-from src.ibeatles import ui
+from ibeatles import ui
 
 root = os.path.dirname(os.path.realpath(__file__))
 refresh_image = os.path.join(root, "icons/refresh.png")
