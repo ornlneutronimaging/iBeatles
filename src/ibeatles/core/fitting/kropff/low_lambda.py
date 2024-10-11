@@ -1,22 +1,24 @@
 #!/usr/bin/env python
-"""Bragg peak detection, high lambda"""
+"""Bragg peak detection, low lambda"""
 
 import numpy as np
-from lmfit import Model
+from lmfit import Model, Parameter
 from typing import Tuple, Dict, Any
 from ibeatles.core.fitting.kropff.fitting_functions import (
-    kropff_high_lambda_transmission,
-    kropff_high_lambda_attenuation,
+    kropff_low_lambda_transmission,
+    kropff_low_lambda_attenuation,
 )
-from ibeatles.core.fitting.utils import remove_invalid_data_points
 from ibeatles.core.fitting.kropff.models import KropffBinData, KropffFittingParameters
+from ibeatles.core.fitting.utils import remove_invalid_data_points
 
 
-def fit_high_lambda(
-    bin_data: KropffBinData, fitting_parameters: KropffFittingParameters
+def fit_low_lambda(
+    bin_data: KropffBinData,
+    fitting_parameters: KropffFittingParameters,
+    high_lambda_results: Dict[str, Dict[str, float]],
 ) -> Tuple[Dict[str, Any], np.ndarray, np.ndarray]:
     """
-    Perform high lambda fitting for Kropff analysis.
+    Perform low lambda fitting for Kropff analysis.
 
     Parameters:
     -----------
@@ -24,12 +26,14 @@ def fit_high_lambda(
         The bin data to fit, containing x and y axis data.
     fitting_parameters : KropffFittingParameters
         The fitting parameters, including initial guesses and constraints.
+    high_lambda_results : Dict[str, Dict[str, float]]
+        Results from the high lambda fit, containing 'a0' and 'b0' values.
 
     Returns:
     --------
     Tuple[Dict[str, Any], np.ndarray, np.ndarray]
         A tuple containing:
-        - A dictionary with the fitted parameters (a0, b0) and their errors.
+        - A dictionary with the fitted parameters (ahkl, bhkl) and their errors.
         - The x-axis values used for fitting.
         - The fitted y-axis values.
 
@@ -42,20 +46,22 @@ def fit_high_lambda(
     xdata = np.array(bin_data.xaxis)
     ydata = -np.log(np.array(bin_data.yaxis))  # Convert to attenuation
 
-    # Clean up data by removing NaN or inf values
+    # Remove NaN or inf values
     xdata, ydata = remove_invalid_data_points(xdata, ydata)
 
+    # Extract high lambda results
+    a0 = high_lambda_results["a0"]["value"]
+    b0 = high_lambda_results["b0"]["value"]
+
     # Create lmfit Model
-    # NOTE: Transmission -> Attenuation will reduce the complexity of fitting
-    #       from exponential to linear, hence we use the attenuation function
-    #       for fitting, but the transmission function for plotting.
-    model = Model(kropff_high_lambda_attenuation, independent_vars=["lda"])
+    model = Model(kropff_low_lambda_attenuation, independent_vars=["lda"])
 
     # Set up parameters with initial guesses
-    # NOTE: we explicitly specify a0 and b0 to be the fitting parameters, in case
-    #       the implicit behavior of lmfit changes in the future.
     params = model.make_params(
-        a0=fitting_parameters.lambda_min, b0=fitting_parameters.lambda_max
+        a0=Parameter("a0", value=a0, vary=False),
+        b0=Parameter("b0", value=b0, vary=False),
+        ahkl=fitting_parameters.lambda_min,
+        bhkl=fitting_parameters.lambda_max,
     )
 
     # Perform the fit
@@ -69,28 +75,30 @@ def fit_high_lambda(
         raise ValueError("Fitting did not converge")
 
     # Extract fitted parameters and errors
-    a0_value = result.params["a0"].value
-    a0_error = result.params["a0"].stderr
-    b0_value = result.params["b0"].value
-    b0_error = result.params["b0"].stderr
+    ahkl_value = result.params["ahkl"].value
+    ahkl_error = result.params["ahkl"].stderr
+    bhkl_value = result.params["bhkl"].value
+    bhkl_error = result.params["bhkl"].stderr
 
     # Calculate fitted y values
-    y_fit = kropff_high_lambda_transmission(xdata, a0_value, b0_value)
+    y_fit = kropff_low_lambda_transmission(xdata, a0, b0, ahkl_value, bhkl_value)
 
     # Prepare results
     fit_results = {
-        "a0": {"value": a0_value, "error": a0_error},
-        "b0": {"value": b0_value, "error": b0_error},
+        "ahkl": {"value": ahkl_value, "error": ahkl_error},
+        "bhkl": {"value": bhkl_value, "error": bhkl_error},
     }
 
     return fit_results, xdata, y_fit
 
 
-def apply_high_lambda_fit(
-    bin_data_dict: Dict[str, KropffBinData], fitting_parameters: KropffFittingParameters
+def apply_low_lambda_fit(
+    bin_data_dict: Dict[str, KropffBinData],
+    fitting_parameters: KropffFittingParameters,
+    high_lambda_results: Dict[str, Dict[str, Dict[str, float]]],
 ) -> Dict[str, Dict[str, Any]]:
     """
-    Apply high lambda fitting to multiple bins.
+    Apply low lambda fitting to multiple bins.
 
     Parameters:
     -----------
@@ -98,6 +106,8 @@ def apply_high_lambda_fit(
         A dictionary of bin data, keyed by bin identifier.
     fitting_parameters : KropffFittingParameters
         The fitting parameters to use for all bins.
+    high_lambda_results : Dict[str, Dict[str, Dict[str, float]]]
+        Results from the high lambda fit for all bins.
 
     Returns:
     --------
@@ -107,10 +117,12 @@ def apply_high_lambda_fit(
     results = {}
     for bin_id, bin_data in bin_data_dict.items():
         try:
-            fit_result, _, _ = fit_high_lambda(bin_data, fitting_parameters)
+            high_lambda_bin_results = high_lambda_results[bin_id]
+            fit_result, _, _ = fit_low_lambda(
+                bin_data, fitting_parameters, high_lambda_bin_results
+            )
             results[bin_id] = fit_result
         except ValueError as e:
-            # we catch failed fitting and store the error message, but continue
             results[bin_id] = {"error": str(e)}
 
     return results
