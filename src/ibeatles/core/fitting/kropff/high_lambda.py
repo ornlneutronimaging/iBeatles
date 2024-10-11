@@ -41,10 +41,6 @@ def fit_high_lambda(
     xdata = np.array(bin_data.xaxis)
     ydata = -np.log(np.array(bin_data.yaxis))  # Convert to attenuation
 
-    # Check for NaN or inf values in the data
-    if np.any(np.isnan(xdata)) or np.any(np.isnan(ydata)):
-        raise ValueError("Input data contains NaN values")
-
     # Create lmfit Model
     # NOTE: Transmission -> Attenuation will reduce the complexity of fitting
     #       from exponential to linear, hence we use the attenuation function
