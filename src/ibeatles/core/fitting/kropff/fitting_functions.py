@@ -3,10 +3,11 @@
 
 import numpy as np
 from scipy import special
-from typing import Optional
 
 
-def kropff_high_lambda(lda: np.ndarray, a0: float, b0: float) -> Optional[np.ndarray]:
+def kropff_high_lambda_transmission(
+    lda: np.ndarray, a0: float, b0: float
+) -> np.ndarray:
     """
     Equation for the high lambda region of the Kropff fitting.
 
@@ -21,31 +22,42 @@ def kropff_high_lambda(lda: np.ndarray, a0: float, b0: float) -> Optional[np.nda
 
     Returns:
     --------
-    np.ndarray or None
-        Calculated transmission values for the high lambda region,
-        or None if any input parameter is NaN or infinite.
+    np.ndarray
+        Calculated transmission values for the high lambda region.
 
     Reference:
     ----------
-    Equation 7.2 in "Development and application of Bragg edge neutron transmission
-    imaging on the IMAT beamline" by Ranggi Sahmura Ramadhan (June 2019).
+    Equation 7.2 in
+    `"Development and application of Bragg edge neutron transmission imaging on the IMAT beamline" <https://pureportal.coventry.ac.uk/en/studentTheses/development-and-application-of-bragg-edge-neutron-transmission-im>`
+    by Ranggi Sahmura Ramadhan, June 2019.
     """
-    if (
-        np.any(np.isnan(lda))
-        or np.isnan(a0)
-        or np.isnan(b0)
-        or np.any(np.isinf(lda))
-        or np.isinf(a0)
-        or np.isinf(b0)
-    ):
-        return None
-
     return np.exp(-(a0 + b0 * lda))
 
 
-def kropff_low_lambda(
+def kropff_high_lambda_attenuation(lda: np.ndarray, a0: float, b0: float) -> np.ndarray:
+    """
+    Linear function for fitting the high lambda region in attenuation space.
+
+    Parameters:
+    -----------
+    lda : np.ndarray
+        Array of lambda values (wavelengths).
+    a0 : float
+        Intercept parameter.
+    b0 : float
+        Slope parameter.
+
+    Returns:
+    --------
+    np.ndarray
+        Calculated attenuation values for the high lambda region.
+    """
+    return a0 + b0 * lda
+
+
+def kropff_low_lambda_transmission(
     lda: np.ndarray, a0: float, b0: float, ahkl: float, bhkl: float
-) -> Optional[np.ndarray]:
+) -> np.ndarray:
     """
     Equation for the low lambda region of the Kropff fitting.
 
@@ -65,29 +77,42 @@ def kropff_low_lambda(
     Returns:
     --------
     np.ndarray or None
-        Calculated transmission values for the low lambda region,
-        or None if any input parameter is NaN or infinite.
+        Calculated transmission values for the low lambda region.
 
     Reference:
     ----------
-    Equation 7.3 in "Development and application of Bragg edge neutron transmission
-    imaging on the IMAT beamline" by Ranggi Sahmura Ramadhan (June 2019).
+    Equation 7.3 in
+    `"Development and application of Bragg edge neutron transmission imaging on the IMAT beamline" <https://pureportal.coventry.ac.uk/en/studentTheses/development-and-application-of-bragg-edge-neutron-transmission-im>`
+    by Ranggi Sahmura Ramadhan, June 2019.
     """
-    if (
-        np.any(np.isnan(lda))
-        or np.isnan(a0)
-        or np.isnan(b0)
-        or np.isnan(ahkl)
-        or np.isnan(bhkl)
-        or np.any(np.isinf(lda))
-        or np.isinf(a0)
-        or np.isinf(b0)
-        or np.isinf(ahkl)
-        or np.isinf(bhkl)
-    ):
-        return None
-
     return np.exp(-(a0 + b0 * lda)) * np.exp(-(ahkl + bhkl * lda))
+
+
+def kropff_low_lambda_attenuation(
+    lda: np.ndarray, a0: float, b0: float, ahkl: float, bhkl: float
+) -> np.ndarray:
+    """
+    Linear function for fitting the low lambda region in attenuation space.
+
+    Parameters:
+    -----------
+    lda : np.ndarray
+        Array of lambda values (wavelengths).
+    a0 : float
+        Intercept parameter from high lambda fit.
+    b0 : float
+        Slope parameter from high lambda fit.
+    ahkl : float
+        Additional intercept parameter for low lambda region.
+    bhkl : float
+        Additional slope parameter for low lambda region.
+
+    Returns:
+    --------
+    np.ndarray
+        Calculated attenuation values for the low lambda region.
+    """
+    return a0 + b0 * lda + ahkl + bhkl * lda
 
 
 def kropff_bragg_peak_tof(
@@ -99,7 +124,7 @@ def kropff_bragg_peak_tof(
     ldahkl: float,
     sigma: float,
     tau: float,
-) -> Optional[np.ndarray]:
+) -> np.ndarray:
     """
     Equation for the Bragg peak region of the Kropff fitting.
 
@@ -125,33 +150,14 @@ def kropff_bragg_peak_tof(
     Returns:
     --------
     np.ndarray or None
-        Calculated transmission values for the Bragg peak region,
-        or None if any input parameter is NaN or infinite.
+        Calculated transmission values for the Bragg peak region.
 
     Reference:
     ----------
-    Equations 4.3 and 4.4 in "Development and application of Bragg edge neutron transmission
-    imaging on the IMAT beamline" by Ranggi Sahmura Ramadhan (June 2019).
+    Equations 4.3 and 4.4 in
+    `"Development and application of Bragg edge neutron transmission imaging on the IMAT beamline" <https://pureportal.coventry.ac.uk/en/studentTheses/development-and-application-of-bragg-edge-neutron-transmission-im>`
+    by Ranggi Sahmura Ramadhan, June 2019.
     """
-    if (
-        np.any(np.isnan(lda))
-        or np.isnan(a0)
-        or np.isnan(b0)
-        or np.isnan(ahkl)
-        or np.isnan(bhkl)
-        or np.isnan(ldahkl)
-        or np.isnan(sigma)
-        or np.isnan(tau)
-        or np.any(np.isinf(lda))
-        or np.isinf(a0)
-        or np.isinf(b0)
-        or np.isinf(ahkl)
-        or np.isinf(bhkl)
-        or np.isinf(ldahkl)
-        or np.isinf(sigma)
-        or np.isinf(tau)
-    ):
-        return None
 
     def B(ldahkl: float, sigma: float, tau: float, lda: np.ndarray) -> np.ndarray:
         const1 = (sigma * sigma) / (2 * tau * tau)
