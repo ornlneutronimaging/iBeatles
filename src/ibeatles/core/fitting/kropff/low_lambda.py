@@ -56,17 +56,19 @@ def fit_low_lambda(
     # Create lmfit Model
     model = Model(kropff_low_lambda_attenuation, independent_vars=["lda"])
 
-    # Set up parameters with initial guesses
-    params = model.make_params(
-        a0=Parameter("a0", value=a0, vary=False),
-        b0=Parameter("b0", value=b0, vary=False),
-        ahkl=fitting_parameters.lambda_min,
-        bhkl=fitting_parameters.lambda_max,
-    )
-
     # Perform the fit
+    # NOTE: Until this issue (https://github.com/lmfit/lmfit-py/issues/971) is resolved,
+    #       we must define the parameters in the fit function call explicitly and avoid
+    #       using the `make_params` method.
     try:
-        result = model.fit(ydata, params, lda=xdata)
+        result = model.fit(
+            ydata,
+            lda=xdata,
+            a0=Parameter("a0", value=a0, vary=False),
+            b0=Parameter("b0", value=b0, vary=False),
+            ahkl=Parameter("ahkl", value=fitting_parameters.lambda_min, vary=True),
+            bhkl=Parameter("bhkl", value=fitting_parameters.lambda_max, vary=True),
+        )
     except Exception as e:
         raise ValueError(f"Fitting failed: {str(e)}")
 

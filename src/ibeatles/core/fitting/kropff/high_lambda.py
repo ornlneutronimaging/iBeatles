@@ -2,7 +2,7 @@
 """Bragg peak detection, high lambda"""
 
 import numpy as np
-from lmfit import Model
+from lmfit import Model, Parameter
 from typing import Tuple, Dict, Any
 from ibeatles.core.fitting.kropff.fitting_functions import (
     kropff_high_lambda_transmission,
@@ -51,16 +51,17 @@ def fit_high_lambda(
     #       for fitting, but the transmission function for plotting.
     model = Model(kropff_high_lambda_attenuation, independent_vars=["lda"])
 
-    # Set up parameters with initial guesses
-    # NOTE: we explicitly specify a0 and b0 to be the fitting parameters, in case
-    #       the implicit behavior of lmfit changes in the future.
-    params = model.make_params(
-        a0=fitting_parameters.lambda_min, b0=fitting_parameters.lambda_max
-    )
-
     # Perform the fit
+    # NOTE: Until this issue (https://github.com/lmfit/lmfit-py/issues/971) is resolved,
+    #       we must define the parameters in the fit function call explicitly and avoid
+    #       using the `make_params` method.
     try:
-        result = model.fit(ydata, params, lda=xdata)
+        result = model.fit(
+            ydata,
+            lda=xdata,
+            a0=Parameter("a0", value=fitting_parameters.lambda_min, vary=True),
+            b0=Parameter("b0", value=fitting_parameters.lambda_max, vary=True),
+        )
     except Exception as e:
         raise ValueError(f"Fitting failed: {str(e)}")
 
