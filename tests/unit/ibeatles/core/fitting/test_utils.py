@@ -104,7 +104,7 @@ def test_generate_synthetic_transmission():
 
         ideal_transmission = test_model(wavelengths, **true_params)
         actual_noise = noisy_transmission - ideal_transmission
-        assert np.isclose(np.std(actual_noise), noise_level, rtol=0.1)
+        assert 0.9 * noise_level <= np.std(actual_noise) <= 1.1 * noise_level
 
     # Test case 3: Zero noise
     def test_zero_noise():
