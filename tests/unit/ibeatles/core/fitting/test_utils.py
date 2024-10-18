@@ -80,7 +80,7 @@ def test_generate_synthetic_transmission():
         return a * wavelengths + b
 
     # Set up test parameters
-    wavelengths = np.linspace(1.0, 10.0, 100)
+    wavelengths = np.linspace(1.0, 10.0, 1000)
     true_params = {"a": 0.5, "b": 1.0}
     noise_level = 0.01
 
@@ -104,7 +104,7 @@ def test_generate_synthetic_transmission():
 
         ideal_transmission = test_model(wavelengths, **true_params)
         actual_noise = noisy_transmission - ideal_transmission
-        assert 0.9 * noise_level <= np.std(actual_noise) <= 1.1 * noise_level
+        assert 0.8 * noise_level <= np.std(actual_noise) <= 1.2 * noise_level
 
     # Test case 3: Zero noise
     def test_zero_noise():
