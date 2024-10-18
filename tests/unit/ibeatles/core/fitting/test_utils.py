@@ -4,7 +4,10 @@
 import pytest
 import numpy as np
 import logging
-from ibeatles.core.fitting.utils import remove_invalid_data_points
+from ibeatles.core.fitting.utils import (
+    remove_invalid_data_points,
+    generate_synthetic_transmission,
+)
 
 
 def test_remove_invalid_data_points_no_invalid():
@@ -69,6 +72,76 @@ def test_remove_invalid_data_points_different_shapes():
     y = np.array([1, 2, 3, 4])
     with pytest.raises(ValueError):
         remove_invalid_data_points(x, y)
+
+
+def test_generate_synthetic_transmission():
+    # Define a simple model function for testing
+    def test_model(wavelengths, a, b):
+        return a * wavelengths + b
+
+    # Set up test parameters
+    wavelengths = np.linspace(1.0, 10.0, 100)
+    true_params = {"a": 0.5, "b": 1.0}
+    noise_level = 0.01
+
+    # Test case 1: Basic functionality
+    def test_basic_functionality():
+        wavelengths_out, noisy_transmission = generate_synthetic_transmission(
+            test_model, wavelengths, true_params, noise_level
+        )
+
+        assert np.array_equal(wavelengths, wavelengths_out)
+        assert len(noisy_transmission) == len(wavelengths)
+
+        ideal_transmission = test_model(wavelengths, **true_params)
+        assert np.allclose(noisy_transmission, ideal_transmission, atol=0.1)
+
+    # Test case 2: Noise level
+    def test_noise_level():
+        _, noisy_transmission = generate_synthetic_transmission(
+            test_model, wavelengths, true_params, noise_level
+        )
+
+        ideal_transmission = test_model(wavelengths, **true_params)
+        actual_noise = noisy_transmission - ideal_transmission
+        assert np.isclose(np.std(actual_noise), noise_level, rtol=0.1)
+
+    # Test case 3: Zero noise
+    def test_zero_noise():
+        _, noisy_transmission = generate_synthetic_transmission(
+            test_model, wavelengths, true_params, 0
+        )
+
+        ideal_transmission = test_model(wavelengths, **true_params)
+        np.testing.assert_allclose(noisy_transmission, ideal_transmission)
+
+    # Test case 4: Different noise levels
+    @pytest.mark.parametrize("noise", [0.001, 0.1, 0.5])
+    def test_different_noise_levels(noise):
+        _, noisy_transmission = generate_synthetic_transmission(
+            test_model, wavelengths, true_params, noise
+        )
+
+        ideal_transmission = test_model(wavelengths, **true_params)
+        actual_noise = noisy_transmission - ideal_transmission
+        assert 0.8 * noise <= np.std(actual_noise) <= 1.2 * noise
+
+    # Test case 5: Error handling
+    def test_error_handling():
+        with pytest.raises(TypeError):
+            generate_synthetic_transmission("not a function", wavelengths, true_params)
+
+        with pytest.raises(ValueError):
+            generate_synthetic_transmission(test_model, wavelengths, true_params, -1)
+
+    # Run all test cases
+    test_basic_functionality()
+    test_noise_level()
+    test_zero_noise()
+    test_different_noise_levels(0.001)
+    test_different_noise_levels(0.1)
+    test_different_noise_levels(0.5)
+    test_error_handling()
 
 
 if __name__ == "__main__":
