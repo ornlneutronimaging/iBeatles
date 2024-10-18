@@ -69,6 +69,8 @@ class ThresholdFinder(BaseModel):
 
 
 class FittingCriteria(BaseModel):
+    """Fit results must be smaller than the threshold to be considered valid, if 'use' is True"""
+
     lambda_hkl: Dict[Literal["use", "value"], Union[bool, float]] = {
         "use": True,
         "value": 0.010,
