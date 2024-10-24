@@ -61,6 +61,28 @@ class PixelBinning(BaseModel):
     bins_size: int
 
 
+class BinCoordinates(BaseModel):
+    """Model for bin coordinates."""
+
+    x0: int
+    x1: int
+    y0: int
+    y1: int
+    row_index: int  # Row number in binning grid
+    column_index: int  # Column number in binning grid
+
+    @model_validator(mode="after")
+    def validate_coordinates(self) -> "BinCoordinates":
+        """Validate bin coordinates."""
+        if self.x0 >= self.x1:
+            raise ValueError("x0 must be less than x1")
+        if self.y0 >= self.y1:
+            raise ValueError("y0 must be less than y1")
+        if self.row_index < 0 or self.column_index < 0:
+            raise ValueError("Row and column indices must be non-negative")
+        return self
+
+
 class ThresholdFinder(BaseModel):
     method: Literal["Sliding Average", "Error Function", "Change Point"] = (
         "Sliding Average"
