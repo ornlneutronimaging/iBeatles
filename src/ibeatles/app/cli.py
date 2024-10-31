@@ -22,7 +22,9 @@ from ibeatles.core.fitting.kropff.fitting import fit_bragg_edge_single_pass
 # from ibeatles.core.strain_calculation import calculate_strain
 
 
-def setup_logging(log_file: Optional[Path] = None) -> None:
+def setup_logging(
+    log_file: Optional[Path] = None, log_level: int = logging.INFO
+) -> logging.Logger:
     """
     Set up logging for the application.
 
@@ -30,19 +32,42 @@ def setup_logging(log_file: Optional[Path] = None) -> None:
     ----------
     log_file : Path, optional
         Path to the log file. If not provided, logs will be saved in the current working directory.
+    log_level : int, optional
+        Logging level. Defaults to logging.INFO.
 
     Returns
     -------
-    None
+    logging.Logger
+        Configured logger instance.
     """
     if log_file is None:
         log_file = Path.cwd() / "ibeatles_cli.log"
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.FileHandler(log_file), logging.StreamHandler()],
-    )
+    logger = logging.getLogger("ibeatles_CLI")
+    logger.setLevel(log_level)
+
+    # Avoid adding handlers if they are already configured
+    if not logger.hasHandlers():
+        # Create file handler and stream handler
+        file_handler = logging.FileHandler(log_file)
+        stream_handler = logging.StreamHandler()
+
+        # Set level for each handler
+        file_handler.setLevel(log_level)
+        stream_handler.setLevel(log_level)
+
+        # Define formatter and add it to handlers
+        formatter = logging.Formatter(
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        file_handler.setFormatter(formatter)
+        stream_handler.setFormatter(formatter)
+
+        # Add handlers to the logger
+        logger.addHandler(file_handler)
+        logger.addHandler(stream_handler)
+
+    return logger
 
 
 def load_config(config_path: Path) -> IBeatlesUserConfig:
@@ -59,6 +84,9 @@ def load_config(config_path: Path) -> IBeatlesUserConfig:
     IBeatlesUserConfig
         Parsed configuration object.
     """
+    logger = logging.getLogger("ibeatles_CLI")
+    logger.info(f"Loading configuration: {config_path}")
+
     with open(config_path, "r") as f:
         config_data = json.load(f)
     return IBeatlesUserConfig(**config_data)
@@ -78,7 +106,9 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
     Dict[str, Any]
         Dictionary containing loaded data.
     """
-    logging.info("Loading data...")
+    logger = logging.getLogger("ibeatles_CLI")
+    logger.info("Loading data...")
+
     # Raw data is mandatory
     raw_data = load_data_from_folder(
         config.raw_data.raw_data_dir,
@@ -133,6 +163,9 @@ def perform_binning(
     Dict[str, Any]
         Dictionary containing binning results.
     """
+    logger = logging.getLogger("ibeatles_CLI")
+    logger.info("Performing binning...")
+
     # Build binning coordinates
     bins = get_bin_coordinates(
         image_shape=data[0].shape,
@@ -177,6 +210,9 @@ def perform_fitting(
     Dict[str, Any]
         Dictionary containing fitting results.
     """
+    logger = logging.getLogger("ibeatles_CLI")
+    logger.info("Performing fitting...")
+
     # step_0: prepare the lambda range
     lambda_min_angstrom = config.analysis.fitting.lambda_min * 1e10
     lambda_max_angstrom = config.analysis.fitting.lambda_max * 1e10
@@ -231,7 +267,9 @@ def perform_fitting(
                 parameter_bounds=parameter_bounds,
             )
             if fit_result_smoothed is None:
-                logging.info(f"Failed fitting with sigma = {sigma}")
+                logger.info(
+                    f"Bin_{key}: Failed fitting with sigma = {sigma}, increase sigma and try again..."
+                )
                 ratio += 0.02
                 continue
             else:
@@ -266,8 +304,10 @@ def calculate_strain(
     Dict[str, Any]
         Dictionary containing strain calculation results.
     """
+    logger = logging.getLogger("ibeatles_CLI")
+
     # Placeholder implementation
-    logging.info("Calculating strain...")
+    logger.info("Calculating strain...")
     # strain_results = calculate_strain(data['fitting_results'], config)
     return {"strain_results": None}
 
@@ -287,9 +327,11 @@ def save_analysis_results(data: Dict[str, Any], config: IBeatlesUserConfig) -> N
     -------
     None
     """
+    logger = logging.getLogger("ibeatles_CLI")
+
     # Placeholder implementation
     output_dir = config.output["analysis_results_dir"]
-    logging.info(f"Saving analysis results to {output_dir}...")
+    logger.info(f"Saving analysis results to {output_dir}...")
     # Save fitting results
     # Example: np.save(output_dir / "fitting_results.npy", data["fitting_results"])
     # Save strain map data
@@ -313,7 +355,7 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
     -------
     None
     """
-    setup_logging(log_file)
+    logger = setup_logging(log_file)
 
     try:
         # Load configuration
@@ -333,10 +375,9 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
             config=config,
             output_folder=config.output["normalized_data_dir"],
         )
-        logging.info(f"Normalized data saved to {output_path}.")
+        logger.info(f"Normalized data saved to {output_path}.")
 
         # Binning
-        logging.info("Performing binning...")
         binning_results = perform_binning(
             data=normalized_data,
             config=config,
@@ -344,7 +385,6 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
         )
 
         # Fitting
-        logging.info("Performing fitting...")
         fitting_results = perform_fitting(
             bin_transmission_dict=binning_results,
             config=config,
@@ -355,9 +395,9 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
         analysis_results = {**fitting_results, **strain_results}
         save_analysis_results(analysis_results, config)
 
-        logging.info("iBeatles CLI application completed successfully.")
+        logger.info("iBeatles CLI application completed successfully.")
     except Exception as e:
-        logging.error(f"An error occurred: {str(e)}")
+        logger.error(f"An error occurred: {str(e)}")
         raise
 
 
