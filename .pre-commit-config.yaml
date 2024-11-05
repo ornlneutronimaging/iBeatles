@@ -4,6 +4,7 @@ repos:
   hooks:
     - id: check-added-large-files
       args: [--maxkb=8192]
+      exclude: "reference/.*"
     - id: check-merge-conflict
     - id: check-yaml
       args: [--allow-multiple-documents]
