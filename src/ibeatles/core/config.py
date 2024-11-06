@@ -211,6 +211,13 @@ class StrainMapping(BaseModel):
             )
         return self
 
+    @model_validator(mode="after")
+    def ensure_d0_is_positive(self) -> "StrainMapping":
+        """Ensure that d0 is positive."""
+        if self.d0 is not None and self.d0 <= 0:
+            raise ValueError("d0 must be a positive value")
+        return self
+
 
 class CustomMaterial(BaseModel):
     name: str
