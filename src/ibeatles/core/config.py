@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 """Pydantic configuration model for CLI and GUI application settings (user)"""
 
+import logging
+import matplotlib.pyplot as plt
 from enum import Enum
 from typing import Dict, Optional, Union, Tuple, Literal, List
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, model_validator, field_validator
 from pathlib import Path
 
 
@@ -126,9 +128,88 @@ class FittingConfig(BaseModel):
     rejection_criteria: RejectionCriteria = Field(default_factory=RejectionCriteria)
 
 
+class OutputFormat(str, Enum):
+    """Supported output formats for strain mapping results."""
+
+    ASCII = "ascii"
+    JSON = "json"
+    HDF5 = "hdf5"
+    TIFF = "tiff"
+
+
+class InterpolationMethod(str, Enum):
+    """Supported interpolation methods for strain mapping visualization."""
+
+    NONE = "none"
+    NEAREST = "nearest"
+    BILINEAR = "bilinear"
+    BICUBIC = "bicubic"
+    SPLINE16 = "spline16"
+    SPLINE36 = "spline36"
+    HANNING = "hanning"
+    HAMMING = "hamming"
+    HERMITE = "hermite"
+    KAISER = "kaiser"
+    QUADRIC = "quadric"
+    CATROM = "catrom"
+    GAUSSIAN = "gaussian"
+    BESSEL = "bessel"
+    MITCHELL = "mitchell"
+    SINC = "sinc"
+    LANCZOS = "lanczos"
+
+
+class StrainVisualization(BaseModel):
+    """Configuration for strain mapping visualization."""
+
+    interpolation_method: InterpolationMethod = InterpolationMethod.NEAREST
+    colormap: str = "viridis"
+    alpha: float = Field(
+        default=0.5, ge=0.0, le=1.0, description="Transparency for overlay plots"
+    )
+    display_fit_quality: bool = True
+
+    @field_validator("colormap")
+    @classmethod
+    def validate_colormap(cls, v):
+        """Validate that the colormap exists in matplotlib."""
+        if v not in plt.colormaps():
+            raise ValueError(
+                f"Colormap '{v}' is not available in matplotlib. "
+                f"Available colormaps: {', '.join(plt.colormaps())}"
+            )
+        return v
+
+
 class StrainMapping(BaseModel):
-    d0: Optional[float] = None
-    output: Optional[Path] = None
+    """Configuration for strain mapping analysis."""
+
+    d0: Optional[float] = None  # optional override for d0
+    quality_threshold: float = Field(
+        default=0.8,
+        ge=0.0,
+        le=1.0,
+        description="R-squared threshold for accepting fit results",
+    )
+    visualization: StrainVisualization = Field(
+        default_factory=StrainVisualization, description="Visualization settings"
+    )
+    format: List[OutputFormat] = Field(
+        default=[OutputFormat.HDF5], description="Output formats to save results"
+    )
+    save_maps: bool = True
+    save_fitted_parameters: bool = True
+    save_intermediate_results: bool = False
+
+    @model_validator(mode="after")
+    def check_d0_warning(self) -> "StrainMapping":
+        """Validate d0 and add warning if using non-standard value."""
+        if self.d0 is not None:
+            logging.warning(
+                "Using user-provided d0. This overrides the value calculated "
+                "from material properties."
+            )
+        return self
 
 
 class CustomMaterial(BaseModel):
@@ -228,17 +309,19 @@ if __name__ == "__main__":
         "output": {
             "normalized_data_dir": "/path/to/normalized_data",
             "analysis_results_dir": "/path/to/analysis_results",
+            "strain_results_dir": "/path/to/strain_results",
         },
         "normalization": {
-            "sample_background": {"x0": 0, "y0": 0, "width": 10, "height": 10},
+            "sample_background": [{"x0": 0, "y0": 0, "width": 10, "height": 10}],
             "moving_average": {
                 "dimension": "3D",
                 "size": {"y": 3, "x": 3, "lambda": 3},
             },
         },
         "analysis": {
-            "material": {"element": "Fe"},  # For predefined element
-            # Alternatively, for custom material:
+            # Standard material example
+            "material": {"element": "Fe"},
+            # Custom material example (commented out)
             # "material": {
             #     "custom_material": {
             #         "name": "Custom Alloy",
@@ -255,7 +338,20 @@ if __name__ == "__main__":
                 "bins_size": 5,
             },
             "fitting": {"lambda_min": 0.5, "lambda_max": 5.0},
-            "strain_mapping": {"d0": 3.52, "output": "/path/to/strain_output"},
+            "strain_mapping": {
+                "d0": 3.52,  # optional, if not provided will use material properties
+                "quality_threshold": 0.8,
+                "visualization": {
+                    "interpolation_method": "nearest",
+                    "colormap": "viridis",
+                    "alpha": 0.5,
+                    "display_fit_quality": True,
+                },
+                "format": ["hdf5", "tiff"],
+                "save_maps": True,
+                "save_fitted_parameters": True,
+                "save_intermediate_results": False,
+            },
             "distance_source_detector_in_m": 19.855,
             "detector_offset_in_us": 9600,
         },
