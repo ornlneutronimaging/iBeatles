@@ -3,9 +3,10 @@
 
 from typing import Dict, Tuple, Optional
 import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
-import matplotlib.pyplot as plt
+from lmfit.model import ModelResult
 
 
 def plot_strain_map_overlay(
@@ -83,3 +84,87 @@ def plot_strain_map_overlay(
     ax.set_ylabel("Pixel")
 
     return fig, ax
+
+
+def plot_fitting_results_grid(
+    fit_results: Dict[str, Optional[ModelResult]],
+    bin_transmission: Dict[str, Dict],
+    reference_wavelength: float,
+    figsize: Tuple[int, int] = (50, 50),
+) -> Tuple[Figure, np.ndarray]:
+    """Create grid plot of fitting results matching binning layout.
+
+    Parameters
+    ----------
+    fit_results : Dict[str, Optional[ModelResult]]
+        Dictionary of fitting results for each bin
+    bin_transmission : Dict[str, Dict]
+        Dictionary containing bin coordinates and data
+    reference_wavelength : float
+        Reference Bragg edge wavelength for comparison
+    figsize : Tuple[int, int]
+        Figure size in inches
+
+    Returns
+    -------
+    Tuple[Figure, np.ndarray]
+        Figure and array of axes
+    """
+    # Find grid dimensions from bin coordinates
+    max_row = (
+        max(
+            int(bin_transmission[bin_id]["coordinates"].row_index)
+            for bin_id in bin_transmission
+        )
+        + 1
+    )
+    max_col = (
+        max(
+            int(bin_transmission[bin_id]["coordinates"].column_index)
+            for bin_id in bin_transmission
+        )
+        + 1
+    )
+
+    # Create figure and axes grid
+    fig, axes = plt.subplots(max_row, max_col, figsize=figsize)
+
+    # Plot each bin result in its corresponding position
+    for bin_id, fit_result in fit_results.items():
+        coords = bin_transmission[bin_id]["coordinates"]
+        row = coords.row_index
+        col = coords.column_index
+
+        ax = axes[row, col]
+        ax.set_title(f"Bin {bin_id}")
+
+        if fit_result is not None:
+            # Plot fitting result
+            fit_result.plot_fit(ax=ax, datafmt=".")
+
+            # Add reference wavelength line
+            ax.axvline(
+                x=reference_wavelength, color="black", linestyle="--", label="Reference"
+            )
+
+            # Add fitted wavelength line
+            ax.axvline(
+                x=fit_result.best_values["bragg_edge_wavelength"],
+                color="green",
+                linestyle="--",
+                label="Fitted",
+            )
+
+        else:
+            # Plot raw data
+            wavelengths = bin_transmission[bin_id]["wavelengths"]
+            wavelengths_angstrom = wavelengths * 1e10
+            transmission = bin_transmission[bin_id]["transmission"]
+            ax.scatter(wavelengths_angstrom, transmission, label="Raw Data", s=1)
+
+        # set x and y labels
+        ax.set_xlabel("Wavelength ($\AA$)")
+        ax.set_ylabel("Transmission")
+
+    plt.tight_layout()
+    return fig, axes
