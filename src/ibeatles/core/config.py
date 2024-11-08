@@ -165,6 +165,7 @@ class CsvFormat(BaseModel):
     delimiter: str = ","
     include_metadata_header: bool = True
     metadata_comment_char: str = "#"
+    na_rep: str = "null"
 
 
 class OutputFileConfig(BaseModel):
