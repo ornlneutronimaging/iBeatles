@@ -38,12 +38,34 @@
       "lambda_min": 2.4e-10,
       "lambda_max": 2.8e-10
     },
-    "strain_mapping": {},
+    "strain_mapping": {
+      "d0": 3.52,
+      "quality_threshold": 0.8,
+      "visualization": {
+          "interpolation_method": "nearest",
+          "colormap": "viridis",
+          "alpha": 0.5,
+          "display_fit_quality": true
+      },
+      "output_file_config": {
+          "strain_map_format": "png",
+          "fitting_grid_format": "pdf",
+          "figure_dpi": 300,
+          "csv_format": {
+              "delimiter": ",",
+              "include_metadata_header": true,
+              "metadata_comment_char": "#",
+              "na_rep": "null"
+          }
+      },
+      "save_intermediate_results": false
+    },
     "distance_source_detector_in_m": 19.855,
     "detector_offset_in_us": 5000.0
   },
   "output": {
     "normalized_data_dir": "/Users/8cz/tmp/ibeatles_dev/normalized",
-    "analysis_results_dir": "/Users/8cz/tmp/ibeatles_dev/analysis"
+    "analysis_results_dir": "/Users/8cz/tmp/ibeatles_dev/analysis",
+    "strain_results_dir": "/Users/8cz/tmp/ibeatles_dev/strain"
   }
 }
