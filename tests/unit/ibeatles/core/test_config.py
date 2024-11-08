@@ -11,7 +11,6 @@ from ibeatles.core.config import (
     CustomMaterial,
     StrainMapping,
     StrainVisualization,
-    OutputFormat,
     InterpolationMethod,
 )
 
@@ -32,10 +31,18 @@ def valid_strain_config():
             "colormap": "viridis",
             "alpha": 0.5,
             "display_fit_quality": True,
-            "format": ["hdf5", "tiff"],
-            "save_maps": True,
-            "save_fitted_parameters": True,
         },
+        "output_file_config": {
+            "strain_map_format": "png",
+            "fitting_grid_format": "pdf",
+            "figure_dpi": 300,
+            "csv_format": {
+                "delimiter": ",",
+                "include_metadata_header": True,
+                "metadata_comment_char": "#",
+            },
+        },
+        "save_intermediate_results": False,
     }
 
 
@@ -275,9 +282,6 @@ def test_strain_default_values():
     minimal_strain = StrainMapping()
     assert minimal_strain.d0 is None
     assert minimal_strain.quality_threshold == 0.8
-    assert minimal_strain.format == [OutputFormat.HDF5]
-    assert minimal_strain.save_maps is True
-    assert minimal_strain.save_fitted_parameters is True
     assert minimal_strain.save_intermediate_results is False
 
     # Check visualization defaults
@@ -316,18 +320,6 @@ def test_invalid_interpolation():
         StrainVisualization(interpolation_method="invalid_method")
 
 
-def test_output_format_validation():
-    """Test validation of output formats."""
-    # Valid formats
-    strain = StrainMapping(format=["hdf5", "tiff"])
-    assert OutputFormat.HDF5 in strain.format
-    assert OutputFormat.TIFF in strain.format
-
-    # Invalid format
-    with pytest.raises(ValueError):
-        StrainMapping(format=["invalid_format"])
-
-
 def test_strain_config_integration(valid_config_dict):
     """Test strain mapping configuration as part of main config."""
     config = IBeatlesUserConfig(**valid_config_dict)
@@ -336,7 +328,72 @@ def test_strain_config_integration(valid_config_dict):
     assert isinstance(strain_config, StrainMapping)
     assert isinstance(strain_config.visualization, StrainVisualization)
     assert strain_config.visualization.interpolation_method in InterpolationMethod
-    assert strain_config.format[0] in OutputFormat
+
+
+def test_output_file_config_defaults():
+    """Test default values for output file configuration."""
+    config = StrainMapping()
+    assert config.output_file_config.strain_map_format == "png"
+    assert config.output_file_config.fitting_grid_format == "pdf"
+    assert config.output_file_config.figure_dpi == 300
+    assert config.output_file_config.csv_format.delimiter == ","
+    assert config.output_file_config.csv_format.include_metadata_header is True
+    assert config.output_file_config.csv_format.metadata_comment_char == "#"
+
+
+def test_figure_format_validation():
+    """Test validation of figure formats."""
+    # Valid formats
+    config = StrainMapping(output_file_config={"strain_map_format": "png"})
+    assert config.output_file_config.strain_map_format == "png"
+
+    # Invalid format
+    with pytest.raises(ValueError):
+        StrainMapping(output_file_config={"strain_map_format": "invalid"})
+
+
+def test_figure_dpi_validation():
+    """Test validation of DPI values."""
+    # Valid DPI
+    config = StrainMapping(output_file_config={"figure_dpi": 300})
+    assert config.output_file_config.figure_dpi == 300
+
+    # Invalid DPI (too low)
+    with pytest.raises(ValueError):
+        StrainMapping(output_file_config={"figure_dpi": 50})
+
+    # Invalid DPI (too high)
+    with pytest.raises(ValueError):
+        StrainMapping(output_file_config={"figure_dpi": 1500})
+
+
+def test_csv_format_validation():
+    """Test validation of CSV format settings."""
+    # Valid settings
+    config = StrainMapping(
+        output_file_config={
+            "csv_format": {
+                "delimiter": ";",
+                "include_metadata_header": False,
+                "metadata_comment_char": "%",
+            }
+        }
+    )
+    assert config.output_file_config.csv_format.delimiter == ";"
+    assert config.output_file_config.csv_format.include_metadata_header is False
+    assert config.output_file_config.csv_format.metadata_comment_char == "%"
+
+
+def test_output_config_integration():
+    """Test output configuration as part of main config."""
+    strain_config = StrainMapping()
+
+    # Test all formats can be changed
+    strain_config.output_file_config.strain_map_format = "svg"
+    strain_config.output_file_config.fitting_grid_format = "eps"
+
+    assert strain_config.output_file_config.strain_map_format == "svg"
+    assert strain_config.output_file_config.fitting_grid_format == "eps"
 
 
 if __name__ == "__main__":

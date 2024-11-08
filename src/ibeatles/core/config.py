@@ -128,15 +128,6 @@ class FittingConfig(BaseModel):
     rejection_criteria: RejectionCriteria = Field(default_factory=RejectionCriteria)
 
 
-class OutputFormat(str, Enum):
-    """Supported output formats for strain mapping results."""
-
-    ASCII = "ascii"
-    JSON = "json"
-    HDF5 = "hdf5"
-    TIFF = "tiff"
-
-
 class InterpolationMethod(str, Enum):
     """Supported interpolation methods for strain mapping visualization."""
 
@@ -157,6 +148,35 @@ class InterpolationMethod(str, Enum):
     MITCHELL = "mitchell"
     SINC = "sinc"
     LANCZOS = "lanczos"
+
+
+class FigureFormat(str, Enum):
+    """Supported figure formats for saving plots."""
+
+    PNG = "png"
+    PDF = "pdf"
+    SVG = "svg"
+    EPS = "eps"
+
+
+class CsvFormat(BaseModel):
+    """Configuration for CSV output format."""
+
+    delimiter: str = ","
+    include_metadata_header: bool = True
+    metadata_comment_char: str = "#"
+
+
+class OutputFileConfig(BaseModel):
+    """Configuration for output file formats and options."""
+
+    strain_map_format: FigureFormat = FigureFormat.PNG
+    fitting_grid_format: FigureFormat = FigureFormat.PDF
+    figure_dpi: int = Field(default=300, ge=72, le=1200)
+    csv_format: CsvFormat = Field(default_factory=CsvFormat)
+
+    class Config:
+        use_enum_values = True
 
 
 class StrainVisualization(BaseModel):
@@ -194,11 +214,9 @@ class StrainMapping(BaseModel):
     visualization: StrainVisualization = Field(
         default_factory=StrainVisualization, description="Visualization settings"
     )
-    format: List[OutputFormat] = Field(
-        default=[OutputFormat.HDF5], description="Output formats to save results"
+    output_file_config: OutputFileConfig = Field(
+        default_factory=OutputFileConfig, description="Output file format settings"
     )
-    save_maps: bool = True
-    save_fitted_parameters: bool = True
     save_intermediate_results: bool = False
 
     @model_validator(mode="after")
@@ -354,9 +372,16 @@ if __name__ == "__main__":
                     "alpha": 0.5,
                     "display_fit_quality": True,
                 },
-                "format": ["hdf5", "tiff"],
-                "save_maps": True,
-                "save_fitted_parameters": True,
+                "output_file_config": {
+                    "strain_map_format": "png",
+                    "fitting_grid_format": "pdf",
+                    "figure_dpi": 300,
+                    "csv_format": {
+                        "delimiter": ",",
+                        "include_metadata_header": True,
+                        "metadata_comment_char": "#",
+                    },
+                },
                 "save_intermediate_results": False,
             },
             "distance_source_detector_in_m": 19.855,
