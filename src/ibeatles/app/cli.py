@@ -4,6 +4,8 @@
 import argparse
 import json
 import logging
+import numpy as np
+import matplotlib.pyplot as plt
 from pathlib import Path
 from typing import Dict, Any, Optional
 from scipy.ndimage import gaussian_filter1d
@@ -18,8 +20,17 @@ from ibeatles.core.processing.normalization import normalize_data
 from ibeatles.core.fitting.binning import get_bin_coordinates, get_bin_transmission
 from ibeatles.core.material import get_initial_bragg_edge_lambda
 from ibeatles.core.fitting.kropff.fitting import fit_bragg_edge_single_pass
-
-# from ibeatles.core.strain_calculation import calculate_strain
+from ibeatles.core.strain.mapping import calculate_strain_mapping
+from ibeatles.core.strain.visualization import (
+    plot_strain_map_overlay,
+    plot_fitting_results_grid,
+)
+from ibeatles.core.strain.export import (
+    generate_output_filename,
+    save_strain_map,
+    save_fitting_grid,
+    save_analysis_results,
+)
 
 
 def setup_logging(
@@ -189,7 +200,7 @@ def perform_binning(
             "coordinates": bin_coord,
         }
 
-    return bin_transmission
+    return bin_transmission, bins
 
 
 def perform_fitting(
@@ -286,60 +297,6 @@ def perform_fitting(
     return fit_results
 
 
-def calculate_strain(
-    data: Dict[str, Any], config: IBeatlesUserConfig
-) -> Dict[str, Any]:
-    """
-    Calculate strain based on fitted d-spacing.
-
-    Parameters
-    ----------
-    data : Dict[str, Any]
-        Dictionary containing fitting results.
-    config : IBeatlesUserConfig
-        Parsed configuration object.
-
-    Returns
-    -------
-    Dict[str, Any]
-        Dictionary containing strain calculation results.
-    """
-    logger = logging.getLogger("ibeatles_CLI")
-
-    # Placeholder implementation
-    logger.info("Calculating strain...")
-    # strain_results = calculate_strain(data['fitting_results'], config)
-    return {"strain_results": None}
-
-
-def save_analysis_results(data: Dict[str, Any], config: IBeatlesUserConfig) -> None:
-    """
-    Save analysis results (strain map data and images) to disk.
-
-    Parameters
-    ----------
-    data : Dict[str, Any]
-        Dictionary containing fitting results and strain calculation results.
-    config : IBeatlesUserConfig
-        Parsed configuration object.
-
-    Returns
-    -------
-    None
-    """
-    logger = logging.getLogger("ibeatles_CLI")
-
-    # Placeholder implementation
-    output_dir = config.output["analysis_results_dir"]
-    logger.info(f"Saving analysis results to {output_dir}...")
-    # Save fitting results
-    # Example: np.save(output_dir / "fitting_results.npy", data["fitting_results"])
-    # Save strain map data
-    # Example: np.save(output_dir / "strain_map.npy", data["strain_results"])
-    # Save strain map image
-    # Example: plt.imsave(output_dir / "strain_map.png", data["strain_results"])
-
-
 def main(config_path: Path, log_file: Optional[Path] = None) -> None:
     """
     Main function to run the iBeatles CLI application.
@@ -378,22 +335,116 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
         logger.info(f"Normalized data saved to {output_path}.")
 
         # Binning
-        binning_results = perform_binning(
+        binning_results, bins = perform_binning(
             data=normalized_data,
             config=config,
             spectra_dict=spectra_dict,
         )
 
         # Fitting
+        logger.info("Performing fitting and strain mapping...")
         fitting_results = perform_fitting(
             bin_transmission_dict=binning_results,
             config=config,
         )
+        # plot
+        logger.info("Plotting fitting results grid...")
+        lambda_min_angstrom = config.analysis.fitting.lambda_min * 1e10
+        lambda_max_angstrom = config.analysis.fitting.lambda_max * 1e10
+        lambda_range_angstrom = lambda_min_angstrom, lambda_max_angstrom
+        lambda_0_angstrom = get_initial_bragg_edge_lambda(
+            material_config=config.analysis.material,
+            lambda_range=lambda_range_angstrom,
+        )
+        fig_fitting, _ = plot_fitting_results_grid(
+            fit_results=fitting_results,
+            bin_transmission=binning_results,
+            reference_wavelength=lambda_0_angstrom,
+        )
+        # save figures
+        logger.info("Saving fitting results...")
+        output_path_strain = config.output.get("strain_results_dir", Path.cwd())
+        # create the folder if not exist
+        output_path_strain.mkdir(parents=True, exist_ok=True)
+        # save fitting grid
+        fn_fitting = generate_output_filename(
+            input_folder=config.raw_data.raw_data_dir,
+            analysis_type="fitting_grid",
+            extension=config.analysis.strain_mapping.output_file_config.fitting_grid_format,
+        )
+        save_fitting_grid(
+            figure=fig_fitting,
+            output_path=output_path_strain / fn_fitting,
+            config=config.analysis.strain_mapping.output_file_config,
+        )
+        # close the figure
+        plt.close(fig_fitting)
+        logger.info(f"Fitting results saved to {output_path_strain}.")
 
-        # Dummy implementation of the remaining processing steps
-        strain_results = calculate_strain(fitting_results, config)
-        analysis_results = {**fitting_results, **strain_results}
-        save_analysis_results(analysis_results, config)
+        # Calculate strain
+        logger.info("Calculating strain mapping...")
+        strain_results = calculate_strain_mapping(
+            fit_results=fitting_results,
+            d0=lambda_0_angstrom / 2.0,
+            quality_threshold=config.analysis.strain_mapping.quality_threshold,
+        )
+        # plot
+        logger.info("Plotting strain map overlay...")
+        fig_strain, _ = plot_strain_map_overlay(
+            strain_results=strain_results,
+            bin_transmission=binning_results,
+            integrated_image=np.sum(normalized_data, axis=0).T,
+            colormap=config.analysis.strain_mapping.visualization.colormap,
+            interpolation=config.analysis.strain_mapping.visualization.interpolation_method,
+            alpha=config.analysis.strain_mapping.visualization.alpha,
+        )
+        # save figures
+        logger.info("Saving strain map overlay...")
+        fn_strain = generate_output_filename(
+            input_folder=config.raw_data.raw_data_dir,
+            analysis_type="strain_map",
+            extension=config.analysis.strain_mapping.output_file_config.strain_map_format,
+        )
+        save_strain_map(
+            figure=fig_strain,
+            output_path=output_path_strain / fn_strain,
+            config=config.analysis.strain_mapping.output_file_config,
+        )
+        # close the figure
+        plt.close(fig_strain)
+        logger.info(f"Strain map overlay saved to {output_path_strain}.")
+
+        # Save analysis results
+        logger.info("Saving analysis results...")
+        output_path_analysis = config.output.get("analysis_results_dir", Path.cwd())
+        output_path_analysis.mkdir(parents=True, exist_ok=True)
+        # save analysis results
+        fn_analysis = generate_output_filename(
+            input_folder=config.raw_data.raw_data_dir,
+            analysis_type="analysis_results",
+            extension="csv",
+        )
+        # check if using custom material
+        if config.analysis.material.custom_material:
+            material_name = config.analysis.material.custom_material.name
+        else:
+            material_name = config.analysis.material.element
+        # build the metadata header
+        metadata = {
+            "material_name": material_name,
+            "d0": lambda_0_angstrom,
+            "distance_source_detector": config.analysis.distance_source_detector_in_m,
+            "detector_offset": config.analysis.detector_offset_in_us,
+        }
+        save_analysis_results(
+            fit_results=fitting_results,
+            bin_coordinates=bins,
+            strain_results=strain_results,
+            metadata=metadata,
+            output_path=output_path_analysis / fn_analysis,
+            config=config.analysis.strain_mapping.output_file_config,
+        )
+        logger.info(f"Analysis results saved to {output_path_strain}.")
 
         logger.info("iBeatles CLI application completed successfully.")
     except Exception as e:

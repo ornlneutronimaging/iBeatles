@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 """Unit test for ibeatles.core.config module."""
 
+import logging
 import pytest
 from pathlib import Path
 import tempfile
 import os
-from ibeatles.core.config import IBeatlesUserConfig, CustomMaterial
+from ibeatles.core.config import (
+    IBeatlesUserConfig,
+    CustomMaterial,
+    StrainMapping,
+    StrainVisualization,
+    InterpolationMethod,
+)
 
 
 @pytest.fixture
@@ -15,11 +22,42 @@ def temp_dir():
 
 
 @pytest.fixture
-def valid_config_dict(temp_dir):
+def valid_strain_config():
+    return {
+        "d0": 3.52,
+        "quality_threshold": 0.8,
+        "visualization": {
+            "interpolation_method": "nearest",
+            "colormap": "viridis",
+            "alpha": 0.5,
+            "display_fit_quality": True,
+        },
+        "output_file_config": {
+            "strain_map_format": "png",
+            "fitting_grid_format": "pdf",
+            "figure_dpi": 300,
+            "csv_format": {
+                "delimiter": ",",
+                "include_metadata_header": True,
+                "metadata_comment_char": "#",
+            },
+        },
+        "save_intermediate_results": False,
+    }
+
+
+@pytest.fixture
+def valid_config_dict(temp_dir, valid_strain_config):
     raw_data_dir = os.path.join(temp_dir, "raw_data")
     open_beam_dir = os.path.join(temp_dir, "open_beam")
+    spectra_file_path = os.path.join(temp_dir, "spectra.txt")
+    normalized_data_dir = os.path.join(temp_dir, "normalized_data")
+    analysis_results_dir = os.path.join(temp_dir, "analysis_results")
+    strain_results_dir = os.path.join(temp_dir, "strain_results")
+
     os.makedirs(raw_data_dir)
     os.makedirs(open_beam_dir)
+    os.makedirs(strain_results_dir)
 
     return {
         "raw_data": {
@@ -30,10 +68,11 @@ def valid_config_dict(temp_dir):
             "open_beam_data_dir": open_beam_dir,
             "open_beam_data_extension": ".tif",
         },
-        "spectra_file_path": os.path.join(temp_dir, "spectra.txt"),
+        "spectra_file_path": spectra_file_path,
         "output": {
-            "normalized_data_dir": os.path.join(temp_dir, "normalized_data"),
-            "analysis_results_dir": os.path.join(temp_dir, "analysis_results"),
+            "normalized_data_dir": normalized_data_dir,
+            "analysis_results_dir": analysis_results_dir,
+            "strain_results_dir": strain_results_dir,
         },
         "normalization": {
             "sample_background": [{"x0": 0, "y0": 0, "width": 10, "height": 10}],
@@ -52,7 +91,7 @@ def valid_config_dict(temp_dir):
                 "bins_size": 5,
             },
             "fitting": {"lambda_min": 0.5, "lambda_max": 5.0},
-            "strain_mapping": {"d0": 3.52},
+            "strain_mapping": valid_strain_config,
             "distance_source_detector_in_m": 19.855,
             "detector_offset_in_us": 9600,
         },
@@ -60,6 +99,7 @@ def valid_config_dict(temp_dir):
 
 
 def test_valid_config(valid_config_dict):
+    print(valid_config_dict)
     config = IBeatlesUserConfig(**valid_config_dict)
     assert isinstance(config, IBeatlesUserConfig)
 
@@ -235,6 +275,125 @@ def test_invalid_extension(temp_dir):
     }
     with pytest.raises(ValueError):
         IBeatlesUserConfig(**invalid_extension_config)
+
+
+def test_strain_default_values():
+    """Test default values for strain mapping configuration."""
+    minimal_strain = StrainMapping()
+    assert minimal_strain.d0 is None
+    assert minimal_strain.quality_threshold == 0.8
+    assert minimal_strain.save_intermediate_results is False
+
+    # Check visualization defaults
+    assert (
+        minimal_strain.visualization.interpolation_method == InterpolationMethod.NEAREST
+    )
+    assert minimal_strain.visualization.colormap == "viridis"
+    assert minimal_strain.visualization.alpha == 0.5
+    assert minimal_strain.visualization.display_fit_quality is True
+
+
+def test_strain_d0_warning(caplog):
+    """Test warning when d0 is provided."""
+    with caplog.at_level(logging.WARNING):
+        StrainMapping(d0=3.52)
+    assert "Using user-provided d0" in caplog.text
+
+
+def test_invalid_colormap():
+    """Test validation of invalid colormap."""
+    with pytest.raises(ValueError, match="is not available in matplotlib"):
+        StrainVisualization(colormap="invalid_colormap")
+
+
+def test_invalid_alpha():
+    """Test validation of alpha value."""
+    with pytest.raises(ValueError):
+        StrainVisualization(alpha=1.5)
+    with pytest.raises(ValueError):
+        StrainVisualization(alpha=-0.5)
+
+
+def test_invalid_interpolation():
+    """Test validation of interpolation method."""
+    with pytest.raises(ValueError):
+        StrainVisualization(interpolation_method="invalid_method")
+
+
+def test_strain_config_integration(valid_config_dict):
+    """Test strain mapping configuration as part of main config."""
+    config = IBeatlesUserConfig(**valid_config_dict)
+    strain_config = config.analysis.strain_mapping
+
+    assert isinstance(strain_config, StrainMapping)
+    assert isinstance(strain_config.visualization, StrainVisualization)
+    assert strain_config.visualization.interpolation_method in InterpolationMethod
+
+
+def test_output_file_config_defaults():
+    """Test default values for output file configuration."""
+    config = StrainMapping()
+    assert config.output_file_config.strain_map_format == "png"
+    assert config.output_file_config.fitting_grid_format == "pdf"
+    assert config.output_file_config.figure_dpi == 300
+    assert config.output_file_config.csv_format.delimiter == ","
+    assert config.output_file_config.csv_format.include_metadata_header is True
+    assert config.output_file_config.csv_format.metadata_comment_char == "#"
+
+
+def test_figure_format_validation():
+    """Test validation of figure formats."""
+    # Valid formats
+    config = StrainMapping(output_file_config={"strain_map_format": "png"})
+    assert config.output_file_config.strain_map_format == "png"
+
+    # Invalid format
+    with pytest.raises(ValueError):
+        StrainMapping(output_file_config={"strain_map_format": "invalid"})
+
+
+def test_figure_dpi_validation():
+    """Test validation of DPI values."""
+    # Valid DPI
+    config = StrainMapping(output_file_config={"figure_dpi": 300})
+    assert config.output_file_config.figure_dpi == 300
+
+    # Invalid DPI (too low)
+    with pytest.raises(ValueError):
+        StrainMapping(output_file_config={"figure_dpi": 50})
+
+    # Invalid DPI (too high)
+    with pytest.raises(ValueError):
+        StrainMapping(output_file_config={"figure_dpi": 1500})
+
+
+def test_csv_format_validation():
+    """Test validation of CSV format settings."""
+    # Valid settings
+    config = StrainMapping(
+        output_file_config={
+            "csv_format": {
+                "delimiter": ";",
+                "include_metadata_header": False,
+                "metadata_comment_char": "%",
+            }
+        }
+    )
+    assert config.output_file_config.csv_format.delimiter == ";"
+    assert config.output_file_config.csv_format.include_metadata_header is False
+    assert config.output_file_config.csv_format.metadata_comment_char == "%"
+
+
+def test_output_config_integration():
+    """Test output configuration as part of main config."""
+    strain_config = StrainMapping()
+
+    # Test all formats can be changed
+    strain_config.output_file_config.strain_map_format = "svg"
+    strain_config.output_file_config.fitting_grid_format = "eps"
+
+    assert strain_config.output_file_config.strain_map_format == "svg"
+    assert strain_config.output_file_config.fitting_grid_format == "eps"
 
 
 if __name__ == "__main__":

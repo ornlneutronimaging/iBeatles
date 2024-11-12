@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 """Pydantic configuration model for CLI and GUI application settings (user)"""
 
+import logging
+import matplotlib.pyplot as plt
 from enum import Enum
 from typing import Dict, Optional, Union, Tuple, Literal, List
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, model_validator, field_validator
 from pathlib import Path
 
 
@@ -126,9 +128,114 @@ class FittingConfig(BaseModel):
     rejection_criteria: RejectionCriteria = Field(default_factory=RejectionCriteria)
 
 
+class InterpolationMethod(str, Enum):
+    """Supported interpolation methods for strain mapping visualization."""
+
+    NONE = "none"
+    NEAREST = "nearest"
+    BILINEAR = "bilinear"
+    BICUBIC = "bicubic"
+    SPLINE16 = "spline16"
+    SPLINE36 = "spline36"
+    HANNING = "hanning"
+    HAMMING = "hamming"
+    HERMITE = "hermite"
+    KAISER = "kaiser"
+    QUADRIC = "quadric"
+    CATROM = "catrom"
+    GAUSSIAN = "gaussian"
+    BESSEL = "bessel"
+    MITCHELL = "mitchell"
+    SINC = "sinc"
+    LANCZOS = "lanczos"
+
+
+class FigureFormat(str, Enum):
+    """Supported figure formats for saving plots."""
+
+    PNG = "png"
+    PDF = "pdf"
+    SVG = "svg"
+    EPS = "eps"
+
+
+class CsvFormat(BaseModel):
+    """Configuration for CSV output format."""
+
+    delimiter: str = ","
+    include_metadata_header: bool = True
+    metadata_comment_char: str = "#"
+    na_rep: str = "null"
+
+
+class OutputFileConfig(BaseModel):
+    """Configuration for output file formats and options."""
+
+    strain_map_format: FigureFormat = FigureFormat.PNG
+    fitting_grid_format: FigureFormat = FigureFormat.PDF
+    figure_dpi: int = Field(default=300, ge=72, le=1200)
+    csv_format: CsvFormat = Field(default_factory=CsvFormat)
+
+    class Config:
+        use_enum_values = True
+
+
+class StrainVisualization(BaseModel):
+    """Configuration for strain mapping visualization."""
+
+    interpolation_method: InterpolationMethod = InterpolationMethod.NEAREST
+    colormap: str = "viridis"
+    alpha: float = Field(
+        default=0.5, ge=0.0, le=1.0, description="Transparency for overlay plots"
+    )
+    display_fit_quality: bool = True
+
+    @field_validator("colormap")
+    @classmethod
+    def validate_colormap(cls, v):
+        """Validate that the colormap exists in matplotlib."""
+        if v not in plt.colormaps():
+            raise ValueError(
+                f"Colormap '{v}' is not available in matplotlib. "
+                f"Available colormaps: {', '.join(plt.colormaps())}"
+            )
+        return v
+
+
 class StrainMapping(BaseModel):
-    d0: Optional[float] = None
-    output: Optional[Path] = None
+    """Configuration for strain mapping analysis."""
+
+    d0: Optional[float] = None  # optional override for d0
+    quality_threshold: float = Field(
+        default=0.8,
+        ge=0.0,
+        le=1.0,
+        description="R-squared threshold for accepting fit results",
+    )
+    visualization: StrainVisualization = Field(
+        default_factory=StrainVisualization, description="Visualization settings"
+    )
+    output_file_config: OutputFileConfig = Field(
+        default_factory=OutputFileConfig, description="Output file format settings"
+    )
+    save_intermediate_results: bool = False
+
+    @model_validator(mode="after")
+    def check_d0_warning(self) -> "StrainMapping":
+        """Validate d0 and add warning if using non-standard value."""
+        if self.d0 is not None:
+            logging.warning(
+                "Using user-provided d0. This overrides the value calculated "
+                "from material properties."
+            )
+        return self
+
+    @model_validator(mode="after")
+    def ensure_d0_is_positive(self) -> "StrainMapping":
+        """Ensure that d0 is positive."""
+        if self.d0 is not None and self.d0 <= 0:
+            raise ValueError("d0 must be a positive value")
+        return self
 
 
 class CustomMaterial(BaseModel):
@@ -228,17 +335,19 @@ if __name__ == "__main__":
         "output": {
             "normalized_data_dir": "/path/to/normalized_data",
             "analysis_results_dir": "/path/to/analysis_results",
+            "strain_results_dir": "/path/to/strain_results",
         },
         "normalization": {
-            "sample_background": {"x0": 0, "y0": 0, "width": 10, "height": 10},
+            "sample_background": [{"x0": 0, "y0": 0, "width": 10, "height": 10}],
             "moving_average": {
                 "dimension": "3D",
                 "size": {"y": 3, "x": 3, "lambda": 3},
             },
         },
         "analysis": {
-            "material": {"element": "Fe"},  # For predefined element
-            # Alternatively, for custom material:
+            # Standard material example
+            "material": {"element": "Fe"},
+            # Custom material example (commented out)
             # "material": {
             #     "custom_material": {
             #         "name": "Custom Alloy",
@@ -255,7 +364,27 @@ if __name__ == "__main__":
                 "bins_size": 5,
             },
             "fitting": {"lambda_min": 0.5, "lambda_max": 5.0},
-            "strain_mapping": {"d0": 3.52, "output": "/path/to/strain_output"},
+            "strain_mapping": {
+                "d0": 3.52,  # optional, if not provided will use material properties
+                "quality_threshold": 0.8,
+                "visualization": {
+                    "interpolation_method": "nearest",
+                    "colormap": "viridis",
+                    "alpha": 0.5,
+                    "display_fit_quality": True,
+                },
+                "output_file_config": {
+                    "strain_map_format": "png",
+                    "fitting_grid_format": "pdf",
+                    "figure_dpi": 300,
+                    "csv_format": {
+                        "delimiter": ",",
+                        "include_metadata_header": True,
+                        "metadata_comment_char": "#",
+                    },
+                },
+                "save_intermediate_results": False,
+            },
             "distance_source_detector_in_m": 19.855,
             "detector_offset_in_us": 9600,
         },
