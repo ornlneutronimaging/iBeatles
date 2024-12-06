@@ -160,6 +160,12 @@ class StrainMappingWindow(QMainWindow):
         output_folder = o_export.select_output_folder()
         o_export.hdf5(output_folder=output_folder)
 
+    def action_configuration_for_cli_clicked(self):
+        o_export = Export(parent=self,
+                          grand_parent=self.parent)
+        output_folder = o_export.select_output_folder()
+        o_export.config_for_cli(output_folder=output_folder)
+
     def fitting_algorithm_changed(self):
         self.update_display()
 

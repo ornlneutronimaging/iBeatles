@@ -547,6 +547,8 @@
     <addaction name="actionExportImagesAll"/>
     <addaction name="separator"/>
     <addaction name="menuTable_and_integrated_image"/>
+    <addaction name="separator"/>
+    <addaction name="action_configuration_for_cli"/>
    </widget>
    <addaction name="menuExport"/>
   </widget>
@@ -589,6 +591,11 @@
   <action name="actionintegrated_image">
    <property name="text">
     <string>integrated image ...</string>
+   </property>
+  </action>
+  <action name="action_configuration_for_cli">
+   <property name="text">
+    <string>configuration for cli ...</string>
    </property>
   </action>
  </widget>
@@ -914,6 +921,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_configuration_for_cli</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>action_configuration_for_cli_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>428</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>fitting_algorithm_changed()</slot>
@@ -934,5 +957,6 @@
   <slot>export_images_all_tiff()</slot>
   <slot>interpolation_cmap_method_changed()</slot>
   <slot>display_hidden_plot_changed()</slot>
+  <slot>action_configuration_for_cli_clicked()</slot>
  </slots>
 </ui>
