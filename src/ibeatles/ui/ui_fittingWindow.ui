@@ -2036,11 +2036,11 @@
    </widget>
    <widget class="QMenu" name="menuExport">
     <property name="title">
-     <string>Exports</string>
+     <string>Export</string>
     </property>
     <widget class="QMenu" name="menuFitting_table">
      <property name="title">
-      <string>Fitting table</string>
+      <string>Export fitting table</string>
      </property>
      <addaction name="action_export_ASCII"/>
      <addaction name="action_export_JSON"/>
@@ -2082,7 +2082,27 @@
   </action>
   <action name="action_export_configuration_for_cli">
    <property name="text">
-    <string>export configuration for cli ...</string>
+    <string>Export configuration for cli ...</string>
+   </property>
+  </action>
+  <action name="actionConfiguration">
+   <property name="text">
+    <string>Configuration</string>
+   </property>
+  </action>
+  <action name="actionconfiguration2">
+   <property name="text">
+    <string>configuration2</string>
+   </property>
+  </action>
+  <action name="actionconfig">
+   <property name="text">
+    <string>config</string>
+   </property>
+  </action>
+  <action name="actioncon">
+   <property name="text">
+    <string>con</string>
    </property>
   </action>
  </widget>

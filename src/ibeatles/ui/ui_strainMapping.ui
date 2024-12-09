@@ -548,7 +548,7 @@
     <addaction name="separator"/>
     <addaction name="menuTable_and_integrated_image"/>
     <addaction name="separator"/>
-    <addaction name="action_configuration_for_cli"/>
+    <addaction name="action_export_configuration_for_cli"/>
    </widget>
    <addaction name="menuExport"/>
   </widget>
@@ -593,9 +593,9 @@
     <string>integrated image ...</string>
    </property>
   </action>
-  <action name="action_configuration_for_cli">
+  <action name="action_export_configuration_for_cli">
    <property name="text">
-    <string>configuration for CLI ...</string>
+    <string>Export configuration for cli ...</string>
    </property>
   </action>
  </widget>
@@ -918,22 +918,6 @@
     <hint type="destinationlabel">
      <x>1061</x>
      <y>45</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_configuration_for_cli</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>action_configuration_for_cli_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>538</x>
-     <y>428</y>
     </hint>
    </hints>
   </connection>
