@@ -595,7 +595,7 @@
   </action>
   <action name="action_configuration_for_cli">
    <property name="text">
-    <string>configuration for cli ...</string>
+    <string>configuration for CLI ...</string>
    </property>
   </action>
  </widget>

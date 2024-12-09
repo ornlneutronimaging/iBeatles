@@ -250,6 +250,9 @@ class FittingWindow(QMainWindow):
     def action_strain_mapping_clicked(self):
         StrainMappingLauncher(parent=self.parent, fitting_parent=self)
 
+    def action_configuration_for_cli_clicked(self):
+        print("action configuration for cli clicked!")
+
     def menu_export_table_as_ascii_clicked(self):
         o_export = KropffExport(parent=self, grand_parent=self.parent)
         o_export.ascii()

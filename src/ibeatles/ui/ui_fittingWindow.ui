@@ -2046,6 +2046,8 @@
      <addaction name="action_export_JSON"/>
     </widget>
     <addaction name="menuFitting_table"/>
+    <addaction name="separator"/>
+    <addaction name="actionConfiguration_for_CLI"/>
    </widget>
    <addaction name="menuSteps"/>
    <addaction name="menuExport"/>
@@ -2066,6 +2068,11 @@
   <action name="action_export_JSON">
    <property name="text">
     <string>as JSON ...</string>
+   </property>
+  </action>
+  <action name="actionConfiguration_for_CLI">
+   <property name="text">
+    <string>Configuration for CLI ...</string>
    </property>
   </action>
  </widget>
@@ -2697,6 +2704,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionConfiguration_for_CLI</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>action_configuration_for_cli_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>599</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>kropff_fitting_conditions_clicked()</signal>
@@ -2794,5 +2817,6 @@
   <slot>slot1()</slot>
   <slot>menu_export_table_as_ascii_clicked()</slot>
   <slot>menu_export_table_as_json_clicked()</slot>
+  <slot>action_configuration_for_cli_clicked()</slot>
  </slots>
 </ui>
