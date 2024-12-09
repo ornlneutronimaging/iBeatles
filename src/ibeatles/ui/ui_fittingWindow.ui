@@ -38,7 +38,7 @@
          <x>0</x>
          <y>0</y>
          <width>1627</width>
-         <height>1123</height>
+         <height>1129</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_15">
@@ -2036,7 +2036,7 @@
    </widget>
    <widget class="QMenu" name="menuExport">
     <property name="title">
-     <string>Export</string>
+     <string>Exports</string>
     </property>
     <widget class="QMenu" name="menuFitting_table">
      <property name="title">
@@ -2047,7 +2047,7 @@
     </widget>
     <addaction name="menuFitting_table"/>
     <addaction name="separator"/>
-    <addaction name="actionConfiguration_for_CLI"/>
+    <addaction name="action_export_configuration_for_cli"/>
    </widget>
    <addaction name="menuSteps"/>
    <addaction name="menuExport"/>
@@ -2070,9 +2070,19 @@
     <string>as JSON ...</string>
    </property>
   </action>
-  <action name="actionConfiguration_for_CLI">
+  <action name="menuConfiguration_for_CLI_2">
    <property name="text">
-    <string>Configuration for CLI ...</string>
+    <string>Configuration for CLI</string>
+   </property>
+  </action>
+  <action name="actiondfdfdfdfdf">
+   <property name="text">
+    <string>dfdfdfdfdf</string>
+   </property>
+  </action>
+  <action name="action_export_configuration_for_cli">
+   <property name="text">
+    <string>export configuration for cli ...</string>
    </property>
   </action>
  </widget>
@@ -2705,7 +2715,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionConfiguration_for_CLI</sender>
+   <sender>action_export_configuration_for_cli</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>action_configuration_for_cli_clicked()</slot>
