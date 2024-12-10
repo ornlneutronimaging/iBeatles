@@ -354,7 +354,7 @@ class Export:
         # o_get = Get(parent=self.parent)
         # strain_mapping_dict = o_get.strain_mapping_dictionary()
 
-        session_dict = self.parent.session_dict
+        session_dict = self.grand_parent.session_dict
 
         raw_data_dir = session_dict[DataType.sample][SessionSubKeys.current_folder]
         _, raw_data_extension = os.path.splitext(session_dict[DataType.sample][SessionSubKeys.list_files][0])
@@ -442,7 +442,7 @@ class Export:
                 },
                 "strain_mapping": {
                   "d0": strain_mapping_d0,
-                  "quality_threshold": 0.8,
+                  "quality_threshold": quality_threshold,
                   "visualization": {
                       "interpolation_method": "nearest",
                       "colormap": "viridis",

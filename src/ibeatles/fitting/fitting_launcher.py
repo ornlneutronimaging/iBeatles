@@ -18,6 +18,7 @@ from src.ibeatles.fitting.display import Display as FittingDisplay
 from src.ibeatles.fitting.get import Get
 from src.ibeatles.fitting.initialization import Initialization
 from src.ibeatles.fitting.event_handler import EventHandler
+from src.ibeatles.fitting.export import Export
 
 from src.ibeatles.fitting.march_dollase.fitting_initialization_handler import (
     FittingInitializationHandler,
@@ -251,7 +252,9 @@ class FittingWindow(QMainWindow):
         StrainMappingLauncher(parent=self.parent, fitting_parent=self)
 
     def action_configuration_for_cli_clicked(self):
-        print("action configuration for cli clicked!")
+        o_export = Export(parent=self, grand_parent=self.parent)
+        output_folder = o_export.select_output_folder()
+        o_export.config_for_cli(output_folder=output_folder)
 
     def menu_export_table_as_ascii_clicked(self):
         o_export = KropffExport(parent=self, grand_parent=self.parent)
