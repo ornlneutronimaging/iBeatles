@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.9.15"
+__generated_with = "0.9.33"
 app = marimo.App(width="medium")
 
 
@@ -8,9 +8,10 @@ app = marimo.App(width="medium")
 def __():
     import marimo as mo
     import json
+    import copy
     from ibeatles.core.config import IBeatlesUserConfig
 
-    return IBeatlesUserConfig, json, mo
+    return IBeatlesUserConfig, copy, json, mo
 
 
 @app.cell
@@ -90,6 +91,43 @@ def __(mo):
 @app.cell
 def __(folders_selector_sample):
     folders_selector_sample
+    return
+
+
+@app.cell
+def __(base_ibeatles_config, copy, folders_selector_sample, mo):
+    # After the users have selected the folders for different sample input, we will create a list of IBeatlesUserConfig objects for each sample
+    batch_config_list = []
+    num_samples = len(folders_selector_sample.value)
+
+    mo.md(f"""Number of samples selected: **{num_samples}**""")
+
+    for _i in range(num_samples):
+        # duplicate the base configuration
+        _sample_config = copy.deepcopy(base_ibeatles_config)
+        # update the raw data path
+        _sample_config.raw_data.raw_data_dir = folders_selector_sample.value[_i]
+        # append
+        batch_config_list.append(_sample_config)
+    return batch_config_list, num_samples
+
+
+@app.cell
+def __(batch_config_list, mo, num_samples):
+    # visualize as tabs of accordians
+    _tabs = {}
+
+    for _i in range(num_samples):
+        _acc = mo.accordion(batch_config_list[_i].dict())
+        _tabs[f"Sample {_i}"] = _acc
+
+    # display the tabs
+    mo.vstack(
+        [
+            mo.md(r"""Samples to be processed"""),
+            mo.ui.tabs(_tabs),
+        ]
+    )
     return
 
 
