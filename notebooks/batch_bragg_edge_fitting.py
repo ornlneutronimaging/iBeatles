@@ -179,16 +179,14 @@ def __(mo):
 
 
 @app.cell
-def __(exec_button):
-    exec_button
-    return
-
-
-@app.cell
 def __(batch_config_list, exec_button, ibeatles_main, mo, num_samples):
+    # dict to store stderr
+    dict_stderr = {}
+
     if exec_button.value:
         # disable the button first
         exec_button.disabled = True
+
         for _i in mo.status.progress_bar(
             range(num_samples),
             title="Processing",
@@ -197,12 +195,21 @@ def __(batch_config_list, exec_button, ibeatles_main, mo, num_samples):
             show_rate=True,
         ):
             _config = batch_config_list[_i]
-            with mo.redirect_stdout(), mo.redirect_stderr():
+            with mo.redirect_stdout(), mo.capture_stderr() as buffer_stderr:
                 print(f"Processing sample {_i}")
                 ibeatles_main(_config)
+            # append the stderr to the output as accordian
+            dict_stderr[f"stderr::sample_{_i}"] = buffer_stderr.getvalue()
         # re-enable the button
         exec_button.disabled = False
-    return
+
+    mo.vstack(
+        [
+            exec_button,
+            mo.accordion(dict_stderr),
+        ]
+    )
+    return buffer_stderr, dict_stderr
 
 
 @app.cell
