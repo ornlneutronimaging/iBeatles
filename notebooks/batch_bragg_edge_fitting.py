@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.9.33"
+__generated_with = "0.9.34"
 app = marimo.App(width="medium")
 
 
@@ -9,9 +9,12 @@ def __():
     import marimo as mo
     import json
     import copy
+    import time
+    from pathlib import Path
     from ibeatles.core.config import IBeatlesUserConfig
+    from ibeatles.app.cli import main as ibeatles_main
 
-    return IBeatlesUserConfig, copy, json, mo
+    return IBeatlesUserConfig, Path, copy, ibeatles_main, json, mo, time
 
 
 @app.cell
@@ -95,7 +98,7 @@ def __(folders_selector_sample):
 
 
 @app.cell
-def __(base_ibeatles_config, copy, folders_selector_sample, mo):
+def __(Path, base_ibeatles_config, copy, folders_selector_sample, mo):
     # After the users have selected the folders for different sample input, we will create a list of IBeatlesUserConfig objects for each sample
     batch_config_list = []
     num_samples = len(folders_selector_sample.value)
@@ -106,10 +109,33 @@ def __(base_ibeatles_config, copy, folders_selector_sample, mo):
         # duplicate the base configuration
         _sample_config = copy.deepcopy(base_ibeatles_config)
         # update the raw data path
-        _sample_config.raw_data.raw_data_dir = folders_selector_sample.value[_i]
+        _sample_config.raw_data.raw_data_dir = folders_selector_sample.value[_i].path
+        # Update output file paths
+        _sample_config.output["normalized_data_dir"] = Path(
+            str(_sample_config.output["normalized_data_dir"]) + f"_{_i}"
+        )
+        _sample_config.output["analysis_results_dir"] = Path(
+            str(_sample_config.output["analysis_results_dir"]) + f"_{_i}"
+        )
+        _sample_config.output["strain_results_dir"] = Path(
+            str(_sample_config.output["strain_results_dir"]) + f"_{_i}"
+        )
+
         # append
         batch_config_list.append(_sample_config)
     return batch_config_list, num_samples
+
+
+@app.cell
+def __(mo):
+    mo.md(
+        r"""
+        ## Verify Processing Parameters
+
+        Inspect the parameters to ensure all are correct
+        """
+    )
+    return
 
 
 @app.cell
@@ -122,24 +148,17 @@ def __(batch_config_list, mo, num_samples):
         _tabs[f"Sample {_i}"] = _acc
 
     # display the tabs
-    mo.vstack(
-        [
-            mo.md(r"""Samples to be processed"""),
-            mo.ui.tabs(_tabs),
-        ]
-    )
-    return
+    config_items_viewer = mo.md(r"""No samples to process""")
+    if num_samples > 0:
+        config_items_viewer = mo.vstack(
+            [
+                mo.md(r"""Samples to be processed"""),
+                mo.ui.tabs(_tabs),
+            ]
+        )
 
-
-@app.cell
-def __(mo):
-    mo.md(r"""## Verify Processing Parameters""")
-    return
-
-
-@app.cell
-def __():
-    return
+    config_items_viewer
+    return (config_items_viewer,)
 
 
 @app.cell
@@ -149,13 +168,40 @@ def __(mo):
 
 
 @app.cell
-def __():
+def __(mo):
+    exec_button = mo.ui.run_button(
+        kind="success",
+        disabled=False,
+        tooltip="Run batch processing",
+        label="Run Batch Processing",
+    )
+    return (exec_button,)
+
+
+@app.cell
+def __(exec_button):
+    exec_button
     return
 
 
 @app.cell
-def __(mo):
-    mo.md(r"""## Summary of results""")
+def __(batch_config_list, exec_button, ibeatles_main, mo, num_samples):
+    if exec_button.value:
+        # disable the button first
+        exec_button.disabled = True
+        for _i in mo.status.progress_bar(
+            range(num_samples),
+            title="Processing",
+            subtitle="Please wait...",
+            show_eta=True,
+            show_rate=True,
+        ):
+            _config = batch_config_list[_i]
+            with mo.redirect_stdout(), mo.redirect_stderr():
+                print(f"Processing sample {_i}")
+                ibeatles_main(_config)
+        # re-enable the button
+        exec_button.disabled = False
     return
 
 
