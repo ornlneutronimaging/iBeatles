@@ -13,6 +13,7 @@ from src.ibeatles.utilities.file_handler import (
     FileHandler,
     create_full_export_file_name,
 )
+from src.ibeatles.utilities.json_handler import save_json
 from src.ibeatles.utilities.export import format_kropff_dict, format_kropff_table
 from src.ibeatles.utilities.get import Get as UtilitiesGet
 from src.ibeatles.fitting import FittingKeys
@@ -356,8 +357,8 @@ class Export:
 
         session_dict = self.grand_parent.session_dict
 
-        raw_data_dir = session_dict[DataType.sample][SessionSubKeys.current_folder]
-        _, raw_data_extension = os.path.splitext(session_dict[DataType.sample][SessionSubKeys.list_files][0])
+        raw_data_dir = session_dict[DataType.normalized][SessionSubKeys.current_folder]
+        _, raw_data_extension = os.path.splitext(session_dict[DataType.normalized][SessionSubKeys.list_files][0])
 
         open_beam_data_dir = session_dict[DataType.ob][SessionSubKeys.current_folder]
         open_beam_data_extension = raw_data_extension
@@ -386,19 +387,19 @@ class Export:
 
         analysis_material_element = self.parent.ui.material_name.text()
 
-        pixel_binning = {'x0': session_dict[SessionKeys.bin][SessionSubKeys.roi[1]],
-                         'y0': session_dict[SessionKeys.bin][SessionSubKeys.roi[2]],
-                         'width': session_dict[SessionKeys.bin][SessionSubKeys.roi[3]],
-                         'height': session_dict[SessionKeys.bin][SessionSubKeys.roi[4]],
-                         'bin_size': session_dict[SessionKeys.bin][SessionSubKeys.roi[5]],
+        pixel_binning = {'x0': session_dict[SessionKeys.bin][SessionSubKeys.roi][1],
+                         'y0': session_dict[SessionKeys.bin][SessionSubKeys.roi][2],
+                         'width': session_dict[SessionKeys.bin][SessionSubKeys.roi][3],
+                         'height': session_dict[SessionKeys.bin][SessionSubKeys.roi][4],
+                         'bin_size': session_dict[SessionKeys.bin][SessionSubKeys.roi][5],
                         }
 
         fitting_lambda_range = session_dict[SessionKeys.fitting][SessionSubKeys.lambda_range_index]
-        x_axis = session_dict[SessionKeys.fitting][SessionSubKeys.x_axis]
+        x_axis = session_dict[SessionKeys.fitting][SessionSubKeys.xaxis]
         lambda_min = x_axis[fitting_lambda_range[0]]*1e-10
         lambda_max = x_axis[fitting_lambda_range[1]]*1e-10
 
-        if self.parent.ui.d0_value.checked():
+        if self.parent.ui.d0_value.isChecked():
             strain_mapping_d0 = float(self.parent.ui.d0_value.text())
         else:
             strain_mapping_d0 = float(self.parent.ui.d0_user_value.text())
@@ -406,7 +407,7 @@ class Export:
         quality_threshold = 0.8
 
         distance_source_detector_in_m = session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector]
-        detector_offset_in_us = session_dict[SessionKeys.instrument][SessionSubKeys.detector_offset]
+        detector_offset_in_us = session_dict[SessionKeys.instrument][SessionSubKeys.detector_value]
 
         normalized_data_dir = os.path.join(output_folder, f"normalized_{_current_time}")
         analysis_results_dir = os.path.join(output_folder, f"analysis_{_current_time}")
@@ -471,3 +472,5 @@ class Export:
                 "strain_results_dir": strain_results_dir,
               }
             }
+
+        save_json(json_file_name=output_file_name, json_dictionary=config)
