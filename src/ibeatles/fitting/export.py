@@ -1,5 +1,6 @@
 import os
 import logging
+from qtpy.QtWidgets import QFileDialog
 
 from src.ibeatles import DataType, FileType
 from src.ibeatles.session import SessionKeys, SessionSubKeys
@@ -13,6 +14,7 @@ from src.ibeatles.fitting.get import Get
 from src.ibeatles.utilities.get import Get as MainGet
 from src.ibeatles.utilities.status_message_config import show_status_message, StatusMessageStatus
 from src.ibeatles.fitting import FittingTabSelected
+from src.ibeatles.utilities.json_handler import save_json
 
 
 class Export:
@@ -50,7 +52,10 @@ class Export:
         session_dict = self.grand_parent.session_dict
 
         raw_data_dir = session_dict[DataType.sample][SessionSubKeys.current_folder]
-        _, raw_data_extension = os.path.splitext(session_dict[DataType.sample][SessionSubKeys.list_files][0])
+        if session_dict[DataType.sample][SessionSubKeys.list_files]:
+            _, raw_data_extension = os.path.splitext(session_dict[DataType.sample][SessionSubKeys.list_files][0])
+        else:
+            raw_data_extension = None
 
         open_beam_data_dir = session_dict[DataType.ob][SessionSubKeys.current_folder]
         open_beam_data_extension = raw_data_extension
@@ -82,15 +87,21 @@ class Export:
         analysis_material_element = o_get.get_material()
 
         pixel_binning = {
-            "x0": session_dict[SessionKeys.bin][SessionSubKeys.roi[1]],
-            "y0": session_dict[SessionKeys.bin][SessionSubKeys.roi[2]],
-            "width": session_dict[SessionKeys.bin][SessionSubKeys.roi[3]],
-            "height": session_dict[SessionKeys.bin][SessionSubKeys.roi[4]],
-            "bin_size": session_dict[SessionKeys.bin][SessionSubKeys.roi[5]],
+            "x0": session_dict[SessionKeys.bin][SessionSubKeys.roi][1],
+            "y0": session_dict[SessionKeys.bin][SessionSubKeys.roi][2],
+            "width": session_dict[SessionKeys.bin][SessionSubKeys.roi][3],
+            "height": session_dict[SessionKeys.bin][SessionSubKeys.roi][4],
+            "bin_size": session_dict[SessionKeys.bin][SessionSubKeys.roi][5],
         }
 
         fitting_lambda_range = session_dict[SessionKeys.fitting][SessionSubKeys.lambda_range_index]
-        x_axis = session_dict[SessionKeys.fitting][SessionSubKeys.x_axis]
+
+        # table_dictionary = self.grand_parent.kropff_table_dictionary
+        # logging.info(f"{session_dict[SessionKeys.fitting].keys() =}")
+        # print(f"{session_dict[SessionKeys.fitting]['xaxis'] = }")
+
+        # kropff_session_dict = self.parent.
+        x_axis = session_dict[SessionKeys.fitting][SessionSubKeys.xaxis]
         lambda_min = x_axis[fitting_lambda_range[0]] * 1e-10
         lambda_max = x_axis[fitting_lambda_range[1]] * 1e-10
 
@@ -100,7 +111,7 @@ class Export:
         quality_threshold = 0.8
 
         distance_source_detector_in_m = session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector]
-        detector_offset_in_us = session_dict[SessionKeys.instrument][SessionSubKeys.detector_offset]
+        detector_offset_in_us = session_dict[SessionKeys.instrument][SessionSubKeys.detector_value]
 
         normalized_data_dir = os.path.join(output_folder, f"normalized_{_current_time}")
         analysis_results_dir = os.path.join(output_folder, f"analysis_{_current_time}")
@@ -166,3 +177,14 @@ class Export:
             },
         }
 
+        save_json(json_file_name=output_file_name, json_dictionary=config)
+
+    def select_output_folder(self):
+        working_dir = os.path.dirname(os.path.dirname(self.grand_parent.session_dict[DataType.normalized][SessionSubKeys.current_folder]))
+        output_folder = str(
+            QFileDialog.getExistingDirectory(
+                self.parent, "Select where to export the config file ...", working_dir
+            )
+        )
+        return output_folder
+    

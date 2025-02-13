@@ -64,6 +64,7 @@ class SessionSubKeys:
     # fitting
     ui_accessed = "ui_accessed"
     x_axis = "x_axis"
+    xaxis = "xaxis"
     transparency = "transparency"
     ui = "ui"
     lambda_range_index = "lambda range index"

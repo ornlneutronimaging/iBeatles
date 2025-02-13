@@ -164,7 +164,8 @@ class StrainMappingWindow(QMainWindow):
         o_export = Export(parent=self,
                           grand_parent=self.parent)
         output_folder = o_export.select_output_folder()
-        o_export.config_for_cli(output_folder=output_folder)
+        print(f"{output_folder = }")
+        # o_export.config_for_cli(output_folder=output_folder)
 
     def fitting_algorithm_changed(self):
         self.update_display()
