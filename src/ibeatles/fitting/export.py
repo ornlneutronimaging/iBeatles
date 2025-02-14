@@ -64,7 +64,7 @@ class Export:
         normalization_sample_background = []
         for _roi in list_normalization_roi:
             _state, x0, y0, width, height, _type = _roi
-            if (type == "background") and _state:
+            if (_type == "background") and _state:
                 normalization_sample_background.append({"x0": x0, "y0": y0, "width": width, "height": height})
 
         moving_average_active = session_dict[SessionKeys.reduction][SessionSubKeys.activate]
