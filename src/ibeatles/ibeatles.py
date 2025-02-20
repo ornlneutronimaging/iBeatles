@@ -545,11 +545,17 @@ class MainWindow(QMainWindow):
             BinningLauncher(parent=self)
 
     def menu_view_fitting_clicked(self):
+        o_session = SessionHandler(parent=self)
+        o_session.save_from_ui()
+
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=4):
             FittingLauncher(parent=self)
 
     def menu_view_strain_mapping_clicked(self):
+        o_session = SessionHandler(parent=self)
+        o_session.save_from_ui()
+
         o_event = GeneralEventHandler(parent=self)
         if o_event.is_step_selected_allowed(step_index_requested=5):
             StrainMappingLauncher(parent=self)
@@ -1167,6 +1173,11 @@ class MainWindow(QMainWindow):
         TofBinningLauncher(parent=self)
 
     # GENERAL UI =======================================================================================
+    def save_session(self):
+        o_session = SessionHandler(parent=self)
+        o_session.save_from_ui()
+        o_session.automatic_save()
+
     def closeEvent(self, event):
         o_session = SessionHandler(parent=self)
         o_session.save_from_ui()

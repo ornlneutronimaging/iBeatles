@@ -24,6 +24,7 @@ class SessionSubKeys:
     current_folder = "current folder"
     list_files_selected = "list files selected"
     list_rois = "list rois"
+    extension = "extension"
 
     # sample
     time_spectra_filename = "time spectra filename"
@@ -64,6 +65,7 @@ class SessionSubKeys:
     # fitting
     ui_accessed = "ui_accessed"
     x_axis = "x_axis"
+    xaxis = "xaxis"
     transparency = "transparency"
     ui = "ui"
     lambda_range_index = "lambda range index"

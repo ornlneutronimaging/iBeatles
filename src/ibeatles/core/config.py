@@ -275,7 +275,7 @@ class AnalysisConfig(BaseModel):
 
 class RawData(BaseModel):
     raw_data_dir: Path
-    raw_data_extension: str = ".tif"
+    extension: str = ".tif"
 
     @model_validator(mode="after")
     def check_raw_data_dir(self) -> "RawData":
@@ -286,14 +286,14 @@ class RawData(BaseModel):
     @model_validator(mode="after")
     def check_raw_data_extension(self) -> "RawData":
         # extension must be ".tif", ".tiff", ".fits"
-        if self.raw_data_extension not in [".tif", ".tiff", ".fits"]:
+        if self.extension not in [".tif", ".tiff", ".fits"]:
             raise ValueError("Raw data extension must be '.tif', '.tiff', or '.fits'")
         return self
 
 
 class OpenBeamData(BaseModel):
     open_beam_data_dir: Path
-    open_beam_data_extension: str = ".tif"
+    extension: str = ".tif"
 
     @model_validator(mode="after")
     def check_open_beam_data_dir(self) -> "OpenBeamData":
@@ -304,7 +304,7 @@ class OpenBeamData(BaseModel):
     @model_validator(mode="after")
     def check_open_beam_data_extension(self) -> "OpenBeamData":
         # extension must be ".tif", ".tiff", ".fits"
-        if self.open_beam_data_extension not in [".tif", ".tiff", ".fits"]:
+        if self.extension not in [".tif", ".tiff", ".fits"]:
             raise ValueError(
                 "Open beam data extension must be '.tif', '.tiff', or '.fits'"
             )
@@ -325,11 +325,11 @@ if __name__ == "__main__":
     config_dict = {
         "raw_data": {
             "raw_data_dir": "/tmp",
-            "raw_data_extension": ".tif",
+            "extension": ".tif",
         },
         "open_beam": {
             "open_beam_data_dir": "/tmp",
-            "open_beam_data_extension": ".tif",
+            "extension": ".tif",
         },
         "spectra_file_path": "/tmp/spectra.txt",
         "output": {

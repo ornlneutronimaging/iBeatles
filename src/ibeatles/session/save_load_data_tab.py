@@ -1,4 +1,5 @@
 import logging
+import os
 
 from src.ibeatles import DataType
 from src.ibeatles.session.save_tab import SaveTab
@@ -32,6 +33,8 @@ class SaveLoadDataTab(SaveTab):
         o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]["histogram"]
 
+        extension = os.path.splitext(list_files[0])
+
         logging.info("Recording parameters of Load Data / Sample")
         logging.info(f" len(list files) = {len(list_files)}")
         logging.info(f" current folder: {current_folder}")
@@ -40,12 +43,14 @@ class SaveLoadDataTab(SaveTab):
         logging.info(f" len(list rois): {len(list_roi)}")
         logging.info(f" state: {state}")
         logging.info(f" histogram: {histogram}")
+        logging.info(f" extension: {extension}")
 
         self.session_dict[data_type][SessionSubKeys.list_files] = list_files
         self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder
         self.session_dict[data_type][SessionSubKeys.time_spectra_filename] = (
             time_spectra_filename
         )
+        self.session_dict[data_type][SessionSubKeys.extension] = extension
         self.session_dict[data_type][SessionSubKeys.list_files_selected] = (
             list_files_selected
         )

@@ -123,13 +123,13 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
     # Raw data is mandatory
     raw_data = load_data_from_folder(
         config.raw_data.raw_data_dir,
-        file_extension=config.raw_data.raw_data_extension,
+        file_extension=config.raw_data.extension,
     )
     # Open beam is optional
     if config.open_beam:
         open_beam = load_data_from_folder(
             config.open_beam.open_beam_data_dir,
-            file_extension=config.open_beam.open_beam_data_extension,
+            file_extension=config.open_beam.extension,
         )
     else:
         open_beam = None
