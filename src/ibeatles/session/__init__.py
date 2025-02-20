@@ -24,6 +24,7 @@ class SessionSubKeys:
     current_folder = "current folder"
     list_files_selected = "list files selected"
     list_rois = "list rois"
+    extension = "extension"
 
     # sample
     time_spectra_filename = "time spectra filename"

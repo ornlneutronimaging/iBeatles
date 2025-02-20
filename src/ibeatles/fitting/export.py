@@ -119,8 +119,11 @@ class Export:
         # logging.info(f"{session_dict[SessionKeys.fitting].keys() =}")
         # print(f"{session_dict[SessionKeys.fitting]['xaxis'] = }")
 
-        # kropff_session_dict = self.parent.
+        session_dict[SessionKeys.fitting][SessionSubKeys.xaxis] = [
+            float(x) for x in self.grand_parent.normalized_lambda_bragg_edge_x_axis
+        ]
         x_axis = session_dict[SessionKeys.fitting][SessionSubKeys.xaxis]
+
         lambda_min = x_axis[fitting_lambda_range[0]] * 1e-10
         lambda_max = x_axis[fitting_lambda_range[1]] * 1e-10
 
@@ -143,11 +146,11 @@ class Export:
         config = {
             "raw_data": {
                 "raw_data_dir": raw_data_dir,
-                "raw_data_extension": raw_data_extension,
+                "extension": raw_data_extension,
             },
             "open_beam": {
                 "open_beam_data_dir": open_beam_data_dir,
-                "open_beam_data_extension": open_beam_data_extension,
+                "extension": open_beam_data_extension,
             },
             "normalization": {
                 "sample_background": normalization_sample_background,

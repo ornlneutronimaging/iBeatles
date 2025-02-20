@@ -438,11 +438,11 @@ class Export:
         config = {
             "raw_data": {
                 "raw_data_dir": raw_data_dir,
-                "raw_data_extension": raw_data_extension,
+                "extension": raw_data_extension,
             },
             "open_beam": {
                 "open_beam_data_dir": open_beam_data_dir,
-                "open_beam_data_extension": open_beam_data_extension,
+                "extension": open_beam_data_extension,
             },
             "normalization": {
                 "sample_background": normalization_sample_background,

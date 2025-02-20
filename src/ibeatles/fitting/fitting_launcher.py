@@ -252,6 +252,7 @@ class FittingWindow(QMainWindow):
         StrainMappingLauncher(parent=self.parent, fitting_parent=self)
 
     def action_configuration_for_cli_clicked(self):
+        self.parent.save_session()
         o_export = Export(parent=self, grand_parent=self.parent)
         output_folder = o_export.select_output_folder()
         o_export.config_for_cli(output_folder=output_folder)
