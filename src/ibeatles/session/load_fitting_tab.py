@@ -17,7 +17,7 @@ class LoadFitting:
             self.parent.session_dict[DataType.fitting][SessionSubKeys.image_view_state]
         )
         self.parent.image_view_settings[DataType.fitting]["histogram"] = (
-            self.parent.session_dict[
-                DataType.fitting
-            ][SessionSubKeys.image_view_histogram]
+            self.parent.session_dict[DataType.fitting][
+                SessionSubKeys.image_view_histogram
+            ]
         )

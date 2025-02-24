@@ -101,14 +101,14 @@ def test_normalize_data_with_ob(sample_data, ob_data, time_spectra, config, temp
         sample_data, ob_data, time_spectra, config, str(temp_dir)
     )
 
-    assert (
-        np.array(normalized_data).shape == sample_data.shape
-    ), "Normalized data shape should match input data shape"
+    assert np.array(normalized_data).shape == sample_data.shape, (
+        "Normalized data shape should match input data shape"
+    )
     assert Path(output_path).exists(), "Output folder should be created"
     assert Path(output_path).is_dir(), "Output path should be a directory"
-    assert (
-        Path(output_path) / time_spectra["short_filename"]
-    ).exists(), "Time spectra file should be copied to output folder"
+    assert (Path(output_path) / time_spectra["short_filename"]).exists(), (
+        "Time spectra file should be copied to output folder"
+    )
 
     # Check if normalized data files were created (assuming NeuNorm creates separate files)
     normalized_files = list(Path(output_path).glob("*normalized*.tif"))
@@ -126,9 +126,9 @@ def test_normalize_data_without_ob(sample_data, time_spectra, config, temp_dir):
         sample_data, None, time_spectra, config, str(temp_dir)
     )
 
-    assert (
-        np.array(normalized_data).shape == sample_data.shape
-    ), "Normalized data shape should match input data shape"
+    assert np.array(normalized_data).shape == sample_data.shape, (
+        "Normalized data shape should match input data shape"
+    )
     assert Path(output_path).exists(), "Output folder should be created"
 
 
@@ -146,9 +146,9 @@ def test_normalize_data_without_moving_average(
         sample_data, ob_data, time_spectra, config, str(temp_dir)
     )
 
-    assert (
-        np.array(normalized_data).shape == sample_data.shape
-    ), "Normalized data shape should match input data shape"
+    assert np.array(normalized_data).shape == sample_data.shape, (
+        "Normalized data shape should match input data shape"
+    )
 
 
 def test_normalize_data_with_different_processing_order(
@@ -165,6 +165,6 @@ def test_normalize_data_with_different_processing_order(
         sample_data, ob_data, time_spectra, config, str(temp_dir)
     )
 
-    assert (
-        np.array(normalized_data).shape == sample_data.shape
-    ), "Normalized data shape should match input data shape"
+    assert np.array(normalized_data).shape == sample_data.shape, (
+        "Normalized data shape should match input data shape"
+    )
