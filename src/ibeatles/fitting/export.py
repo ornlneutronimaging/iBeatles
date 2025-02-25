@@ -133,7 +133,7 @@ class Export:
         lambda_max = x_axis[fitting_lambda_range[1]] * 1e-10
 
         lambda_0 = float(self.parent.ui.bragg_edge_calculated.text())
-        strain_mapping_d0 = lambda_0 / 2.0
+        strain_mapping_d0 = f"{lambda_0 / 2.0:.04f}"
 
         quality_threshold = 0.8
 

@@ -437,6 +437,7 @@ class Export:
             strain_mapping_d0 = float(self.parent.ui.d0_value.text())
         else:
             strain_mapping_d0 = float(self.parent.ui.d0_user_value.text())
+        strain_mapping_d0 = float(f"{strain_mapping_d0:0.4f}")
 
         quality_threshold = 0.8
 
