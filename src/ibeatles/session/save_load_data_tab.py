@@ -16,6 +16,9 @@ class SaveLoadDataTab(SaveTab):
         data_type = DataType.sample
 
         list_files = self.parent.list_files[data_type]
+        if len(list_files) == 0:
+            return
+
         current_folder = self.parent.data_metadata[data_type]["folder"]
         time_spectra_filename = self.parent.data_metadata[data_type]["time_spectra"][
             "filename"
@@ -64,6 +67,9 @@ class SaveLoadDataTab(SaveTab):
         data_type = DataType.ob
 
         list_files = self.parent.list_files[data_type]
+        if len(list_files) == 0:
+            return
+
         current_folder = self.parent.data_metadata[data_type]["folder"]
         list_files_selected = [
             int(index) for index in self.parent.list_file_selected[data_type]

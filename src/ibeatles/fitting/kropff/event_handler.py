@@ -246,6 +246,30 @@ class EventHandler:
             BraggPeakInitParameters.range_step
         ] = lambda_hkl_range_step
 
+        # parameters required by strain mapping window
+        from_lambda = self.parent.ui.lambda_min_lineEdit.text()
+        to_lambda = self.parent.ui.lambda_max_lineEdit.text()
+        hkl_selected = self.parent.ui.hkl_list_ui.currentText()
+        lambda_0 = float(self.parent.ui.bragg_edge_calculated.text())
+        element = self.parent.ui.material_groupBox.title()
+
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            BraggPeakInitParameters.from_lambda
+        ] = from_lambda
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            BraggPeakInitParameters.to_lambda
+        ] = to_lambda
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            BraggPeakInitParameters.hkl_selected
+        ] = hkl_selected
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            BraggPeakInitParameters.lambda_0
+        ] = lambda_0
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            BraggPeakInitParameters.element
+        ] = element
+
+        # bragg peak parameters
         tau_fix_flag = self.parent.ui.tau_fix_radioButton.isChecked()
         tau_fix_value = self.parent.ui.tau_fix_lineEdit.text()
         tau_range_from = self.parent.ui.tau_from_lineEdit.text()

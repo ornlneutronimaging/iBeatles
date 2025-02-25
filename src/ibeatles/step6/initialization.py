@@ -13,6 +13,8 @@ from src.ibeatles.step6 import ParametersToDisplay
 from src.ibeatles.step6.get import Get
 from src.ibeatles.session import SessionSubKeys, SessionKeys
 from src.ibeatles.widgets.qrangeslider import QRangeSlider
+from src.ibeatles.fitting import FittingTabSelected
+from src.ibeatles.fitting.kropff import BraggPeakInitParameters
 from src.ibeatles.step6 import (
     INTERPOLATION_METHODS,
     DEFAULT_INTERPOLATION_INDEX,
@@ -99,11 +101,21 @@ class Initialization:
         )
 
     def parameters(self):
-        from_lambda = self.grand_parent.fitting_ui.ui.lambda_min_lineEdit.text()
-        to_lambda = self.grand_parent.fitting_ui.ui.lambda_max_lineEdit.text()
-        hkl_selected = self.grand_parent.fitting_ui.ui.hkl_list_ui.currentText()
-        lambda_0 = float(self.grand_parent.fitting_ui.ui.bragg_edge_calculated.text())
-        element = self.grand_parent.fitting_ui.ui.material_groupBox.title()
+        from_lambda = self.grand_parent.session_dict[DataType.fitting][
+            FittingTabSelected.kropff
+        ][BraggPeakInitParameters.from_lambda]
+        to_lambda = self.grand_parent.session_dict[DataType.fitting][
+            FittingTabSelected.kropff
+        ][BraggPeakInitParameters.to_lambda]
+        hkl_selected = self.grand_parent.session_dict[DataType.fitting][
+            FittingTabSelected.kropff
+        ][BraggPeakInitParameters.hkl_selected]
+        lambda_0 = self.grand_parent.session_dict[DataType.fitting][
+            FittingTabSelected.kropff
+        ][BraggPeakInitParameters.lambda_0]
+        element = self.grand_parent.session_dict[DataType.fitting][
+            FittingTabSelected.kropff
+        ][BraggPeakInitParameters.element]
 
         self.parent.ui.from_lambda.setText(from_lambda)
         self.parent.ui.to_lambda.setText(to_lambda)
