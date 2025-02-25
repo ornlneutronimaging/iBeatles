@@ -62,7 +62,12 @@ class Export:
             raw_data_extension = None
 
         open_beam_data_dir = session_dict[DataType.ob][SessionSubKeys.current_folder]
-        open_beam_data_extension = raw_data_extension
+        if session_dict[DataType.ob][SessionSubKeys.list_files]:
+            _, open_beam_data_extension = os.path.splitext(
+                session_dict[DataType.ob][SessionSubKeys.list_files][0]
+            )
+        else:
+            open_beam_data_extension = None
 
         list_normalization_roi = session_dict[DataType.normalization][
             SessionSubKeys.roi
