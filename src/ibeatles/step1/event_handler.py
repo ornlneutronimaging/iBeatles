@@ -20,7 +20,10 @@ class EventHandler(TopEventHandler):
         self.parent.loading_flag = True
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)
         _folder = o_load.select_folder()
-        state = o_load.import_files_from_folder(folder=_folder, extension="")
+        state = o_load.import_files_from_folder(
+            folder=_folder,
+            extension=None,
+        )
 
         if state:
             self.import_button_clicked_step2(folder=_folder)

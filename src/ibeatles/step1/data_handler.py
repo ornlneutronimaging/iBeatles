@@ -94,16 +94,19 @@ class DataHandler:
         return _folder
 
     def import_files_from_folder(self, folder="", extension=None):
-        logging.info(f"importing files from folder with extension: {extension}")
+        logging.info(f"importing files from folder with extension: {extension =}")
         if folder == "":
             self.user_canceled = True
             return False
 
-        if extension is None:
+        if not extension:
             # load the most dominant files
+            logging.info("loading the most dominant extension")
             list_of_files, ext = get_list_of_most_dominant_extension_from_folder(
                 folder=folder
             )
+            logging.info(f"\textension: {ext}")
+            logging.info(f"\tnbr_files: {len(list_of_files)}")
 
         elif type(extension) is list:
             for _ext in extension:
