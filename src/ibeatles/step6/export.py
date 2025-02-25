@@ -356,13 +356,29 @@ class Export:
 
         session_dict = self.grand_parent.session_dict
 
-        raw_data_dir = session_dict[DataType.normalized][SessionSubKeys.current_folder]
-        _, raw_data_extension = os.path.splitext(
-            session_dict[DataType.normalized][SessionSubKeys.list_files][0]
-        )
+        raw_data_dir = session_dict[DataType.sample][SessionSubKeys.current_folder]
+        if session_dict[DataType.sample][SessionSubKeys.list_files]:
+            _, raw_data_extension = os.path.splitext(
+                session_dict[DataType.sample][SessionSubKeys.list_files][0]
+            )
+        else:
+            raw_data_extension = None
 
         open_beam_data_dir = session_dict[DataType.ob][SessionSubKeys.current_folder]
-        open_beam_data_extension = raw_data_extension
+        if session_dict[DataType.ob][SessionSubKeys.list_files]:
+            _, open_beam_data_extension = os.path.splitext(
+                session_dict[DataType.ob][SessionSubKeys.list_files][0]
+            )
+        else:
+            open_beam_data_extension = None
+
+        # raw_data_dir = session_dict[DataType.normalized][SessionSubKeys.current_folder]
+        # _, raw_data_extension = os.path.splitext(
+        #     session_dict[DataType.normalized][SessionSubKeys.list_files][0]
+        # )
+
+        # open_beam_data_dir = session_dict[DataType.ob][SessionSubKeys.current_folder]
+        # open_beam_data_extension = raw_data_extension
 
         list_normalization_roi = session_dict[DataType.normalization][
             SessionSubKeys.roi
