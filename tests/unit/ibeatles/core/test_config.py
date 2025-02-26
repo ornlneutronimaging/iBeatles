@@ -62,11 +62,11 @@ def valid_config_dict(temp_dir, valid_strain_config):
     return {
         "raw_data": {
             "raw_data_dir": raw_data_dir,
-            "raw_data_extension": ".tif",
+            "extension": ".tif",
         },
         "open_beam": {
             "open_beam_data_dir": open_beam_dir,
-            "open_beam_data_extension": ".tif",
+            "extension": ".tif",
         },
         "spectra_file_path": spectra_file_path,
         "output": {
@@ -129,7 +129,7 @@ def test_default_values(temp_dir):
     config = IBeatlesUserConfig(**minimal_config)
     assert config.normalization.processing_order == "Moving average, Normalization"
     assert config.normalization.moving_average.dimension == "2D"
-    assert config.raw_data.raw_data_extension == ".tif"  # Check default extension
+    assert config.raw_data.extension == ".tif"  # Check default extension
 
 
 def test_custom_material(temp_dir):
@@ -255,7 +255,7 @@ def test_invalid_extension(temp_dir):
     invalid_extension_config = {
         "raw_data": {
             "raw_data_dir": raw_data_dir,
-            "raw_data_extension": ".jpg",  # Invalid extension
+            "extension": ".jpg",  # Invalid extension
         },
         "output": {
             "normalized_data_dir": os.path.join(temp_dir, "normalized"),

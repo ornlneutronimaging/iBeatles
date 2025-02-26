@@ -21,7 +21,8 @@ class EventHandler(TopEventHandler):
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)
         _folder = o_load.select_folder()
         state = o_load.import_files_from_folder(
-            folder=_folder, extension=[".fits", ".tiff", ".tif"]
+            folder=_folder,
+            extension=None,
         )
 
         if state:

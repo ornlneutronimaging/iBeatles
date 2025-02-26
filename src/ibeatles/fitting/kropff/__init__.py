@@ -45,6 +45,12 @@ class BraggPeakInitParameters:
     range_to = "range to"
     range_step = "range step"
 
+    from_lambda = "from lambda"
+    to_lambda = "to lambda"
+    hkl_selected = "hkl selected"
+    lambda_0 = "lambda 0"
+    element = "element"
+
 
 class SessionSubKeys:
     table_dictionary = "table dictionary"

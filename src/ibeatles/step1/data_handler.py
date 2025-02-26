@@ -12,7 +12,10 @@ from src.ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from src.ibeatles.utilities.file_handler import FileHandler
+from src.ibeatles.utilities.file_handler import (
+    FileHandler,
+    get_list_of_most_dominant_extension_from_folder,
+)
 from src.ibeatles.utilities.system import is_os_mac
 from src.ibeatles.utilities.gui_handler import GuiHandler
 
@@ -90,13 +93,22 @@ class DataHandler:
             )
         return _folder
 
-    def import_files_from_folder(self, folder="", extension=".fits"):
-        logging.info(f"importing files from folder with extension: {extension}")
+    def import_files_from_folder(self, folder="", extension=None):
+        logging.info(f"importing files from folder with extension: {extension =}")
         if folder == "":
             self.user_canceled = True
             return False
 
-        if type(extension) is list:
+        if not extension:
+            # load the most dominant files
+            logging.info("loading the most dominant extension")
+            list_of_files, ext = get_list_of_most_dominant_extension_from_folder(
+                folder=folder
+            )
+            logging.info(f"\textension: {ext}")
+            logging.info(f"\tnbr_files: {len(list_of_files)}")
+
+        elif type(extension) is list:
             for _ext in extension:
                 list_of_files = self.get_list_of_files(folder=folder, file_ext=_ext)
                 if list_of_files:

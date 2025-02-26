@@ -48,6 +48,11 @@ class Normalization:
             logging.info(" No output folder selected, normalization stopped!")
             return False
 
+        # save output folder to session
+        self.parent.session_dict[DataType.normalized][SessionSubKeys.current_folder] = (
+            output_folder
+        )
+
         logging.info(f" output folder selected: {output_folder}")
         full_output_folder = os.path.join(output_folder, sample_name + "_normalized")
         try:

@@ -73,7 +73,7 @@ class EventHandler:
                     "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_array
                 ]
                 hkl_bragg_edges = dict(zip(str_hkl_list, bragg_edges_array))
-                value = "{:04.3f}".format(float(hkl_bragg_edges[str(hkl)]))
+                value = "{:04.4f}".format(float(hkl_bragg_edges[str(hkl)]))
         else:
             value = "N/A"
         self.parent.ui.bragg_edge_calculated.setText(value)

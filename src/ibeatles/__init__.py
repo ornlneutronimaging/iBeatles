@@ -91,7 +91,7 @@ def load_ui(ui_filename, baseinstance):
     # get the location of the ui directory
     # this function assumes that all ui files are there
     filename = os.path.join(ui_path, ui_filename)
-
+    print(f"loading {filename}")
     return loadUi(filename, baseinstance=baseinstance)
 
 

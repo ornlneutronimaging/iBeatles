@@ -38,7 +38,7 @@
          <x>0</x>
          <y>0</y>
          <width>1627</width>
-         <height>1123</height>
+         <height>1129</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_15">
@@ -2040,12 +2040,14 @@
     </property>
     <widget class="QMenu" name="menuFitting_table">
      <property name="title">
-      <string>Fitting table</string>
+      <string>Export fitting table</string>
      </property>
      <addaction name="action_export_ASCII"/>
      <addaction name="action_export_JSON"/>
     </widget>
     <addaction name="menuFitting_table"/>
+    <addaction name="separator"/>
+    <addaction name="action_export_configuration_for_cli"/>
    </widget>
    <addaction name="menuSteps"/>
    <addaction name="menuExport"/>
@@ -2066,6 +2068,41 @@
   <action name="action_export_JSON">
    <property name="text">
     <string>as JSON ...</string>
+   </property>
+  </action>
+  <action name="menuConfiguration_for_CLI_2">
+   <property name="text">
+    <string>Configuration for CLI</string>
+   </property>
+  </action>
+  <action name="actiondfdfdfdfdf">
+   <property name="text">
+    <string>dfdfdfdfdf</string>
+   </property>
+  </action>
+  <action name="action_export_configuration_for_cli">
+   <property name="text">
+    <string>Export configuration for cli ...</string>
+   </property>
+  </action>
+  <action name="actionConfiguration">
+   <property name="text">
+    <string>Configuration</string>
+   </property>
+  </action>
+  <action name="actionconfiguration2">
+   <property name="text">
+    <string>configuration2</string>
+   </property>
+  </action>
+  <action name="actionconfig">
+   <property name="text">
+    <string>config</string>
+   </property>
+  </action>
+  <action name="actioncon">
+   <property name="text">
+    <string>con</string>
    </property>
   </action>
  </widget>
@@ -2697,6 +2734,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>action_export_configuration_for_cli</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>action_configuration_for_cli_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>599</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>kropff_fitting_conditions_clicked()</signal>
@@ -2794,5 +2847,6 @@
   <slot>slot1()</slot>
   <slot>menu_export_table_as_ascii_clicked()</slot>
   <slot>menu_export_table_as_json_clicked()</slot>
+  <slot>action_configuration_for_cli_clicked()</slot>
  </slots>
 </ui>

@@ -19,38 +19,38 @@ class StrainMappingLauncher:
     def __init__(self, parent=None, fitting_parent=None):
         self.parent = parent
 
-        if self.parent.fitting_ui is None:
-            show_status_message(
-                parent=fitting_parent,
-                message="Strain Mapping requires to first launch the fitting window!",
-                status=StatusMessageStatus.error,
-                duration_s=10,
-            )
+        # if self.parent.fitting_ui is None:
+        #     # show_status_message(
+        #     #     parent=fitting_parent,
+        #     #     message="Strain Mapping requires to first launch the fitting window!",
+        #     #     status=StatusMessageStatus.error,
+        #     #     duration_s=10,
+        #     # )
+        #     show_status_message(
+        #         parent=self.parent,
+        #         message="Strain Mapping requires to first launch the fitting window!",
+        #         status=StatusMessageStatus.error,
+        #         duration_s=10,
+        #     )
+        # else:
+        try:
+            strain_mapping_window = StrainMappingWindow(parent=parent)
+            strain_mapping_window.show()
+            strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key="down"))
+            self.parent.strain_mapping_ui = strain_mapping_window
+        except ValueError:
+            # show_status_message(
+            #     parent=fitting_parent,
+            #     message="Please perform a fitting first",
+            #     status=StatusMessageStatus.error,
+            #     duration_s=10,
+            # )
             show_status_message(
                 parent=self.parent,
-                message="Strain Mapping requires to first launch the fitting window!",
+                message="Please perform a fitting first",
                 status=StatusMessageStatus.error,
                 duration_s=10,
             )
-        else:
-            try:
-                strain_mapping_window = StrainMappingWindow(parent=parent)
-                strain_mapping_window.show()
-                strain_mapping_window.ui.range_slider.keyPressEvent(FakeKey(key="down"))
-                self.parent.strain_mapping_ui = strain_mapping_window
-            except ValueError:
-                show_status_message(
-                    parent=fitting_parent,
-                    message="Please perform a fitting first",
-                    status=StatusMessageStatus.error,
-                    duration_s=10,
-                )
-                show_status_message(
-                    parent=self.parent,
-                    message="Please perform a fitting first",
-                    status=StatusMessageStatus.error,
-                    duration_s=10,
-                )
 
 
 class StrainMappingWindow(QMainWindow):
@@ -159,6 +159,12 @@ class StrainMappingWindow(QMainWindow):
         o_export = Export(parent=self, grand_parent=self.parent)
         output_folder = o_export.select_output_folder()
         o_export.hdf5(output_folder=output_folder)
+
+    def action_configuration_for_cli_clicked(self):
+        print("action clicked!")
+        o_export = Export(parent=self, grand_parent=self.parent)
+        output_folder = o_export.select_output_folder()
+        o_export.config_for_cli(output_folder=output_folder)
 
     def fitting_algorithm_changed(self):
         self.update_display()
