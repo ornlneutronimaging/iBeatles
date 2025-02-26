@@ -120,10 +120,10 @@ class Initialization:
         self.parent.ui.from_lambda.setText(from_lambda)
         self.parent.ui.to_lambda.setText(to_lambda)
         self.parent.ui.hkl_value.setText(hkl_selected)
-        self.parent.ui.d0_value.setText("{:.03f}".format(lambda_0 / 2.0))
+        self.parent.ui.d0_value.setText("{:04.4f}".format(lambda_0 / 2.0))
         self.parent.ui.material_name.setText(element)
-        self.parent.ui.lambda_0.setText("{:.03f}".format(lambda_0))
-        self.parent.ui.d0_user_value.setText("{:.03f}".format(lambda_0 / 2.0))
+        self.parent.ui.lambda_0.setText("{:04.4f}".format(lambda_0))
+        self.parent.ui.d0_user_value.setText("{:04.4f}".format(lambda_0 / 2.0))
 
         self.parent.bin_size = self.grand_parent.session_dict[SessionKeys.bin][
             SessionSubKeys.bin_size
