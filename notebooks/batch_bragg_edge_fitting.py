@@ -82,7 +82,7 @@ def _(mo):
 def _(mo):
     # select multiple folders for batch processing
     folders_selector_sample = mo.ui.file_browser(
-        initial_path="~/tmp",
+        initial_path="~/SNS",
         multiple=True,
         selection_mode="directory",
         label="Select SAMPLE folders for batch processing",

@@ -129,7 +129,7 @@ def test_default_values(temp_dir):
     config = IBeatlesUserConfig(**minimal_config)
     assert config.normalization.processing_order == "Moving average, Normalization"
     assert config.normalization.moving_average.dimension == "2D"
-    assert config.raw_data.raw_data_extension == ".tif"  # Check default extension
+    assert config.raw_data.extension == ".tif"  # Check default extension
 
 
 def test_custom_material(temp_dir):
