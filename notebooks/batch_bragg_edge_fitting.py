@@ -13,6 +13,7 @@ def _():
     from pathlib import Path
     from ibeatles.core.config import IBeatlesUserConfig
     from ibeatles.app.cli import main as ibeatles_main
+
     return IBeatlesUserConfig, Path, copy, ibeatles_main, json, mo, time
 
 

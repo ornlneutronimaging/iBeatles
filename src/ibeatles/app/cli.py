@@ -297,7 +297,9 @@ def perform_fitting(
     return fit_results
 
 
-def main(config_path: Union[Path, IBeatlesUserConfig], log_file: Optional[Path] = None) -> None:
+def main(
+    config_path: Union[Path, IBeatlesUserConfig], log_file: Optional[Path] = None
+) -> None:
     """
     Main function to run the iBeatles CLI application.
 
