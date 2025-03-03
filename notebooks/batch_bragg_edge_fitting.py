@@ -1,11 +1,11 @@
 import marimo
 
-__generated_with = "0.9.34"
+__generated_with = "0.11.13"
 app = marimo.App(width="medium")
 
 
 @app.cell
-def __():
+def _():
     import marimo as mo
     import json
     import copy
@@ -13,24 +13,23 @@ def __():
     from pathlib import Path
     from ibeatles.core.config import IBeatlesUserConfig
     from ibeatles.app.cli import main as ibeatles_main
-
     return IBeatlesUserConfig, Path, copy, ibeatles_main, json, mo, time
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md(r"""# Batch Bragg Edge Fitting with iBeatles""")
     return
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md(r"""## Load Configuration from Manual Session""")
     return
 
 
 @app.cell
-def __(mo):
+def _(mo):
     base_configuration_file = mo.ui.file(
         filetypes=[".JSON", ".json"],
         label="Select Configuration File",
@@ -43,7 +42,7 @@ def __(mo):
 
 
 @app.cell
-def __(base_configuration_file, json, mo):
+def _(base_configuration_file, json, mo):
     ## display JSON content
     base_json_viewer = None
     if base_configuration_file.contents() is not None:
@@ -52,7 +51,7 @@ def __(base_configuration_file, json, mo):
 
 
 @app.cell
-def __(base_json_viewer, mo):
+def _(base_json_viewer, mo):
     mo.vstack(
         [
             mo.md(r"""Base Configuration JSON"""),
@@ -63,7 +62,7 @@ def __(base_json_viewer, mo):
 
 
 @app.cell
-def __(IBeatlesUserConfig, base_configuration_file, json):
+def _(IBeatlesUserConfig, base_configuration_file, json):
     # process the configuration file into a IBeatlesUserConfig object
     if base_configuration_file.contents() is not None:
         base_ibeatles_config = IBeatlesUserConfig(
@@ -73,32 +72,32 @@ def __(IBeatlesUserConfig, base_configuration_file, json):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md(r"""## Select Folder**s** for Batch Processing""")
     return
 
 
 @app.cell
-def __(mo):
+def _(mo):
     # select multiple folders for batch processing
     folders_selector_sample = mo.ui.file_browser(
         initial_path="~/tmp",
         multiple=True,
         selection_mode="directory",
         label="Select SAMPLE folders for batch processing",
-        restrict_navigation=True,
+        restrict_navigation=False,
     )
     return (folders_selector_sample,)
 
 
 @app.cell
-def __(folders_selector_sample):
+def _(folders_selector_sample):
     folders_selector_sample
     return
 
 
 @app.cell
-def __(Path, base_ibeatles_config, copy, folders_selector_sample, mo):
+def _(Path, base_ibeatles_config, copy, folders_selector_sample, mo):
     # After the users have selected the folders for different sample input, we will create a list of IBeatlesUserConfig objects for each sample
     batch_config_list = []
     num_samples = len(folders_selector_sample.value)
@@ -127,7 +126,7 @@ def __(Path, base_ibeatles_config, copy, folders_selector_sample, mo):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md(
         r"""
         ## Verify Processing Parameters
@@ -139,7 +138,7 @@ def __(mo):
 
 
 @app.cell
-def __(batch_config_list, mo, num_samples):
+def _(batch_config_list, mo, num_samples):
     # visualize as tabs of accordians
     _tabs = {}
 
@@ -162,13 +161,13 @@ def __(batch_config_list, mo, num_samples):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md(r"""## Running Batch Processing""")
     return
 
 
 @app.cell
-def __(mo):
+def _(mo):
     exec_button = mo.ui.run_button(
         kind="success",
         disabled=False,
@@ -179,7 +178,7 @@ def __(mo):
 
 
 @app.cell
-def __(batch_config_list, exec_button, ibeatles_main, mo, num_samples):
+def _(batch_config_list, exec_button, ibeatles_main, mo, num_samples):
     # dict to store stderr
     dict_stderr = {}
 
@@ -213,7 +212,7 @@ def __(batch_config_list, exec_button, ibeatles_main, mo, num_samples):
 
 
 @app.cell
-def __():
+def _():
     return
 
 
