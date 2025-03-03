@@ -144,7 +144,7 @@ def _(batch_config_list, mo, num_samples):
     _tabs = {}
 
     for _i in range(num_samples):
-        _acc = mo.accordion(batch_config_list[_i].dict())
+        _acc = mo.accordion(batch_config_list[_i].model_dump())
         _tabs[f"Sample {_i}"] = _acc
 
     # display the tabs

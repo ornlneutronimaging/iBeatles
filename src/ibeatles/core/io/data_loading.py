@@ -87,7 +87,7 @@ def load_tiff(file_path: str) -> Tuple[np.ndarray, Dict[str, Any]]:
         data = np.array(img)
         # Replace NaN and Inf values with 0 to avoid computation issues
         data = np.nan_to_num(data, nan=0, posinf=0, neginf=0)
-        metadata = img.tag_v2.as_dict() if hasattr(img, "tag_v2") else {}
+        metadata = img.tag_v2 if hasattr(img, "tag_v2") else {}
 
     return data, process_tiff_metadata(metadata, data, file_path)
 
