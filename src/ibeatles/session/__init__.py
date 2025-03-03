@@ -13,6 +13,16 @@ class MaterialMode:
     custom_method2 = "custom method 2"
 
 
+class ReductionDimension:
+    twod = "2D"
+    threed = "3D"
+
+
+class ReductionType:
+    box = "Box"
+    gaussian = "Gaussian"
+
+
 class SessionSubKeys:
     # instrument
     distance_source_detector = "distance source detector"

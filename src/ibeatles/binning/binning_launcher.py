@@ -35,7 +35,7 @@ class BinningWindow(QMainWindow):
         "y0": 0,
         "width": 20,
         "height": 20,
-        "bin_size": 10,
+        "bins_size": 10,
     }
 
     image_view = None

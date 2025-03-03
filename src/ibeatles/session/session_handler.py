@@ -16,6 +16,7 @@ from src.ibeatles.fitting.kropff import BraggPeakInitParameters
 from src.ibeatles.fitting import FittingTabSelected
 
 from src.ibeatles.session import SessionKeys, SessionSubKeys, MaterialMode
+from src.ibeatles.session import ReductionDimension, ReductionType
 from src.ibeatles.session.save_load_data_tab import SaveLoadDataTab
 from src.ibeatles.session.save_normalization_tab import SaveNormalizationTab
 from src.ibeatles.session.save_normalized_tab import SaveNormalizedTab
@@ -87,14 +88,14 @@ class SessionHandler:
         },
         SessionKeys.reduction: {
             SessionSubKeys.activate: True,
-            SessionSubKeys.dimension: "2d",
+            SessionSubKeys.dimension: ReductionDimension.twod,
             SessionSubKeys.size: {
                 "flag": "default",
                 "y": 20,
                 "x": 20,
                 "l": 3,
             },
-            SessionSubKeys.type: "box",
+            SessionSubKeys.type: ReductionType.box,
             SessionSubKeys.process_order: "option1",
         },
         SessionKeys.bin: {

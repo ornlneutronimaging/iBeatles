@@ -9,6 +9,7 @@ from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
 
 from src.ibeatles import DataType
+from src.ibeatles.session import ReductionDimension
 from src.ibeatles.step2.roi_handler import Step2RoiHandler
 from src.ibeatles.step3.event_handler import EventHandler
 from src.ibeatles.utilities.file_handler import FileHandler
@@ -214,7 +215,7 @@ class Normalization:
             lda = reduction_settings["size"]["l"]
 
         kernel = [y, x]
-        if reduction_settings["dimension"] == "3d":
+        if reduction_settings["dimension"] == ReductionDimension.threed:
             kernel.append(lda)
 
         _data = np.array(o_norm.data[DataType.sample]["data"])  # lambda, x, y

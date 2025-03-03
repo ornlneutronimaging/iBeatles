@@ -423,7 +423,7 @@ class Export:
             "y0": session_dict[SessionKeys.bin][SessionSubKeys.roi][2],
             "width": session_dict[SessionKeys.bin][SessionSubKeys.roi][3],
             "height": session_dict[SessionKeys.bin][SessionSubKeys.roi][4],
-            "bin_size": session_dict[SessionKeys.bin][SessionSubKeys.roi][5],
+            "bins_size": session_dict[SessionKeys.bin][SessionSubKeys.roi][5],
         }
 
         fitting_lambda_range = session_dict[SessionKeys.fitting][
