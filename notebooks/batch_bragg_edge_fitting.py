@@ -98,7 +98,57 @@ def _(folders_selector_sample):
 
 
 @app.cell
-def _(Path, base_ibeatles_config, copy, folders_selector_sample, mo):
+def _(Path):
+    def get_image_extension(folder_path: str) -> str:
+        """
+        Given a folder path, this function locates all files in the folder,
+        filters out text files (including those matching *_spectra.txt),
+        and returns the image extension (one of 'tiff', 'tif', or 'fits') as a string.
+
+        Raises:
+            ValueError: If no image files are found or if multiple image extensions are present.
+        """
+        # Define the valid image extensions (in lower case)
+        valid_extensions = {".tiff", ".tif", ".fits"}
+
+        # Use pathlib to iterate over the items in the directory
+        folder = Path(folder_path)
+        image_extensions = set()
+
+        for item in folder.iterdir():
+            if item.is_file():
+                # Skip any .txt files or files ending with '_spectra.txt'
+                if item.suffix.lower() == ".txt" or item.name.endswith("_spectra.txt"):
+                    continue
+
+                # Check if the file has a valid image extension
+                if item.suffix.lower() in valid_extensions:
+                    # Strip the leading dot and add to our set
+                    image_extensions.add(item.suffix.lower().lstrip("."))
+
+        # Check if exactly one type of image extension is present
+        if len(image_extensions) == 1:
+            return image_extensions.pop()
+        elif not image_extensions:
+            raise ValueError("No valid image file found in the folder.")
+        else:
+            raise ValueError(
+                f"Multiple image extensions found: {', '.join(image_extensions)}"
+            )
+
+    # get_image_extension(folders_selector_sample.value[0].path)
+    return (get_image_extension,)
+
+
+@app.cell
+def _(
+    Path,
+    base_ibeatles_config,
+    copy,
+    folders_selector_sample,
+    get_image_extension,
+    mo,
+):
     # After the users have selected the folders for different sample input, we will create a list of IBeatlesUserConfig objects for each sample
     batch_config_list = []
     num_samples = len(folders_selector_sample.value)
@@ -110,6 +160,10 @@ def _(Path, base_ibeatles_config, copy, folders_selector_sample, mo):
         _sample_config = copy.deepcopy(base_ibeatles_config)
         # update the raw data path
         _sample_config.raw_data.raw_data_dir = folders_selector_sample.value[_i].path
+        # Update the file extension in case they are changing from one dataset to another
+        _sample_config.raw_data.extension = get_image_extension(
+            _sample_config.raw_data.raw_data_dir
+        )
         # Update output file paths
         _sample_config.output["normalized_data_dir"] = Path(
             str(_sample_config.output["normalized_data_dir"]) + f"_{_i}"

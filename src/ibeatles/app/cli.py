@@ -156,7 +156,7 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
 
 def perform_binning(
     data: Dict[str, Any], config: IBeatlesUserConfig, spectra_dict: dict
-) -> Dict[str, Any]:
+) -> (Dict[str, Any], list):
     """
     Perform binning on the normalized data.
 
@@ -173,6 +173,8 @@ def perform_binning(
     -------
     Dict[str, Any]
         Dictionary containing binning results.
+    List[Tuple[slice]]
+        List of bin coordinates.
     """
     logger = logging.getLogger("ibeatles_CLI")
     logger.info("Performing binning...")
