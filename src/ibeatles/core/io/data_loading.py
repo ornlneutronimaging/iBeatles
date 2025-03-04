@@ -4,12 +4,14 @@
 import os
 import glob
 import numpy as np
+from loguru import logger
 from typing import List, Dict, Any, Tuple
 from pathlib import Path
 from astropy.io import fits
 from PIL import Image
 from neutronbraggedge.experiment_handler.tof import TOF
 from neutronbraggedge.experiment_handler.experiment import Experiment
+from tqdm.auto import tqdm
 
 
 def cleanup_list_of_files(list_of_files: List[str], base_number: int = 5) -> List[str]:
@@ -248,7 +250,7 @@ def load_data_from_folder(folder: str, file_extension: str = ".tif") -> Dict[str
 
     data = []
     metadata = []
-    for file in short_list_of_files:
+    for file in tqdm(short_list_of_files):
         full_file_name = os.path.join(folder, file)
         img_data, img_metadata = load_image(full_file_name)
         data.append(img_data)
@@ -260,6 +262,8 @@ def load_data_from_folder(folder: str, file_extension: str = ".tif") -> Dict[str
         size = {"width": width, "height": height}
     else:
         size = {"width": 0, "height": 0}
+
+    logger.info(f"Loaded {len(data)} images from folder: {folder}")
 
     return {
         "data": np.array(data),
@@ -331,6 +335,8 @@ def load_time_spectra(
         detector_offset_micros=detector_offset_micros,
     )
     lambda_array = exp.lambda_array
+
+    logger.info(f"Loaded time spectra data from file: {file_path}")
 
     return {
         "filename": file_path,
