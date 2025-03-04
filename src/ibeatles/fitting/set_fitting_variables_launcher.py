@@ -9,13 +9,13 @@ from src.ibeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class SetFittingVariablesLauncher(object):
-
     def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent
 
         if self.grand_parent.fitting_set_variables_ui is None:
-            set_variables_window = SetFittingVariablesWindow(grand_parent=grand_parent,
-                                                             parent=parent)
+            set_variables_window = SetFittingVariablesWindow(
+                grand_parent=grand_parent, parent=parent
+            )
             self.grand_parent.fitting_set_variables_ui = set_variables_window
             set_variables_window.show()
         else:
@@ -29,11 +29,10 @@ class SetFittingVariablesWindow(QMainWindow):
     nbr_row = -1
 
     def __init__(self, grand_parent=None, parent=None):
-
         self.grand_parent = grand_parent
         self.parent = parent
         QMainWindow.__init__(self, parent=grand_parent)
-        self.ui = load_ui('ui_fittingSetVariables.ui', baseinstance=self)
+        self.ui = load_ui("ui_fittingSetVariables.ui", baseinstance=self)
         # self.ui = UiMainWindow()
         # self.ui.setupUi(self)
         self.setWindowTitle("Check/Set Variables")
@@ -49,8 +48,8 @@ class SetFittingVariablesWindow(QMainWindow):
 
     def init_table(self):
         fitting_selection = self.grand_parent.fitting_selection
-        nbr_row = fitting_selection['nbr_row']
-        nbr_column = fitting_selection['nbr_column']
+        nbr_row = fitting_selection["nbr_row"]
+        nbr_column = fitting_selection["nbr_column"]
 
         self.nbr_column = nbr_column
         self.nbr_row = nbr_row
@@ -64,7 +63,9 @@ class SetFittingVariablesWindow(QMainWindow):
         self.selection_cell_size_changed(value)
 
     def init_widgets(self):
-        self.advanced_mode = self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
+        self.advanced_mode = (
+            self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
+        )
         if not self.advanced_mode:
             self.ui.a5_button.setVisible(False)
             self.ui.a6_button.setVisible(False)
@@ -90,8 +91,9 @@ class SetFittingVariablesWindow(QMainWindow):
         variable_selected = self.get_variable_selected()
         o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
         o_handler.populate_table_with_variable(variable=variable_selected)
-        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
-                                              parent=self.parent)
+        o_filling_table = FillingTableHandler(
+            grand_parent=self.grand_parent, parent=self.parent
+        )
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
@@ -99,32 +101,39 @@ class SetFittingVariablesWindow(QMainWindow):
 
     def get_variable_selected(self):
         if self.ui.d_spacing_button.isChecked():
-            return 'd_spacing'
+            return "d_spacing"
         elif self.ui.sigma_button.isChecked():
-            return 'sigma'
+            return "sigma"
         elif self.ui.alpha_button.isChecked():
-            return 'alpha'
+            return "alpha"
         elif self.ui.a1_button.isChecked():
-            return 'a1'
+            return "a1"
         elif self.ui.a2_button.isChecked():
-            return 'a2'
+            return "a2"
         elif self.ui.a5_button.isChecked():
-            return 'a5'
+            return "a5"
         elif self.ui.a6_button.isChecked():
-            return 'a6'
+            return "a6"
 
     def apply_new_value_to_selection(self):
         variable_selected = self.get_variable_selected()
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
-        new_variable = float(str(self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
-        o_handler.set_new_value_to_selected_bins(selection=selection,
-                                                 variable_name=variable_selected,
-                                                 variable_value=new_variable,
-                                                 table_nbr_row=self.nbr_row)
-        self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.setText('')
-        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
-                                              parent=self.parent)
+        new_variable = float(
+            str(
+                self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()
+            )
+        )
+        o_handler.set_new_value_to_selected_bins(
+            selection=selection,
+            variable_name=variable_selected,
+            variable_value=new_variable,
+            table_nbr_row=self.nbr_row,
+        )
+        self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.setText("")
+        o_filling_table = FillingTableHandler(
+            grand_parent=self.grand_parent, parent=self.parent
+        )
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
@@ -138,7 +147,6 @@ class SetFittingVariablesWindow(QMainWindow):
 
 
 class VariableTableHandler(object):
-
     def __init__(self, grand_parent=None):
         self.grand_parent = grand_parent
 
@@ -184,10 +192,12 @@ class VariableTableHandler(object):
             for _row in np.arange(_top_row, _bottom_row + 1):
                 for _col in np.arange(_left_column, _right_column + 1):
                     _index = _row + _col * nbr_row
-                    table_dictionary[str(_index)][variable_selected]['fixed'] = state
+                    table_dictionary[str(_index)][variable_selected]["fixed"] = state
 
             # remove selection markers
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(
+                _select, False
+            )
 
         self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.fitting_set_variables_ui.update_table()
@@ -200,37 +210,37 @@ class VariableTableHandler(object):
 
     def activate_selection(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        self.change_state_of_bins(name='active', state=True)
-        self.update_fitting_ui(name='active')
-        self.update_advanced_selection_ui(name='active')
+        self.change_state_of_bins(name="active", state=True)
+        self.update_fitting_ui(name="active")
+        self.update_advanced_selection_ui(name="active")
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()
 
     def deactivate_selection(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        self.change_state_of_bins(name='active', state=False)
-        self.update_fitting_ui(name='active')
-        self.update_advanced_selection_ui(name='active')
+        self.change_state_of_bins(name="active", state=False)
+        self.update_fitting_ui(name="active")
+        self.update_advanced_selection_ui(name="active")
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()
 
     def lock_selection(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        self.change_state_of_bins(name='lock', state=True)
-        self.update_fitting_ui(name='lock')
-        self.update_advanced_selection_ui(name='lock')
+        self.change_state_of_bins(name="lock", state=True)
+        self.update_fitting_ui(name="lock")
+        self.update_advanced_selection_ui(name="lock")
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()
 
     def unlock_selection(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
-        self.change_state_of_bins(name='lock', state=False)
-        self.update_fitting_ui(name='lock')
-        self.update_advanced_selection_ui(name='lock')
+        self.change_state_of_bins(name="lock", state=False)
+        self.update_fitting_ui(name="lock")
+        self.update_advanced_selection_ui(name="lock")
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
         QApplication.restoreOverrideCursor()
 
-    def change_state_of_bins(self, name='lock', state=True):
+    def change_state_of_bins(self, name="lock", state=True):
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         table_dictionary = self.grand_parent.march_table_dictionary
         nbr_row = self.grand_parent.fitting_set_variables_ui.nbr_row
@@ -246,17 +256,18 @@ class VariableTableHandler(object):
                     table_dictionary[str(_index)][name] = state
 
             # remove selection markers
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(
+                _select, False
+            )
 
         self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.fitting_set_variables_ui.update_table()
 
-    def update_fitting_ui(self, name='active'):
-        o_event = EventHandler(parent=self.parent,
-                               grand_parent=self.grand_parent)
-        if name == 'lock':
+    def update_fitting_ui(self, name="active"):
+        o_event = EventHandler(parent=self.parent, grand_parent=self.grand_parent)
+        if name == "lock":
             o_event.update_image_view_lock()
-        elif name == 'active':
+        elif name == "active":
             o_event.update_image_view_selection()
 
         o_filling_table = FillingTableHandler(grand_parent=self.grand_parent)
@@ -265,9 +276,9 @@ class VariableTableHandler(object):
 
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
 
-    def update_advanced_selection_ui(self, name='active'):
+    def update_advanced_selection_ui(self, name="active"):
         if self.grand_parent.advanced_selection_ui:
-            if name == 'lock':
+            if name == "lock":
                 self.grand_parent.advanced_selection_ui.update_lock_table()
-            elif name == 'active':
+            elif name == "active":
                 self.grand_parent.advanced_selection_ui.update_selected_table()

@@ -7,8 +7,8 @@ from src.ibeatles.step2.get import Get
 
 class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
-        values[values == 0] = np.NaN  # remove 0 before division
-        return ['{:.4f}'.format(1. / i) for i in values]
+        values[values == 0] = np.nan  # remove 0 before division
+        return ["{:.4f}".format(1.0 / i) for i in values]
 
 
 class Step2GuiHandler(object):
@@ -40,9 +40,11 @@ class Step2GuiHandler(object):
         self.update_instructions()
 
     def enable_xaxis_button(self, tof_flag=True):
-        list_ui = [self.parent.step2_ui['xaxis_file_index'],
-                   self.parent.step2_ui['xaxis_lambda'],
-                   self.parent.step2_ui['xaxis_tof']]
+        list_ui = [
+            self.parent.step2_ui["xaxis_file_index"],
+            self.parent.step2_ui["xaxis_lambda"],
+            self.parent.step2_ui["xaxis_tof"],
+        ]
 
         if tof_flag:
             for _ui in list_ui:
@@ -56,8 +58,10 @@ class Step2GuiHandler(object):
         o_get = Get(parent=self.parent)
         _status = o_get.status_of_run_normalization_button()
         if not _status:
-            instructions = '<font color="red">Activate</font> at least one <font color="red">Background ROI</font> ' \
-                           'to enable the Normalization switch!</html>'
+            instructions = (
+                '<font color="red">Activate</font> at least one <font color="red">Background ROI</font> '
+                "to enable the Normalization switch!</html>"
+            )
         else:
             instructions = 'A <font color="red">Background ROI</font> will improve the normalization!</html>'
         self.parent.ui.normalization_instructions.setHtml(instructions)

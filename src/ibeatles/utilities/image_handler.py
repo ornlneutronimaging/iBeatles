@@ -7,12 +7,11 @@ import copy
 
 
 class ImageHandler:
-
     metadata = {}
-    data_type = 'tiff'
+    data_type = "tiff"
     data = []  # numpy array of image
     metadata = {}  # metadata dictionary
-    filename = ''
+    filename = ""
 
     def __init__(self, parent=None, filename=None):
         self.data = []
@@ -25,25 +24,24 @@ class ImageHandler:
     def retrieve_image_type(self):
         _file_0 = self.filename
         [_, file_extension] = os.path.splitext(_file_0)
-        if (file_extension == '.tiff') or (file_extension == '.tif'):
-            self.data_type = 'tiff'
-        elif file_extension == '.fits':
-            self.data_type = 'fits'
+        if (file_extension == ".tiff") or (file_extension == ".tif"):
+            self.data_type = "tiff"
+        elif file_extension == ".fits":
+            self.data_type = "fits"
         else:
             raise ValueError("File Format not Supported!")
 
     def get_data(self):
-        if self.filename == '':
+        if self.filename == "":
             return []
 
         # if data not loaded yet
         if len(self.data) == 0:
-
             # only load first selected data
             # _file = self.filename
-            if self.data_type == 'tiff':
+            if self.data_type == "tiff":
                 self.get_tiff_data()
-            elif self.data_type == 'fits':
+            elif self.data_type == "fits":
                 self.get_fits_data()
 
             self.cleanup_data()
@@ -64,9 +62,9 @@ class ImageHandler:
         if len(self.data) == 0:
             self.get_data()
 
-        if self.data_type == 'tiff':
+        if self.data_type == "tiff":
             self.get_tiff_metadata(selected_infos_dict)
-        elif self.data_type == 'fits':
+        elif self.data_type == "fits":
             self.get_fits_metadata(selected_infos_dict)
 
         return self.metadata
@@ -94,7 +92,6 @@ class ImageHandler:
         self.metadata = {}
 
     def get_tiff_metadata(self, selected_infos):
-
         _metadata = self.metadata
 
         # acquisition time
@@ -103,91 +100,88 @@ class ImageHandler:
         except KeyError:
             acquisition_time_raw = _metadata[279][0]
         acquisition_time = time.ctime(acquisition_time_raw)
-        selected_infos['acquisition_time']['value'] = acquisition_time
+        selected_infos["acquisition_time"]["value"] = acquisition_time
 
         # acquisition duration
         try:
             acquisition_duration_raw = _metadata[65021][0]
-            [_, value] = acquisition_duration_raw.split(':')
+            [_, value] = acquisition_duration_raw.split(":")
         except KeyError:
-            value = 'N/A'
-        selected_infos['acquisition_duration']['value'] = value
+            value = "N/A"
+        selected_infos["acquisition_duration"]["value"] = value
 
         # image size
         try:
             sizeX_raw = _metadata[65028][0]
-            [_, valueX] = sizeX_raw.split(':')
+            [_, valueX] = sizeX_raw.split(":")
         except KeyError:
             valueX = _metadata[256]
 
         try:
             sizeY_raw = _metadata[65029][0]
-            [_, valueY] = sizeY_raw.split(':')
+            [_, valueY] = sizeY_raw.split(":")
         except KeyError:
             valueY = _metadata[257]
         image_size = "{} x {}".format(valueX, valueY)
-        selected_infos['image_size']['value'] = image_size
+        selected_infos["image_size"]["value"] = image_size
 
         # image type
         bits = _metadata[258][0]
-        selected_infos['image_type']['value'] = "{} bits".format(bits)
+        selected_infos["image_type"]["value"] = "{} bits".format(bits)
 
         # min counts
         min_value = np.min(self.data)
-        selected_infos['min_counts']['value'] = "{}".format(min_value)
+        selected_infos["min_counts"]["value"] = "{}".format(min_value)
 
         # max counts
         max_value = np.max(self.data)
-        selected_infos['max_counts']['value'] = "{}".format(max_value)
+        selected_infos["max_counts"]["value"] = "{}".format(max_value)
 
         self.metadata = selected_infos
 
     def get_fits_metadata(self, selected_infos):
-
         _metadata = self.metadata
         _filename = self.filename
 
         try:
-
             # acquisition time
             try:  # new format
-                acquisition_time = _metadata['DATE']
+                acquisition_time = _metadata["DATE"]
             except KeyError:
                 acquisition_time = time.ctime(os.path.getmtime(_filename))
-            selected_infos['acquisition_duration']['value'] = acquisition_time
+            selected_infos["acquisition_duration"]["value"] = acquisition_time
 
             # acquisition duration
             try:
-                acquisition_duration = _metadata['EXPOSURE']
+                acquisition_duration = _metadata["EXPOSURE"]
             except KeyError:
-                acquisition_duration = _metadata['TiMEBIN']
-            selected_infos['acquisition_time']['value'] = acquisition_duration
+                acquisition_duration = _metadata["TiMEBIN"]
+            selected_infos["acquisition_time"]["value"] = acquisition_duration
 
             # image size
-            valueX = _metadata['NAXIS1']
-            valueY = _metadata['NAXIS2']
+            valueX = _metadata["NAXIS1"]
+            valueY = _metadata["NAXIS2"]
             image_size = "{} x {}".format(valueX, valueY)
-            selected_infos['image_size']['value'] = image_size
+            selected_infos["image_size"]["value"] = image_size
 
             # image type
-            bits = _metadata['BITPIX']
-            selected_infos['image_type']['value'] = "{} bits".format(bits)
+            bits = _metadata["BITPIX"]
+            selected_infos["image_type"]["value"] = "{} bits".format(bits)
 
             # min counts
             min_value = np.min(self.data)
-            selected_infos['min_counts']['value'] = "{}".format(min_value)
+            selected_infos["min_counts"]["value"] = "{}".format(min_value)
 
             # max counts
             max_value = np.max(self.data)
-            selected_infos['max_counts']['value'] = "{}".format(max_value)
+            selected_infos["max_counts"]["value"] = "{}".format(max_value)
 
         except KeyError:
-
-            selected_infos['acquisition_duration']['value'] = 'N/A'
-            selected_infos['acquisition_time']['value'] = 'N/A'
-            selected_infos['image_size']['value'] = 'N/A'
-            selected_infos['image_type']['value'] = 'N/A'
-            selected_infos['min_counts']['value'] = 'N/A'
-            selected_infos['max_counts']['value'] = 'N/A'
+            selected_infos["acquisition_duration"]["value"] = "N/A"
+            selected_infos["acquisition_time"]["value"] = "N/A"
+            selected_infos["image_size"]["value"] = "N/A"
+            selected_infos["image_type"]["value"] = "N/A"
+            selected_infos["min_counts"]["value"] = "N/A"
+            selected_infos["max_counts"]["value"] = "N/A"
 
         self.metadata = selected_infos

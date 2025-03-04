@@ -1,0 +1,3 @@
+[submodule "tests/data/ibeatles_data"]
+	path = tests/data/ibeatles_data
+	url = git@code.ornl.gov:sns-hfir-scse/infrastructure/test-data/ibeatles_data.git

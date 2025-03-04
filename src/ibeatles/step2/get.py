@@ -4,12 +4,11 @@ from src.ibeatles.step2 import RegionType, KernelType
 
 
 class Get:
-
     def __init__(self, parent=None):
         self.parent = parent
 
     def kernel_type(self):
-        if self.parent.session_dict['reduction']['type'] == KernelType.box:
+        if self.parent.session_dict["reduction"]["type"] == KernelType.box:
             return KernelType.box
         else:
             return KernelType.gaussian
@@ -59,15 +58,15 @@ class Get:
 
     def status_of_run_normalization_button(self):
         """Conditions to validate the run_normalization button are:
-         - have ob loaded
-         - if no ob, have at least one ENABLED Background ROI
-         """
-        data = self.parent.data_metadata['sample']['data']
+        - have ob loaded
+        - if no ob, have at least one ENABLED Background ROI
+        """
+        data = self.parent.data_metadata["sample"]["data"]
         if not data.any():
             return False
 
-        ob = self.parent.data_metadata['ob']['data']
-        if type(ob) == list:
+        ob = self.parent.data_metadata["ob"]["data"]
+        if isinstance(ob, list):
             if not ob:
                 return False
 

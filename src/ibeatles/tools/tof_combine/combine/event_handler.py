@@ -11,8 +11,11 @@ from src.ibeatles.session import SessionSubKeys
 
 from src.ibeatles.utilities.file_handler import FileHandler
 
-from src.ibeatles.tools.utilities.time_spectra import GetTimeSpectraFilename, TimeSpectraHandler
 from src.ibeatles.tools.utilities import TimeSpectraKeys
+from src.ibeatles.utilities.status_message_config import (
+    StatusMessageStatus,
+    show_status_message,
+)
 
 from src.ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
 from src.ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
@@ -21,19 +24,21 @@ from src.ibeatles.tools.tof_combine.load.load_files import LoadFiles
 from src.ibeatles.tools.tof_combine.combine.combine import Combine
 from src.ibeatles.tools.tof_combine import LAMBDA, MICRO, ANGSTROMS
 
+# backend function from core
+from ibeatles.core.io.data_loading import get_time_spectra_filename
+
+# MVP widget
+from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
+
 
 class EventHandler:
-
     no_data_loaded = False
 
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
         self.grand_parent = grand_parent
 
-        # o_get = TofCombineGet(parent=parent)
-        # list_working_folders = o_get.list_of_folders_to_use()
-        # if list_working_folders == [None]:
-        #     self.no_data_loaded = True
+        self.time_spectra_presenter = None
 
     def visualize_flag_changed(self):
         self.parent.visualize_flag = self.parent.ui.visualize_checkBox.isChecked()
@@ -46,10 +51,16 @@ class EventHandler:
         if self.no_data_loaded:
             return
 
-        default_path = self.grand_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
-        folder = str(QFileDialog.getExistingDirectory(caption="Select Top Working Folder",
-                                                       directory=default_path,
-                                                       options=QFileDialog.ShowDirsOnly))
+        default_path = self.grand_parent.session_dict[DataType.sample][
+            SessionSubKeys.current_folder
+        ]
+        folder = str(
+            QFileDialog.getExistingDirectory(
+                caption="Select Top Working Folder",
+                directory=default_path,
+                options=QFileDialog.ShowDirsOnly,
+            )
+        )
         if folder == "":
             logging.info("User Canceled the selection of top folder dialog!")
             return
@@ -80,8 +91,7 @@ class EventHandler:
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         nbr_row = o_table.row_count()
         for _row in np.arange(nbr_row):
-            _horizontal_widget = o_table.get_widget(row=_row,
-                                                    column=0)
+            _horizontal_widget = o_table.get_widget(row=_row, column=0)
             radio_button = _horizontal_widget.layout().itemAt(1).widget()
             if radio_button.isChecked():
                 return True
@@ -93,8 +103,7 @@ class EventHandler:
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         nbr_row = o_table.row_count()
         for _row in np.arange(nbr_row):
-            _horizontal_widget = o_table.get_widget(row=_row,
-                                                    column=0)
+            _horizontal_widget = o_table.get_widget(row=_row, column=0)
             radio_button = _horizontal_widget.layout().itemAt(1).widget()
             if radio_button.isChecked():
                 nbr_folder_selected += 1
@@ -105,20 +114,27 @@ class EventHandler:
         return False
 
     def check_widgets(self):
-
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         nbr_row = o_table.row_count()
         if nbr_row == 0:
-            self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(interact_me_style)
+            self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(
+                interact_me_style
+            )
         else:
-            self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(normal_style)
+            self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(
+                normal_style
+            )
 
         if self.parent.session[TofCombineSessionKeys.top_folder]:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(True)
-            self.parent.ui.combine_refresh_top_folder_pushButton.setStyleSheet(interact_me_style)
+            self.parent.ui.combine_refresh_top_folder_pushButton.setStyleSheet(
+                interact_me_style
+            )
         else:
             self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
-            self.parent.ui.combine_refresh_top_folder_pushButton.setStyleSheet(normal_style)
+            self.parent.ui.combine_refresh_top_folder_pushButton.setStyleSheet(
+                normal_style
+            )
 
         if self.at_least_two_folder_selected():
             self.parent.ui.combine_pushButton.setEnabled(True)
@@ -145,22 +161,24 @@ class EventHandler:
         # checking if there is any new folder
         current_list_of_folders = []
         for _row in self.parent.dict_data_folders.keys():
-            current_list_of_folders.append(self.parent.dict_data_folders[_row][TofCombineSessionKeys.folder])
+            current_list_of_folders.append(
+                self.parent.dict_data_folders[_row][TofCombineSessionKeys.folder]
+            )
 
         row = len(current_list_of_folders)
         for _folder in list_folders:
-            if not (_folder in current_list_of_folders):
-
+            if _folder not in current_list_of_folders:
                 list_folders.append(_folder)
                 list_files = FileHandler.get_list_of_tif(_folder)
                 nbr_files = len(list_files)
 
-                self.parent.dict_data_folders[row] = {TofCombineSessionKeys.folder: _folder,
-                                                      TofCombineSessionKeys.data: None,
-                                                      TofCombineSessionKeys.list_files: list_files,
-                                                      TofCombineSessionKeys.nbr_files: nbr_files,
-                                                      TofCombineSessionKeys.use: False,
-                                                      }
+                self.parent.dict_data_folders[row] = {
+                    TofCombineSessionKeys.folder: _folder,
+                    TofCombineSessionKeys.data: None,
+                    TofCombineSessionKeys.list_files: list_files,
+                    TofCombineSessionKeys.nbr_files: nbr_files,
+                    TofCombineSessionKeys.use: False,
+                }
                 self.insert_row_entry(row)
                 row += 1
 
@@ -192,19 +210,22 @@ class EventHandler:
         for _row, _folder in enumerate(list_folders):
             list_files = FileHandler.get_list_of_tif(_folder)
             nbr_files = len(list_files)
-            _data_dict[_row] = {TofCombineSessionKeys.folder: _folder,
-                                TofCombineSessionKeys.data: None,
-                                TofCombineSessionKeys.list_files: list_files,
-                                TofCombineSessionKeys.nbr_files: nbr_files,
-                                TofCombineSessionKeys.use: False,
-                                }
+            _data_dict[_row] = {
+                TofCombineSessionKeys.folder: _folder,
+                TofCombineSessionKeys.data: None,
+                TofCombineSessionKeys.list_files: list_files,
+                TofCombineSessionKeys.nbr_files: nbr_files,
+                TofCombineSessionKeys.use: False,
+            }
         self.parent.dict_data_folders = _data_dict
 
         # reset time spectra
-        self.parent.time_spectra = {TimeSpectraKeys.file_name: None,
-                                    TimeSpectraKeys.tof_array: None,
-                                    TimeSpectraKeys.lambda_array: None,
-                                    TimeSpectraKeys.file_index_array: None}
+        self.parent.time_spectra = {
+            TimeSpectraKeys.file_name: None,
+            TimeSpectraKeys.tof_array: None,
+            TimeSpectraKeys.lambda_array: None,
+            TimeSpectraKeys.file_index_array: None,
+        }
 
         self._reset_time_spectra_tab()
 
@@ -225,7 +246,6 @@ class EventHandler:
             self.insert_row_entry(_row)
 
     def insert_row_entry(self, row=0):
-
         folder_dict = self.parent.dict_data_folders[row]
 
         status_of_folder = folder_dict[TofCombineSessionKeys.use]
@@ -248,44 +268,41 @@ class EventHandler:
         else:
             check_box.setEnabled(False)
 
-        o_table.insert_widget(row=row,
-                              column=0,
-                              widget=check_box,
-                              centered=True)
+        o_table.insert_widget(row=row, column=0, widget=check_box, centered=True)
         check_box.clicked.connect(self.parent.radio_buttons_of_folder_changed)
 
-        o_table.insert_item(row=row,
-                            column=1,
-                            value=nbr_files,
-                            editable=False)
+        o_table.insert_item(row=row, column=1, value=nbr_files, editable=False)
 
         # full path of the folder
-        o_table.insert_item(row=row,
-                            column=2,
-                            value=folder_name,
-                            editable=False)
+        o_table.insert_item(row=row, column=2, value=folder_name, editable=False)
 
     def update_list_of_folders_to_use(self, force_recalculation_of_time_spectra=False):
         o_table = TableHandler(table_ui=self.parent.ui.combine_tableWidget)
         nbr_row = o_table.row_count()
         for _row_index in np.arange(nbr_row):
-            _horizontal_widget = o_table.get_widget(row=_row_index,
-                                                    column=0)
+            _horizontal_widget = o_table.get_widget(row=_row_index, column=0)
             radio_button = _horizontal_widget.layout().itemAt(1).widget()
-            self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use] = radio_button.isChecked()
+            self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use] = (
+                radio_button.isChecked()
+            )
 
         for _row_index in np.arange(nbr_row):
-
             if self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.use]:
-
-                _folder_name = self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.folder]
+                _folder_name = self.parent.dict_data_folders[_row_index][
+                    TofCombineSessionKeys.folder
+                ]
 
                 if force_recalculation_of_time_spectra:
                     self.load_time_spectra_file(folder=_folder_name)
                     self.fix_linear_bin_radio_button_max_values()
 
-                if self.parent.dict_data_folders[_row_index][TofCombineSessionKeys.data] is None:
-                    loading_worked = self.load_that_folder(folder_name=_folder_name)
+                if (
+                    self.parent.dict_data_folders[_row_index][
+                        TofCombineSessionKeys.data
+                    ]
+                    is None
+                ):
+                    _ = self.load_that_folder(folder_name=_folder_name)
 
                     # load time spectra if not already there
                     if self.parent.time_spectra[TimeSpectraKeys.file_name] is None:
@@ -295,30 +312,72 @@ class EventHandler:
     def load_time_spectra_file(self, folder=None):
         """
         load the time spectra file
-        :param folder: location of the time spectra file
-        :return:
+
+        Parameters
+        ----------
+        folder: str
+            location of the time spectra file
+
+        Returns
+        -------
+        None
         """
-        o_time_spectra = GetTimeSpectraFilename(parent=self.parent,
-                                                folder=folder)
-        full_path_to_time_spectra = o_time_spectra.retrieve_file_name()
+        time_spectra_file = get_time_spectra_filename(folder)
+        if not time_spectra_file:
+            logging.info("Time spectra file not found!")
+            show_status_message(
+                parent=self.parent,
+                message="Time spectra file not found!",
+                status=StatusMessageStatus.error,
+                duration_s=5,
+            )
+            return
 
-        o_time_handler = TimeSpectraHandler(parent=self.parent,
-                                            time_spectra_file_name=full_path_to_time_spectra)
-        o_time_handler.load()
-        o_time_handler.calculate_lambda_scale()
+        if self.time_spectra_presenter is None:
+            self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
 
-        tof_array = o_time_handler.tof_array
-        lambda_array = o_time_handler.lambda_array
-        file_index_array = np.arange(len(tof_array))
+        distance_source_detector_m = float(
+            self.parent.ui.distance_source_detector.text()
+        )
+        detector_offset = float(self.parent.ui.detector_offset.text())
 
-        self.parent.time_spectra[TimeSpectraKeys.file_name] = full_path_to_time_spectra
-        self.parent.time_spectra[TimeSpectraKeys.tof_array] = tof_array
-        self.parent.time_spectra[TimeSpectraKeys.lambda_array] = lambda_array
-        self.parent.time_spectra[TimeSpectraKeys.file_index_array] = file_index_array
-        self.parent.time_spectra[TimeSpectraKeys.counts_array] = o_time_handler.counts_array
+        try:
+            self.time_spectra_presenter.load_data(
+                time_spectra_file, distance_source_detector_m, detector_offset
+            )
+            self.update_time_spectra_data()
+        except Exception as e:
+            logging.error(f"Error loading time spectra: {str(e)}")
+            show_status_message(
+                parent=self.parent,
+                message=f"Error loading time spectra: {str(e)}",
+                status=StatusMessageStatus.error,
+                duration_s=5,
+            )
+
+    def update_time_spectra_data(self):
+        time_spectra_data = self.time_spectra_presenter.model.get_data()
+
+        self.parent.time_spectra[TimeSpectraKeys.file_name] = time_spectra_data[
+            "filename"
+        ]
+        self.parent.time_spectra[TimeSpectraKeys.tof_array] = time_spectra_data[
+            "tof_array"
+        ]
+        self.parent.time_spectra[TimeSpectraKeys.lambda_array] = time_spectra_data[
+            "lambda_array"
+        ]
+        self.parent.time_spectra[TimeSpectraKeys.file_index_array] = np.arange(
+            len(time_spectra_data["tof_array"])
+        )
+        self.parent.time_spectra[TimeSpectraKeys.counts_array] = time_spectra_data[
+            "counts_array"
+        ]
 
         # update time spectra tab
-        self.parent.ui.time_spectra_name_label.setText(os.path.basename(full_path_to_time_spectra))
+        self.parent.ui.time_spectra_name_label.setText(
+            os.path.basename(time_spectra_data["filename"])
+        )
         self.parent.ui.time_spectra_preview_pushButton.setEnabled(True)
 
     def load_that_folder(self, folder_name=None):
@@ -332,8 +391,7 @@ class EventHandler:
             return False
 
         # load the data
-        o_load = LoadFiles(parent=self.parent,
-                           folder=folder_name)
+        o_load = LoadFiles(parent=self.parent, folder=folder_name)
         data = o_load.retrieve_data()
 
         o_get = TofCombineGet(parent=self.parent)
@@ -366,8 +424,7 @@ class EventHandler:
         image_view = self.parent.combine_image_view
         roi_item = self.parent.combine_roi_item_id
 
-        region = roi_item.getArraySlice(live_combine_image,
-                                        image_view.imageItem)
+        region = roi_item.getArraySlice(live_combine_image, image_view.imageItem)
         x0 = region[0][0].start
         x1 = region[0][0].stop - 1
         y0 = region[0][1].start
@@ -376,10 +433,7 @@ class EventHandler:
         width = x1 - x0
         height = y1 - y0
 
-        self.parent.combine_roi = {'x0': x0,
-                                   'y0': y0,
-                                   'width': width,
-                                   'height': height}
+        self.parent.combine_roi = {"x0": x0, "y0": y0, "width": width, "height": height}
 
     def display_profile(self):
         if self.no_data_loaded:
@@ -391,16 +445,18 @@ class EventHandler:
             self.parent.combine_profile_view.clear()
             return
 
-        x0 = self.parent.combine_roi['x0']
-        y0 = self.parent.combine_roi['y0']
-        width = self.parent.combine_roi['width']
-        height = self.parent.combine_roi['height']
+        x0 = self.parent.combine_roi["x0"]
+        y0 = self.parent.combine_roi["y0"]
+        width = self.parent.combine_roi["width"]
+        height = self.parent.combine_roi["height"]
 
         o_get = TofCombineGet(parent=self.parent)
         combine_algorithm = o_get.combine_algorithm()
         time_spectra_x_axis_name = o_get.combine_x_axis_selected()
 
-        profile_signal = [np.mean(_data[y0:y0 + height, x0:x0 + width]) for _data in combine_data]
+        profile_signal = [
+            np.mean(_data[y0 : y0 + height, x0 : x0 + width]) for _data in combine_data
+        ]
         # if combine_algorithm == CombineAlgorithm.mean:
         #     profile_signal = [np.mean(_data[y0:y0+height, x0:x0+width]) for _data in combine_data]
         # elif combine_algorithm == CombineAlgorithm.median:
@@ -415,13 +471,15 @@ class EventHandler:
         if time_spectra_x_axis_name == TimeSpectraKeys.file_index_array:
             x_axis_label = "file index"
         elif time_spectra_x_axis_name == TimeSpectraKeys.tof_array:
-            x_axis *= 1e6    # to display axis in micros
+            x_axis *= 1e6  # to display axis in micros
             x_axis_label = "tof (" + MICRO + "s)"
         elif time_spectra_x_axis_name == TimeSpectraKeys.lambda_array:
-            x_axis *= 1e10    # to display axis in Angstroms
+            x_axis *= 1e10  # to display axis in Angstroms
             x_axis_label = LAMBDA + "(" + ANGSTROMS + ")"
 
-        self.parent.combine_profile_view.plot(x_axis, profile_signal, pen='r', symbol='x')
+        self.parent.combine_profile_view.plot(
+            x_axis, profile_signal, pen="r", symbol="x"
+        )
         self.parent.combine_profile_view.setLabel("left", f"{combine_algorithm} counts")
         self.parent.combine_profile_view.setLabel("bottom", x_axis_label)
 
@@ -439,7 +497,7 @@ class EventHandler:
         max_lambda = float(lambda_array[-1]) * 1e10
         min_lambda = float(lambda_array[0]) * 1e10
 
-        logging.info(f"Max values of bin linear spin box has been fixed:")
+        logging.info("Max values of bin linear spin box has been fixed:")
         logging.info(f"-> file index: {max_file_index}")
         logging.info(f"-> tof: {min_tof =} to {max_tof =}")
         logging.info(f"-> lambda: {min_lambda =} to {max_lambda =}")

@@ -13,7 +13,6 @@ from src.ibeatles.tools.rotate.initialization import Initialization
 
 
 class RotateImages:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -36,35 +35,30 @@ class RotateImagesWindow(QMainWindow):
     first_update = False
 
     list_tif_files = None
-    image_size = {'width': None,
-                  'height': None}
+    image_size = {"width": None, "height": None}
 
     def __init__(self, parent=None):
-
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_rotateImages.ui', baseinstance=self)
+        self.ui = load_ui("ui_rotateImages.ui", baseinstance=self)
 
         o_init = Initialization(parent=self)
         o_init.all()
 
     def select_folder_clicked(self):
-        o_event = RotateEventHandler(parent=self,
-                                     top_parent=self.parent)
+        o_event = RotateEventHandler(parent=self, top_parent=self.parent)
         o_event.select_input_folder()
         o_event.load_data()
         o_event.display_rotated_images()
         o_event.check_widgets()
 
     def rotation_value_changed(self, rotation_value):
-        o_event = RotateEventHandler(parent=self,
-                                     top_parent=self.parent)
+        o_event = RotateEventHandler(parent=self, top_parent=self.parent)
         o_event.display_rotated_images()
         o_event.check_widgets()
 
     def export_button_clicked(self):
-        rotate_export_ui = RotateExportLauncher(parent=self,
-                                                top_parent=self.parent)
+        rotate_export_ui = RotateExportLauncher(parent=self, top_parent=self.parent)
         rotate_export_ui.show()
 
     # def save_and_use_clicked(self):
@@ -97,12 +91,18 @@ class RotateImagesWindow(QMainWindow):
     #     self.close()
 
     def copy_time_spectra(self, target_folder=None):
-        time_spectra = self.parent.data_metadata[DataType.normalized]['time_spectra']['filename']
+        time_spectra = self.parent.data_metadata[DataType.normalized]["time_spectra"][
+            "filename"
+        ]
         target_filename = os.path.join(target_folder, os.path.basename(time_spectra))
         if os.path.exists(target_filename):
             os.remove(target_filename)
-        self.parent.data_metadata[DataType.normalized]['time_spectra']['filename'] = target_filename
-        self.parent.data_metadata[DataType.normalized]['time_spectra']['folder'] = os.path.dirname(target_filename)
+        self.parent.data_metadata[DataType.normalized]["time_spectra"]["filename"] = (
+            target_filename
+        )
+        self.parent.data_metadata[DataType.normalized]["time_spectra"]["folder"] = (
+            os.path.dirname(target_filename)
+        )
         shutil.copyfile(time_spectra, target_filename)
         _folder_time_spectra = os.path.basename(os.path.abspath(target_folder))
         self.parent.ui.time_spectra_folder_2.setText(_folder_time_spectra)
@@ -124,11 +124,11 @@ class RotateImagesWindow(QMainWindow):
     #         logging.info(f"file format {file_extension} not supported!")
     #         raise NotImplemented(f"file format {file_extension} not supported!")
 
-    def rotate_and_save_all_images(self, target_folder=''):
+    def rotate_and_save_all_images(self, target_folder=""):
         rotation_value = self.ui.angle_horizontalSlider.value()
         logging.info(f" rotation value: {rotation_value}")
 
-        normalized_array = self.parent.data_metadata['normalized']['data']
+        normalized_array = self.parent.data_metadata["normalized"]["data"]
         self.eventProgress.setValue(0)
         self.eventProgress.setMaximum(len(normalized_array))
         self.eventProgress.setVisible(True)
@@ -157,7 +157,7 @@ class RotateImagesWindow(QMainWindow):
             self.eventProgress.setValue(_index + 1)
             QApplication.processEvents()
 
-        self.parent.data_metadata['normalized']['data'] = rotated_normalized_array
+        self.parent.data_metadata["normalized"]["data"] = rotated_normalized_array
         self.parent.list_files[DataType.normalized] = list_new_filename
         self.eventProgress.setVisible(False)
 

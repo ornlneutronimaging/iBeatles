@@ -1,10 +1,14 @@
 from qtpy.QtWidgets import QMenu
-from qtpy import  QtGui
+from qtpy import QtGui
 import numpy as np
 
 from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
-from src.ibeatles.fitting.march_dollase.export_fitting_handler import ExportFittingHandler
-from src.ibeatles.fitting.march_dollase.advanced_selection_launcher import AdvancedSelectionLauncher
+from src.ibeatles.fitting.march_dollase.export_fitting_handler import (
+    ExportFittingHandler,
+)
+from src.ibeatles.fitting.march_dollase.advanced_selection_launcher import (
+    AdvancedSelectionLauncher,
+)
 from .filling_table_handler import FillingTableHandler
 from .set_fitting_variables_launcher import SetFittingVariablesLauncher
 from ..table_dictionary.export import Export
@@ -28,8 +32,9 @@ class ValueTableHandler(object):
     def right_click(self, position):
         menu = QMenu(self.grand_parent)
 
-        if (len(self.grand_parent.fitting_ui.data) == 0) or \
-                (self.grand_parent.binning_line_view['pos'] is None):
+        if (len(self.grand_parent.fitting_ui.data) == 0) or (
+            self.grand_parent.binning_line_view["pos"] is None
+        ):
             status = False
         else:
             status = True
@@ -77,8 +82,8 @@ class ValueTableHandler(object):
             funct()
 
     def select_action(self, action):
-        '''function to replace the complext if/elif/else statement
-        of right_click().'''
+        """function to replace the complext if/elif/else statement
+        of right_click()."""
         return {
             self.__select_all: self.select_all,
             self.__unselect_all: self.unselect_all,
@@ -96,8 +101,7 @@ class ValueTableHandler(object):
         o_export_fitting.run()
 
     def export_table(self):
-        o_export = Export(parent=self.parent,
-                          grand_parent=self.grand_parent)
+        o_export = Export(parent=self.parent, grand_parent=self.grand_parent)
         o_export.run()
 
     def changed_fixed_variables_status(self, status=True):
@@ -109,21 +113,21 @@ class ValueTableHandler(object):
 
         table_dictionary = self.grand_parent.march_table_dictionary
 
-        column_variable_match = {5: 'd_spacing',
-                                 7: 'sigma',
-                                 9: 'alpha',
-                                 11: 'a1',
-                                 13: 'a2',
-                                 15: 'a5',
-                                 17: 'a7',
-                                 }
+        column_variable_match = {
+            5: "d_spacing",
+            7: "sigma",
+            9: "alpha",
+            11: "a1",
+            13: "a2",
+            15: "a5",
+            17: "a7",
+        }
 
         for _select in selection:
             left_column = _select.leftColumn()
             right_column = _select.rightColumn()
             col_range = np.arange(left_column, right_column + 1)
             for _col in col_range:
-
                 if _col < 5:
                     continue
 
@@ -134,20 +138,17 @@ class ValueTableHandler(object):
                 name_variable = column_variable_match.get(_col)
 
                 for _index in np.arange(nbr_row):
-
                     _entry = table_dictionary[str(_index)]
-                    if _entry['lock']:
+                    if _entry["lock"]:
                         continue
 
-                    if row_to_show_status == 'all':
-
-                        _entry[name_variable]['fixed'] = status
+                    if row_to_show_status == "all":
+                        _entry[name_variable]["fixed"] = status
                         table_dictionary[str(_index)] = _entry
 
-                    elif row_to_show_status == 'active':
-
-                        if _entry['active']:
-                            _entry[name_variable]['fixed'] = status
+                    elif row_to_show_status == "active":
+                        if _entry["active"]:
+                            _entry[name_variable]["fixed"] = status
                             table_dictionary[str(_index)] = _entry
 
             self.grand_parent.march_table_dictionary = table_dictionary
@@ -162,23 +163,22 @@ class ValueTableHandler(object):
         self.changed_fixed_variables_status(status=False)
 
     def select_all(self):
-        o_table = TableDictionaryHandler(grand_parent=self.grand_parent,
-                                         parent=self.parent)
+        o_table = TableDictionaryHandler(
+            grand_parent=self.grand_parent, parent=self.parent
+        )
         o_table.select_full_table()
 
     def unselect_all(self):
-        o_table = TableDictionaryHandler(grand_parent=self.grand_parent,
-                                         parent=self.parent)
+        o_table = TableDictionaryHandler(
+            grand_parent=self.grand_parent, parent=self.parent
+        )
         o_table.unselect_full_table()
 
-
     def advanced_selection(self):
-        AdvancedSelectionLauncher(grand_parent=self.grand_parent,
-                                  parent=self.parent)
+        AdvancedSelectionLauncher(grand_parent=self.grand_parent, parent=self.parent)
 
     def set_variables(self):
-        SetFittingVariablesLauncher(grand_parent=self.grand_parent,
-                                    parent=self.parent)
+        SetFittingVariablesLauncher(grand_parent=self.grand_parent, parent=self.parent)
 
     def reset(self):
         print("reset")

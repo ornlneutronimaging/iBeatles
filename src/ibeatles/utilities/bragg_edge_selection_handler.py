@@ -4,13 +4,11 @@ from src.ibeatles.utilities.array_utilities import find_nearest_index
 
 
 class BraggEdgeSelectionHandler:
-
-    def __init__(self, parent=None, data_type='sample'):
+    def __init__(self, parent=None, data_type="sample"):
         self.parent = parent
         self.data_type = data_type
 
     def update_dropdown(self):
-
         lr = self.parent.list_bragg_edge_selection_id[self.data_type]
         x_axis = self.parent.current_bragg_edge_x_axis[self.data_type]
 
@@ -21,9 +19,9 @@ class BraggEdgeSelectionHandler:
 
         list_selected = range(left_index, right_index + 1)
 
-        if self.data_type == 'sample':
+        if self.data_type == "sample":
             _ui_list = self.parent.ui.list_sample
-        elif self.data_type == 'ob':
+        elif self.data_type == "ob":
             _ui_list = self.parent.ui.list_open_beam
         else:
             _ui_list = self.parent.ui.list_normalized

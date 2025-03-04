@@ -13,12 +13,10 @@ from src.ibeatles.step1.plot import Step1Plot
 
 
 class AddElement(object):
-
     def __init__(self, parent=None):
         self.parent = parent
 
     def run(self):
-
         _interface = AddElementInterface(parent=self.parent)
         _interface.show()
         self.parent.add_element_editor_ui = _interface
@@ -31,7 +29,7 @@ class AddElementInterface(QDialog):
         self.parent = parent
 
         QDialog.__init__(self, parent=parent)
-        self.ui = load_ui('ui_addElement.ui', baseinstance=self)
+        self.ui = load_ui("ui_addElement.ui", baseinstance=self)
         self.setWindowTitle("Add Element Editor")
         self.ui.element_name_error.setVisible(False)
         self.check_add_widget_state()
@@ -43,7 +41,6 @@ class AddElementInterface(QDialog):
         self.check_add_widget_state()
 
     def check_add_widget_state(self):
-
         self.ui.error_message.setText("")
         current_element_name = str(self.ui.element_name.text())
         if current_element_name.strip() == "":
@@ -52,7 +49,6 @@ class AddElementInterface(QDialog):
             return
 
         if self.ui.method1_radioButton.isChecked():  # method 1
-
             lattice_value = self.ui.lattice.text()
             if lattice_value.strip() == "":
                 self.ui.add.setEnabled(False)
@@ -64,8 +60,9 @@ class AddElementInterface(QDialog):
                 self.ui.error_message.setText("Lattice must be a number")
                 return
 
-            list_element_root = self.parent.ui.list_of_elements.findText(current_element_name,
-                                                                         QtCore.Qt.MatchCaseSensitive)
+            list_element_root = self.parent.ui.list_of_elements.findText(
+                current_element_name, QtCore.Qt.MatchCaseSensitive
+            )
             if not (list_element_root == -1):  # element already there
                 self.ui.element_name_error.setVisible(True)
                 self.ui.add.setEnabled(False)
@@ -78,25 +75,25 @@ class AddElementInterface(QDialog):
                 return
 
         else:  # method 2
-
             # at least one entry in the table
             o_table = TableHandler(table_ui=self.ui.tableWidget)
             nbr_row = o_table.row_count()
             at_least_one_row_valid = False
             for _row in np.arange(nbr_row):
-
                 h = o_table.get_item_str_from_cell(row=_row, column=0)
                 k = o_table.get_item_str_from_cell(row=_row, column=1)
-                l = o_table.get_item_str_from_cell(row=_row, column=2)
+                l = o_table.get_item_str_from_cell(row=_row, column=2)  # noqa E741
                 d0 = o_table.get_item_str_from_cell(row=_row, column=3)
 
-                if ((h is None) or h == "") and \
-                        ((k is None) or k == "") and \
-                        ((l is None) or l == "") and \
-                        ((d0 is None) or d0 == ""):
+                if (
+                    ((h is None) or h == "")
+                    and ((k is None) or k == "")
+                    and ((l is None) or l == "")
+                    and ((d0 is None) or d0 == "")
+                ):
                     continue
 
-                elif (h is None):
+                elif h is None:
                     self.ui.add.setEnabled(False)
                     self.ui.error_message.setText("missing h value!")
                     return
@@ -116,7 +113,12 @@ class AddElementInterface(QDialog):
                     self.ui.error_message.setText("missing d0 value!")
                     return
 
-                if (h.strip() == "") and (k.strip() == "") and (l.strip() == "") and (d0.strip() == ""):
+                if (
+                    (h.strip() == "")
+                    and (k.strip() == "")
+                    and (l.strip() == "")
+                    and (d0.strip() == "")
+                ):
                     continue
 
                 if not is_int(h):
@@ -160,9 +162,11 @@ class AddElementInterface(QDialog):
             crystal_structure = o_gui.get_text_selected(ui=self.ui.crystal_structure)
 
             # calculate the hkl and d0 here
-            o_calculator = BraggEdgeElementCalculator(element_name=element_name,
-                                                      lattice_value=lattice,
-                                                      crystal_structure=crystal_structure)
+            o_calculator = BraggEdgeElementCalculator(
+                element_name=element_name,
+                lattice_value=lattice,
+                crystal_structure=crystal_structure,
+            )
             o_calculator.run()
             selected_element_bragg_edges_array = o_calculator.lambda_array
             selected_element_hkl_array = o_calculator.hkl_array
@@ -172,15 +176,12 @@ class AddElementInterface(QDialog):
                 hkl_list = selected_element_hkl_array[_row_index]
                 h = hkl_list[0]
                 k = hkl_list[1]
-                l = hkl_list[2]
+                l = hkl_list[2]  # noqa E741
 
                 _lambda_value = selected_element_bragg_edges_array[_row_index]
-                d0 = _lambda_value / 2.
+                d0 = _lambda_value / 2.0
 
-                hkl_d0_dict[int(_row_index)] = {'h': h,
-                                                'k': k,
-                                                'l': l,
-                                                'd0': d0}
+                hkl_d0_dict[int(_row_index)] = {"h": h, "k": k, "l": l, "d0": d0}
 
         else:
             lattice = None
@@ -198,20 +199,19 @@ class AddElementInterface(QDialog):
                     continue
 
                 k = o_table.get_item_str_from_cell(row=_row, column=1)
-                l = o_table.get_item_str_from_cell(row=_row, column=2)
+                l = o_table.get_item_str_from_cell(row=_row, column=2)  # noqa E741
                 d0 = o_table.get_item_str_from_cell(row=_row, column=3)
-                hkl_d0_dict[int(_row_index)] = {'h': h,
-                                                'k': k,
-                                                'l': l,
-                                                'd0': d0}
+                hkl_d0_dict[int(_row_index)] = {"h": h, "k": k, "l": l, "d0": d0}
                 _row_index += 1
 
-        self.new_element = {Material.element_name: element_name,
-                            Material.lattice: lattice,
-                            Material.crystal_structure: crystal_structure,
-                            Material.hkl_d0: hkl_d0_dict,
-                            Material.user_defined: user_defined,
-                            Material.method_used: method_used}
+        self.new_element = {
+            Material.element_name: element_name,
+            Material.lattice: lattice,
+            Material.crystal_structure: crystal_structure,
+            Material.hkl_d0: hkl_d0_dict,
+            Material.user_defined: user_defined,
+            Material.method_used: method_used,
+        }
 
     def add_element_to_list_of_elements_widgets(self):
         _element = self.new_element
@@ -225,13 +225,19 @@ class AddElementInterface(QDialog):
     def save_new_element_to_local_list(self):
         _new_element = self.new_element
 
-        _new_entry = {Material.lattice: _new_element[Material.lattice],
-                      Material.crystal_structure: _new_element[Material.crystal_structure],
-                      Material.hkl_d0: _new_element[Material.hkl_d0],
-                      Material.method_used: _new_element[Material.method_used]}
+        _new_entry = {
+            Material.lattice: _new_element[Material.lattice],
+            Material.crystal_structure: _new_element[Material.crystal_structure],
+            Material.hkl_d0: _new_element[Material.hkl_d0],
+            Material.method_used: _new_element[Material.method_used],
+        }
 
-        self.parent.user_defined_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
-        self.parent.local_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
+        self.parent.user_defined_bragg_edge_list[
+            _new_element[Material.element_name]
+        ] = _new_entry
+        self.parent.local_bragg_edge_list[_new_element[Material.element_name]] = (
+            _new_entry
+        )
 
     def method_changed(self):
         is_method1_activated = self.ui.method1_radioButton.isChecked()
@@ -246,7 +252,7 @@ class AddElementInterface(QDialog):
         self.parent.update_hkl_lambda_d0()
         self.parent.check_status_of_material_widgets()
 
-        o_plot = Step1Plot(parent=self.parent, data_type='normalized')
+        o_plot = Step1Plot(parent=self.parent, data_type="normalized")
         o_plot.display_general_bragg_edge()
 
         self.parent.list_of_element_index_changed(index="0")

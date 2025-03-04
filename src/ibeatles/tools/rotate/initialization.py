@@ -5,7 +5,6 @@ from src.ibeatles import interact_me_style
 
 
 class Initialization:
-
     def __init__(self, parent=None):
         self.parent = parent
 

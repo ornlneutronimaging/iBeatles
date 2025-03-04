@@ -33,8 +33,13 @@ conda activate iBeatles
 Install iBeatles in editable mode:
 
 ```bash
-pip install -e .
+pip install --no-deps -e .
 ```
+
+The argument `--no-deps` is used to avoid installing the dependencies again from PyPI, as they are already installed in the virtual environment with Conda.
+In most cases, reinstalling the packages from PyPI again does not cause any runtime issues other than wasting disk space.
+However, in some rare cases, it may cause conflicts between the Conda and PyPI versions of the packages.
+Therefore we recommend using the `--no-deps` argument to avoid such conflicts.
 
 Alternatively, if you do not want to install iBeatles, you need to modify your `PYTHONPATH` to include the path to the `iBeatles` directory.
 

@@ -4,19 +4,19 @@ import os
 from src.ibeatles import load_ui
 from src.ibeatles.utilities.get import Get
 
-from src.ibeatles.session.load_previous_session_launcher_multiple_choice import LoadPreviousSessionLauncherMultipleChoice
+from src.ibeatles.session.load_previous_session_launcher_multiple_choice import (
+    LoadPreviousSessionLauncherMultipleChoice,
+)
 from src.ibeatles.session.session_handler import SessionHandler
-from src.ibeatles.session import SessionSubKeys
 
 
 class LoadPreviousSessionLauncher(QDialog):
-
     def __init__(self, parent=None, config=None):
         self.parent = parent
         QDialog.__init__(self, parent=parent)
-        ui_full_path = os.path.join(os.path.dirname(__file__),
-                                    os.path.join('ui',
-                                                 'ui_load_previous_session.ui'))
+        ui_full_path = os.path.join(
+            os.path.dirname(__file__), os.path.join("ui", "ui_load_previous_session.ui")
+        )
         self.ui = load_ui(ui_full_path, baseinstance=self)
         self.setWindowTitle("Load previous session?")
         self.ui.pushButton.setFocus(True)
@@ -37,8 +37,9 @@ class LoadPreviousSessionLauncher(QDialog):
             o_session.load_to_ui(tabs_to_load=list_tabs_to_load)
             self.parent.loading_from_config = False
         else:
-            load_session_ui = LoadPreviousSessionLauncherMultipleChoice(parent=self.parent,
-                                                                        list_tabs_to_load=list_tabs_to_load)
+            load_session_ui = LoadPreviousSessionLauncherMultipleChoice(
+                parent=self.parent, list_tabs_to_load=list_tabs_to_load
+            )
             load_session_ui.show()
         self.parent.check_log_file_size()
 

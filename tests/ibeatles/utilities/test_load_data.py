@@ -7,27 +7,30 @@ from ibeatles.utilities.load_data import LoadData
 
 
 class TestLoadData(TestCase):
-
     def setUp(self):
         _file_path = os.path.dirname(__file__)
-        self.data_path = os.path.abspath(os.path.join(_file_path, '../../data/'))
+        self.data_path = os.path.abspath(os.path.join(_file_path, "../../data/"))
 
     def test_load_not_supported_file_format(self):
         """Assert loading not supported file format raises error"""
-        o_load = LoadData(list_of_files='*.txt', image_ext='.txt')
+        o_load = LoadData(list_of_files="*.txt", image_ext=".txt")
         self.assertRaises(TypeError, o_load.load)
 
     # fits
     def test_load_single_fits_file(self):
         """Assert loading single fits file works"""
-        fits_file = glob.glob(os.path.join(self.data_path, 'sample_with_time_spectra/*.fits'))
+        fits_file = glob.glob(
+            os.path.join(self.data_path, "sample_with_time_spectra/*.fits")
+        )
         image_array = LoadData.load_fits_file(fits_file[0])
         self.assertEqual(image_array.shape, (512, 512))
 
     def test_list_fits_files(self):
         """Assert loading list of fits works"""
-        fits_file = glob.glob(os.path.join(self.data_path, 'sample_with_time_spectra/*.fits'))
-        o_load = LoadData(list_of_files=fits_file[:2], image_ext='.fits')
+        fits_file = glob.glob(
+            os.path.join(self.data_path, "sample_with_time_spectra/*.fits")
+        )
+        o_load = LoadData(list_of_files=fits_file[:2], image_ext=".fits")
         o_load.load_fits()
         data_loaded = o_load.image_array
         self.assertEqual(len(data_loaded), 2)
@@ -35,8 +38,10 @@ class TestLoadData(TestCase):
 
     def test_list_fits_files_from_main_caller(self):
         """Assert loading list of fits works"""
-        fits_file = glob.glob(os.path.join(self.data_path, 'sample_with_time_spectra/*.fits'))
-        o_load = LoadData(list_of_files=fits_file[:2], image_ext='.fits')
+        fits_file = glob.glob(
+            os.path.join(self.data_path, "sample_with_time_spectra/*.fits")
+        )
+        o_load = LoadData(list_of_files=fits_file[:2], image_ext=".fits")
         o_load.load()
         data_loaded = o_load.image_array
         self.assertEqual(len(data_loaded), 2)
@@ -45,8 +50,8 @@ class TestLoadData(TestCase):
     # tiff
     def test_load_tiff_files(self):
         """Assert loading tiff works"""
-        tiff_files = glob.glob(os.path.join(self.data_path, 'tiff/*.tiff'))
-        o_load = LoadData(list_of_files=tiff_files, image_ext='.tiff')
+        tiff_files = glob.glob(os.path.join(self.data_path, "tiff/*.tiff"))
+        o_load = LoadData(list_of_files=tiff_files, image_ext=".tiff")
         o_load.load()
         data_loaded = o_load.image_array
         self.assertEqual(len(data_loaded), 2)

@@ -5,23 +5,22 @@ from .. import load_ui
 
 
 class InitializationSigmaAlpha(object):
-
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
         self.grand_parent = grand_parent
 
-        init_sigma_alpha_window = InitializeWindow(parent=parent, grand_parent=grand_parent)
+        init_sigma_alpha_window = InitializeWindow(
+            parent=parent, grand_parent=grand_parent
+        )
         init_sigma_alpha_window.show()
 
 
 class InitializeWindow(QMainWindow):
-
     def __init__(self, parent=None, grand_parent=None):
-
         self.parent = parent
         self.grand_parent = grand_parent
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_initSigmaAlpha.ui', baseinstance=self)
+        self.ui = load_ui("ui_initSigmaAlpha.ui", baseinstance=self)
         self.init_widgets()
 
     def init_widgets(self):
@@ -48,19 +47,19 @@ class InitializeWindow(QMainWindow):
         try:
             _sigma = float(_sigma)
         except ValueError:
-            _sigma = np.NaN
+            _sigma = np.nan
             _sigma_status = False
 
         _alpha_status = True
         try:
             _alpha = float(_alpha)
         except ValueError:
-            _alpha = np.NaN
+            _alpha = np.nan
             _alpha_status = False
 
         initialization_table = self.parent.initialization_table
-        initialization_table['sigma'] = _sigma
-        initialization_table['alpha'] = _alpha
+        initialization_table["sigma"] = _sigma
+        initialization_table["alpha"] = _alpha
         self.grand_parent.initialization_table = initialization_table
 
         self.ui.sigma_error.setVisible(not _sigma_status)

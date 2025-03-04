@@ -12,8 +12,7 @@ from src.ibeatles.fitting.kropff.get import Get
 
 class FittingParametersViewerEditorHandler:
     colorscale_nbr_row = 15
-    colorscale_cell_size = {'width': 75,
-                            'height': 30}
+    colorscale_cell_size = {"width": 75, "height": 30}
 
     def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent
@@ -39,9 +38,9 @@ class FittingParametersViewerEditorHandler:
         # retrieve min and max values
         # if np.isnan(array_2d_values).any():
         #     print("#1")
-        #     min_value = np.NaN
-        #     max_value = np.NaN
-        #     mid_point = np.NaN
+        #     min_value = np.nan
+        #     max_value = np.nan
+        #     mid_point = np.nan
         # else:
         # print("#2")
         min_value = np.nanmin(array_2d_values)
@@ -55,9 +54,9 @@ class FittingParametersViewerEditorHandler:
         for _row in np.arange(nbr_row):
             for _col in np.arange(nbr_column):
                 _value = array_2d_values[_row, _col]
-                _color = self.get_color_for_this_value(min_value=min_value,
-                                                       max_value=max_value,
-                                                       value=_value)
+                _color = self.get_color_for_this_value(
+                    min_value=min_value, max_value=max_value, value=_value
+                )
                 if np.isnan(_value):
                     _item = QTableWidgetItem("nan")
                 else:
@@ -99,14 +98,14 @@ class FittingParametersViewerEditorHandler:
                 self.parent.ui.variable_table.setItem(_row, _col, _item)
                 self.parent.ui.variable_table.blockSignals(False)
 
-    def is_bin_fixed(self, bin_index=0, variable_name='lambda_hkl'):
-        return self.table_dictionary[str(bin_index)][variable_name]['fixed']
+    def is_bin_fixed(self, bin_index=0, variable_name="lambda_hkl"):
+        return self.table_dictionary[str(bin_index)][variable_name]["fixed"]
 
     def is_bin_locked(self, bin_index=0):
-        return self.table_dictionary[str(bin_index)]['lock']
+        return self.table_dictionary[str(bin_index)]["lock"]
 
     def is_bin_activated(self, bin_index=0):
-        return self.table_dictionary[str(bin_index)]['active']
+        return self.table_dictionary[str(bin_index)]["active"]
 
     def clear_colorscale_table(self):
         nbr_row = self.parent.colorscale_table.rowCount()
@@ -121,7 +120,7 @@ class FittingParametersViewerEditorHandler:
         mid_point = int(nbr_row / 2)
         _row = 0
 
-        if (min_value == max_value):
+        if min_value == max_value:
             nbr_row = 1
 
         if np.isnan(step):
@@ -129,20 +128,23 @@ class FittingParametersViewerEditorHandler:
 
         for _index in np.arange(nbr_row - 1, -1, -1):
             self.parent.colorscale_table.insertRow(_row)
-            self.parent.colorscale_table.setRowHeight(_row, self.colorscale_cell_size['height'])
-            self.parent.colorscale_table.setColumnWidth(_row, self.colorscale_cell_size['width'])
+            self.parent.colorscale_table.setRowHeight(
+                _row, self.colorscale_cell_size["height"]
+            )
+            self.parent.colorscale_table.setColumnWidth(
+                _row, self.colorscale_cell_size["width"]
+            )
             if np.isnan(step):
-                _value = np.NaN
+                _value = np.nan
             else:
                 _value = min_value + _index * step
-            _color = self.get_color_for_this_value(min_value=min_value,
-                                                   max_value=max_value,
-                                                   value=_value)
+            _color = self.get_color_for_this_value(
+                min_value=min_value, max_value=max_value, value=_value
+            )
 
             if np.isnan(_value):
                 _item = QTableWidgetItem("nan")
             else:
-
                 o_get = Get(parent=self.parent)
                 if o_get.variable_selected() == SessionSubKeys.sigma:
                     _item = QTableWidgetItem("{:04.6f}".format(_value))
@@ -165,7 +167,9 @@ class FittingParametersViewerEditorHandler:
         elif max_value == min_value:
             return QtGui.QColor(250, 0, 0, alpha=255)  # red
 
-        _ratio = 1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value))
+        _ratio = 1 - (float(value) - float(min_value)) / (
+            float(max_value) - float(min_value)
+        )
         return QtGui.QColor(0, int(_ratio * 255), 0, alpha=255)
 
     def create_array_of_variable(self, variable=None):
@@ -175,24 +179,22 @@ class FittingParametersViewerEditorHandler:
 
         table_dictionary = self.grand_parent.kropff_table_dictionary
         _table_selection = self.grand_parent.fitting_selection
-        nbr_column = _table_selection['nbr_column']
-        nbr_row = _table_selection['nbr_row']
+        nbr_column = _table_selection["nbr_column"]
+        nbr_row = _table_selection["nbr_row"]
 
         _array = np.zeros((nbr_row, nbr_column), dtype=float)
 
         for _entry in table_dictionary.keys():
-            row_index = table_dictionary[_entry]['row_index']
-            column_index = table_dictionary[_entry]['column_index']
-            value = table_dictionary[_entry][variable]['val']
+            row_index = table_dictionary[_entry]["row_index"]
+            column_index = table_dictionary[_entry]["column_index"]
+            value = table_dictionary[_entry][variable]["val"]
             _array[row_index, column_index] = value
 
         return _array
 
-    def set_new_value_to_selected_bins(self, selection=[],
-                                       variable_name='d_spacing',
-                                       variable_value=0,
-                                       table_nbr_row=0):
-
+    def set_new_value_to_selected_bins(
+        self, selection=[], variable_name="d_spacing", variable_value=0, table_nbr_row=0
+    ):
         table_dictionary = self.table_dictionary
         nbr_row = table_nbr_row
 
@@ -204,10 +206,14 @@ class FittingParametersViewerEditorHandler:
             for _row in np.arange(_top_row, _bottom_row + 1):
                 for _col in np.arange(_left_column, _right_column + 1):
                     _index = str(_row + _col * nbr_row)
-                    if not table_dictionary[_index]['lock']:
-                        table_dictionary[_index][variable_name]['val'] = float(variable_value)
-                        table_dictionary[_index][variable_name]['err'] = np.NaN
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
+                    if not table_dictionary[_index]["lock"]:
+                        table_dictionary[_index][variable_name]["val"] = float(
+                            variable_value
+                        )
+                        table_dictionary[_index][variable_name]["err"] = np.nan
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(
+                _select, False
+            )
 
         self.grand_parent.kropff_table_dictionary = table_dictionary
         self.populate_table_with_variable(variable=variable_name)
@@ -216,14 +222,15 @@ class FittingParametersViewerEditorHandler:
         o_get = Get(parent=self.parent)
         variable_selected = o_get.variable_selected()
 
-        key = convert_bins_to_keys(list_of_bins=[(row, column)],
-                                   full_bin_height=self.parent.nbr_row)
+        key = convert_bins_to_keys(
+            list_of_bins=[(row, column)], full_bin_height=self.parent.nbr_row
+        )
 
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         cell_value = o_table.get_item_float_from_cell(row=row, column=column)
 
         table_dictionary = self.parent.kropff_table_dictionary
-        table_dictionary[key[0]][variable_selected]['val'] = cell_value
+        table_dictionary[key[0]][variable_selected]["val"] = cell_value
 
         self.parent.kropff_table_dictionary = table_dictionary
         self.grand_parent.kropff_table_dictionary = table_dictionary

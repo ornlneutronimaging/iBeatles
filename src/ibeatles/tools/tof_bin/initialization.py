@@ -1,7 +1,5 @@
-from qtpy.QtWidgets import QProgressBar, QVBoxLayout, QHBoxLayout, QRadioButton
-from qtpy.QtWidgets import QSpacerItem, QSizePolicy, QWidget
+from qtpy.QtWidgets import QProgressBar, QVBoxLayout
 from qtpy.QtGui import QIcon
-from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 
 from src.ibeatles import interact_me_style
@@ -13,7 +11,6 @@ from src.ibeatles import stats_table_image, stats_plot_image
 
 
 class Initialization:
-
     def __init__(self, parent=None, top_parent=None):
         self.parent = parent
         self.top_parent = top_parent
@@ -42,7 +39,9 @@ class Initialization:
         self.parent.eventProgress.setMaximumSize(540, 100)
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
-        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
+        self.parent.setStyleSheet(
+            "QStatusBar{padding-left:8px;color:red;font-weight:bold;}"
+        )
 
     def splitter(self):
         self.parent.ui.bin_horizontal_splitter.setSizes([300, 800])
@@ -62,22 +61,23 @@ class Initialization:
         self.parent.ui.bin_vertical_splitter.setHandleWidth(15)
 
     def combobox(self):
-        list_of_options = ['mean', 'median', 'std', 'min', 'max']
+        list_of_options = ["mean", "median", "std", "min", "max"]
         self.parent.ui.bin_stats_comboBox.blockSignals(True)
         self.parent.ui.bin_stats_comboBox.addItems(list_of_options)
         self.parent.ui.bin_stats_comboBox.blockSignals(False)
 
     def table(self):
-
         # bin auto table
         o_table = TableHandler(table_ui=self.parent.ui.bin_auto_tableWidget)
         column_sizes = [40, 35, 60, 115, 115]
         o_table.set_column_sizes(column_sizes=column_sizes)
-        column_names = ['use?',
-                        'bin #',
-                        'file #',
-                        'tof range (' + MICRO + "s)",
-                        LAMBDA + " range (" + ANGSTROMS + ")"]
+        column_names = [
+            "use?",
+            "bin #",
+            "file #",
+            "tof range (" + MICRO + "s)",
+            LAMBDA + " range (" + ANGSTROMS + ")",
+        ]
         o_table.set_column_names(column_names=column_names)
 
         # bin manual table
@@ -89,29 +89,34 @@ class Initialization:
 
         # statistics
         o_table = TableHandler(table_ui=self.parent.ui.statistics_tableWidget)
-        column_names = ['bin #',
-                        'file #',
-                        'tof range (' + MICRO + "s)",
-                        LAMBDA + " range (" + ANGSTROMS + ")",
-                        'mean',
-                        'median',
-                        'std',
-                        'min',
-                        'max',
-                        ]
+        column_names = [
+            "bin #",
+            "file #",
+            "tof range (" + MICRO + "s)",
+            LAMBDA + " range (" + ANGSTROMS + ")",
+            "mean",
+            "median",
+            "std",
+            "min",
+            "max",
+        ]
         o_table.set_column_names(column_names=column_names)
         column_sizes = [35, 80, 130, 130, 130, 130, 130, 130, 130]
         o_table.set_column_sizes(column_sizes=column_sizes)
 
     def labels(self):
-        self.parent.ui.bin_auto_log_file_index_radioButton.setText(DELTA + "file_index/file_index")
+        self.parent.ui.bin_auto_log_file_index_radioButton.setText(
+            DELTA + "file_index/file_index"
+        )
         self.parent.ui.bin_auto_log_tof_radioButton.setText(DELTA + "tof")
-        self.parent.ui.bin_auto_log_lambda_radioButton.setText(DELTA + LAMBDA + "/" + LAMBDA)
+        self.parent.ui.bin_auto_log_lambda_radioButton.setText(
+            DELTA + LAMBDA + "/" + LAMBDA
+        )
 
         self.parent.ui.auto_linear_file_index_radioButton.setText(DELTA + " file index")
         self.parent.ui.auto_linear_tof_radioButton.setText(DELTA + " tof")
         self.parent.ui.auto_linear_lambda_radioButton.setText(DELTA + LAMBDA)
-        self.parent.ui.bin_auto_linear_tof_units_label.setText(MICRO + 's')
+        self.parent.ui.bin_auto_linear_tof_units_label.setText(MICRO + "s")
         self.parent.ui.bin_auto_linear_lambda_units_label.setText(ANGSTROMS)
 
     def tab(self):
@@ -149,6 +154,10 @@ class Initialization:
         self.parent.ui.bin_widget.setLayout(layout)
 
     def widgets(self):
-        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setIcon(QIcon(more_infos_image))
-        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setToolTip("Display full original bin axis")
+        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setIcon(
+            QIcon(more_infos_image)
+        )
+        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setToolTip(
+            "Display full original bin axis"
+        )
         self.parent.ui.select_folder_pushButton.setStyleSheet(interact_me_style)

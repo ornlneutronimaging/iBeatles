@@ -1,5 +1,15 @@
-from qtpy.QtWidgets import (QProgressBar, QVBoxLayout, QPushButton, QHBoxLayout, QRadioButton, QWidget, QSpacerItem,
-                            QSizePolicy, QScrollBar, QLabel)
+from qtpy.QtWidgets import (
+    QProgressBar,
+    QVBoxLayout,
+    QPushButton,
+    QHBoxLayout,
+    QRadioButton,
+    QWidget,
+    QSpacerItem,
+    QSizePolicy,
+    QScrollBar,
+    QLabel,
+)
 from qtpy.QtGui import QPixmap
 from qtpy import QtCore
 from qtpy.QtGui import QIcon
@@ -7,11 +17,27 @@ from qtpy.QtCore import QSize
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 
-from neutronbraggedge.material_handler.retrieve_material_metadata import RetrieveMaterialMetadata
+from neutronbraggedge.material_handler.retrieve_material_metadata import (
+    RetrieveMaterialMetadata,
+)
 
-from src.ibeatles import fitting_image, pixel_binning_image, rotate_image, strain_mapping_image, tof_binning_image, tof_combine_image
-from src.ibeatles.icons import icons_rc  # do not remove
-from src.ibeatles import step1_icon, step2_icon, step3_icon, step4_icon, infos_file, preview_file, error_icon_file
+from src.ibeatles import (
+    fitting_image,
+    pixel_binning_image,
+    rotate_image,
+    strain_mapping_image,
+    tof_binning_image,
+    tof_combine_image,
+)
+from src.ibeatles import (
+    step1_icon,
+    step2_icon,
+    step3_icon,
+    step4_icon,
+    infos_file,
+    preview_file,
+    error_icon_file,
+)
 from src.ibeatles import DataType
 from src.ibeatles.step1.roi import Roi
 from src.ibeatles.utilities.table_handler import TableHandler
@@ -24,7 +50,6 @@ tab6_bottom_button_height = 250
 
 
 class Initialization:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -108,7 +133,9 @@ class Initialization:
         self.parent.eventProgress.setMaximumSize(540, 100)
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
-        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
+        self.parent.setStyleSheet(
+            "QStatusBar{padding-left:8px;color:red;font-weight:bold;}"
+        )
 
     def gui(self):
         # define position and size
@@ -126,15 +153,15 @@ class Initialization:
         self.parent.ui.tabWidget.setTabEnabled(1, False)
 
         # add shortcuts to menu button
-        self.parent.ui.action1_load_data.setShortcut('Ctrl+1')
-        self.parent.ui.action2_Normalization_2.setShortcut('Ctrl+2')
-        self.parent.ui.action3_Normalized_Data.setShortcut('Ctrl+3')
-        self.parent.ui.action3_Binning.setShortcut('Ctrl+4')
-        self.parent.ui.action4_Fitting.setShortcut('Ctrl+5')
-        self.parent.ui.action5_Results.setShortcut('Ctrl+6')
+        self.parent.ui.action1_load_data.setShortcut("Ctrl+1")
+        self.parent.ui.action2_Normalization_2.setShortcut("Ctrl+2")
+        self.parent.ui.action3_Normalized_Data.setShortcut("Ctrl+3")
+        self.parent.ui.action3_Binning.setShortcut("Ctrl+4")
+        self.parent.ui.action4_Fitting.setShortcut("Ctrl+5")
+        self.parent.ui.action5_Results.setShortcut("Ctrl+6")
 
     def material_widgets(self):
-        retrieve_material = RetrieveMaterialMetadata(material='all')
+        retrieve_material = RetrieveMaterialMetadata(material="all")
         list_returned = retrieve_material.full_list_material()
 
         self.parent.ui.pre_defined_list_of_elements.blockSignals(True)
@@ -154,7 +181,7 @@ class Initialization:
         # self.parent.ui.lattice_parameter.setText(_lattice)
         # o_gui.set_crystal_structure(_crystal_structure)
 
-        column_names = ['h', 'k', 'l', f'\u03BB\u2090']
+        column_names = ["h", "k", "l", "\u03bb\u2090"]
         o_table = TableHandler(table_ui=self.parent.ui.pre_defined_tableWidget)
         o_table.set_column_names(column_names=column_names)
         o_table = TableHandler(table_ui=self.parent.ui.method1_tableWidget)
@@ -170,34 +197,39 @@ class Initialization:
 
     def labels(self):
         # micros
-        self.parent.ui.micro_s.setText(u"\u00B5s")
+        self.parent.ui.micro_s.setText("\u00b5s")
         # distance source detector
-        self.parent.ui.distance_source_detector_label.setText("d<sub> source-detector</sub>")
+        self.parent.ui.distance_source_detector_label.setText(
+            "d<sub> source-detector</sub>"
+        )
         # delta lambda
-        self.parent.ui.delta_lambda_label.setText(u"\u0394\u03BB:")
+        self.parent.ui.delta_lambda_label.setText("\u0394\u03bb:")
         # Angstroms
-        self.parent.ui.pre_defined_lattice_units.setText(u"\u212B")
-        self.parent.ui.method1_lattice_units.setText(u"\u212B")
+        self.parent.ui.pre_defined_lattice_units.setText("\u212b")
+        self.parent.ui.method1_lattice_units.setText("\u212b")
 
         # # tab 4
         # self.parent.ui.analysis_tab_arrow_label1.setStyleSheet(f"background-image: {right_blue_arrow}")
         # self.parent.ui.analysis_tab_arrow_label1.resize(200, 200)
 
-    def general_init_pyqtgrpah(self, roi_function,
-                               base_widget,
-                               add_function,
-                               mean_function,
-                               file_index_function,
-                               tof_function,
-                               lambda_function,
-                               scroll_bar_function):
+    def general_init_pyqtgrpah(
+        self,
+        roi_function,
+        base_widget,
+        add_function,
+        mean_function,
+        file_index_function,
+        tof_function,
+        lambda_function,
+        scroll_bar_function,
+    ):
         area = DockArea()
         area.setVisible(False)
         d1 = Dock("Image Preview", size=(200, 200))
         d2 = Dock("Bragg Edge", size=(200, 200))
 
-        area.addDock(d1, 'top')
-        area.addDock(d2, 'bottom')
+        area.addDock(d1, "top")
+        area.addDock(d2, "bottom")
 
         preview_widget = pg.GraphicsLayoutWidget()
         pg.setConfigOptions(antialias=True)  # this improves the display
@@ -243,7 +275,7 @@ class Initialization:
         d1.addWidget(top_right_widget)
 
         # bragg edge plot
-        bragg_edge_plot = pg.PlotWidget(title='')
+        bragg_edge_plot = pg.PlotWidget(title="")
         bragg_edge_plot.plot()
 
         # bragg_edge_plot.setLabel("top", "")
@@ -273,7 +305,7 @@ class Initialization:
 
         # lambda
         lambda_button = QRadioButton()
-        lambda_button.setText(u"\u03BB")
+        lambda_button.setText("\u03bb")
         lambda_button.pressed.connect(lambda_function)
 
         spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -308,95 +340,117 @@ class Initialization:
         vertical_layout.addWidget(area)
         base_widget.setLayout(vertical_layout)
 
-        return [area, image_view, roi, bragg_edge_plot,
-                caxis, roi_editor_button, add_button, mean_button,
-                file_index_button, tof_button, lambda_button,
-                scroll_label, hori_scroll_widget]
+        return [
+            area,
+            image_view,
+            roi,
+            bragg_edge_plot,
+            caxis,
+            roi_editor_button,
+            add_button,
+            mean_button,
+            file_index_button,
+            tof_button,
+            lambda_button,
+            scroll_label,
+            hori_scroll_widget,
+        ]
 
     def pyqtgraph(self):
         # sample
-        [self.parent.ui.area,
-         self.parent.ui.image_view,
-         self.parent.ui.image_view_roi,
-         self.parent.ui.bragg_edge_plot,
-         self.parent.ui.caxis,
-         self.parent.ui.roi_editor_button,
-         self.parent.ui.roi_add_button,
-         self.parent.ui.roi_mean_button,
-         file_index_button,
-         tof_button,
-         lambda_button,
-         self.parent.hkl_scrollbar_ui['label'][DataType.sample],
-         self.parent.hkl_scrollbar_ui['widget'][DataType.sample]] = self.general_init_pyqtgrpah(
-                self.parent.roi_image_view_changed,
-                self.parent.ui.preview_widget,
-                self.parent.roi_algorithm_is_add_clicked,
-                self.parent.roi_algorithm_is_mean_clicked,
-                self.parent.file_index_xaxis_button_clicked,
-                self.parent.tof_xaxis_button_clicked,
-                self.parent.lambda_xaxis_button_clicked,
-                self.parent.sample_hkl_scrollbar_changed)
+        [
+            self.parent.ui.area,
+            self.parent.ui.image_view,
+            self.parent.ui.image_view_roi,
+            self.parent.ui.bragg_edge_plot,
+            self.parent.ui.caxis,
+            self.parent.ui.roi_editor_button,
+            self.parent.ui.roi_add_button,
+            self.parent.ui.roi_mean_button,
+            file_index_button,
+            tof_button,
+            lambda_button,
+            self.parent.hkl_scrollbar_ui["label"][DataType.sample],
+            self.parent.hkl_scrollbar_ui["widget"][DataType.sample],
+        ] = self.general_init_pyqtgrpah(
+            self.parent.roi_image_view_changed,
+            self.parent.ui.preview_widget,
+            self.parent.roi_algorithm_is_add_clicked,
+            self.parent.roi_algorithm_is_mean_clicked,
+            self.parent.file_index_xaxis_button_clicked,
+            self.parent.tof_xaxis_button_clicked,
+            self.parent.lambda_xaxis_button_clicked,
+            self.parent.sample_hkl_scrollbar_changed,
+        )
 
-        self.parent.list_roi_id['sample'].append(self.parent.ui.image_view_roi)
-        self.parent.xaxis_button_ui['sample']['tof'] = tof_button
-        self.parent.xaxis_button_ui['sample']['file_index'] = file_index_button
-        self.parent.xaxis_button_ui['sample']['lambda'] = lambda_button
+        self.parent.list_roi_id["sample"].append(self.parent.ui.image_view_roi)
+        self.parent.xaxis_button_ui["sample"]["tof"] = tof_button
+        self.parent.xaxis_button_ui["sample"]["file_index"] = file_index_button
+        self.parent.xaxis_button_ui["sample"]["lambda"] = lambda_button
 
         # ob
-        [self.parent.ui.ob_area,
-         self.parent.ui.ob_image_view,
-         self.parent.ui.ob_image_view_roi,
-         self.parent.ui.ob_bragg_edge_plot,
-         self.parent.ui.ob_caxis,
-         self.parent.ui.ob_roi_editor_button,
-         self.parent.ui.ob_roi_add_button,
-         self.parent.ui.ob_roi_mean_button,
-         file_index_button,
-         tof_button,
-         lambda_button,
-         self.parent.hkl_scrollbar_ui['label'][DataType.ob],
-         self.parent.hkl_scrollbar_ui['widget'][DataType.ob]] = self.general_init_pyqtgrpah(
-                self.parent.roi_ob_image_view_changed,
-                self.parent.ui.ob_preview_widget,
-                self.parent.ob_roi_algorithm_is_add_clicked,
-                self.parent.ob_roi_algorithm_is_mean_clicked,
-                self.parent.ob_file_index_xaxis_button_clicked,
-                self.parent.ob_tof_xaxis_button_clicked,
-                self.parent.ob_lambda_xaxis_button_clicked,
-                self.parent.ob_hkl_scrollbar_changed)
+        [
+            self.parent.ui.ob_area,
+            self.parent.ui.ob_image_view,
+            self.parent.ui.ob_image_view_roi,
+            self.parent.ui.ob_bragg_edge_plot,
+            self.parent.ui.ob_caxis,
+            self.parent.ui.ob_roi_editor_button,
+            self.parent.ui.ob_roi_add_button,
+            self.parent.ui.ob_roi_mean_button,
+            file_index_button,
+            tof_button,
+            lambda_button,
+            self.parent.hkl_scrollbar_ui["label"][DataType.ob],
+            self.parent.hkl_scrollbar_ui["widget"][DataType.ob],
+        ] = self.general_init_pyqtgrpah(
+            self.parent.roi_ob_image_view_changed,
+            self.parent.ui.ob_preview_widget,
+            self.parent.ob_roi_algorithm_is_add_clicked,
+            self.parent.ob_roi_algorithm_is_mean_clicked,
+            self.parent.ob_file_index_xaxis_button_clicked,
+            self.parent.ob_tof_xaxis_button_clicked,
+            self.parent.ob_lambda_xaxis_button_clicked,
+            self.parent.ob_hkl_scrollbar_changed,
+        )
 
-        self.parent.list_roi_id['ob'].append(self.parent.ui.ob_image_view_roi)
-        self.parent.xaxis_button_ui['ob']['tof'] = tof_button
-        self.parent.xaxis_button_ui['ob']['file_index'] = file_index_button
-        self.parent.xaxis_button_ui['ob']['lambda'] = lambda_button
+        self.parent.list_roi_id["ob"].append(self.parent.ui.ob_image_view_roi)
+        self.parent.xaxis_button_ui["ob"]["tof"] = tof_button
+        self.parent.xaxis_button_ui["ob"]["file_index"] = file_index_button
+        self.parent.xaxis_button_ui["ob"]["lambda"] = lambda_button
 
         # normalized
-        [self.parent.ui.normalized_area,
-         self.parent.ui.normalized_image_view,
-         self.parent.ui.normalized_image_view_roi,
-         self.parent.ui.normalized_bragg_edge_plot,
-         self.parent.ui.normalized_caxis,
-         self.parent.ui.normalized_roi_editor_button,
-         self.parent.ui.normalized_roi_add_button,
-         self.parent.ui.normalized_roi_mean_button,
-         file_index_button1,
-         tof_button1,
-         lambda_button1,
-         self.parent.hkl_scrollbar_ui['label'][DataType.normalized],
-         self.parent.hkl_scrollbar_ui['widget'][DataType.normalized]] = self.general_init_pyqtgrpah(
-                self.parent.roi_normalized_image_view_changed,
-                self.parent.ui.normalized_preview_widget,
-                self.parent.normalized_roi_algorithm_is_add_clicked,
-                self.parent.normalized_roi_algorithm_is_mean_clicked,
-                self.parent.normalized_file_index_xaxis_button_clicked,
-                self.parent.normalized_tof_xaxis_button_clicked,
-                self.parent.normalized_lambda_xaxis_button_clicked,
-                self.parent.normalized_hkl_scrollbar_changed)
+        [
+            self.parent.ui.normalized_area,
+            self.parent.ui.normalized_image_view,
+            self.parent.ui.normalized_image_view_roi,
+            self.parent.ui.normalized_bragg_edge_plot,
+            self.parent.ui.normalized_caxis,
+            self.parent.ui.normalized_roi_editor_button,
+            self.parent.ui.normalized_roi_add_button,
+            self.parent.ui.normalized_roi_mean_button,
+            file_index_button1,
+            tof_button1,
+            lambda_button1,
+            self.parent.hkl_scrollbar_ui["label"][DataType.normalized],
+            self.parent.hkl_scrollbar_ui["widget"][DataType.normalized],
+        ] = self.general_init_pyqtgrpah(
+            self.parent.roi_normalized_image_view_changed,
+            self.parent.ui.normalized_preview_widget,
+            self.parent.normalized_roi_algorithm_is_add_clicked,
+            self.parent.normalized_roi_algorithm_is_mean_clicked,
+            self.parent.normalized_file_index_xaxis_button_clicked,
+            self.parent.normalized_tof_xaxis_button_clicked,
+            self.parent.normalized_lambda_xaxis_button_clicked,
+            self.parent.normalized_hkl_scrollbar_changed,
+        )
 
-        self.parent.list_roi_id['normalized'].append(self.parent.ui.normalized_image_view_roi)
-        self.parent.xaxis_button_ui['normalized']['tof'] = tof_button1
-        self.parent.xaxis_button_ui['normalized']['file_index'] = file_index_button1
-        self.parent.xaxis_button_ui['normalized']['lambda'] = lambda_button1
+        self.parent.list_roi_id["normalized"].append(
+            self.parent.ui.normalized_image_view_roi
+        )
+        self.parent.xaxis_button_ui["normalized"]["tof"] = tof_button1
+        self.parent.xaxis_button_ui["normalized"]["file_index"] = file_index_button1
+        self.parent.xaxis_button_ui["normalized"]["lambda"] = lambda_button1
 
     def icons(self):
         # reset buttons
@@ -408,34 +462,38 @@ class Initialization:
 
         rotate_icon = QIcon(rotate_image)
         self.parent.ui.rotate_pushButton.setIcon(rotate_icon)
-        self.parent.ui.rotate_pushButton.setIconSize(QSize(tab6_top_button_width,
-                                                           tab6_top_button_height))
+        self.parent.ui.rotate_pushButton.setIconSize(
+            QSize(tab6_top_button_width, tab6_top_button_height)
+        )
 
         tof_combine_icon = QIcon(tof_combine_image)
         self.parent.ui.tof_combine_pushButton.setIcon(tof_combine_icon)
-        self.parent.ui.tof_combine_pushButton.setIconSize(QSize(tab6_top_button_width,
-                                                                tab6_top_button_height))
+        self.parent.ui.tof_combine_pushButton.setIconSize(
+            QSize(tab6_top_button_width, tab6_top_button_height)
+        )
 
         tof_binning_icon = QIcon(tof_binning_image)
         self.parent.ui.tof_binning_pushButton.setIcon(tof_binning_icon)
-        self.parent.ui.tof_binning_pushButton.setIconSize(QSize(tab6_top_button_width,
-                                                                tab6_top_button_height))
+        self.parent.ui.tof_binning_pushButton.setIconSize(
+            QSize(tab6_top_button_width, tab6_top_button_height)
+        )
 
         # tab6 - bottom buttons
 
         pixel_binning_icon = QIcon(pixel_binning_image)
         self.parent.ui.roi_pixel_binning_pushButton.setIcon(pixel_binning_icon)
-        self.parent.ui.roi_pixel_binning_pushButton.setIconSize(QSize(tab6_bottom_buttom_width,
-                                                                      tab6_bottom_button_height))
+        self.parent.ui.roi_pixel_binning_pushButton.setIconSize(
+            QSize(tab6_bottom_buttom_width, tab6_bottom_button_height)
+        )
 
         fitting_icon = QIcon(fitting_image)
         self.parent.ui.fitting_pushButton.setIcon(fitting_icon)
-        self.parent.ui.fitting_pushButton.setIconSize(QSize(tab6_bottom_buttom_width,
-                                                            tab6_bottom_button_height))
+        self.parent.ui.fitting_pushButton.setIconSize(
+            QSize(tab6_bottom_buttom_width, tab6_bottom_button_height)
+        )
 
         strain_mapping_icon = QIcon(strain_mapping_image)
         self.parent.ui.strain_mapping_pushButton.setIcon(strain_mapping_icon)
-        self.parent.ui.strain_mapping_pushButton.setIconSize(QSize(tab6_bottom_buttom_width,
-                                                                   tab6_bottom_button_height))
-
-
+        self.parent.ui.strain_mapping_pushButton.setIconSize(
+            QSize(tab6_bottom_buttom_width, tab6_bottom_button_height)
+        )

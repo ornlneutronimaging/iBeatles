@@ -4,7 +4,6 @@ from src.ibeatles.step6 import ParametersToDisplay
 
 
 class Get:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -27,11 +26,15 @@ class Get:
         d0 = self.active_d0()
         strain_mapping = (d_array - d0) / d0
 
-        if self.parent.min_max['strain_mapping'] is None:
-            self.parent.min_max['strain_mapping'] = {'min': np.nanmin(strain_mapping),
-                                                     'max': np.nanmax(strain_mapping)}
-            self.parent.min_max['strain_mapping'] = {'global_min': np.nanmin(strain_mapping),
-                                                     'global_max': np.nanmax(strain_mapping)}
+        if self.parent.min_max["strain_mapping"] is None:
+            self.parent.min_max["strain_mapping"] = {
+                "min": np.nanmin(strain_mapping),
+                "max": np.nanmax(strain_mapping),
+            }
+            self.parent.min_max["strain_mapping"] = {
+                "global_min": np.nanmin(strain_mapping),
+                "global_max": np.nanmax(strain_mapping),
+            }
 
         return strain_mapping
 
@@ -40,11 +43,15 @@ class Get:
         d0 = self.active_d0()
         strain_mapping = (d_array - d0) / d0
 
-        if self.parent.min_max['strain_mapping'] is None:
-            self.parent.min_max['strain_mapping'] = {'min': np.nanmin(strain_mapping),
-                                                     'max': np.nanmax(strain_mapping)}
-            self.parent.min_max['strain_mapping'] = {'global_min': np.nanmin(strain_mapping),
-                                                     'global_max': np.nanmax(strain_mapping)}
+        if self.parent.min_max["strain_mapping"] is None:
+            self.parent.min_max["strain_mapping"] = {
+                "min": np.nanmin(strain_mapping),
+                "max": np.nanmax(strain_mapping),
+            }
+            self.parent.min_max["strain_mapping"] = {
+                "global_min": np.nanmin(strain_mapping),
+                "global_max": np.nanmax(strain_mapping),
+            }
 
         return strain_mapping
 
@@ -59,13 +66,15 @@ class Get:
         strain_mapping_dict = {}
         for _row in d_dict.keys():
             d0 = self.active_d0()
-            d = d_dict[_row]['val']
-            d_error = d_dict[_row]['err']
+            d = d_dict[_row]["val"]
+            d_error = d_dict[_row]["err"]
             strain_mapping = (d - d0) / d0
             strain_mapping_err = d_error + np.sqrt(d0)
 
-            strain_mapping_dict[_row] = {'val': strain_mapping,
-                                         'err': strain_mapping_err}
+            strain_mapping_dict[_row] = {
+                "val": strain_mapping,
+                "err": strain_mapping_err,
+            }
 
         return strain_mapping_dict
 

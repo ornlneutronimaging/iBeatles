@@ -9,14 +9,14 @@ from src.ibeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class AdvancedSelectionLauncher(object):
-
     def __init__(self, grand_parent=None, parent=None):
         self.grand_parent = grand_parent
         self.parent = parent
 
         if self.grand_parent.advanced_selection_ui is None:
-            advanced_window = AdvancedSelectionWindow(grand_parent=grand_parent,
-                                                      parent=parent)
+            advanced_window = AdvancedSelectionWindow(
+                grand_parent=grand_parent, parent=parent
+            )
             self.grand_parent.advanced_selection_ui = advanced_window
             advanced_window.show()
         else:
@@ -25,13 +25,11 @@ class AdvancedSelectionLauncher(object):
 
 
 class AdvancedSelectionWindow(QMainWindow):
-
     def __init__(self, grand_parent=None, parent=None):
-
         self.grand_parent = grand_parent
         self.parent = parent
         QMainWindow.__init__(self, parent=grand_parent)
-        self.ui = load_ui('ui_advancedFittingSelection.ui', baseinstance=self)
+        self.ui = load_ui("ui_advancedFittingSelection.ui", baseinstance=self)
         self.setWindowTitle("Graphical Selection Tool")
 
         self.ui.selection_table.blockSignals(True)
@@ -42,8 +40,8 @@ class AdvancedSelectionWindow(QMainWindow):
 
     def init_table(self):
         fitting_selection = self.grand_parent.fitting_selection
-        nbr_row = fitting_selection['nbr_row']
-        nbr_column = fitting_selection['nbr_column']
+        nbr_row = fitting_selection["nbr_row"]
+        nbr_column = fitting_selection["nbr_column"]
 
         # selection table
         self.ui.selection_table.setColumnCount(nbr_column)
@@ -60,23 +58,22 @@ class AdvancedSelectionWindow(QMainWindow):
         self.selection_cell_size_changed(value)
 
     def update_selection_table(self):
-        self.update_table(state_field='active',
-                          table_ui=self.ui.selection_table)
+        self.update_table(state_field="active", table_ui=self.ui.selection_table)
 
     def update_lock_table(self):
-        self.update_table(state_field='lock',
-                          table_ui=self.ui.lock_table)
+        self.update_table(state_field="lock", table_ui=self.ui.lock_table)
 
-    def update_table(self, state_field='', table_ui=None):
+    def update_table(self, state_field="", table_ui=None):
         table_dictionary = self.grand_parent.march_table_dictionary
 
         for _index in table_dictionary:
             _entry = table_dictionary[_index]
             state = _entry[state_field]
-            row_index = _entry['row_index']
-            column_index = _entry['column_index']
-            _selection = QTableWidgetSelectionRange(row_index, column_index,
-                                                    row_index, column_index)
+            row_index = _entry["row_index"]
+            column_index = _entry["column_index"]
+            _selection = QTableWidgetSelectionRange(
+                row_index, column_index, row_index, column_index
+            )
             table_ui.setRangeSelected(_selection, state)
 
     def selection_cell_size_changed(self, value):
@@ -92,7 +89,6 @@ class AdvancedSelectionWindow(QMainWindow):
             self.ui.lock_table.setColumnWidth(_col, value)
 
     def selection_table_selection_changed(self):
-
         # update table and then update GUI
         selection = self.ui.selection_table.selectedRanges()
         nbr_row = self.ui.selection_table.rowCount()
@@ -100,7 +96,7 @@ class AdvancedSelectionWindow(QMainWindow):
         table_dictionary = self.grand_parent.march_table_dictionary
 
         for _entry in table_dictionary.keys():
-            table_dictionary[_entry]['active'] = False
+            table_dictionary[_entry]["active"] = False
 
         for _select in selection:
             top_row = _select.topRow()
@@ -111,19 +107,19 @@ class AdvancedSelectionWindow(QMainWindow):
                 for _col in np.arange(left_col, right_col + 1):
                     fitting_row = _col * nbr_row + _row
                     _entry = table_dictionary[str(fitting_row)]
-                    _entry['active'] = True
+                    _entry["active"] = True
                     table_dictionary[str(fitting_row)] = _entry
 
         self.grand_parent.march_table_dictionary = table_dictionary
-        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
-                                              parent=self.parent)
+        o_filling_table = FillingTableHandler(
+            grand_parent=self.grand_parent, parent=self.parent
+        )
 
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
 
-        o_event = EventHandler(parent=self.parent,
-                               grand_parent=self.grand_parent)
+        o_event = EventHandler(parent=self.parent, grand_parent=self.grand_parent)
         o_event.update_image_view_selection()
 
         self.grand_parent.fitting_ui.update_bragg_edge_plot()
@@ -136,7 +132,7 @@ class AdvancedSelectionWindow(QMainWindow):
         table_dictionary = self.grand_parent.march_table_dictionary
 
         for _entry in table_dictionary.keys():
-            table_dictionary[_entry]['lock'] = False
+            table_dictionary[_entry]["lock"] = False
 
         for _select in selection:
             top_row = _select.topRow()
@@ -147,19 +143,19 @@ class AdvancedSelectionWindow(QMainWindow):
                 for _col in np.arange(left_col, right_col + 1):
                     fitting_row = _col * nbr_row + _row
                     _entry = table_dictionary[str(fitting_row)]
-                    _entry['lock'] = True
+                    _entry["lock"] = True
                     table_dictionary[str(fitting_row)] = _entry
 
         self.grand_parent.march_table_dictionary = table_dictionary
-        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
-                                              parent=self.parent)
+        o_filling_table = FillingTableHandler(
+            grand_parent=self.grand_parent, parent=self.parent
+        )
 
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
 
-        o_event = EventHandler(parent=self.parent,
-                               grand_parent=self.grand_parent)
+        o_event = EventHandler(parent=self.parent, grand_parent=self.grand_parent)
         o_event.update_image_view_lock()
 
         self.grand_parent.fitting_ui.update_bragg_edge_plot()

@@ -7,3 +7,4 @@ designer/*.autosave
 .idea
 
 *.egg-info/
+.envrc

@@ -5,12 +5,15 @@ from src.ibeatles.tools.utilities import TimeSpectraKeys
 
 
 class LogBin:
+    log_bins = {
+        TimeSpectraKeys.tof_array: None,
+        TimeSpectraKeys.file_index_array: None,
+        TimeSpectraKeys.lambda_array: None,
+    }
 
-    log_bins = {TimeSpectraKeys.tof_array: None,
-                TimeSpectraKeys.file_index_array: None,
-                TimeSpectraKeys.lambda_array: None}
-
-    def __init__(self, parent=None, source_radio_button=TimeSpectraKeys.file_index_array):
+    def __init__(
+        self, parent=None, source_radio_button=TimeSpectraKeys.file_index_array
+    ):
         self.parent = parent
         self.source_array = source_radio_button
 
@@ -42,9 +45,8 @@ class LogBin:
 
         # we need to find where the file index end up in this array
         # will create [[0],[],[],[1],[2,3],[4,5,6,7],...]
-        index_of_bin = [[] for _ in np.arange(len(new_bin_array)-1)]
+        index_of_bin = [[] for _ in np.arange(len(new_bin_array) - 1)]
         for _bin_index, _bin in enumerate(original_array):
-
             result = np.where(_bin >= new_bin_array)
             try:
                 index = result[0][-1]
@@ -62,14 +64,17 @@ class LogBin:
 
         file_index_array_of_bins = self.log_bins[self.source_array]
 
-        original_tof_array = np.array(self.parent.time_spectra[TimeSpectraKeys.tof_array])
-        original_lambda_array = np.array(self.parent.time_spectra[TimeSpectraKeys.lambda_array])
+        original_tof_array = np.array(
+            self.parent.time_spectra[TimeSpectraKeys.tof_array]
+        )
+        original_lambda_array = np.array(
+            self.parent.time_spectra[TimeSpectraKeys.lambda_array]
+        )
 
         log_bins_tof_array = []
         log_bins_lambda_array = []
 
         for _index, _bin in enumerate(file_index_array_of_bins):
-
             if _bin == []:
                 log_bins_tof_array.append([])
                 log_bins_lambda_array.append([])

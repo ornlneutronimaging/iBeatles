@@ -4,7 +4,6 @@ from qtpy.QtWidgets import QApplication
 from src.ibeatles.utilities import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 from src.ibeatles.utilities.table_handler import TableHandler
 
-from src.ibeatles.session import SessionSubKeys
 
 from src.ibeatles.tools.tof_bin import BinMode, BinAutoMode, BinAlgorithm
 from src.ibeatles.tools.tof_bin import StatisticsName, StatisticsRegion
@@ -14,19 +13,16 @@ from src.ibeatles.tools.tof_bin.utilities.string import format_str
 
 
 class Statistics:
-
     def __init__(self, parent=None):
         self.parent = parent
 
     def update(self):
-
         o_get = Get(parent=self.parent)
 
         # check if we are looking for the auto or the manual bins
         bin_mode = o_get.bin_mode()
 
         if bin_mode == BinMode.auto:
-
             bin_auto_mode = o_get.bin_auto_mode()
             if bin_auto_mode == BinAutoMode.linear:
                 list_bins = self.parent.linear_bins
@@ -34,7 +30,6 @@ class Statistics:
                 list_bins = self.parent.log_bins
 
         else:
-
             list_bins = self.parent.manual_bins
 
         o_table = TableHandler(table_ui=self.parent.ui.statistics_tableWidget)
@@ -62,16 +57,11 @@ class Statistics:
 
         _row = 0
         for _bin_index, _bin in enumerate(file_index_bins):
-
             o_table.insert_empty_row(row=_row)
 
-            o_table.insert_item(row=_row,
-                                column=0,
-                                value=str(_row),
-                                editable=False)
+            o_table.insert_item(row=_row, column=0, value=str(_row), editable=False)
 
             if not _bin:
-
                 mean_array_full.append(np.nan)
                 median_array_full.append(np.nan)
                 std_array_full.append(np.nan)
@@ -94,31 +84,36 @@ class Statistics:
                 str_max = "N/A"
 
             else:
-
                 list_runs = file_index_bins[_bin_index]
 
-                list_runs_formatted = format_str(list_runs,
-                                                 format_str="{:d}",
-                                                 factor=1,
-                                                 data_type=TimeSpectraKeys.file_index_array)
+                list_runs_formatted = format_str(
+                    list_runs,
+                    format_str="{:d}",
+                    factor=1,
+                    data_type=TimeSpectraKeys.file_index_array,
+                )
 
                 list_tof = tof_bins[_bin_index]
-                list_tof_formatted = format_str(list_tof,
-                                                format_str="{:.2f}",
-                                                factor=TO_MICROS_UNITS,
-                                                data_type=TimeSpectraKeys.tof_array)
+                list_tof_formatted = format_str(
+                    list_tof,
+                    format_str="{:.2f}",
+                    factor=TO_MICROS_UNITS,
+                    data_type=TimeSpectraKeys.tof_array,
+                )
 
                 list_lambda = lambda_bins[_bin_index]
-                list_lambda_formatted = format_str(list_lambda,
-                                                   format_str="{:.3f}",
-                                                   factor=TO_ANGSTROMS_UNITS,
-                                                   data_type=TimeSpectraKeys.lambda_array)
+                list_lambda_formatted = format_str(
+                    list_lambda,
+                    format_str="{:.3f}",
+                    factor=TO_ANGSTROMS_UNITS,
+                    data_type=TimeSpectraKeys.lambda_array,
+                )
 
                 # calculate statistics
                 _data_dict = self.extract_data_for_this_bin(list_runs=list_runs)
 
-                full_image = _data_dict['full_image']
-                roi_of_image = _data_dict['roi_of_image']
+                full_image = _data_dict["full_image"]
+                roi_of_image = _data_dict["roi_of_image"]
 
                 # mean
                 full_mean = np.mean(full_image)
@@ -155,58 +150,52 @@ class Statistics:
                 max_array_roi.append(roi_max)
                 str_max = f"{full_max:.3f} ({roi_max:.3f})"
 
-            o_table.insert_item(row=_row,
-                                column=1,
-                                value=list_runs_formatted,
-                                editable=False)
+            o_table.insert_item(
+                row=_row, column=1, value=list_runs_formatted, editable=False
+            )
 
-            o_table.insert_item(row=_row,
-                                column=2,
-                                value=list_tof_formatted,
-                                editable=False)
+            o_table.insert_item(
+                row=_row, column=2, value=list_tof_formatted, editable=False
+            )
 
-            o_table.insert_item(row=_row,
-                                column=3,
-                                value=list_lambda_formatted,
-                                editable=False)
+            o_table.insert_item(
+                row=_row, column=3, value=list_lambda_formatted, editable=False
+            )
 
-            o_table.insert_item(row=_row,
-                                column=4,
-                                value=str_mean,
-                                editable=False)
+            o_table.insert_item(row=_row, column=4, value=str_mean, editable=False)
 
-            o_table.insert_item(row=_row,
-                                column=5,
-                                value=str_median,
-                                editable=False)
+            o_table.insert_item(row=_row, column=5, value=str_median, editable=False)
 
-            o_table.insert_item(row=_row,
-                                column=6,
-                                value=str_std,
-                                editable=False)
+            o_table.insert_item(row=_row, column=6, value=str_std, editable=False)
 
-            o_table.insert_item(row=_row,
-                                column=7,
-                                value=str_min,
-                                editable=False)
+            o_table.insert_item(row=_row, column=7, value=str_min, editable=False)
 
-            o_table.insert_item(row=_row,
-                                column=8,
-                                value=str_max,
-                                editable=False)
+            o_table.insert_item(row=_row, column=8, value=str_max, editable=False)
 
             _row += 1
 
-        self.parent.current_stats[bin_mode] = {StatisticsName.mean: {StatisticsRegion.full: mean_array_full,
-                                                                     StatisticsRegion.roi: mean_array_roi},
-                                               StatisticsName.median: {StatisticsRegion.full: median_array_full,
-                                                                       StatisticsRegion.roi: median_array_roi},
-                                               StatisticsName.std: {StatisticsRegion.full: std_array_full,
-                                                                    StatisticsRegion.roi: std_array_roi},
-                                               StatisticsName.min: {StatisticsRegion.full: min_array_full,
-                                                                    StatisticsRegion.roi: min_array_roi},
-                                               StatisticsName.max: {StatisticsRegion.full: max_array_full,
-                                                                    StatisticsRegion.roi: max_array_roi}}
+        self.parent.current_stats[bin_mode] = {
+            StatisticsName.mean: {
+                StatisticsRegion.full: mean_array_full,
+                StatisticsRegion.roi: mean_array_roi,
+            },
+            StatisticsName.median: {
+                StatisticsRegion.full: median_array_full,
+                StatisticsRegion.roi: median_array_roi,
+            },
+            StatisticsName.std: {
+                StatisticsRegion.full: std_array_full,
+                StatisticsRegion.roi: std_array_roi,
+            },
+            StatisticsName.min: {
+                StatisticsRegion.full: min_array_full,
+                StatisticsRegion.roi: min_array_roi,
+            },
+            StatisticsName.max: {
+                StatisticsRegion.full: max_array_full,
+                StatisticsRegion.roi: max_array_roi,
+            },
+        }
 
     def extract_data_for_this_bin(self, list_runs=None):
         """
@@ -218,16 +207,18 @@ class Statistics:
         """
         # retrieve statistics
         bin_roi = self.parent.bin_roi
-        x0 = bin_roi['x0']
-        y0 = bin_roi['y0']
-        width = bin_roi['width']
-        height = bin_roi['height']
+        x0 = bin_roi["x0"]
+        y0 = bin_roi["y0"]
+        width = bin_roi["width"]
+        height = bin_roi["height"]
 
         data_to_work_with = []
         for _run_index in list_runs:
             data_to_work_with.append(self.parent.images_array[_run_index])
 
-        region_to_work_with = [_data[y0: y0+height, x0: x0+width] for _data in data_to_work_with]
+        region_to_work_with = [
+            _data[y0 : y0 + height, x0 : x0 + width] for _data in data_to_work_with
+        ]
 
         # how to add images
         o_get = Get(parent=self.parent)
@@ -239,18 +230,20 @@ class Statistics:
             full_image_to_work_with = np.median(data_to_work_with, axis=0)
             roi_image_to_work_with = np.median(region_to_work_with, axis=0)
         else:
-            raise NotImplementedError("this method of adding the binned images is not supported!")
+            raise NotImplementedError(
+                "this method of adding the binned images is not supported!"
+            )
 
-        return {'full_image': full_image_to_work_with,
-                'roi_of_image': roi_image_to_work_with}
+        return {
+            "full_image": full_image_to_work_with,
+            "roi_of_image": roi_image_to_work_with,
+        }
 
     def plot_statistics(self):
-
         o_get = Get(parent=self.parent)
         bin_mode = o_get.bin_mode()
 
         if bin_mode == BinMode.auto:
-
             bin_auto_mode = o_get.bin_auto_mode()
             if bin_auto_mode == BinAutoMode.linear:
                 list_bins = self.parent.linear_bins
@@ -258,7 +251,6 @@ class Statistics:
                 list_bins = self.parent.log_bins
 
         else:
-
             list_bins = self.parent.manual_bins
 
         # if no bins to display, stop here
@@ -275,11 +267,11 @@ class Statistics:
         roi_array = stat_data_dict[StatisticsRegion.roi]
 
         self.parent.statistics_plot.ax1.clear()
-        self.parent.statistics_plot.ax1.plot(full_array, '.', label='full image')
-        self.parent.statistics_plot.ax1.plot(roi_array, '+', label='roi only')
+        self.parent.statistics_plot.ax1.plot(full_array, ".", label="full image")
+        self.parent.statistics_plot.ax1.plot(roi_array, "+", label="roi only")
 
-        self.parent.statistics_plot.ax1.set_xlabel(f"Bin #")
+        self.parent.statistics_plot.ax1.set_xlabel("Bin #")
         self.parent.statistics_plot.ax1.set_ylabel(stats_requested)
-        self.parent.statistics_plot.ax1.legend(loc='upper right')
+        self.parent.statistics_plot.ax1.legend(loc="upper right")
 
         self.parent.statistics_plot.draw()

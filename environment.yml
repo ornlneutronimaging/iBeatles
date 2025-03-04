@@ -1,11 +1,15 @@
 name: ibeatles
 channels:
+  - neutronimaging
   - conda-forge
 dependencies:
   # base
-  - python
+  - python>=3.10
+  - pip
   - versioningit
   - ipython
+  - pydantic
+  - loguru
   # packaging
   - boa
   - conda-build
@@ -15,9 +19,11 @@ dependencies:
   - pytest
   - pytest-cov
   - pytest-xdist
+  - pytest-repeat  # for debugging unstable tests
   # compute
   - astropy
   - lmfit
+  - neunorm
   # storage
   - h5py
   - sqlite
@@ -30,11 +36,11 @@ dependencies:
   # visualization
   - matplotlib
   # utilities
+  - pre-commit
   - pyparsing  # grammar
   - pytz  # time zone
   - readline  # reading command line
   # pip
   - pip:
       - neutronbraggedge  # brag edge analysis
-      - NeuNorm  # image normalization
-      - changepy  # change point detection 
+      - changepy  # change point detection

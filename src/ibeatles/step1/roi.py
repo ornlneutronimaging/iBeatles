@@ -1,7 +1,7 @@
 import pyqtgraph as pg
 
 from src.ibeatles import DataType
-from src.ibeatles import RegionType, DEFAULT_ROI, DEFAULT_NORMALIZATION_ROI
+from src.ibeatles import DEFAULT_ROI
 from src.ibeatles.utilities.colors import pen_color
 
 # DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
@@ -9,15 +9,15 @@ from src.ibeatles.utilities.colors import pen_color
 
 
 class Roi:
-
     def __init__(self, parent=None, data_type=DataType.sample):
         self.parent = parent
 
     @staticmethod
     def get_roi(roi=DEFAULT_ROI):
         """roi is formatted as DEFAULT_ROI"""
-        roi = pg.ROI([roi[1], roi[2]],
-                     [roi[3], roi[4]], pen=pen_color['0'], scaleSnap=True)
+        roi = pg.ROI(
+            [roi[1], roi[2]], [roi[3], roi[4]], pen=pen_color["0"], scaleSnap=True
+        )
         roi.addScaleHandle([1, 1], [0, 0])
         return roi
 

@@ -1,7 +1,9 @@
 import numpy as np
 
 
-def create_list_of_bins_from_selection(top_row=0, bottom_row=0, left_column=0, right_column=0):
+def create_list_of_bins_from_selection(
+    top_row=0, bottom_row=0, left_column=0, right_column=0
+):
     """
     this will return a list of bins(row,column) from the selection
 
@@ -15,8 +17,8 @@ def create_list_of_bins_from_selection(top_row=0, bottom_row=0, left_column=0, r
     """
 
     list_bins = []
-    for _row in np.arange(top_row, bottom_row+1):
-        for _column in np.arange(left_column, right_column+1):
+    for _row in np.arange(top_row, bottom_row + 1):
+        for _column in np.arange(left_column, right_column + 1):
             list_bins.append((_row, _column))
 
     list_bins.sort()
@@ -24,7 +26,9 @@ def create_list_of_bins_from_selection(top_row=0, bottom_row=0, left_column=0, r
     return list(list_bins)
 
 
-def create_list_of_surrounding_bins(central_bin=None, full_bin_width=None, full_bin_height=None):
+def create_list_of_surrounding_bins(
+    central_bin=None, full_bin_width=None, full_bin_height=None
+):
     """
     this will return the list of bins surrounding the central_bin coordinates (row, column)
 
@@ -46,15 +50,15 @@ def create_list_of_surrounding_bins(central_bin=None, full_bin_width=None, full_
     row = central_bin[0]
     column = central_bin[1]
 
-    left_row_value = np.max([row-1, 0])
-    right_row_value = row if (row+1) >= full_bin_height else (row+1)
+    left_row_value = np.max([row - 1, 0])
+    right_row_value = row if (row + 1) >= full_bin_height else (row + 1)
 
-    top_column_value = np.max([column-1, 0])
-    bottom_column_value = column if (column+1) >= full_bin_width else (column+1)
+    top_column_value = np.max([column - 1, 0])
+    bottom_column_value = column if (column + 1) >= full_bin_width else (column + 1)
 
     list_surrounding_bins = []
-    for _row in np.arange(left_row_value, right_row_value+1):
-        for _column in np.arange(top_column_value, bottom_column_value+1):
+    for _row in np.arange(left_row_value, right_row_value + 1):
+        for _column in np.arange(top_column_value, bottom_column_value + 1):
             new_bin = (_row, _column)
             if new_bin == central_bin:
                 continue

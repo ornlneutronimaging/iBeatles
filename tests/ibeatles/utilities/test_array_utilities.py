@@ -5,7 +5,6 @@ from ibeatles.utilities.array_utilities import calculate_median
 
 
 class TestCalculateMedian(TestCase):
-
     def test_empty_array(self):
         """assert empty array return None"""
         array = None
@@ -24,7 +23,7 @@ class TestCalculateMedian(TestCase):
 
     def test_array_with_nan(self):
         """assert simple array [1, 2, 3, NaN] return 2"""
-        array = [1, 2, 3, np.NaN]
+        array = [1, 2, 3, np.nan]
         median_returned = calculate_median(array_of_value=array)
         median_expected = 2
 
@@ -32,7 +31,7 @@ class TestCalculateMedian(TestCase):
 
     def test_array_with_only_nan(self):
         """assert only nan return nan"""
-        array = [np.NaN, np.NaN, np.NaN]
+        array = [np.nan, np.nan, np.nan]
         median_returned = calculate_median(array_of_value=array)
 
         self.assertTrue(np.isnan(median_returned))
@@ -55,7 +54,7 @@ class TestCalculateMedian(TestCase):
 
     def test_array_with_inf_and_nan(self):
         """assert with inf and nan"""
-        array = [-np.inf, 1, 2, np.NaN]
+        array = [-np.inf, 1, 2, np.nan]
         median_returned = calculate_median(array_of_value=array)
         median_expected = 1.5
 

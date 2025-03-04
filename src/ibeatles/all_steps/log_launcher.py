@@ -12,7 +12,6 @@ from src.ibeatles.session import SessionSubKeys
 
 
 class LogLauncher:
-
     def __init__(self, parent=None):
         self.parent = parent
 
@@ -26,13 +25,12 @@ class LogLauncher:
 
 
 class Log(QMainWindow):
-
     def __init__(self, parent=None):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        ui_full_path = os.path.join(os.path.dirname(__file__),
-                                    os.path.join('ui',
-                                                 'log.ui'))
+        ui_full_path = os.path.join(
+            os.path.dirname(__file__), os.path.join("ui", "log.ui")
+        )
         self.ui = load_ui(ui_full_path, baseinstance=self)
         self.setWindowTitle("Log")
         self.ui.log_text.setReadOnly(True)
@@ -70,25 +68,22 @@ class Log(QMainWindow):
         self.loading_logging_file()
 
     def check_log_size(self):
-        o_handler = LogHandler(parent=self.parent,
-                               log_file_name=self.log_file_name)
+        o_handler = LogHandler(parent=self.parent, log_file_name=self.log_file_name)
         o_handler.cut_log_size_if_bigger_than_buffer()
 
     def launch_settings(self):
-        log_id = LogSettings(parent=self,
-                             grand_parent=self.parent)
+        log_id = LogSettings(parent=self, grand_parent=self.parent)
         log_id.show()
 
 
 class LogSettings(QDialog):
-
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent
         self.grand_parent = grand_parent
         QDialog.__init__(self, parent=self.parent)
-        ui_full_path = os.path.join(os.path.dirname(__file__),
-                                    os.path.join('ui',
-                                                 'log_settings.ui'))
+        ui_full_path = os.path.join(
+            os.path.dirname(__file__), os.path.join("ui", "log_settings.ui")
+        )
         self.ui = load_ui(ui_full_path, baseinstance=self)
         self.setWindowTitle("Log")
         self.init_widgets()
@@ -98,14 +93,15 @@ class LogSettings(QDialog):
         self.ui.buffer_size_spinBox.setValue(log_buffer_size)
 
     def accept(self):
-        self.grand_parent.session_dict[SessionSubKeys.log_buffer_size] = self.ui.buffer_size_spinBox.value()
+        self.grand_parent.session_dict[SessionSubKeys.log_buffer_size] = (
+            self.ui.buffer_size_spinBox.value()
+        )
         self.parent.check_log_size()
         self.parent.loading_logging_file()
         self.close()
 
 
 class LogHandler:
-
     def __init__(self, parent=None, log_file_name=""):
         self.parent = parent
         self.log_file_name = log_file_name

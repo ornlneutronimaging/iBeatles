@@ -1,4 +1,10 @@
-from qtpy.QtWidgets import QMainWindow, QTableWidgetItem, QComboBox, QTableWidgetSelectionRange, QApplication
+from qtpy.QtWidgets import (
+    QMainWindow,
+    QTableWidgetItem,
+    QComboBox,
+    QTableWidgetSelectionRange,
+    QApplication,
+)
 import pyqtgraph as pg
 
 from src.ibeatles.utilities.gui_handler import GuiHandler
@@ -8,12 +14,10 @@ from src.ibeatles import load_ui, DEFAULT_ROI, DataType
 
 
 class RoiEditor:
-
     def __init__(self, parent=None):
         self.parent = parent
 
     def run(self):
-
         o_gui = GuiHandler(parent=self.parent)
         active_tab = o_gui.get_active_tab()
 
@@ -36,12 +40,11 @@ class RoiEditorInterface(QMainWindow):
     col_width = [130, 35, 35, 43, 43]
 
     def __init__(self, parent=None, data_type=DataType.sample):
-
         self.parent = parent
         self.data_type = data_type
 
         QMainWindow.__init__(self, parent=parent)
-        self.ui = load_ui('ui_roiEditor.ui', baseinstance=self)
+        self.ui = load_ui("ui_roiEditor.ui", baseinstance=self)
         self.setWindowTitle("{} ROI Editor".format(data_type))
 
         self.initialize_table()
@@ -52,7 +55,9 @@ class RoiEditorInterface(QMainWindow):
             self.ui.tableWidget.setColumnWidth(_index, _width)
 
         nbr_groups = len(colors.roi_group_color)
-        self.list_name_groups = ['group {}'.format(index) for index in range(nbr_groups)]
+        self.list_name_groups = [
+            "group {}".format(index) for index in range(nbr_groups)
+        ]
 
     def get_item(self, text, color):
         _item = QTableWidgetItem(str(text))
@@ -79,7 +84,6 @@ class RoiEditorInterface(QMainWindow):
         self.ui.tableWidget.cellChanged.connect(self.cell_changed)
 
     def set_row(self, _row, label, x0, y0, width, height, group):
-
         _color = colors.roi_group_color[int(group)]
 
         self.ui.tableWidget.blockSignals(True)
@@ -114,7 +118,6 @@ class RoiEditorInterface(QMainWindow):
         self.ui.tableWidget.blockSignals(False)
 
     def get_row(self, row=0):
-
         # label
         _item = self.ui.tableWidget.item(row, 0)
         if _item is None:
@@ -183,7 +186,6 @@ class RoiEditorInterface(QMainWindow):
         self.parent.roi_editor_ui[active_tab] = None
 
     def add_roi_button_clicked(self):
-
         # self.ui.tableWidget.blockSignals(True)
 
         _row_selected = self.get_row_selected()
@@ -209,10 +211,13 @@ class RoiEditorInterface(QMainWindow):
 
         # label roi
         label_roi = pg.TextItem(
-            html='<div style="text-align: center"><span style="color: #ff0000;">' + label + '</span></div>',
+            html='<div style="text-align: center"><span style="color: #ff0000;">'
+            + label
+            + "</span></div>",
             anchor=(-0.3, 1.3),
-            border='w',
-            fill=(0, 0, 255, 50))
+            border="w",
+            fill=(0, 0, 255, 50),
+        )
 
         # roi region in image
         roi = pg.ROI([x0, y0], [width, height])
@@ -302,7 +307,9 @@ class RoiEditorInterface(QMainWindow):
         return _row_selected
 
     def refresh(self, row):
-        [label, x0, y0, width, height, group] = self.parent.list_roi[self.data_type][row]
+        [label, x0, y0, width, height, group] = self.parent.list_roi[self.data_type][
+            row
+        ]
         self.set_row(row, label, x0, y0, width, height, group)
 
     def activate_row(self, row):
