@@ -9,6 +9,7 @@ dependencies:
   - versioningit
   - ipython
   - pydantic
+  - loguru
   # packaging
   - boa
   - conda-build

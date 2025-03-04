@@ -7,7 +7,7 @@ import logging
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Union
 from scipy.ndimage import gaussian_filter1d
 
 from ibeatles.core.config import IBeatlesUserConfig
@@ -156,7 +156,7 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
 
 def perform_binning(
     data: Dict[str, Any], config: IBeatlesUserConfig, spectra_dict: dict
-) -> Dict[str, Any]:
+) -> (Dict[str, Any], list):
     """
     Perform binning on the normalized data.
 
@@ -173,6 +173,8 @@ def perform_binning(
     -------
     Dict[str, Any]
         Dictionary containing binning results.
+    List[Tuple[slice]]
+        List of bin coordinates.
     """
     logger = logging.getLogger("ibeatles_CLI")
     logger.info("Performing binning...")
@@ -297,14 +299,16 @@ def perform_fitting(
     return fit_results
 
 
-def main(config_path: Path, log_file: Optional[Path] = None) -> None:
+def main(
+    config_path: Union[Path, IBeatlesUserConfig], log_file: Optional[Path] = None
+) -> None:
     """
     Main function to run the iBeatles CLI application.
 
     Parameters
     ----------
-    config_path : Path
-        Path to the configuration file.
+    config_path : Path or IBeatlesUserConfig
+        Path to the configuration file or the config object.
     log_file : Path, optional
         Path to the log file.
 
@@ -316,7 +320,10 @@ def main(config_path: Path, log_file: Optional[Path] = None) -> None:
 
     try:
         # Load configuration
-        config = load_config(config_path)
+        if isinstance(config_path, IBeatlesUserConfig):
+            config = config_path
+        else:
+            config = load_config(config_path)
 
         # Load data
         rst_dict = load_data(config)

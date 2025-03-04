@@ -56,10 +56,8 @@ def config(temp_dir):
     output_dir.mkdir()
 
     return IBeatlesUserConfig(
-        raw_data=RawData(raw_data_dir=str(raw_data_dir), raw_data_extension=".tif"),
-        open_beam=OpenBeamData(
-            open_beam_data_dir=str(ob_data_dir), open_beam_data_extension=".tif"
-        ),
+        raw_data=RawData(raw_data_dir=str(raw_data_dir), extension=".tif"),
+        open_beam=OpenBeamData(open_beam_data_dir=str(ob_data_dir), extension=".tif"),
         normalization=NormalizationConfig(
             sample_background=[SampleBackground(x0=0, y0=0, width=5, height=5)],
             moving_average=MovingAverage(

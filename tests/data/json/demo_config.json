@@ -1,11 +1,11 @@
 {
   "raw_data": {
     "raw_data_dir": "/Users/8cz/github.com/iBeatles/tests/data/ibeatles_data/SNS/SNAP/IPTS-26171/shared/mcp_transfer/Inconel_Sample",
-    "raw_data_extension": ".fits"
+    "extension": ".fits"
   },
   "open_beam": {
     "open_beam_data_dir": "/Users/8cz/github.com/iBeatles/tests/data/ibeatles_data/SNS/SNAP/IPTS-26171/shared/mcp_transfer/Inconel_OB",
-    "open_beam_data_extension": ".fits"
+    "extension": ".fits"
   },
   "normalization": {
     "sample_background": [
