@@ -8,5 +8,5 @@ roi_label_color = {
 
 
 class KernelType:
-    box = "box"
-    gaussian = "gaussian"
+    box = "Box"
+    gaussian = "Gaussian"
