@@ -1,16 +1,21 @@
+#!/usr/bin/env python
+"""
+ExportFittingHandler class for handling the export of the fitting parameters.
+"""
+
 import numpy as np
 from qtpy.QtWidgets import QFileDialog, QApplication
 from qtpy import QtCore
 import os
 import shutil
 
-from src.ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
-from src.ibeatles.utilities.file_handler import FileHandler
+from ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
+from ibeatles.utilities.file_handler import FileHandler
 
 
 class ExportFittingHandler(object):
-    table = []
-    x_axis = []
+    table: list = []
+    x_axis: list = []
 
     def __init__(self, grand_parent=None):
         self.grand_parent = grand_parent

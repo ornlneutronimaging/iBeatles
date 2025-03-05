@@ -1,34 +1,39 @@
+#!/usr/bin/env python
+"""
+Session Handler
+"""
+
 from qtpy.QtWidgets import QFileDialog, QApplication
 import json
-import logging
 import copy
+from loguru import logger
 
-from src.ibeatles import DataType
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles import DataType
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from src.ibeatles.utilities.get import Get
-from src.ibeatles.fitting.march_dollase import SessionSubKeys as MarchSessionSubKeys
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from src.ibeatles.fitting.kropff import KropffThresholdFinder
-from src.ibeatles.fitting.kropff import BraggPeakInitParameters
-from src.ibeatles.fitting import FittingTabSelected
+from ibeatles.utilities.get import Get
+from ibeatles.fitting.march_dollase import SessionSubKeys as MarchSessionSubKeys
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting.kropff import BraggPeakInitParameters
+from ibeatles.fitting import FittingTabSelected
 
-from src.ibeatles.session import SessionKeys, SessionSubKeys, MaterialMode
-from src.ibeatles.session import ReductionDimension, ReductionType
-from src.ibeatles.session.save_load_data_tab import SaveLoadDataTab
-from src.ibeatles.session.save_normalization_tab import SaveNormalizationTab
-from src.ibeatles.session.save_normalized_tab import SaveNormalizedTab
-from src.ibeatles.session.save_bin_tab import SaveBinTab
-from src.ibeatles.session.save_fitting_tab import SaveFittingTab
-from src.ibeatles.session.session_utilities import SessionUtilities
-from src.ibeatles.session.load_load_data_tab import LoadLoadDataTab
-from src.ibeatles.session.load_normalization_tab import LoadNormalization
-from src.ibeatles.session.load_normalized_tab import LoadNormalized
-from src.ibeatles.session.load_bin_tab import LoadBin
-from src.ibeatles.session.load_fitting_tab import LoadFitting
-from src.ibeatles.session.general import General
+from ibeatles.session import SessionKeys, SessionSubKeys, MaterialMode
+from ibeatles.session import ReductionDimension, ReductionType
+from ibeatles.session.save_load_data_tab import SaveLoadDataTab
+from ibeatles.session.save_normalization_tab import SaveNormalizationTab
+from ibeatles.session.save_normalized_tab import SaveNormalizedTab
+from ibeatles.session.save_bin_tab import SaveBinTab
+from ibeatles.session.save_fitting_tab import SaveFittingTab
+from ibeatles.session.session_utilities import SessionUtilities
+from ibeatles.session.load_load_data_tab import LoadLoadDataTab
+from ibeatles.session.load_normalization_tab import LoadNormalization
+from ibeatles.session.load_normalized_tab import LoadNormalized
+from ibeatles.session.load_bin_tab import LoadBin
+from ibeatles.session.load_fitting_tab import LoadFitting
+from ibeatles.session.general import General
 
 
 class SessionHandler:
@@ -206,7 +211,7 @@ class SessionHandler:
     default_session_dict = copy.deepcopy(session_dict)
 
     def __init__(self, parent=None):
-        logging.info("-> Saving current session before leaving the application")
+        logger.info("-> Saving current session before leaving the application")
         self.parent = parent
 
     def save_from_ui(self):
@@ -264,7 +269,7 @@ class SessionHandler:
         if not self.load_successful:
             return
 
-        logging.info(f"Automatic session tabs to load: {tabs_to_load}")
+        logger.info(f"Automatic session tabs to load: {tabs_to_load}")
 
         try:
             o_general = General(parent=self.parent)
@@ -329,7 +334,7 @@ class SessionHandler:
                 status=StatusMessageStatus.error,
                 duration_s=10,
             )
-            logging.info("Loading session aborted! FileNotFoundError raised!")
+            logger.info("Loading session aborted! FileNotFoundError raised!")
             self.parent.session_dict = SessionHandler.session_dict
 
         except ValueError:
@@ -339,7 +344,7 @@ class SessionHandler:
                 status=StatusMessageStatus.error,
                 duration_s=10,
             )
-            logging.info("Loading session aborted! ValueError raised!")
+            logger.info("Loading session aborted! ValueError raised!")
             self.parent.session_dict = SessionHandler.session_dict
 
     def automatic_save(self):
@@ -373,7 +378,7 @@ class SessionHandler:
                 status=StatusMessageStatus.ready,
                 duration_s=10,
             )
-            logging.info(f"Saving configuration into {config_file_name}")
+            logger.info(f"Saving configuration into {config_file_name}")
 
     def load_from_file(self, config_file_name=None):
         self.parent.loading_from_config = True
@@ -401,24 +406,24 @@ class SessionHandler:
             with open(config_file_name, "r") as read_file:
                 session_to_save = json.load(read_file)
                 if session_to_save.get(SessionSubKeys.config_version, None) is None:
-                    logging.info("Session file is out of date!")
-                    logging.info(
+                    logger.info("Session file is out of date!")
+                    logger.info(
                         f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}"
                     )
-                    logging.info("-> session version: Unknown!")
+                    logger.info("-> session version: Unknown!")
                     self.load_successful = False
                 elif (
                     session_to_save[SessionSubKeys.config_version]
                     == self.parent.config[SessionSubKeys.config_version]
                 ):
                     self.parent.session_dict = session_to_save
-                    logging.info(f"Loaded from {config_file_name}")
+                    logger.info(f"Loaded from {config_file_name}")
                 else:
-                    logging.info("Session file is out of date!")
-                    logging.info(
+                    logger.info("Session file is out of date!")
+                    logger.info(
                         f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}"
                     )
-                    logging.info(
+                    logger.info(
                         f"-> session version: {session_to_save[SessionSubKeys.config_version]}"
                     )
                     self.load_successful = False

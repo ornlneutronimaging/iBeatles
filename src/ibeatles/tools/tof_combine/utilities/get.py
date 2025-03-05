@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Get module
+"""
+
 import os
 from os.path import expanduser
 from pathlib import Path
@@ -5,13 +10,13 @@ import tomli
 import copy
 import numpy as np
 
-from src.ibeatles import DataType
+from ibeatles import DataType
 
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.utilities import CombineAlgorithm
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities import CombineAlgorithm
 
-from src.ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
-from src.ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
+from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
+from ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
 
 
 class Get:

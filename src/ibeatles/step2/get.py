@@ -1,6 +1,11 @@
+#!/usr/bin/env python
+"""
+Get (step 2)
+"""
+
 import numpy as np
 
-from src.ibeatles.step2 import RegionType, KernelType
+from ibeatles.step2 import RegionType, KernelType
 
 
 class Get:

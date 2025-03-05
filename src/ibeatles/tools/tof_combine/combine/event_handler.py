@@ -1,28 +1,33 @@
+#!/usr/bin/env python
+"""
+Event handler module
+"""
+
 import os
 from qtpy.QtWidgets import QFileDialog, QCheckBox
 import logging
 import numpy as np
 import copy
 
-from src.ibeatles import interact_me_style, normal_style
-from src.ibeatles import DataType
+from ibeatles import interact_me_style, normal_style
+from ibeatles import DataType
 
-from src.ibeatles.session import SessionSubKeys
+from ibeatles.session import SessionSubKeys
 
-from src.ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.file_handler import FileHandler
 
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
 
-from src.ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
-from src.ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
-from src.ibeatles.tools.tof_combine.utilities.get import Get as TofCombineGet
-from src.ibeatles.tools.tof_combine.load.load_files import LoadFiles
-from src.ibeatles.tools.tof_combine.combine.combine import Combine
-from src.ibeatles.tools.tof_combine import LAMBDA, MICRO, ANGSTROMS
+from ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
+from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
+from ibeatles.tools.tof_combine.utilities.get import Get as TofCombineGet
+from ibeatles.tools.tof_combine.load.load_files import LoadFiles
+from ibeatles.tools.tof_combine.combine.combine import Combine
+from ibeatles.tools.tof_combine import LAMBDA, MICRO, ANGSTROMS
 
 # backend function from core
 from ibeatles.core.io.data_loading import get_time_spectra_filename

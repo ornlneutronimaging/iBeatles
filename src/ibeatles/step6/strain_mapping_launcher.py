@@ -1,18 +1,23 @@
+#!/usr/bin/env python
+"""
+Strain Mapping Launcher
+"""
+
 from qtpy.QtWidgets import QMainWindow
 
-from src.ibeatles import load_ui, FileType
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles import load_ui, FileType
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from src.ibeatles.widgets.qrangeslider import FakeKey
+from ibeatles.widgets.qrangeslider import FakeKey
 
-from src.ibeatles.step6.initialization import Initialization
-from src.ibeatles.step6.display import Display
-from src.ibeatles.step6.event_handler import EventHandler
-from src.ibeatles.step6.get import Get
-from src.ibeatles.step6.export import Export
-from src.ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6.initialization import Initialization
+from ibeatles.step6.display import Display
+from ibeatles.step6.event_handler import EventHandler
+from ibeatles.step6.get import Get
+from ibeatles.step6.export import Export
+from ibeatles.step6 import ParametersToDisplay
 
 
 class StrainMappingLauncher:

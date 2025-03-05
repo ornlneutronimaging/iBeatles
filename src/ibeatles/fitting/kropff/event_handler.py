@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Event handler module
+"""
+
 import numpy as np
 import copy
 from qtpy.QtWidgets import QMenu
@@ -7,39 +12,39 @@ import logging
 from pathlib import PurePath
 import json
 
-from src.ibeatles.fitting.get import Get
-from src.ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import (
+from ibeatles.fitting.get import Get
+from ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import (
     KropffBraggPeakThresholdCalculator,
 )
-from src.ibeatles import DataType, interact_me_style, normal_style
-from src.ibeatles.fitting.kropff.fit_regions import FitRegions
-from src.ibeatles.fitting.kropff.display import Display
-from src.ibeatles.fitting.fitting_handler import FittingHandler
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.fitting.kropff.get import Get as KropffGet
-from src.ibeatles.fitting import KropffTabSelected
-from src.ibeatles.utilities.file_handler import select_folder
-from src.ibeatles.utilities.array_utilities import from_nparray_to_list
-from src.ibeatles.utilities.check import is_float, is_nan
+from ibeatles import DataType, interact_me_style, normal_style
+from ibeatles.fitting.kropff.fit_regions import FitRegions
+from ibeatles.fitting.kropff.display import Display
+from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.fitting import KropffTabSelected
+from ibeatles.utilities.file_handler import select_folder
+from ibeatles.utilities.array_utilities import from_nparray_to_list
+from ibeatles.utilities.check import is_float, is_nan
 
-from src.ibeatles.fitting import FittingTabSelected, FittingKeys
-from src.ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from src.ibeatles.session import SessionSubKeys
-from src.ibeatles.fitting.kropff import (
+from ibeatles.fitting import FittingTabSelected, FittingKeys
+from ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.session import SessionSubKeys
+from ibeatles.fitting.kropff import (
     FittingKropffBraggPeakColumns,
     FittingKropffHighLambdaColumns,
     FittingKropffLowLambdaColumns,
     BraggPeakInitParameters,
 )
-from src.ibeatles.fitting.kropff.checking_fitting_conditions import (
+from ibeatles.fitting.kropff.checking_fitting_conditions import (
     CheckingFittingConditions,
 )
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles.utilities.status_message_config import (
     show_status_message,
     StatusMessageStatus,
 )
-from src.ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import (
+from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import (
     FittingParametersViewerEditorLauncher,
 )
 

@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+"""
+List of h, k, l, lambda and d0
+"""
+
 from qtpy.QtWidgets import QDialog
 import numpy as np
 
-from src.ibeatles import Material
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles import load_ui
-from src.ibeatles.utilities.table_handler import TableHandler
+from ibeatles import Material
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles import load_ui
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class ListHKLLambdaD0Handler:
@@ -19,7 +24,7 @@ class ListHKLLambdaD0Handler:
 
 
 class ListHKLLambdaD0(QDialog):
-    new_element = {}
+    new_element: dict = {}
 
     def __init__(self, parent=None):
         self.parent = parent

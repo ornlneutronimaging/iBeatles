@@ -7,10 +7,10 @@ from qtpy.QtWidgets import (
 )
 import pyqtgraph as pg
 
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles.utilities import colors
-from src.ibeatles.step1.plot import Step1Plot
-from src.ibeatles import load_ui, DEFAULT_ROI, DataType
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities import colors
+from ibeatles.step1.plot import Step1Plot
+from ibeatles import load_ui, DEFAULT_ROI, DataType
 
 
 class RoiEditor:

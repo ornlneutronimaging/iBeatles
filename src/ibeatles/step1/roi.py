@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+"""
+ROI (Region of Interest)
+"""
+
 import pyqtgraph as pg
 
-from src.ibeatles import DataType
-from src.ibeatles import DEFAULT_ROI
-from src.ibeatles.utilities.colors import pen_color
+from ibeatles import DataType
+from ibeatles import DEFAULT_ROI
+from ibeatles.utilities.colors import pen_color
 
 # DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
 # DEFAULT_NORMALIZATION_ROI = [True, '0', '0', '20', '20', RegionType.background]

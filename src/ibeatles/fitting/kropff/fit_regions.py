@@ -1,26 +1,31 @@
+#!/usr/bin/env python
+"""
+FitRegions class for fitting the high lambda, low lambda and bragg peak regions.
+"""
+
 import numpy as np
 from lmfit import Model, Parameter
 import copy
 from qtpy import QtGui
-import logging
+from loguru import logger
 
-from src.ibeatles.utilities.status_message_config import (
+import ibeatles.utilities.error as fitting_error
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-import ibeatles.utilities.error as fitting_error
-from src.ibeatles.fitting.kropff.get import Get
-from src.ibeatles.fitting.kropff.fitting_functions import (
+from ibeatles.fitting.kropff.get import Get
+from ibeatles.fitting.kropff.fitting_functions import (
     kropff_high_lambda,
     kropff_bragg_peak_tof,
     kropff_low_lambda,
 )
-from src.ibeatles.fitting import KropffTabSelected
-from src.ibeatles.utilities.array_utilities import find_nearest_index
-from src.ibeatles.fitting.kropff.checking_fitting_conditions import (
+from ibeatles.fitting import KropffTabSelected
+from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.fitting.kropff.checking_fitting_conditions import (
     CheckingFittingConditions,
 )
-from src.ibeatles.fitting.kropff import ERROR_TOLERANCE
+from ibeatles.fitting.kropff import ERROR_TOLERANCE
 
 
 class FitRegions:
@@ -222,15 +227,15 @@ class FitRegions:
 
     def bragg_peak_range(self):
         """will fit using either fix or range values of lambda_hkl, tau and sigma"""
-        logging.info("Fitting bragg peak with:")
+        logger.info("Fitting bragg peak with:")
 
         o_get = Get(parent=self.parent)
         list_lambda_hkl = o_get.list_lambda_hkl_initial_guess()
         list_tau = o_get.list_tau_initial_guess()
         list_sigma = o_get.list_sigma_initial_guess()
-        logging.info(f"-> {list_lambda_hkl =}")
-        logging.info(f"-> {list_tau =}")
-        logging.info(f"-> {list_sigma =}")
+        logger.info(f"-> {list_lambda_hkl =}")
+        logger.info(f"-> {list_tau =}")
+        logger.info(f"-> {list_sigma =}")
 
         # define fitting model
         gmodel = Model(
@@ -341,7 +346,7 @@ class FitRegions:
 
     def bragg_peak_range_lambda(self):
         """we need to try to fit until the fit worked or we exhausted the full range defined"""
-        logging.info("Fitting bragg peak with a range of lambda_hkl:")
+        logger.info("Fitting bragg peak with a range of lambda_hkl:")
         gmodel = Model(
             kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"]
         )
@@ -359,7 +364,7 @@ class FitRegions:
             self.parent.kropff_lambda_settings["range"][1],
             self.parent.kropff_lambda_settings["range"][2],
         )
-        logging.info(f"-> lambda_hkl_range: {lambda_hkl_range}")
+        logger.info(f"-> lambda_hkl_range: {lambda_hkl_range}")
 
         self.parent.eventProgress.setMaximum(len(table_dictionary.keys()))
         self.parent.eventProgress.setValue(0)
@@ -434,14 +439,14 @@ class FitRegions:
         self.parent.eventProgress.setVisible(False)
 
     def bragg_peak_fix_lambda(self):
-        logging.info("Fitting bragg peak with a fixed initial lambda_hkl:")
+        logger.info("Fitting bragg peak with a fixed initial lambda_hkl:")
 
         gmodel = Model(
             kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"]
         )
 
         lambda_hkl = self.o_get.lambda_hkl()
-        logging.info(f"-> lambda_hkl: {lambda_hkl}")
+        logger.info(f"-> lambda_hkl: {lambda_hkl}")
         tau = self.o_get.tau()
         sigma = self.o_get.sigma()
 
@@ -489,7 +494,7 @@ class FitRegions:
             )
 
             if _key in ["2", "3"]:
-                logging.info(
+                logger.info(
                     f"_key: {_key} -> _result.fit_report: {_result.fit_report()}"
                 )
 
@@ -514,7 +519,7 @@ class FitRegions:
                 "yaxis": yaxis_fitted,
             }
 
-        logging.info(f"-> list of locked keys: {list_key_locked}")
+        logger.info(f"-> list of locked keys: {list_key_locked}")
 
         self.progress_bar_ui.setVisible(False)
         QtGui.QGuiApplication.processEvents()

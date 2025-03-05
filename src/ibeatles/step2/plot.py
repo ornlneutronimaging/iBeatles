@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Plotting handler for step 2
+"""
+
 from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
 from qtpy import QtGui
 import numpy as np
@@ -5,13 +10,13 @@ import pyqtgraph as pg
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
 
-from src.ibeatles import RegionType, DataType
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles.utilities.colors import pen_color
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles import RegionType, DataType
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.colors import pen_color
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
-from src.ibeatles.step2.get import Get as Step2Get
-from src.ibeatles.step2 import roi_label_color
+from ibeatles.step2.get import Get as Step2Get
+from ibeatles.step2 import roi_label_color
 
 
 class CustomAxis(pg.AxisItem):
@@ -43,9 +48,9 @@ class CustomAxis(pg.AxisItem):
 
 
 class Step2Plot:
-    sample = []
-    ob = []
-    normalization = []
+    sample: list = []
+    ob: list = []
+    normalization: list = []
 
     def __init__(self, parent=None, sample=[], ob=[], normalized=[]):
         self.parent = parent

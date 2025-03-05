@@ -1,7 +1,7 @@
 from unittest import TestCase
 import pytest
 
-from src.ibeatles.fitting.kropff.get import Get
+from ibeatles.fitting.kropff.get import Get
 import ibeatles.utilities.error as fitting_error
 
 

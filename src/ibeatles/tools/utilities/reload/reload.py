@@ -1,12 +1,17 @@
+#!/usr/bin/env python
+"""
+Reload module
+"""
+
 import logging
 import os
 
-from src.ibeatles import DataType
-from src.ibeatles.session import SessionSubKeys
-from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.step1.data_handler import DataHandler
-from src.ibeatles.step1.event_handler import EventHandler as Step1EventHandler
-from src.ibeatles.step3.event_handler import EventHandler as Step3EventHandler
+from ibeatles import DataType
+from ibeatles.session import SessionSubKeys
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
+from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 
 
 class Reload:

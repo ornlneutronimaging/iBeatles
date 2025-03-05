@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QDialog
 
-from src.ibeatles import load_ui
-from src.ibeatles._version import __version__
+from ibeatles import load_ui
+from ibeatles._version import __version__
 
 
 class AboutLauncher(QDialog):

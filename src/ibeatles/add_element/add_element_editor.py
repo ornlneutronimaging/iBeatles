@@ -1,15 +1,20 @@
+#!/usr/bin/env python
+"""
+Add element editor
+"""
+
 from qtpy import QtCore
 from qtpy.QtWidgets import QDialog
 import numpy as np
 from collections import OrderedDict
 
-from src.ibeatles import Material
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles import load_ui
-from src.ibeatles.utilities.check import is_float, is_int
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
-from src.ibeatles.step1.plot import Step1Plot
+from ibeatles import Material
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles import load_ui
+from ibeatles.utilities.check import is_float, is_int
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
+from ibeatles.step1.plot import Step1Plot
 
 
 class AddElement(object):

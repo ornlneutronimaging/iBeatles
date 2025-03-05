@@ -1,4 +1,9 @@
-from src.ibeatles.fitting.kropff import FittingRegions
+#!/usr/bin/env python
+"""
+This module provides a class to handle errors.
+"""
+
+from ibeatles.fitting.kropff import FittingRegions
 
 
 class FittingErrorException(Exception):

@@ -1,12 +1,17 @@
+#!/usr/bin/env python
+"""
+Get class for handling the Kropff fitting.
+"""
+
 import numpy as np
 
-from src.ibeatles.fitting.kropff import FittingRegions
 import ibeatles.utilities.error as fitting_error
-from src.ibeatles.fitting.kropff import SessionSubKeys
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.fitting import KropffTabSelected
-from src.ibeatles import DataType
-from src.ibeatles.fitting import FittingKeys
+from ibeatles.fitting.kropff import FittingRegions
+from ibeatles.fitting.kropff import SessionSubKeys
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting import KropffTabSelected
+from ibeatles import DataType
+from ibeatles.fitting import FittingKeys
 
 
 class Get:

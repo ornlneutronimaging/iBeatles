@@ -3,7 +3,7 @@ from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QTableWidgetItem, QTableWidgetSelectionRange
 from qtpy.QtWidgets import QApplication, QSpacerItem, QSizePolicy, QWidget, QHBoxLayout
 
-from src.ibeatles.utilities.widgets_handler import WidgetsHandler
+from ibeatles.utilities.widgets_handler import WidgetsHandler
 
 
 class TableHandler:

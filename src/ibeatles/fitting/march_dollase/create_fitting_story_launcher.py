@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+CreateFittingStoryLauncher class for launching the fitting story window.
+"""
+
 from qtpy.QtWidgets import (
     QMainWindow,
     QProgressBar,
@@ -10,12 +15,12 @@ from qtpy.QtWidgets import (
 from qtpy import QtGui
 import numpy as np
 
-from src.ibeatles.table_dictionary.table_fitting_story_dictionary_handler import (
+from ibeatles.table_dictionary.table_fitting_story_dictionary_handler import (
     TableFittingStoryDictionaryHandler,
 )
-from src.ibeatles.fitting.fitting_job_handler import FittingJobHandler
-from src.ibeatles import load_ui
-from src.ibeatles import up_image, down_image
+from ibeatles.fitting.fitting_job_handler import FittingJobHandler
+from ibeatles import load_ui
+from ibeatles import up_image, down_image
 
 
 class CreateFittingStoryLauncher(object):

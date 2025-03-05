@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+KropffAutomaticThresholdAlgorithms class for handling the automatic threshold algorithms.
+"""
+
 import numpy as np
 from scipy.special import erf
 from scipy.optimize import curve_fit
@@ -5,7 +10,7 @@ from changepy import pelt
 from changepy.costs import normal_var
 from qtpy import QtGui
 
-from src.ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting.kropff import KropffThresholdFinder
 
 
 class MeanRangeCalculation(object):
@@ -50,10 +55,10 @@ class Algorithms:
 
     peak_change_point_data = None
 
-    water_intake_peak_erf = []
-    water_intake_deltatime = []
+    water_intake_peak_erf: list = []
+    water_intake_deltatime: list = []
 
-    dict_error_function_parameters = {}
+    dict_error_function_parameters: dict = {}
 
     progress_bar_ui = None  # progress bar ui
 

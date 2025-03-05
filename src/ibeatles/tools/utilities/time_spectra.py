@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Time spectra module
+"""
+
 import glob
 import os
 from pathlib import Path
@@ -5,9 +10,9 @@ from qtpy.QtWidgets import QVBoxLayout, QMainWindow, QSizePolicy
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles import load_ui
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles import load_ui
 
 from neutronbraggedge.experiment_handler.tof import TOF
 from neutronbraggedge.experiment_handler.experiment import Experiment

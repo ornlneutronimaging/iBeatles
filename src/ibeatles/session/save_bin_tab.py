@@ -1,12 +1,16 @@
-import logging
+#!/usr/bin/env python
+"""
+SaveBinTab class
+"""
 
-from src.ibeatles import BINNING_LINE_COLOR
-from src.ibeatles import DEFAULT_ROI
-from src.ibeatles import DataType
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from loguru import logger
 
-from src.ibeatles.session.save_tab import SaveTab
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles import BINNING_LINE_COLOR
+from ibeatles import DEFAULT_ROI
+from ibeatles import DataType
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.session.save_tab import SaveTab
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class SaveBinTab(SaveTab):
@@ -58,23 +62,23 @@ class SaveBinTab(SaveTab):
             state = None
             histogram = None
 
-        logging.info("Recording parameters of bin tab")
-        logging.info(
+        logger.info("Recording parameters of bin tab")
+        logger.info(
             f" x0:{x0}, y0:{y0}, width:{width}, height:{height}, bin_size:{bin_size}"
         )
         if binning_line_view_pos is not None:
-            logging.info(f" len(binning_line_view_pos): {len(binning_line_view_pos)}")
+            logger.info(f" len(binning_line_view_pos): {len(binning_line_view_pos)}")
         else:
-            logging.info(" binning_line_view_pos: None")
+            logger.info(" binning_line_view_pos: None")
 
         if formatted_binning_line_view_adj is not None:
-            logging.info(f" len(binning_line_view_adj): {len(binning_line_view_adj)}")
+            logger.info(f" len(binning_line_view_adj): {len(binning_line_view_adj)}")
         else:
-            logging.info(" binning_line_view_adj: None")
+            logger.info(" binning_line_view_adj: None")
 
-        logging.info(f" binning_line_view_line_color: {binning_line_view_line_color}")
-        logging.info(f" state: {state}")
-        logging.info(f" histogram: {histogram}")
+        logger.info(f" binning_line_view_line_color: {binning_line_view_line_color}")
+        logger.info(f" state: {state}")
+        logger.info(f" histogram: {histogram}")
 
         self.session_dict[SessionKeys.bin][SessionSubKeys.roi] = [
             name,

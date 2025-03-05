@@ -1,15 +1,20 @@
+#!/usr/bin/env python
+"""
+Manual event handler
+"""
+
 import logging
 import pyqtgraph as pg
 import numpy as np
 
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.tof_bin.plot import Plot
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin.plot import Plot
 
-from src.ibeatles.tools.tof_bin.utilities.get import Get
-from src.ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.utilities.math_tools import get_index_of_closest_match
-from src.ibeatles.utilities.string import format_str
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.math_tools import get_index_of_closest_match
+from ibeatles.utilities.string import format_str
 
 FILE_INDEX_BIN_MARGIN = 0.5
 UNSELECTED_BIN = (0, 0, 200, 50)

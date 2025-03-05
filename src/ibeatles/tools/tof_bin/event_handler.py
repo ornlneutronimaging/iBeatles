@@ -1,27 +1,32 @@
+#!/usr/bin/env python
+"""
+Event handler
+"""
+
 import os
 from qtpy.QtWidgets import QFileDialog
 import logging
 import numpy as np
 import pyqtgraph as pg
 
-from src.ibeatles import DataType
-from src.ibeatles import interact_me_style, normal_style
+from ibeatles import DataType
+from ibeatles import interact_me_style, normal_style
 
-from src.ibeatles.session import SessionSubKeys
-from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles.session import SessionSubKeys
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from src.ibeatles.utilities.load_files import LoadFiles
+from ibeatles.utilities.load_files import LoadFiles
 
-from src.ibeatles.tools.tof_bin import BinMode, BinAutoMode
-from src.ibeatles.tools.tof_bin.plot import Plot
-from src.ibeatles.tools.tof_bin.utilities.get import Get
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
-from src.ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
+from ibeatles.tools.tof_bin import BinMode, BinAutoMode
+from ibeatles.tools.tof_bin.plot import Plot
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
+from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
 
 # backend function from core
 from ibeatles.core.io.data_loading import get_time_spectra_filename

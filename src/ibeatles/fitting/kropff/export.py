@@ -1,15 +1,20 @@
+#!/usr/bin/env python
+"""
+Export the strain mapping table to an ASCII or JSON file.
+"""
+
 from qtpy.QtWidgets import QFileDialog
 import os
-import logging
+from loguru import logger
 
-from src.ibeatles import DataType, FileType
-from src.ibeatles.step6 import ParametersToDisplay
-from src.ibeatles.fitting.kropff.get import Get as KropffGet
-from src.ibeatles.utilities.file_handler import (
+from ibeatles import DataType, FileType
+from ibeatles.step6 import ParametersToDisplay
+from ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.utilities.file_handler import (
     FileHandler,
     create_full_export_file_name,
 )
-from src.ibeatles.utilities.export import format_kropff_dict, format_kropff_table
+from ibeatles.utilities.export import format_kropff_dict, format_kropff_table
 
 
 class Export:
@@ -86,4 +91,4 @@ class Export:
                 data_dict=formatted_dict, output_file_name=output_file_name
             )
 
-        logging.info(f"Exported {file_type} strain mapping table: {output_file_name}")
+        logger.info(f"Exported {file_type} strain mapping table: {output_file_name}")

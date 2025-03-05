@@ -1,8 +1,13 @@
-from src.ibeatles import DataType
-from src.ibeatles.step2.initialization import Initialization as Step2Initialization
-from src.ibeatles.step2.gui_handler import Step2GuiHandler
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.ibeatles.session import SessionSubKeys
+#!/usr/bin/env python
+"""
+Load normalization tab
+"""
+
+from ibeatles import DataType
+from ibeatles.step2.initialization import Initialization as Step2Initialization
+from ibeatles.step2.gui_handler import Step2GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.session import SessionSubKeys
 
 
 class LoadNormalization:

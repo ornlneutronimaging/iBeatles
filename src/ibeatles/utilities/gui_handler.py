@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+"""
+This module provides a class to handle GUI.
+"""
+
 import numpy as np
 
-from src.ibeatles import DataType, XAxisMode
-from src.ibeatles.session import MaterialMode
-from src.ibeatles.utilities.table_handler import TableHandler
+from ibeatles import DataType, XAxisMode
+from ibeatles.session import MaterialMode
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class GuiHandler:

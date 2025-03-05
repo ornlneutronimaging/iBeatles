@@ -1,14 +1,19 @@
+#!/usr/bin/env python
+"""
+Get class for fitting
+"""
+
 import numpy as np
 
 from . import KropffTabSelected, FittingTabSelected
 from ..utilities.table_handler import TableHandler
-from src.ibeatles.utilities.array_utilities import find_nearest_index
-from src.ibeatles.fitting.kropff.fitting_functions import (
+from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.fitting.kropff.fitting_functions import (
     kropff_high_lambda,
     kropff_bragg_peak_tof,
     kropff_low_lambda,
 )
-from src.ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.fitting.kropff.get import Get as KropffGet
 
 
 class Get:

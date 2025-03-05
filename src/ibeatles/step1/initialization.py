@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Initialization (step 1)
+"""
+
 from qtpy.QtWidgets import (
     QProgressBar,
     QVBoxLayout,
@@ -21,7 +26,7 @@ from neutronbraggedge.material_handler.retrieve_material_metadata import (
     RetrieveMaterialMetadata,
 )
 
-from src.ibeatles import (
+from ibeatles import (
     fitting_image,
     pixel_binning_image,
     rotate_image,
@@ -29,7 +34,7 @@ from src.ibeatles import (
     tof_binning_image,
     tof_combine_image,
 )
-from src.ibeatles import (
+from ibeatles import (
     step1_icon,
     step2_icon,
     step3_icon,
@@ -38,9 +43,9 @@ from src.ibeatles import (
     preview_file,
     error_icon_file,
 )
-from src.ibeatles import DataType
-from src.ibeatles.step1.roi import Roi
-from src.ibeatles.utilities.table_handler import TableHandler
+from ibeatles import DataType
+from ibeatles.step1.roi import Roi
+from ibeatles.utilities.table_handler import TableHandler
 
 tab6_top_button_width = 250
 tab6_top_button_height = 150

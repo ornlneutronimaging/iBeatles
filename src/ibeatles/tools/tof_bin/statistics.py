@@ -1,15 +1,20 @@
+#!/usr/bin/env python
+"""
+Statistics module
+"""
+
 import numpy as np
 from qtpy.QtWidgets import QApplication
 
-from src.ibeatles.utilities import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from src.ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles.utilities.table_handler import TableHandler
 
 
-from src.ibeatles.tools.tof_bin import BinMode, BinAutoMode, BinAlgorithm
-from src.ibeatles.tools.tof_bin import StatisticsName, StatisticsRegion
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.tof_bin.utilities.get import Get
-from src.ibeatles.tools.tof_bin.utilities.string import format_str
+from ibeatles.tools.tof_bin import BinMode, BinAutoMode, BinAlgorithm
+from ibeatles.tools.tof_bin import StatisticsName, StatisticsRegion
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.tof_bin.utilities.string import format_str
 
 
 class Statistics:

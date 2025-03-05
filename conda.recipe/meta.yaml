@@ -37,6 +37,7 @@ requirements:
     - qt=5
     - qtpy
     - pyqt
+    - loguru
     - h5py
     - args
     - Pillow

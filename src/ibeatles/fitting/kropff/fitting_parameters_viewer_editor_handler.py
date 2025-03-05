@@ -1,13 +1,17 @@
+#!/usr/bin/env python
+"""
+FittingParametersViewerEditorHandler class for handling the fitting parameters viewer and editor.
+"""
+
 from qtpy import QtGui, QtCore
 from qtpy.QtGui import QBrush
 from qtpy.QtWidgets import QTableWidgetItem
 import numpy as np
 
-from src.ibeatles.utilities.bins import convert_bins_to_keys
-from src.ibeatles.utilities.table_handler import TableHandler
-
-from src.ibeatles.fitting.kropff import SessionSubKeys
-from src.ibeatles.fitting.kropff.get import Get
+from ibeatles.utilities.bins import convert_bins_to_keys
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting.kropff import SessionSubKeys
+from ibeatles.fitting.kropff.get import Get
 
 
 class FittingParametersViewerEditorHandler:

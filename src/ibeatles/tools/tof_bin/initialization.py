@@ -1,13 +1,18 @@
+#!/usr/bin/env python
+"""
+Initialization module
+"""
+
 from qtpy.QtWidgets import QProgressBar, QVBoxLayout
 from qtpy.QtGui import QIcon
 import pyqtgraph as pg
 
-from src.ibeatles import interact_me_style
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.utilities.matplotlibview import MatplotlibView
-from src.ibeatles import MICRO, LAMBDA, ANGSTROMS, DELTA
-from src.ibeatles import auto_image, manual_image, settings_image, more_infos_image
-from src.ibeatles import stats_table_image, stats_plot_image
+from ibeatles import interact_me_style
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.matplotlibview import MatplotlibView
+from ibeatles import MICRO, LAMBDA, ANGSTROMS, DELTA
+from ibeatles import auto_image, manual_image, settings_image, more_infos_image
+from ibeatles import stats_table_image, stats_plot_image
 
 
 class Initialization:

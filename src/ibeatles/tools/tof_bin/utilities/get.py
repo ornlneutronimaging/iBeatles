@@ -1,9 +1,14 @@
-from src.ibeatles.tools.tof_bin import BinAutoMode
-from src.ibeatles.tools.tof_bin import StatisticsName
+#!/usr/bin/env python
+"""
+Get module
+"""
 
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.utilities import CombineAlgorithm
-from src.ibeatles.tools.tof_bin import BinMode
+from ibeatles.tools.tof_bin import BinAutoMode
+from ibeatles.tools.tof_bin import StatisticsName
+
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities import CombineAlgorithm
+from ibeatles.tools.tof_bin import BinMode
 
 
 class Get:

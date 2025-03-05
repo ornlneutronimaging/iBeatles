@@ -1,6 +1,11 @@
+#!/usr/bin/env python
+"""
+This module provides a class to get data.
+"""
+
 import os
 from os.path import expanduser
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class Get:

@@ -1,12 +1,17 @@
+#!/usr/bin/env python
+"""
+KropffLambdaHKLSettings class for handling the settings of the Kropff Lambda HKL.
+"""
+
 from qtpy.QtWidgets import QDialog
 
-from src.ibeatles import load_ui
+from ibeatles import load_ui
 
 
 class KropffLambdaHKLSettings(QDialog):
     ### REMOVE_ME
 
-    fit_conditions = {}
+    fit_conditions: dict = {}
 
     def __init__(self, parent=None, grand_parent=None):
         self.parent = parent

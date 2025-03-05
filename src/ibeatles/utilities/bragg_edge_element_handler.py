@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+"""
+Bragg edge element handler
+"""
+
 from neutronbraggedge.braggedge import BraggEdge
 
-from src.ibeatles import (
+from ibeatles import (
     ScrollBarParameters,
     MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME,
 )
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles.session import MaterialMode
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.session import MaterialMode
 
 
 class BraggEdgeElementHandler:

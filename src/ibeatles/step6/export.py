@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Export for step6
+"""
+
 from qtpy.QtWidgets import QFileDialog
 import os
 import logging
@@ -5,19 +10,19 @@ import h5py
 
 from NeuNorm.normalization import Normalization
 
-from src.ibeatles.session import SessionKeys, SessionSubKeys
-from src.ibeatles import DataType, FileType
-from src.ibeatles.step6 import ParametersToDisplay
-from src.ibeatles.step6.get import Get
-from src.ibeatles.utilities.file_handler import (
+from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles import DataType, FileType
+from ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6.get import Get
+from ibeatles.utilities.file_handler import (
     FileHandler,
     create_full_export_file_name,
 )
-from src.ibeatles.utilities.json_handler import save_json
-from src.ibeatles.utilities.export import format_kropff_dict, format_kropff_table
-from src.ibeatles.utilities.get import Get as UtilitiesGet
-from src.ibeatles.fitting import FittingKeys
-from src.ibeatles.utilities.time import get_current_time_in_special_file_name_format
+from ibeatles.utilities.json_handler import save_json
+from ibeatles.utilities.export import format_kropff_dict, format_kropff_table
+from ibeatles.utilities.get import Get as UtilitiesGet
+from ibeatles.fitting import FittingKeys
+from ibeatles.utilities.time import get_current_time_in_special_file_name_format
 
 
 class Export:

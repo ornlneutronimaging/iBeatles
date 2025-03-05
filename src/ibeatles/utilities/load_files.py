@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+"""
+This module provides a class to load files.
+"""
+
 from qtpy.QtWidgets import QApplication
 import glob
 import os
 import numpy as np
 
-from src.ibeatles import DataType
-from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.utilities.image_handler import ImageHandler
+from ibeatles import DataType
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.image_handler import ImageHandler
 
 
 class LoadFiles:

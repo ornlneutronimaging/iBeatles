@@ -1,9 +1,14 @@
+#!/usr/bin/env python
+"""
+Manual right click
+"""
+
 from qtpy import QtGui
 from qtpy.QtWidgets import QMenu
 import logging
 
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.tools.utilities import TimeSpectraKeys
 
 
 class ManualRightClick:

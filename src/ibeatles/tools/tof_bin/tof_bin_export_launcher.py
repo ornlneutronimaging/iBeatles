@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+TOF bin export launcher
+"""
+
 from qtpy.QtWidgets import QDialog, QApplication, QFileDialog
 import logging
 import os
@@ -8,15 +13,15 @@ import warnings
 
 from NeuNorm.normalization import Normalization
 
-from src.ibeatles import load_ui
-from src.ibeatles import DataType
-from src.ibeatles.session import SessionSubKeys
-from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.tools.utilities.reload.reload import Reload
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
-from src.ibeatles.tools.utilities import CombineAlgorithm
-from src.ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles import load_ui
+from ibeatles import DataType
+from ibeatles.session import SessionSubKeys
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.tools.utilities.reload.reload import Reload
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
+from ibeatles.tools.utilities import CombineAlgorithm
+from ibeatles.tools.tof_bin.utilities.get import Get
 
 warnings.filterwarnings("ignore")
 

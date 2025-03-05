@@ -1,9 +1,14 @@
+#!/usr/bin/env python
+"""
+Display of the d 2D image or the strain mapping 2D image
+"""
+
 import numpy as np
 from matplotlib.image import _resample
 from matplotlib.transforms import Affine2D
 
-from src.ibeatles.step6.get import Get
-from src.ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6.get import Get
+from ibeatles.step6 import ParametersToDisplay
 
 
 class Display:

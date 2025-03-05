@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Initialization of the step6
+"""
+
 import numpy as np
 import matplotlib
 
@@ -6,16 +11,16 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 
 from qtpy.QtWidgets import QVBoxLayout
 
-from src.ibeatles import ANGSTROMS, LAMBDA, SUB_0
-from src.ibeatles import DataType
-from src.ibeatles.utilities.mplcanvas import MplCanvasColorbar
-from src.ibeatles.step6 import ParametersToDisplay
-from src.ibeatles.step6.get import Get
-from src.ibeatles.session import SessionSubKeys, SessionKeys
-from src.ibeatles.widgets.qrangeslider import QRangeSlider
-from src.ibeatles.fitting import FittingTabSelected
-from src.ibeatles.fitting.kropff import BraggPeakInitParameters
-from src.ibeatles.step6 import (
+from ibeatles import ANGSTROMS, LAMBDA, SUB_0
+from ibeatles import DataType
+from ibeatles.utilities.mplcanvas import MplCanvasColorbar
+from ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6.get import Get
+from ibeatles.session import SessionSubKeys, SessionKeys
+from ibeatles.widgets.qrangeslider import QRangeSlider
+from ibeatles.fitting import FittingTabSelected
+from ibeatles.fitting.kropff import BraggPeakInitParameters
+from ibeatles.step6 import (
     INTERPOLATION_METHODS,
     DEFAULT_INTERPOLATION_INDEX,
     CMAPS,

@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+"""
+Plot module
+"""
+
 import copy
 import numpy as np
 
-from src.ibeatles.tools.tof_bin.utilities.get import Get
-from src.ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.utilities import TimeSpectraKeys
 
-from src.ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from src.ibeatles.tools import LAMBDA, MICRO, ANGSTROMS
+from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles.tools import LAMBDA, MICRO, ANGSTROMS
 
 
 class Plot:

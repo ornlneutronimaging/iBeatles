@@ -1,4 +1,9 @@
-from src.ibeatles import DataType
+#!/usr/bin/env python
+"""
+This module contains the class Pyqtgrah which is used to handle the histogram widget in the GUI.
+"""
+
+from ibeatles import DataType
 
 
 class Pyqtgrah:

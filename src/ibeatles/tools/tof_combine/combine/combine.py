@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+"""
+Combine module
+"""
+
 import numpy as np
 import pyqtgraph as pg
 
-from src.ibeatles.tools.utilities import CombineAlgorithm
+from ibeatles.tools.utilities import CombineAlgorithm
 
-from src.ibeatles.tools.tof_combine.utilities.get import Get
-from src.ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
+from ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
 
 
 class Combine:

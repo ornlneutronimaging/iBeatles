@@ -1,13 +1,17 @@
+#!/usr/bin/env python
+"""
+LoadPreviousSessionLauncher class
+"""
+
 from qtpy.QtWidgets import QDialog
 import os
 
-from src.ibeatles import load_ui
-from src.ibeatles.utilities.get import Get
-
-from src.ibeatles.session.load_previous_session_launcher_multiple_choice import (
+from ibeatles import load_ui
+from ibeatles.utilities.get import Get
+from ibeatles.session.load_previous_session_launcher_multiple_choice import (
     LoadPreviousSessionLauncherMultipleChoice,
 )
-from src.ibeatles.session.session_handler import SessionHandler
+from ibeatles.session.session_handler import SessionHandler
 
 
 class LoadPreviousSessionLauncher(QDialog):

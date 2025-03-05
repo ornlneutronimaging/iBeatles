@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+"""
+Display class for Kropff fitting
+"""
+
 import pyqtgraph as pg
 import numpy as np
 
-from src.ibeatles.fitting.kropff.get import Get as GetKropff
-from src.ibeatles.utilities.display import Display as UtilitiesDisplay
+from ibeatles.fitting.kropff.get import Get as GetKropff
+from ibeatles.utilities.display import Display as UtilitiesDisplay
 
 
 class Display:

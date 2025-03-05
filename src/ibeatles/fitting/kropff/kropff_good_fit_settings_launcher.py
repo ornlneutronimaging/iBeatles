@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+"""
+KropffGoodFitSettingsLauncher class for launching the Kropff Good Fit Settings.
+"""
+
 from qtpy.QtWidgets import QDialog
 
-from src.ibeatles import load_ui
+from ibeatles import load_ui
 
 
 class KropffGoodFitSettingsLauncher(QDialog):
-    fit_conditions = {}
+    fit_conditions: dict = {}
 
     def __init__(self, parent=None):
         self.parent = parent

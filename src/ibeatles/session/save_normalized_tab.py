@@ -1,9 +1,14 @@
-import logging
+#!/usr/bin/env python
+"""
+SaveNormalizedTab class
+"""
 
-from src.ibeatles import DataType
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from loguru import logger
 
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles import DataType
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+
+from ibeatles.session import SessionKeys, SessionSubKeys
 from .save_tab import SaveTab
 
 
@@ -32,14 +37,14 @@ class SaveNormalizedTab(SaveTab):
         o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]["histogram"]
 
-        logging.info("Recording parameters of normalized tab")
-        logging.info(f" len(list files) = {len(list_files)}")
-        logging.info(f" current folder: {current_folder}")
-        logging.info(f" time spectra filename: {time_spectra_filename}")
-        logging.info(f" list files selected: {list_files_selected}")
-        logging.info(f" len(list rois): {len(list_roi)}")
-        logging.info(f" state: {state}")
-        logging.info(f" histogram: {histogram}")
+        logger.info("Recording parameters of normalized tab")
+        logger.info(f" len(list files) = {len(list_files)}")
+        logger.info(f" current folder: {current_folder}")
+        logger.info(f" time spectra filename: {time_spectra_filename}")
+        logger.info(f" list files selected: {list_files_selected}")
+        logger.info(f" len(list rois): {len(list_roi)}")
+        logger.info(f" state: {state}")
+        logger.info(f" histogram: {histogram}")
 
         self.session_dict[data_type][SessionSubKeys.list_files] = list_files
         self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder

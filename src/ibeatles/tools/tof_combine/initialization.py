@@ -1,13 +1,18 @@
+#!/usr/bin/env python
+"""
+Initialization module
+"""
+
 from qtpy.QtWidgets import QProgressBar, QVBoxLayout, QHBoxLayout, QRadioButton
 from qtpy.QtWidgets import QSpacerItem, QSizePolicy, QWidget
 from qtpy.QtGui import QIcon
 from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
 
-from src.ibeatles import interact_me_style
-from src.ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
-from src.ibeatles.tools.tof_combine import MICRO, LAMBDA, ANGSTROMS
-from src.ibeatles.tools.tof_combine import settings_image
+from ibeatles import interact_me_style
+from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
+from ibeatles.tools.tof_combine import MICRO, LAMBDA, ANGSTROMS
+from ibeatles.tools.tof_combine import settings_image
 
 
 class Initialization:

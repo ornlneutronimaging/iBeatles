@@ -1,14 +1,16 @@
+#!/usr/bin/env python
+"""
+FittingInitializationHandler class for handling the initialization of the fitting parameters.
+"""
+
 from qtpy import QtCore
 from qtpy.QtWidgets import QApplication
 import numpy as np
 
-from src.ibeatles.table_dictionary.table_dictionary_handler import (
+from ibeatles.table_dictionary.table_dictionary_handler import (
     TableDictionaryHandler,
 )
-from src.ibeatles.fitting.initialization_sigma_alpha import InitializationSigmaAlpha
-
-
-# from src.ibeatles.py.utilities.math_tools import calculate_inflection_point
+from ibeatles.fitting.initialization_sigma_alpha import InitializationSigmaAlpha
 
 
 class FittingInitializationHandler(object):

@@ -1,12 +1,17 @@
+#!/usr/bin/env python
+"""
+EventHandler class for handling the events in the fitting tab.
+"""
+
 from qtpy.QtWidgets import QTableWidgetSelectionRange, QApplication
 from qtpy import QtCore
 
-from src.ibeatles.table_dictionary.table_dictionary_handler import (
+from ibeatles.table_dictionary.table_dictionary_handler import (
     TableDictionaryHandler,
 )
-from src.ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 
 
 class EventHandler:

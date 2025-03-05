@@ -1,21 +1,26 @@
-import logging
+#!/usr/bin/env python
+"""
+Event handler for the rotate images tool
+"""
+
 from qtpy.QtWidgets import QFileDialog, QApplication
 from qtpy import QtCore
+from loguru import logger
 import numpy as np
 import scipy
 import pyqtgraph as pg
 import os
 import shutil
 
-from src.ibeatles import DataType, interact_me_style, normal_style
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles import DataType, interact_me_style, normal_style
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from src.ibeatles.session import SessionSubKeys
-from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.utilities.file_handler import retrieve_timestamp_file_name
-from src.ibeatles.utilities.load_files import LoadFiles
+from ibeatles.session import SessionSubKeys
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.file_handler import retrieve_timestamp_file_name
+from ibeatles.utilities.load_files import LoadFiles
 
 
 class EventHandler:
@@ -35,12 +40,12 @@ class EventHandler:
             )
         )
         if folder == "":
-            logging.info("User Canceled the selection of folder!")
+            logger.info("User Canceled the selection of folder!")
             return
 
         list_tif_files = FileHandler.get_list_of_tif(folder=folder)
         if not list_tif_files:
-            logging.info("-> folder does not contain any tif file!")
+            logger.info("-> folder does not contain any tif file!")
             show_status_message(
                 parent=self.parent,
                 message=f"Folder {os.path.basename(folder)} does not contain any TIFF files!",
@@ -50,7 +55,7 @@ class EventHandler:
             return
 
         self.parent.ui.folder_selected_label.setText(folder)
-        logging.info(f"Users selected the folder: {folder}")
+        logger.info(f"Users selected the folder: {folder}")
         self.parent.list_tif_files = list_tif_files
 
     def load_data(self):
@@ -185,7 +190,7 @@ class EventHandler:
         )
 
         if not output_folder:
-            logging.info(" User cancel rotating the images")
+            logger.info(" User cancel rotating the images")
             return
 
         return output_folder
@@ -194,7 +199,7 @@ class EventHandler:
         if output_folder is None:
             return
 
-        logging.info("Rotating normalized images")
+        logger.info("Rotating normalized images")
         angle = self.parent.ui.rotation_doubleSpinBox.value()
         data = self.parent.images_array
         import_folder_name = self.parent.ui.folder_selected_label.text()
@@ -234,13 +239,13 @@ class EventHandler:
     @staticmethod
     def export_time_spectra_file(output_folder=None, input_folder=None):
         """use the time spectra file from the first folder selected and export it to the output folder"""
-        logging.info("Export time spectra file:")
+        logger.info("Export time spectra file:")
 
         # retrieve full path of the time spectra file from first folder selected
         time_spectra_filename = retrieve_timestamp_file_name(folder=input_folder)
 
-        logging.info(f" - time spectra file: {time_spectra_filename}")
-        logging.info(f" - to output folder: {output_folder}")
+        logger.info(f" - time spectra file: {time_spectra_filename}")
+        logger.info(f" - to output folder: {output_folder}")
 
         # copy that spectra file to final location
         shutil.copy(time_spectra_filename, output_folder)
@@ -274,7 +279,7 @@ class EventHandler:
             output_folder, f"{input_folder_name}_{new_rotation_value}"
         )
         FileHandler.make_or_reset_folder(folder_name=full_output_folder_name)
-        logging.info(f" Created folder {full_output_folder_name}")
+        logger.info(f" Created folder {full_output_folder_name}")
         return full_output_folder_name
 
     @staticmethod
@@ -288,5 +293,5 @@ class EventHandler:
         elif file_extension.lower() == ".fits":
             FileHandler.make_fits(data=data, filename=filename)
         else:
-            logging.info(f"file format {file_extension} not supported!")
+            logger.info(f"file format {file_extension} not supported!")
             raise NotImplementedError(f"file format {file_extension} not supported!")

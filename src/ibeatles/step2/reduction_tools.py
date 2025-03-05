@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+"""
+Reduction tools
+"""
+
 import numpy as np
 import scipy.ndimage
 import logging
 
-from src.ibeatles.step2 import KernelType
+from ibeatles.step2 import KernelType
 
 
 def moving_average(data=None, kernel_type=KernelType.gaussian, kernel=None):

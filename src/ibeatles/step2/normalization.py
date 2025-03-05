@@ -1,26 +1,31 @@
+#!/usr/bin/env python
+"""
+Normalization
+"""
+
 from qtpy.QtWidgets import QFileDialog
 import os
 import shutil
-import logging
 import numpy as np
 import copy
+from loguru import logger
 
 from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
 
-from src.ibeatles import DataType
-from src.ibeatles.session import ReductionDimension
-from src.ibeatles.step2.roi_handler import Step2RoiHandler
-from src.ibeatles.step3.event_handler import EventHandler
-from src.ibeatles.utilities.file_handler import FileHandler
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles import DataType
+from ibeatles.session import ReductionDimension
+from ibeatles.step2.roi_handler import Step2RoiHandler
+from ibeatles.step3.event_handler import EventHandler
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from src.ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
-from src.ibeatles.step2.reduction_tools import moving_average
-from src.ibeatles.step2.get import Get
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
+from ibeatles.step2.reduction_tools import moving_average
+from ibeatles.step2.get import Get
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class Normalization:
@@ -31,7 +36,7 @@ class Normalization:
         self.parent = parent
 
     def run_and_export(self):
-        logging.info("Running and exporting normalization:")
+        logger.info("Running and exporting normalization:")
 
         # ask for output folder location
         sample_folder = self.parent.data_metadata["sample"]["folder"]
@@ -46,7 +51,7 @@ class Normalization:
         )
 
         if not output_folder:
-            logging.info(" No output folder selected, normalization stopped!")
+            logger.info(" No output folder selected, normalization stopped!")
             return False
 
         # save output folder to session
@@ -54,14 +59,14 @@ class Normalization:
             output_folder
         )
 
-        logging.info(f" output folder selected: {output_folder}")
+        logger.info(f" output folder selected: {output_folder}")
         full_output_folder = os.path.join(output_folder, sample_name + "_normalized")
         try:
             full_output_folder = FileHandler.make_or_append_date_time_to_folder(
                 full_output_folder
             )
         except OSError:
-            logging.info(
+            logger.info(
                 f"ERROR: folder permission error into this folder {full_output_folder}"
             )
             show_status_message(
@@ -72,7 +77,7 @@ class Normalization:
             )
             return False
 
-        logging.info(f" full output folder will be: {full_output_folder}")
+        logger.info(f" full output folder will be: {full_output_folder}")
 
         o_norm = self.create_o_norm()
 
@@ -91,7 +96,7 @@ class Normalization:
             o_norm = self.running_moving_average(o_norm=copy.deepcopy(o_norm))
 
         if not o_norm:
-            logging.info("Normalization failed!")
+            logger.info("Normalization failed!")
             show_status_message(
                 parent=self.parent,
                 message="Normalization Failed (check logbook)!",
@@ -114,7 +119,7 @@ class Normalization:
         return True
 
     def create_o_norm(self):
-        logging.info("Creating o_norm object (to prepare data normalization!")
+        logger.info("Creating o_norm object (to prepare data normalization!")
 
         _data = self.parent.data_metadata["sample"]["data"]
         _ob = self.parent.data_metadata["ob"]["data"]
@@ -164,17 +169,17 @@ class Normalization:
         )
 
     def moving_time_spectra_to_normalizaton_folder(self, output_folder=None):
-        logging.info("Copying time spectra file from input folder to output folder.")
+        logger.info("Copying time spectra file from input folder to output folder.")
         time_spectra = self.parent.data_metadata["sample"]["time_spectra"]
         filename = time_spectra["filename"]
         folder = time_spectra["folder"]
         full_time_spectra = os.path.join(folder, filename)
-        logging.info(f"-> time_spectra: {time_spectra}")
-        logging.info(f"-> full_time_spectra: {full_time_spectra}")
+        logger.info(f"-> time_spectra: {time_spectra}")
+        logger.info(f"-> full_time_spectra: {full_time_spectra}")
         shutil.copy(full_time_spectra, output_folder)
 
     def saving_normalization_parameters(self, o_norm=None, output_folder=None):
-        logging.info(
+        logger.info(
             "Internally saving normalization parameters (data, folder, time_spectra)"
         )
         self.parent.data_metadata[DataType.normalized]["data"] = np.array(
@@ -193,7 +198,7 @@ class Normalization:
             SessionKeys.reduction
         ]
         if not running_moving_average_settings["activate"]:
-            logging.info("Not running moving average! Option has been turned off")
+            logger.info("Not running moving average! Option has been turned off")
             return o_norm
 
         show_status_message(
@@ -201,7 +206,7 @@ class Normalization:
             message="Running moving average ...",
             status=StatusMessageStatus.working,
         )
-        logging.info("Running moving average:")
+        logger.info("Running moving average:")
         reduction_settings = self.parent.session_dict[SessionKeys.reduction]
 
         if reduction_settings["size"]["flag"] == "default":
@@ -224,22 +229,22 @@ class Normalization:
         o_get = Get(parent=self.parent)
         kernel_type = o_get.kernel_type()
 
-        logging.info(f"-> kernel dimension: {reduction_settings['dimension']}")
-        logging.info(f"-> kernel shape: {np.shape(kernel)}")
-        logging.info(f"-> len(sample): {len(_data_transposed)}")
-        logging.info(f"-> kernel: {kernel}")
-        logging.info(f"-> kernel type: {kernel_type}")
+        logger.info(f"-> kernel dimension: {reduction_settings['dimension']}")
+        logger.info(f"-> kernel shape: {np.shape(kernel)}")
+        logger.info(f"-> len(sample): {len(_data_transposed)}")
+        logger.info(f"-> kernel: {kernel}")
+        logger.info(f"-> kernel type: {kernel_type}")
 
-        logging.info("-> Starting to run moving average with sample data")
+        logger.info("-> Starting to run moving average with sample data")
         show_status_message(
             parent=self.parent,
             message="Moving average of sample data ...",
             status=StatusMessageStatus.working,
         )
         sample_data = moving_average(data=_data, kernel=kernel, kernel_type=kernel_type)
-        logging.info("-> Done running moving average with sample data!")
+        logger.info("-> Done running moving average with sample data!")
         if sample_data is None:
-            logging.info("Moving average failed!")
+            logger.info("Moving average failed!")
             show_status_message(
                 parent=self.parent,
                 message="Running moving average ... Failed",
@@ -264,13 +269,13 @@ class Normalization:
                 message="Moving average of ob data ...",
                 status=StatusMessageStatus.ready,
             )
-            logging.info("-> Starting to run moving average with ob data")
+            logger.info("-> Starting to run moving average with ob data")
             ob_data = moving_average(data=_ob, kernel=kernel, kernel_type=kernel_type)
-            logging.info("-> Done running moving average with ob data!")
+            logger.info("-> Done running moving average with ob data!")
             if ob_data:
                 ob_data.transpose(2, 1, 0)  # lambda, x, y
             else:
-                logging.info("Moving average failed!")
+                logger.info("Moving average failed!")
                 show_status_message(
                     parent=self.parent,
                     message="Running moving average ... Failed",
@@ -290,7 +295,7 @@ class Normalization:
         return o_norm
 
     def running_normalization(self, o_norm=None):
-        logging.info(" running normalization!")
+        logger.info(" running normalization!")
 
         # if o_norm is None:
         #     _data = self.parent.data_metadata['sample']['data']
@@ -304,10 +309,10 @@ class Normalization:
         try:  # to avoid valueError when row not fully filled
             list_roi_to_use = o_roi_handler.get_list_of_background_roi_to_use()
         except ValueError:
-            logging.info(" Error raised when retrieving the background ROI!")
+            logger.info(" Error raised when retrieving the background ROI!")
             return None
 
-        logging.info(f" Background list of ROI: {list_roi_to_use}")
+        logger.info(f" Background list of ROI: {list_roi_to_use}")
 
         if not o_norm.data["ob"]["data"]:
             # if just sample data
@@ -317,7 +322,7 @@ class Normalization:
             return self.normalization_sample_and_ob_data(o_norm, list_roi_to_use)
 
     def normalization_only_sample_data(self, o_norm, list_roi):
-        logging.info(" running normalization with only sample data ...")
+        logger.info(" running normalization with only sample data ...")
 
         # show_status_message(parent=self.parent,
         #                     message="Loading data ...",
@@ -355,11 +360,11 @@ class Normalization:
             duration_s=5,
         )
 
-        logging.info(" running normalization with only sample data ... Done!")
+        logger.info(" running normalization with only sample data ... Done!")
         return o_norm
 
     def normalization_sample_and_ob_data(self, o_norm, list_roi):
-        logging.info(" running normalization with sample and ob data ...")
+        logger.info(" running normalization with sample and ob data ...")
 
         # # sample
         # show_status_message(parent=self.parent,
@@ -417,7 +422,7 @@ class Normalization:
         #                     status=StatusMessageStatus.working,
         #                     duration_s=5)
 
-        logging.info(" running normalization with sample and ob data ... Done!")
+        logger.info(" running normalization with sample and ob data ... Done!")
         return o_norm
 
     # def can_we_use_buffered_data(self, kernel_dimension=None, kernel_size=None, kernel_type=None):

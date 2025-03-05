@@ -1,15 +1,19 @@
+#!/usr/bin/env python
+"""
+Filling table handler
+"""
+
 import numpy as np
 from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QCheckBox, QTableWidgetItem
-# import pyqtgraph as pg
 
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.fitting import FittingKeys
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffsessionSubKeys
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting import FittingKeys
+from ibeatles.fitting.kropff import SessionSubKeys as KropffsessionSubKeys
 
 
 class FillingTableHandler:
-    table_dictionary = {}
+    table_dictionary: dict = {}
     advanced_mode_flag = True
 
     def __init__(self, grand_parent=None, parent=None):
