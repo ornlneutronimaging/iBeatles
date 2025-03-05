@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from src.ibeatles.ibeatles import main
+from ibeatles.ibeatles import main
 
 import multiprocessing
 import sys

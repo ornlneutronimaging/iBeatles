@@ -20,9 +20,12 @@ dependencies = [
     "neutronbraggedge",
     "changepy",
     "NeuNorm",
-    "pytest"
+    "pytest",
     "loguru",
     "tqdm",
+    "tomli",
+    "pydantic",
+    "Ipython",
 ]
 license = { text = "MIT" }
 
@@ -56,12 +59,15 @@ distance-dirty = "{next_version}.dev{distance}+d{build_date:%Y%m%d%H%M}"
 [tool.versioningit.write]
 file = "src/ibeatles/_version.py"
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.packages.find]
 where = ["src"]
 exclude = ["tests*", "scripts*", "docs*", "notebooks*"]
 
 [tool.setuptools.package-data]
-"*" = ["*.yml","*.yaml","*.ini"]
+"*" = ["*.yml","*.yaml","*.ini","**/*.ui","**/*.json", "**/icons/*"]
 
 [tool.pytest.ini_options]
 pythonpath = [
