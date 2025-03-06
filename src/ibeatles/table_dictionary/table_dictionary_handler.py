@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+"""
+Table Dictionary Handler
+"""
+
 from qtpy.QtWidgets import QFileDialog
 import numpy as np
 import os
 import pandas as pd
 
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.fitting import fitting_handler
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.fitting import fitting_handler
 
 
 class ColumnNameIndex:

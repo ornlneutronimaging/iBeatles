@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+"""
+MplWidget class for matplotlib widget.
+"""
+
 import os
 import tempfile
 
@@ -21,8 +25,6 @@ cmap = matplotlib.colors.LinearSegmentedColormap.from_list(
     "default", ["#0000ff", "#00ff00", "#ffff00", "#ff0000", "#bd7efc", "#000000"], N=256
 )
 matplotlib.cm.register_cmap("default", cmap=cmap)
-
-# from src.ibeatles.py.icons import icons_rc  # @UnusedImport
 
 
 class NavigationToolbar(NavigationToolbar2QT):

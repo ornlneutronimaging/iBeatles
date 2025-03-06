@@ -1,6 +1,11 @@
+#!/usr/bin/env python
+"""
+Get values from the GUI
+"""
+
 import numpy as np
 
-from src.ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6 import ParametersToDisplay
 
 
 class Get:

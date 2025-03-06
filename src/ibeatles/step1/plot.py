@@ -1,19 +1,24 @@
+#!/usr/bin/env python
+"""
+Plot (step 1)
+"""
+
 import numpy as np
 import pyqtgraph as pg
 from qtpy.QtGui import QBrush
 
 from neutronbraggedge.experiment_handler.experiment import Experiment
 
-from src.ibeatles import (
+from ibeatles import (
     DataType,
     ScrollBarParameters,
     MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME,
 )
-from src.ibeatles.utilities.colors import pen_color, roi_group_color
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.ibeatles.binning.binning_handler import BinningHandler
-from src.ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.utilities.colors import pen_color, roi_group_color
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles.fitting.fitting_handler import FittingHandler
 
 
 class CustomAxis(pg.AxisItem):

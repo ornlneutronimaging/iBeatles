@@ -1,23 +1,27 @@
+#!/usr/bin/env python
+"""
+FittingParametersViewerEditorLauncher class for handling the fitting parameters viewer editor launcher.
+"""
+
 from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
 from qtpy import QtGui, QtCore
 import numpy as np
-import logging
+from loguru import logger
 
-from src.ibeatles.utilities.bins import (
+from ibeatles.utilities.bins import (
     create_list_of_bins_from_selection,
     create_list_of_surrounding_bins,
     convert_bins_to_keys,
 )
-from src.ibeatles import load_ui
-
-from src.ibeatles.fitting.filling_table_handler import FillingTableHandler
-from src.ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import (
+from ibeatles import load_ui
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import (
     FittingParametersViewerEditorHandler,
 )
-from src.ibeatles.fitting.kropff import SessionSubKeys
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.utilities.array_utilities import calculate_median
-from src.ibeatles.fitting.kropff.get import Get
+from ibeatles.fitting.kropff import SessionSubKeys
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.array_utilities import calculate_median
+from ibeatles.fitting.kropff.get import Get
 
 
 class FittingParametersViewerEditorLauncher:
@@ -160,7 +164,7 @@ class FittingParametersViewerEditor(QMainWindow):
         o_handler.variable_cell_manual_changed(row=row, column=column)
 
     def save_and_quit_clicked(self):
-        logging.info("Saving fitting parameters back into fitting tab!")
+        logger.info("Saving fitting parameters back into fitting tab!")
         self.grand_parent.kropff_table_dictionary = self.kropff_table_dictionary
         o_fill = FillingTableHandler(parent=self.parent, grand_parent=self.grand_parent)
         o_fill.fill_kropff_bragg_peak_table()
@@ -214,7 +218,7 @@ class VariableTableHandler:
 
         table_dictionary = self.parent.kropff_table_dictionary
 
-        logging.info("replace by median of surrounding pixels")
+        logger.info("replace by median of surrounding pixels")
 
         for _selection in all_selection:
             top_row = _selection.topRow()
@@ -230,7 +234,7 @@ class VariableTableHandler:
                 right_column=right_column,
             )
 
-            logging.info(f"-> list_bins: {list_bins}")
+            logger.info(f"-> list_bins: {list_bins}")
             for central_bin in list_bins:
                 [central_key] = convert_bins_to_keys(
                     list_of_bins=[central_bin], full_bin_height=self.nbr_row
@@ -239,7 +243,7 @@ class VariableTableHandler:
                 if self.parent.kropff_table_dictionary[central_key][
                     SessionSubKeys.lock
                 ]:
-                    logging.info(
+                    logger.info(
                         f"-> bin #{central_key} is locked and won't be modified!"
                     )
                     # we don't do anything if the cell is locked !
@@ -373,7 +377,7 @@ class VariableTableHandler:
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         all_selection = o_table.get_selection()
         # table_dictionary = self.parent.kropff_table_dictionary
-        logging.info("Changing lock state of selection")
+        logger.info("Changing lock state of selection")
 
         for _selection in all_selection:
             top_row = _selection.topRow()

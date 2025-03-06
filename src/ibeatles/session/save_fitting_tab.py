@@ -1,16 +1,21 @@
-import logging
+#!/usr/bin/env python
+"""
+SaveFittingTab class
+"""
 
-from src.ibeatles import DataType
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.ibeatles.fitting import FittingTabSelected
+from loguru import logger
 
-from src.ibeatles.session.save_tab import SaveTab
-from src.ibeatles.session import SessionKeys, SessionSubKeys
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from src.ibeatles.fitting.march_dollase import (
+from ibeatles import DataType
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.fitting import FittingTabSelected
+
+from ibeatles.session.save_tab import SaveTab
+from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.march_dollase import (
     SessionSubKeys as MarchDollaseSessionSubKeys,
 )
-from src.ibeatles.fitting import FittingKeys
+from ibeatles.fitting import FittingKeys
 
 
 class SaveFittingTab(SaveTab):
@@ -23,7 +28,7 @@ class SaveFittingTab(SaveTab):
         self.kropff()
 
     def general_infos(self):
-        logging.info("Recording general fitting parameters")
+        logger.info("Recording general fitting parameters")
 
         if self.parent.fitting_image_view:
             o_pyqt = PyqtgraphUtilities(
@@ -49,8 +54,8 @@ class SaveFittingTab(SaveTab):
                 max_lambda_index,
             ]
 
-        logging.info(f" state: {state}")
-        logging.info(f" histogram: {histogram}")
+        logger.info(f" state: {state}")
+        logger.info(f" histogram: {histogram}")
 
         self.session_dict[DataType.fitting][FittingKeys.x_axis] = [
             float(x) for x in self.parent.normalized_lambda_bragg_edge_x_axis
@@ -70,7 +75,7 @@ class SaveFittingTab(SaveTab):
         ]["ui"]
 
     def march_dollase(self):
-        logging.info("Recording March-Dollase fitting parameters")
+        logger.info("Recording March-Dollase fitting parameters")
 
         if self.parent.fitting_ui:
             self.parent.fitting_ui.save_all_parameters()
@@ -114,16 +119,16 @@ class SaveFittingTab(SaveTab):
 
         x_axis = self.session_dict[DataType.fitting][SessionSubKeys.x_axis]
         if x_axis:
-            logging.info(f" len(x_axis): {len(x_axis)}")
+            logger.info(f" len(x_axis): {len(x_axis)}")
         else:
-            logging.info(" x_axis is empty!")
+            logger.info(" x_axis is empty!")
 
-        logging.info(
+        logger.info(
             f" lambda range index: {self.session_dict[SessionKeys.fitting][SessionSubKeys.lambda_range_index]}"
         )
 
     def kropff(self):
-        logging.info("Recording Kropff fitting parameters")
+        logger.info("Recording Kropff fitting parameters")
         table_dictionary = self.parent.kropff_table_dictionary
 
         formatted_table_dictionary = {}

@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+"""
+Time spectra module
+"""
+
 from pathlib import Path
 import numpy as np
 import logging
 
-from src.ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.file_handler import FileHandler
 
 
 def export_time_stamp_file(

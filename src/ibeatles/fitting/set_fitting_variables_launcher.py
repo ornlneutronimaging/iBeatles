@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Set Fitting Variables Launcher
+"""
+
 from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
 from qtpy import QtGui, QtCore
 import numpy as np
@@ -5,7 +10,7 @@ import numpy as np
 from ..fitting.set_fitting_variables_handler import SetFittingVariablesHandler
 from ..fitting.filling_table_handler import FillingTableHandler
 from .. import load_ui
-from src.ibeatles.fitting.march_dollase.event_handler import EventHandler
+from ibeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class SetFittingVariablesLauncher(object):

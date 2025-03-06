@@ -1,22 +1,27 @@
+#!/usr/bin/env python
+"""
+Export configuration
+"""
+
 import os
-import logging
+from loguru import logger
 from qtpy.QtWidgets import QFileDialog
 
-from src.ibeatles import DataType, FileType
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles import DataType, FileType
+from ibeatles.session import SessionKeys, SessionSubKeys
 
-from src.ibeatles.utilities.time import get_current_time_in_special_file_name_format
-from src.ibeatles.utilities.file_handler import (
+from ibeatles.utilities.time import get_current_time_in_special_file_name_format
+from ibeatles.utilities.file_handler import (
     create_full_export_file_name,
 )
-from src.ibeatles.fitting.get import Get
-from src.ibeatles.utilities.get import Get as MainGet
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles.fitting.get import Get
+from ibeatles.utilities.get import Get as MainGet
+from ibeatles.utilities.status_message_config import (
     show_status_message,
     StatusMessageStatus,
 )
-from src.ibeatles.fitting import FittingTabSelected
-from src.ibeatles.utilities.json_handler import save_json
+from ibeatles.fitting import FittingTabSelected
+from ibeatles.utilities.json_handler import save_json
 
 
 class Export:
@@ -28,7 +33,7 @@ class Export:
         o_get = Get(parent=self.parent)
         main_tab_selected = o_get.main_tab_selected()
         if main_tab_selected == FittingTabSelected.march_dollase:
-            logging.info("Export in Marche Dollase mode not supported yet!")
+            logger.info("Export in Marche Dollase mode not supported yet!")
             show_status_message(
                 parent=self.parent,
                 message="Export in Marche Dollase mode not supported yet!",
@@ -44,7 +49,7 @@ class Export:
             os.path.join(output_folder, f"config_{_current_time}"), FileType.json
         )
 
-        logging.info(
+        logger.info(
             f"Exporting configuration to be used by the command line version (CLI) -> {output_file_name}"
         )
 
@@ -121,7 +126,7 @@ class Export:
         ]
 
         # table_dictionary = self.grand_parent.kropff_table_dictionary
-        # logging.info(f"{session_dict[SessionKeys.fitting].keys() =}")
+        # logger.info(f"{session_dict[SessionKeys.fitting].keys() =}")
         # print(f"{session_dict[SessionKeys.fitting]['xaxis'] = }")
 
         session_dict[SessionKeys.fitting][SessionSubKeys.xaxis] = [

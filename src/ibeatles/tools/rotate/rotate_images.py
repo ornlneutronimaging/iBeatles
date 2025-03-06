@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Rotate images
+"""
+
 from qtpy.QtWidgets import QMainWindow, QApplication
 
 import scipy
@@ -5,11 +10,11 @@ import shutil
 import os
 import logging
 
-from src.ibeatles import load_ui, DataType
+from ibeatles import load_ui, DataType
 
-from src.ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
-from src.ibeatles.tools.rotate.rotate_export_launcher import RotateExportLauncher
-from src.ibeatles.tools.rotate.initialization import Initialization
+from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
+from ibeatles.tools.rotate.rotate_export_launcher import RotateExportLauncher
+from ibeatles.tools.rotate.initialization import Initialization
 
 
 class RotateImages:

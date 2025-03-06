@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+"""
+Material class
+"""
+
 import numpy as np
 
 from neutronbraggedge.braggedge import BraggEdge
 
-from src.ibeatles.utilities.check import is_float, is_int
-from src.ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
-from src.ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.check import is_float, is_int
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class Material:

@@ -1,53 +1,52 @@
+#!/usr/bin/env python
+"""
+Fitting tab
+"""
+
 from qtpy.QtWidgets import QMainWindow, QApplication
 from qtpy import QtCore
 import numpy as np
-import logging
+from loguru import logger
 
-from src.ibeatles import load_ui
-from src.ibeatles import DataType
-from src.ibeatles.table_dictionary.table_dictionary_handler import (
+from ibeatles import load_ui
+from ibeatles import DataType
+from ibeatles.table_dictionary.table_dictionary_handler import (
     TableDictionaryHandler,
 )
-
-from src.ibeatles.fitting import FittingTabSelected
-from src.ibeatles.fitting.fitting_handler import FittingHandler
-from src.ibeatles.fitting.value_table_handler import ValueTableHandler
-from src.ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
-from src.ibeatles.fitting.filling_table_handler import FillingTableHandler
-from src.ibeatles.fitting.display import Display as FittingDisplay
-from src.ibeatles.fitting.get import Get
-from src.ibeatles.fitting.initialization import Initialization
-from src.ibeatles.fitting.event_handler import EventHandler
-from src.ibeatles.fitting.export import Export
-
-from src.ibeatles.fitting.march_dollase.fitting_initialization_handler import (
+from ibeatles.fitting import FittingTabSelected
+from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.value_table_handler import ValueTableHandler
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting.display import Display as FittingDisplay
+from ibeatles.fitting.get import Get
+from ibeatles.fitting.initialization import Initialization
+from ibeatles.fitting.event_handler import EventHandler
+from ibeatles.fitting.export import Export
+from ibeatles.fitting.march_dollase.fitting_initialization_handler import (
     FittingInitializationHandler,
 )
-from src.ibeatles.fitting.march_dollase.create_fitting_story_launcher import (
+from ibeatles.fitting.march_dollase.create_fitting_story_launcher import (
     CreateFittingStoryLauncher,
 )
-from src.ibeatles.fitting.march_dollase.event_handler import (
+from ibeatles.fitting.march_dollase.event_handler import (
     EventHandler as MarchDollaseEventHandler,
 )
-
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from src.ibeatles.fitting.kropff import RightClickTableMenu
-from src.ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
-from src.ibeatles.fitting.kropff.kropff_automatic_settings_launcher import (
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff import RightClickTableMenu
+from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
+from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import (
     KropffAutomaticSettingsLauncher,
 )
-from src.ibeatles.fitting.kropff.display import Display as KropffDisplay
-from src.ibeatles.fitting.kropff.kropff_lambda_hkl_settings import (
+from ibeatles.fitting.kropff.display import Display as KropffDisplay
+from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import (
     KropffLambdaHKLSettings,
 )
-from src.ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import (
+from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import (
     KropffGoodFitSettingsLauncher,
 )
-from src.ibeatles.fitting.kropff.export import Export as KropffExport
-# from src.ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import FittingParametersViewerEditorLauncher \
-#     as KropffFittingParametersViewerEditorLauncher
-
-from src.ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
+from ibeatles.fitting.kropff.export import Export as KropffExport
+from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
 
 class FittingLauncher:
@@ -93,15 +92,15 @@ class FittingWindow(QMainWindow):
     lambda_calculated_item_in_bragg_edge_plot = None
     lambda_calculated_item_in_kropff_fitting_plot = None
 
-    data = []
+    data: list = []
     image_size = None  # [height, width]
     # there_is_a_roi = False
     bragg_edge_active_button_status = (
         True  # to make sure active/lock button worked correctly
     )
 
-    list_bins_selected_item = []
-    list_bins_locked_item = []
+    list_bins_selected_item: list = []
+    list_bins_locked_item: list = []
 
     image_view = None  # top left view
     image_view_scene = None  # scene of top left view
@@ -218,7 +217,7 @@ class FittingWindow(QMainWindow):
     }
 
     def __init__(self, parent=None):
-        logging.info("Launching fitting tab!")
+        logger.info("Launching fitting tab!")
 
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)

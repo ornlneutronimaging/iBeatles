@@ -1,7 +1,12 @@
+#!/usr/bin/env python
+"""
+LoadBin class for loading binning tab data from session file.
+"""
+
 import numpy as np
 
-from src.ibeatles import DataType
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles import DataType
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class LoadBin:

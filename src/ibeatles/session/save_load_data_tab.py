@@ -1,12 +1,16 @@
-import logging
+#!/usr/bin/env python
+"""
+SaveLoadDataTab class
+"""
+
 import os
+from loguru import logger
 
-from src.ibeatles import DataType
-from src.ibeatles.session.save_tab import SaveTab
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles import DataType
+from ibeatles.session.save_tab import SaveTab
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class SaveLoadDataTab(SaveTab):
@@ -38,15 +42,15 @@ class SaveLoadDataTab(SaveTab):
 
         extension = os.path.splitext(list_files[0])
 
-        logging.info("Recording parameters of Load Data / Sample")
-        logging.info(f" len(list files) = {len(list_files)}")
-        logging.info(f" current folder: {current_folder}")
-        logging.info(f" time spectra filename: {time_spectra_filename}")
-        logging.info(f" list files selected: {list_files_selected}")
-        logging.info(f" len(list rois): {len(list_roi)}")
-        logging.info(f" state: {state}")
-        logging.info(f" histogram: {histogram}")
-        logging.info(f" extension: {extension}")
+        logger.info("Recording parameters of Load Data / Sample")
+        logger.info(f" len(list files) = {len(list_files)}")
+        logger.info(f" current folder: {current_folder}")
+        logger.info(f" time spectra filename: {time_spectra_filename}")
+        logger.info(f" list files selected: {list_files_selected}")
+        logger.info(f" len(list rois): {len(list_roi)}")
+        logger.info(f" state: {state}")
+        logger.info(f" histogram: {histogram}")
+        logger.info(f" extension: {extension}")
 
         self.session_dict[data_type][SessionSubKeys.list_files] = list_files
         self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder
@@ -84,13 +88,13 @@ class SaveLoadDataTab(SaveTab):
         o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]["histogram"]
 
-        logging.info("Recording parameters of Load Data / OB")
-        logging.info(f" len(list files) = {len(list_files)}")
-        logging.info(f" current folder: {current_folder}")
-        logging.info(f" list files selected: {list_files_selected}")
-        logging.info(f" len(list rois): {len(list_roi)}")
-        logging.info(f" state: {state}")
-        logging.info(f" histogram: {histogram}")
+        logger.info("Recording parameters of Load Data / OB")
+        logger.info(f" len(list files) = {len(list_files)}")
+        logger.info(f" current folder: {current_folder}")
+        logger.info(f" list files selected: {list_files_selected}")
+        logger.info(f" len(list rois): {len(list_roi)}")
+        logger.info(f" state: {state}")
+        logger.info(f" histogram: {histogram}")
 
         self.session_dict[data_type][SessionSubKeys.list_files] = list_files
         self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder
@@ -115,10 +119,10 @@ class SaveLoadDataTab(SaveTab):
         detector_value = o_gui.get_text(ui=list_ui["detector"])
         beam_index = o_gui.get_index_selected(ui=list_ui["beam"])
 
-        logging.info("Recording instrument")
-        logging.info(f" distance source detector: {distance_value}")
-        logging.info(f" detector value: {detector_value}")
-        logging.info(f" beam index: {beam_index}")
+        logger.info("Recording instrument")
+        logger.info(f" distance source detector: {distance_value}")
+        logger.info(f" detector value: {detector_value}")
+        logger.info(f" beam index: {beam_index}")
 
         self.session_dict[SessionKeys.instrument][
             SessionSubKeys.distance_source_detector
@@ -175,13 +179,13 @@ class SaveLoadDataTab(SaveTab):
             },
         }
 
-        logging.info("Recording Material")
-        logging.info(f" pre-defined material index: {pre_defined_material_index}")
-        logging.info(f" custom material name: {custom_material_name}")
-        logging.info(f" index of element used to fill fields: {index_element}")
-        logging.info(f" custom method1 lattice: {lattice_value}")
-        logging.info(
+        logger.info("Recording Material")
+        logger.info(f" pre-defined material index: {pre_defined_material_index}")
+        logger.info(f" custom material name: {custom_material_name}")
+        logger.info(f" index of element used to fill fields: {index_element}")
+        logger.info(f" custom method1 lattice: {lattice_value}")
+        logger.info(
             f" custom method1 crystal structure index: {crystal_structure_index}"
         )
-        logging.info(f" custom method1 table: {method1_table}")
-        logging.info(f" custom method2 table: {method2_table}")
+        logger.info(f" custom method1 table: {method1_table}")
+        logger.info(f" custom method2 table: {method2_table}")

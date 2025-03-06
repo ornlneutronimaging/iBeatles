@@ -1,9 +1,14 @@
+#!/usr/bin/env python
+"""
+Table handler
+"""
+
 import numpy as np
 from qtpy import QtGui, QtCore
 from qtpy.QtWidgets import QTableWidgetItem, QTableWidgetSelectionRange
 from qtpy.QtWidgets import QApplication, QSpacerItem, QSizePolicy, QWidget, QHBoxLayout
 
-from src.ibeatles.tools.tof_combine.utilities.widgets_handler import WidgetsHandler
+from ibeatles.tools.tof_combine.utilities.widgets_handler import WidgetsHandler
 
 
 class TableHandler:

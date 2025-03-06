@@ -1,5 +1,10 @@
-from src.ibeatles import DataType
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+#!/usr/bin/env python
+"""
+Load fitting tab
+"""
+
+from ibeatles import DataType
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class LoadFitting:

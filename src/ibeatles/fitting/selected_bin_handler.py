@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+"""
+Selected Bins Handler
+"""
+
 import numpy as np
 import pyqtgraph as pg
 
-from src.ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
-from src.ibeatles.fitting.get import Get
-from src.ibeatles.fitting.kropff.get import Get as KropffGet
-from src.ibeatles.fitting import FittingTabSelected
-from src.ibeatles.fitting.display import Display as FittingDisplay
+from ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
+from ibeatles.fitting.get import Get
+from ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.fitting import FittingTabSelected
+from ibeatles.fitting.display import Display as FittingDisplay
 
 
 class SelectedBinsHandler(object):

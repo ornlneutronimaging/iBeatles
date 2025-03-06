@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+"""
+GUI handler for the step2
+"""
+
 from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
 import pyqtgraph as pg
 import numpy as np
 
-from src.ibeatles.step2 import gui_handler
-from src.ibeatles import RegionType, DEFAULT_ROI
+from ibeatles.step2 import gui_handler
+from ibeatles import RegionType, DEFAULT_ROI
 
-from src.ibeatles.step2.get import Get as Step2Get
+from ibeatles.step2.get import Get as Step2Get
 
 
 class Step2RoiHandler:

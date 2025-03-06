@@ -1,19 +1,22 @@
+#!/usr/bin/env python
+"""
+Fitting Handler
+"""
+
 import numpy as np
 import pyqtgraph as pg
 from qtpy.QtWidgets import QGraphicsRectItem
 import copy
 
-from src.ibeatles import DataType
-from src.ibeatles.utilities import colors
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.ibeatles.utilities.array_utilities import get_min_max_xy
-
-from src.ibeatles.fitting.filling_table_handler import FillingTableHandler
-from src.ibeatles.fitting import selected_color, lock_color
-from src.ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
-from src.ibeatles.fitting import FittingTabSelected, KropffTabSelected
-
-from src.ibeatles.session import SessionSubKeys, SessionKeys
+from ibeatles import DataType
+from ibeatles.utilities import colors
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.utilities.array_utilities import get_min_max_xy
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting import selected_color, lock_color
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from ibeatles.fitting import FittingTabSelected, KropffTabSelected
+from ibeatles.session import SessionSubKeys, SessionKeys
 
 
 class FittingHandler:

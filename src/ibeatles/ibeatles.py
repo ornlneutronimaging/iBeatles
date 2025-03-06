@@ -1,81 +1,86 @@
+#!/usr/bin/env python
+"""
+Main window of the iBeatles application
+"""
+
 from qtpy import QtCore
 from qtpy.QtWidgets import QApplication, QMainWindow
 import os
 import logging
 import warnings
 
-from src.ibeatles import load_ui
-from src.ibeatles._version import __version__
-from src.ibeatles import (
+from ibeatles import load_ui
+from ibeatles._version import __version__
+from ibeatles import (
     DataType,
     RegionType,
     DEFAULT_ROI,
     DEFAULT_NORMALIZATION_ROI,
     ScrollBarParameters,
 )
-from src.ibeatles import XAxisMode
+from ibeatles import XAxisMode
 
-from src.ibeatles.config_handler import ConfigHandler
+from ibeatles.config_handler import ConfigHandler
 
-from src.ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
-from src.ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
-from src.ibeatles.all_steps.infos_launcher import InfosLauncher
-from src.ibeatles.all_steps.material import (
+from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
+from ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
+from ibeatles.all_steps.infos_launcher import InfosLauncher
+from ibeatles.all_steps.material import (
     MaterialPreDefined,
     MaterialUserDefinedMethod1,
     MaterialUserDefinedMethod2,
     Material,
 )
 
-from src.ibeatles.step1.event_handler import EventHandler as Step1EventHandler
-from src.ibeatles.step1.data_handler import DataHandler
-from src.ibeatles.step1.gui_handler import Step1GuiHandler
-from src.ibeatles.step1.plot import Step1Plot
-from src.ibeatles.step1.initialization import Initialization
+from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.step1.plot import Step1Plot
+from ibeatles.step1.initialization import Initialization
 
-from src.ibeatles.utilities.get import Get
-from src.ibeatles.session.load_previous_session_launcher import (
+from ibeatles.utilities.get import Get
+from ibeatles.session.load_previous_session_launcher import (
     LoadPreviousSessionLauncher,
 )
-from src.ibeatles.session.session_handler import SessionHandler
+from ibeatles.session.session_handler import SessionHandler
 
-from src.ibeatles.step2.initialization import Initialization as Step2Initialization
-from src.ibeatles.step2.gui_handler import Step2GuiHandler
-from src.ibeatles.step2.roi_handler import Step2RoiHandler
-from src.ibeatles.step2.plot import Step2Plot
-from src.ibeatles.step2.normalization import Normalization
-from src.ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
+from ibeatles.step2.initialization import Initialization as Step2Initialization
+from ibeatles.step2.gui_handler import Step2GuiHandler
+from ibeatles.step2.roi_handler import Step2RoiHandler
+from ibeatles.step2.plot import Step2Plot
+from ibeatles.step2.normalization import Normalization
+from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
 
-from src.ibeatles.step3.gui_handler import Step3GuiHandler
-from src.ibeatles.step3.event_handler import EventHandler as Step3EventHandler
+from ibeatles.step3.gui_handler import Step3GuiHandler
+from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
 
-from src.ibeatles.binning.binning_launcher import BinningLauncher
+from ibeatles.binning.binning_launcher import BinningLauncher
 
-from src.ibeatles.tools.tof_bin.tof_binning_launcher import TofBinningLauncher
-from src.ibeatles.tools.tof_combine.tof_combine_launcher import TofCombineLauncher
-from src.ibeatles.tools.rotate.rotate_images import RotateImages
+from ibeatles.tools.tof_bin.tof_binning_launcher import TofBinningLauncher
+from ibeatles.tools.tof_combine.tof_combine_launcher import TofCombineLauncher
+from ibeatles.tools.rotate.rotate_images import RotateImages
 
-from src.ibeatles.fitting import FittingKeys
-from src.ibeatles.fitting.fitting_launcher import FittingLauncher
-from src.ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting import FittingKeys
+from ibeatles.fitting.fitting_launcher import FittingLauncher
+from ibeatles.fitting.kropff import KropffThresholdFinder
 
-from src.ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
+from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
 
-from src.ibeatles.utilities.retrieve_data_infos import (
+from ibeatles.utilities.retrieve_data_infos import (
     RetrieveGeneralDataInfos,
     RetrieveGeneralFileInfos,
 )
-from src.ibeatles.utilities.list_data_handler import ListDataHandler
-from src.ibeatles.utilities.roi_editor import RoiEditor
-from src.ibeatles.utilities.bragg_edge_selection_handler import (
+from ibeatles.utilities.list_data_handler import ListDataHandler
+from ibeatles.utilities.roi_editor import RoiEditor
+from ibeatles.utilities.bragg_edge_selection_handler import (
     BraggEdgeSelectionHandler,
 )
-from src.ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
-from src.ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
+from ibeatles.utilities.gui_handler import GuiHandler
 
-from src.ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.utilities.array_utilities import find_nearest_index
 
-from src.ibeatles.about.about_launcher import AboutLauncher
+from ibeatles.about.about_launcher import AboutLauncher
 
 # import new MVP-based widget
 from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter

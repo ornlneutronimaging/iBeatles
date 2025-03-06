@@ -1,9 +1,14 @@
+#!/usr/bin/env python
+"""
+Reduction settings handler
+"""
+
 from qtpy.QtWidgets import QDialog
 import os
 
-from src.ibeatles import load_ui
-from src.ibeatles.session import SessionSubKeys
-from src.ibeatles.session import ReductionType, ReductionDimension
+from ibeatles import load_ui
+from ibeatles.session import SessionSubKeys
+from ibeatles.session import ReductionType, ReductionDimension
 
 
 class ReductionSettingsHandler(QDialog):

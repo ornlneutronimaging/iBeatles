@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+"""
+Preview full bin axis
+"""
+
 from qtpy.QtWidgets import QDialog
 
-from src.ibeatles import load_ui
-from src.ibeatles.tools import MICRO, ANGSTROMS
-from src.ibeatles.tools.tof_bin.utilities.get import Get
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles import load_ui
+from ibeatles.tools import MICRO, ANGSTROMS
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
 
 
 class PreviewFullBinAxis(QDialog):

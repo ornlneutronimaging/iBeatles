@@ -1,12 +1,17 @@
+#!/usr/bin/env python
+"""
+TOF combine export launcher
+"""
+
 from qtpy.QtWidgets import QDialog
 import warnings
-from src.ibeatles import load_ui
-from src.ibeatles import DataType
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles import load_ui
+from ibeatles import DataType
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from src.ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine.utilities.get import Get
 
 warnings.filterwarnings("ignore")
 

@@ -1,11 +1,15 @@
+#!/usr/bin/env python
+"""
+AdvancedSelectionLauncher class for launching the advanced selection tool.
+"""
+
 from qtpy.QtWidgets import QTableWidgetSelectionRange, QMainWindow, QApplication
 from qtpy import QtCore
 import numpy as np
 
-# from src.ibeatles.py.interfaces.ui_advancedFittingSelection import Ui_MainWindow as UiMainWindow
-from src.ibeatles.fitting.filling_table_handler import FillingTableHandler
-from src.ibeatles import load_ui
-from src.ibeatles.fitting.march_dollase.event_handler import EventHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles import load_ui
+from ibeatles.fitting.march_dollase.event_handler import EventHandler
 
 
 class AdvancedSelectionLauncher(object):

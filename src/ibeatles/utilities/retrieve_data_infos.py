@@ -2,8 +2,8 @@ import os
 import time
 import numpy as np
 
-from src.ibeatles import DataType
-from src.ibeatles.step1.plot import Step1Plot
+from ibeatles import DataType
+from ibeatles.step1.plot import Step1Plot
 
 
 class RetrieveDataInfos:

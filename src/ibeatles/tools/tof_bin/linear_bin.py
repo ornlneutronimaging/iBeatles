@@ -1,7 +1,12 @@
+#!/usr/bin/env python
+"""
+Linear bin
+"""
+
 import numpy as np
 import logging
 
-from src.ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities import TimeSpectraKeys
 
 
 class LinearBin:

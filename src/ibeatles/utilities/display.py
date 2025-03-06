@@ -1,6 +1,11 @@
+#!/usr/bin/env python
+"""
+Display module
+"""
+
 import pyqtgraph as pg
 
-from src.ibeatles.utilities.math_tools import is_float, is_nan
+from ibeatles.utilities.math_tools import is_float, is_nan
 
 
 class Display:

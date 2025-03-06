@@ -1,17 +1,22 @@
+#!/usr/bin/env python
+"""
+BinningLauncher class
+"""
+
 from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QApplication
 from qtpy import QtCore
 
 import pyqtgraph as pg
 import numpy as np
 
-from src.ibeatles.utilities import colors
+from ibeatles.utilities import colors
 
-from src.ibeatles.fitting.fitting_handler import FittingHandler
-from src.ibeatles.fitting.fitting_launcher import FittingLauncher
-from src.ibeatles.fitting.filling_table_handler import FillingTableHandler
-from src.ibeatles.binning.binning_handler import BinningHandler
-from src.ibeatles import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
-from src.ibeatles.session import SessionSubKeys
+from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.fitting_launcher import FittingLauncher
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
+from ibeatles.session import SessionSubKeys
 
 
 class BinningLauncher:

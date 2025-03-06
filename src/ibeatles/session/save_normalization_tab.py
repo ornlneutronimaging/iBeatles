@@ -1,10 +1,15 @@
-import logging
+#!/usr/bin/env python
+"""
+SaveNormalizationTab class
+"""
 
-from src.ibeatles import DataType
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from loguru import logger
 
-from src.ibeatles.session import SessionSubKeys
-from src.ibeatles.session.save_tab import SaveTab
+from ibeatles import DataType
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+
+from ibeatles.session import SessionSubKeys
+from ibeatles.session.save_tab import SaveTab
 
 
 class SaveNormalizationTab(SaveTab):
@@ -23,10 +28,10 @@ class SaveNormalizationTab(SaveTab):
         o_pyqt.save_histogram_level()
         histogram = self.parent.image_view_settings[data_type]["histogram"]
 
-        logging.info("Recording normalization information")
-        logging.info(f" roi: {list_roi}")
-        logging.info(f" state: {state}")
-        logging.info(f" histogram: {histogram}")
+        logger.info("Recording normalization information")
+        logger.info(f" roi: {list_roi}")
+        logger.info(f" state: {state}")
+        logger.info(f" histogram: {histogram}")
 
         self.session_dict[data_type][SessionSubKeys.roi] = list_roi
         self.session_dict[data_type][SessionSubKeys.image_view_state] = state

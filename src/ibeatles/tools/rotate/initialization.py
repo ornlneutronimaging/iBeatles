@@ -1,7 +1,12 @@
+#!/usr/bin/env python
+"""
+Initialization
+"""
+
 from qtpy.QtWidgets import QProgressBar, QVBoxLayout
 import pyqtgraph as pg
 
-from src.ibeatles import interact_me_style
+from ibeatles import interact_me_style
 
 
 class Initialization:

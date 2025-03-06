@@ -1,6 +1,11 @@
+#!/usr/bin/env python
+"""
+Bragg edge selection handler
+"""
+
 from qtpy.QtWidgets import QAbstractItemView
 
-from src.ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.utilities.array_utilities import find_nearest_index
 
 
 class BraggEdgeSelectionHandler:

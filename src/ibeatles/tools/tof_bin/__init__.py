@@ -1,4 +1,4 @@
-from src.ibeatles.session import SessionSubKeys
+from ibeatles.session import SessionSubKeys
 
 TO_MICROS_UNITS = 1e6
 TO_ANGSTROMS_UNITS = 1e10

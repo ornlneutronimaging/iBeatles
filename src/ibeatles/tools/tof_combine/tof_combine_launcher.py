@@ -1,25 +1,30 @@
+#!/usr/bin/env python
+"""
+TOF combine launcher
+"""
+
 from qtpy.QtWidgets import QMainWindow
 import logging
 import warnings
-from src.ibeatles import load_ui
-from src.ibeatles import DataType
+from ibeatles import load_ui
+from ibeatles import DataType
 
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
 
-from src.ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.utilities.reload.reload import Reload
+from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities.reload.reload import Reload
 
-from src.ibeatles.tools.tof_combine import SessionKeys
-from src.ibeatles.tools.tof_combine.initialization import Initialization
-from src.ibeatles.tools.tof_combine.combine.event_handler import (
+from ibeatles.tools.tof_combine import SessionKeys
+from ibeatles.tools.tof_combine.initialization import Initialization
+from ibeatles.tools.tof_combine.combine.event_handler import (
     EventHandler as CombineEventHandler,
 )
-from src.ibeatles.tools.tof_combine.export.export_images import ExportImages
-from src.ibeatles.tools.tof_combine.tof_combine_export_launcher import (
+from ibeatles.tools.tof_combine.export.export_images import ExportImages
+from ibeatles.tools.tof_combine.tof_combine_export_launcher import (
     TofCombineExportLauncher,
 )
 

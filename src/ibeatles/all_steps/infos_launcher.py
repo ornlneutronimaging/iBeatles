@@ -1,8 +1,13 @@
+#!/usr/bin/env python
+"""
+Infos launcher
+"""
+
 from qtpy.QtWidgets import QDialog
 import os
 
-from src.ibeatles import load_ui, DataType
-from src.ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles import load_ui, DataType
+from ibeatles.utilities.gui_handler import GuiHandler
 
 
 class InfosLauncher:

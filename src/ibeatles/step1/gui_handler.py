@@ -1,16 +1,21 @@
+#!/usr/bin/env python
+"""
+GUI Handler (step 1)
+"""
+
 import pyqtgraph as pg
 
 from neutronbraggedge.braggedge import BraggEdge
 
-from src.ibeatles.step1.plot import Step1Plot
-from src.ibeatles.utilities.retrieve_data_infos import (
+from ibeatles.step1.plot import Step1Plot
+from ibeatles.utilities.retrieve_data_infos import (
     RetrieveGeneralFileInfos,
     RetrieveGeneralDataInfos,
 )
-from src.ibeatles.step1.math_utilities import calculate_delta_lambda
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles import DataType, Material
-from src.ibeatles.step1.roi import Roi
+from ibeatles.step1.math_utilities import calculate_delta_lambda
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles import DataType, Material
+from ibeatles.step1.roi import Roi
 
 
 class CustomAxis(pg.AxisItem):

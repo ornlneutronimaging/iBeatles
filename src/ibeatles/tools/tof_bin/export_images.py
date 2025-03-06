@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Export images
+"""
+
 from qtpy.QtWidgets import QFileDialog
 import logging
 import os
@@ -8,7 +13,7 @@ import json
 
 from NeuNorm.normalization import Normalization
 
-from src.ibeatles.session import SessionSubKeys, SessionKeys
+from ibeatles.session import SessionSubKeys, SessionKeys
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.utilities.get import Get
 from ibeatles.tools.tof_bin.statistics import Statistics

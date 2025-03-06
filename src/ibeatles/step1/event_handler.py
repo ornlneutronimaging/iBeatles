@@ -1,21 +1,26 @@
-import logging
+#!/usr/bin/env python
+"""
+Event Handler (step 1)
+"""
+
 import os
+from loguru import logger
 
-from src.ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
-from src.ibeatles.step1.data_handler import DataHandler
-from src.ibeatles.step1.plot import Step1Plot
-from src.ibeatles.step2.initialization import Initialization as Step2Initialization
-from src.ibeatles.step1.gui_handler import Step1GuiHandler
-from src.ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
+from ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.plot import Step1Plot
+from ibeatles.step2.initialization import Initialization as Step2Initialization
+from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
 
-from src.ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
 
-from src.ibeatles import DataType, Material
+from ibeatles import DataType, Material
 
 
 class EventHandler(TopEventHandler):
     def import_button_clicked(self):
-        logging.info(f"{self.data_type} import button clicked")
+        logger.info(f"{self.data_type} import button clicked")
 
         self.parent.loading_flag = True
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)
@@ -28,7 +33,7 @@ class EventHandler(TopEventHandler):
         if state:
             self.import_button_clicked_step2(folder=_folder)
         else:
-            logging.info("Import button clicked ... operation canceled!")
+            logger.info("Import button clicked ... operation canceled!")
 
     def import_button_clicked_step2(self, folder):
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)

@@ -1,7 +1,12 @@
+#!/usr/bin/env python
+"""
+Table Fitting Story Dictionary Handler
+"""
+
 import numpy as np
 import collections
 
-from src.ibeatles.utilities.status import Status
+from ibeatles.utilities.status import Status
 
 
 class TableFittingStoryDictionaryHandler:

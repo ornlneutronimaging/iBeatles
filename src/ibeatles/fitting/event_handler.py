@@ -1,8 +1,13 @@
-import logging
-import numpy as np
+#!/usr/bin/env python
+"""
+EventHandler class
+"""
 
-from src.ibeatles.utilities.array_utilities import find_nearest_index
-from src.ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+import numpy as np
+from loguru import logger
+
+from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
 
 
 class EventHandler:
@@ -60,7 +65,7 @@ class EventHandler:
             )
             o_bin_handler.update_bragg_edge_plot()
         except ValueError:
-            logging.info("lambda range not yet defined!")
+            logger.info("lambda range not yet defined!")
 
     def hkl_list_changed(self, hkl):
         bragg_edges_array = self.grand_parent.selected_element_bragg_edges_array

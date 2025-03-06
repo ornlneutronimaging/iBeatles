@@ -1,4 +1,4 @@
-from src.ibeatles import RegionType
+from ibeatles import RegionType
 
 
 roi_label_color = {

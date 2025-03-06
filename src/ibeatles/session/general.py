@@ -1,4 +1,9 @@
-from src.ibeatles.session import SessionSubKeys
+#!/usr/bin/env python
+"""
+General class for general settings from session file.
+"""
+
+from ibeatles.session import SessionSubKeys
 
 
 class General:

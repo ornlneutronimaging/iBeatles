@@ -1,21 +1,26 @@
+#!/usr/bin/env python
+"""
+TOF binning launcher
+"""
+
 from qtpy.QtWidgets import QMainWindow
 import logging
 import warnings
-from src.ibeatles import load_ui
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
+from ibeatles import load_ui
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
 
-from src.ibeatles.tools.tof_bin import session
-from src.ibeatles.tools.tof_bin import BinAutoMode, BinMode
-from src.ibeatles.tools.tof_bin.event_handler import EventHandler
-from src.ibeatles.tools.tof_bin.initialization import Initialization
-from src.ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
-from src.ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
-from src.ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
-from src.ibeatles.tools.tof_bin.manual_right_click import ManualRightClick
-from src.ibeatles.tools.tof_bin.statistics import Statistics
-from src.ibeatles.tools.tof_bin.preview_full_bin_axis import PreviewFullBinAxis
-from src.ibeatles.tools.tof_bin.tof_bin_export_launcher import TofBinExportLauncher
+from ibeatles.tools.tof_bin import session
+from ibeatles.tools.tof_bin import BinAutoMode, BinMode
+from ibeatles.tools.tof_bin.event_handler import EventHandler
+from ibeatles.tools.tof_bin.initialization import Initialization
+from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
+from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
+from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
+from ibeatles.tools.tof_bin.manual_right_click import ManualRightClick
+from ibeatles.tools.tof_bin.statistics import Statistics
+from ibeatles.tools.tof_bin.preview_full_bin_axis import PreviewFullBinAxis
+from ibeatles.tools.tof_bin.tof_bin_export_launcher import TofBinExportLauncher
 
 warnings.filterwarnings("ignore")
 

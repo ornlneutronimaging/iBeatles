@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Export images module
+"""
+
 from qtpy.QtWidgets import QFileDialog
 import logging
 import os
@@ -5,10 +10,10 @@ import shutil
 
 from NeuNorm.normalization import Normalization
 
-from src.ibeatles.tools.utilities import TimeSpectraKeys
-from src.ibeatles.utilities.file_handler import FileHandler
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities.file_handler import FileHandler
 
-from src.ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine.utilities.get import Get
 
 
 class ExportImages:

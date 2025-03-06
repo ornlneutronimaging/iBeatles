@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Initialization
+"""
+
 from qtpy.QtWidgets import (
     QVBoxLayout,
     QHBoxLayout,
@@ -12,7 +17,7 @@ from qtpy.QtWidgets import (
 import numpy as np
 from qtpy import QtCore
 import pyqtgraph as pg
-import logging
+from loguru import logger
 from qtpy.QtGui import QIcon
 import matplotlib
 
@@ -20,15 +25,15 @@ matplotlib.use("Qt5Agg")
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 
-from src.ibeatles import DataType, interact_me_style
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles import settings_image
-from src.ibeatles.fitting.kropff import KropffThresholdFinder
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from src.ibeatles.fitting.kropff import BraggPeakInitParameters
-from src.ibeatles.fitting import FittingTabSelected, KropffTabSelected
-from src.ibeatles.utilities.mplcanvas import MplCanvas
-from src.ibeatles.utilities.get import Get
+from ibeatles import DataType, interact_me_style
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles import settings_image
+from ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff import BraggPeakInitParameters
+from ibeatles.fitting import FittingTabSelected, KropffTabSelected
+from ibeatles.utilities.mplcanvas import MplCanvas
+from ibeatles.utilities.get import Get
 
 
 class Initialization:
@@ -660,7 +665,7 @@ class Initialization:
             self.parent.ui.kropff_top_horizontal_splitter.setSizes(splitter_3_size)
 
         except TypeError:
-            logging.info(
+            logger.info(
                 "Splitters have not been set due to log file format error! This should only show up once."
             )
 

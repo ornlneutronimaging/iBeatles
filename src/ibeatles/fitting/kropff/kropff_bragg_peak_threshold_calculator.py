@@ -1,11 +1,16 @@
-import logging
-import numpy as np
+#!/usr/bin/env python
+"""
+KropffBraggPeakThresholdCalculator class for handling the automatic Bragg peak threshold calculator.
+"""
 
-from src.ibeatles.fitting.kropff.kropff_automatic_threshold_algorithms import Algorithms
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles import DataType
-from src.ibeatles.fitting import FittingTabSelected
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+import numpy as np
+from loguru import logger
+
+from ibeatles.fitting.kropff.kropff_automatic_threshold_algorithms import Algorithms
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles import DataType
+from ibeatles.fitting import FittingTabSelected
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 
 
 class KropffBraggPeakThresholdCalculator:
@@ -14,12 +19,12 @@ class KropffBraggPeakThresholdCalculator:
         self.grand_parent = grand_parent
 
     def run_automatic_mode(self):
-        logging.info("Automatic Bragg peak threshold calculator")
+        logger.info("Automatic Bragg peak threshold calculator")
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
         algorithm_selected = self.grand_parent.session_dict[DataType.fitting][
             FittingTabSelected.kropff
         ][KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm]
-        logging.info(f"-> algorithm selected: {algorithm_selected}")
+        logger.info(f"-> algorithm selected: {algorithm_selected}")
         progress_bar_ui = self.parent.eventProgress
 
         o_algo = Algorithms(
@@ -29,7 +34,7 @@ class KropffBraggPeakThresholdCalculator:
         )
 
         list_of_threshold_calculated = o_algo.get_peak_value_array(algorithm_selected)
-        logging.info(f"-> list of threshold found: {list_of_threshold_calculated}")
+        logger.info(f"-> list of threshold found: {list_of_threshold_calculated}")
 
         threshold_width = int(
             self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][

@@ -12,6 +12,7 @@ dependencies:
   - loguru
   # packaging
   - boa
+  - build
   - conda-build
   - conda-verify
   - python-build

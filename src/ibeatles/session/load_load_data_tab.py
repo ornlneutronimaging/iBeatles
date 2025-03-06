@@ -1,13 +1,18 @@
+#!/usr/bin/env python
+"""
+Load load data tab
+"""
+
 import os
 
-from src.ibeatles import DataType
-from src.ibeatles.all_steps.material import Material as AllStepsMaterial
-from src.ibeatles.step1.data_handler import DataHandler
-from src.ibeatles.step1.gui_handler import Step1GuiHandler
-from src.ibeatles.step2.plot import Step2Plot
-from src.ibeatles.utilities.gui_handler import GuiHandler
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles import DataType
+from ibeatles.all_steps.material import Material as AllStepsMaterial
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.step2.plot import Step2Plot
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class LoadLoadDataTab:

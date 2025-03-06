@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+"""
+LoadNormalized class
+"""
+
 import os
 
-from src.ibeatles import DataType
-from src.ibeatles.step1.data_handler import DataHandler
-from src.ibeatles.step1.gui_handler import Step1GuiHandler
-from src.ibeatles.step3.gui_handler import Step3GuiHandler
-from src.ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from src.ibeatles.session import SessionSubKeys
+from ibeatles import DataType
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.step3.gui_handler import Step3GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
+from ibeatles.session import SessionSubKeys
 
 
 class LoadNormalized:

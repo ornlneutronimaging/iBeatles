@@ -1,18 +1,22 @@
-import logging
+#!/usr/bin/env python
+"""
+Event handler for the step3
+"""
 
-from src.ibeatles import DataType
+from loguru import logger
+from ibeatles import DataType
 
-from src.ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
-from src.ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
-from src.ibeatles.step1.data_handler import DataHandler
-from src.ibeatles.step1.plot import Step1Plot
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
+from ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.plot import Step1Plot
 
-from src.ibeatles.step3.gui_handler import Step3GuiHandler
+from ibeatles.step3.gui_handler import Step3GuiHandler
 
 
 class EventHandler(TopEventHandler):
     def import_button_clicked(self):
-        logging.info(f"{self.data_type} import button clicked")
+        logger.info(f"{self.data_type} import button clicked")
 
         self.parent.loading_flag = True
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)

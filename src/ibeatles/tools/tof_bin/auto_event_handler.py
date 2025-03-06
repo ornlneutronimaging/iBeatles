@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+AutoEventHandler class
+"""
+
 import logging
 import numpy as np
 import pyqtgraph as pg
@@ -5,21 +10,21 @@ from qtpy.QtWidgets import QCheckBox, QMenu
 from qtpy import QtGui
 
 # from .log_bin import LogBin
-from src.ibeatles.utilities.table_handler import TableHandler
-from src.ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from src.ibeatles.utilities.status_message_config import (
+from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
 
-from src.ibeatles.tools.tof_bin.plot import Plot
-from src.ibeatles.tools.tof_bin.utilities.get import Get
-from src.ibeatles.tools.tof_bin.log_bin import LogBin
-from src.ibeatles.tools.tof_bin.linear_bin import LinearBin
+from ibeatles.tools.tof_bin.plot import Plot
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.tof_bin.log_bin import LogBin
+from ibeatles.tools.tof_bin.linear_bin import LinearBin
 
 # from . import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from src.ibeatles.tools.tof_bin import BinAutoMode
-from src.ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin import BinAutoMode
+from ibeatles.tools.utilities import TimeSpectraKeys
 
 # from .plot import Plot
 # from ..utilities.table_handler import TableHandler

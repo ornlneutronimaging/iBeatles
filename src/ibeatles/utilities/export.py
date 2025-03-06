@@ -1,7 +1,12 @@
-from src.ibeatles.fitting import FittingKeys
-from src.ibeatles.utilities.array_utilities import from_nparray_to_list
-from src.ibeatles.utilities.json_handler import make_value_json_friendly
-from src.ibeatles.fitting.kropff import SessionSubKeys
+#!/usr/bin/env python
+"""
+This module provides a class to export data.
+"""
+
+from ibeatles.fitting import FittingKeys
+from ibeatles.utilities.array_utilities import from_nparray_to_list
+from ibeatles.utilities.json_handler import make_value_json_friendly
+from ibeatles.fitting.kropff import SessionSubKeys
 
 
 @staticmethod

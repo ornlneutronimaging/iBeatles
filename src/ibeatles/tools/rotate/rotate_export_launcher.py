@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+"""
+Rotate export launcher
+"""
+
 from qtpy.QtWidgets import QDialog, QApplication
 import logging
 import warnings
-from src.ibeatles import load_ui
-from src.ibeatles import DataType
-from src.ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
-from src.ibeatles.tools.utilities.reload.reload import Reload
+from ibeatles import load_ui
+from ibeatles import DataType
+from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
+from ibeatles.tools.utilities.reload.reload import Reload
 
 warnings.filterwarnings("ignore")
 

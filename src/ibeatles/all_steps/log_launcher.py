@@ -1,14 +1,19 @@
+#!/usr/bin/env python
+"""
+Log launcher
+"""
+
 from qtpy.QtWidgets import QMainWindow, QDialog
 import os
 from qtpy.QtGui import QIcon
 from qtpy import QtGui
-import logging
+from loguru import logger
 
-from src.ibeatles import load_ui
-from src.ibeatles.utilities.get import Get
-from src.ibeatles.utilities.file_handler import read_ascii, write_ascii
-from src.ibeatles import refresh_image, settings_image
-from src.ibeatles.session import SessionSubKeys
+from ibeatles import load_ui
+from ibeatles.utilities.get import Get
+from ibeatles.utilities.file_handler import read_ascii, write_ascii
+from ibeatles import refresh_image, settings_image
+from ibeatles.session import SessionSubKeys
 
 
 class LogLauncher:
@@ -64,7 +69,7 @@ class Log(QMainWindow):
     def clear_clicked(self):
         if os.path.exists(self.log_file_name):
             write_ascii(text="", filename=self.log_file_name)
-            logging.info("log file has been cleared by user")
+            logger.info("log file has been cleared by user")
         self.loading_logging_file()
 
     def check_log_size(self):
@@ -118,4 +123,4 @@ class LogHandler:
             new_log_text = log_text_split_by_cr[-log_buffer_size:]
             new_log_text = "\n".join(new_log_text)
             write_ascii(text=new_log_text, filename=self.log_file_name)
-            logging.info("log file has been truncated to fit buffer size limit")
+            logger.info("log file has been truncated to fit buffer size limit")

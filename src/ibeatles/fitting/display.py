@@ -1,4 +1,9 @@
-from src.ibeatles.utilities.display import Display as UtilitiesDisplay
+#!/usr/bin/env python
+"""
+Display class
+"""
+
+from ibeatles.utilities.display import Display as UtilitiesDisplay
 
 
 class Display:

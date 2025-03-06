@@ -1,4 +1,4 @@
-from src.ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities import TimeSpectraKeys
 
 
 def format_str(

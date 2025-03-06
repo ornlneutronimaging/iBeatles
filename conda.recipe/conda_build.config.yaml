@@ -1,0 +1,8 @@
+channel_priority: flexible
+channels:
+  - neutronimaging
+  - conda-forge
+  - defaults
+python:
+  - 3.11
+  - 3.12

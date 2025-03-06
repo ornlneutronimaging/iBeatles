@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Initialization (step 2)
+"""
+
 from qtpy.QtWidgets import (
     QVBoxLayout,
     QHBoxLayout,
@@ -9,9 +14,9 @@ from qtpy.QtWidgets import (
 import pyqtgraph as pg
 from pyqtgraph.dockarea import DockArea, Dock
 
-from src.ibeatles.utilities.colors import pen_color
-from src.ibeatles import DataType, DEFAULT_NORMALIZATION_ROI
-from src.ibeatles.step2 import roi_label_color
+from ibeatles.utilities.colors import pen_color
+from ibeatles import DataType, DEFAULT_NORMALIZATION_ROI
+from ibeatles.step2 import roi_label_color
 
 
 class Initialization:

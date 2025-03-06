@@ -1,10 +1,15 @@
+#!/usr/bin/env python
+"""
+KropffAutomaticSettingsLauncher class for handling the automatic Bragg peak settings launcher.
+"""
+
 from qtpy.QtWidgets import QDialog
 
-from src.ibeatles import load_ui
-from src.ibeatles import DataType
-from src.ibeatles.fitting.kropff import KropffThresholdFinder
-from src.ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from src.ibeatles.fitting import FittingTabSelected
+from ibeatles import load_ui
+from ibeatles import DataType
+from ibeatles.fitting.kropff import KropffThresholdFinder
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting import FittingTabSelected
 
 
 class KropffAutomaticSettingsLauncher(QDialog):

@@ -1,8 +1,13 @@
-from src.ibeatles.utilities.retrieve_data_infos import (
+#!/usr/bin/env python
+"""
+GUI handler for the step3
+"""
+
+from ibeatles.utilities.retrieve_data_infos import (
     RetrieveGeneralFileInfos,
     RetrieveGeneralDataInfos,
 )
-from src.ibeatles import DataType
+from ibeatles import DataType
 
 
 class Step3GuiHandler:
