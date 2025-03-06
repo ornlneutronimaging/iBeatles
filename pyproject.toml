@@ -2,7 +2,7 @@
 name = "ibeatles"
 description = "Bragg edge strain mapping"
 dynamic = ["version"]
-requires-python = ">=3.10"
+requires-python = ">=3.11,<3.13"
 dependencies = [
 #    "python",
     "numpy",
@@ -25,7 +25,7 @@ dependencies = [
     "tqdm",
     "tomli",
     "pydantic",
-    "Ipython",
+    "ipython",
 ]
 license = { text = "MIT" }
 
