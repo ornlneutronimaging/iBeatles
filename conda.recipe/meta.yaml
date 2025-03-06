@@ -23,6 +23,7 @@ build:
     - {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
     - {{ PYTHON }} -m pip install git+https://github.com/ornlneutronimaging/BraggEdge.git --no-deps --no-build-isolation -vvv
     - {{ PYTHON }} -m pip install git+https://github.com/ruipgil/changepy.git --no-deps --no-build-isolation -vvv
+    - {{ PYTHON }} -m pip install git+https://github.com/ornlneutronimaging/NeuNorm.git --no-deps --no-build-isolation -vvv
 
 requirements:
 
@@ -56,7 +57,7 @@ requirements:
     - tomli
     - pydantic
     - ipython
-    - neutronimaging::neunorm
+    # - neutronimaging::neunorm  # switch to pip install until we sorted out NeuNorm conda package version issue
 
 about:
   home: {{ url }}
