@@ -151,7 +151,11 @@ class Step2RoiHandler:
         # button
         _widget = QCheckBox()
         _widget.setChecked(flag)
-        # QtCore.QObject.connect(_widget, QtCore.SIGNAL("stateChanged(int)"), self.parent.normalization_row_status_changed)
+        # QtCore.QObject.connect(
+        #   _widget,
+        #   QtCore.SIGNAL("stateChanged(int)"),
+        #   self.parent.normalization_row_status_changed,
+        # )
         _widget.stateChanged.connect(self.parent.normalization_row_status_changed)
         self.parent.ui.normalization_tableWidget.setCellWidget(row, 0, _widget)
 

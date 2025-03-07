@@ -190,10 +190,11 @@ class MainWindow(QMainWindow):
     # table dictionary for kropff
     kropff_table_dictionary = {}
 
-    # new entry will be local_bragg_edge_list['new_name'] = {Material.lattice: value,
-    #                                                        Material.crystal_structure: 'FCC',
-    #                                                        Material.hkl_d0: None',
-    #                                                        Material.method_used: Material.via_lattice_and_crystal_structure}
+    # new entry will be local_bragg_edge_list['new_name'] = {
+    #           Material.lattice: value,
+    #           Material.crystal_structure: 'FCC',
+    #           Material.hkl_d0: None',
+    #           Material.method_used: Material.via_lattice_and_crystal_structure}
     local_bragg_edge_list = {}
     selected_element_bragg_edges_array = []
     selected_element_hkl_array = []
