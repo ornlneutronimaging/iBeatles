@@ -3,29 +3,30 @@
 FitRegions class for fitting the high lambda, low lambda and bragg peak regions.
 """
 
+import copy
+
 import numpy as np
 from lmfit import Model, Parameter
-import copy
-from qtpy import QtGui
 from loguru import logger
+from qtpy import QtGui
 
 import ibeatles.utilities.error as fitting_error
+from ibeatles.fitting import KropffTabSelected
+from ibeatles.fitting.kropff import ERROR_TOLERANCE
+from ibeatles.fitting.kropff.checking_fitting_conditions import (
+    CheckingFittingConditions,
+)
+from ibeatles.fitting.kropff.fitting_functions import (
+    kropff_bragg_peak_tof,
+    kropff_high_lambda,
+    kropff_low_lambda,
+)
+from ibeatles.fitting.kropff.get import Get
+from ibeatles.utilities.array_utilities import find_nearest_index
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.fitting.kropff.get import Get
-from ibeatles.fitting.kropff.fitting_functions import (
-    kropff_high_lambda,
-    kropff_bragg_peak_tof,
-    kropff_low_lambda,
-)
-from ibeatles.fitting import KropffTabSelected
-from ibeatles.utilities.array_utilities import find_nearest_index
-from ibeatles.fitting.kropff.checking_fitting_conditions import (
-    CheckingFittingConditions,
-)
-from ibeatles.fitting.kropff import ERROR_TOLERANCE
 
 
 class FitRegions:
@@ -202,9 +203,7 @@ class FitRegions:
             ahkl_error = _result.params["ahkl"].stderr
             bhkl_value = _result.params["bhkl"].value
             bhkl_error = _result.params["bhkl"].stderr
-            yaxis_fitted = kropff_low_lambda(
-                common_xaxis, a0, b0, ahkl_value, bhkl_value
-            )
+            yaxis_fitted = kropff_low_lambda(common_xaxis, a0, b0, ahkl_value, bhkl_value)
 
             table_dictionary[_key]["ahkl"] = {"val": ahkl_value, "err": ahkl_error}
             table_dictionary[_key]["bhkl"] = {"val": bhkl_value, "err": bhkl_error}
@@ -238,9 +237,7 @@ class FitRegions:
         logger.info(f"-> {list_sigma =}")
 
         # define fitting model
-        gmodel = Model(
-            kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"]
-        )
+        gmodel = Model(kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"])
 
         table_dictionary = self.table_dictionary
         fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
@@ -328,9 +325,10 @@ class FitRegions:
                             "val": sigma_value,
                             "err": sigma_error,
                         }
-                        table_dictionary[_key]["fitted"][
-                            KropffTabSelected.bragg_peak
-                        ] = {"xaxis": xaxis, "yaxis": yaxis_fitted}
+                        table_dictionary[_key]["fitted"][KropffTabSelected.bragg_peak] = {
+                            "xaxis": xaxis,
+                            "yaxis": yaxis_fitted,
+                        }
 
                         if is_fitting_ok:
                             break
@@ -347,9 +345,7 @@ class FitRegions:
     def bragg_peak_range_lambda(self):
         """we need to try to fit until the fit worked or we exhausted the full range defined"""
         logger.info("Fitting bragg peak with a range of lambda_hkl:")
-        gmodel = Model(
-            kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"]
-        )
+        gmodel = Model(kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"])
 
         # lambda_hkl = self.o_get.lambda_hkl()
         tau = self.o_get.tau()
@@ -414,13 +410,9 @@ class FitRegions:
                 ldahkl_value = _result.params["ldahkl"].value
                 sigma_value = _result.params["sigma"].value
                 tau_value = _result.params["tau"].value
-                yaxis_fitted = kropff_bragg_peak_tof(
-                    xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value
-                )
+                yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value)
 
-                if o_checking.is_fitting_ok(
-                    l_hkl_error=ldahkl_error, t_error=tau_error, sigma_error=sigma_error
-                ):
+                if o_checking.is_fitting_ok(l_hkl_error=ldahkl_error, t_error=tau_error, sigma_error=sigma_error):
                     break
 
             self.parent.eventProgress.setValue(_index)
@@ -441,9 +433,7 @@ class FitRegions:
     def bragg_peak_fix_lambda(self):
         logger.info("Fitting bragg peak with a fixed initial lambda_hkl:")
 
-        gmodel = Model(
-            kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"]
-        )
+        gmodel = Model(kropff_bragg_peak_tof, nan_policy="propagate", independent_vars=["lda"])
 
         lambda_hkl = self.o_get.lambda_hkl()
         logger.info(f"-> lambda_hkl: {lambda_hkl}")
@@ -494,9 +484,7 @@ class FitRegions:
             )
 
             if _key in ["2", "3"]:
-                logger.info(
-                    f"_key: {_key} -> _result.fit_report: {_result.fit_report()}"
-                )
+                logger.info(f"_key: {_key} -> _result.fit_report: {_result.fit_report()}")
 
             ldahkl_value = _result.params["ldahkl"].value
             ldahkl_error = _result.params["ldahkl"].stderr
@@ -504,9 +492,7 @@ class FitRegions:
             sigma_error = _result.params["sigma"].stderr
             tau_value = _result.params["tau"].value
             tau_error = _result.params["tau"].stderr
-            yaxis_fitted = kropff_bragg_peak_tof(
-                xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value
-            )
+            yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, ldahkl_value, sigma_value, tau_value)
 
             table_dictionary[_key]["lambda_hkl"] = {
                 "val": ldahkl_value,

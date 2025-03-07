@@ -2,13 +2,14 @@
 """Model for Normalization Settings"""
 
 import logging
-from typing import Dict, Any
+from typing import Any, Dict
+
 from ibeatles.core.config import (
-    NormalizationConfig,
-    KernelType,
     KernelSize,
-    SampleBackground,
+    KernelType,
+    NormalizationConfig,
     ProcessOrder,
+    SampleBackground,
 )
 
 
@@ -48,15 +49,11 @@ class NormalizationSettingsModel:
             The old configuration dictionary.
         """
         self._old_config = old_config
-        logging.debug(
-            "Deprecation warning: Using old configuration method. This will be removed in a future version."
-        )
+        logging.debug("Deprecation warning: Using old configuration method. This will be removed in a future version.")
 
         # Convert old config to new config
         self.config.moving_average.active = old_config.get("activate", True)
-        self.config.moving_average.dimension = (
-            "3D" if old_config.get("dimension") == "3d" else "2D"
-        )
+        self.config.moving_average.dimension = "3D" if old_config.get("dimension") == "3d" else "2D"
 
         # Create KernelSize object
         kernel_size = {
@@ -69,9 +66,7 @@ class NormalizationSettingsModel:
         self.config.moving_average.size = KernelSize(**kernel_size)
 
         self.config.moving_average.type = (
-            KernelType.gaussian
-            if old_config.get("type") == "gaussian"
-            else KernelType.box
+            KernelType.gaussian if old_config.get("type") == "gaussian" else KernelType.box
         )
         self.config.processing_order = (
             ProcessOrder.moving_average_normalization
@@ -107,9 +102,7 @@ class NormalizationSettingsModel:
                 "x": self.config.moving_average.size.x,
                 "l": default_size.lambda_,  # the old method requires this entry even if not in use
             },
-            "type": "gaussian"
-            if self.config.moving_average.type == KernelType.gaussian
-            else "box",
+            "type": "gaussian" if self.config.moving_average.type == KernelType.gaussian else "box",
             "process order": "option1"
             if self.config.processing_order == ProcessOrder.moving_average_normalization
             else "option2",
@@ -201,9 +194,7 @@ class NormalizationSettingsModel:
         index: int
             The index of the sample background to remove.
         """
-        if self.config.sample_background and 0 <= index < len(
-            self.config.sample_background
-        ):
+        if self.config.sample_background and 0 <= index < len(self.config.sample_background):
             del self.config.sample_background[index]
 
     def update_sample_background(self, index: int, background: SampleBackground):
@@ -217,9 +208,7 @@ class NormalizationSettingsModel:
         background: SampleBackground
             The new sample background data.
         """
-        if self.config.sample_background and 0 <= index < len(
-            self.config.sample_background
-        ):
+        if self.config.sample_background and 0 <= index < len(self.config.sample_background):
             self.config.sample_background[index] = background
 
     def get_config(self) -> NormalizationConfig:

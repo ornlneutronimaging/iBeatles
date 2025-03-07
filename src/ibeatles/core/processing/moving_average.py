@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 """Normalization functions for the TOF imaging data."""
 
+from typing import Tuple, Union, overload
+
 import numpy as np
 import scipy.ndimage
-from typing import Tuple, overload, Union
-from ibeatles.core.config import MovingAverage, KernelType, KernelSize
+
+from ibeatles.core.config import KernelSize, KernelType, MovingAverage
 
 
 @overload
@@ -98,9 +100,7 @@ def moving_average(
         kernel_type = arg2
         kernel = arg3
         if kernel is None:
-            raise ValueError(
-                "Kernel size must be provided when specifying kernel type as a string."
-            )
+            raise ValueError("Kernel size must be provided when specifying kernel type as a string.")
 
         # Convert tuple to KernelSize
         if len(kernel) == 2:

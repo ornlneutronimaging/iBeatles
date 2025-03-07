@@ -4,12 +4,12 @@ Filling table handler
 """
 
 import numpy as np
-from qtpy import QtGui, QtCore
+from qtpy import QtCore, QtGui
 from qtpy.QtWidgets import QCheckBox, QTableWidgetItem
 
-from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.fitting import FittingKeys
 from ibeatles.fitting.kropff import SessionSubKeys as KropffsessionSubKeys
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class FillingTableHandler:
@@ -258,9 +258,7 @@ class FillingTableHandler:
 
             _lock_button.setChecked(_is_lock)
             _lock_button.stateChanged.connect(
-                lambda state=0, row=_index: self.parent.lock_button_state_changed(
-                    state, row
-                )
+                lambda state=0, row=_index: self.parent.lock_button_state_changed(state, row)
             )
 
             self.parent.ui.value_table.setCellWidget(_index, 2, _lock_button)
@@ -271,9 +269,7 @@ class FillingTableHandler:
 
             _active_button.setChecked(_is_active)
             _active_button.stateChanged.connect(
-                lambda state=0, row=_index: self.parent.active_button_state_changed(
-                    state, row
-                )
+                lambda state=0, row=_index: self.parent.active_button_state_changed(state, row)
             )
 
             self.parent.ui.value_table.setCellWidget(_index, 3, _active_button)

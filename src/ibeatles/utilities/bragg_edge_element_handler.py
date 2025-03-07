@@ -6,11 +6,11 @@ Bragg edge element handler
 from neutronbraggedge.braggedge import BraggEdge
 
 from ibeatles import (
-    ScrollBarParameters,
     MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME,
+    ScrollBarParameters,
 )
-from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.session import MaterialMode
+from ibeatles.utilities.gui_handler import GuiHandler
 
 
 class BraggEdgeElementHandler:
@@ -31,9 +31,7 @@ class BraggEdgeElementHandler:
         table_ui = table_ui_dict[material_active_tab]
 
         table_data, column_names = o_gui.collect_table_data(table_ui=table_ui)
-        list_hkl, list_lambda = BraggEdgeElementHandler.extract_hkl_lambda_from_table(
-            table_data=table_data
-        )
+        list_hkl, list_lambda = BraggEdgeElementHandler.extract_hkl_lambda_from_table(table_data=table_data)
 
         self.parent.selected_element_bragg_edges_array = list_lambda
         self.parent.selected_element_hkl_array = list_hkl
@@ -63,13 +61,9 @@ class BraggEdgeElementHandler:
         return list_hkl, list_lambda
 
     def reset_scroll_bar_in_bottom_right_plot(self):
-        _selected_element_bragg_edges_array = (
-            self.parent.selected_element_bragg_edges_array
-        )
+        _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
         nbr_hkl_in_list = len(_selected_element_bragg_edges_array)
-        scrollbar_max = (
-            nbr_hkl_in_list - MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME
-        )
+        scrollbar_max = nbr_hkl_in_list - MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME
 
         self.parent.hkl_scrollbar_dict = {
             ScrollBarParameters.maximum: scrollbar_max,

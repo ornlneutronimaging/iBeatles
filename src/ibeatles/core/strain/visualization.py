@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 """Visualization functions for strain mapping results."""
 
-from typing import Dict, Tuple, Optional
-import numpy as np
+from typing import Dict, Optional, Tuple
+
 import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
-from matplotlib.axes import Axes
+import numpy as np
 from lmfit.model import ModelResult
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 
 def plot_strain_map_overlay(
@@ -111,20 +112,8 @@ def plot_fitting_results_grid(
         Figure and array of axes
     """
     # Find grid dimensions from bin coordinates
-    max_row = (
-        max(
-            int(bin_transmission[bin_id]["coordinates"].row_index)
-            for bin_id in bin_transmission
-        )
-        + 1
-    )
-    max_col = (
-        max(
-            int(bin_transmission[bin_id]["coordinates"].column_index)
-            for bin_id in bin_transmission
-        )
-        + 1
-    )
+    max_row = max(int(bin_transmission[bin_id]["coordinates"].row_index) for bin_id in bin_transmission) + 1
+    max_col = max(int(bin_transmission[bin_id]["coordinates"].column_index) for bin_id in bin_transmission) + 1
 
     # Create figure and axes grid
     fig, axes = plt.subplots(max_row, max_col, figsize=figsize)
@@ -143,9 +132,7 @@ def plot_fitting_results_grid(
             fit_result.plot_fit(ax=ax, datafmt=".")
 
             # Add reference wavelength line
-            ax.axvline(
-                x=reference_wavelength, color="black", linestyle="--", label="Reference"
-            )
+            ax.axvline(x=reference_wavelength, color="black", linestyle="--", label="Reference")
 
             # Add fitted wavelength line
             ax.axvline(

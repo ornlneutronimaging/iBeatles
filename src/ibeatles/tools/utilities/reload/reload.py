@@ -8,10 +8,10 @@ import os
 
 from ibeatles import DataType
 from ibeatles.session import SessionSubKeys
-from ibeatles.utilities.file_handler import FileHandler
 from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
 from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
+from ibeatles.utilities.file_handler import FileHandler
 
 
 class Reload:
@@ -27,18 +27,12 @@ class Reload:
         self.top_parent.session_dict[data_type][SessionSubKeys.list_files] = [
             os.path.basename(_file) for _file in list_tiff
         ]
-        self.top_parent.session_dict[data_type][SessionSubKeys.current_folder] = (
-            os.path.dirname(list_tiff[0])
-        )
+        self.top_parent.session_dict[data_type][SessionSubKeys.current_folder] = os.path.dirname(list_tiff[0])
 
         if data_type == DataType.sample:
-            self._raw_data(
-                list_files=list_tiff, load_data_tab_index=0, data_type=data_type
-            )
+            self._raw_data(list_files=list_tiff, load_data_tab_index=0, data_type=data_type)
         elif data_type == DataType.ob:
-            self._raw_data(
-                list_files=list_tiff, load_data_tab_index=1, data_type=data_type
-            )
+            self._raw_data(list_files=list_tiff, load_data_tab_index=1, data_type=data_type)
         elif data_type == DataType.normalized:
             self._normalized_data(list_files=list_tiff)
 
@@ -58,9 +52,7 @@ class Reload:
         self.top_parent.ui.main_tools_tabWidget.setCurrentIndex(1)
         self.top_parent.ui.tabWidget.setCurrentIndex(2)
 
-    def _raw_data(
-        self, list_files=None, load_data_tab_index=0, data_type=DataType.sample
-    ):
+    def _raw_data(self, list_files=None, load_data_tab_index=0, data_type=DataType.sample):
         """This takes care of loading the files into the appropriate sample or OB tab"""
         logging.info(f"Reloading TOF combine data in {data_type}")
         o_load = DataHandler(parent=self.top_parent, data_type=data_type)

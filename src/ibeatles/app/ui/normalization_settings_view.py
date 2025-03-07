@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 """View for the normalization settings."""
 
+from qtpy.QtCore import Signal
 from qtpy.QtWidgets import QDialog
+
 from ibeatles.app.utils.ui_loader import load_ui
 from ibeatles.core.config import (
+    KernelSize,
+    KernelType,
+    MovingAverage,
     NormalizationConfig,
     ProcessOrder,
-    KernelType,
-    KernelSize,
-    MovingAverage,
 )
-from qtpy.QtCore import Signal
 
 
 class NormalizationSettingsView(QDialog):
@@ -25,9 +26,7 @@ class NormalizationSettingsView(QDialog):
 
     default_kernel_size = {"x": 3, "y": 3, "l": 3}
     default_kernel_size_label = {
-        "3d": "y:{}  x:{}  λ:{}".format(
-            default_kernel_size["y"], default_kernel_size["x"], default_kernel_size["l"]
-        ),
+        "3d": "y:{}  x:{}  λ:{}".format(default_kernel_size["y"], default_kernel_size["x"], default_kernel_size["l"]),
         "2d": f"y:{default_kernel_size['y']}  x:{default_kernel_size['x']}",
     }
 
@@ -62,9 +61,7 @@ class NormalizationSettingsView(QDialog):
         """Handle changes in kernel dimension selection."""
         is_3d_clicked = self.ui.kernel_dimension_3d_radioButton.isChecked()
         kernel_size = "3d" if is_3d_clicked else "2d"
-        self.ui.kernel_size_default_label.setText(
-            self.default_kernel_size_label[kernel_size]
-        )
+        self.ui.kernel_size_default_label.setText(self.default_kernel_size_label[kernel_size])
         self.ui.kernel_size_custom_lambda_label.setVisible(is_3d_clicked)
         self.ui.kernel_size_custom_lambda_spinBox.setVisible(is_3d_clicked)
         self.settings_changed.emit()
@@ -103,9 +100,7 @@ class NormalizationSettingsView(QDialog):
                 active=self.ui.activate_moving_average_checkBox.isChecked(),
                 dimension="3D" if is_3d else "2D",
                 size=size,
-                type=KernelType.gaussian
-                if self.ui.kernel_type_gaussian_radioButton.isChecked()
-                else KernelType.box,
+                type=KernelType.gaussian if self.ui.kernel_type_gaussian_radioButton.isChecked() else KernelType.box,
             ),
             processing_order=ProcessOrder.moving_average_normalization
             if self.ui.processes_order_option1_radio_button.isChecked()
@@ -122,9 +117,7 @@ class NormalizationSettingsView(QDialog):
             A NormalizationConfig object containing the settings to apply.
         """
         # Moving Average activation
-        self.ui.activate_moving_average_checkBox.setChecked(
-            config.moving_average.active
-        )
+        self.ui.activate_moving_average_checkBox.setChecked(config.moving_average.active)
 
         # Dimension
         is_3d = config.moving_average.dimension == "3D"
@@ -136,10 +129,7 @@ class NormalizationSettingsView(QDialog):
         is_default_size = (
             config.moving_average.size.y == default_size.y
             and config.moving_average.size.x == default_size.x
-            and (
-                config.moving_average.dimension == "2D"
-                or config.moving_average.size.lambda_ == default_size.lambda_
-            )
+            and (config.moving_average.dimension == "2D" or config.moving_average.size.lambda_ == default_size.lambda_)
         )
 
         self.ui.kernel_size_default_radioButton.setChecked(is_default_size)
@@ -148,9 +138,7 @@ class NormalizationSettingsView(QDialog):
         self.ui.kernel_size_custom_y_spinBox.setValue(config.moving_average.size.y)
         self.ui.kernel_size_custom_x_spinBox.setValue(config.moving_average.size.x)
         if is_3d:
-            self.ui.kernel_size_custom_lambda_spinBox.setValue(
-                config.moving_average.size.lambda_
-            )
+            self.ui.kernel_size_custom_lambda_spinBox.setValue(config.moving_average.size.lambda_)
 
         # Kernel Type
         is_gaussian = config.moving_average.type == KernelType.gaussian
@@ -158,9 +146,7 @@ class NormalizationSettingsView(QDialog):
         self.ui.kernel_type_box_radioButton.setChecked(not is_gaussian)
 
         # Processing Order
-        is_ma_first = (
-            config.processing_order == ProcessOrder.moving_average_normalization
-        )
+        is_ma_first = config.processing_order == ProcessOrder.moving_average_normalization
         self.ui.processes_order_option1_radio_button.setChecked(is_ma_first)
         self.ui.processes_order_option2_radio_button.setChecked(not is_ma_first)
 

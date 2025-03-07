@@ -3,20 +3,20 @@
 Fitting Handler
 """
 
+import copy
+
 import numpy as np
 import pyqtgraph as pg
 from qtpy.QtWidgets import QGraphicsRectItem
-import copy
 
 from ibeatles import DataType
-from ibeatles.utilities import colors
-from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from ibeatles.utilities.array_utilities import get_min_max_xy
+from ibeatles.fitting import FittingTabSelected, KropffTabSelected, lock_color, selected_color
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
-from ibeatles.fitting import selected_color, lock_color
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
-from ibeatles.fitting import FittingTabSelected, KropffTabSelected
-from ibeatles.session import SessionSubKeys, SessionKeys
+from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.utilities import colors
+from ibeatles.utilities.array_utilities import get_min_max_xy
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class FittingHandler:
@@ -60,15 +60,8 @@ class FittingHandler:
             self.parent.data = data
             self.parent.image_view.setImage(data)
         else:
-            if (
-                len(
-                    self.grand_parent.data_metadata["normalized"]["data_live_selection"]
-                )
-                > 0
-            ):
-                data = np.array(
-                    self.grand_parent.data_metadata["normalized"]["data_live_selection"]
-                )
+            if len(self.grand_parent.data_metadata["normalized"]["data_live_selection"]) > 0:
+                data = np.array(self.grand_parent.data_metadata["normalized"]["data_live_selection"])
                 if len(data) == 0:
                     return
                 else:
@@ -79,14 +72,7 @@ class FittingHandler:
         o_pyqt.reload_histogram_level()
 
     def display_roi(self):
-        if (
-            len(
-                np.array(
-                    self.grand_parent.data_metadata["normalized"]["data_live_selection"]
-                )
-            )
-            == 0
-        ):
+        if len(np.array(self.grand_parent.data_metadata["normalized"]["data_live_selection"])) == 0:
             return
 
         pos = self.grand_parent.binning_line_view["pos"]
@@ -111,19 +97,10 @@ class FittingHandler:
         self.parent.image_view.addItem(line_view_fitting)
         self.parent.line_view = line_view_fitting
 
-        self.parent.line_view.setData(
-            pos=pos, adj=adj, pen=lines, symbol=None, pxMode=False
-        )
+        self.parent.line_view.setData(pos=pos, adj=adj, pen=lines, symbol=None, pxMode=False)
 
     def fill_table(self):
-        if (
-            len(
-                np.array(
-                    self.grand_parent.data_metadata["normalized"]["data_live_selection"]
-                )
-            )
-            == 0
-        ):
+        if len(np.array(self.grand_parent.data_metadata["normalized"]["data_live_selection"])) == 0:
             return
 
         if not self.grand_parent.there_is_a_roi:
@@ -134,18 +111,14 @@ class FittingHandler:
         if self.grand_parent.table_loaded_from_session:
             self.initialize_parameters_from_session()
 
-        o_fill_table = FillingTableHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_fill_table = FillingTableHandler(grand_parent=self.grand_parent, parent=self.parent)
         o_fill_table.fill_table()
 
         if self.grand_parent.table_loaded_from_session:
             self.display_locked_active_bins()
 
     def display_locked_active_bins(self):
-        o_bin_handler = SelectedBinsHandler(
-            parent=self.parent, grand_parent=self.grand_parent
-        )
+        o_bin_handler = SelectedBinsHandler(parent=self.parent, grand_parent=self.grand_parent)
         o_bin_handler.update_bins_locked()
         o_bin_handler.update_bins_selected()
         o_bin_handler.update_bragg_edge_plot()
@@ -157,17 +130,15 @@ class FittingHandler:
         self.initialize_kropff_parameters_from_session()
 
     def initialize_kropff_parameters_from_session(self):
-        session_table_dictionary = self.grand_parent.session_dict[DataType.fitting][
-            FittingTabSelected.kropff
-        ]["table dictionary"]
+        session_table_dictionary = self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            "table dictionary"
+        ]
         table_dictionary = self.grand_parent.kropff_table_dictionary
 
         for _row in session_table_dictionary.keys():
             _entry = session_table_dictionary[_row]
 
-            table_dictionary[_row]["bragg peak threshold"] = _entry[
-                "bragg_peak_threshold"
-            ]
+            table_dictionary[_row]["bragg peak threshold"] = _entry["bragg_peak_threshold"]
             table_dictionary[_row]["a0"] = _entry["a0"]
             table_dictionary[_row]["b0"] = _entry["b0"]
             table_dictionary[_row]["ahkl"] = _entry["ahkl"]
@@ -199,9 +170,7 @@ class FittingHandler:
 
         lambda_range = self.grand_parent.session_dict["fitting"]["lambda range index"]
         if lambda_range:
-            [lambda_min_index, lambda_max_index] = self.grand_parent.session_dict[
-                "fitting"
-            ]["lambda range index"]
+            [lambda_min_index, lambda_max_index] = self.grand_parent.session_dict["fitting"]["lambda range index"]
             x_axis = self.grand_parent.session_dict["fitting"]["x_axis"]
 
             lambda_min = x_axis[lambda_min_index]
@@ -217,15 +186,11 @@ class FittingHandler:
         transparency = self.grand_parent.session_dict["fitting"]["transparency"]
         self.parent.ui.slider.setValue(transparency)
 
-        self.grand_parent.display_active_row_flag = self.grand_parent.session_dict[
-            SessionKeys.fitting
-        ][FittingTabSelected.march_dollase]["plot active row flag"]
-        self.parent.ui.active_bins_button.setChecked(
-            self.grand_parent.display_active_row_flag
-        )
-        self.parent.ui.locked_bins_button.setChecked(
-            not self.grand_parent.display_active_row_flag
-        )
+        self.grand_parent.display_active_row_flag = self.grand_parent.session_dict[SessionKeys.fitting][
+            FittingTabSelected.march_dollase
+        ]["plot active row flag"]
+        self.parent.ui.active_bins_button.setChecked(self.grand_parent.display_active_row_flag)
+        self.parent.ui.locked_bins_button.setChecked(not self.grand_parent.display_active_row_flag)
 
         self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.table_loaded_from_session = None
@@ -263,9 +228,7 @@ class FittingHandler:
             for _y in np.arange(from_y, to_y, bin_size):
                 _str_index = str(_index)
 
-                kropff_table_dictionary[_str_index] = copy.deepcopy(
-                    self.kropff_table_dictionary_template
-                )
+                kropff_table_dictionary[_str_index] = copy.deepcopy(self.kropff_table_dictionary_template)
                 kropff_table_dictionary[_str_index]["bin_coordinates"] = {
                     "x0": _x,
                     "x1": _x + bin_size,
@@ -337,9 +300,5 @@ class FittingHandler:
         self.grand_parent.fitting_selection["nbr_row"] = _index_row
         self.grand_parent.fitting_selection["nbr_column"] = _index_col
 
-        self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_row] = (
-            _index_row
-        )
-        self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_column] = (
-            _index_col
-        )
+        self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_row] = _index_row
+        self.grand_parent.session_dict[SessionKeys.bin][SessionSubKeys.nbr_column] = _index_col

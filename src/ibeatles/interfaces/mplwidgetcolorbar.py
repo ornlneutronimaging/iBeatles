@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 import os
 import tempfile
-from qtpy import QtGui, QtCore
-from qtpy.QtWidgets import QWidget
 
 # from . import icons_rc  # @UnusedImport
 # set the default backend to be compatible with Qt in case someone uses pylab from IPython console
 import matplotlib.cm
 import matplotlib.colors
+from matplotlib.backends.backend_qt5 import NavigationToolbar2QT
 
 # import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt5 import NavigationToolbar2QT
 from matplotlib.cbook import Stack
 from matplotlib.colors import LogNorm, Normalize
 from matplotlib.figure import Figure
+from qtpy import QtCore, QtGui
+from qtpy.QtWidgets import QWidget
 
 try:
     import matplotlib.backends.qt4_editor.figureoptions as figureoptions
@@ -127,9 +127,7 @@ class NavigationToolbar(NavigationToolbar2QT):
         # will resize this label instead of the buttons.
         self.locLabel = QtGui.QLabel("", self)
         self.locLabel.setAlignment(QtCore.Qt.AlignRight | QtCore.Qt.AlignTop)
-        self.locLabel.setSizePolicy(
-            QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Ignored)
-        )
+        self.locLabel.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Ignored))
         self.labelAction = self.addWidget(self.locLabel)
         if self.coordinates:
             self.labelAction.setVisible(True)
@@ -191,12 +189,8 @@ class NavigationToolbar(NavigationToolbar2QT):
                 self.mode = ""
 
             if self._active:
-                self._idPress = self.canvas.mpl_connect(
-                    "button_press_event", self.press_pan
-                )
-                self._idRelease = self.canvas.mpl_connect(
-                    "button_release_event", self.release_pan
-                )
+                self._idPress = self.canvas.mpl_connect("button_press_event", self.press_pan)
+                self._idRelease = self.canvas.mpl_connect("button_release_event", self.release_pan)
                 self.mode = "pan/zoom"
                 self.canvas.widgetlock(self)
             else:
@@ -230,12 +224,8 @@ class NavigationToolbar(NavigationToolbar2QT):
                 self.mode = ""
 
             if self._active:
-                self._idPress = self.canvas.mpl_connect(
-                    "button_press_event", self.press_zoom
-                )
-                self._idRelease = self.canvas.mpl_connect(
-                    "button_release_event", self.release_zoom
-                )
+                self._idPress = self.canvas.mpl_connect("button_press_event", self.press_zoom)
+                self._idRelease = self.canvas.mpl_connect("button_release_event", self.release_zoom)
                 self.mode = "zoom rect"
                 self.canvas.widgetlock(self)
             else:
@@ -297,9 +287,7 @@ class NavigationToolbar(NavigationToolbar2QT):
                 filters.append(filter_)
         filters = ";;".join(filters)
 
-        fname = QtGui.QFileDialog.getSaveFileName(
-            self, "Choose a filename to save to", start, filters
-        )
+        fname = QtGui.QFileDialog.getSaveFileName(self, "Choose a filename to save to", start, filters)
         if fname:
             try:
                 self.canvas.print_figure(str(fname))
@@ -314,9 +302,7 @@ class NavigationToolbar(NavigationToolbar2QT):
 
     def toggle_log(self, *args):
         ax = self.canvas.ax
-        if len(ax.images) == 0 and all(
-            [c.__class__.__name__ != "QuadMesh" for c in ax.collections]
-        ):
+        if len(ax.images) == 0 and all([c.__class__.__name__ != "QuadMesh" for c in ax.collections]):
             logstate = ax.get_yscale()
             if logstate == "linear":
                 ax.set_yscale("log")
@@ -325,9 +311,7 @@ class NavigationToolbar(NavigationToolbar2QT):
             self.canvas.draw()
             self.logtog.emit(ax.get_yscale())
         else:
-            imgs = ax.images + [
-                c for c in ax.collections if c.__class__.__name__ == "QuadMesh"
-            ]
+            imgs = ax.images + [c for c in ax.collections if c.__class__.__name__ == "QuadMesh"]
             norm = imgs[0].norm
             if norm.__class__ is LogNorm:
                 for img in imgs:
@@ -367,9 +351,7 @@ class MplCanvas(FigureCanvas):
         self.ax.hold(True)
         FigureCanvas.__init__(self, self.fig)
         # self.fc = FigureCanvas(self.fig)
-        FigureCanvas.setSizePolicy(
-            self, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding
-        )
+        FigureCanvas.setSizePolicy(self, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         FigureCanvas.updateGeometry(self)
 
         self.fig.canvas.mpl_connect("button_press_event", self.button_pressed)
@@ -486,17 +468,13 @@ class MPLWidgetColorbar(QWidget):
         """
         return self.canvas.ax.errorbar(*args, **opts)
 
-    def pcolormesh(
-        self, datax, datay, dataz, log=False, imin=None, imax=None, update=False, **opts
-    ):
+    def pcolormesh(self, datax, datay, dataz, log=False, imin=None, imax=None, update=False, **opts):
         """
         Convenience wrapper for self.canvas.ax.plot
         """
         if self.cplot is None or not update:
             if log:
-                self.cplot = self.canvas.ax.pcolormesh(
-                    datax, datay, dataz, norm=LogNorm(imin, imax), **opts
-                )
+                self.cplot = self.canvas.ax.pcolormesh(datax, datay, dataz, norm=LogNorm(imin, imax), **opts)
             else:
                 self.cplot = self.canvas.ax.pcolormesh(datax, datay, dataz, **opts)
         else:
@@ -509,9 +487,7 @@ class MPLWidgetColorbar(QWidget):
         """
         if self.cplot is None or not update:
             if log:
-                self.cplot = self.canvas.ax.imshow(
-                    data, norm=LogNorm(imin, imax), **opts
-                )
+                self.cplot = self.canvas.ax.imshow(data, norm=LogNorm(imin, imax), **opts)
             else:
                 self.cplot = self.canvas.ax.imshow(data, **opts)
         else:

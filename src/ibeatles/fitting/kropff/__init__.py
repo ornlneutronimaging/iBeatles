@@ -86,9 +86,7 @@ class SessionSubKeys:
     less_than = "less_than"
     more_than = "more_than"
     automatic_fitting_threshold_width = "automatic fitting threshold width"
-    automatic_bragg_peak_threshold_algorithm = (
-        "automatic bragg peak threshold algorithm"
-    )
+    automatic_bragg_peak_threshold_algorithm = "automatic bragg peak threshold algorithm"
 
 
 class RightClickTableMenu:

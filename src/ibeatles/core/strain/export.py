@@ -4,17 +4,17 @@
 import logging
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Optional, Any
+from typing import Any, Dict, Optional
+
 import numpy as np
 import pandas as pd
-from matplotlib.figure import Figure
 from lmfit.model import ModelResult
+from matplotlib.figure import Figure
 
 from ibeatles.core.config import (
-    OutputFileConfig,
     BinCoordinates,
+    OutputFileConfig,
 )
-
 
 logger = logging.getLogger(__name__)
 

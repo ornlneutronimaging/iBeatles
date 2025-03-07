@@ -3,13 +3,12 @@
 GUI handler for the step2
 """
 
-from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
-import pyqtgraph as pg
 import numpy as np
+import pyqtgraph as pg
+from qtpy.QtWidgets import QCheckBox, QComboBox, QTableWidgetItem
 
+from ibeatles import DEFAULT_ROI, RegionType
 from ibeatles.step2 import gui_handler
-from ibeatles import RegionType, DEFAULT_ROI
-
 from ibeatles.step2.get import Get as Step2Get
 
 
@@ -130,9 +129,7 @@ class Step2RoiHandler:
         nbr_row_table = self.parent.ui.normalization_tableWidget.rowCount()
         new_roi_id, new_label_roi_id = self.add_roi_in_image()
 
-        self.parent.list_roi["normalization"].append(
-            self.parent.init_array_normalization
-        )
+        self.parent.list_roi["normalization"].append(self.parent.init_array_normalization)
         self.parent.list_roi_id["normalization"].append(new_roi_id)
         self.parent.list_label_roi_id["normalization"].append(new_label_roi_id)
         self.insert_row(row=nbr_row_table)
@@ -179,9 +176,7 @@ class Step2RoiHandler:
         _widget.addItems([RegionType.sample, RegionType.background])
         index = 0 if (region_type == RegionType.sample) else 1
         _widget.setCurrentIndex(index)
-        _widget.currentIndexChanged.connect(
-            self.parent.normalization_row_status_region_type_changed
-        )
+        _widget.currentIndexChanged.connect(self.parent.normalization_row_status_region_type_changed)
         self.parent.ui.normalization_tableWidget.setCellWidget(row, 5, _widget)
 
     def get_list_of_roi_to_use(self):

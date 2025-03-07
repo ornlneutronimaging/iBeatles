@@ -3,25 +3,25 @@
 FittingParametersViewerEditorLauncher class for handling the fitting parameters viewer editor launcher.
 """
 
-from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
-from qtpy import QtGui, QtCore
 import numpy as np
 from loguru import logger
+from qtpy import QtCore, QtGui
+from qtpy.QtWidgets import QApplication, QMainWindow, QMenu
 
-from ibeatles.utilities.bins import (
-    create_list_of_bins_from_selection,
-    create_list_of_surrounding_bins,
-    convert_bins_to_keys,
-)
 from ibeatles import load_ui
 from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_handler import (
     FittingParametersViewerEditorHandler,
 )
-from ibeatles.fitting.kropff import SessionSubKeys
-from ibeatles.utilities.table_handler import TableHandler
-from ibeatles.utilities.array_utilities import calculate_median
 from ibeatles.fitting.kropff.get import Get
+from ibeatles.utilities.array_utilities import calculate_median
+from ibeatles.utilities.bins import (
+    convert_bins_to_keys,
+    create_list_of_bins_from_selection,
+    create_list_of_surrounding_bins,
+)
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class FittingParametersViewerEditorLauncher:
@@ -29,12 +29,8 @@ class FittingParametersViewerEditorLauncher:
         self.grand_parent = grand_parent
 
         if self.grand_parent.kropff_fitting_parameters_viewer_editor_ui is None:
-            set_variables_window = FittingParametersViewerEditor(
-                grand_parent=grand_parent, parent=parent
-            )
-            self.grand_parent.kropff_fitting_parameters_viewer_editor_ui = (
-                set_variables_window
-            )
+            set_variables_window = FittingParametersViewerEditor(grand_parent=grand_parent, parent=parent)
+            self.grand_parent.kropff_fitting_parameters_viewer_editor_ui = set_variables_window
             set_variables_window.show()
         else:
             self.grand_parent.kropff_fitting_parameters_viewer_editor_ui.setFocus()
@@ -91,9 +87,7 @@ class FittingParametersViewerEditor(QMainWindow):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         o_get = Get(parent=self)
         variable_selected = o_get.variable_selected()
-        o_handler = FittingParametersViewerEditorHandler(
-            grand_parent=self.grand_parent, parent=self
-        )
+        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent, parent=self)
         o_handler.populate_table_with_variable(variable=variable_selected)
         QApplication.restoreOverrideCursor()
 
@@ -113,9 +107,7 @@ class FittingParametersViewerEditor(QMainWindow):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         o_get = Get(parent=self)
         variable_selected = o_get.variable_selected()
-        o_handler = FittingParametersViewerEditorHandler(
-            grand_parent=self.grand_parent, parent=self
-        )
+        o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent, parent=self)
         o_handler.populate_table_with_variable(variable=variable_selected)
 
         # o_filling_table = FillingTableHandler(grand_parent=self.grand_parent,
@@ -130,11 +122,7 @@ class FittingParametersViewerEditor(QMainWindow):
         variable_selected = o_get.variable_selected()
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         o_handler = FittingParametersViewerEditorHandler(grand_parent=self.grand_parent)
-        new_variable = float(
-            str(
-                self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()
-            )
-        )
+        new_variable = float(str(self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
         o_handler.set_new_value_to_selected_bins(
             selection=selection,
             variable_name=variable_selected,
@@ -142,9 +130,7 @@ class FittingParametersViewerEditor(QMainWindow):
             table_nbr_row=self.nbr_row,
         )
         self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.setText("")
-        o_filling_table = FillingTableHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent, parent=self.parent)
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
@@ -158,9 +144,7 @@ class FittingParametersViewerEditor(QMainWindow):
         o_variable.right_click(position=position)
 
     def variable_table_cell_changed(self, row, column):
-        o_handler = FittingParametersViewerEditorHandler(
-            parent=self, grand_parent=self.grand_parent
-        )
+        o_handler = FittingParametersViewerEditorHandler(parent=self, grand_parent=self.grand_parent)
         o_handler.variable_cell_manual_changed(row=row, column=column)
 
     def save_and_quit_clicked(self):
@@ -236,16 +220,10 @@ class VariableTableHandler:
 
             logger.info(f"-> list_bins: {list_bins}")
             for central_bin in list_bins:
-                [central_key] = convert_bins_to_keys(
-                    list_of_bins=[central_bin], full_bin_height=self.nbr_row
-                )
+                [central_key] = convert_bins_to_keys(list_of_bins=[central_bin], full_bin_height=self.nbr_row)
 
-                if self.parent.kropff_table_dictionary[central_key][
-                    SessionSubKeys.lock
-                ]:
-                    logger.info(
-                        f"-> bin #{central_key} is locked and won't be modified!"
-                    )
+                if self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lock]:
+                    logger.info(f"-> bin #{central_key} is locked and won't be modified!")
                     # we don't do anything if the cell is locked !
                     continue
 
@@ -255,9 +233,7 @@ class VariableTableHandler:
                     full_bin_height=self.nbr_row,
                 )
 
-                surrounding_keys = convert_bins_to_keys(
-                    list_of_bins=surrounding_bins, full_bin_height=self.nbr_row
-                )
+                surrounding_keys = convert_bins_to_keys(list_of_bins=surrounding_bins, full_bin_height=self.nbr_row)
 
                 list_lambda_value = []
                 list_tau_value = []
@@ -268,25 +244,13 @@ class VariableTableHandler:
                 list_sigma_error = []
 
                 for _key in surrounding_keys:
-                    list_lambda_value.append(
-                        table_dictionary[_key][SessionSubKeys.lambda_hkl]["val"]
-                    )
-                    list_tau_value.append(
-                        table_dictionary[_key][SessionSubKeys.tau]["val"]
-                    )
-                    list_sigma_value.append(
-                        table_dictionary[_key][SessionSubKeys.sigma]["val"]
-                    )
+                    list_lambda_value.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]["val"])
+                    list_tau_value.append(table_dictionary[_key][SessionSubKeys.tau]["val"])
+                    list_sigma_value.append(table_dictionary[_key][SessionSubKeys.sigma]["val"])
 
-                    list_lambda_error.append(
-                        table_dictionary[_key][SessionSubKeys.lambda_hkl]["err"]
-                    )
-                    list_tau_error.append(
-                        table_dictionary[_key][SessionSubKeys.tau]["err"]
-                    )
-                    list_sigma_error.append(
-                        table_dictionary[_key][SessionSubKeys.sigma]["err"]
-                    )
+                    list_lambda_error.append(table_dictionary[_key][SessionSubKeys.lambda_hkl]["err"])
+                    list_tau_error.append(table_dictionary[_key][SessionSubKeys.tau]["err"])
+                    list_sigma_error.append(table_dictionary[_key][SessionSubKeys.sigma]["err"])
 
                 new_lambda_value = calculate_median(array_of_value=list_lambda_value)
                 new_lambda_error = calculate_median(array_of_value=list_lambda_error)
@@ -297,30 +261,16 @@ class VariableTableHandler:
                 new_sigma_value = calculate_median(array_of_value=list_sigma_value)
                 new_sigma_error = calculate_median(array_of_value=list_sigma_error)
 
-                self.parent.kropff_table_dictionary[central_key][
-                    SessionSubKeys.lambda_hkl
-                ]["val"] = new_lambda_value
-                self.parent.kropff_table_dictionary[central_key][
-                    SessionSubKeys.lambda_hkl
-                ]["err"] = new_lambda_error
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]["val"] = new_lambda_value
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lambda_hkl]["err"] = new_lambda_error
 
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau][
-                    "val"
-                ] = new_tau_value
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau][
-                    "err"
-                ] = new_tau_error
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]["val"] = new_tau_value
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.tau]["err"] = new_tau_error
 
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma][
-                    "val"
-                ] = new_sigma_value
-                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma][
-                    "err"
-                ] = new_sigma_error
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]["val"] = new_sigma_value
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.sigma]["err"] = new_sigma_error
 
-                self.parent.kropff_table_dictionary[central_key][
-                    SessionSubKeys.lock
-                ] = True
+                self.parent.kropff_table_dictionary[central_key][SessionSubKeys.lock] = True
 
         # refresh table
         self.parent.update_table()
@@ -348,9 +298,7 @@ class VariableTableHandler:
                     table_dictionary[str(_index)][variable_selected]["fixed"] = state
 
             # remove selection markers
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(
-                _select, False
-            )
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
         self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.fitting_set_variables_ui.update_table()
@@ -393,9 +341,7 @@ class VariableTableHandler:
                 right_column=right_column,
             )
 
-            list_keys = convert_bins_to_keys(
-                list_of_bins=list_bins, full_bin_height=self.nbr_row
-            )
+            list_keys = convert_bins_to_keys(list_of_bins=list_bins, full_bin_height=self.nbr_row)
 
             for _key in list_keys:
                 self.parent.kropff_table_dictionary[_key][SessionSubKeys.lock] = state

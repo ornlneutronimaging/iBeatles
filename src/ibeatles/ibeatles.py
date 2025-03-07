@@ -3,87 +3,75 @@
 Main window of the iBeatles application
 """
 
-from qtpy import QtCore
-from qtpy.QtWidgets import QApplication, QMainWindow
-import os
 import logging
+import os
 import warnings
 
-from ibeatles import load_ui
-from ibeatles._version import __version__
+from qtpy import QtCore
+from qtpy.QtWidgets import QApplication, QMainWindow
+
 from ibeatles import (
+    DEFAULT_NORMALIZATION_ROI,
+    DEFAULT_ROI,
     DataType,
     RegionType,
-    DEFAULT_ROI,
-    DEFAULT_NORMALIZATION_ROI,
     ScrollBarParameters,
+    XAxisMode,
+    load_ui,
 )
-from ibeatles import XAxisMode
-
-from ibeatles.config_handler import ConfigHandler
-
-from ibeatles.all_steps.log_launcher import LogLauncher, LogHandler
+from ibeatles._version import __version__
+from ibeatles.about.about_launcher import AboutLauncher
 from ibeatles.all_steps.event_handler import EventHandler as GeneralEventHandler
 from ibeatles.all_steps.infos_launcher import InfosLauncher
+from ibeatles.all_steps.log_launcher import LogHandler, LogLauncher
 from ibeatles.all_steps.material import (
+    Material,
     MaterialPreDefined,
     MaterialUserDefinedMethod1,
     MaterialUserDefinedMethod2,
-    Material,
 )
 
-from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
-from ibeatles.step1.data_handler import DataHandler
-from ibeatles.step1.gui_handler import Step1GuiHandler
-from ibeatles.step1.plot import Step1Plot
-from ibeatles.step1.initialization import Initialization
-
-from ibeatles.utilities.get import Get
+# import new MVP-based widget
+from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
+from ibeatles.binning.binning_launcher import BinningLauncher
+from ibeatles.config_handler import ConfigHandler
+from ibeatles.fitting import FittingKeys
+from ibeatles.fitting.fitting_launcher import FittingLauncher
+from ibeatles.fitting.kropff import KropffThresholdFinder
 from ibeatles.session.load_previous_session_launcher import (
     LoadPreviousSessionLauncher,
 )
 from ibeatles.session.session_handler import SessionHandler
-
-from ibeatles.step2.initialization import Initialization as Step2Initialization
+from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.event_handler import EventHandler as Step1EventHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
+from ibeatles.step1.initialization import Initialization
+from ibeatles.step1.plot import Step1Plot
 from ibeatles.step2.gui_handler import Step2GuiHandler
-from ibeatles.step2.roi_handler import Step2RoiHandler
-from ibeatles.step2.plot import Step2Plot
+from ibeatles.step2.initialization import Initialization as Step2Initialization
 from ibeatles.step2.normalization import Normalization
+from ibeatles.step2.plot import Step2Plot
 from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
-
-from ibeatles.step3.gui_handler import Step3GuiHandler
+from ibeatles.step2.roi_handler import Step2RoiHandler
 from ibeatles.step3.event_handler import EventHandler as Step3EventHandler
-
-from ibeatles.binning.binning_launcher import BinningLauncher
-
+from ibeatles.step3.gui_handler import Step3GuiHandler
+from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
+from ibeatles.tools.rotate.rotate_images import RotateImages
 from ibeatles.tools.tof_bin.tof_binning_launcher import TofBinningLauncher
 from ibeatles.tools.tof_combine.tof_combine_launcher import TofCombineLauncher
-from ibeatles.tools.rotate.rotate_images import RotateImages
-
-from ibeatles.fitting import FittingKeys
-from ibeatles.fitting.fitting_launcher import FittingLauncher
-from ibeatles.fitting.kropff import KropffThresholdFinder
-
-from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
-
+from ibeatles.utilities.array_utilities import find_nearest_index
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
+from ibeatles.utilities.bragg_edge_selection_handler import (
+    BraggEdgeSelectionHandler,
+)
+from ibeatles.utilities.get import Get
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.retrieve_data_infos import (
     RetrieveGeneralDataInfos,
     RetrieveGeneralFileInfos,
 )
-from ibeatles.utilities.list_data_handler import ListDataHandler
 from ibeatles.utilities.roi_editor import RoiEditor
-from ibeatles.utilities.bragg_edge_selection_handler import (
-    BraggEdgeSelectionHandler,
-)
-from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
-from ibeatles.utilities.gui_handler import GuiHandler
-
-from ibeatles.utilities.array_utilities import find_nearest_index
-
-from ibeatles.about.about_launcher import AboutLauncher
-
-# import new MVP-based widget
-from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
 
 warnings.filterwarnings("ignore")
 
@@ -91,9 +79,7 @@ warnings.filterwarnings("ignore")
 class MainWindow(QMainWindow):
     """ """
 
-    current_tab = (
-        0  # this will be used in case user request to see a tab is not allowed yet
-    )
+    current_tab = 0  # this will be used in case user request to see a tab is not allowed yet
     session_dict = {}  # all the parameters to save to be able to recover the full session
 
     # log ui
@@ -588,9 +574,7 @@ class MainWindow(QMainWindow):
     # TAB 1, 2 and 3  ===========================================================================================
     def tab_widget_changed(self, tab_selected):
         general_event_handler = GeneralEventHandler(parent=self)
-        is_step_selected_allowed = general_event_handler.is_step_selected_allowed(
-            step_index_requested=tab_selected
-        )
+        is_step_selected_allowed = general_event_handler.is_step_selected_allowed(step_index_requested=tab_selected)
 
         if is_step_selected_allowed:
             if tab_selected == 1:  # normalization
@@ -612,17 +596,13 @@ class MainWindow(QMainWindow):
                 o_plot.display_general_bragg_edge()
                 # self.update_hkl_lambda_d0()
 
-                material_instrument_group_visible = (
-                    self.ui.action_Instrument_Material_Settings.isChecked()
-                )
+                material_instrument_group_visible = self.ui.action_Instrument_Material_Settings.isChecked()
 
             elif tab_selected == 3:
                 material_instrument_group_visible = False
 
             self.current_tab = tab_selected
-            self.ui.instrument_and_material_settings.setVisible(
-                material_instrument_group_visible
-            )
+            self.ui.instrument_and_material_settings.setVisible(material_instrument_group_visible)
 
         else:
             self.ui.tabWidget.setCurrentIndex(self.current_tab)
@@ -705,9 +685,7 @@ class MainWindow(QMainWindow):
         o_bragg_selection = BraggEdgeSelectionHandler(parent=self, data_type=data_type)
         o_bragg_selection.update_dropdown()
 
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=data_type
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=data_type)
         o_retrieve_data_infos.update()
 
         _ui_list.blockSignals(False)
@@ -828,15 +806,11 @@ class MainWindow(QMainWindow):
         o_gui.select_load_data_row(data_type=data_type, row=row)
 
     def sample_retrieve_general_data_infos(self):
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.sample
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.sample)
         o_retrieve_data_infos.update()
 
     def open_beam_retrieve_general_data_infos(self):
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.ob
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
         o_retrieve_data_infos.update()
 
     def sample_list_right_click(self, position):
@@ -849,9 +823,7 @@ class MainWindow(QMainWindow):
 
     def open_beam_list_selection_changed(self):
         if not self.loading_flag:
-            o_retrieve_data_infos = RetrieveGeneralDataInfos(
-                parent=self, data_type=DataType.ob
-            )
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
             o_retrieve_data_infos.update()
             self.roi_ob_image_view_changed(mouse_selection=False)
         else:
@@ -875,9 +847,7 @@ class MainWindow(QMainWindow):
         distance_source_detector_m = float(self.ui.distance_source_detector.text())
         detector_offset = float(self.ui.detector_offset.text())
 
-        self.time_spectra_presenter.load_data(
-            file_path, distance_source_detector_m, detector_offset
-        )
+        self.time_spectra_presenter.load_data(file_path, distance_source_detector_m, detector_offset)
         self.time_spectra_presenter.show_view()
 
     def update_delta_lambda(self):
@@ -890,9 +860,7 @@ class MainWindow(QMainWindow):
         self.roi_image_view_changed()
 
         # update the top plot
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.sample
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.sample)
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def roi_algorithm_is_mean_clicked(self):
@@ -901,9 +869,7 @@ class MainWindow(QMainWindow):
         self.roi_image_view_changed()
 
         # update the top plot
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.sample
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.sample)
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def ob_roi_algorithm_is_add_clicked(self):
@@ -912,9 +878,7 @@ class MainWindow(QMainWindow):
         self.roi_ob_image_view_changed()
 
         # update the top plot
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.ob
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def ob_roi_algorithm_is_mean_clicked(self):
@@ -923,15 +887,11 @@ class MainWindow(QMainWindow):
         self.roi_ob_image_view_changed()
 
         # update the top plot
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.ob
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.ob)
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.sample][FittingKeys.x_axis] = (
-            XAxisMode.file_index_mode
-        )
+        self.data_metadata[DataType.sample][FittingKeys.x_axis] = XAxisMode.file_index_mode
         o_event = Step1EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
@@ -1025,23 +985,17 @@ class MainWindow(QMainWindow):
             self.ui.tabWidget.setCurrentIndex(2)
 
     def step2_file_index_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = (
-            XAxisMode.file_index_mode
-        )
+        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = XAxisMode.file_index_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
     def step2_tof_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = (
-            XAxisMode.tof_mode
-        )
+        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = XAxisMode.tof_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
     def step2_lambda_radio_button_clicked(self):
-        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = (
-            XAxisMode.lambda_mode
-        )
+        self.data_metadata[DataType.normalization][FittingKeys.x_axis] = XAxisMode.lambda_mode
         o_plot = Step2Plot(parent=self)
         o_plot.display_bragg_edge()
 
@@ -1085,9 +1039,7 @@ class MainWindow(QMainWindow):
         distance_source_detector_m = float(self.ui.distance_source_detector.text())
         detector_offset = float(self.ui.detector_offset.text())
 
-        self.normalized_time_spectra_presenter.load_data(
-            file_path, distance_source_detector_m, detector_offset
-        )
+        self.normalized_time_spectra_presenter.load_data(file_path, distance_source_detector_m, detector_offset)
         self.normalized_time_spectra_presenter.show_view()
 
     def normalized_import_button_clicked(self):
@@ -1095,9 +1047,7 @@ class MainWindow(QMainWindow):
         o_event.import_button_clicked()
 
     def normalized_retrieve_general_data_infos(self):
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.normalized
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
         o_retrieve_data_infos.update()
 
     def select_normalized_row(self, row=0):
@@ -1107,9 +1057,7 @@ class MainWindow(QMainWindow):
     def normalized_list_selection_changed(self):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         if not self.loading_flag:
-            o_retrieve_data_infos = RetrieveGeneralDataInfos(
-                parent=self, data_type=DataType.normalized
-            )
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
             o_retrieve_data_infos.update()
             # self.roi_normalized_image_view_changed(mouse_selection=False)
         else:
@@ -1126,9 +1074,7 @@ class MainWindow(QMainWindow):
         self.roi_normalized_image_view_changed()
 
         # update the top plot
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.normalized
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def normalized_roi_algorithm_is_mean_clicked(self):
@@ -1137,15 +1083,11 @@ class MainWindow(QMainWindow):
         self.roi_normalized_image_view_changed()
 
         # update the top plot
-        o_retrieve_data_infos = RetrieveGeneralDataInfos(
-            parent=self, data_type=DataType.normalized
-        )
+        o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self, data_type=DataType.normalized)
         o_retrieve_data_infos.update(add_mean_radio_button_changed=True)
 
     def normalized_file_index_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized][FittingKeys.x_axis] = (
-            XAxisMode.file_index_mode
-        )
+        self.data_metadata[DataType.normalized][FittingKeys.x_axis] = XAxisMode.file_index_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 
@@ -1155,9 +1097,7 @@ class MainWindow(QMainWindow):
         o_event.sample_list_selection_changed()
 
     def normalized_lambda_xaxis_button_clicked(self):
-        self.data_metadata[DataType.normalized][FittingKeys.x_axis] = (
-            XAxisMode.lambda_mode
-        )
+        self.data_metadata[DataType.normalized][FittingKeys.x_axis] = XAxisMode.lambda_mode
         o_event = Step3EventHandler(parent=self)
         o_event.sample_list_selection_changed()
 

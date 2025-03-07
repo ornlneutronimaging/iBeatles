@@ -1,9 +1,7 @@
 import numpy as np
 
 
-def create_list_of_bins_from_selection(
-    top_row=0, bottom_row=0, left_column=0, right_column=0
-):
+def create_list_of_bins_from_selection(top_row=0, bottom_row=0, left_column=0, right_column=0):
     """
     this will return a list of bins(row,column) from the selection
 
@@ -26,9 +24,7 @@ def create_list_of_bins_from_selection(
     return list(list_bins)
 
 
-def create_list_of_surrounding_bins(
-    central_bin=None, full_bin_width=None, full_bin_height=None
-):
+def create_list_of_surrounding_bins(central_bin=None, full_bin_width=None, full_bin_height=None):
     """
     this will return the list of bins surrounding the central_bin coordinates (row, column)
 

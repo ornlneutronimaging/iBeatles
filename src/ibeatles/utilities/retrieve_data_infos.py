@@ -1,5 +1,6 @@
 import os
 import time
+
 import numpy as np
 
 from ibeatles import DataType
@@ -41,15 +42,9 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
         list_row_selected = list(np.sort(self.get_list_row_selected()))
 
         if self.data_type == DataType.normalized:
-            combine_algo = (
-                np.nansum
-                if self.parent.ui.normalized_roi_add_button.isChecked()
-                else np.nanmean
-            )
+            combine_algo = np.nansum if self.parent.ui.normalized_roi_add_button.isChecked() else np.nanmean
         else:
-            combine_algo = (
-                np.nansum if self.parent.ui.roi_add_button.isChecked() else np.nanmean
-            )
+            combine_algo = np.nansum if self.parent.ui.roi_add_button.isChecked() else np.nanmean
 
         if not list_row_selected:
             if len(self.parent.data_metadata[self.data_type]["data"]) == 0:
@@ -90,14 +85,10 @@ class RetrieveGeneralDataInfos(RetrieveDataInfos):
         # self.selected_infos_ui[self.data_type].setHtml(text)
 
         o_plot = Step1Plot(parent=self.parent, data_type=self.data_type, data=self.data)
-        o_plot.display_image(
-            add_mean_radio_button_changed=add_mean_radio_button_changed
-        )
+        o_plot.display_image(add_mean_radio_button_changed=add_mean_radio_button_changed)
 
     def get_list_files_selected(self):
-        list_files = [
-            str(x.text()) for x in self.table_ui[self.data_type].selectedItems()
-        ]
+        list_files = [str(x.text()) for x in self.table_ui[self.data_type].selectedItems()]
         return list_files
 
     def get_list_row_selected(self):
@@ -128,9 +119,7 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
             folder = self.parent.data_metadata[self.data_type]["folder"]
 
             self.general_infos["full_path"]["value"] = folder
-            self.general_infos["folder"]["value"] = os.path.basename(
-                os.path.abspath(folder)
-            )
+            self.general_infos["folder"]["value"] = os.path.basename(os.path.abspath(folder))
 
             _nbr_files = len(data_files)
             self.general_infos["number_of_files"]["value"] = _nbr_files
@@ -155,9 +144,7 @@ class RetrieveGeneralFileInfos(RetrieveDataInfos):
         # self.display()
 
     def get_formated_time(self, full_file_name):
-        _time = time.strftime(
-            "%m/%d/%Y %H:%M:%S", time.gmtime(os.path.getmtime(full_file_name))
-        )
+        _time = time.strftime("%m/%d/%Y %H:%M:%S", time.gmtime(os.path.getmtime(full_file_name)))
         return _time
 
     # def display(self):

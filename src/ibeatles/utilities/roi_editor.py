@@ -1,16 +1,16 @@
+import pyqtgraph as pg
 from qtpy.QtWidgets import (
+    QApplication,
+    QComboBox,
     QMainWindow,
     QTableWidgetItem,
-    QComboBox,
     QTableWidgetSelectionRange,
-    QApplication,
 )
-import pyqtgraph as pg
 
-from ibeatles.utilities.gui_handler import GuiHandler
-from ibeatles.utilities import colors
+from ibeatles import DEFAULT_ROI, DataType, load_ui
 from ibeatles.step1.plot import Step1Plot
-from ibeatles import load_ui, DEFAULT_ROI, DataType
+from ibeatles.utilities import colors
+from ibeatles.utilities.gui_handler import GuiHandler
 
 
 class RoiEditor:
@@ -55,9 +55,7 @@ class RoiEditorInterface(QMainWindow):
             self.ui.tableWidget.setColumnWidth(_index, _width)
 
         nbr_groups = len(colors.roi_group_color)
-        self.list_name_groups = [
-            "group {}".format(index) for index in range(nbr_groups)
-        ]
+        self.list_name_groups = ["group {}".format(index) for index in range(nbr_groups)]
 
     def get_item(self, text, color):
         _item = QTableWidgetItem(str(text))
@@ -211,9 +209,7 @@ class RoiEditorInterface(QMainWindow):
 
         # label roi
         label_roi = pg.TextItem(
-            html='<div style="text-align: center"><span style="color: #ff0000;">'
-            + label
-            + "</span></div>",
+            html='<div style="text-align: center"><span style="color: #ff0000;">' + label + "</span></div>",
             anchor=(-0.3, 1.3),
             border="w",
             fill=(0, 0, 255, 50),
@@ -307,9 +303,7 @@ class RoiEditorInterface(QMainWindow):
         return _row_selected
 
     def refresh(self, row):
-        [label, x0, y0, width, height, group] = self.parent.list_roi[self.data_type][
-            row
-        ]
+        [label, x0, y0, width, height, group] = self.parent.list_roi[self.data_type][row]
         self.set_row(row, label, x0, y0, width, height, group)
 
     def activate_row(self, row):

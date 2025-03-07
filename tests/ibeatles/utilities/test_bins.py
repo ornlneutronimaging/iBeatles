@@ -1,8 +1,10 @@
 from unittest import TestCase
 
-from ibeatles.utilities.bins import create_list_of_bins_from_selection
-from ibeatles.utilities.bins import create_list_of_surrounding_bins
-from ibeatles.utilities.bins import convert_bins_to_keys
+from ibeatles.utilities.bins import (
+    convert_bins_to_keys,
+    create_list_of_bins_from_selection,
+    create_list_of_surrounding_bins,
+)
 
 
 class TestCreateListOfBinsFromSelection(TestCase):
@@ -190,9 +192,7 @@ class TestConvertBinsToKeys(TestCase):
     def test_first_bin(self):
         """assert case for 1 bin (0,0)"""
         list_of_bins = [(0, 0)]
-        list_of_keys_returned = convert_bins_to_keys(
-            list_of_bins=list_of_bins, full_bin_height=self.full_bin_height
-        )
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins, full_bin_height=self.full_bin_height)
         list_of_keys_expected = ["0"]
 
         self.assertEqual(list_of_keys_expected, list_of_keys_returned)
@@ -200,9 +200,7 @@ class TestConvertBinsToKeys(TestCase):
     def test_last_bin_of_first_column(self):
         """assert case for last bin of first column (9,0)"""
         list_of_bins = [(9, 0)]
-        list_of_keys_returned = convert_bins_to_keys(
-            list_of_bins=list_of_bins, full_bin_height=self.full_bin_height
-        )
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins, full_bin_height=self.full_bin_height)
         list_of_keys_expected = ["9"]
 
         self.assertEqual(list_of_keys_expected, list_of_keys_returned)
@@ -210,9 +208,7 @@ class TestConvertBinsToKeys(TestCase):
     def test_first_bin_of_second_column(self):
         """assert case for last bin of first column (0,1)"""
         list_of_bins = [(0, 1)]
-        list_of_keys_returned = convert_bins_to_keys(
-            list_of_bins=list_of_bins, full_bin_height=self.full_bin_height
-        )
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins, full_bin_height=self.full_bin_height)
         list_of_keys_expected = ["10"]
 
         self.assertEqual(list_of_keys_expected, list_of_keys_returned)
@@ -220,9 +216,7 @@ class TestConvertBinsToKeys(TestCase):
     def test_last_bin(self):
         """assert case for last bin (9, 4)"""
         list_of_bins = [(9, 4)]
-        list_of_keys_returned = convert_bins_to_keys(
-            list_of_bins=list_of_bins, full_bin_height=self.full_bin_height
-        )
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins, full_bin_height=self.full_bin_height)
         list_of_keys_expected = ["49"]
 
         self.assertEqual(list_of_keys_expected, list_of_keys_returned)
@@ -230,9 +224,7 @@ class TestConvertBinsToKeys(TestCase):
     def test_list_of_bins_case1(self):
         """assert case for list of bins"""
         list_of_bins = [(0, 0), [9, 0], [0, 1], [9, 4]]
-        list_of_keys_returned = convert_bins_to_keys(
-            list_of_bins=list_of_bins, full_bin_height=self.full_bin_height
-        )
+        list_of_keys_returned = convert_bins_to_keys(list_of_bins=list_of_bins, full_bin_height=self.full_bin_height)
         list_of_keys_expected = ["0", "9", "10", "49"]
 
         self.assertEqual(list_of_keys_expected, list_of_keys_returned)

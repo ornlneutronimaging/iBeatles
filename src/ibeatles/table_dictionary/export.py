@@ -1,6 +1,7 @@
-from qtpy.QtWidgets import QFileDialog
 import logging
+
 import pandas as pd
+from qtpy.QtWidgets import QFileDialog
 
 
 class Export:
@@ -38,9 +39,7 @@ class Export:
 
     def run(self):
         logging.info("Exporting table")
-        default_file_name = (
-            str(self.grand_parent.ui.normalized_folder.text()) + "_fitting_table.csv"
-        )
+        default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + "_fitting_table.csv"
         table_file = QFileDialog.getSaveFileName(
             self.grand_parent,
             "Select or Define Name of File!",
@@ -83,21 +82,13 @@ class FormatTableForExport(object):
 
             fitting_confidence = _entry["fitting_confidence"]
 
-            [d_spacing_val, d_spacing_err] = FormatTableForExport.get_val_err_fixed(
-                _entry["d_spacing"]
-            )
+            [d_spacing_val, d_spacing_err] = FormatTableForExport.get_val_err_fixed(_entry["d_spacing"])
 
-            [sigma_val, sigma_err] = FormatTableForExport.get_val_err_fixed(
-                _entry["sigma"]
-            )
+            [sigma_val, sigma_err] = FormatTableForExport.get_val_err_fixed(_entry["sigma"])
 
-            [intensity_val, intensity_err] = FormatTableForExport.get_val_err_fixed(
-                _entry["intensity"]
-            )
+            [intensity_val, intensity_err] = FormatTableForExport.get_val_err_fixed(_entry["intensity"])
 
-            [alpha_val, alpha_err] = FormatTableForExport.get_val_err_fixed(
-                _entry["alpha"]
-            )
+            [alpha_val, alpha_err] = FormatTableForExport.get_val_err_fixed(_entry["alpha"])
 
             [a1_val, a1_err] = FormatTableForExport.get_val_err_fixed(_entry["a1"])
 

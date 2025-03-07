@@ -3,18 +3,17 @@
 Rotate images
 """
 
-from qtpy.QtWidgets import QMainWindow, QApplication
+import logging
+import os
+import shutil
 
 import scipy
-import shutil
-import os
-import logging
+from qtpy.QtWidgets import QApplication, QMainWindow
 
-from ibeatles import load_ui, DataType
-
+from ibeatles import DataType, load_ui
 from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
-from ibeatles.tools.rotate.rotate_export_launcher import RotateExportLauncher
 from ibeatles.tools.rotate.initialization import Initialization
+from ibeatles.tools.rotate.rotate_export_launcher import RotateExportLauncher
 
 
 class RotateImages:
@@ -96,18 +95,12 @@ class RotateImagesWindow(QMainWindow):
     #     self.close()
 
     def copy_time_spectra(self, target_folder=None):
-        time_spectra = self.parent.data_metadata[DataType.normalized]["time_spectra"][
-            "filename"
-        ]
+        time_spectra = self.parent.data_metadata[DataType.normalized]["time_spectra"]["filename"]
         target_filename = os.path.join(target_folder, os.path.basename(time_spectra))
         if os.path.exists(target_filename):
             os.remove(target_filename)
-        self.parent.data_metadata[DataType.normalized]["time_spectra"]["filename"] = (
-            target_filename
-        )
-        self.parent.data_metadata[DataType.normalized]["time_spectra"]["folder"] = (
-            os.path.dirname(target_filename)
-        )
+        self.parent.data_metadata[DataType.normalized]["time_spectra"]["filename"] = target_filename
+        self.parent.data_metadata[DataType.normalized]["time_spectra"]["folder"] = os.path.dirname(target_filename)
         shutil.copyfile(time_spectra, target_filename)
         _folder_time_spectra = os.path.basename(os.path.abspath(target_folder))
         self.parent.ui.time_spectra_folder_2.setText(_folder_time_spectra)

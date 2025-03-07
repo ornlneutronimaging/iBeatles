@@ -5,19 +5,18 @@ Strain Mapping Launcher
 
 from qtpy.QtWidgets import QMainWindow
 
-from ibeatles import load_ui, FileType
+from ibeatles import FileType, load_ui
+from ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6.display import Display
+from ibeatles.step6.event_handler import EventHandler
+from ibeatles.step6.export import Export
+from ibeatles.step6.get import Get
+from ibeatles.step6.initialization import Initialization
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
 from ibeatles.widgets.qrangeslider import FakeKey
-
-from ibeatles.step6.initialization import Initialization
-from ibeatles.step6.display import Display
-from ibeatles.step6.event_handler import EventHandler
-from ibeatles.step6.get import Get
-from ibeatles.step6.export import Export
-from ibeatles.step6 import ParametersToDisplay
 
 
 class StrainMappingLauncher:
@@ -126,9 +125,7 @@ class StrainMappingWindow(QMainWindow):
     def export_images_all_tiff(self):
         """export d, strain mapping and integrated in TIFF"""
         o_export = Export(parent=self, grand_parent=self.parent)
-        o_export.image(
-            d_spacing_image=True, strain_mapping_image=True, integrated_image=True
-        )
+        o_export.image(d_spacing_image=True, strain_mapping_image=True, integrated_image=True)
 
     def export_images_d_tiff(self):
         """export d in TIFF"""

@@ -3,8 +3,9 @@
 Table Fitting Story Dictionary Handler
 """
 
-import numpy as np
 import collections
+
+import numpy as np
 
 from ibeatles.utilities.status import Status
 
@@ -55,14 +56,10 @@ class TableFittingStoryDictionaryHandler:
             for _variable in _story:
                 table_fitting_story_dictionary[_index][_variable] = True
 
-        self.grand_parent.table_fitting_story_dictionary = (
-            table_fitting_story_dictionary
-        )
+        self.grand_parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
     def move_entry(self, current_index_row=0, direction="up"):
-        table_fitting_story_dictionary = (
-            self.grand_parent.table_fitting_story_dictionary
-        )
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
 
         if direction == "up":
             new_index_row = current_index_row - 1
@@ -70,19 +67,13 @@ class TableFittingStoryDictionaryHandler:
             new_index_row = current_index_row + 1
 
         tmp_entry = table_fitting_story_dictionary[new_index_row]
-        table_fitting_story_dictionary[new_index_row] = table_fitting_story_dictionary[
-            current_index_row
-        ]
+        table_fitting_story_dictionary[new_index_row] = table_fitting_story_dictionary[current_index_row]
         table_fitting_story_dictionary[current_index_row] = tmp_entry
 
-        self.grand_parent.table_fitting_story_dictionary = (
-            table_fitting_story_dictionary
-        )
+        self.grand_parent.table_fitting_story_dictionary = table_fitting_story_dictionary
 
     def remove_entry(self, index_to_remove=0):
-        table_fitting_story_dictionary = (
-            self.grang_parent.table_fitting_story_dictionary
-        )
+        table_fitting_story_dictionary = self.grang_parent.table_fitting_story_dictionary
         # nbr_entry = len(table_fitting_story_dictionary)
 
         new_table_fitting_story_dictionary = collections.OrderedDict()
@@ -91,19 +82,13 @@ class TableFittingStoryDictionaryHandler:
             if _index == index_to_remove:
                 continue
 
-            new_table_fitting_story_dictionary[new_index] = (
-                table_fitting_story_dictionary[_index]
-            )
+            new_table_fitting_story_dictionary[new_index] = table_fitting_story_dictionary[_index]
             new_index += 1
 
-        self.grand_parent.table_fitting_story_dictionary = (
-            new_table_fitting_story_dictionary
-        )
+        self.grand_parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary
 
     def add_entry(self, index_to_add=1):
-        table_fitting_story_dictionary = (
-            self.grand_parent.table_fitting_story_dictionary
-        )
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
         nbr_entry = len(table_fitting_story_dictionary)
 
         new_table_fitting_story_dictionary = collections.OrderedDict()
@@ -122,11 +107,7 @@ class TableFittingStoryDictionaryHandler:
                         new_table_fitting_story_dictionary[new_index] = self.init_entry
                         new_index += 1
 
-                    new_table_fitting_story_dictionary[new_index] = (
-                        table_fitting_story_dictionary[_index]
-                    )
+                    new_table_fitting_story_dictionary[new_index] = table_fitting_story_dictionary[_index]
                     new_index += 1
 
-        self.grand_parent.table_fitting_story_dictionary = (
-            new_table_fitting_story_dictionary
-        )
+        self.grand_parent.table_fitting_story_dictionary = new_table_fitting_story_dictionary

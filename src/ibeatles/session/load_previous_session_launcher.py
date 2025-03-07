@@ -3,24 +3,23 @@
 LoadPreviousSessionLauncher class
 """
 
-from qtpy.QtWidgets import QDialog
 import os
 
+from qtpy.QtWidgets import QDialog
+
 from ibeatles import load_ui
-from ibeatles.utilities.get import Get
 from ibeatles.session.load_previous_session_launcher_multiple_choice import (
     LoadPreviousSessionLauncherMultipleChoice,
 )
 from ibeatles.session.session_handler import SessionHandler
+from ibeatles.utilities.get import Get
 
 
 class LoadPreviousSessionLauncher(QDialog):
     def __init__(self, parent=None, config=None):
         self.parent = parent
         QDialog.__init__(self, parent=parent)
-        ui_full_path = os.path.join(
-            os.path.dirname(__file__), os.path.join("ui", "ui_load_previous_session.ui")
-        )
+        ui_full_path = os.path.join(os.path.dirname(__file__), os.path.join("ui", "ui_load_previous_session.ui"))
         self.ui = load_ui(ui_full_path, baseinstance=self)
         self.setWindowTitle("Load previous session?")
         self.ui.pushButton.setFocus(True)

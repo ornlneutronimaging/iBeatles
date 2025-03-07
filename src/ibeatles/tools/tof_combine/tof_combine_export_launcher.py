@@ -3,15 +3,16 @@
 TOF combine export launcher
 """
 
-from qtpy.QtWidgets import QDialog
 import warnings
-from ibeatles import load_ui
-from ibeatles import DataType
+
+from qtpy.QtWidgets import QDialog
+
+from ibeatles import DataType, load_ui
+from ibeatles.tools.tof_combine.utilities.get import Get
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.tools.tof_combine.utilities.get import Get
 
 warnings.filterwarnings("ignore")
 
@@ -29,9 +30,7 @@ class TofCombineExportLauncher(QDialog):
         self.close()
         output_folder = self.parent.combine_run(data_type_selected=data_type_selected)
         if output_folder:
-            self.parent.reload_run_in_main_ui(
-                data_type_selected=data_type_selected, output_folder=output_folder
-            )
+            self.parent.reload_run_in_main_ui(data_type_selected=data_type_selected, output_folder=output_folder)
             self.parent.close()
 
             message = f"TOF combined exported to {output_folder}"
@@ -44,6 +43,4 @@ class TofCombineExportLauncher(QDialog):
             message = "User cancel export process!"
             status = StatusMessageStatus.warning
 
-        show_status_message(
-            parent=self.grand_parent, message=message, status=status, duration_s=10
-        )
+        show_status_message(parent=self.grand_parent, message=message, status=status, duration_s=10)
