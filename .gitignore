@@ -8,3 +8,5 @@ designer/*.autosave
 
 *.egg-info/
 .envrc
+
+_version.py
