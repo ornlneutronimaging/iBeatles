@@ -3,34 +3,18 @@ name = "ibeatles"
 description = "Bragg edge strain mapping"
 dynamic = ["version"]
 requires-python = ">=3.11,<3.13"
-dependencies = [
-#    "python",
-    "numpy",
-    "matplotlib",
-#    "qt",
-    "QtPy",
-    "PyQt5",
-    "h5py",
-    "args",
-    "Pillow",
-    "astropy",
-    "pyqtgraph",
-    "scipy",
-    "lmfit",
-    "neutronbraggedge",
-    "changepy",
-    "NeuNorm",
-    "pytest",
-    "loguru",
-    "tqdm",
-    "tomli",
-    "pydantic",
-    "ipython",
-]
 license = { text = "MIT" }
+dependencies = [
+  "neutronbraggedge>=2.0.6,<3",
+  "changepy>=0.4.0,<0.5",
+  "neunorm>=1.6.12,<2",
+]
 
 [project.urls]
 homepage = "https://github.com/ornlneutronimaging/iBeatles"
+
+[project.scripts]
+ibeatles = "ibeatles.__main__:main"
 
 [build-system]
 requires = [
@@ -40,9 +24,6 @@ requires = [
   "versioningit"
 ]
 build-backend = "setuptools.build_meta"
-
-[tool.black]
-line-length = 119
 
 [tool.versioningit.vcs]
 method = "git"
@@ -77,7 +58,10 @@ testpaths = ["tests"]
 python_files = ["test*.py"]
 norecursedirs = [".git", "tmp*", "_tmp*", "__pycache__", "*dataset*", "*data_set*"]
 markers = [
-    "mymarker: example markers goes here"
+    "unit: unit tests",
+    "integration: integration tests",
+    "slow: tests that are slow to run",
+    "gui: tests for the GUI components"
 ]
 
 [tool.pylint]
@@ -89,4 +73,81 @@ disable = ["too-many-locals",
            "duplicate-code"
 ]
 
-# Add additional 3rd party tool configuration here as needed
+# Pixi configuration
+[tool.pixi.project]
+channels = ["conda-forge", "neutronimaging"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.pypi-dependencies]
+ibeatles = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+test = "pytest tests --cov=src/ibeatles --cov-report=term --cov-report=xml"
+docs = "sphinx-build docs/source docs/build/html"
+# serve-docs = "python -m http.server --directory docs/build/html"
+clean = "rm -rf build/ dist/ *.egg-info/ .coverage .pytest_cache/ .ruff_cache/ docs/build/"
+build = "python -m build"
+start = "python -m ibeatles"
+cli = "python -m ibeatles --no-gui"
+
+[tool.pixi.feature.test.dependencies]
+pytest = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+pytest-repeat = "*"
+
+[tool.pixi.feature.package.dependencies]
+boa = "*"
+conda-build = "*"
+conda-verify = "*"
+python-build = "*"
+
+[tool.pixi.feature.developer.dependencies]
+pip = "*"
+versioningit = "*"
+pre-commit = "*"
+conda-tree = "*"
+ruff = "*"
+
+[tool.pixi.feature.gui.dependencies]
+qt = "*"
+qtpy = "*"
+pyqt = "*"
+pyqtgraph = "*"
+
+# [tool.pixi.feature.docs.dependencies]
+# sphinx = "*"
+# sphinx-rtd-theme = "*"
+
+[tool.pixi.feature.core.dependencies]
+ipython = "*"
+pydantic = "*"
+loguru = "*"
+astropy = "*"
+lmfit = "*"
+h5py = "*"
+sqlite = "*"
+zlib = "*"
+matplotlib = "*"
+pyparsing = "*"
+pytz = "*"
+readline = "*"
+
+[tool.pixi.environments]
+default = {features = ["test", "package", "developer", "core", "gui"], solve-group = "default"}
+runtime = {features = ["core", "gui"], solve-group = "default"}
+
+# ruff configuration
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+select = ["E", "F", "I"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.isort]
+known-first-party = ["ibeatles"]
