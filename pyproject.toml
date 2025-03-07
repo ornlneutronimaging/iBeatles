@@ -87,6 +87,7 @@ docs = "sphinx-build docs/source docs/build/html"
 # serve-docs = "python -m http.server --directory docs/build/html"
 clean = "rm -rf build/ dist/ *.egg-info/ .coverage .pytest_cache/ .ruff_cache/ docs/build/"
 build = "python -m build"
+conda-build = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --channel conda-forge --channel neutronimaging --output-folder . ."  # noqa
 start = "python -m ibeatles"
 cli = "python -m ibeatles --no-gui"
 
