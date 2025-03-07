@@ -3,6 +3,11 @@ from qtpy.uic import loadUi
 
 from ibeatles import ui
 
+try:
+    from ._version import __version__  # noqa: F401
+except ImportError:
+    __version__ = "unknown"
+
 root = os.path.dirname(os.path.realpath(__file__))
 refresh_image = os.path.join(root, "icons/refresh.png")
 up_image = os.path.join(root, "icons/up_arrow.png")
