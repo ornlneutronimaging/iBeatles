@@ -141,13 +141,16 @@ runtime = {features = ["core", "gui"], solve-group = "default"}
 [tool.ruff]
 target-version = "py311"
 line-length = 120
+exclude = ["notebooks/**", "**/*.ipynb"]
+
+[tool.ruff.lint]
 select = ["E", "F", "I"]
 ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["ibeatles"]
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
 line-ending = "auto"
-
-[tool.ruff.isort]
-known-first-party = ["ibeatles"]

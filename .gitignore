@@ -6,10 +6,19 @@ designer/*.autosave
 .DS_Store
 .idea
 
-*.egg-info/
+# direnv (this is a local env file)
 .envrc
 
+# versioningit (the version should be updated by versioningit)
 _version.py
+
 # pixi environments
 .pixi
 *.egg-info
+
+# conda packages
+conda.recipe/index.html
+conda.recipe/channeldata.json
+conda.recipe/noarch/*
+conda.recipe/linux-64/*
+conda.recipe/osx-arm64/*
