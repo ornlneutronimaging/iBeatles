@@ -45,14 +45,14 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
-exclude = ["tests*", "scripts*", "docs*", "notebooks*"]
+exclude = ["tests*", "docs*", "notebooks*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.yml","*.yaml","*.ini","**/*.ui","**/*.json", "**/icons/*"]
 
 [tool.pytest.ini_options]
 pythonpath = [
-  ".", "src", "scripts"
+  ".", "src",
 ]
 testpaths = ["tests"]
 python_files = ["test*.py"]

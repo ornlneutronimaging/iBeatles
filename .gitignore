@@ -22,3 +22,7 @@ conda.recipe/channeldata.json
 conda.recipe/noarch/*
 conda.recipe/linux-64/*
 conda.recipe/osx-arm64/*
+
+# code coverage
+.coverage*
+coverage.xml
