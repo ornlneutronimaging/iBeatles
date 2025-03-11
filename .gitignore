@@ -9,9 +9,6 @@ designer/*.autosave
 # direnv (this is a local env file)
 .envrc
 
-# versioningit (the version should be updated by versioningit)
-_version.py
-
 # pixi environments
 .pixi
 *.egg-info
@@ -26,3 +23,5 @@ conda.recipe/osx-arm64/*
 # code coverage
 .coverage*
 coverage.xml
+
+_version.py
