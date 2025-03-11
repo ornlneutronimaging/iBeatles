@@ -82,7 +82,7 @@ platforms = ["osx-arm64", "linux-64"]
 ibeatles = { path = ".", editable = true }
 
 [tool.pixi.tasks]
-test = "pytest tests --cov=src/ibeatles --cov-report=term --cov-report=xml"
+test = "pytest tests --cov-branch --cov=src/ibeatles --cov-report=term --cov-report=xml"
 docs = "sphinx-build docs/source docs/build/html"
 # serve-docs = "python -m http.server --directory docs/build/html"
 clean = "rm -rf dist/ build/ src/ibeatles.egg-info/ docs/build/ .pytest_cache/ .ruff/ .coverage"
