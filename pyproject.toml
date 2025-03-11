@@ -95,7 +95,7 @@ rm_docs = "rm -rf docs/build"
 build = "python -m build"
 rm_pypi_build = "rm -rf dist/ src/ibeatles.egg-info/"
 # conda packaging
-conda-build = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --channel conda-forge --channel neutronimaging --output-folder . ."  # noqa
+build-conda = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --channel conda-forge --channel neutronimaging --output-folder . ."  # noqa
 rm_conda_build = "rm -rf conda.recipe/channeldata.json conda.recipe/index.html conda.recipe/noarch conda.recipe/osx-arm64"
 # app
 start = "python -m ibeatles"

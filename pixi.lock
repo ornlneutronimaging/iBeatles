@@ -5071,8 +5071,8 @@ packages:
   timestamp: 1737618427549
 - pypi: .
   name: ibeatles
-  version: 1.1.0.dev16+d202503111647
-  sha256: 8cb5c054fbf8ea5507f364e444a124c56d131ec4bf2b9b377b390687419f04b1
+  version: 1.1.0.dev19+d202503111724
+  sha256: 02ab00b1445fbdd7496263563011295c5232daf4261c503629482c24838f34d9
   requires_dist:
   - neutronbraggedge>=2.0.6,<3
   - changepy>=0.4.0,<0.5
