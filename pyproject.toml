@@ -82,12 +82,22 @@ platforms = ["osx-arm64", "linux-64"]
 ibeatles = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+# phony
+clean = {depends-on = ["rm_pypi_build", "rm_docs", "rm_conda_build", "rm_test"]}
+# unit test
 test = "pytest tests --cov-branch --cov=src/ibeatles --cov-report=term --cov-report=xml"
+rm_test = "rm -rf .coverage .pytest_cache coverage.xml"
+# documentation
 docs = "sphinx-build docs/source docs/build/html"
-# serve-docs = "python -m http.server --directory docs/build/html"
-clean = "rm -rf dist/ build/ src/ibeatles.egg-info/ docs/build/ .pytest_cache/ .ruff/ .coverage"
+rm_docs = "rm -rf docs/build"
+# serve-docs = "python -m http.server --directory docs/build/html"]
+# PYPI packaging
 build = "python -m build"
+rm_pypi_build = "rm -rf dist/ src/ibeatles.egg-info/"
+# conda packaging
 conda-build = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --channel conda-forge --channel neutronimaging --output-folder . ."  # noqa
+rm_conda_build = "rm -rf conda.recipe/channeldata.json conda.recipe/index.html conda.recipe/noarch conda.recipe/osx-arm64"
+# app
 start = "python -m ibeatles"
 cli = "python -m ibeatles --no-gui"
 
@@ -102,6 +112,7 @@ boa = "*"
 conda-build = "*"
 conda-verify = "*"
 python-build = "*"
+twine = ">=6.1.0,<7"
 
 [tool.pixi.feature.developer.dependencies]
 pip = "*"
