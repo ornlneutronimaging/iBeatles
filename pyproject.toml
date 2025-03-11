@@ -85,7 +85,7 @@ ibeatles = { path = ".", editable = true }
 test = "pytest tests --cov=src/ibeatles --cov-report=term --cov-report=xml"
 docs = "sphinx-build docs/source docs/build/html"
 # serve-docs = "python -m http.server --directory docs/build/html"
-clean = "rm -rf build/ dist/ *.egg-info/ .coverage .pytest_cache/ .ruff_cache/ docs/build/"
+clean = "rm -rf dist/ build/ src/ibeatles.egg-info/ docs/build/ .pytest_cache/ .ruff/ .coverage"
 build = "python -m build"
 conda-build = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --channel conda-forge --channel neutronimaging --output-folder . ."  # noqa
 start = "python -m ibeatles"
@@ -134,9 +134,15 @@ pyparsing = "*"
 pytz = "*"
 readline = "*"
 
+[tool.pixi.feature.jupyter.dependencies]
+jupyterlab = "*"
+ipympl = "*"
+ipywidgets = "*"
+
 [tool.pixi.environments]
-default = {features = ["test", "package", "developer", "core", "gui"], solve-group = "default"}
+default = {features = ["test", "package", "developer", "core", "gui", "marimo"], solve-group = "default"}
 runtime = {features = ["core", "gui"], solve-group = "default"}
+jupyter = {features = ["core", "gui", "jupyter"], solve-group = "default"}
 
 # ruff configuration
 [tool.ruff]
@@ -155,3 +161,6 @@ known-first-party = ["ibeatles"]
 quote-style = "double"
 indent-style = "space"
 line-ending = "auto"
+
+[dependency-groups]
+marimo = ["marimo[recommended]"]
