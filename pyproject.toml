@@ -1,9 +1,26 @@
 [project]
 name = "ibeatles"
 description = "Bragg edge strain mapping"
+readme = "README.md"
+authors = [
+  {name = "Jean Bilheux", email = "bilheuxjm@ornl.gov"},
+  {name = "Chen Zhang", email = "zhangc@ornl.gov"},
+]
+maintainers = [
+  { name = "Jean Bilheux", email = "bilheuxjm@ornl.gov"},
+  { name = "Chen Zhang", email="zhangc@ornl.gov"},
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Intended Audience :: Science/Research"
+]
 dynamic = ["version"]
 requires-python = ">=3.11,<3.13"
 license = { text = "MIT" }
+keywords = ["Bragg Edge", "neutron", "imaging", "strain mapping"]
 dependencies = [
   # These are the absolute minimum dependencies needed by the project
   "numpy",
@@ -31,6 +48,9 @@ dependencies = [
 
 [project.urls]
 homepage = "https://github.com/ornlneutronimaging/iBeatles"
+"Bug Tracker" = "https://github.com/ornlneutronimaging/iBeatles/issues"
+# "Documentation" = "https://ibeatles.readthedocs.io/"
+"Source Code" = "https://github.com/ornlneutronimaging/iBeatles"
 
 [project.scripts]
 ibeatles = "ibeatles.__main__:main"
@@ -85,11 +105,12 @@ markers = [
 
 [tool.pylint]
 max-line-length = 120
-disable = ["too-many-locals",
-           "too-many-statements",
-           "too-many-instance-attributes",
-           "too-many-arguments",
-           "duplicate-code"
+disable = [
+  "too-many-locals",
+  "too-many-statements",
+  "too-many-instance-attributes",
+  "too-many-arguments",
+  "duplicate-code"
 ]
 
 # Pixi configuration
