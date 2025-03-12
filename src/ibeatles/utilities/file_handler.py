@@ -1,14 +1,15 @@
-from pathlib import Path
-from astropy.io import fits
-from PIL import Image
-import numpy as np
+import glob
+import json
 import os
 import shutil
-from datetime import datetime
-from qtpy.QtWidgets import QFileDialog
-import json
-import glob
 from collections import Counter
+from datetime import datetime
+from pathlib import Path
+
+import numpy as np
+from astropy.io import fits
+from PIL import Image
+from qtpy.QtWidgets import QFileDialog
 
 TIME_SPECTRA_NAME_FORMAT = "*_Spectra.txt"
 
@@ -181,9 +182,7 @@ def create_full_export_file_name(base_name, ext):
     """
     file_name = f"{base_name}_{get_current_timestamp()}.{ext}"
     if os.path.exists(file_name):
-        file_name = (
-            f"{base_name}_{get_current_timestamp()}_{get_current_timestamp()}.{ext}"
-        )
+        file_name = f"{base_name}_{get_current_timestamp()}_{get_current_timestamp()}.{ext}"
 
     return file_name
 

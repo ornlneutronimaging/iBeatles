@@ -1,9 +1,10 @@
-from PIL import Image
-from astropy.io import fits
-import os
-import numpy as np
-import time
 import copy
+import os
+import time
+
+import numpy as np
+from astropy.io import fits
+from PIL import Image
 
 
 class ImageHandler:

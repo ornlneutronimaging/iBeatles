@@ -5,12 +5,10 @@ SaveBinTab class
 
 from loguru import logger
 
-from ibeatles import BINNING_LINE_COLOR
-from ibeatles import DEFAULT_ROI
-from ibeatles import DataType
-from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from ibeatles.session.save_tab import SaveTab
+from ibeatles import BINNING_LINE_COLOR, DEFAULT_ROI, DataType
 from ibeatles.session import SessionKeys, SessionSubKeys
+from ibeatles.session.save_tab import SaveTab
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class SaveBinTab(SaveTab):
@@ -33,19 +31,13 @@ class SaveBinTab(SaveTab):
         if self.parent.binning_roi is None:
             self.parent.binning_roi = DEFAULT_ROI
 
-        [name, x0, y0, width, height, bin_size] = self.parent.session_dict[
-            DataType.bin
-        ][SessionSubKeys.roi]
+        [name, x0, y0, width, height, bin_size] = self.parent.session_dict[DataType.bin][SessionSubKeys.roi]
 
         binning_line_view_pos = self.parent.binning_line_view["pos"]
-        formatted_binning_line_view_pos = format_numpy_array_into_list(
-            binning_line_view_pos
-        )
+        formatted_binning_line_view_pos = format_numpy_array_into_list(binning_line_view_pos)
 
         binning_line_view_adj = self.parent.binning_line_view["adj"]
-        formatted_binning_line_view_adj = format_numpy_array_into_list(
-            binning_line_view_adj
-        )
+        formatted_binning_line_view_adj = format_numpy_array_into_list(binning_line_view_adj)
 
         binning_line_view_line_color = BINNING_LINE_COLOR
 
@@ -63,9 +55,7 @@ class SaveBinTab(SaveTab):
             histogram = None
 
         logger.info("Recording parameters of bin tab")
-        logger.info(
-            f" x0:{x0}, y0:{y0}, width:{width}, height:{height}, bin_size:{bin_size}"
-        )
+        logger.info(f" x0:{x0}, y0:{y0}, width:{width}, height:{height}, bin_size:{bin_size}")
         if binning_line_view_pos is not None:
             logger.info(f" len(binning_line_view_pos): {len(binning_line_view_pos)}")
         else:
@@ -88,17 +78,13 @@ class SaveBinTab(SaveTab):
             height,
             bin_size,
         ]
-        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]["pos"] = (
-            formatted_binning_line_view_pos
+        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]["pos"] = formatted_binning_line_view_pos
+        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]["adj"] = formatted_binning_line_view_adj
+        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]["line color"] = (
+            binning_line_view_line_color
         )
-        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]["adj"] = (
-            formatted_binning_line_view_adj
-        )
-        self.session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view][
-            "line color"
-        ] = binning_line_view_line_color
         self.session_dict[DataType.bin][SessionSubKeys.image_view_state] = state
         self.session_dict[DataType.bin][SessionSubKeys.image_view_histogram] = histogram
-        self.session_dict[DataType.bin][SessionSubKeys.ui_accessed] = (
-            self.parent.data_metadata[DataType.bin]["ui_accessed"]
-        )
+        self.session_dict[DataType.bin][SessionSubKeys.ui_accessed] = self.parent.data_metadata[DataType.bin][
+            "ui_accessed"
+        ]

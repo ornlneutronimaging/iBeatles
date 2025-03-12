@@ -3,20 +3,18 @@
 Plotting handler for step 2
 """
 
-from qtpy.QtWidgets import QTableWidgetItem, QCheckBox, QComboBox
-from qtpy import QtGui
 import numpy as np
 import pyqtgraph as pg
-
 from neutronbraggedge.experiment_handler.experiment import Experiment
+from qtpy import QtGui
+from qtpy.QtWidgets import QCheckBox, QComboBox, QTableWidgetItem
 
-from ibeatles import RegionType, DataType
-from ibeatles.utilities.gui_handler import GuiHandler
-from ibeatles.utilities.colors import pen_color
-from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-
-from ibeatles.step2.get import Get as Step2Get
+from ibeatles import DataType, RegionType
 from ibeatles.step2 import roi_label_color
+from ibeatles.step2.get import Get as Step2Get
+from ibeatles.utilities.colors import pen_color
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class CustomAxis(pg.AxisItem):
@@ -27,9 +25,7 @@ class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
         strings = []
 
-        _distance_source_detector = float(
-            str(self.parent.ui.distance_source_detector.text())
-        )
+        _distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
         _detector_offset_micros = float(str(self.parent.ui.detector_offset.text()))
 
         tof_s = [float(time) * 1e-6 for time in values]
@@ -135,8 +131,7 @@ class Step2Plot:
             _label_roi_id = list_label_roi_id[index]
             _label_roi_id.setPos(x0, y0)
             _label_roi_id.setHtml(
-                '<div style="text-align: center"><span style="color: '
-                '#ff0000;">' + region_type + "</span></div>"
+                '<div style="text-align: center"><span style="color: #ff0000;">' + region_type + "</span></div>"
             )
 
     def display_bragg_edge(self):
@@ -159,9 +154,7 @@ class Step2Plot:
         list_sample_roi = []
         list_background_roi = []
         for _row_index, roi in enumerate(list_roi_id):
-            [flag, x0, y0, width, height, region_type] = o_get.roi_table_row(
-                row=_row_index
-            )
+            [flag, x0, y0, width, height, region_type] = o_get.roi_table_row(row=_row_index)
             if flag is False:
                 continue
 
@@ -177,9 +170,7 @@ class Step2Plot:
         if data_to_plot is None:
             return
 
-        if (not data_to_plot[RegionType.sample]) and (
-            not data_to_plot[RegionType.background]
-        ):
+        if (not data_to_plot[RegionType.sample]) and (not data_to_plot[RegionType.background]):
             return
 
         o_gui = GuiHandler(parent=self.parent)
@@ -408,9 +399,7 @@ class Step2Plot:
         _widget.addItems([RegionType.sample, RegionType.background])
         index = 0 if (region_type == RegionType.sample) else 1
         _widget.setCurrentIndex(index)
-        _widget.currentIndexChanged.connect(
-            self.parent.normalization_row_status_region_type_changed
-        )
+        _widget.currentIndexChanged.connect(self.parent.normalization_row_status_region_type_changed)
         self.parent.ui.normalization_tableWidget.setCellWidget(row_index, 5, _widget)
 
     def update_row(self, row_index, roi_array):

@@ -3,20 +3,18 @@
 Get module
 """
 
+import copy
 import os
 from os.path import expanduser
 from pathlib import Path
-import tomli
-import copy
+
 import numpy as np
+import tomli
 
 from ibeatles import DataType
-
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.tools.utilities import CombineAlgorithm
-
-from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
 from ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
+from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
+from ibeatles.tools.utilities import CombineAlgorithm, TimeSpectraKeys
 
 
 class Get:
@@ -89,9 +87,7 @@ class Get:
 
         list_array = []
         for _row in list_row_to_use:
-            list_array.append(
-                copy.deepcopy(self.parent.dict_data_folders[_row][TofSessionKeys.data])
-            )
+            list_array.append(copy.deepcopy(self.parent.dict_data_folders[_row][TofSessionKeys.data]))
 
         return list_array
 

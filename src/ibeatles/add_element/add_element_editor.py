@@ -3,18 +3,18 @@
 Add element editor
 """
 
-from qtpy import QtCore
-from qtpy.QtWidgets import QDialog
-import numpy as np
 from collections import OrderedDict
 
-from ibeatles import Material
-from ibeatles.utilities.gui_handler import GuiHandler
-from ibeatles import load_ui
-from ibeatles.utilities.check import is_float, is_int
-from ibeatles.utilities.table_handler import TableHandler
-from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
+import numpy as np
+from qtpy import QtCore
+from qtpy.QtWidgets import QDialog
+
+from ibeatles import Material, load_ui
 from ibeatles.step1.plot import Step1Plot
+from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementCalculator
+from ibeatles.utilities.check import is_float, is_int
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class AddElement(object):
@@ -118,12 +118,7 @@ class AddElementInterface(QDialog):
                     self.ui.error_message.setText("missing d0 value!")
                     return
 
-                if (
-                    (h.strip() == "")
-                    and (k.strip() == "")
-                    and (l.strip() == "")
-                    and (d0.strip() == "")
-                ):
+                if (h.strip() == "") and (k.strip() == "") and (l.strip() == "") and (d0.strip() == ""):
                     continue
 
                 if not is_int(h):
@@ -237,12 +232,8 @@ class AddElementInterface(QDialog):
             Material.method_used: _new_element[Material.method_used],
         }
 
-        self.parent.user_defined_bragg_edge_list[
-            _new_element[Material.element_name]
-        ] = _new_entry
-        self.parent.local_bragg_edge_list[_new_element[Material.element_name]] = (
-            _new_entry
-        )
+        self.parent.user_defined_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
+        self.parent.local_bragg_edge_list[_new_element[Material.element_name]] = _new_entry
 
     def method_changed(self):
         is_method1_activated = self.ui.method1_radioButton.isChecked()

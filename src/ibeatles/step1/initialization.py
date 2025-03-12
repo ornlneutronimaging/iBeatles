@@ -3,47 +3,43 @@
 Initialization (step 1)
 """
 
-from qtpy.QtWidgets import (
-    QProgressBar,
-    QVBoxLayout,
-    QPushButton,
-    QHBoxLayout,
-    QRadioButton,
-    QWidget,
-    QSpacerItem,
-    QSizePolicy,
-    QScrollBar,
-    QLabel,
-)
-from qtpy.QtGui import QPixmap
-from qtpy import QtCore
-from qtpy.QtGui import QIcon
-from qtpy.QtCore import QSize
-from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
-
 from neutronbraggedge.material_handler.retrieve_material_metadata import (
     RetrieveMaterialMetadata,
 )
+from pyqtgraph.dockarea import Dock, DockArea
+from qtpy import QtCore
+from qtpy.QtCore import QSize
+from qtpy.QtGui import QIcon, QPixmap
+from qtpy.QtWidgets import (
+    QHBoxLayout,
+    QLabel,
+    QProgressBar,
+    QPushButton,
+    QRadioButton,
+    QScrollBar,
+    QSizePolicy,
+    QSpacerItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 from ibeatles import (
+    DataType,
+    error_icon_file,
     fitting_image,
+    infos_file,
     pixel_binning_image,
+    preview_file,
     rotate_image,
-    strain_mapping_image,
-    tof_binning_image,
-    tof_combine_image,
-)
-from ibeatles import (
     step1_icon,
     step2_icon,
     step3_icon,
     step4_icon,
-    infos_file,
-    preview_file,
-    error_icon_file,
+    strain_mapping_image,
+    tof_binning_image,
+    tof_combine_image,
 )
-from ibeatles import DataType
 from ibeatles.step1.roi import Roi
 from ibeatles.utilities.table_handler import TableHandler
 
@@ -138,9 +134,7 @@ class Initialization:
         self.parent.eventProgress.setMaximumSize(540, 100)
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
-        self.parent.setStyleSheet(
-            "QStatusBar{padding-left:8px;color:red;font-weight:bold;}"
-        )
+        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
     def gui(self):
         # define position and size
@@ -204,9 +198,7 @@ class Initialization:
         # micros
         self.parent.ui.micro_s.setText("\u00b5s")
         # distance source detector
-        self.parent.ui.distance_source_detector_label.setText(
-            "d<sub> source-detector</sub>"
-        )
+        self.parent.ui.distance_source_detector_label.setText("d<sub> source-detector</sub>")
         # delta lambda
         self.parent.ui.delta_lambda_label.setText("\u0394\u03bb:")
         # Angstroms
@@ -450,9 +442,7 @@ class Initialization:
             self.parent.normalized_hkl_scrollbar_changed,
         )
 
-        self.parent.list_roi_id["normalized"].append(
-            self.parent.ui.normalized_image_view_roi
-        )
+        self.parent.list_roi_id["normalized"].append(self.parent.ui.normalized_image_view_roi)
         self.parent.xaxis_button_ui["normalized"]["tof"] = tof_button1
         self.parent.xaxis_button_ui["normalized"]["file_index"] = file_index_button1
         self.parent.xaxis_button_ui["normalized"]["lambda"] = lambda_button1
@@ -467,21 +457,15 @@ class Initialization:
 
         rotate_icon = QIcon(rotate_image)
         self.parent.ui.rotate_pushButton.setIcon(rotate_icon)
-        self.parent.ui.rotate_pushButton.setIconSize(
-            QSize(tab6_top_button_width, tab6_top_button_height)
-        )
+        self.parent.ui.rotate_pushButton.setIconSize(QSize(tab6_top_button_width, tab6_top_button_height))
 
         tof_combine_icon = QIcon(tof_combine_image)
         self.parent.ui.tof_combine_pushButton.setIcon(tof_combine_icon)
-        self.parent.ui.tof_combine_pushButton.setIconSize(
-            QSize(tab6_top_button_width, tab6_top_button_height)
-        )
+        self.parent.ui.tof_combine_pushButton.setIconSize(QSize(tab6_top_button_width, tab6_top_button_height))
 
         tof_binning_icon = QIcon(tof_binning_image)
         self.parent.ui.tof_binning_pushButton.setIcon(tof_binning_icon)
-        self.parent.ui.tof_binning_pushButton.setIconSize(
-            QSize(tab6_top_button_width, tab6_top_button_height)
-        )
+        self.parent.ui.tof_binning_pushButton.setIconSize(QSize(tab6_top_button_width, tab6_top_button_height))
 
         # tab6 - bottom buttons
 
@@ -493,12 +477,8 @@ class Initialization:
 
         fitting_icon = QIcon(fitting_image)
         self.parent.ui.fitting_pushButton.setIcon(fitting_icon)
-        self.parent.ui.fitting_pushButton.setIconSize(
-            QSize(tab6_bottom_buttom_width, tab6_bottom_button_height)
-        )
+        self.parent.ui.fitting_pushButton.setIconSize(QSize(tab6_bottom_buttom_width, tab6_bottom_button_height))
 
         strain_mapping_icon = QIcon(strain_mapping_image)
         self.parent.ui.strain_mapping_pushButton.setIcon(strain_mapping_icon)
-        self.parent.ui.strain_mapping_pushButton.setIconSize(
-            QSize(tab6_bottom_buttom_width, tab6_bottom_button_height)
-        )
+        self.parent.ui.strain_mapping_pushButton.setIconSize(QSize(tab6_bottom_buttom_width, tab6_bottom_button_height))

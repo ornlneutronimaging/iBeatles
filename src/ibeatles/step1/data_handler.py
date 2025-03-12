@@ -3,32 +3,32 @@
 Data Handler (step 1)
 """
 
-import os
 import glob
+import os
 from pathlib import PurePath
+
 import numpy as np
-from qtpy.QtWidgets import QListWidgetItem, QFileDialog
 from loguru import logger
+from qtpy.QtWidgets import QFileDialog, QListWidgetItem
 
 from ibeatles import DataType
 
+# MVP-based widget import
+from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
+
+# Import backend function from new core module
+from ibeatles.core.io.data_loading import get_time_spectra_filename
+from ibeatles.utilities.file_handler import (
+    FileHandler,
+    get_list_of_most_dominant_extension_from_folder,
+)
+from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.utilities.file_handler import (
-    FileHandler,
-    get_list_of_most_dominant_extension_from_folder,
-)
 from ibeatles.utilities.system import is_os_mac
-from ibeatles.utilities.gui_handler import GuiHandler
-
-# Import backend function from new core module
-from ibeatles.core.io.data_loading import get_time_spectra_filename
-
-# MVP-based widget import
-from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
 
 TIME_SPECTRA_NAME_FORMAT = "*_Spectra.txt"
 
@@ -107,9 +107,7 @@ class DataHandler:
         if not extension:
             # load the most dominant files
             logger.info("loading the most dominant extension")
-            list_of_files, ext = get_list_of_most_dominant_extension_from_folder(
-                folder=folder
-            )
+            list_of_files, ext = get_list_of_most_dominant_extension_from_folder(folder=folder)
             logger.info(f"\textension: {ext}")
             logger.info(f"\tnbr_files: {len(list_of_files)}")
 
@@ -122,9 +120,7 @@ class DataHandler:
             list_of_files = self.get_list_of_files(folder=folder, file_ext=extension)
 
         if not list_of_files:
-            logger.info(
-                f"Folder {folder} is empty or does not contain the right file format!"
-            )
+            logger.info(f"Folder {folder} is empty or does not contain the right file format!")
             show_status_message(
                 parent=self.parent,
                 message="Folder selected is empty or contains the wrong file formats!",
@@ -145,9 +141,7 @@ class DataHandler:
 
     def import_time_spectra(self):
         if self.parent.data_metadata[self.data_type]["data"] is not None:
-            if (self.data_type == DataType.sample) or (
-                self.data_type == DataType.normalized
-            ):
+            if (self.data_type == DataType.sample) or (self.data_type == DataType.normalized):
                 self.load_time_spectra()
 
     def get_list_of_files(self, folder="", file_ext=".fits"):
@@ -161,18 +155,14 @@ class DataHandler:
         logger.info("Loading files")
         image_type = DataHandler.get_image_type(list_of_files)
         logger.info(f" image type: {image_type}")
-        o_load_image = LoadFiles(
-            parent=self.parent, image_ext=image_type, list_of_files=list_of_files
-        )
+        o_load_image = LoadFiles(parent=self.parent, image_ext=image_type, list_of_files=list_of_files)
         self.populate_list_widget(o_load_image)
         self.record_data(o_load_image)
 
     def record_data(self, o_load_image):
         self.parent.list_files[self.data_type] = o_load_image.list_of_files
         self.parent.data_metadata[self.data_type]["folder"] = o_load_image.folder
-        self.parent.data_metadata[self.data_type]["data"] = np.array(
-            o_load_image.image_array
-        )
+        self.parent.data_metadata[self.data_type]["data"] = np.array(o_load_image.image_array)
 
     def get_time_spectra_file(self):
         folder = self.parent.default_path["sample"]
@@ -205,22 +195,16 @@ class DataHandler:
             return
 
         logger.info(f"time_spectra_file: {time_spectra_file}")
-        self.parent.data_metadata[self.data_type]["time_spectra"]["filename"] = (
-            time_spectra_file
-        )
+        self.parent.data_metadata[self.data_type]["time_spectra"]["filename"] = time_spectra_file
 
         if self.time_spectra_presenter is None:
             self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
 
-        distance_source_detector_m = float(
-            self.parent.ui.distance_source_detector.text()
-        )
+        distance_source_detector_m = float(self.parent.ui.distance_source_detector.text())
         detector_offset = float(self.parent.ui.detector_offset.text())
 
         try:
-            self.time_spectra_presenter.load_data(
-                time_spectra_file, distance_source_detector_m, detector_offset
-            )
+            self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
             self.save_tof_and_lambda_array()
             self.print_time_spectra_filename(time_spectra_file)
         except Exception as e:
@@ -252,13 +236,9 @@ class DataHandler:
         time_spectra_filename = PurePath(time_spectra_filename)
         base_time_spectra = str(time_spectra_filename.name)
         folder_name = str(time_spectra_filename.parent)
-        self.list_ui[self.data_type]["time_spectra"]["filename"].setText(
-            base_time_spectra
-        )
+        self.list_ui[self.data_type]["time_spectra"]["filename"].setText(base_time_spectra)
         self.list_ui[self.data_type]["time_spectra"]["folder"].setText(folder_name)
-        self.parent.data_metadata[self.data_type]["time_spectra"]["folder"] = (
-            folder_name
-        )
+        self.parent.data_metadata[self.data_type]["time_spectra"]["folder"] = folder_name
 
     def retrieve_files(self, data_type="sample"):
         """
@@ -306,20 +286,12 @@ class DataHandler:
         if file_name:
             folder_name = str(FileHandler.get_parent_path(file_name))
             base_file_name = str(FileHandler.get_base_filename(file_name))
-            self.parent.time_spectra_folder = str(
-                FileHandler.get_parent_folder(file_name)
-            )
+            self.parent.time_spectra_folder = str(FileHandler.get_parent_folder(file_name))
 
-            self.list_ui[self.data_type]["time_spectra"]["filename"].setText(
-                base_file_name
-            )
+            self.list_ui[self.data_type]["time_spectra"]["filename"].setText(base_file_name)
             self.list_ui[self.data_type]["time_spectra"]["folder"].setText(folder_name)
-            self.parent.data_metadata[self.data_type]["time_spectra"]["folder"] = (
-                folder_name
-            )
-            self.parent.data_metadata[self.data_type]["time_spectra"]["filename"] = (
-                file_name
-            )
+            self.parent.data_metadata[self.data_type]["time_spectra"]["folder"] = folder_name
+            self.parent.data_metadata[self.data_type]["time_spectra"]["filename"] = file_name
 
             self.load_time_spectra(time_spectra_file=file_name)
             return True
@@ -331,9 +303,7 @@ class DataHandler:
         if len(list_files) == 0:
             raise TypeError
         image_type = self.get_image_type(list_files)
-        o_load_image = LoadFiles(
-            parent=self.parent, image_ext=image_type, folder=folder
-        )
+        o_load_image = LoadFiles(parent=self.parent, image_ext=image_type, folder=folder)
         self.populate_list_widget(o_load_image)
         self.parent.data_files[self.data_type] = o_load_image.list_of_files
         self.parent.data_metadata[self.data_type]["folder"] = o_load_image.folder
@@ -353,9 +323,7 @@ class DataHandler:
         _folder = o_loader.folder
         self.folder = _folder
         self.parent.default_path[self.data_type] = _folder
-        self.list_ui[self.data_type]["folder"].setText(
-            os.path.basename(os.path.abspath(_folder))
-        )
+        self.list_ui[self.data_type]["folder"].setText(os.path.basename(os.path.abspath(_folder)))
 
     @staticmethod
     def get_image_type(list_of_files):
@@ -376,9 +344,7 @@ class FileDialog(QFileDialog):
         files = []
         for i in indexes:
             if i.column() == 0:
-                files.append(
-                    os.path.join(str(self.directory().absolutePath()), str(i.data()))
-                )
+                files.append(os.path.join(str(self.directory().absolutePath()), str(i.data())))
         self.selected_files = files
         self.close()
 

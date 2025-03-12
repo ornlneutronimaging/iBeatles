@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 """Data loading functions."""
 
-import os
 import glob
-import numpy as np
-from loguru import logger
-from typing import List, Dict, Any, Tuple
+import os
 from pathlib import Path
+from typing import Any, Dict, List, Tuple
+
+import numpy as np
 from astropy.io import fits
-from PIL import Image
-from neutronbraggedge.experiment_handler.tof import TOF
+from loguru import logger
 from neutronbraggedge.experiment_handler.experiment import Experiment
+from neutronbraggedge.experiment_handler.tof import TOF
+from PIL import Image
 from tqdm.auto import tqdm
 
 
@@ -117,9 +118,7 @@ def load_fits(file_path: str) -> Tuple[np.ndarray, Dict[str, Any]]:
     return data, process_fits_metadata(header, data, file_path)
 
 
-def process_tiff_metadata(
-    metadata: Dict[str, Any], data: np.ndarray, file_path: str
-) -> Dict[str, Dict[str, Any]]:
+def process_tiff_metadata(metadata: Dict[str, Any], data: np.ndarray, file_path: str) -> Dict[str, Dict[str, Any]]:
     """
     Process TIFF metadata and extract relevant information.
 
@@ -178,9 +177,7 @@ def process_tiff_metadata(
     return processed_metadata
 
 
-def process_fits_metadata(
-    header: fits.Header, data: np.ndarray, file_path: str
-) -> Dict[str, Dict[str, Any]]:
+def process_fits_metadata(header: fits.Header, data: np.ndarray, file_path: str) -> Dict[str, Dict[str, Any]]:
     """
     Process FITS metadata and extract relevant information.
 
@@ -207,18 +204,12 @@ def process_fits_metadata(
         "max_counts": {"name": "max counts", "value": 0},
     }
 
-    processed_metadata["acquisition_time"]["value"] = header.get(
-        "DATE", os.path.getmtime(file_path)
-    )
-    processed_metadata["acquisition_duration"]["value"] = header.get(
-        "EXPOSURE", header.get("TIMEBIN", "N/A")
-    )
+    processed_metadata["acquisition_time"]["value"] = header.get("DATE", os.path.getmtime(file_path))
+    processed_metadata["acquisition_duration"]["value"] = header.get("EXPOSURE", header.get("TIMEBIN", "N/A"))
     processed_metadata["image_size"]["value"] = (
         f"{header.get('NAXIS1', data.shape[1])} x {header.get('NAXIS2', data.shape[0])}"
     )
-    processed_metadata["image_type"]["value"] = (
-        f"{header.get('BITPIX', data.dtype.itemsize * 8)} bits"
-    )
+    processed_metadata["image_type"]["value"] = f"{header.get('BITPIX', data.dtype.itemsize * 8)} bits"
     processed_metadata["min_counts"]["value"] = np.min(data)
     processed_metadata["max_counts"]["value"] = np.max(data)
 

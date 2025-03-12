@@ -74,9 +74,7 @@ class GuiHandler:
         for _row in np.arange(nbr_row):
             _row_entry = {}
             for _col in np.arange(nbr_column):
-                _row_entry[str(column_names[_col])] = o_table.get_item_str_from_cell(
-                    row=_row, column=_col
-                )
+                _row_entry[str(column_names[_col])] = o_table.get_item_str_from_cell(row=_row, column=_col)
             table[int(_row)] = _row_entry
 
         return table, column_names
@@ -160,16 +158,12 @@ class GuiHandler:
     def get_step2_xaxis_checked(self):
         return self.parent.data_metadata[DataType.normalization]["xaxis"]
 
-    def update_bragg_peak_scrollbar(
-        self, xaxis_mode=XAxisMode.file_index_mode, force_hide_widgets=False
-    ):
+    def update_bragg_peak_scrollbar(self, xaxis_mode=XAxisMode.file_index_mode, force_hide_widgets=False):
         list_label_ui = [
-            self.parent.hkl_scrollbar_ui["label"][key]
-            for key in self.parent.hkl_scrollbar_ui["label"].keys()
+            self.parent.hkl_scrollbar_ui["label"][key] for key in self.parent.hkl_scrollbar_ui["label"].keys()
         ]
         list_widget_ui = [
-            self.parent.hkl_scrollbar_ui["widget"][key]
-            for key in self.parent.hkl_scrollbar_ui["widget"].keys()
+            self.parent.hkl_scrollbar_ui["widget"][key] for key in self.parent.hkl_scrollbar_ui["widget"].keys()
         ]
 
         list_ui = [*list_label_ui, *list_widget_ui]

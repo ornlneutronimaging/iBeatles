@@ -5,9 +5,7 @@ import numpy as np
 from scipy import special
 
 
-def kropff_high_lambda_transmission(
-    wavelength: np.ndarray, a0: float, b0: float
-) -> np.ndarray:
+def kropff_high_lambda_transmission(wavelength: np.ndarray, a0: float, b0: float) -> np.ndarray:
     """
     Calculate the high-wavelength side transmission function.
 
@@ -55,9 +53,7 @@ def kropff_low_lambda_transmission(
     return np.exp(-(a0 + b0 * wavelength) - (a_hkl + b_hkl * wavelength))
 
 
-def bragg_edge_function(
-    wavelength: np.ndarray, bragg_edge_wavelength: float, sigma: float, tau: float
-) -> np.ndarray:
+def bragg_edge_function(wavelength: np.ndarray, bragg_edge_wavelength: float, sigma: float, tau: float) -> np.ndarray:
     """
     Calculate the Bragg edge function.
 

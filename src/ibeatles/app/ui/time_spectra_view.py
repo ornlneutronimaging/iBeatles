@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """View for Time Spectra"""
 
-from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy, QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+from qtpy.QtWidgets import QMainWindow, QMessageBox, QSizePolicy, QVBoxLayout
+
 from ibeatles.app.utils.ui_loader import load_ui
 
 

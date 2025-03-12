@@ -5,9 +5,9 @@ Load files module
 
 from qtpy.QtWidgets import QApplication
 
-from ibeatles.tools.tof_combine.utilities.image_handler import ImageHandler
-from ibeatles.tools.tof_combine.utilities.get import Get
 from ibeatles.tools.tof_combine import SessionKeys as TofSessionKeys
+from ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.tof_combine.utilities.image_handler import ImageHandler
 
 
 class LoadFiles:

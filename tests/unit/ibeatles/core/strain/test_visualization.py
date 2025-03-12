@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 """Unit tests for strain visualization functions."""
 
-import pytest
 import numpy as np
-from matplotlib.figure import Figure
-from matplotlib.axes import Axes
-from matplotlib.image import AxesImage
-from matplotlib.lines import Line2D
+import pytest
 from lmfit import Model, Parameters
 from lmfit.model import ModelResult
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from matplotlib.image import AxesImage
+from matplotlib.lines import Line2D
 
-from ibeatles.core.strain.visualization import (
-    plot_strain_map_overlay,
-    plot_fitting_results_grid,
-)
 from ibeatles.core.config import BinCoordinates
+from ibeatles.core.strain.visualization import (
+    plot_fitting_results_grid,
+    plot_strain_map_overlay,
+)
 
 
 @pytest.fixture
@@ -56,30 +56,22 @@ def mock_fitting_data():
 
     bin_transmission = {
         "0": {
-            "coordinates": BinCoordinates(
-                x0=0, x1=2, y0=0, y1=2, row_index=0, column_index=0
-            ),
+            "coordinates": BinCoordinates(x0=0, x1=2, y0=0, y1=2, row_index=0, column_index=0),
             "wavelengths": wavelengths,
             "transmission": transmission,
         },
         "1": {
-            "coordinates": BinCoordinates(
-                x0=2, x1=4, y0=0, y1=2, row_index=0, column_index=1
-            ),
+            "coordinates": BinCoordinates(x0=2, x1=4, y0=0, y1=2, row_index=0, column_index=1),
             "wavelengths": wavelengths,
             "transmission": transmission,
         },
         "2": {
-            "coordinates": BinCoordinates(
-                x0=0, x1=2, y0=2, y1=4, row_index=1, column_index=0
-            ),
+            "coordinates": BinCoordinates(x0=0, x1=2, y0=2, y1=4, row_index=1, column_index=0),
             "wavelengths": wavelengths,
             "transmission": transmission,
         },
         "3": {
-            "coordinates": BinCoordinates(
-                x0=2, x1=4, y0=2, y1=4, row_index=1, column_index=1
-            ),
+            "coordinates": BinCoordinates(x0=2, x1=4, y0=2, y1=4, row_index=1, column_index=1),
             "wavelengths": wavelengths,
             "transmission": transmission,
         },
@@ -167,16 +159,8 @@ def mock_data():
 
     # Create mock bin transmission
     bin_transmission = {
-        "0": {
-            "coordinates": BinCoordinates(
-                x0=2, x1=4, y0=2, y1=4, row_index=0, column_index=0
-            )
-        },
-        "1": {
-            "coordinates": BinCoordinates(
-                x0=6, x1=8, y0=6, y1=8, row_index=1, column_index=1
-            )
-        },
+        "0": {"coordinates": BinCoordinates(x0=2, x1=4, y0=2, y1=4, row_index=0, column_index=0)},
+        "1": {"coordinates": BinCoordinates(x0=6, x1=8, y0=6, y1=8, row_index=1, column_index=1)},
     }
 
     return integrated_image, strain_results, bin_transmission

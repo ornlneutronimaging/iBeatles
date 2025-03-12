@@ -1,36 +1,66 @@
 [project]
 name = "ibeatles"
 description = "Bragg edge strain mapping"
+readme = "README.md"
+authors = [
+  {name = "Jean Bilheux", email = "bilheuxjm@ornl.gov"},
+  {name = "Chen Zhang", email = "zhangc@ornl.gov"},
+]
+maintainers = [
+  { name = "Jean Bilheux", email = "bilheuxjm@ornl.gov"},
+  { name = "Chen Zhang", email="zhangc@ornl.gov"},
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Intended Audience :: Science/Research"
+]
 dynamic = ["version"]
 requires-python = ">=3.11,<3.13"
-dependencies = [
-#    "python",
-    "numpy",
-    "matplotlib",
-#    "qt",
-    "QtPy",
-    "PyQt5",
-    "h5py",
-    "args",
-    "Pillow",
-    "astropy",
-    "pyqtgraph",
-    "scipy",
-    "lmfit",
-    "neutronbraggedge",
-    "changepy",
-    "NeuNorm",
-    "pytest",
-    "loguru",
-    "tqdm",
-    "tomli",
-    "pydantic",
-    "ipython",
-]
 license = { text = "MIT" }
+keywords = ["Bragg Edge", "neutron", "imaging", "strain mapping"]
+dependencies = [
+  # These are the absolute minimum dependencies needed by the project
+  "numpy",
+  "matplotlib",
+  "h5py",
+  "args",
+  "Pillow",
+  "astropy",
+  "scipy",
+  "lmfit",
+  "loguru",
+  "tqdm",
+  "tomli",
+  "pydantic",
+  "ipython",
+  # GUI
+  "QtPy",
+  "PyQt5",
+  "pyqtgraph",
+  # These are the dependencies from our neutron imaging team
+  "neutronbraggedge>=2.0.6,<3",
+  "changepy>=0.4.0,<0.5",
+  "neunorm>=1.6.12,<2",
+]
+
+[conda-pypi-map]
+"conda-forge" = """
+{
+  "pyqt": "PyQt5",
+}
+"""
 
 [project.urls]
 homepage = "https://github.com/ornlneutronimaging/iBeatles"
+"Bug Tracker" = "https://github.com/ornlneutronimaging/iBeatles/issues"
+# "Documentation" = "https://ibeatles.readthedocs.io/"
+"Source Code" = "https://github.com/ornlneutronimaging/iBeatles"
+
+[project.scripts]
+ibeatles = "ibeatles.__main__:main"
 
 [build-system]
 requires = [
@@ -40,9 +70,6 @@ requires = [
   "versioningit"
 ]
 build-backend = "setuptools.build_meta"
-
-[tool.black]
-line-length = 119
 
 [tool.versioningit.vcs]
 method = "git"
@@ -64,29 +91,134 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["src"]
-exclude = ["tests*", "scripts*", "docs*", "notebooks*"]
+exclude = ["tests*", "docs*", "notebooks*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.yml","*.yaml","*.ini","**/*.ui","**/*.json", "**/icons/*"]
 
 [tool.pytest.ini_options]
 pythonpath = [
-  ".", "src", "scripts"
+  ".", "src",
 ]
 testpaths = ["tests"]
 python_files = ["test*.py"]
 norecursedirs = [".git", "tmp*", "_tmp*", "__pycache__", "*dataset*", "*data_set*"]
 markers = [
-    "mymarker: example markers goes here"
+    "unit: unit tests",
+    "integration: integration tests",
+    "slow: tests that are slow to run",
+    "gui: tests for the GUI components"
 ]
 
 [tool.pylint]
 max-line-length = 120
-disable = ["too-many-locals",
-           "too-many-statements",
-           "too-many-instance-attributes",
-           "too-many-arguments",
-           "duplicate-code"
+disable = [
+  "too-many-locals",
+  "too-many-statements",
+  "too-many-instance-attributes",
+  "too-many-arguments",
+  "duplicate-code"
 ]
 
-# Add additional 3rd party tool configuration here as needed
+# Pixi configuration
+[tool.pixi.project]
+channels = ["conda-forge", "neutronimaging"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.pypi-dependencies]
+ibeatles = { path = ".", editable = true }
+
+[tool.pixi.dependencies]
+numpy = "*"
+matplotlib = "*"
+h5py = "*"
+args = "*"
+Pillow = "*"
+astropy = "*"
+scipy = "*"
+lmfit = "*"
+loguru = "*"
+tqdm = "*"
+tomli = "*"
+pydantic = "*"
+ipython = "*"
+sqlite = "*"
+pyqtgraph = "*"
+qt = "*"
+qtpy = "*"
+pyqt = "*"
+
+[tool.pixi.tasks]
+# phony
+clean = {depends-on = ["rm_pypi_build", "rm_docs", "rm_conda_build", "rm_test"]}
+# unit test
+test = "pytest tests --cov-branch --cov=src/ibeatles --cov-report=term --cov-report=xml"
+rm_test = "rm -rf .coverage .pytest_cache coverage.xml"
+# documentation
+docs = "sphinx-build docs/source docs/build/html"
+rm_docs = "rm -rf docs/build"
+# serve-docs = "python -m http.server --directory docs/build/html"]
+# PYPI packaging
+build = "python -m build"
+rm_pypi_build = "rm -rf dist/ src/ibeatles.egg-info/"
+# conda packaging
+build-conda = "cd conda.recipe && VERSION=$(versioningit ../) conda mambabuild --channel conda-forge --channel neutronimaging --output-folder . ."  # noqa
+rm_conda_build = "rm -rf conda.recipe/channeldata.json conda.recipe/index.html conda.recipe/noarch conda.recipe/osx-arm64"
+# app
+start = "python -m ibeatles"
+cli = "python -m ibeatles --no-gui"
+
+[tool.pixi.feature.test.dependencies]
+pytest = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+pytest-repeat = "*"
+
+[tool.pixi.feature.package.dependencies]
+boa = "*"
+conda-build = "*"
+conda-verify = "*"
+python-build = "*"
+twine = ">=6.1.0,<7"
+
+[tool.pixi.feature.developer.dependencies]
+pip = "*"
+versioningit = "*"
+pre-commit = "*"
+conda-tree = "*"
+ruff = "*"
+
+# [tool.pixi.feature.docs.dependencies]
+# sphinx = "*"
+# sphinx-rtd-theme = "*"
+
+[tool.pixi.feature.jupyter.dependencies]
+jupyterlab = "*"
+ipympl = "*"
+ipywidgets = "*"
+
+[tool.pixi.environments]
+default = {features = ["test", "package", "developer", "marimo"], solve-group = "default"}
+jupyter = {features = ["jupyter"], solve-group = "default"}
+
+# ruff configuration
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+exclude = ["notebooks/**", "**/*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["ibeatles"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[dependency-groups]
+marimo = ["marimo[recommended]"]
+jupyter = ["jupyterlab", "ipympl", "ipywidgets"]

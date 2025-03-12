@@ -11,9 +11,7 @@ class TimeSpectraModel:
         distance_source_detector_m: float,
         detector_offset_micros: float,
     ):
-        self.data = load_time_spectra(
-            file_path, distance_source_detector_m, detector_offset_micros
-        )
+        self.data = load_time_spectra(file_path, distance_source_detector_m, detector_offset_micros)
 
     def get_data(self):
         return self.data

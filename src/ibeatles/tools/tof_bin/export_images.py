@@ -3,25 +3,25 @@
 Export images
 """
 
-from qtpy.QtWidgets import QFileDialog
+import json
 import logging
 import os
 from pathlib import Path
+
 import inflect
 import numpy as np
-import json
-
 from NeuNorm.normalization import Normalization
+from qtpy.QtWidgets import QFileDialog
 
-from ibeatles.session import SessionSubKeys, SessionKeys
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.utilities.get import Get
+from ibeatles.session import SessionKeys, SessionSubKeys
 from ibeatles.tools.tof_bin.statistics import Statistics
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.get import Get
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.utilities.file_handler import FileHandler
 
 
 class ExportImages:
@@ -120,11 +120,7 @@ class ExportImages:
 
         self.parent.eventProgress.setVisible(False)
         p = inflect.engine()
-        self.logger.info(
-            f"Done exporting {number_of_file_created} "
-            + p.plural("file", number_of_file_created)
-            + "!"
-        )
+        self.logger.info(f"Done exporting {number_of_file_created} " + p.plural("file", number_of_file_created) + "!")
         show_status_message(
             parent=self.parent,
             message=f"ExportImages to folder {_folder} ... Done!",
@@ -157,10 +153,6 @@ class ExportImages:
         for _tof, _counts in zip(new_tof_array, counts_array):
             file_content.append(f"{_tof},{_counts}")
 
-        FileHandler.make_ascii_file(
-            data=file_content, output_file_name=time_spectra_file_name
-        )
+        FileHandler.make_ascii_file(data=file_content, output_file_name=time_spectra_file_name)
 
-        self.logger.info(
-            f"Exported the new time spectra file: {time_spectra_file_name} ... Done!"
-        )
+        self.logger.info(f"Exported the new time spectra file: {time_spectra_file_name} ... Done!")

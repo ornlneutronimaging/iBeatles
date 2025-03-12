@@ -1,7 +1,7 @@
+from .. import DataType
 from ..all_steps.event_handler import EventHandler as GeneralEventHandler
 from ..binning.binning_launcher import BinningLauncher
 from ..fitting.fitting_launcher import FittingLauncher
-from .. import DataType
 
 
 class SessionUtilities:

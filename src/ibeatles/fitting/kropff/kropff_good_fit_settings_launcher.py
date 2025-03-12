@@ -16,9 +16,7 @@ class KropffGoodFitSettingsLauncher(QDialog):
         super(QDialog, self).__init__(parent)
         self.ui = load_ui("ui_kropff_good_fit_settings.ui", baseinstance=self)
         self.fit_conditions = self.parent.kropff_bragg_peak_good_fit_conditions
-        self.rejection_conditions = (
-            self.parent.kropff_bragg_peak_row_rejections_conditions
-        )
+        self.rejection_conditions = self.parent.kropff_bragg_peak_row_rejections_conditions
         self.init_widgets()
 
     def init_widgets(self):
@@ -31,27 +29,17 @@ class KropffGoodFitSettingsLauncher(QDialog):
 
         fit_conditions = self.fit_conditions
         self.ui.lambda_hkl_checkBox.setChecked(fit_conditions["l_hkl_error"]["state"])
-        self.ui.lambda_hkl_doubleSpinBox.setValue(
-            fit_conditions["l_hkl_error"]["value"]
-        )
+        self.ui.lambda_hkl_doubleSpinBox.setValue(fit_conditions["l_hkl_error"]["value"])
         self.ui.tau_checkBox.setChecked(fit_conditions["t_error"]["state"])
         self.ui.tau_doubleSpinBox.setValue(fit_conditions["t_error"]["value"])
         self.ui.sigma_checkBox.setChecked(fit_conditions["sigma_error"]["state"])
         self.ui.sigma_doubleSpinBox.setValue(fit_conditions["sigma_error"]["value"])
 
         rejection_conditions = self.rejection_conditions
-        self.ui.l_hkl_less_than_checkBox.setChecked(
-            rejection_conditions["l_hkl"]["less_than"]["state"]
-        )
-        self.ui.l_hkl_less_than_doubleSpinBox.setValue(
-            rejection_conditions["l_hkl"]["less_than"]["value"]
-        )
-        self.ui.l_hkl_more_than_checkBox.setChecked(
-            rejection_conditions["l_hkl"]["more_than"]["state"]
-        )
-        self.ui.l_hkl_more_than_doubleSpinBox.setValue(
-            rejection_conditions["l_hkl"]["more_than"]["value"]
-        )
+        self.ui.l_hkl_less_than_checkBox.setChecked(rejection_conditions["l_hkl"]["less_than"]["state"])
+        self.ui.l_hkl_less_than_doubleSpinBox.setValue(rejection_conditions["l_hkl"]["less_than"]["value"])
+        self.ui.l_hkl_more_than_checkBox.setChecked(rejection_conditions["l_hkl"]["more_than"]["state"])
+        self.ui.l_hkl_more_than_doubleSpinBox.setValue(rejection_conditions["l_hkl"]["more_than"]["value"])
 
         self.lambda_hkl_clicked()
         self.tau_clicked()

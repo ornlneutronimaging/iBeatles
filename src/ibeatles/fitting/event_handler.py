@@ -6,8 +6,8 @@ EventHandler class
 import numpy as np
 from loguru import logger
 
-from ibeatles.utilities.array_utilities import find_nearest_index
 from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from ibeatles.utilities.array_utilities import find_nearest_index
 
 
 class EventHandler:
@@ -33,9 +33,7 @@ class EventHandler:
         self.grand_parent.fitting_bragg_edge_linear_selection = list_selected
 
         # display lambda left and right
-        lambda_array = (
-            self.grand_parent.data_metadata["time_spectra"]["normalized_lambda"] * 1e10
-        )
+        lambda_array = self.grand_parent.data_metadata["time_spectra"]["normalized_lambda"] * 1e10
         _lambda_min = lambda_array[left_index]
         _lambda_max = lambda_array[right_index]
 
@@ -47,10 +45,7 @@ class EventHandler:
             min_lambda = float(str(self.parent.ui.lambda_min_lineEdit.text()))
             max_lambda = float(str(self.parent.ui.lambda_max_lineEdit.text()))
 
-            lambda_array = (
-                self.grand_parent.data_metadata["time_spectra"]["normalized_lambda"]
-                * 1e10
-            )
+            lambda_array = self.grand_parent.data_metadata["time_spectra"]["normalized_lambda"] * 1e10
 
             left_index = find_nearest_index(array=lambda_array, value=min_lambda)
             right_index = find_nearest_index(array=lambda_array, value=max_lambda)
@@ -60,9 +55,7 @@ class EventHandler:
                 right_index,
             ]
 
-            o_bin_handler = SelectedBinsHandler(
-                parent=self.parent, grand_parent=self.grand_parent
-            )
+            o_bin_handler = SelectedBinsHandler(parent=self.parent, grand_parent=self.grand_parent)
             o_bin_handler.update_bragg_edge_plot()
         except ValueError:
             logger.info("lambda range not yet defined!")
@@ -74,9 +67,7 @@ class EventHandler:
                 value = "N/A"
             else:
                 hkl_array = self.grand_parent.selected_element_hkl_array
-                str_hkl_list = [
-                    "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_array
-                ]
+                str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_array]
                 hkl_bragg_edges = dict(zip(str_hkl_list, bragg_edges_array))
                 value = "{:04.4f}".format(float(hkl_bragg_edges[str(hkl)]))
         else:

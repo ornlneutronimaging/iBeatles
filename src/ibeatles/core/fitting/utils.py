@@ -2,13 +2,12 @@
 """Utility functions for fitting module."""
 
 import logging
+from typing import Callable, Tuple
+
 import numpy as np
-from typing import Tuple, Callable
 
 
-def remove_invalid_data_points(
-    xdata: np.ndarray, ydata: np.ndarray
-) -> Tuple[np.ndarray, np.ndarray]:
+def remove_invalid_data_points(xdata: np.ndarray, ydata: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """
     Remove NaN and infinite values from input data arrays.
 
@@ -32,9 +31,7 @@ def remove_invalid_data_points(
     valid_indices = np.isfinite(xdata) & np.isfinite(ydata)
     if np.sum(valid_indices) < len(xdata):
         removed_count = len(xdata) - np.sum(valid_indices)
-        logging.warning(
-            f"Removed {removed_count} corrupted data point(s) from the input."
-        )
+        logging.warning(f"Removed {removed_count} corrupted data point(s) from the input.")
         xdata = xdata[valid_indices]
         ydata = ydata[valid_indices]
 

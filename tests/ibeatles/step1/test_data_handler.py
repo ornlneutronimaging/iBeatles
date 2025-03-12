@@ -1,6 +1,6 @@
-from unittest import TestCase
-import os
 import glob
+import os
+from unittest import TestCase
 
 from ibeatles.step1.data_handler import DataHandler
 
@@ -50,16 +50,12 @@ class TestDataHandler(TestCase):
         list_of_files.sort()
         self.assertEqual(len(list_of_files), 10)
 
-        test_regular_expression = os.path.join(
-            self.data_path, "sample_with_time_spectra/*.fits"
-        )
+        test_regular_expression = os.path.join(self.data_path, "sample_with_time_spectra/*.fits")
         test_list_sample = glob.glob(test_regular_expression)
         test_list_sample.sort()
         self.assertTrue(list_of_files == test_list_sample)
 
-        test_regular_expression_with_no_data = os.path.join(
-            self.data_path, "sample_without_fits/*.fits"
-        )
+        test_regular_expression_with_no_data = os.path.join(self.data_path, "sample_without_fits/*.fits")
         test_list_sample = glob.glob(test_regular_expression_with_no_data)
         test_list_sample.sort()
         o_data = DataHandler(parent=self.mock_parent, data_type="sample")
@@ -70,20 +66,14 @@ class TestDataHandler(TestCase):
 
     def test_time_spectra_automatically_retrieved(self):
         """Checking that the timespectra from the folder is correctly located or return empty string when not found"""
-        self.mock_parent.default_path["sample"] = os.path.join(
-            self.data_path, "sample_with_time_spectra"
-        )
+        self.mock_parent.default_path["sample"] = os.path.join(self.data_path, "sample_with_time_spectra")
         o_data_with = DataHandler(parent=self.mock_parent, data_type="sample")
         time_spectra_file = o_data_with.get_time_spectra_file()
-        test_spectra_file = os.path.join(
-            self.data_path, "sample_with_time_spectra/Image019_Spectra.txt"
-        )
+        test_spectra_file = os.path.join(self.data_path, "sample_with_time_spectra/Image019_Spectra.txt")
         self.assertEqual(time_spectra_file, test_spectra_file)
 
         o_data_without = DataHandler(parent=self.mock_parent, data_type="sample")
-        self.mock_parent.default_path["sample"] = os.path.join(
-            self.data_path, "sample_without_time_spectra"
-        )
+        self.mock_parent.default_path["sample"] = os.path.join(self.data_path, "sample_without_time_spectra")
         time_spectra_file = o_data_without.get_time_spectra_file()
         test_spectra_file = ""
         self.assertEqual(time_spectra_file, test_spectra_file)
@@ -100,9 +90,7 @@ class TestGetTimeSpectraFilename(TestCase):
     def setUp(self):
         self.mock_parent = MockParent()
         _file_path = os.path.dirname(__file__)
-        self.data_path = os.path.abspath(
-            os.path.join(_file_path, "../../data/test_data_with_time_spectra/")
-        )
+        self.data_path = os.path.abspath(os.path.join(_file_path, "../../data/test_data_with_time_spectra/"))
         self.mock_parent.default_path["sample"] = self.data_path
 
     # def test_time_spectra_file_name_correctly_retrieved(self):

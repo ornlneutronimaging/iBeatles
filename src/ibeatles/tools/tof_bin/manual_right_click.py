@@ -3,12 +3,13 @@
 Manual right click
 """
 
-from qtpy import QtGui
-from qtpy.QtWidgets import QMenu
 import logging
 
-from ibeatles.utilities.table_handler import TableHandler
+from qtpy import QtGui
+from qtpy.QtWidgets import QMenu
+
 from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class ManualRightClick:

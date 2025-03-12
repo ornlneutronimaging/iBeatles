@@ -1,5 +1,5 @@
-from qtpy.QtWidgets import QMainWindow
 import numpy as np
+from qtpy.QtWidgets import QMainWindow
 
 from .. import load_ui
 
@@ -9,9 +9,7 @@ class InitializationSigmaAlpha(object):
         self.parent = parent
         self.grand_parent = grand_parent
 
-        init_sigma_alpha_window = InitializeWindow(
-            parent=parent, grand_parent=grand_parent
-        )
+        init_sigma_alpha_window = InitializeWindow(parent=parent, grand_parent=grand_parent)
         init_sigma_alpha_window.show()
 
 

@@ -6,9 +6,9 @@ SaveNormalizedTab class
 from loguru import logger
 
 from ibeatles import DataType
+from ibeatles.session import SessionKeys, SessionSubKeys
 from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
-from ibeatles.session import SessionKeys, SessionSubKeys
 from .save_tab import SaveTab
 
 
@@ -20,12 +20,8 @@ class SaveNormalizedTab(SaveTab):
 
         list_files = self.parent.list_files[data_type]
         current_folder = self.parent.data_metadata[data_type]["folder"]
-        time_spectra_filename = self.parent.data_metadata[data_type]["time_spectra"][
-            "filename"
-        ]
-        list_files_selected = [
-            int(index) for index in self.parent.list_file_selected[data_type]
-        ]
+        time_spectra_filename = self.parent.data_metadata[data_type]["time_spectra"]["filename"]
+        list_files_selected = [int(index) for index in self.parent.list_file_selected[data_type]]
         list_roi = self.parent.list_roi[data_type]
 
         o_pyqt = PyqtgraphUtilities(
@@ -48,15 +44,9 @@ class SaveNormalizedTab(SaveTab):
 
         self.session_dict[data_type][SessionSubKeys.list_files] = list_files
         self.session_dict[data_type][SessionSubKeys.current_folder] = current_folder
-        self.session_dict[data_type][SessionSubKeys.time_spectra_filename] = (
-            time_spectra_filename
-        )
-        self.session_dict[data_type][SessionSubKeys.list_files_selected] = (
-            list_files_selected
-        )
+        self.session_dict[data_type][SessionSubKeys.time_spectra_filename] = time_spectra_filename
+        self.session_dict[data_type][SessionSubKeys.list_files_selected] = list_files_selected
         self.session_dict[data_type][SessionSubKeys.list_rois] = list_roi
         self.session_dict[data_type][SessionSubKeys.image_view_state] = state
         self.session_dict[data_type][SessionSubKeys.image_view_histogram] = histogram
-        self.session_dict[SessionKeys.reduction] = self.parent.session_dict[
-            SessionKeys.reduction
-        ]
+        self.session_dict[SessionKeys.reduction] = self.parent.session_dict[SessionKeys.reduction]

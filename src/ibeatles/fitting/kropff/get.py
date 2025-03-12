@@ -6,12 +6,10 @@ Get class for handling the Kropff fitting.
 import numpy as np
 
 import ibeatles.utilities.error as fitting_error
-from ibeatles.fitting.kropff import FittingRegions
-from ibeatles.fitting.kropff import SessionSubKeys
-from ibeatles.utilities.table_handler import TableHandler
-from ibeatles.fitting import KropffTabSelected
 from ibeatles import DataType
-from ibeatles.fitting import FittingKeys
+from ibeatles.fitting import FittingKeys, KropffTabSelected
+from ibeatles.fitting.kropff import FittingRegions, SessionSubKeys
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class Get:
@@ -114,14 +112,10 @@ class Get:
         )
 
     def list_sigma_initial_guess(self):
-        return self._list_parameter_initial_guess(
-            parameter=SessionSubKeys.sigma, error_message="Wrong sigma format!"
-        )
+        return self._list_parameter_initial_guess(parameter=SessionSubKeys.sigma, error_message="Wrong sigma format!")
 
     def list_tau_initial_guess(self):
-        return self._list_parameter_initial_guess(
-            parameter=SessionSubKeys.tau, error_message="Wrong tau format!"
-        )
+        return self._list_parameter_initial_guess(parameter=SessionSubKeys.tau, error_message="Wrong tau format!")
 
     def _list_parameter_initial_guess(
         self,
@@ -171,9 +165,7 @@ class Get:
                     value += _step
 
         except ValueError:
-            raise fitting_error.BraggPeakFittingError(
-                fitting_region=FittingRegions.bragg_peak, message=error_message
-            )
+            raise fitting_error.BraggPeakFittingError(fitting_region=FittingRegions.bragg_peak, message=error_message)
 
         return list_value
 
@@ -264,9 +256,7 @@ class Get:
         live_data = self.grand_parent.data_metadata[DataType.normalized]["data"]
         integrated_image = np.mean(live_data, 0)
         self.parent.integrated_image = np.transpose(integrated_image)
-        [self.image_size["height"], self.image_size["width"]] = np.shape(
-            integrated_image
-        )
+        [self.image_size["height"], self.image_size["width"]] = np.shape(integrated_image)
 
     def calculate_d_array(self):
         self.calculate_image_size()

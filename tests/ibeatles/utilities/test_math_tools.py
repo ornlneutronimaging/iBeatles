@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 import numpy as np
 
 from ibeatles.utilities.math_tools import get_index_of_closest_match

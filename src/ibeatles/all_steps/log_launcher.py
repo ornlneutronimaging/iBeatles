@@ -3,17 +3,17 @@
 Log launcher
 """
 
-from qtpy.QtWidgets import QMainWindow, QDialog
 import os
-from qtpy.QtGui import QIcon
-from qtpy import QtGui
-from loguru import logger
 
-from ibeatles import load_ui
-from ibeatles.utilities.get import Get
-from ibeatles.utilities.file_handler import read_ascii, write_ascii
-from ibeatles import refresh_image, settings_image
+from loguru import logger
+from qtpy import QtGui
+from qtpy.QtGui import QIcon
+from qtpy.QtWidgets import QDialog, QMainWindow
+
+from ibeatles import load_ui, refresh_image, settings_image
 from ibeatles.session import SessionSubKeys
+from ibeatles.utilities.file_handler import read_ascii, write_ascii
+from ibeatles.utilities.get import Get
 
 
 class LogLauncher:
@@ -33,9 +33,7 @@ class Log(QMainWindow):
     def __init__(self, parent=None):
         self.parent = parent
         QMainWindow.__init__(self, parent=parent)
-        ui_full_path = os.path.join(
-            os.path.dirname(__file__), os.path.join("ui", "log.ui")
-        )
+        ui_full_path = os.path.join(os.path.dirname(__file__), os.path.join("ui", "log.ui"))
         self.ui = load_ui(ui_full_path, baseinstance=self)
         self.setWindowTitle("Log")
         self.ui.log_text.setReadOnly(True)
@@ -86,9 +84,7 @@ class LogSettings(QDialog):
         self.parent = parent
         self.grand_parent = grand_parent
         QDialog.__init__(self, parent=self.parent)
-        ui_full_path = os.path.join(
-            os.path.dirname(__file__), os.path.join("ui", "log_settings.ui")
-        )
+        ui_full_path = os.path.join(os.path.dirname(__file__), os.path.join("ui", "log_settings.ui"))
         self.ui = load_ui(ui_full_path, baseinstance=self)
         self.setWindowTitle("Log")
         self.init_widgets()
@@ -98,9 +94,7 @@ class LogSettings(QDialog):
         self.ui.buffer_size_spinBox.setValue(log_buffer_size)
 
     def accept(self):
-        self.grand_parent.session_dict[SessionSubKeys.log_buffer_size] = (
-            self.ui.buffer_size_spinBox.value()
-        )
+        self.grand_parent.session_dict[SessionSubKeys.log_buffer_size] = self.ui.buffer_size_spinBox.value()
         self.parent.check_log_size()
         self.parent.loading_logging_file()
         self.close()

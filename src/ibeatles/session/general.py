@@ -15,6 +15,6 @@ class General:
         if self.session_dict.get("log buffer size", None):
             pass
         else:
-            self.session_dict[SessionSubKeys.log_buffer_size] = (
-                self.parent.default_session_dict[SessionSubKeys.log_buffer_size]
-            )
+            self.session_dict[SessionSubKeys.log_buffer_size] = self.parent.default_session_dict[
+                SessionSubKeys.log_buffer_size
+            ]

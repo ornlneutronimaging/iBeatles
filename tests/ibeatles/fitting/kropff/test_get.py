@@ -1,8 +1,9 @@
 from unittest import TestCase
+
 import pytest
 
-from ibeatles.fitting.kropff.get import Get
 import ibeatles.utilities.error as fitting_error
+from ibeatles.fitting.kropff.get import Get
 
 
 class CheckBox:
@@ -119,16 +120,12 @@ class TestGet(TestCase):
         o_get = Get(parent=parent)
         list_lambda_hkl_returned = o_get.list_lambda_hkl_initial_guess()
         list_lambda_hkl_expected = [5e-8, 6e-8, 7e-8, 8e-8, 9e-8, 1e-7]
-        for _expected, _returned in zip(
-            list_lambda_hkl_expected, list_lambda_hkl_returned
-        ):
+        for _expected, _returned in zip(list_lambda_hkl_expected, list_lambda_hkl_returned):
             self.assertAlmostEqual(_expected, _returned, delta=1e-10)
 
     def test_list_sigma_initial_guess_range_value(self):
         """assert correct list of sigma is returned for range of values"""
-        parent = MockParent(
-            from_lineEdit=0.1, to_lineEdit=1, step_lineEdit=0.1, fix_radioButton=False
-        )
+        parent = MockParent(from_lineEdit=0.1, to_lineEdit=1, step_lineEdit=0.1, fix_radioButton=False)
         o_get = Get(parent=parent)
         list_sigma_returned = o_get.list_sigma_initial_guess()
         list_sigma_expected = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]

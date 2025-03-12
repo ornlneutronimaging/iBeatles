@@ -1,7 +1,7 @@
 """Unit tests for binning module."""
 
-import pytest
 import numpy as np
+import pytest
 from numpy.testing import assert_array_almost_equal
 
 from ibeatles.core.config import BinCoordinates
@@ -64,9 +64,7 @@ class TestGetBinCoordinates:
 
     def test_invalid_start_coordinates(self, sample_image_shape):
         """Test error when starting coordinates are negative."""
-        with pytest.raises(
-            ValueError, match="Starting coordinates must be non-negative"
-        ):
+        with pytest.raises(ValueError, match="Starting coordinates must be non-negative"):
             get_bin_coordinates(
                 image_shape=sample_image_shape,
                 x0=-1,
@@ -116,9 +114,7 @@ class TestGetBinCoordinates:
 class TestGetBinTransmission:
     def test_basic_transmission(self, sample_images, sample_wavelengths):
         """Test basic transmission calculation for a bin."""
-        bin_coords = BinCoordinates(
-            x0=0, x1=10, y0=0, y1=10, row_index=0, column_index=0
-        )
+        bin_coords = BinCoordinates(x0=0, x1=10, y0=0, y1=10, row_index=0, column_index=0)
 
         wavelengths, transmission = get_bin_transmission(
             images=sample_images, wavelengths=sample_wavelengths, bin_coords=bin_coords
@@ -134,9 +130,7 @@ class TestGetBinTransmission:
 
     def test_wavelength_range_selection(self, sample_images, sample_wavelengths):
         """Test wavelength range selection."""
-        bin_coords = BinCoordinates(
-            x0=0, x1=10, y0=0, y1=10, row_index=0, column_index=0
-        )
+        bin_coords = BinCoordinates(x0=0, x1=10, y0=0, y1=10, row_index=0, column_index=0)
 
         lambda_range = (2.0, 3.0)
         wavelengths, transmission = get_bin_transmission(
@@ -156,9 +150,7 @@ class TestGetBinTransmission:
         images = sample_images.copy()
         images[0][0:5, 0:5] = np.nan
 
-        bin_coords = BinCoordinates(
-            x0=0, x1=10, y0=0, y1=10, row_index=0, column_index=0
-        )
+        bin_coords = BinCoordinates(x0=0, x1=10, y0=0, y1=10, row_index=0, column_index=0)
 
         wavelengths, transmission = get_bin_transmission(
             images=images, wavelengths=sample_wavelengths, bin_coords=bin_coords
@@ -193,9 +185,7 @@ class TestValidateTransmissionData:
         wavelengths = np.linspace(1, 4, 5)  # Only 5 points
         transmission = np.ones_like(wavelengths) * 0.5
 
-        assert not validate_transmission_data(
-            wavelengths, transmission, min_valid_points=10
-        )
+        assert not validate_transmission_data(wavelengths, transmission, min_valid_points=10)
 
     def test_non_monotonic_wavelengths(self):
         """Test validation with non-monotonic wavelengths."""
@@ -211,15 +201,11 @@ class TestValidateTransmissionData:
         transmission[0] = np.nan  # Add one NaN
 
         # Should still pass if we have enough valid points
-        assert validate_transmission_data(
-            wavelengths, transmission, min_valid_points=15
-        )
+        assert validate_transmission_data(wavelengths, transmission, min_valid_points=15)
 
         # Should fail if too many NaNs
         transmission[:15] = np.nan
-        assert not validate_transmission_data(
-            wavelengths, transmission, min_valid_points=15
-        )
+        assert not validate_transmission_data(wavelengths, transmission, min_valid_points=15)
 
     def test_mismatched_lengths(self):
         """Test validation with mismatched array lengths."""

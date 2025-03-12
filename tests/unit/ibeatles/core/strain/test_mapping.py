@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """Unit tests for strain mapping functions."""
 
-import pytest
 import numpy as np
-from lmfit import Parameters, Model
+import pytest
+from lmfit import Model, Parameters
 from lmfit.model import ModelResult
 
 from ibeatles.core.strain.mapping import calculate_strain_mapping
@@ -13,9 +13,7 @@ from ibeatles.core.strain.mapping import calculate_strain_mapping
 def mock_fit_results():
     """Create mock fitting results."""
 
-    def create_mock_result(
-        wavelength: float, wavelength_error: float, rsquared: float
-    ) -> ModelResult:
+    def create_mock_result(wavelength: float, wavelength_error: float, rsquared: float) -> ModelResult:
         # Create minimal Parameters with required attributes
         params = Parameters()
         params.add("bragg_edge_wavelength", value=wavelength)
@@ -28,9 +26,7 @@ def mock_fit_results():
         model = Model(lambda x: x)
 
         # Create ModelResult with minimal required attributes
-        result = ModelResult(
-            model, params, data=np.array([1.0]), weights=np.array([1.0])
-        )
+        result = ModelResult(model, params, data=np.array([1.0]), weights=np.array([1.0]))
 
         # Set additional attributes
         result.rsquared = rsquared
@@ -53,9 +49,7 @@ def mock_fit_results():
 def test_strain_calculation(mock_fit_results):
     """Test strain calculation with various fit results."""
     d0 = 2.0  # reference d-spacing
-    strain_results = calculate_strain_mapping(
-        fit_results=mock_fit_results, d0=d0, quality_threshold=0.8
-    )
+    strain_results = calculate_strain_mapping(fit_results=mock_fit_results, d0=d0, quality_threshold=0.8)
 
     # Check number of results (should exclude poor_fit and failed_fit)
     assert len(strain_results) == 2
