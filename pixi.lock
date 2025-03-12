@@ -4858,8 +4858,8 @@ packages:
   timestamp: 1737618427549
 - pypi: .
   name: ibeatles
-  version: 1.1.0.dev21+d202503121358
-  sha256: 575c355c9f844afbaaff452481ffa988f87f831367a730c79fe9f9304dd7ac20
+  version: 1.1.0.dev23
+  sha256: a9d068a062678331bd888d77290c0619f555f0c74af59695c80b54e83a2edd49
   requires_dist:
   - numpy
   - matplotlib
