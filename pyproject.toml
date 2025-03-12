@@ -5,6 +5,25 @@ dynamic = ["version"]
 requires-python = ">=3.11,<3.13"
 license = { text = "MIT" }
 dependencies = [
+  # These are the absolute minimum dependencies needed by the project
+  "numpy",
+  "matplotlib",
+  "h5py",
+  "args",
+  "Pillow",
+  "astropy",
+  "scipy",
+  "lmfit",
+  "loguru",
+  "tqdm",
+  "tomli",
+  "pydantic",
+  "ipython",
+  # GUI
+  "QtPy",
+  "PyQt5",
+  "pyqtgraph",
+  # These are the dependencies from our neutron imaging team
   "neutronbraggedge>=2.0.6,<3",
   "changepy>=0.4.0,<0.5",
   "neunorm>=1.6.12,<2",
@@ -101,6 +120,24 @@ rm_conda_build = "rm -rf conda.recipe/channeldata.json conda.recipe/index.html c
 start = "python -m ibeatles"
 cli = "python -m ibeatles --no-gui"
 
+[tool.pixi.feature.conda.dependencies]
+ipython = "*"
+pydantic = "*"
+loguru = "*"
+astropy = "*"
+lmfit = "*"
+h5py = "*"
+sqlite = "*"
+zlib = "*"
+matplotlib = "*"
+pyparsing = "*"
+pytz = "*"
+readline = "*"
+qt = "*"
+qtpy = "*"
+pyqt = "*"
+pyqtgraph = "*"
+
 [tool.pixi.feature.test.dependencies]
 pytest = "*"
 pytest-cov = "*"
@@ -121,29 +158,9 @@ pre-commit = "*"
 conda-tree = "*"
 ruff = "*"
 
-[tool.pixi.feature.gui.dependencies]
-qt = "*"
-qtpy = "*"
-pyqt = "*"
-pyqtgraph = "*"
-
 # [tool.pixi.feature.docs.dependencies]
 # sphinx = "*"
 # sphinx-rtd-theme = "*"
-
-[tool.pixi.feature.core.dependencies]
-ipython = "*"
-pydantic = "*"
-loguru = "*"
-astropy = "*"
-lmfit = "*"
-h5py = "*"
-sqlite = "*"
-zlib = "*"
-matplotlib = "*"
-pyparsing = "*"
-pytz = "*"
-readline = "*"
 
 [tool.pixi.feature.jupyter.dependencies]
 jupyterlab = "*"
@@ -151,9 +168,9 @@ ipympl = "*"
 ipywidgets = "*"
 
 [tool.pixi.environments]
-default = {features = ["test", "package", "developer", "core", "gui", "marimo"], solve-group = "default"}
-runtime = {features = ["core", "gui"], solve-group = "default"}
-jupyter = {features = ["core", "gui", "jupyter"], solve-group = "default"}
+default = {features = ["test", "package", "developer", "marimo"], solve-group = "default"}
+conda = {features = ["test", "package", "developer", "marimo", "conda"], solve-group = "default"}
+jupyter = {features = ["jupyter"], solve-group = "default"}
 
 # ruff configuration
 [tool.ruff]
@@ -175,3 +192,4 @@ line-ending = "auto"
 
 [dependency-groups]
 marimo = ["marimo[recommended]"]
+jupyter = ["jupyterlab", "ipympl", "ipywidgets"]
