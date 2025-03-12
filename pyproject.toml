@@ -46,6 +46,13 @@ dependencies = [
   "neunorm>=1.6.12,<2",
 ]
 
+[conda-pypi-map]
+"conda-forge" = """
+{
+  "pyqt": "PyQt5",
+}
+"""
+
 [project.urls]
 homepage = "https://github.com/ornlneutronimaging/iBeatles"
 "Bug Tracker" = "https://github.com/ornlneutronimaging/iBeatles/issues"
@@ -121,6 +128,26 @@ platforms = ["osx-arm64", "linux-64"]
 [tool.pixi.pypi-dependencies]
 ibeatles = { path = ".", editable = true }
 
+[tool.pixi.dependencies]
+numpy = "*"
+matplotlib = "*"
+h5py = "*"
+args = "*"
+Pillow = "*"
+astropy = "*"
+scipy = "*"
+lmfit = "*"
+loguru = "*"
+tqdm = "*"
+tomli = "*"
+pydantic = "*"
+ipython = "*"
+sqlite = "*"
+pyqtgraph = "*"
+qt = "*"
+qtpy = "*"
+pyqt = "*"
+
 [tool.pixi.tasks]
 # phony
 clean = {depends-on = ["rm_pypi_build", "rm_docs", "rm_conda_build", "rm_test"]}
@@ -140,24 +167,6 @@ rm_conda_build = "rm -rf conda.recipe/channeldata.json conda.recipe/index.html c
 # app
 start = "python -m ibeatles"
 cli = "python -m ibeatles --no-gui"
-
-[tool.pixi.feature.conda.dependencies]
-ipython = "*"
-pydantic = "*"
-loguru = "*"
-astropy = "*"
-lmfit = "*"
-h5py = "*"
-sqlite = "*"
-zlib = "*"
-matplotlib = "*"
-pyparsing = "*"
-pytz = "*"
-readline = "*"
-qt = "*"
-qtpy = "*"
-pyqt = "*"
-pyqtgraph = "*"
 
 [tool.pixi.feature.test.dependencies]
 pytest = "*"
@@ -190,7 +199,6 @@ ipywidgets = "*"
 
 [tool.pixi.environments]
 default = {features = ["test", "package", "developer", "marimo"], solve-group = "default"}
-conda = {features = ["test", "package", "developer", "marimo", "conda"], solve-group = "default"}
 jupyter = {features = ["jupyter"], solve-group = "default"}
 
 # ruff configuration
