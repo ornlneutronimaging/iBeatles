@@ -3,37 +3,35 @@
 Session Handler
 """
 
-from qtpy.QtWidgets import QFileDialog, QApplication
-import json
 import copy
+import json
+
 from loguru import logger
+from qtpy.QtWidgets import QApplication, QFileDialog
 
 from ibeatles import DataType
+from ibeatles.fitting import FittingTabSelected
+from ibeatles.fitting.kropff import BraggPeakInitParameters, KropffThresholdFinder
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.march_dollase import SessionSubKeys as MarchSessionSubKeys
+from ibeatles.session import MaterialMode, ReductionDimension, ReductionType, SessionKeys, SessionSubKeys
+from ibeatles.session.general import General
+from ibeatles.session.load_bin_tab import LoadBin
+from ibeatles.session.load_fitting_tab import LoadFitting
+from ibeatles.session.load_load_data_tab import LoadLoadDataTab
+from ibeatles.session.load_normalization_tab import LoadNormalization
+from ibeatles.session.load_normalized_tab import LoadNormalized
+from ibeatles.session.save_bin_tab import SaveBinTab
+from ibeatles.session.save_fitting_tab import SaveFittingTab
+from ibeatles.session.save_load_data_tab import SaveLoadDataTab
+from ibeatles.session.save_normalization_tab import SaveNormalizationTab
+from ibeatles.session.save_normalized_tab import SaveNormalizedTab
+from ibeatles.session.session_utilities import SessionUtilities
+from ibeatles.utilities.get import Get
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.utilities.get import Get
-from ibeatles.fitting.march_dollase import SessionSubKeys as MarchSessionSubKeys
-from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from ibeatles.fitting.kropff import KropffThresholdFinder
-from ibeatles.fitting.kropff import BraggPeakInitParameters
-from ibeatles.fitting import FittingTabSelected
-
-from ibeatles.session import SessionKeys, SessionSubKeys, MaterialMode
-from ibeatles.session import ReductionDimension, ReductionType
-from ibeatles.session.save_load_data_tab import SaveLoadDataTab
-from ibeatles.session.save_normalization_tab import SaveNormalizationTab
-from ibeatles.session.save_normalized_tab import SaveNormalizedTab
-from ibeatles.session.save_bin_tab import SaveBinTab
-from ibeatles.session.save_fitting_tab import SaveFittingTab
-from ibeatles.session.session_utilities import SessionUtilities
-from ibeatles.session.load_load_data_tab import LoadLoadDataTab
-from ibeatles.session.load_normalization_tab import LoadNormalization
-from ibeatles.session.load_normalized_tab import LoadNormalized
-from ibeatles.session.load_bin_tab import LoadBin
-from ibeatles.session.load_fitting_tab import LoadFitting
-from ibeatles.session.general import General
 
 
 class SessionHandler:
@@ -78,9 +76,7 @@ class SessionHandler:
         },
         SessionKeys.material: {
             SessionSubKeys.material_mode: MaterialMode.pre_defined,
-            SessionSubKeys.pre_defined: {
-                SessionSubKeys.pre_defined_selected_element_index: 0
-            },
+            SessionSubKeys.pre_defined: {SessionSubKeys.pre_defined_selected_element_index: 0},
             SessionSubKeys.custom_material_name: None,
             SessionSubKeys.custom_method1: {
                 SessionSubKeys.lattice: None,
@@ -215,22 +211,16 @@ class SessionHandler:
         self.parent = parent
 
     def save_from_ui(self):
-        self.session_dict[DataType.fitting][SessionSubKeys.ui_accessed] = (
-            self.parent.session_dict[DataType.fitting][SessionSubKeys.ui_accessed]
-        )
-        self.session_dict[SessionSubKeys.config_version] = self.parent.config[
-            SessionSubKeys.config_version
+        self.session_dict[DataType.fitting][SessionSubKeys.ui_accessed] = self.parent.session_dict[DataType.fitting][
+            SessionSubKeys.ui_accessed
         ]
-        self.session_dict[SessionSubKeys.log_buffer_size] = self.parent.session_dict[
-            SessionSubKeys.log_buffer_size
-        ]
+        self.session_dict[SessionSubKeys.config_version] = self.parent.config[SessionSubKeys.config_version]
+        self.session_dict[SessionSubKeys.log_buffer_size] = self.parent.session_dict[SessionSubKeys.log_buffer_size]
 
         self.session_dict = self.parent.session_dict
 
         # Load data tab
-        o_save_load_data_tab = SaveLoadDataTab(
-            parent=self.parent, session_dict=self.session_dict
-        )
+        o_save_load_data_tab = SaveLoadDataTab(parent=self.parent, session_dict=self.session_dict)
         o_save_load_data_tab.sample()
         o_save_load_data_tab.ob()
         o_save_load_data_tab.instrument()
@@ -238,16 +228,12 @@ class SessionHandler:
         self.session_dict = o_save_load_data_tab.session_dict
 
         # save normalization
-        o_save_normalization = SaveNormalizationTab(
-            parent=self.parent, session_dict=self.session_dict
-        )
+        o_save_normalization = SaveNormalizationTab(parent=self.parent, session_dict=self.session_dict)
         o_save_normalization.normalization()
         self.session_dict = o_save_normalization.session_dict
 
         # save normalized
-        o_save_normalized = SaveNormalizedTab(
-            parent=self.parent, session_dict=self.session_dict
-        )
+        o_save_normalized = SaveNormalizedTab(parent=self.parent, session_dict=self.session_dict)
         o_save_normalized.normalized()
         self.session_dict = o_save_normalized.session_dict
 
@@ -257,9 +243,7 @@ class SessionHandler:
         self.session_dict = o_save_bin.session_dict
 
         # save fitting
-        o_save_fitting = SaveFittingTab(
-            parent=self.parent, session_dict=self.session_dict
-        )
+        o_save_fitting = SaveFittingTab(parent=self.parent, session_dict=self.session_dict)
         o_save_fitting.fitting()
         self.session_dict = o_save_fitting.session_dict
 
@@ -407,25 +391,18 @@ class SessionHandler:
                 session_to_save = json.load(read_file)
                 if session_to_save.get(SessionSubKeys.config_version, None) is None:
                     logger.info("Session file is out of date!")
-                    logger.info(
-                        f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}"
-                    )
+                    logger.info(f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}")
                     logger.info("-> session version: Unknown!")
                     self.load_successful = False
                 elif (
-                    session_to_save[SessionSubKeys.config_version]
-                    == self.parent.config[SessionSubKeys.config_version]
+                    session_to_save[SessionSubKeys.config_version] == self.parent.config[SessionSubKeys.config_version]
                 ):
                     self.parent.session_dict = session_to_save
                     logger.info(f"Loaded from {config_file_name}")
                 else:
                     logger.info("Session file is out of date!")
-                    logger.info(
-                        f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}"
-                    )
-                    logger.info(
-                        f"-> session version: {session_to_save[SessionSubKeys.config_version]}"
-                    )
+                    logger.info(f"-> expected version: {self.parent.config[SessionSubKeys.config_version]}")
+                    logger.info(f"-> session version: {session_to_save[SessionSubKeys.config_version]}")
                     self.load_successful = False
 
                 if not self.load_successful:

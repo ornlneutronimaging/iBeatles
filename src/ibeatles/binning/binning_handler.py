@@ -1,5 +1,5 @@
-from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 from .. import DataType
+from ..utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class BinningHandler(object):
@@ -40,9 +40,7 @@ class BinningHandler(object):
             adj = binning_line_view["adj"]
             lines = binning_line_view["pen"]
 
-            self.parent.binning_line_view["ui"].setData(
-                pos=pos, adj=adj, pen=lines, symbol=None, pxMode=False
-            )
+            self.parent.binning_line_view["ui"].setData(pos=pos, adj=adj, pen=lines, symbol=None, pxMode=False)
 
             self.parent.binning_line_view["ui"] = line_view_binning
             self.parent.binning_line_view["pos"] = pos

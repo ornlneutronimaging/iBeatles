@@ -1,23 +1,24 @@
 #!/usr/bin/env python
 """Unit tests for ibeatles.core.export module."""
 
-import pytest
-import pandas as pd
 from datetime import datetime
 from pathlib import Path
-from matplotlib import pyplot as plt
+
+import pandas as pd
+import pytest
 from lmfit import Model
 from lmfit.model import ModelResult, Parameters
+from matplotlib import pyplot as plt
 
 from ibeatles.core.config import (
-    OutputFileConfig,
     BinCoordinates,
+    OutputFileConfig,
 )
 from ibeatles.core.strain.export import (
     generate_output_filename,
-    save_strain_map,
-    save_fitting_grid,
     save_analysis_results,
+    save_fitting_grid,
+    save_strain_map,
 )
 
 
@@ -68,15 +69,11 @@ def test_generate_output_filename():
     """Test filename generation with various inputs."""
     # Test with fixed timestamp
     timestamp = datetime(2024, 1, 8, 15, 30, 42)
-    filename = generate_output_filename(
-        "fe_sample", "strain_map", "png", timestamp=timestamp
-    )
+    filename = generate_output_filename("fe_sample", "strain_map", "png", timestamp=timestamp)
     assert filename == Path("fe_sample_strain_map_20240108_153042.png")
 
     # Test with Path input
-    filename = generate_output_filename(
-        Path("data/fe_sample"), "strain_map", "png", timestamp=timestamp
-    )
+    filename = generate_output_filename(Path("data/fe_sample"), "strain_map", "png", timestamp=timestamp)
     assert filename == Path("fe_sample_strain_map_20240108_153042.png")
 
     # Test current timestamp (should not raise error)
@@ -232,9 +229,7 @@ def test_save_analysis_results_custom_delimiter(
     assert len(df) == 1
 
 
-def test_failed_fit_results(
-    output_config, tmp_path, mock_bin_coordinates, mock_strain_results, mock_metadata
-):
+def test_failed_fit_results(output_config, tmp_path, mock_bin_coordinates, mock_strain_results, mock_metadata):
     """Test handling of failed fits in results."""
     output_path = tmp_path / "results_failed.csv"
 

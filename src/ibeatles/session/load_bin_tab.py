@@ -21,26 +21,21 @@ class LoadBin:
         # self.parent.binning_roi = session_dict[SessionKeys.bin][SessionSubKeys.roi]
         self.parent.there_is_a_roi = True
 
-        self.parent.image_view_settings[DataType.bin]["state"] = session_dict[
-            SessionKeys.bin
-        ][SessionSubKeys.image_view_state]
-        self.parent.image_view_settings[DataType.bin]["histogram"] = session_dict[
-            SessionKeys.bin
-        ][SessionSubKeys.image_view_histogram]
-
-        binning_line_view = session_dict[SessionKeys.bin][
-            SessionSubKeys.binning_line_view
+        self.parent.image_view_settings[DataType.bin]["state"] = session_dict[SessionKeys.bin][
+            SessionSubKeys.image_view_state
         ]
+        self.parent.image_view_settings[DataType.bin]["histogram"] = session_dict[SessionKeys.bin][
+            SessionSubKeys.image_view_histogram
+        ]
+
+        binning_line_view = session_dict[SessionKeys.bin][SessionSubKeys.binning_line_view]
         self.parent.binning_line_view["pos"] = np.array(binning_line_view["pos"])
         self.parent.binning_line_view["adj"] = np.array(binning_line_view["adj"])
 
         if self.parent.binning_line_view["pos"] is None:
             line_color = tuple(binning_line_view["line color"])
             lines = np.array(
-                [
-                    line_color
-                    for n in np.arange(len(self.parent.binning_line_view["pos"]))
-                ],
+                [line_color for n in np.arange(len(self.parent.binning_line_view["pos"]))],
                 dtype=[
                     ("red", np.ubyte),
                     ("green", np.ubyte),

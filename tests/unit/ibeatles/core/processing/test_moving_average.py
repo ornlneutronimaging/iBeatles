@@ -3,8 +3,9 @@
 
 import numpy as np
 import pytest
-from ibeatles.core.processing.moving_average import moving_average, KernelType
+
 from ibeatles.core.config import MovingAverage
+from ibeatles.core.processing.moving_average import KernelType, moving_average
 
 
 @pytest.mark.parametrize(
@@ -37,27 +38,21 @@ def test_moving_average_tuple_input(data_shape, kernel, kernel_type, dimension):
 )
 def test_moving_average(data_shape, kernel, kernel_type, dimension):
     data = np.random.rand(*data_shape)
-    config = MovingAverage(
-        active=True, dimension=dimension, size=kernel, type=kernel_type
-    )
+    config = MovingAverage(active=True, dimension=dimension, size=kernel, type=kernel_type)
     result = moving_average(data, config)
     assert result.shape == data_shape
 
 
 def test_moving_average_inactive():
     data = np.random.rand(10, 10)
-    config = MovingAverage(
-        active=False, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box
-    )
+    config = MovingAverage(active=False, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box)
     result = moving_average(data, config)
     np.testing.assert_array_equal(result, data)
 
 
 def test_moving_average_invalid_input():
     data = np.random.rand(10)
-    config = MovingAverage(
-        active=True, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box
-    )
+    config = MovingAverage(active=True, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box)
     with pytest.raises(ValueError, match="Data must be 2D image or 3D volume"):
         moving_average(data, config)
 
@@ -76,9 +71,7 @@ def test_moving_average_invalid_kernel():
 
 def test_moving_average_unsupported_kernel_type():
     data = np.random.rand(10, 10)
-    config = MovingAverage(
-        active=True, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box
-    )
+    config = MovingAverage(active=True, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box)
     config.type = "invalid"
     with pytest.raises(ValueError, match="Unsupported kernel type"):
         moving_average(data, config)

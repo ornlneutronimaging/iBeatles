@@ -3,8 +3,9 @@
 Log bin
 """
 
-import numpy as np
 import logging
+
+import numpy as np
 
 from ibeatles.tools.utilities import TimeSpectraKeys
 
@@ -16,9 +17,7 @@ class LogBin:
         TimeSpectraKeys.lambda_array: None,
     }
 
-    def __init__(
-        self, parent=None, source_radio_button=TimeSpectraKeys.file_index_array
-    ):
+    def __init__(self, parent=None, source_radio_button=TimeSpectraKeys.file_index_array):
         self.parent = parent
         self.source_array = source_radio_button
 
@@ -69,12 +68,8 @@ class LogBin:
 
         file_index_array_of_bins = self.log_bins[self.source_array]
 
-        original_tof_array = np.array(
-            self.parent.time_spectra[TimeSpectraKeys.tof_array]
-        )
-        original_lambda_array = np.array(
-            self.parent.time_spectra[TimeSpectraKeys.lambda_array]
-        )
+        original_tof_array = np.array(self.parent.time_spectra[TimeSpectraKeys.tof_array])
+        original_lambda_array = np.array(self.parent.time_spectra[TimeSpectraKeys.lambda_array])
 
         log_bins_tof_array = []
         log_bins_lambda_array = []

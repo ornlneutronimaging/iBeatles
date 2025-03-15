@@ -3,13 +3,14 @@
 Table Dictionary Handler
 """
 
-from qtpy.QtWidgets import QFileDialog
-import numpy as np
 import os
-import pandas as pd
 
-from ibeatles.utilities.table_handler import TableHandler
+import numpy as np
+import pandas as pd
+from qtpy.QtWidgets import QFileDialog
+
 from ibeatles.fitting import fitting_handler
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class ColumnNameIndex:
@@ -37,9 +38,7 @@ class TableDictionaryHandler:
         self.parent = parent  # fitting ui
         self.value_table_ui = self.parent.ui.value_table
 
-    def fill_table_with_variable(
-        self, variable_name="d_spacing", value=np.nan, list_keys=[], all_keys=False
-    ):
+    def fill_table_with_variable(self, variable_name="d_spacing", value=np.nan, list_keys=[], all_keys=False):
         table_dictionary = self.grand_parent.march_table_dictionary
         if all_keys:
             list_keys = table_dictionary.keys()
@@ -330,9 +329,7 @@ class TableDictionaryHandler:
     #         return np.mean(array)
 
     def import_table(self):
-        default_file_name = (
-            str(self.grand_parent.ui.normalized_folder.text()) + "_fitting_table.csv"
-        )
+        default_file_name = str(self.grand_parent.ui.normalized_folder.text()) + "_fitting_table.csv"
         table_file = str(
             QFileDialog.getOpenFileName(
                 self.grand_parent,

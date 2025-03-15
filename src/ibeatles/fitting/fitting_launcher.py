@@ -3,28 +3,33 @@
 Fitting tab
 """
 
-from qtpy.QtWidgets import QMainWindow, QApplication
-from qtpy import QtCore
 import numpy as np
 from loguru import logger
+from qtpy import QtCore
+from qtpy.QtWidgets import QApplication, QMainWindow
 
-from ibeatles import load_ui
-from ibeatles import DataType
-from ibeatles.table_dictionary.table_dictionary_handler import (
-    TableDictionaryHandler,
-)
+from ibeatles import DataType, load_ui
 from ibeatles.fitting import FittingTabSelected
-from ibeatles.fitting.fitting_handler import FittingHandler
-from ibeatles.fitting.value_table_handler import ValueTableHandler
-from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
-from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.display import Display as FittingDisplay
-from ibeatles.fitting.get import Get
-from ibeatles.fitting.initialization import Initialization
 from ibeatles.fitting.event_handler import EventHandler
 from ibeatles.fitting.export import Export
-from ibeatles.fitting.march_dollase.fitting_initialization_handler import (
-    FittingInitializationHandler,
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
+from ibeatles.fitting.fitting_handler import FittingHandler
+from ibeatles.fitting.get import Get
+from ibeatles.fitting.initialization import Initialization
+from ibeatles.fitting.kropff import RightClickTableMenu
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff.display import Display as KropffDisplay
+from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
+from ibeatles.fitting.kropff.export import Export as KropffExport
+from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import (
+    KropffAutomaticSettingsLauncher,
+)
+from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import (
+    KropffGoodFitSettingsLauncher,
+)
+from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import (
+    KropffLambdaHKLSettings,
 )
 from ibeatles.fitting.march_dollase.create_fitting_story_launcher import (
     CreateFittingStoryLauncher,
@@ -32,21 +37,15 @@ from ibeatles.fitting.march_dollase.create_fitting_story_launcher import (
 from ibeatles.fitting.march_dollase.event_handler import (
     EventHandler as MarchDollaseEventHandler,
 )
-from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from ibeatles.fitting.kropff import RightClickTableMenu
-from ibeatles.fitting.kropff.event_handler import EventHandler as KropffHandler
-from ibeatles.fitting.kropff.kropff_automatic_settings_launcher import (
-    KropffAutomaticSettingsLauncher,
+from ibeatles.fitting.march_dollase.fitting_initialization_handler import (
+    FittingInitializationHandler,
 )
-from ibeatles.fitting.kropff.display import Display as KropffDisplay
-from ibeatles.fitting.kropff.kropff_lambda_hkl_settings import (
-    KropffLambdaHKLSettings,
-)
-from ibeatles.fitting.kropff.kropff_good_fit_settings_launcher import (
-    KropffGoodFitSettingsLauncher,
-)
-from ibeatles.fitting.kropff.export import Export as KropffExport
+from ibeatles.fitting.selected_bin_handler import SelectedBinsHandler
+from ibeatles.fitting.value_table_handler import ValueTableHandler
 from ibeatles.step6.strain_mapping_launcher import StrainMappingLauncher
+from ibeatles.table_dictionary.table_dictionary_handler import (
+    TableDictionaryHandler,
+)
 
 
 class FittingLauncher:
@@ -57,9 +56,7 @@ class FittingLauncher:
             fitting_window = FittingWindow(parent=parent)
             fitting_window.show()
             self.parent.fitting_ui = fitting_window
-            o_fitting = FittingHandler(
-                grand_parent=self.parent, parent=self.parent.fitting_ui
-            )
+            o_fitting = FittingHandler(grand_parent=self.parent, parent=self.parent.fitting_ui)
             o_fitting.display_image()
             o_fitting.display_roi()
             o_fitting.fill_table()
@@ -67,9 +64,7 @@ class FittingLauncher:
                 fitting_window.record_all_xaxis_and_yaxis()
             except ValueError:
                 pass
-            fitting_window.bragg_edge_linear_region_changed(
-                full_reset_of_fitting_table=False
-            )
+            fitting_window.bragg_edge_linear_region_changed(full_reset_of_fitting_table=False)
             fitting_window.kropff_check_widgets_helper()
             fitting_window.filling_kropff_table()
             fitting_window.update_locked_and_rejected_rows_in_bragg_peak_table()
@@ -95,9 +90,7 @@ class FittingWindow(QMainWindow):
     data: list = []
     image_size = None  # [height, width]
     # there_is_a_roi = False
-    bragg_edge_active_button_status = (
-        True  # to make sure active/lock button worked correctly
-    )
+    bragg_edge_active_button_status = True  # to make sure active/lock button worked correctly
 
     list_bins_selected_item: list = []
     list_bins_locked_item: list = []
@@ -232,19 +225,15 @@ class FittingWindow(QMainWindow):
 
         x_axis = self.parent.normalized_lambda_bragg_edge_x_axis
         self.bragg_edge_data["x_axis"] = x_axis
-        self.kropff_bragg_peak_good_fit_conditions = self.parent.session_dict[
-            DataType.fitting
-        ][FittingTabSelected.kropff][
-            KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions
-        ]
-        self.kropff_lambda_settings = self.parent.session_dict[DataType.fitting][
+        self.kropff_bragg_peak_good_fit_conditions = self.parent.session_dict[DataType.fitting][
             FittingTabSelected.kropff
-        ][KropffSessionSubKeys.kropff_lambda_settings]
-        self.kropff_bragg_peak_row_rejections_conditions = self.parent.session_dict[
-            DataType.fitting
-        ][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak_row_rejections_conditions
+        ][KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions]
+        self.kropff_lambda_settings = self.parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            KropffSessionSubKeys.kropff_lambda_settings
         ]
+        self.kropff_bragg_peak_row_rejections_conditions = self.parent.session_dict[DataType.fitting][
+            FittingTabSelected.kropff
+        ][KropffSessionSubKeys.bragg_peak_row_rejections_conditions]
 
     # MENU
     def action_strain_mapping_clicked(self):
@@ -451,15 +440,11 @@ class FittingWindow(QMainWindow):
         self.parent.fitting_ui.ui.value_table.blockSignals(False)
 
     def initialize_all_parameters_button_clicked(self):
-        o_initialization = FittingInitializationHandler(
-            parent=self, grand_parent=self.parent
-        )
+        o_initialization = FittingInitializationHandler(parent=self, grand_parent=self.parent)
         o_initialization.run()
 
     def initialize_all_parameters_step2(self):
-        o_initialization = FittingInitializationHandler(
-            parent=self, grand_parent=self.parent
-        )
+        o_initialization = FittingInitializationHandler(parent=self, grand_parent=self.parent)
         o_initialization.finished_up_initialization()
 
         # activate or not step4 (yes if we were able to initialize correctly all variables)
@@ -474,9 +459,7 @@ class FittingWindow(QMainWindow):
         QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
         QApplication.processEvents()
         o_event = KropffHandler(parent=self, grand_parent=self.parent)
-        o_event.mouse_clicked_in_top_left_image_view(
-            mouse_click_event=mouse_click_event
-        )
+        o_event.mouse_clicked_in_top_left_image_view(mouse_click_event=mouse_click_event)
         QApplication.restoreOverrideCursor()
         QApplication.processEvents()
 
@@ -519,9 +502,7 @@ class FittingWindow(QMainWindow):
         self.kropff_fit_all_regions()
 
     def kropff_automatic_bragg_peak_threshold_finder_settings_clicked(self):
-        o_kropff = KropffAutomaticSettingsLauncher(
-            parent=self, grand_parent=self.parent
-        )
+        o_kropff = KropffAutomaticSettingsLauncher(parent=self, grand_parent=self.parent)
         o_kropff.show()
 
     def kropff_parameters_changed(self):
@@ -661,18 +642,12 @@ class FittingWindow(QMainWindow):
     # general settings
 
     def windows_settings(self):
-        self.parent.session_dict[DataType.fitting]["ui"][
-            "kropff_top_horizontal_splitter"
-        ] = self.ui.kropff_top_horizontal_splitter.sizes()
-        self.parent.session_dict[DataType.fitting]["ui"]["splitter_2"] = (
-            self.ui.splitter_2.sizes()
+        self.parent.session_dict[DataType.fitting]["ui"]["kropff_top_horizontal_splitter"] = (
+            self.ui.kropff_top_horizontal_splitter.sizes()
         )
-        self.parent.session_dict[DataType.fitting]["ui"]["splitter_3"] = (
-            self.ui.splitter_3.sizes()
-        )
-        self.parent.session_dict[DataType.fitting]["ui"]["splitter_4"] = (
-            self.ui.splitter_4.sizes()
-        )
+        self.parent.session_dict[DataType.fitting]["ui"]["splitter_2"] = self.ui.splitter_2.sizes()
+        self.parent.session_dict[DataType.fitting]["ui"]["splitter_3"] = self.ui.splitter_3.sizes()
+        self.parent.session_dict[DataType.fitting]["ui"]["splitter_4"] = self.ui.splitter_4.sizes()
 
     def save_all_parameters(self):
         self.kropff_parameters_changed()

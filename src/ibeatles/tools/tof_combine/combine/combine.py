@@ -6,10 +6,9 @@ Combine module
 import numpy as np
 import pyqtgraph as pg
 
-from ibeatles.tools.utilities import CombineAlgorithm
-
-from ibeatles.tools.tof_combine.utilities.get import Get
 from ibeatles.tools.tof_combine import SessionKeys as TofCombineSessionKeys
+from ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.utilities import CombineAlgorithm
 
 
 class Combine:
@@ -28,9 +27,7 @@ class Combine:
 
         else:
             # combine using algorithm defined
-            [nbr_folder_to_combine, nbr_files, width, height] = np.shape(
-                list_array_to_combine
-            )
+            [nbr_folder_to_combine, nbr_files, width, height] = np.shape(list_array_to_combine)
 
             if nbr_folder_to_combine > 1:
                 if combine_algorithm == CombineAlgorithm.mean:
@@ -62,9 +59,7 @@ class Combine:
                 width = roi_dict["width"]
                 height = roi_dict["height"]
                 if self.parent.combine_roi_item_id:
-                    self.parent.combine_image_view.removeItem(
-                        self.parent.combine_roi_item_id
-                    )
+                    self.parent.combine_image_view.removeItem(self.parent.combine_roi_item_id)
 
                 roi_item = pg.ROI([x0, y0], [width, height])
                 roi_item.addScaleHandle([1, 1], [0, 0])

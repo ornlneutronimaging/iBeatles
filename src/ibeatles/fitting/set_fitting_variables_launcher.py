@@ -3,14 +3,15 @@
 Set Fitting Variables Launcher
 """
 
-from qtpy.QtWidgets import QMainWindow, QMenu, QApplication
-from qtpy import QtGui, QtCore
 import numpy as np
+from qtpy import QtCore, QtGui
+from qtpy.QtWidgets import QApplication, QMainWindow, QMenu
 
-from ..fitting.set_fitting_variables_handler import SetFittingVariablesHandler
-from ..fitting.filling_table_handler import FillingTableHandler
-from .. import load_ui
 from ibeatles.fitting.march_dollase.event_handler import EventHandler
+
+from .. import load_ui
+from ..fitting.filling_table_handler import FillingTableHandler
+from ..fitting.set_fitting_variables_handler import SetFittingVariablesHandler
 
 
 class SetFittingVariablesLauncher(object):
@@ -18,9 +19,7 @@ class SetFittingVariablesLauncher(object):
         self.grand_parent = grand_parent
 
         if self.grand_parent.fitting_set_variables_ui is None:
-            set_variables_window = SetFittingVariablesWindow(
-                grand_parent=grand_parent, parent=parent
-            )
+            set_variables_window = SetFittingVariablesWindow(grand_parent=grand_parent, parent=parent)
             self.grand_parent.fitting_set_variables_ui = set_variables_window
             set_variables_window.show()
         else:
@@ -68,9 +67,7 @@ class SetFittingVariablesWindow(QMainWindow):
         self.selection_cell_size_changed(value)
 
     def init_widgets(self):
-        self.advanced_mode = (
-            self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
-        )
+        self.advanced_mode = self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
         if not self.advanced_mode:
             self.ui.a5_button.setVisible(False)
             self.ui.a6_button.setVisible(False)
@@ -96,9 +93,7 @@ class SetFittingVariablesWindow(QMainWindow):
         variable_selected = self.get_variable_selected()
         o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
         o_handler.populate_table_with_variable(variable=variable_selected)
-        o_filling_table = FillingTableHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent, parent=self.parent)
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
@@ -124,11 +119,7 @@ class SetFittingVariablesWindow(QMainWindow):
         variable_selected = self.get_variable_selected()
         selection = self.grand_parent.fitting_set_variables_ui.ui.variable_table.selectedRanges()
         o_handler = SetFittingVariablesHandler(grand_parent=self.grand_parent)
-        new_variable = float(
-            str(
-                self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()
-            )
-        )
+        new_variable = float(str(self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.text()))
         o_handler.set_new_value_to_selected_bins(
             selection=selection,
             variable_name=variable_selected,
@@ -136,9 +127,7 @@ class SetFittingVariablesWindow(QMainWindow):
             table_nbr_row=self.nbr_row,
         )
         self.grand_parent.fitting_set_variables_ui.ui.new_value_text_edit.setText("")
-        o_filling_table = FillingTableHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent, parent=self.parent)
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(False)
@@ -200,9 +189,7 @@ class VariableTableHandler(object):
                     table_dictionary[str(_index)][variable_selected]["fixed"] = state
 
             # remove selection markers
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(
-                _select, False
-            )
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
         self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.fitting_set_variables_ui.update_table()
@@ -261,9 +248,7 @@ class VariableTableHandler(object):
                     table_dictionary[str(_index)][name] = state
 
             # remove selection markers
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(
-                _select, False
-            )
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
         self.grand_parent.march_table_dictionary = table_dictionary
         self.grand_parent.fitting_set_variables_ui.update_table()

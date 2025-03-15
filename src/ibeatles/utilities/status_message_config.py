@@ -9,9 +9,7 @@ class StatusMessageStatus:
     warning = "QStatusBar{padding-left:8px;color:purple;font-weight:normal;}"
 
 
-def show_status_message(
-    parent=None, message="", status=StatusMessageStatus.ready, duration_s=None
-):
+def show_status_message(parent=None, message="", status=StatusMessageStatus.ready, duration_s=None):
     parent.ui.statusbar.setStyleSheet(status)
     if duration_s:
         parent.ui.statusbar.showMessage(message, duration_s * 1000)

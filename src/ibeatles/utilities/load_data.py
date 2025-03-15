@@ -1,6 +1,6 @@
+import numpy as np
 from astropy.io import fits
 from PIL import Image
-import numpy as np
 
 
 class LoadData:

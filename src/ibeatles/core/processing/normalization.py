@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 """Normalization functions for the TOF imaging data."""
 
-import numpy as np
-from typing import Optional, Dict, Any, Tuple, List
-from pathlib import Path
-import shutil
 import logging
+import shutil
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
 
+import numpy as np
 from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
 
@@ -55,9 +55,7 @@ def normalize_data(
         logging.info("Applying moving average")
         if config.normalization.processing_order == "Moving average, Normalization":
             o_norm.data["sample"]["data"] = moving_average(
-                np.array(
-                    o_norm.data["sample"]["data"]
-                ),  # NeuNorm is return a list of arrays
+                np.array(o_norm.data["sample"]["data"]),  # NeuNorm is return a list of arrays
                 config.normalization.moving_average,
             )
             if ob_data is not None:
@@ -102,8 +100,7 @@ def _get_background_roi(config: IBeatlesUserConfig) -> Optional[List[ROI]]:
     """Extract background ROI from configuration."""
     if config.normalization.sample_background:
         return [
-            ROI(x0=bg.x0, y0=bg.y0, width=bg.width, height=bg.height)
-            for bg in config.normalization.sample_background
+            ROI(x0=bg.x0, y0=bg.y0, width=bg.width, height=bg.height) for bg in config.normalization.sample_background
         ]
     return None
 

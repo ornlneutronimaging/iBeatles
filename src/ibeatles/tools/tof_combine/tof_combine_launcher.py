@@ -3,29 +3,27 @@
 TOF combine launcher
 """
 
-from qtpy.QtWidgets import QMainWindow
 import logging
 import warnings
-from ibeatles import load_ui
-from ibeatles import DataType
 
-from ibeatles.utilities.status_message_config import (
-    StatusMessageStatus,
-    show_status_message,
-)
+from qtpy.QtWidgets import QMainWindow
 
-from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.tools.utilities.reload.reload import Reload
-
+from ibeatles import DataType, load_ui
 from ibeatles.tools.tof_combine import SessionKeys
-from ibeatles.tools.tof_combine.initialization import Initialization
 from ibeatles.tools.tof_combine.combine.event_handler import (
     EventHandler as CombineEventHandler,
 )
 from ibeatles.tools.tof_combine.export.export_images import ExportImages
+from ibeatles.tools.tof_combine.initialization import Initialization
 from ibeatles.tools.tof_combine.tof_combine_export_launcher import (
     TofCombineExportLauncher,
+)
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities.reload.reload import Reload
+from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
+from ibeatles.utilities.status_message_config import (
+    StatusMessageStatus,
+    show_status_message,
 )
 
 warnings.filterwarnings("ignore")
@@ -172,9 +170,7 @@ class TofCombine(QMainWindow):
         # o_export.run()
 
     def combine_clicked(self):
-        tof_combine_export_ui = TofCombineExportLauncher(
-            parent=self, grand_parent=self.parent
-        )
+        tof_combine_export_ui = TofCombineExportLauncher(parent=self, grand_parent=self.parent)
         tof_combine_export_ui.show()
 
     def combine_run(self, data_type_selected=DataType.none):
@@ -201,9 +197,7 @@ class TofCombine(QMainWindow):
         self.ui.setEnabled(True)
         return output_folder
 
-    def reload_run_in_main_ui(
-        self, data_type_selected=DataType.normalized, output_folder=None
-    ):
+    def reload_run_in_main_ui(self, data_type_selected=DataType.normalized, output_folder=None):
         o_reload = Reload(parent=self, top_parent=self.parent)
         o_reload.run(data_type=data_type_selected, output_folder=output_folder)
 

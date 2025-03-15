@@ -5,6 +5,7 @@ This module provides a class to get data.
 
 import os
 from os.path import expanduser
+
 from ibeatles.session import SessionKeys, SessionSubKeys
 
 
@@ -37,11 +38,7 @@ class Get:
 
     def distance_source_detector(self) -> str:
         session_dict = self.parent.session_dict
-        return str(
-            session_dict[SessionKeys.instrument][
-                SessionSubKeys.distance_source_detector
-            ]
-        )
+        return str(session_dict[SessionKeys.instrument][SessionSubKeys.distance_source_detector])
 
     def detector_offset(self) -> str:
         session_dict = self.parent.session_dict

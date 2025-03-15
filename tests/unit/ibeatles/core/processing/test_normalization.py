@@ -1,26 +1,27 @@
 #!/usr/bin/env python
 """Unit tests for the normalization process."""
 
+import tempfile
+from pathlib import Path
+
 import numpy as np
 import pytest
-from pathlib import Path
-import tempfile
 
-from ibeatles.core.processing.normalization import normalize_data
 from ibeatles.core.config import (
-    IBeatlesUserConfig,
-    RawData,
-    OpenBeamData,
-    NormalizationConfig,
-    MovingAverage,
     AnalysisConfig,
-    Material,
-    PixelBinning,
     FittingConfig,
-    StrainMapping,
+    IBeatlesUserConfig,
     KernelType,
+    Material,
+    MovingAverage,
+    NormalizationConfig,
+    OpenBeamData,
+    PixelBinning,
+    RawData,
     SampleBackground,
+    StrainMapping,
 )
+from ibeatles.core.processing.normalization import normalize_data
 
 
 @pytest.fixture
@@ -60,9 +61,7 @@ def config(temp_dir):
         open_beam=OpenBeamData(open_beam_data_dir=str(ob_data_dir), extension=".tif"),
         normalization=NormalizationConfig(
             sample_background=[SampleBackground(x0=0, y0=0, width=5, height=5)],
-            moving_average=MovingAverage(
-                active=True, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box
-            ),
+            moving_average=MovingAverage(active=True, dimension="2D", size={"y": 3, "x": 3}, type=KernelType.box),
             processing_order="Moving average, Normalization",
         ),
         analysis=AnalysisConfig(
@@ -95,13 +94,9 @@ def test_normalize_data_with_ob(sample_data, ob_data, time_spectra, config, temp
     3. The output folder is created and contains the expected files
     4. The time spectra file is copied to the output folder
     """
-    normalized_data, output_path = normalize_data(
-        sample_data, ob_data, time_spectra, config, str(temp_dir)
-    )
+    normalized_data, output_path = normalize_data(sample_data, ob_data, time_spectra, config, str(temp_dir))
 
-    assert np.array(normalized_data).shape == sample_data.shape, (
-        "Normalized data shape should match input data shape"
-    )
+    assert np.array(normalized_data).shape == sample_data.shape, "Normalized data shape should match input data shape"
     assert Path(output_path).exists(), "Output folder should be created"
     assert Path(output_path).is_dir(), "Output path should be a directory"
     assert (Path(output_path) / time_spectra["short_filename"]).exists(), (
@@ -120,19 +115,13 @@ def test_normalize_data_without_ob(sample_data, time_spectra, config, temp_dir):
     1. The normalization process runs without errors when open beam data is not provided
     2. The output data has the expected shape
     """
-    normalized_data, output_path = normalize_data(
-        sample_data, None, time_spectra, config, str(temp_dir)
-    )
+    normalized_data, output_path = normalize_data(sample_data, None, time_spectra, config, str(temp_dir))
 
-    assert np.array(normalized_data).shape == sample_data.shape, (
-        "Normalized data shape should match input data shape"
-    )
+    assert np.array(normalized_data).shape == sample_data.shape, "Normalized data shape should match input data shape"
     assert Path(output_path).exists(), "Output folder should be created"
 
 
-def test_normalize_data_without_moving_average(
-    sample_data, ob_data, time_spectra, config, temp_dir
-):
+def test_normalize_data_without_moving_average(sample_data, ob_data, time_spectra, config, temp_dir):
     """
     Test normalization process with moving average disabled.
     This test checks if:
@@ -140,18 +129,12 @@ def test_normalize_data_without_moving_average(
     2. The output data has the expected shape
     """
     config.normalization.moving_average.active = False
-    normalized_data, _ = normalize_data(
-        sample_data, ob_data, time_spectra, config, str(temp_dir)
-    )
+    normalized_data, _ = normalize_data(sample_data, ob_data, time_spectra, config, str(temp_dir))
 
-    assert np.array(normalized_data).shape == sample_data.shape, (
-        "Normalized data shape should match input data shape"
-    )
+    assert np.array(normalized_data).shape == sample_data.shape, "Normalized data shape should match input data shape"
 
 
-def test_normalize_data_with_different_processing_order(
-    sample_data, ob_data, time_spectra, config, temp_dir
-):
+def test_normalize_data_with_different_processing_order(sample_data, ob_data, time_spectra, config, temp_dir):
     """
     Test normalization process with a different processing order.
     This test checks if:
@@ -159,10 +142,6 @@ def test_normalize_data_with_different_processing_order(
     2. The output data has the expected shape
     """
     config.normalization.processing_order = "Normalization, Moving Average"
-    normalized_data, _ = normalize_data(
-        sample_data, ob_data, time_spectra, config, str(temp_dir)
-    )
+    normalized_data, _ = normalize_data(sample_data, ob_data, time_spectra, config, str(temp_dir))
 
-    assert np.array(normalized_data).shape == sample_data.shape, (
-        "Normalized data shape should match input data shape"
-    )
+    assert np.array(normalized_data).shape == sample_data.shape, "Normalized data shape should match input data shape"

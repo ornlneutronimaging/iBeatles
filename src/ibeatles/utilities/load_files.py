@@ -3,10 +3,11 @@
 This module provides a class to load files.
 """
 
-from qtpy.QtWidgets import QApplication
 import glob
 import os
+
 import numpy as np
+from qtpy.QtWidgets import QApplication
 
 from ibeatles import DataType
 from ibeatles.utilities.file_handler import FileHandler

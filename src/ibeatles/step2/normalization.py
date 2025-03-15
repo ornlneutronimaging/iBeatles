@@ -3,18 +3,21 @@
 Normalization
 """
 
-from qtpy.QtWidgets import QFileDialog
+import copy
 import os
 import shutil
-import numpy as np
-import copy
-from loguru import logger
 
+import numpy as np
+from loguru import logger
 from NeuNorm.normalization import Normalization as NeuNormNormalization
 from NeuNorm.roi import ROI
+from qtpy.QtWidgets import QFileDialog
 
 from ibeatles import DataType
-from ibeatles.session import ReductionDimension
+from ibeatles.session import ReductionDimension, SessionKeys, SessionSubKeys
+from ibeatles.step2.get import Get
+from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
+from ibeatles.step2.reduction_tools import moving_average
 from ibeatles.step2.roi_handler import Step2RoiHandler
 from ibeatles.step3.event_handler import EventHandler
 from ibeatles.utilities.file_handler import FileHandler
@@ -22,10 +25,6 @@ from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.step2.reduction_settings_handler import ReductionSettingsHandler
-from ibeatles.step2.reduction_tools import moving_average
-from ibeatles.step2.get import Get
-from ibeatles.session import SessionKeys, SessionSubKeys
 
 
 class Normalization:
@@ -55,20 +54,14 @@ class Normalization:
             return False
 
         # save output folder to session
-        self.parent.session_dict[DataType.normalized][SessionSubKeys.current_folder] = (
-            output_folder
-        )
+        self.parent.session_dict[DataType.normalized][SessionSubKeys.current_folder] = output_folder
 
         logger.info(f" output folder selected: {output_folder}")
         full_output_folder = os.path.join(output_folder, sample_name + "_normalized")
         try:
-            full_output_folder = FileHandler.make_or_append_date_time_to_folder(
-                full_output_folder
-            )
+            full_output_folder = FileHandler.make_or_append_date_time_to_folder(full_output_folder)
         except OSError:
-            logger.info(
-                f"ERROR: folder permission error into this folder {full_output_folder}"
-            )
+            logger.info(f"ERROR: folder permission error into this folder {full_output_folder}")
             show_status_message(
                 parent=self.parent,
                 message="You don't have write permission into this folder!",
@@ -81,12 +74,7 @@ class Normalization:
 
         o_norm = self.create_o_norm()
 
-        if (
-            self.parent.session_dict[SessionKeys.reduction][
-                SessionSubKeys.process_order
-            ]
-            == "option1"
-        ):
+        if self.parent.session_dict[SessionKeys.reduction][SessionSubKeys.process_order] == "option1":
             # running moving average before running normalization
             o_norm = self.running_moving_average(o_norm=copy.deepcopy(o_norm))
             o_norm = self.running_normalization(o_norm=copy.deepcopy(o_norm))
@@ -105,12 +93,8 @@ class Normalization:
             return False
 
         self.export_normalization(o_norm=o_norm, output_folder=full_output_folder)
-        self.saving_normalization_parameters(
-            o_norm=o_norm, output_folder=full_output_folder
-        )
-        self.moving_time_spectra_to_normalizaton_folder(
-            output_folder=full_output_folder
-        )
+        self.saving_normalization_parameters(o_norm=o_norm, output_folder=full_output_folder)
+        self.moving_time_spectra_to_normalizaton_folder(output_folder=full_output_folder)
 
         # repopulate ui with normalized data
         o_step3 = EventHandler(parent=self.parent, data_type=DataType.normalized)
@@ -179,12 +163,8 @@ class Normalization:
         shutil.copy(full_time_spectra, output_folder)
 
     def saving_normalization_parameters(self, o_norm=None, output_folder=None):
-        logger.info(
-            "Internally saving normalization parameters (data, folder, time_spectra)"
-        )
-        self.parent.data_metadata[DataType.normalized]["data"] = np.array(
-            o_norm.get_normalized_data()
-        )
+        logger.info("Internally saving normalization parameters (data, folder, time_spectra)")
+        self.parent.data_metadata[DataType.normalized]["data"] = np.array(o_norm.get_normalized_data())
         self.parent.data_metadata[DataType.normalized]["folder"] = output_folder
         self.parent.data_metadata[DataType.normalized]["time_spectra"] = copy.deepcopy(
             self.parent.data_metadata[DataType.sample]["time_spectra"]
@@ -194,9 +174,7 @@ class Normalization:
         if o_norm is None:
             return None
 
-        running_moving_average_settings = self.parent.session_dict[
-            SessionKeys.reduction
-        ]
+        running_moving_average_settings = self.parent.session_dict[SessionKeys.reduction]
         if not running_moving_average_settings["activate"]:
             logger.info("Not running moving average! Option has been turned off")
             return o_norm

@@ -3,17 +3,16 @@
 Export images module
 """
 
-from qtpy.QtWidgets import QFileDialog
 import logging
 import os
 import shutil
 
 from NeuNorm.normalization import Normalization
-
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.utilities.file_handler import FileHandler
+from qtpy.QtWidgets import QFileDialog
 
 from ibeatles.tools.tof_combine.utilities.get import Get
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities.file_handler import FileHandler
 
 
 class ExportImages:
@@ -73,9 +72,7 @@ class ExportImages:
         output_folder = self.output_folder
 
         # retrieve full path of the time spectra file from first folder selected
-        full_path_time_spectra_file = self.parent.time_spectra[
-            TimeSpectraKeys.file_name
-        ]
+        full_path_time_spectra_file = self.parent.time_spectra[TimeSpectraKeys.file_name]
 
         logging.info(f" - time spectra file: {full_path_time_spectra_file}")
         logging.info(f" - to output folder: {output_folder}")

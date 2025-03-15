@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 """Unit tests for Kropff fitting functions."""
 
-import pytest
 import numpy as np
+import pytest
 from lmfit.model import ModelResult
 
 from ibeatles.core.fitting.kropff.fitting import (
+    fit_bragg_edge_multi_step,
     fit_bragg_edge_single_pass,
     fit_bragg_edge_with_refinement,
-    fit_bragg_edge_multi_step,
 )
-from ibeatles.core.fitting.utils import generate_synthetic_transmission
 from ibeatles.core.fitting.kropff.models import kropff_transmission_model
+from ibeatles.core.fitting.utils import generate_synthetic_transmission
 
 
 @pytest.fixture
@@ -33,9 +33,9 @@ def sample_data():
 
     # Generate data with different noise levels
     clean_data = kropff_transmission_model(wavelengths, **true_params)
-    noisy_data = generate_synthetic_transmission(
-        kropff_transmission_model, wavelengths, true_params, noise_level=0.01
-    )[1]
+    noisy_data = generate_synthetic_transmission(kropff_transmission_model, wavelengths, true_params, noise_level=0.01)[
+        1
+    ]
 
     return {
         "wavelengths": wavelengths,
@@ -142,16 +142,12 @@ def test_fit_bragg_edge_single_pass_bad_data():
 
     # Case 1: Completely corrupted data (no edge to fit)
     transmission_constant = np.ones_like(wavelengths) * np.nan
-    result_constant = fit_bragg_edge_single_pass(
-        wavelengths, transmission_constant, parameter_bounds=bounds
-    )
+    result_constant = fit_bragg_edge_single_pass(wavelengths, transmission_constant, parameter_bounds=bounds)
     assert result_constant is None or not result_constant.success
 
     # Case 2: Pure noise (no meaningful signal)
     transmission_noise = np.random.normal(0.5, 2.0, size=len(wavelengths))
-    result_noise = fit_bragg_edge_single_pass(
-        wavelengths, transmission_noise, parameter_bounds=bounds
-    )
+    result_noise = fit_bragg_edge_single_pass(wavelengths, transmission_noise, parameter_bounds=bounds)
     if result_noise is not None and result_noise.success:
         # Check edge parameters
         edge_params = result_noise.params["bragg_edge_wavelength"]
@@ -168,9 +164,7 @@ def test_fit_bragg_edge_single_pass_bad_data():
     # Case 3: Too few points after cleaning
     wavelengths_few = np.linspace(3.0, 5.0, 3)
     transmission_few = np.ones_like(wavelengths_few)
-    result_few = fit_bragg_edge_single_pass(
-        wavelengths_few, transmission_few, parameter_bounds=bounds
-    )
+    result_few = fit_bragg_edge_single_pass(wavelengths_few, transmission_few, parameter_bounds=bounds)
     assert result_few is None or not result_few.success
 
 
@@ -285,19 +279,13 @@ def test_fit_bragg_edge_with_refinement_missing_bounds():
     transmission = np.ones_like(wavelengths)
 
     # Missing bounds
-    with pytest.raises(
-        ValueError, match="Bounds for 'sigma' and 'tau' must be provided"
-    ):
+    with pytest.raises(ValueError, match="Bounds for 'sigma' and 'tau' must be provided"):
         fit_bragg_edge_with_refinement(wavelengths, transmission)
 
     # Missing sigma bounds
     bounds = {"tau": {"min": 0.005, "max": 0.1}}
-    with pytest.raises(
-        ValueError, match="Bounds for 'sigma' and 'tau' must be provided"
-    ):
-        fit_bragg_edge_with_refinement(
-            wavelengths, transmission, parameter_bounds=bounds
-        )
+    with pytest.raises(ValueError, match="Bounds for 'sigma' and 'tau' must be provided"):
+        fit_bragg_edge_with_refinement(wavelengths, transmission, parameter_bounds=bounds)
 
 
 def test_fit_bragg_edge_with_refinement_bad_data():
@@ -311,16 +299,12 @@ def test_fit_bragg_edge_with_refinement_bad_data():
 
     # Case 1: Completely corrupted data (no edge to fit)
     transmission_constant = np.ones_like(wavelengths) * np.nan
-    result_constant = fit_bragg_edge_with_refinement(
-        wavelengths, transmission_constant, parameter_bounds=bounds
-    )
+    result_constant = fit_bragg_edge_with_refinement(wavelengths, transmission_constant, parameter_bounds=bounds)
     assert result_constant is None or not result_constant.success
 
     # Case 2: Pure noise (no meaningful signal)
     transmission_noise = np.random.normal(0.5, 2.0, size=len(wavelengths))
-    result_noise = fit_bragg_edge_with_refinement(
-        wavelengths, transmission_noise, parameter_bounds=bounds
-    )
+    result_noise = fit_bragg_edge_with_refinement(wavelengths, transmission_noise, parameter_bounds=bounds)
     if result_noise is not None and result_noise.success:
         # Check edge parameters
         edge_params = result_noise.params["bragg_edge_wavelength"]
@@ -337,9 +321,7 @@ def test_fit_bragg_edge_with_refinement_bad_data():
     # Case 3: Too few points
     wavelengths_few = np.linspace(3.0, 5.0, 3)
     transmission_few = np.ones_like(wavelengths_few)
-    result_few = fit_bragg_edge_with_refinement(
-        wavelengths_few, transmission_few, parameter_bounds=bounds
-    )
+    result_few = fit_bragg_edge_with_refinement(wavelengths_few, transmission_few, parameter_bounds=bounds)
     assert result_few is None or not result_few.success
 
 
@@ -443,9 +425,7 @@ def test_fit_bragg_edge_multi_step_missing_bounds():
     high_lambda_range = (4.5, 5.0)
     low_lambda_range = (3.0, 3.5)
 
-    with pytest.raises(
-        ValueError, match="Bounds for 'sigma' and 'tau' must be provided"
-    ):
+    with pytest.raises(ValueError, match="Bounds for 'sigma' and 'tau' must be provided"):
         fit_bragg_edge_multi_step(
             wavelengths,
             transmission,

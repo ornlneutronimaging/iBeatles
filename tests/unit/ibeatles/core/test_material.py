@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """Unit tests for ibeatles.core.material module."""
 
-import pytest
 import numpy as np
-from ibeatles.core.config import Material, CustomMaterial
+import pytest
+
+from ibeatles.core.config import CustomMaterial, Material
 from ibeatles.core.material import get_bragg_edges, get_initial_bragg_edge_lambda
 
 
@@ -91,9 +92,7 @@ class TestGetInitialBraggEdgeLambda:
         result = get_initial_bragg_edge_lambda(fe_material_config, lambda_range)
 
         edges = get_bragg_edges(fe_material_config)["bragg_edges"]
-        valid_edges = [
-            edge for edge in edges if lambda_range[0] <= edge <= lambda_range[1]
-        ]
+        valid_edges = [edge for edge in edges if lambda_range[0] <= edge <= lambda_range[1]]
 
         # Should choose middle edge
         expected = valid_edges[len(valid_edges) // 2]

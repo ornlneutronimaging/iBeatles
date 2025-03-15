@@ -6,11 +6,11 @@ Preview full bin axis
 from qtpy.QtWidgets import QDialog
 
 from ibeatles import load_ui
-from ibeatles.tools import MICRO, ANGSTROMS
+from ibeatles.tools import ANGSTROMS, MICRO
+from ibeatles.tools.tof_bin import TO_ANGSTROMS_UNITS, TO_MICROS_UNITS
 from ibeatles.tools.tof_bin.utilities.get import Get
-from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class PreviewFullBinAxis(QDialog):

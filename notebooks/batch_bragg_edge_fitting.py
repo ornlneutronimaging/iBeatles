@@ -6,13 +6,15 @@ app = marimo.App(width="medium")
 
 @app.cell
 def _():
-    import marimo as mo
-    import json
     import copy
+    import json
     import time
     from pathlib import Path
-    from ibeatles.core.config import IBeatlesUserConfig
+
+    import marimo as mo
+
     from ibeatles.app.cli import main as ibeatles_main
+    from ibeatles.core.config import IBeatlesUserConfig
 
     return IBeatlesUserConfig, Path, copy, ibeatles_main, json, mo, time
 
@@ -66,9 +68,7 @@ def _(base_json_viewer, mo):
 def _(IBeatlesUserConfig, base_configuration_file, json):
     # process the configuration file into a IBeatlesUserConfig object
     if base_configuration_file.contents() is not None:
-        base_ibeatles_config = IBeatlesUserConfig(
-            **json.loads(base_configuration_file.contents())
-        )
+        base_ibeatles_config = IBeatlesUserConfig(**json.loads(base_configuration_file.contents()))
     return (base_ibeatles_config,)
 
 
@@ -132,9 +132,7 @@ def _(Path):
         elif not image_extensions:
             raise ValueError("No valid image file found in the folder.")
         else:
-            raise ValueError(
-                f"Multiple image extensions found: {', '.join(image_extensions)}"
-            )
+            raise ValueError(f"Multiple image extensions found: {', '.join(image_extensions)}")
 
     # get_image_extension(folders_selector_sample.value[0].path)
     return (get_image_extension,)
@@ -161,9 +159,7 @@ def _(
         # update the raw data path
         _sample_config.raw_data.raw_data_dir = folders_selector_sample.value[_i].path
         # Update the file extension in case they are changing from one dataset to another
-        _sample_config.raw_data.extension = get_image_extension(
-            _sample_config.raw_data.raw_data_dir
-        )
+        _sample_config.raw_data.extension = get_image_extension(_sample_config.raw_data.raw_data_dir)
         # Update output file paths
         _sample_config.output["normalized_data_dir"] = Path(
             str(_sample_config.output["normalized_data_dir"]) + f"_{_i}"
@@ -171,9 +167,7 @@ def _(
         _sample_config.output["analysis_results_dir"] = Path(
             str(_sample_config.output["analysis_results_dir"]) + f"_{_i}"
         )
-        _sample_config.output["strain_results_dir"] = Path(
-            str(_sample_config.output["strain_results_dir"]) + f"_{_i}"
-        )
+        _sample_config.output["strain_results_dir"] = Path(str(_sample_config.output["strain_results_dir"]) + f"_{_i}")
 
         # append
         batch_config_list.append(_sample_config)

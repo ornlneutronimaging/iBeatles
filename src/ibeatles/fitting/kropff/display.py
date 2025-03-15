@@ -3,8 +3,8 @@
 Display class for Kropff fitting
 """
 
-import pyqtgraph as pg
 import numpy as np
+import pyqtgraph as pg
 
 from ibeatles.fitting.kropff.get import Get as GetKropff
 from ibeatles.utilities.display import Display as UtilitiesDisplay
@@ -18,9 +18,7 @@ class Display:
     def display_bragg_peak_threshold(self):
         # clear all previously display bragg peak threshold
         if self.parent.kropff_threshold_current_item is not None:
-            self.parent.ui.kropff_fitting.removeItem(
-                self.parent.kropff_threshold_current_item
-            )
+            self.parent.ui.kropff_fitting.removeItem(self.parent.kropff_threshold_current_item)
             self.parent.kropff_threshold_current_item = None
 
         # get list of row selected
@@ -49,9 +47,7 @@ class Display:
             bounds=None,
         )
         lr.setZValue(-10)
-        lr.sigRegionChangeFinished.connect(
-            self.parent.kropff_bragg_edge_threshold_changed
-        )
+        lr.sigRegionChangeFinished.connect(self.parent.kropff_bragg_edge_threshold_changed)
         self.parent.ui.kropff_fitting.addItem(lr)
         self.parent.kropff_threshold_current_item = lr
 
@@ -62,9 +58,7 @@ class Display:
         o_get = GetKropff(parent=self.parent)
         matplotlib_ui = o_get.kropff_matplotlib_ui_selected()
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
-        fitting_parameter_to_plot = (
-            o_get.kropff_fitting_parameters_radioButton_selected()
-        )
+        fitting_parameter_to_plot = o_get.kropff_fitting_parameters_radioButton_selected()
 
         if not fitting_parameter_to_plot:
             return
@@ -139,9 +133,7 @@ class Display:
         lambda_position = float(str(self.parent.ui.bragg_edge_calculated.text()))
 
         o_utility_display = UtilitiesDisplay(ui=pyqtgraph_ui)
-        new_item = o_utility_display.vertical_line(
-            item=item, x_position=lambda_position
-        )
+        new_item = o_utility_display.vertical_line(item=item, x_position=lambda_position)
         self.parent.lambda_0_item_in_kropff_fitting_plot = new_item
 
     def display_lambda_calculated(self):

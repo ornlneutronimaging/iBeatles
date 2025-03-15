@@ -1,7 +1,9 @@
+import logging
+
+from qtpy.QtWidgets import QMessageBox
+
 from .. import DataType
 from ..utilities.status_message_config import StatusMessageStatus, show_status_message
-from qtpy.QtWidgets import QMessageBox
-import logging
 
 
 class EventHandler:
@@ -39,9 +41,7 @@ class EventHandler:
                 message = "Please load some sample data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
-                EventHandler._update_logging(
-                    step_requested=step_index_requested, message=message
-                )
+                EventHandler._update_logging(step_requested=step_index_requested, message=message)
                 return False
             return True
 
@@ -57,9 +57,7 @@ class EventHandler:
                 message = "Please load some normalized data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
-                EventHandler._update_logging(
-                    step_requested=step_index_requested, message=message
-                )
+                EventHandler._update_logging(step_requested=step_index_requested, message=message)
                 return False
             return True
 
@@ -70,34 +68,24 @@ class EventHandler:
                 message = "Please load some normalized data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
-                EventHandler._update_logging(
-                    step_requested=step_index_requested, message=message
-                )
+                EventHandler._update_logging(step_requested=step_index_requested, message=message)
                 return False
             if not self.parent.there_is_a_roi:
                 message = "Please select a region to bin first (step binning)!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
-                EventHandler._update_logging(
-                    step_requested=step_index_requested, message=message
-                )
+                EventHandler._update_logging(step_requested=step_index_requested, message=message)
                 return False
             return True
 
         # strain mapping
         # validate if fitting has been performed
         if step_index_requested == 5:
-            if (self.parent.march_table_dictionary == {}) and (
-                self.parent.kropff_table_dictionary == {}
-            ):
-                message = (
-                    "Please fit the data to be able to visualize the strain mapping!"
-                )
+            if (self.parent.march_table_dictionary == {}) and (self.parent.kropff_table_dictionary == {}):
+                message = "Please fit the data to be able to visualize the strain mapping!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
-                EventHandler._update_logging(
-                    step_requested=step_index_requested, message=message
-                )
+                EventHandler._update_logging(step_requested=step_index_requested, message=message)
                 return False
             return True
 
@@ -108,9 +96,7 @@ class EventHandler:
                 message = "Please load some normalized data!"
                 self._display_status_message_warning(message=message)
                 self._display_message_box(message=message)
-                EventHandler._update_logging(
-                    step_requested=step_index_requested, message=message
-                )
+                EventHandler._update_logging(step_requested=step_index_requested, message=message)
                 return False
             return True
 

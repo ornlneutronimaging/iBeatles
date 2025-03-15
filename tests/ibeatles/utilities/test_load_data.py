@@ -1,6 +1,7 @@
-from unittest import TestCase
 import glob
 import os
+from unittest import TestCase
+
 import numpy as np
 
 from ibeatles.utilities.load_data import LoadData
@@ -19,17 +20,13 @@ class TestLoadData(TestCase):
     # fits
     def test_load_single_fits_file(self):
         """Assert loading single fits file works"""
-        fits_file = glob.glob(
-            os.path.join(self.data_path, "sample_with_time_spectra/*.fits")
-        )
+        fits_file = glob.glob(os.path.join(self.data_path, "sample_with_time_spectra/*.fits"))
         image_array = LoadData.load_fits_file(fits_file[0])
         self.assertEqual(image_array.shape, (512, 512))
 
     def test_list_fits_files(self):
         """Assert loading list of fits works"""
-        fits_file = glob.glob(
-            os.path.join(self.data_path, "sample_with_time_spectra/*.fits")
-        )
+        fits_file = glob.glob(os.path.join(self.data_path, "sample_with_time_spectra/*.fits"))
         o_load = LoadData(list_of_files=fits_file[:2], image_ext=".fits")
         o_load.load_fits()
         data_loaded = o_load.image_array
@@ -38,9 +35,7 @@ class TestLoadData(TestCase):
 
     def test_list_fits_files_from_main_caller(self):
         """Assert loading list of fits works"""
-        fits_file = glob.glob(
-            os.path.join(self.data_path, "sample_with_time_spectra/*.fits")
-        )
+        fits_file = glob.glob(os.path.join(self.data_path, "sample_with_time_spectra/*.fits"))
         o_load = LoadData(list_of_files=fits_file[:2], image_ext=".fits")
         o_load.load()
         data_loaded = o_load.image_array

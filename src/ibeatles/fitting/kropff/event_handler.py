@@ -3,50 +3,48 @@
 Event handler module
 """
 
-import numpy as np
 import copy
-from qtpy.QtWidgets import QMenu
-from qtpy import QtGui
-from qtpy.QtWidgets import QApplication
+import json
 import logging
 from pathlib import PurePath
-import json
 
-from ibeatles.fitting.get import Get
-from ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import (
-    KropffBraggPeakThresholdCalculator,
-)
+import numpy as np
+from qtpy import QtGui
+from qtpy.QtWidgets import QApplication, QMenu
+
 from ibeatles import DataType, interact_me_style, normal_style
-from ibeatles.fitting.kropff.fit_regions import FitRegions
-from ibeatles.fitting.kropff.display import Display
+from ibeatles.fitting import FittingKeys, FittingTabSelected, KropffTabSelected
 from ibeatles.fitting.fitting_handler import FittingHandler
-from ibeatles.utilities.table_handler import TableHandler
-from ibeatles.fitting.kropff.get import Get as KropffGet
-from ibeatles.fitting import KropffTabSelected
-from ibeatles.utilities.file_handler import select_folder
-from ibeatles.utilities.array_utilities import from_nparray_to_list
-from ibeatles.utilities.check import is_float, is_nan
-
-from ibeatles.fitting import FittingTabSelected, FittingKeys
-from ibeatles.fitting.kropff import UNLOCK_ROW_BACKGROUND
-from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from ibeatles.session import SessionSubKeys
+from ibeatles.fitting.get import Get
 from ibeatles.fitting.kropff import (
+    UNLOCK_ROW_BACKGROUND,
+    BraggPeakInitParameters,
     FittingKropffBraggPeakColumns,
     FittingKropffHighLambdaColumns,
     FittingKropffLowLambdaColumns,
-    BraggPeakInitParameters,
 )
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.fitting.kropff.checking_fitting_conditions import (
     CheckingFittingConditions,
 )
-from ibeatles.utilities.status_message_config import (
-    show_status_message,
-    StatusMessageStatus,
-)
+from ibeatles.fitting.kropff.display import Display
+from ibeatles.fitting.kropff.fit_regions import FitRegions
 from ibeatles.fitting.kropff.fitting_parameters_viewer_editor_launcher import (
     FittingParametersViewerEditorLauncher,
 )
+from ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.fitting.kropff.kropff_bragg_peak_threshold_calculator import (
+    KropffBraggPeakThresholdCalculator,
+)
+from ibeatles.session import SessionSubKeys
+from ibeatles.utilities.array_utilities import from_nparray_to_list
+from ibeatles.utilities.check import is_float, is_nan
+from ibeatles.utilities.file_handler import select_folder
+from ibeatles.utilities.status_message_config import (
+    StatusMessageStatus,
+    show_status_message,
+)
+from ibeatles.utilities.table_handler import TableHandler
 
 fit_rgb = (255, 0, 0)
 
@@ -61,14 +59,10 @@ class EventHandler:
     def reset_fitting_parameters(self):
         table_dictionary = self.grand_parent.kropff_table_dictionary
 
-        kropff_table_dictionary_template = (
-            FittingHandler.kropff_table_dictionary_template
-        )
+        kropff_table_dictionary_template = FittingHandler.kropff_table_dictionary_template
         for _row in table_dictionary.keys():
             for _template_key in kropff_table_dictionary_template.keys():
-                table_dictionary[_row][_template_key] = copy.deepcopy(
-                    kropff_table_dictionary_template[_template_key]
-                )
+                table_dictionary[_row][_template_key] = copy.deepcopy(kropff_table_dictionary_template[_template_key])
 
     def _is_first_row_has_threshold_defined(self):
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
@@ -90,18 +84,12 @@ class EventHandler:
     def check_widgets_helper(self):
         if self._we_are_ready_to_fit_all_regions():
             self.parent.ui.kropff_fit_allregions_pushButton.setEnabled(True)
-            self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(
-                interact_me_style
-            )
-            self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(
-                normal_style
-            )
+            self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(interact_me_style)
+            self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(normal_style)
         else:
             self.parent.ui.kropff_fit_allregions_pushButton.setEnabled(False)
             self.parent.ui.kropff_fit_allregions_pushButton.setStyleSheet(normal_style)
-            self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(
-                interact_me_style
-            )
+            self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
 
     def record_all_xaxis_and_yaxis(self):
         table_dictionary = self.grand_parent.kropff_table_dictionary
@@ -109,9 +97,7 @@ class EventHandler:
         data_2d = self.grand_parent.data_metadata["normalized"]["data"]
 
         # index of selection in bragg edge plot
-        [left_index, right_index] = (
-            self.grand_parent.fitting_bragg_edge_linear_selection
-        )
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
         full_x_axis = self.parent.bragg_edge_data["x_axis"]
         xaxis = np.array(full_x_axis[left_index:right_index], dtype=float)
 
@@ -142,9 +128,7 @@ class EventHandler:
         o_get = Get(parent=self.parent, grand_parent=self.grand_parent)
         yaxis, xaxis = o_get.y_axis_and_x_axis_for_given_rows_selected()
 
-        self.parent.ui.kropff_fitting.setLabel(
-            "left", "Cross Section (arbitrary units, -log(counts))"
-        )
+        self.parent.ui.kropff_fitting.setLabel("left", "Cross Section (arbitrary units, -log(counts))")
         self.parent.ui.kropff_fitting.setLabel("bottom", "\u03bb (\u212b)")
 
         for _yaxis in yaxis:
@@ -155,17 +139,13 @@ class EventHandler:
 
         if yaxis_fitted:
             for _yaxis in yaxis_fitted:
-                self.parent.ui.kropff_fitting.plot(
-                    xaxis_fitted, _yaxis, pen=(fit_rgb[0], fit_rgb[1], fit_rgb[2])
-                )
+                self.parent.ui.kropff_fitting.plot(xaxis_fitted, _yaxis, pen=(fit_rgb[0], fit_rgb[1], fit_rgb[2]))
 
         o_display = Display(parent=self.parent, grand_parent=self.grand_parent)
         o_display.display_bragg_peak_threshold()
 
     def kropff_automatic_bragg_peak_threshold_finder_clicked(self):
-        o_kropff = KropffBraggPeakThresholdCalculator(
-            parent=self.parent, grand_parent=self.grand_parent
-        )
+        o_kropff = KropffBraggPeakThresholdCalculator(parent=self.parent, grand_parent=self.grand_parent)
         o_kropff.save_all_profiles()
         o_kropff.run_automatic_mode()
 
@@ -189,34 +169,30 @@ class EventHandler:
         # high TOF
         a0 = self.parent.ui.kropff_high_lda_a0_init.text()
         b0 = self.parent.ui.kropff_high_lda_b0_init.text()
-        high_tof_graph = (
-            "a0" if self.parent.ui.kropff_a0_radioButton.isChecked() else "b0"
-        )
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.high_tof
-        ][KropffSessionSubKeys.a0] = a0
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.high_tof
-        ][KropffSessionSubKeys.b0] = b0
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.high_tof
-        ][KropffSessionSubKeys.graph] = high_tof_graph
+        high_tof_graph = "a0" if self.parent.ui.kropff_a0_radioButton.isChecked() else "b0"
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.high_tof][
+            KropffSessionSubKeys.a0
+        ] = a0
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.high_tof][
+            KropffSessionSubKeys.b0
+        ] = b0
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.high_tof][
+            KropffSessionSubKeys.graph
+        ] = high_tof_graph
 
         # low TOF
         ahkl = self.parent.ui.kropff_low_lda_ahkl_init.text()
         bhkl = self.parent.ui.kropff_low_lda_bhkl_init.text()
-        low_tof_graph = (
-            "ahkl" if self.parent.ui.kropff_ahkl_radioButton.isChecked() else "bhkl"
-        )
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.low_tof
-        ][KropffSessionSubKeys.ahkl] = ahkl
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.low_tof
-        ][KropffSessionSubKeys.bhkl] = bhkl
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.low_tof
-        ][KropffSessionSubKeys.graph] = low_tof_graph
+        low_tof_graph = "ahkl" if self.parent.ui.kropff_ahkl_radioButton.isChecked() else "bhkl"
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.low_tof][
+            KropffSessionSubKeys.ahkl
+        ] = ahkl
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.low_tof][
+            KropffSessionSubKeys.bhkl
+        ] = bhkl
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.low_tof][
+            KropffSessionSubKeys.graph
+        ] = low_tof_graph
 
         # bragg peak
         lambda_hkl_fix_flag = self.parent.ui.lambda_hkl_fix_radioButton.isChecked()
@@ -225,31 +201,21 @@ class EventHandler:
         lambda_hkl_range_to = self.parent.ui.lambda_hkl_to_lineEdit.text()
         lambda_hkl_range_step = self.parent.ui.lambda_hkl_step_lineEdit.text()
 
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.lambda_hkl][
-            BraggPeakInitParameters.fix_value
-        ] = lambda_hkl_fix_value
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.lambda_hkl][
-            BraggPeakInitParameters.fix_flag
-        ] = lambda_hkl_fix_flag
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.lambda_hkl][
-            BraggPeakInitParameters.range_from
-        ] = lambda_hkl_range_from
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.lambda_hkl][
-            BraggPeakInitParameters.range_to
-        ] = lambda_hkl_range_to
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.lambda_hkl][
-            BraggPeakInitParameters.range_step
-        ] = lambda_hkl_range_step
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl
+        ][BraggPeakInitParameters.fix_value] = lambda_hkl_fix_value
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl
+        ][BraggPeakInitParameters.fix_flag] = lambda_hkl_fix_flag
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl
+        ][BraggPeakInitParameters.range_from] = lambda_hkl_range_from
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl
+        ][BraggPeakInitParameters.range_to] = lambda_hkl_range_to
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.lambda_hkl
+        ][BraggPeakInitParameters.range_step] = lambda_hkl_range_step
 
         # parameters required by strain mapping window
         from_lambda = self.parent.ui.lambda_min_lineEdit.text()
@@ -270,9 +236,9 @@ class EventHandler:
         self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
             BraggPeakInitParameters.lambda_0
         ] = lambda_0
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            BraggPeakInitParameters.element
-        ] = element
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][BraggPeakInitParameters.element] = (
+            element
+        )
 
         # bragg peak parameters
         tau_fix_flag = self.parent.ui.tau_fix_radioButton.isChecked()
@@ -280,48 +246,42 @@ class EventHandler:
         tau_range_from = self.parent.ui.tau_from_lineEdit.text()
         tau_range_to = self.parent.ui.tau_to_lineEdit.text()
         tau_range_step = self.parent.ui.tau_step_lineEdit.text()
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.tau][BraggPeakInitParameters.fix_value] = tau_fix_value
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.tau][BraggPeakInitParameters.fix_flag] = tau_fix_flag
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.tau][BraggPeakInitParameters.range_from] = tau_range_from
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.tau][BraggPeakInitParameters.range_to] = tau_range_to
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.tau][BraggPeakInitParameters.range_step] = tau_range_step
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau
+        ][BraggPeakInitParameters.fix_value] = tau_fix_value
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau
+        ][BraggPeakInitParameters.fix_flag] = tau_fix_flag
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau
+        ][BraggPeakInitParameters.range_from] = tau_range_from
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau
+        ][BraggPeakInitParameters.range_to] = tau_range_to
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.tau
+        ][BraggPeakInitParameters.range_step] = tau_range_step
 
         sigma_fix_flag = self.parent.ui.sigma_fix_radioButton.isChecked()
         sigma_fix_value = self.parent.ui.sigma_fix_lineEdit.text()
         sigma_range_from = self.parent.ui.sigma_from_lineEdit.text()
         sigma_range_to = self.parent.ui.sigma_to_lineEdit.text()
         sigma_range_step = self.parent.ui.sigma_step_lineEdit.text()
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.sigma][
-            BraggPeakInitParameters.fix_value
-        ] = sigma_fix_value
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.sigma][BraggPeakInitParameters.fix_flag] = sigma_fix_flag
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.sigma][
-            BraggPeakInitParameters.range_from
-        ] = sigma_range_from
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.sigma][BraggPeakInitParameters.range_to] = sigma_range_to
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.sigma][
-            BraggPeakInitParameters.range_step
-        ] = sigma_range_step
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma
+        ][BraggPeakInitParameters.fix_value] = sigma_fix_value
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma
+        ][BraggPeakInitParameters.fix_flag] = sigma_fix_flag
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma
+        ][BraggPeakInitParameters.range_from] = sigma_range_from
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma
+        ][BraggPeakInitParameters.range_to] = sigma_range_to
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.sigma
+        ][BraggPeakInitParameters.range_step] = sigma_range_step
 
         # lambda_hkl = self.parent.kropff_lambda_settings['fix']
         # tau = self.parent.ui.kropff_bragg_peak_tau_init.text()
@@ -339,9 +299,9 @@ class EventHandler:
         #     KropffSessionSubKeys.tau] = tau
         # self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
         #     KropffSessionSubKeys.sigma] = sigma
-        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
-            KropffSessionSubKeys.bragg_peak
-        ][KropffSessionSubKeys.graph] = bragg_peak_graph
+        self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][KropffSessionSubKeys.bragg_peak][
+            KropffSessionSubKeys.graph
+        ] = bragg_peak_graph
 
         self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
             KropffSessionSubKeys.kropff_bragg_peak_good_fit_conditions
@@ -443,105 +403,83 @@ class EventHandler:
         #  'bragg_peak': {'xaxis': None, 'yaxis': None},
         fitted_dict = metadata_for_this_row[KropffSessionSubKeys.fitted]
 
-        parent_folder = PurePath(
-            self.grand_parent.default_path[DataType.normalized]
-        ).parent
-        base_parent_folder = PurePath(
-            self.grand_parent.default_path[DataType.normalized]
-        ).name
+        parent_folder = PurePath(self.grand_parent.default_path[DataType.normalized]).parent
+        base_parent_folder = PurePath(self.grand_parent.default_path[DataType.normalized]).name
         output_folder = select_folder(start_folder=str(parent_folder))
 
-        full_output_filename = (
-            PurePath(output_folder) / f"{str(base_parent_folder)}_bin#{bin_number}.json"
-        )
+        full_output_filename = PurePath(output_folder) / f"{str(base_parent_folder)}_bin#{bin_number}.json"
         logging.info(f" - output file name: {full_output_filename}")
 
         # cleanup data
         cleaned_dict = {}
 
-        cleaned_dict[FittingKeys.x_axis] = from_nparray_to_list(
-            metadata_for_this_row[FittingKeys.x_axis]
-        )
-        cleaned_dict[FittingKeys.y_axis] = from_nparray_to_list(
-            metadata_for_this_row[FittingKeys.y_axis]
-        )
+        cleaned_dict[FittingKeys.x_axis] = from_nparray_to_list(metadata_for_this_row[FittingKeys.x_axis])
+        cleaned_dict[FittingKeys.y_axis] = from_nparray_to_list(metadata_for_this_row[FittingKeys.y_axis])
 
         # fitted
         cleaned_dict[KropffSessionSubKeys.fitted] = {}
 
         # high tof
         cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof] = {}
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][
-            FittingKeys.x_axis
-        ] = from_nparray_to_list(
-            fitted_dict[KropffSessionSubKeys.high_tof][FittingKeys.x_axis]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][FittingKeys.x_axis] = (
+            from_nparray_to_list(fitted_dict[KropffSessionSubKeys.high_tof][FittingKeys.x_axis])
         )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][
-            FittingKeys.y_axis
-        ] = from_nparray_to_list(
-            fitted_dict[KropffSessionSubKeys.high_tof][FittingKeys.y_axis]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.high_tof][FittingKeys.y_axis] = (
+            from_nparray_to_list(fitted_dict[KropffSessionSubKeys.high_tof][FittingKeys.y_axis])
         )
 
         # low tof
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof] = {}
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][
-            FittingKeys.x_axis
-        ] = from_nparray_to_list(
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][FittingKeys.x_axis] = from_nparray_to_list(
             fitted_dict[KropffTabSelected.low_tof][FittingKeys.x_axis]
         )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][
-            FittingKeys.y_axis
-        ] = from_nparray_to_list(
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.low_tof][FittingKeys.y_axis] = from_nparray_to_list(
             fitted_dict[KropffTabSelected.low_tof][FittingKeys.y_axis]
         )
 
         # bragg peak
         cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak] = {}
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][
-            FittingKeys.x_axis
-        ] = from_nparray_to_list(
-            fitted_dict[KropffTabSelected.bragg_peak][FittingKeys.x_axis]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][FittingKeys.x_axis] = (
+            from_nparray_to_list(fitted_dict[KropffTabSelected.bragg_peak][FittingKeys.x_axis])
         )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][
-            FittingKeys.y_axis
-        ] = from_nparray_to_list(
-            fitted_dict[KropffTabSelected.bragg_peak][FittingKeys.y_axis]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffTabSelected.bragg_peak][FittingKeys.y_axis] = (
+            from_nparray_to_list(fitted_dict[KropffTabSelected.bragg_peak][FittingKeys.y_axis])
         )
 
         # fitting parameters
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.a0] = (
-            metadata_for_this_row[KropffSessionSubKeys.a0]
-        )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.b0] = (
-            metadata_for_this_row[KropffSessionSubKeys.b0]
-        )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.ahkl] = (
-            metadata_for_this_row[KropffSessionSubKeys.ahkl]
-        )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.bhkl] = (
-            metadata_for_this_row[KropffSessionSubKeys.bhkl]
-        )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.lambda_hkl] = (
-            metadata_for_this_row[KropffSessionSubKeys.lambda_hkl]
-        )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.tau] = (
-            metadata_for_this_row[KropffSessionSubKeys.tau]
-        )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.sigma] = (
-            metadata_for_this_row[KropffSessionSubKeys.sigma]
-        )
-        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.bhkl] = (
-            metadata_for_this_row[KropffSessionSubKeys.bhkl]
-        )
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.a0] = metadata_for_this_row[
+            KropffSessionSubKeys.a0
+        ]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.b0] = metadata_for_this_row[
+            KropffSessionSubKeys.b0
+        ]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.ahkl] = metadata_for_this_row[
+            KropffSessionSubKeys.ahkl
+        ]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.bhkl] = metadata_for_this_row[
+            KropffSessionSubKeys.bhkl
+        ]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.lambda_hkl] = metadata_for_this_row[
+            KropffSessionSubKeys.lambda_hkl
+        ]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.tau] = metadata_for_this_row[
+            KropffSessionSubKeys.tau
+        ]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.sigma] = metadata_for_this_row[
+            KropffSessionSubKeys.sigma
+        ]
+        cleaned_dict[KropffSessionSubKeys.fitted][KropffSessionSubKeys.bhkl] = metadata_for_this_row[
+            KropffSessionSubKeys.bhkl
+        ]
         cleaned_dict[KropffSessionSubKeys.fitted][SessionSubKeys.bin_coordinates] = {
             "x0": int(metadata_for_this_row[SessionSubKeys.bin_coordinates]["x0"]),
             "y0": int(metadata_for_this_row[SessionSubKeys.bin_coordinates]["y0"]),
             "x1": int(metadata_for_this_row[SessionSubKeys.bin_coordinates]["x1"]),
             "y1": int(metadata_for_this_row[SessionSubKeys.bin_coordinates]["y1"]),
         }
-        cleaned_dict[KropffSessionSubKeys.fitted][
+        cleaned_dict[KropffSessionSubKeys.fitted][SessionSubKeys.bragg_peak_threshold] = metadata_for_this_row[
             SessionSubKeys.bragg_peak_threshold
-        ] = metadata_for_this_row[SessionSubKeys.bragg_peak_threshold]
+        ]
 
         with open(full_output_filename, "w") as json_file:
             json.dump(cleaned_dict, json_file)
@@ -551,9 +489,7 @@ class EventHandler:
         pass
 
     def display_fitting_parameters(self):
-        FittingParametersViewerEditorLauncher(
-            parent=self.parent, grand_parent=self.grand_parent
-        )
+        FittingParametersViewerEditorLauncher(parent=self.parent, grand_parent=self.grand_parent)
 
     def unlock_all_bragg_peak_rows(self):
         background_color = UNLOCK_ROW_BACKGROUND
@@ -633,58 +569,40 @@ class EventHandler:
 
         # high lambda
         # if a0 or b0 are nan -> yes, reject this row
-        a0_value = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffHighLambdaColumns.a0
-        )
+        a0_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffHighLambdaColumns.a0)
         if not np.isfinite(a0_value):
             return True
 
-        b0_value = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffHighLambdaColumns.b0
-        )
+        b0_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffHighLambdaColumns.b0)
         if not np.isfinite(b0_value):
             return True
 
         # low lambda
         # if ahkl, bhkl are nan -> yes, reject this row
-        ahkl_value = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffLowLambdaColumns.ahkl
-        )
+        ahkl_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffLowLambdaColumns.ahkl)
         if not np.isfinite(ahkl_value):
             return True
 
-        bhkl_value = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffLowLambdaColumns.bhkl
-        )
+        bhkl_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffLowLambdaColumns.bhkl)
         if not np.isfinite(bhkl_value):
             return True
 
         # bragg peak
         # if l_hkl is nan -> yes, reject this row
-        l_hkl_value = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffBraggPeakColumns.l_hkl_value
-        )
+        l_hkl_value = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.l_hkl_value)
         if not np.isfinite(l_hkl_value):
             return True
 
         # if l_hkl is outside of range defined in settings -> reject this row
-        less_than_state = self.parent.kropff_bragg_peak_row_rejections_conditions[
-            "l_hkl"
-        ]["less_than"]["state"]
+        less_than_state = self.parent.kropff_bragg_peak_row_rejections_conditions["l_hkl"]["less_than"]["state"]
         if less_than_state:
-            less_than_value = self.parent.kropff_bragg_peak_row_rejections_conditions[
-                "l_hkl"
-            ]["less_than"]["value"]
+            less_than_value = self.parent.kropff_bragg_peak_row_rejections_conditions["l_hkl"]["less_than"]["value"]
             if l_hkl_value < less_than_value:
                 return True
 
-        more_than_state = self.parent.kropff_bragg_peak_row_rejections_conditions[
-            "l_hkl"
-        ]["more_than"]["state"]
+        more_than_state = self.parent.kropff_bragg_peak_row_rejections_conditions["l_hkl"]["more_than"]["state"]
         if more_than_state:
-            more_than_value = self.parent.kropff_bragg_peak_row_rejections_conditions[
-                "l_hkl"
-            ]["more_than"]["value"]
+            more_than_value = self.parent.kropff_bragg_peak_row_rejections_conditions["l_hkl"]["more_than"]["value"]
             if l_hkl_value > more_than_value:
                 return True
 
@@ -695,19 +613,11 @@ class EventHandler:
         o_table = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
 
         o_checking = CheckingFittingConditions(fit_conditions=fit_conditions)
-        l_hkl_error = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffBraggPeakColumns.l_hkl_error
-        )
-        t_error = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffBraggPeakColumns.tau_error
-        )
-        sigma_error = o_table.get_item_float_from_cell(
-            row=row, column=FittingKropffBraggPeakColumns.sigma_error
-        )
+        l_hkl_error = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.l_hkl_error)
+        t_error = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.tau_error)
+        sigma_error = o_table.get_item_float_from_cell(row=row, column=FittingKropffBraggPeakColumns.sigma_error)
 
-        return o_checking.is_fitting_ok(
-            l_hkl_error=l_hkl_error, t_error=t_error, sigma_error=sigma_error
-        )
+        return o_checking.is_fitting_ok(l_hkl_error=l_hkl_error, t_error=t_error, sigma_error=sigma_error)
 
     def check_how_many_fitting_are_locked(self):
         table_dictionary = self.grand_parent.kropff_table_dictionary
@@ -725,9 +635,7 @@ class EventHandler:
             f" {percentage:.2f}%"
         )
 
-        show_status_message(
-            parent=self.parent, message=message, status=StatusMessageStatus.ready
-        )
+        show_status_message(parent=self.parent, message=message, status=StatusMessageStatus.ready)
         QApplication.processEvents()
 
     def update_summary_table(self):
@@ -745,9 +653,7 @@ class EventHandler:
 
         # turning None into NaN
         list_hkl_without_none = [_value for _value in list_hkl if _value is not None]
-        list_hkl_error_without_none = [
-            _value for _value in list_hkl_error if _value is not None
-        ]
+        list_hkl_error_without_none = [_value for _value in list_hkl_error if _value is not None]
 
         number_of_fittings = len(list_hkl_without_none)
         number_of_fittings_with_error = len(list_hkl_error_without_none)
@@ -756,23 +662,17 @@ class EventHandler:
         hkl_value_mean = np.mean(list_hkl_without_none)
         hkl_value_median = np.median(list_hkl_without_none)
         hkl_value_std = np.std(list_hkl_without_none)
-        hkl_value_percentage_with_fit = 100 * (
-            number_of_fittings / total_number_of_bins
-        )
+        hkl_value_percentage_with_fit = 100 * (number_of_fittings / total_number_of_bins)
 
         hkl_error_value_mean = np.mean(list_hkl_error_without_none)
         hkl_error_value_median = np.median(list_hkl_error_without_none)
         hkl_error_value_std = np.std(list_hkl_error_without_none)
-        hkl_error_value_percentage_with_fit = 100 * (
-            number_of_fittings_with_error / total_number_of_bins
-        )
+        hkl_error_value_percentage_with_fit = 100 * (number_of_fittings_with_error / total_number_of_bins)
 
         percentage_of_fits_locked = 100 * (number_of_fits_locked / total_number_of_bins)
 
         o_table = TableHandler(table_ui=self.parent.ui.kropff_summary_tableWidget)
-        o_table.insert_item(
-            row=0, column=1, value=hkl_value_mean, format_str="{:0.4f}", editable=False
-        )
+        o_table.insert_item(row=0, column=1, value=hkl_value_mean, format_str="{:0.4f}", editable=False)
         o_table.insert_item(
             row=1,
             column=1,
@@ -780,9 +680,7 @@ class EventHandler:
             format_str="{:0.4f}",
             editable=False,
         )
-        o_table.insert_item(
-            row=2, column=1, value=hkl_value_std, format_str="{:0.4f}", editable=False
-        )
+        o_table.insert_item(row=2, column=1, value=hkl_value_std, format_str="{:0.4f}", editable=False)
         o_table.insert_item(
             row=3,
             column=1,
@@ -829,14 +727,12 @@ class EventHandler:
 
     # top left view mouse events
     def mouse_clicked_in_top_left_image_view(self, mouse_click_event):
-        image_pos = self.parent.image_view_item.mapFromScene(
-            mouse_click_event.scenePos()
-        )
+        image_pos = self.parent.image_view_item.mapFromScene(mouse_click_event.scenePos())
 
         # if user click within a BIN, select that bin in all the tables (this will automatically highlight it
-        [_, top_left_x, top_left_y, _, _, binning_size] = (
-            self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi]
-        )
+        [_, top_left_x, top_left_y, _, _, binning_size] = self.grand_parent.session_dict[DataType.bin][
+            SessionSubKeys.roi
+        ]
 
         # top_left_corner_coordinates = self.grand_parent.binning_line_view['pos'][0]
         # top_left_x = top_left_corner_coordinates[0]
@@ -890,18 +786,14 @@ class EventHandler:
             image_pos = self.parent.image_view_item.mapFromScene(pos)
             x = int(image_pos.x())
             y = int(image_pos.y())
-            binning_size = self.grand_parent.session_dict[DataType.bin][
-                SessionSubKeys.roi
-            ][-1]
+            binning_size = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi][-1]
             top_left_corner_coordinates = self.grand_parent.binning_line_view["pos"][0]
             top_left_x = top_left_corner_coordinates[0]
             top_left_y = top_left_corner_coordinates[1]
             bin_x_index = int((x - top_left_x) / binning_size) + 1
             bin_y_index = int((y - top_left_y) / binning_size) + 1
             nbr_bin_y_direction = self.grand_parent.fitting_selection["nbr_row"]
-            row_to_select = (
-                int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1) + 1
-            )
+            row_to_select = int(bin_y_index + (bin_x_index - 1) * nbr_bin_y_direction - 1) + 1
 
             if (x >= 0) and (x < width) and (y >= 0) and (y < height):
                 self.parent.image_view_vline.setPos(x)
@@ -911,9 +803,7 @@ class EventHandler:
                 self.parent.ui.kropff_pos_y_value.setText(f"{y}")
 
                 # only if we are inside the bin selection
-                bin_list = self.grand_parent.session_dict[DataType.bin][
-                    SessionSubKeys.roi
-                ]
+                bin_list = self.grand_parent.session_dict[DataType.bin][SessionSubKeys.roi]
                 left = bin_list[1]
                 top = bin_list[2]
                 roi_width = bin_list[3]

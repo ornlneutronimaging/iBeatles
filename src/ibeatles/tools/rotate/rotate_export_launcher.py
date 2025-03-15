@@ -3,11 +3,12 @@
 Rotate export launcher
 """
 
-from qtpy.QtWidgets import QDialog, QApplication
 import logging
 import warnings
-from ibeatles import load_ui
-from ibeatles import DataType
+
+from qtpy.QtWidgets import QApplication, QDialog
+
+from ibeatles import DataType, load_ui
 from ibeatles.tools.rotate.event_handler import EventHandler as RotateEventHandler
 from ibeatles.tools.utilities.reload.reload import Reload
 
@@ -35,9 +36,7 @@ class RotateExportLauncher(QDialog):
 
         if self.ui.reload_checkBox.isChecked():
             o_reload = Reload(parent=self.parent, top_parent=self.top_parent)
-            o_reload.run(
-                data_type=DataType.normalized, output_folder=full_output_folder_name
-            )
+            o_reload.run(data_type=DataType.normalized, output_folder=full_output_folder_name)
 
         self.parent.ui.setEnabled(True)
         QApplication.restoreOverrideCursor()

@@ -2,11 +2,12 @@
 """Pydantic configuration model for CLI and GUI application settings (user)"""
 
 import logging
-import matplotlib.pyplot as plt
 from enum import Enum
-from typing import Dict, Optional, Union, Tuple, Literal, List
-from pydantic import BaseModel, Field, model_validator, field_validator
 from pathlib import Path
+from typing import Dict, List, Literal, Optional, Tuple, Union
+
+import matplotlib.pyplot as plt
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class SampleBackground(BaseModel):
@@ -86,9 +87,7 @@ class BinCoordinates(BaseModel):
 
 
 class ThresholdFinder(BaseModel):
-    method: Literal["Sliding Average", "Error Function", "Change Point"] = (
-        "Sliding Average"
-    )
+    method: Literal["Sliding Average", "Error Function", "Change Point"] = "Sliding Average"
     threshold_width: int = 5
 
 
@@ -185,9 +184,7 @@ class StrainVisualization(BaseModel):
 
     interpolation_method: InterpolationMethod = InterpolationMethod.NEAREST
     colormap: str = "viridis"
-    alpha: float = Field(
-        default=0.5, ge=0.0, le=1.0, description="Transparency for overlay plots"
-    )
+    alpha: float = Field(default=0.5, ge=0.0, le=1.0, description="Transparency for overlay plots")
     display_fit_quality: bool = True
 
     @field_validator("colormap")
@@ -196,8 +193,7 @@ class StrainVisualization(BaseModel):
         """Validate that the colormap exists in matplotlib."""
         if v not in plt.colormaps():
             raise ValueError(
-                f"Colormap '{v}' is not available in matplotlib. "
-                f"Available colormaps: {', '.join(plt.colormaps())}"
+                f"Colormap '{v}' is not available in matplotlib. Available colormaps: {', '.join(plt.colormaps())}"
             )
         return v
 
@@ -224,10 +220,7 @@ class StrainMapping(BaseModel):
     def check_d0_warning(self) -> "StrainMapping":
         """Validate d0 and add warning if using non-standard value."""
         if self.d0 is not None:
-            logging.warning(
-                "Using user-provided d0. This overrides the value calculated "
-                "from material properties."
-            )
+            logging.warning("Using user-provided d0. This overrides the value calculated from material properties.")
         return self
 
     @model_validator(mode="after")
@@ -254,9 +247,7 @@ class Material(BaseModel):
         if self.element is None and self.custom_material is None:
             raise ValueError("Either 'element' or 'custom_material' must be specified")
         if self.element is not None and self.custom_material is not None:
-            raise ValueError(
-                "Only one of 'element' or 'custom_material' should be specified"
-            )
+            raise ValueError("Only one of 'element' or 'custom_material' should be specified")
         return self
 
 
@@ -268,9 +259,7 @@ class AnalysisConfig(BaseModel):
     distance_source_detector_in_m: float = Field(
         default=19.855, description="Distance from source to detector in meters"
     )
-    detector_offset_in_us: float = Field(
-        default=5000, description="Detector offset in microseconds"
-    )
+    detector_offset_in_us: float = Field(default=5000, description="Detector offset in microseconds")
 
 
 class RawData(BaseModel):
@@ -305,9 +294,7 @@ class OpenBeamData(BaseModel):
     def check_open_beam_data_extension(self) -> "OpenBeamData":
         # extension must be ".tif", ".tiff", ".fits"
         if self.extension not in [".tif", ".tiff", ".fits"]:
-            raise ValueError(
-                "Open beam data extension must be '.tif', '.tiff', or '.fits'"
-            )
+            raise ValueError("Open beam data extension must be '.tif', '.tiff', or '.fits'")
         return self
 
 

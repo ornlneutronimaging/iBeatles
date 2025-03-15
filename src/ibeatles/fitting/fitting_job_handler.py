@@ -1,9 +1,9 @@
-from qtpy.QtWidgets import QApplication, QTableWidgetItem
-from qtpy import QtGui
 import numpy as np
 from lmfit import Model
+from qtpy import QtGui
+from qtpy.QtWidgets import QApplication, QTableWidgetItem
 
-from ..fitting.fitting_functions import basic_fit, advanced_fit
+from ..fitting.fitting_functions import advanced_fit, basic_fit
 
 
 class ResultValueError(object):
@@ -23,28 +23,20 @@ class FittingJobHandler(object):
         self.grand_parent = grand_parent
 
     def run_story(self):
-        table_fitting_story_dictionary = (
-            self.grand_parent.table_fitting_story_dictionary
-        )
+        table_fitting_story_dictionary = self.grand_parent.table_fitting_story_dictionary
         table_dictionary = self.grand_parent.march_table_dictionary
         nbr_entry = len(table_fitting_story_dictionary)
 
-        _advanced_fitting_mode = (
-            self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
-        )
+        _advanced_fitting_mode = self.grand_parent.fitting_ui.ui.advanced_table_checkBox.isChecked()
 
         # define fitting equation
         if _advanced_fitting_mode:
-            gmodel = Model(
-                advanced_fit, missing="drop"
-            )  # do not considerate the np.nan
+            gmodel = Model(advanced_fit, missing="drop")  # do not considerate the np.nan
         else:
             gmodel = Model(basic_fit, missing="drop")
 
         # index of selection in bragg edge plot
-        [left_index, right_index] = (
-            self.grand_parent.fitting_bragg_edge_linear_selection
-        )
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         # retrieve image
         data_2d = np.array(self.grand_parent.data_metadata["normalized"]["data"])
@@ -71,9 +63,7 @@ class FittingJobHandler(object):
                 a6_flag = _entry["a6"]
 
             self.grand_parent.fitting_story_ui.eventProgress2.setValue(0)
-            self.grand_parent.fitting_story_ui.eventProgress2.setMaximum(
-                len(table_dictionary)
-            )
+            self.grand_parent.fitting_story_ui.eventProgress2.setMaximum(len(table_dictionary))
 
             # loop over all the bins
             progress_bar_index = 0
@@ -175,9 +165,7 @@ class FittingJobHandler(object):
                     table_dictionary[_bin_index] = _bin_entry
 
                 progress_bar_index += 1
-                self.grand_parent.fitting_story_ui.eventProgress2.setValue(
-                    progress_bar_index
-                )
+                self.grand_parent.fitting_story_ui.eventProgress2.setValue(progress_bar_index)
                 QApplication.processEvents()
 
             self.status_of_row(row=_entry_index, status="DONE")

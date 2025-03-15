@@ -3,20 +3,20 @@
 Initialization (step 2)
 """
 
+import pyqtgraph as pg
+from pyqtgraph.dockarea import Dock, DockArea
 from qtpy.QtWidgets import (
-    QVBoxLayout,
     QHBoxLayout,
     QRadioButton,
-    QSpacerItem,
-    QWidget,
     QSizePolicy,
+    QSpacerItem,
+    QVBoxLayout,
+    QWidget,
 )
-import pyqtgraph as pg
-from pyqtgraph.dockarea import DockArea, Dock
 
-from ibeatles.utilities.colors import pen_color
-from ibeatles import DataType, DEFAULT_NORMALIZATION_ROI
+from ibeatles import DEFAULT_NORMALIZATION_ROI, DataType
 from ibeatles.step2 import roi_label_color
+from ibeatles.utilities.colors import pen_color
 
 
 class Initialization:
@@ -91,9 +91,7 @@ class Initialization:
         file_index_button.setChecked(True)
         # self.parent.connect(file_index_button, QtCore.SIGNAL("clicked()"),
         #                     self.parent.step2_file_index_radio_button_clicked)
-        file_index_button.pressed.connect(
-            self.parent.step2_file_index_radio_button_clicked
-        )
+        file_index_button.pressed.connect(self.parent.step2_file_index_radio_button_clicked)
 
         # tof
         tof_button = QRadioButton()
@@ -159,15 +157,11 @@ class Initialization:
                 roi = pg.ROI([x0, y0], [width, height], pen=pen_color["0"])
                 roi.addScaleHandle([1, 1], [0, 0])
                 image_view.addItem(roi)
-                roi.sigRegionChanged.connect(
-                    self.parent.normalization_manual_roi_changed
-                )
+                roi.sigRegionChanged.connect(self.parent.normalization_manual_roi_changed)
 
                 label_roi = pg.TextItem(
                     html=f'<div style="text-align: center"><span style="color: '
-                    f'{roi_label_color[str(region_type)]};">'
-                    + region_type
-                    + "</span></div>",
+                    f'{roi_label_color[str(region_type)]};">' + region_type + "</span></div>",
                     anchor=(-0.3, 1.3),
                     border="w",
                     fill=(0, 0, 255, 50),

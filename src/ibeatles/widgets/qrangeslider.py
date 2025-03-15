@@ -33,17 +33,16 @@
 # ---------------------------------------------------------------------------------------------
 import sys
 
-from qtpy import QtGui
-from qtpy import QtCore
+from qtpy import QtCore, QtGui
+from qtpy.QtCore import Signal
 from qtpy.QtWidgets import (
-    QWidget,
-    QHBoxLayout,
     QApplication,
     QGridLayout,
-    QSplitter,
     QGroupBox,
+    QHBoxLayout,
+    QSplitter,
+    QWidget,
 )
-from qtpy.QtCore import Signal
 
 __author__ = "Ryan Galloway <ryan@rsgalloway.com>"
 __version__ = "0.1.1+mm+qt5+v"
@@ -148,9 +147,7 @@ class RangeSliderForm:
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(
-            QApplication.translate("QRangeSlider", "QRangeSlider", None)
-        )
+        Form.setWindowTitle(QApplication.translate("QRangeSlider", "QRangeSlider", None))
 
 
 class RangeSliderElement(QGroupBox):
@@ -238,9 +235,7 @@ class Tail(RangeSliderElement):
         else:
             value = self.main.max()
         str_value = self.calculate_real_value(int_value=value)
-        qp.drawText(
-            event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str_value
-        )
+        qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str_value)
 
 
 class Handle(RangeSliderElement):
@@ -266,9 +261,7 @@ class Handle(RangeSliderElement):
         else:
             value = self.main.end()
         str_value = self.calculate_real_value(int_value=value)
-        qp.drawText(
-            event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str_value
-        )
+        qp.drawText(event.rect(), QtCore.Qt.AlignRight | QtCore.Qt.AlignBottom, str_value)
 
     def mouseReleaseEvent(self, event):
         setattr(self, "__mx", None)
@@ -746,12 +739,8 @@ if __name__ == "__main__":
     # app.processEvents()
     rs.setRealRange(5, 10)  # mandatory
     # rs.setRealRangeMin(3)
-    rs.setBackgroundStyle(
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:1 #333);"
-    )
-    rs.handle.setStyleSheet(
-        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #222);"
-    )
+    rs.setBackgroundStyle("background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ddd, stop:1 #333);")
+    rs.handle.setStyleSheet("background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #222);")
     rs.show()
     my_fake_key = FakeKey()
     rs.keyPressEvent(my_fake_key)

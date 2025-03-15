@@ -1,18 +1,20 @@
 import os
-import pytest
-import numpy as np
-from unittest.mock import patch, Mock, call
 import time
+from unittest.mock import Mock, call, patch
+
+import numpy as np
+import pytest
+
 from ibeatles.core.io.data_loading import (
     cleanup_list_of_files,
+    get_time_spectra_filename,
+    load_data_from_folder,
+    load_fits,
     load_image,
     load_tiff,
-    load_fits,
-    process_tiff_metadata,
-    process_fits_metadata,
-    load_data_from_folder,
-    get_time_spectra_filename,
     load_time_spectra,
+    process_fits_metadata,
+    process_tiff_metadata,
 )
 
 
@@ -106,9 +108,7 @@ def test_load_fits(mock_getmtime, mock_fits_open, sample_fits_data):
     assert np.array_equal(data, sample_fits_data)
     assert isinstance(metadata, dict)
     assert "acquisition_time" in metadata
-    assert isinstance(
-        metadata["acquisition_time"]["value"], str
-    )  # Should be a time string
+    assert isinstance(metadata["acquisition_time"]["value"], str)  # Should be a time string
     assert metadata["acquisition_duration"]["value"] == 100
     assert metadata["image_size"]["value"] == "100 x 100"
     assert metadata["image_type"]["value"] == "32 bits"
@@ -164,9 +164,7 @@ def test_process_fits_metadata(mock_getmtime):
     header_without_date = header.copy()
     del header_without_date["DATE"]
 
-    processed_without_date = process_fits_metadata(
-        header_without_date, data, "image.fits"
-    )
+    processed_without_date = process_fits_metadata(header_without_date, data, "image.fits")
 
     assert isinstance(processed_without_date, dict)
     assert processed_without_date["acquisition_time"]["value"] == mock_timestamp
@@ -250,19 +248,11 @@ def test_load_time_spectra(mock_isfile, mock_experiment, mock_tof):
     actual_call = mock_experiment.call_args
 
     # Compare non-array arguments
-    assert (
-        actual_call.kwargs["distance_source_detector_m"]
-        == expected_call.kwargs["distance_source_detector_m"]
-    )
-    assert (
-        actual_call.kwargs["detector_offset_micros"]
-        == expected_call.kwargs["detector_offset_micros"]
-    )
+    assert actual_call.kwargs["distance_source_detector_m"] == expected_call.kwargs["distance_source_detector_m"]
+    assert actual_call.kwargs["detector_offset_micros"] == expected_call.kwargs["detector_offset_micros"]
 
     # Compare array argument
-    np.testing.assert_array_equal(
-        actual_call.kwargs["tof"], expected_call.kwargs["tof"]
-    )
+    np.testing.assert_array_equal(actual_call.kwargs["tof"], expected_call.kwargs["tof"])
 
     # Test file not found scenario
     mock_isfile.return_value = False

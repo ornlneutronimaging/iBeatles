@@ -2,6 +2,7 @@
 """Core functions for strain mapping from Bragg edge fitting results."""
 
 from typing import Dict, Optional
+
 from lmfit.model import ModelResult
 
 

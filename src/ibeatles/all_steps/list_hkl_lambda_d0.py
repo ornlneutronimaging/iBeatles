@@ -3,12 +3,11 @@
 List of h, k, l, lambda and d0
 """
 
-from qtpy.QtWidgets import QDialog
 import numpy as np
+from qtpy.QtWidgets import QDialog
 
-from ibeatles import Material
+from ibeatles import Material, load_ui
 from ibeatles.utilities.gui_handler import GuiHandler
-from ibeatles import load_ui
 from ibeatles.utilities.table_handler import TableHandler
 
 
@@ -54,9 +53,7 @@ class ListHKLLambdaD0(QDialog):
         self.ui.selected_element_value.setText(element_name)
 
         if element_name in self.parent.user_defined_bragg_edge_list.keys():
-            user_defined_bragg_edge_list = self.parent.user_defined_bragg_edge_list[
-                element_name
-            ]
+            user_defined_bragg_edge_list = self.parent.user_defined_bragg_edge_list[element_name]
             list_hkl_d0 = user_defined_bragg_edge_list[Material.hkl_d0]
             o_table = TableHandler(table_ui=self.ui.tableWidget)
             _row = 0
@@ -78,18 +75,14 @@ class ListHKLLambdaD0(QDialog):
 
                 o_table.insert_item(row=_row, column=2, value=_l)
 
-                o_table.insert_item(
-                    row=_row, column=3, value=_lambda, format_str="{:.3f}"
-                )
+                o_table.insert_item(row=_row, column=3, value=_lambda, format_str="{:.3f}")
 
                 o_table.insert_item(row=_row, column=4, value=_d0, format_str="{:.3f}")
 
                 _row += 1
 
         else:  # element found in the default list
-            selected_element_bragg_edges_array = (
-                self.parent.selected_element_bragg_edges_array
-            )
+            selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
             selected_element_hkl_array = self.parent.selected_element_hkl_array
 
             nbr_row = len(selected_element_hkl_array)
@@ -105,13 +98,9 @@ class ListHKLLambdaD0(QDialog):
 
                 o_table.insert_item(row=_row, column=2, value=_l)
 
-                o_table.insert_item(
-                    row=_row, column=3, value=_lambda, format_str="{:.3f}"
-                )
+                o_table.insert_item(row=_row, column=3, value=_lambda, format_str="{:.3f}")
 
-                o_table.insert_item(
-                    row=_row, column=4, value=_lambda / 2.0, format_str="{:.3f}"
-                )
+                o_table.insert_item(row=_row, column=4, value=_lambda / 2.0, format_str="{:.3f}")
 
     def closeEvent(self, ev):
         self.parent.list_hkl_lambda_d0_ui = None

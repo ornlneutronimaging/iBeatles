@@ -1,8 +1,9 @@
 from unittest import TestCase
+
 import numpy as np
 
-from ibeatles.fitting.kropff.event_handler import EventHandler
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff.event_handler import EventHandler
 
 
 class Parent:
@@ -26,9 +27,7 @@ class TestPerformFitting(TestCase):
         """assert that it returns false if no fitting has been performed"""
         parent = Parent()
         grand_parent = GrandParent()
-        grand_parent.kropff_table_dictionary["0"][KropffSessionSubKeys.lambda_hkl][
-            "val"
-        ] = np.nan
+        grand_parent.kropff_table_dictionary["0"][KropffSessionSubKeys.lambda_hkl]["val"] = np.nan
         event_handler = EventHandler(parent=parent, grand_parent=grand_parent)
         self.assertFalse(event_handler.did_we_perform_the_fitting())
 
@@ -36,8 +35,6 @@ class TestPerformFitting(TestCase):
         """assert that it returns false if no fitting has been performed"""
         parent = Parent()
         grand_parent = GrandParent()
-        grand_parent.kropff_table_dictionary["0"][KropffSessionSubKeys.lambda_hkl][
-            "val"
-        ] = 3.6
+        grand_parent.kropff_table_dictionary["0"][KropffSessionSubKeys.lambda_hkl]["val"] = 3.6
         event_handler = EventHandler(parent=parent, grand_parent=grand_parent)
         self.assertTrue(event_handler.did_we_perform_the_fitting())

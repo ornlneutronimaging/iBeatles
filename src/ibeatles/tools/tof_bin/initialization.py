@@ -3,16 +3,25 @@
 Initialization module
 """
 
-from qtpy.QtWidgets import QProgressBar, QVBoxLayout
-from qtpy.QtGui import QIcon
 import pyqtgraph as pg
+from qtpy.QtGui import QIcon
+from qtpy.QtWidgets import QProgressBar, QVBoxLayout
 
-from ibeatles import interact_me_style
-from ibeatles.utilities.table_handler import TableHandler
+from ibeatles import (
+    ANGSTROMS,
+    DELTA,
+    LAMBDA,
+    MICRO,
+    auto_image,
+    interact_me_style,
+    manual_image,
+    more_infos_image,
+    settings_image,
+    stats_plot_image,
+    stats_table_image,
+)
 from ibeatles.utilities.matplotlibview import MatplotlibView
-from ibeatles import MICRO, LAMBDA, ANGSTROMS, DELTA
-from ibeatles import auto_image, manual_image, settings_image, more_infos_image
-from ibeatles import stats_table_image, stats_plot_image
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class Initialization:
@@ -44,9 +53,7 @@ class Initialization:
         self.parent.eventProgress.setMaximumSize(540, 100)
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
-        self.parent.setStyleSheet(
-            "QStatusBar{padding-left:8px;color:red;font-weight:bold;}"
-        )
+        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
     def splitter(self):
         self.parent.ui.bin_horizontal_splitter.setSizes([300, 800])
@@ -110,13 +117,9 @@ class Initialization:
         o_table.set_column_sizes(column_sizes=column_sizes)
 
     def labels(self):
-        self.parent.ui.bin_auto_log_file_index_radioButton.setText(
-            DELTA + "file_index/file_index"
-        )
+        self.parent.ui.bin_auto_log_file_index_radioButton.setText(DELTA + "file_index/file_index")
         self.parent.ui.bin_auto_log_tof_radioButton.setText(DELTA + "tof")
-        self.parent.ui.bin_auto_log_lambda_radioButton.setText(
-            DELTA + LAMBDA + "/" + LAMBDA
-        )
+        self.parent.ui.bin_auto_log_lambda_radioButton.setText(DELTA + LAMBDA + "/" + LAMBDA)
 
         self.parent.ui.auto_linear_file_index_radioButton.setText(DELTA + " file index")
         self.parent.ui.auto_linear_tof_radioButton.setText(DELTA + " tof")
@@ -159,10 +162,6 @@ class Initialization:
         self.parent.ui.bin_widget.setLayout(layout)
 
     def widgets(self):
-        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setIcon(
-            QIcon(more_infos_image)
-        )
-        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setToolTip(
-            "Display full original bin axis"
-        )
+        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setIcon(QIcon(more_infos_image))
+        self.parent.ui.visualize_auto_bins_axis_generated_pushButton.setToolTip("Display full original bin axis")
         self.parent.ui.select_folder_pushButton.setStyleSheet(interact_me_style)

@@ -5,20 +5,19 @@ Plot (step 1)
 
 import numpy as np
 import pyqtgraph as pg
+from neutronbraggedge.experiment_handler.experiment import Experiment
 from qtpy.QtGui import QBrush
 
-from neutronbraggedge.experiment_handler.experiment import Experiment
-
 from ibeatles import (
+    MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME,
     DataType,
     ScrollBarParameters,
-    MATERIAL_BRAGG_PEAK_TO_DISPLAY_AT_THE_SAME_TIME,
 )
+from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.utilities.colors import pen_color, roi_group_color
 from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-from ibeatles.binning.binning_handler import BinningHandler
-from ibeatles.fitting.fitting_handler import FittingHandler
 
 
 class CustomAxis(pg.AxisItem):
@@ -29,9 +28,7 @@ class CustomAxis(pg.AxisItem):
     def tickStrings(self, values, scale, spacing):
         strings = []
 
-        _distance_source_detector = float(
-            str(self.parent.ui.distance_source_detector.text())
-        )
+        _distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
         _detector_offset_micros = float(str(self.parent.ui.detector_offset.text()))
 
         tof_s = [float(time) * 1e-6 for time in values]
@@ -137,16 +134,12 @@ class Step1Plot(object):
                 self.parent.ui.normalized_area.setVisible(True)
                 self.parent.ui.normalized_image_view.setImage(_data)
                 self.add_origin_label(self.parent.ui.normalized_image_view)
-                self.parent.data_metadata[DataType.normalized][
-                    "data_live_selection"
-                ] = _data
+                self.parent.data_metadata[DataType.normalized]["data_live_selection"] = _data
                 o_pyqt.set_state(_state)
                 o_pyqt.reload_histogram_level()
 
                 # make sure that if we have the fitting window open, we have also at least the binning
-                if self.parent.fitting_ui is not None and (
-                    self.parent.binning_ui is None
-                ):
+                if self.parent.fitting_ui is not None and (self.parent.binning_ui is None):
                     self.parent.menu_view_binning_clicked()
 
                 if self.parent.binning_ui is not None:
@@ -169,13 +162,9 @@ class Step1Plot(object):
 
     def initialize_default_roi(self):
         if self.data_type == DataType.sample:
-            self.add_origin_roi(
-                self.parent.ui.image_view, self.parent.ui.image_view_roi
-            )
+            self.add_origin_roi(self.parent.ui.image_view, self.parent.ui.image_view_roi)
         elif self.data_type == DataType.ob:
-            self.add_origin_roi(
-                self.parent.ui.ob_image_view, self.parent.ui.ob_image_view_roi
-            )
+            self.add_origin_roi(self.parent.ui.ob_image_view, self.parent.ui.ob_image_view_roi)
         elif self.data_type == DataType.normalized:
             self.add_origin_roi(
                 self.parent.ui.normalized_image_view,
@@ -412,9 +401,7 @@ class Step1Plot(object):
 
                 else:
                     try:
-                        [label, x0, y0, w, h, group] = self.get_row_parameters(
-                            roi_editor_ui.ui, _index
-                        )
+                        [label, x0, y0, w, h, group] = self.get_row_parameters(roi_editor_ui.ui, _index)
 
                     except ValueError:
                         return
@@ -430,9 +417,7 @@ class Step1Plot(object):
             _text_array = self.parent.list_label_roi_id[self.data_type]
             if len(_text_array) == 0:
                 text_id = pg.TextItem(
-                    html='<div style="text-align: center"><span style="color: #ff0000;">'
-                    + label
-                    + "</span></div>",
+                    html='<div style="text-align: center"><span style="color: #ff0000;">' + label + "</span></div>",
                     anchor=(-0.3, 1.3),
                     border="w",
                     fill=(0, 0, 255, 50),
@@ -445,9 +430,7 @@ class Step1Plot(object):
                 # text_id.setText(label)
                 text_id.setPos(x0, y0)
                 text_id.setHtml(
-                    '<div style="text-align: center"><span style="color: #ff0000;">'
-                    + label
-                    + " \
+                    '<div style="text-align: center"><span style="color: #ff0000;">' + label + " \
                                                                                               "
                     "</span></div>"
                 )
@@ -475,9 +458,7 @@ class Step1Plot(object):
             self.clear_bragg_edge_plot()
 
         else:  # retrieve dictionaries of roi_id and roi data (label, x, y, w, h, group)
-            list_data_group = self.retrieve_list_data_group(
-                mouse_selection=mouse_selection
-            )
+            list_data_group = self.retrieve_list_data_group(mouse_selection=mouse_selection)
 
             # work over groups
             data = self.parent.data_metadata[self.data_type]["data"]
@@ -486,13 +467,9 @@ class Step1Plot(object):
             # check if xaxis can be in lambda, or tof
 
             if self.data_type in [DataType.sample, DataType.ob]:
-                time_spectra_file = self.parent.data_metadata[DataType.sample][
-                    "time_spectra"
-                ]["filename"]
+                time_spectra_file = self.parent.data_metadata[DataType.sample]["time_spectra"]["filename"]
             else:
-                time_spectra_file = self.parent.data_metadata[self.data_type][
-                    "time_spectra"
-                ]["filename"]
+                time_spectra_file = self.parent.data_metadata[self.data_type]["time_spectra"]["filename"]
             o_gui = GuiHandler(parent=self.parent)
 
             if time_spectra_file == "":
@@ -504,21 +481,15 @@ class Step1Plot(object):
                 o_gui.enable_xaxis_button(tof_flag=True)
 
                 if self.data_type == "normalized":
-                    tof_array = self.parent.data_metadata["time_spectra"][
-                        "normalized_data"
-                    ]
-                    lambda_array = self.parent.data_metadata["time_spectra"][
-                        "normalized_lambda"
-                    ]
+                    tof_array = self.parent.data_metadata["time_spectra"]["normalized_data"]
+                    lambda_array = self.parent.data_metadata["time_spectra"]["normalized_lambda"]
                 else:
                     tof_array = self.parent.data_metadata["time_spectra"]["data"]
                     lambda_array = self.parent.data_metadata["time_spectra"]["lambda"]
                 self.parent.normalized_lambda_bragg_edge_x_axis = lambda_array * 1e10
 
             # display of bottom bragg edge plot
-            dictionary = self.plot_bragg_edge(
-                tof_array=tof_array, lambda_array=lambda_array, bragg_edges=bragg_edges
-            )
+            dictionary = self.plot_bragg_edge(tof_array=tof_array, lambda_array=lambda_array, bragg_edges=bragg_edges)
 
             x_axis = dictionary["x_axis"]
             [linear_region_left, linear_region_right] = dictionary["linear_region"]
@@ -651,9 +622,7 @@ class Step1Plot(object):
 
                 curvePoint = pg.CurvePoint(curve)
                 plot_ui.addItem(curvePoint)
-                _text = pg.TextItem(
-                    "Group {}".format(_key), anchor=(0.5, 0), color=pen_color[_key]
-                )
+                _text = pg.TextItem("Group {}".format(_key), anchor=(0.5, 0), color=pen_color[_key])
                 _text.setParentItem(curvePoint)
                 brush = QBrush()
                 brush.setColor(roi_group_color[int(_key)])
@@ -672,16 +641,12 @@ class Step1Plot(object):
             "linear_region": [linear_region_left, linear_region_right],
         }
 
-    def display_selected_element_bragg_edges(
-        self, plot_ui=plot_ui, lambda_range=None, ymax=0
-    ):
+    def display_selected_element_bragg_edges(self, plot_ui=plot_ui, lambda_range=None, ymax=0):
         display_flag = self.parent.ui.material_display_checkbox.isChecked()
         if not display_flag:
             return
 
-        _selected_element_bragg_edges_array = (
-            self.parent.selected_element_bragg_edges_array
-        )
+        _selected_element_bragg_edges_array = self.parent.selected_element_bragg_edges_array
         _selected_element_hkl_array = self.parent.selected_element_hkl_array
 
         # nbr_hkl_in_list = len(_selected_element_bragg_edges_array)
@@ -713,9 +678,7 @@ class Step1Plot(object):
                 # label of line
                 _hkl = _selected_element_hkl_array[_index]
                 _hkl_formated = "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2])
-                _text = pg.TextItem(
-                    _hkl_formated, anchor=(0, 1), angle=45, color=pg.mkColor("c")
-                )
+                _text = pg.TextItem(_hkl_formated, anchor=(0, 1), angle=45, color=pg.mkColor("c"))
                 _text.setPos(_x, ymax)
                 plot_ui.addItem(_text)
 

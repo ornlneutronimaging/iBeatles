@@ -2,10 +2,11 @@
 """Presenter for the normalization settings view."""
 
 import logging
-from typing import Dict, Any
-from ibeatles.core.config import NormalizationConfig
+from typing import Any, Dict
+
 from ibeatles.app.models.normalization_settings_model import NormalizationSettingsModel
 from ibeatles.app.ui.normalization_settings_view import NormalizationSettingsView
+from ibeatles.core.config import NormalizationConfig
 
 
 class NormalizationSettingsPresenter:
@@ -41,9 +42,7 @@ class NormalizationSettingsPresenter:
         """Connect view signals to their respective slots."""
         self.view.settings_changed.connect(self.update_model_from_view)
 
-    def load_settings(
-        self, config: NormalizationConfig = None, old_config: Dict[str, Any] = None
-    ):
+    def load_settings(self, config: NormalizationConfig = None, old_config: Dict[str, Any] = None):
         """
         Load settings into the model and update the view.
 

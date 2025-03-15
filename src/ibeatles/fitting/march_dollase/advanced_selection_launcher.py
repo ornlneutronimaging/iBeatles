@@ -3,12 +3,12 @@
 AdvancedSelectionLauncher class for launching the advanced selection tool.
 """
 
-from qtpy.QtWidgets import QTableWidgetSelectionRange, QMainWindow, QApplication
-from qtpy import QtCore
 import numpy as np
+from qtpy import QtCore
+from qtpy.QtWidgets import QApplication, QMainWindow, QTableWidgetSelectionRange
 
-from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles import load_ui
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.march_dollase.event_handler import EventHandler
 
 
@@ -18,9 +18,7 @@ class AdvancedSelectionLauncher(object):
         self.parent = parent
 
         if self.grand_parent.advanced_selection_ui is None:
-            advanced_window = AdvancedSelectionWindow(
-                grand_parent=grand_parent, parent=parent
-            )
+            advanced_window = AdvancedSelectionWindow(grand_parent=grand_parent, parent=parent)
             self.grand_parent.advanced_selection_ui = advanced_window
             advanced_window.show()
         else:
@@ -75,9 +73,7 @@ class AdvancedSelectionWindow(QMainWindow):
             state = _entry[state_field]
             row_index = _entry["row_index"]
             column_index = _entry["column_index"]
-            _selection = QTableWidgetSelectionRange(
-                row_index, column_index, row_index, column_index
-            )
+            _selection = QTableWidgetSelectionRange(row_index, column_index, row_index, column_index)
             table_ui.setRangeSelected(_selection, state)
 
     def selection_cell_size_changed(self, value):
@@ -115,9 +111,7 @@ class AdvancedSelectionWindow(QMainWindow):
                     table_dictionary[str(fitting_row)] = _entry
 
         self.grand_parent.march_table_dictionary = table_dictionary
-        o_filling_table = FillingTableHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent, parent=self.parent)
 
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()
@@ -151,9 +145,7 @@ class AdvancedSelectionWindow(QMainWindow):
                     table_dictionary[str(fitting_row)] = _entry
 
         self.grand_parent.march_table_dictionary = table_dictionary
-        o_filling_table = FillingTableHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_filling_table = FillingTableHandler(grand_parent=self.grand_parent, parent=self.parent)
 
         self.grand_parent.fitting_ui.ui.value_table.blockSignals(True)
         o_filling_table.fill_table()

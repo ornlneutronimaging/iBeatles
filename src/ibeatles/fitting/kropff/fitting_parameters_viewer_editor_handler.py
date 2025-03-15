@@ -3,15 +3,15 @@
 FittingParametersViewerEditorHandler class for handling the fitting parameters viewer and editor.
 """
 
-from qtpy import QtGui, QtCore
+import numpy as np
+from qtpy import QtCore, QtGui
 from qtpy.QtGui import QBrush
 from qtpy.QtWidgets import QTableWidgetItem
-import numpy as np
 
-from ibeatles.utilities.bins import convert_bins_to_keys
-from ibeatles.utilities.table_handler import TableHandler
 from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.fitting.kropff.get import Get
+from ibeatles.utilities.bins import convert_bins_to_keys
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class FittingParametersViewerEditorHandler:
@@ -58,9 +58,7 @@ class FittingParametersViewerEditorHandler:
         for _row in np.arange(nbr_row):
             for _col in np.arange(nbr_column):
                 _value = array_2d_values[_row, _col]
-                _color = self.get_color_for_this_value(
-                    min_value=min_value, max_value=max_value, value=_value
-                )
+                _color = self.get_color_for_this_value(min_value=min_value, max_value=max_value, value=_value)
                 if np.isnan(_value):
                     _item = QTableWidgetItem("nan")
                 else:
@@ -132,19 +130,13 @@ class FittingParametersViewerEditorHandler:
 
         for _index in np.arange(nbr_row - 1, -1, -1):
             self.parent.colorscale_table.insertRow(_row)
-            self.parent.colorscale_table.setRowHeight(
-                _row, self.colorscale_cell_size["height"]
-            )
-            self.parent.colorscale_table.setColumnWidth(
-                _row, self.colorscale_cell_size["width"]
-            )
+            self.parent.colorscale_table.setRowHeight(_row, self.colorscale_cell_size["height"])
+            self.parent.colorscale_table.setColumnWidth(_row, self.colorscale_cell_size["width"])
             if np.isnan(step):
                 _value = np.nan
             else:
                 _value = min_value + _index * step
-            _color = self.get_color_for_this_value(
-                min_value=min_value, max_value=max_value, value=_value
-            )
+            _color = self.get_color_for_this_value(min_value=min_value, max_value=max_value, value=_value)
 
             if np.isnan(_value):
                 _item = QTableWidgetItem("nan")
@@ -171,9 +163,7 @@ class FittingParametersViewerEditorHandler:
         elif max_value == min_value:
             return QtGui.QColor(250, 0, 0, alpha=255)  # red
 
-        _ratio = 1 - (float(value) - float(min_value)) / (
-            float(max_value) - float(min_value)
-        )
+        _ratio = 1 - (float(value) - float(min_value)) / (float(max_value) - float(min_value))
         return QtGui.QColor(0, int(_ratio * 255), 0, alpha=255)
 
     def create_array_of_variable(self, variable=None):
@@ -211,13 +201,9 @@ class FittingParametersViewerEditorHandler:
                 for _col in np.arange(_left_column, _right_column + 1):
                     _index = str(_row + _col * nbr_row)
                     if not table_dictionary[_index]["lock"]:
-                        table_dictionary[_index][variable_name]["val"] = float(
-                            variable_value
-                        )
+                        table_dictionary[_index][variable_name]["val"] = float(variable_value)
                         table_dictionary[_index][variable_name]["err"] = np.nan
-            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(
-                _select, False
-            )
+            self.grand_parent.fitting_set_variables_ui.ui.variable_table.setRangeSelected(_select, False)
 
         self.grand_parent.kropff_table_dictionary = table_dictionary
         self.populate_table_with_variable(variable=variable_name)
@@ -226,9 +212,7 @@ class FittingParametersViewerEditorHandler:
         o_get = Get(parent=self.parent)
         variable_selected = o_get.variable_selected()
 
-        key = convert_bins_to_keys(
-            list_of_bins=[(row, column)], full_bin_height=self.parent.nbr_row
-        )
+        key = convert_bins_to_keys(list_of_bins=[(row, column)], full_bin_height=self.parent.nbr_row)
 
         o_table = TableHandler(table_ui=self.parent.ui.variable_table)
         cell_value = o_table.get_item_float_from_cell(row=row, column=column)

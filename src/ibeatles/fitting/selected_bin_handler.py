@@ -6,11 +6,11 @@ Selected Bins Handler
 import numpy as np
 import pyqtgraph as pg
 
-from ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
-from ibeatles.fitting.get import Get
-from ibeatles.fitting.kropff.get import Get as KropffGet
 from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.display import Display as FittingDisplay
+from ibeatles.fitting.fitting_functions import advanced_fit, basic_fit
+from ibeatles.fitting.get import Get
+from ibeatles.fitting.kropff.get import Get as KropffGet
 
 
 class SelectedBinsHandler(object):
@@ -230,9 +230,7 @@ class SelectedBinsHandler(object):
         self.parent.bragg_edge_plot.setLabel("left", "Average Counts")
 
         o_get = Get(parent=self.parent, grand_parent=self.grand_parent)
-        [linear_region_left_index, linear_region_right_index] = (
-            o_get.fitting_bragg_edge_linear_selection()
-        )
+        [linear_region_left_index, linear_region_right_index] = o_get.fitting_bragg_edge_linear_selection()
 
         # if self.grand_parent.fitting_bragg_edge_linear_selection == []:
         #     linear_region_left_index = 0
@@ -258,9 +256,7 @@ class SelectedBinsHandler(object):
                 bounds=None,
             )
             lr.setZValue(-10)
-            lr.sigRegionChangeFinished.connect(
-                self.parent.bragg_edge_linear_region_changed
-            )
+            lr.sigRegionChangeFinished.connect(self.parent.bragg_edge_linear_region_changed)
             lr.sigRegionChanged.connect(self.parent.bragg_edge_linear_region_changing)
             self.parent.bragg_edge_plot.addItem(lr)
             self.parent.fitting_lr = lr
@@ -285,25 +281,14 @@ class SelectedBinsHandler(object):
                 a5 = parameters["a5"]
                 a6 = parameters["a6"]
 
-            if (
-                np.isnan(d_spacing)
-                or np.isnan(alpha)
-                or np.isnan(sigma)
-                or np.isnan(a1)
-                or np.isnan(a2)
-            ):
+            if np.isnan(d_spacing) or np.isnan(alpha) or np.isnan(sigma) or np.isnan(a1) or np.isnan(a2):
                 return
 
             fit_x_axis = np.linspace(lr_left, lr_right, num=100)
             if _advanced_fitting_mode:
-                fit_y_axis = [
-                    advanced_fit(x, d_spacing, alpha, sigma, a1, a2, a5, a6)
-                    for x in fit_x_axis
-                ]
+                fit_y_axis = [advanced_fit(x, d_spacing, alpha, sigma, a1, a2, a5, a6) for x in fit_x_axis]
             else:
-                fit_y_axis = [
-                    basic_fit(x, d_spacing, alpha, sigma, a1, a2) for x in fit_x_axis
-                ]
+                fit_y_axis = [basic_fit(x, d_spacing, alpha, sigma, a1, a2) for x in fit_x_axis]
 
             # fit_y_axis *= nbr_index_selected #FIXME
 
