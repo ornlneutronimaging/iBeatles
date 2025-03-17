@@ -3,36 +3,34 @@
 Event handler
 """
 
-import os
-from qtpy.QtWidgets import QFileDialog
 import logging
+import os
+
 import numpy as np
 import pyqtgraph as pg
+from qtpy.QtWidgets import QFileDialog
 
-from ibeatles import DataType
-from ibeatles import interact_me_style, normal_style
+from ibeatles import DataType, interact_me_style, normal_style
 
+# MVP widget
+from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
+
+# backend function from core
+from ibeatles.core.io.data_loading import get_time_spectra_filename
 from ibeatles.session import SessionSubKeys
+from ibeatles.tools.tof_bin import BinAutoMode, BinMode
+from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
+from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
+from ibeatles.tools.tof_bin.plot import Plot
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.utilities.load_files import LoadFiles
-
-from ibeatles.tools.tof_bin import BinMode, BinAutoMode
-from ibeatles.tools.tof_bin.plot import Plot
-from ibeatles.tools.tof_bin.utilities.get import Get
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
-from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
-
-# backend function from core
-from ibeatles.core.io.data_loading import get_time_spectra_filename
-
-# MVP widget
-from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class EventHandler:
@@ -61,19 +59,11 @@ class EventHandler:
         o_get = Get(parent=self.parent)
         bin_mode = o_get.bin_mode()
         if bin_mode == BinMode.auto:
-            state_auto_table_has_at_least_one_row_checked = (
-                self._auto_table_has_at_least_one_row_checked()
-            )
-            self.parent.ui.export_pushButton.setEnabled(
-                state_auto_table_has_at_least_one_row_checked
-            )
+            state_auto_table_has_at_least_one_row_checked = self._auto_table_has_at_least_one_row_checked()
+            self.parent.ui.export_pushButton.setEnabled(state_auto_table_has_at_least_one_row_checked)
         elif bin_mode == BinMode.manual:
-            state_manual_table_has_at_least_one_real_bin = (
-                self._manual_table_has_at_least_one_real_bin()
-            )
-            self.parent.ui.export_pushButton.setEnabled(
-                state_manual_table_has_at_least_one_real_bin
-            )
+            state_manual_table_has_at_least_one_real_bin = self._manual_table_has_at_least_one_real_bin()
+            self.parent.ui.export_pushButton.setEnabled(state_manual_table_has_at_least_one_real_bin)
 
         # if data loaded, change stylesheet of buttons
         if self.parent.list_tif_files:
@@ -84,9 +74,7 @@ class EventHandler:
         """return True if there is at least one bin defined"""
 
         if self.parent.manual_bins[TimeSpectraKeys.file_index_array]:
-            if isinstance(
-                self.parent.manual_bins[TimeSpectraKeys.file_index_array][0], list
-            ):
+            if isinstance(self.parent.manual_bins[TimeSpectraKeys.file_index_array][0], list):
                 return True
         return False
 
@@ -103,9 +91,7 @@ class EventHandler:
         return False
 
     def select_input_folder(self):
-        default_path = self.top_parent.session_dict[DataType.sample][
-            SessionSubKeys.current_folder
-        ]
+        default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
         folder = QFileDialog.getExistingDirectory(
             parent=self.parent,
             caption="Select folder containing images to load",
@@ -142,9 +128,7 @@ class EventHandler:
         if not self.parent.list_tif_files:
             return
 
-        dict = LoadFiles.load_interactive_data(
-            parent=self.parent, list_tif_files=self.parent.list_tif_files
-        )
+        dict = LoadFiles.load_interactive_data(parent=self.parent, list_tif_files=self.parent.list_tif_files)
         self.parent.image_size["height"] = dict["height"]
         self.parent.image_size["width"] = dict["width"]
         self.parent.images_array = dict["image_array"]
@@ -170,15 +154,11 @@ class EventHandler:
         if self.time_spectra_presenter is None:
             self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
 
-        distance_source_detector_m = float(
-            self.parent.ui.distance_source_detector.text()
-        )
+        distance_source_detector_m = float(self.parent.ui.distance_source_detector.text())
         detector_offset = float(self.parent.ui.detector_offset.text())
 
         try:
-            self.time_spectra_presenter.load_data(
-                time_spectra_file, distance_source_detector_m, detector_offset
-            )
+            self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
             self.update_time_spectra_data()
         except Exception as e:
             logging.error(f"Error loading time spectra: {str(e)}")
@@ -192,26 +172,14 @@ class EventHandler:
     def update_time_spectra_data(self):
         time_spectra_data = self.time_spectra_presenter.model.get_data()
 
-        self.parent.time_spectra[TimeSpectraKeys.file_name] = time_spectra_data[
-            "filename"
-        ]
-        self.parent.time_spectra[TimeSpectraKeys.tof_array] = time_spectra_data[
-            "tof_array"
-        ]
-        self.parent.time_spectra[TimeSpectraKeys.lambda_array] = time_spectra_data[
-            "lambda_array"
-        ]
-        self.parent.time_spectra[TimeSpectraKeys.file_index_array] = np.arange(
-            len(time_spectra_data["tof_array"])
-        )
-        self.parent.time_spectra[TimeSpectraKeys.counts_array] = time_spectra_data[
-            "counts_array"
-        ]
+        self.parent.time_spectra[TimeSpectraKeys.file_name] = time_spectra_data["filename"]
+        self.parent.time_spectra[TimeSpectraKeys.tof_array] = time_spectra_data["tof_array"]
+        self.parent.time_spectra[TimeSpectraKeys.lambda_array] = time_spectra_data["lambda_array"]
+        self.parent.time_spectra[TimeSpectraKeys.file_index_array] = np.arange(len(time_spectra_data["tof_array"]))
+        self.parent.time_spectra[TimeSpectraKeys.counts_array] = time_spectra_data["counts_array"]
 
         # update time spectra tab
-        self.parent.ui.time_spectra_name_label.setText(
-            os.path.basename(time_spectra_data["filename"])
-        )
+        self.parent.ui.time_spectra_name_label.setText(os.path.basename(time_spectra_data["filename"]))
         self.parent.ui.time_spectra_preview_pushButton.setEnabled(True)
 
     def display_integrated_image(self):

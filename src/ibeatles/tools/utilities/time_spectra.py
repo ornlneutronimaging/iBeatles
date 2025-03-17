@@ -6,16 +6,16 @@ Time spectra module
 import glob
 import os
 from pathlib import Path
-from qtpy.QtWidgets import QVBoxLayout, QMainWindow, QSizePolicy
+
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-
-from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles import load_ui
-
-from neutronbraggedge.experiment_handler.tof import TOF
 from neutronbraggedge.experiment_handler.experiment import Experiment
+from neutronbraggedge.experiment_handler.tof import TOF
+from qtpy.QtWidgets import QMainWindow, QSizePolicy, QVBoxLayout
+
+from ibeatles import load_ui
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities.file_handler import FileHandler
 
 TIME_SPECTRA_NAME_FORMAT = "*_Spectra.txt"
 
@@ -69,9 +69,7 @@ class TimeSpectraHandler:
             self.counts_array = _tof_handler.counts_array
 
     def calculate_lambda_scale(self):
-        distance_source_detector = float(
-            self.parent.ui.distance_source_detector_label.text()
-        )
+        distance_source_detector = float(self.parent.ui.distance_source_detector_label.text())
         detector_offset = float(self.parent.ui.detector_offset_label.text())
 
         _exp = Experiment(
@@ -89,9 +87,7 @@ class TimeSpectraLauncher:
         if self.parent.time_spectra[TimeSpectraKeys.tof_array] is None:
             return
 
-        short_file_name = os.path.basename(
-            self.parent.time_spectra[TimeSpectraKeys.file_name]
-        )
+        short_file_name = os.path.basename(self.parent.time_spectra[TimeSpectraKeys.file_name])
         full_file_name = self.parent.time_spectra[TimeSpectraKeys.file_name]
         x_axis = self.parent.time_spectra[TimeSpectraKeys.tof_array]
         y_axis = self.parent.time_spectra[TimeSpectraKeys.counts_array]

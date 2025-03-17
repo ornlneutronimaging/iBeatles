@@ -3,20 +3,18 @@
 BinningLauncher class
 """
 
-from qtpy.QtWidgets import QMainWindow, QVBoxLayout, QApplication
-from qtpy import QtCore
-
-import pyqtgraph as pg
 import numpy as np
+import pyqtgraph as pg
+from qtpy import QtCore
+from qtpy.QtWidgets import QApplication, QMainWindow, QVBoxLayout
 
-from ibeatles.utilities import colors
-
+from ibeatles import BINNING_LINE_COLOR, DEFAULT_BIN, DEFAULT_ROI, DataType, load_ui
+from ibeatles.binning.binning_handler import BinningHandler
+from ibeatles.fitting.filling_table_handler import FillingTableHandler
 from ibeatles.fitting.fitting_handler import FittingHandler
 from ibeatles.fitting.fitting_launcher import FittingLauncher
-from ibeatles.fitting.filling_table_handler import FillingTableHandler
-from ibeatles.binning.binning_handler import BinningHandler
-from ibeatles import load_ui, BINNING_LINE_COLOR, DataType, DEFAULT_BIN, DEFAULT_ROI
 from ibeatles.session import SessionSubKeys
+from ibeatles.utilities import colors
 
 
 class BinningLauncher:
@@ -68,15 +66,11 @@ class BinningWindow(QMainWindow):
         self.roi_changed_finished()
 
     def load_data(self):
-        self.data = np.array(
-            self.parent.data_metadata["normalized"]["data_live_selection"]
-        )
+        self.data = np.array(self.parent.data_metadata["normalized"]["data_live_selection"])
 
     def init_widgets(self):
         if self.parent.session_dict[DataType.bin][SessionSubKeys.roi]:
-            [_, x0, y0, width, height, bin_size] = self.parent.session_dict[
-                DataType.bin
-            ][SessionSubKeys.roi]
+            [_, x0, y0, width, height, bin_size] = self.parent.session_dict[DataType.bin][SessionSubKeys.roi]
 
             self.ui.selection_x0.setText(str(x0))
             self.ui.selection_y0.setText(str(y0))
@@ -199,28 +193,18 @@ class BinningWindow(QMainWindow):
 
         x0 = self.get_correct_widget_value(ui=self.ui.selection_x0, variable_name="x0")
         y0 = self.get_correct_widget_value(ui=self.ui.selection_y0, variable_name="y0")
-        width = self.get_correct_widget_value(
-            ui=self.ui.selection_width, variable_name="width"
-        )
-        height = self.get_correct_widget_value(
-            ui=self.ui.selection_height, variable_name="height"
-        )
+        width = self.get_correct_widget_value(ui=self.ui.selection_width, variable_name="width")
+        height = self.get_correct_widget_value(ui=self.ui.selection_height, variable_name="height")
         bin_size = self.ui.bin_size_horizontalSlider.value()
         self.ui.bin_size_label.setText(str(bin_size))
 
         # self.parent.binning_bin_size = bin_size
         self.parent.binning_done = True
 
-        self.parent.binning_line_view["roi"].setPos(
-            [x0, y0], update=False, finish=False
-        )
-        self.parent.binning_line_view["roi"].setSize(
-            [width, height], update=False, finish=False
-        )
+        self.parent.binning_line_view["roi"].setPos([x0, y0], update=False, finish=False)
+        self.parent.binning_line_view["roi"].setSize([width, height], update=False, finish=False)
 
-        pos_adj_dict = self.calculate_matrix_of_pixel_bins(
-            bin_size=bin_size, x0=x0, y0=y0, width=width, height=height
-        )
+        pos_adj_dict = self.calculate_matrix_of_pixel_bins(bin_size=bin_size, x0=x0, y0=y0, width=width, height=height)
 
         pos = pos_adj_dict["pos"]
         adj = pos_adj_dict["adj"]
@@ -247,22 +231,16 @@ class BinningWindow(QMainWindow):
             self.parent.fitting_ui.update_selected_bins_plot()
             self.parent.fitting_ui.check_status_widgets()
 
-            o_table = FittingHandler(
-                parent=self.parent.fitting_ui, grand_parent=self.parent
-            )
+            o_table = FittingHandler(parent=self.parent.fitting_ui, grand_parent=self.parent)
             o_table.create_table_dictionary()
 
             # self.parent.fitting_ui.selection_in_value_table_of_rows_cell_clicked(-1, -1)
 
-            o_handler = FittingHandler(
-                parent=self.parent.fitting_ui, grand_parent=self.parent
-            )
+            o_handler = FittingHandler(parent=self.parent.fitting_ui, grand_parent=self.parent)
             o_handler.display_roi()
             o_handler.display_locked_active_bins()
 
-            o_fitting = FillingTableHandler(
-                parent=self.parent.fitting_ui, grand_parent=self.parent
-            )
+            o_fitting = FillingTableHandler(parent=self.parent.fitting_ui, grand_parent=self.parent)
             o_fitting.fill_table()
 
         self.record_roi()
@@ -286,9 +264,7 @@ class BinningWindow(QMainWindow):
         self.parent.binning_line_view["ui"] = line_view
         self.record_roi()
 
-    def calculate_matrix_of_pixel_bins(
-        self, bin_size=2, x0=0, y0=0, width=20, height=20
-    ):
+    def calculate_matrix_of_pixel_bins(self, bin_size=2, x0=0, y0=0, width=20, height=20):
         pos_adj_dict = {}
 
         nbr_height_bins = float(height) / float(bin_size)

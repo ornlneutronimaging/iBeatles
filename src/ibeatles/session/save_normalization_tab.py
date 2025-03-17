@@ -6,10 +6,9 @@ SaveNormalizationTab class
 from loguru import logger
 
 from ibeatles import DataType
-from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
-
 from ibeatles.session import SessionSubKeys
 from ibeatles.session.save_tab import SaveTab
+from ibeatles.utilities.pyqrgraph import Pyqtgrah as PyqtgraphUtilities
 
 
 class SaveNormalizationTab(SaveTab):

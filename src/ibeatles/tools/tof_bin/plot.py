@@ -4,13 +4,13 @@ Plot module
 """
 
 import copy
+
 import numpy as np
 
+from ibeatles.tools import ANGSTROMS, LAMBDA, MICRO
+from ibeatles.tools.tof_bin import TO_ANGSTROMS_UNITS, TO_MICROS_UNITS
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.utilities import TimeSpectraKeys
-
-from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from ibeatles.tools import LAMBDA, MICRO, ANGSTROMS
 
 
 class Plot:
@@ -29,16 +29,12 @@ class Plot:
         self.parent.bin_profile_view.clear()  # clear previous plot
         if self.parent.dict_of_bins_item is not None:  # remove previous bins
             for _key in self.parent.dict_of_bins_item.keys():
-                self.parent.bin_profile_view.removeItem(
-                    self.parent.dict_of_bins_item[_key]
-                )
+                self.parent.bin_profile_view.removeItem(self.parent.dict_of_bins_item[_key])
             self.parent.dict_of_bins_item = None
 
         array_of_data = self.parent.images_array
 
-        profile_signal = [
-            np.mean(_data[y0 : y0 + height, x0 : x0 + width]) for _data in array_of_data
-        ]
+        profile_signal = [np.mean(_data[y0 : y0 + height, x0 : x0 + width]) for _data in array_of_data]
         # profile_signal = self.parent.profile_signal
 
         o_get = Get(parent=self.parent)

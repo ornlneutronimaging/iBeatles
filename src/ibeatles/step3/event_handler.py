@@ -4,14 +4,13 @@ Event handler for the step3
 """
 
 from loguru import logger
-from ibeatles import DataType
 
-from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
+from ibeatles import DataType
 from ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
 from ibeatles.step1.data_handler import DataHandler
 from ibeatles.step1.plot import Step1Plot
-
 from ibeatles.step3.gui_handler import Step3GuiHandler
+from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
 
 
 class EventHandler(TopEventHandler):
@@ -21,9 +20,7 @@ class EventHandler(TopEventHandler):
         self.parent.loading_flag = True
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)
         _folder = o_load.select_folder()
-        state = o_load.import_files_from_folder(
-            folder=_folder, extension=[".tif", ".fits", ".tiff"]
-        )
+        state = o_load.import_files_from_folder(folder=_folder, extension=[".tif", ".fits", ".tiff"])
 
         if state:
             o_load.import_time_spectra()
@@ -38,9 +35,7 @@ class EventHandler(TopEventHandler):
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:
-            o_retrieve_data_infos = RetrieveGeneralDataInfos(
-                parent=self.parent, data_type=DataType.normalized
-            )
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type=DataType.normalized)
             o_retrieve_data_infos.update()
             self.parent.roi_normalized_image_view_changed(mouse_selection=False)
         else:
@@ -48,9 +43,7 @@ class EventHandler(TopEventHandler):
 
     def import_button_clicked_automatically(self, folder=None):
         o_load = DataHandler(parent=self.parent, data_type=self.data_type)
-        o_load.import_files_from_folder(
-            folder=folder, extension=[".tif", ".fits", ".tiff"]
-        )
+        o_load.import_files_from_folder(folder=folder, extension=[".tif", ".fits", ".tiff"])
         o_load.import_time_spectra()
 
         if self.parent.data_metadata[self.data_type]["data"].any():

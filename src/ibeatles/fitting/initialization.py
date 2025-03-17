@@ -3,37 +3,34 @@
 Initialization
 """
 
-from qtpy.QtWidgets import (
-    QVBoxLayout,
-    QHBoxLayout,
-    QWidget,
-    QProgressBar,
-    QLabel,
-    QSpacerItem,
-    QSlider,
-    QSizePolicy,
-    QGroupBox,
-)
+import matplotlib
 import numpy as np
-from qtpy import QtCore
 import pyqtgraph as pg
 from loguru import logger
+from qtpy import QtCore
 from qtpy.QtGui import QIcon
-import matplotlib
+from qtpy.QtWidgets import (
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QProgressBar,
+    QSizePolicy,
+    QSlider,
+    QSpacerItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 matplotlib.use("Qt5Agg")
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
-
-from ibeatles import DataType, interact_me_style
-from ibeatles.utilities.table_handler import TableHandler
-from ibeatles import settings_image
-from ibeatles.fitting.kropff import KropffThresholdFinder
-from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
-from ibeatles.fitting.kropff import BraggPeakInitParameters
+from ibeatles import DataType, interact_me_style, settings_image
 from ibeatles.fitting import FittingTabSelected, KropffTabSelected
-from ibeatles.utilities.mplcanvas import MplCanvas
+from ibeatles.fitting.kropff import BraggPeakInitParameters, KropffThresholdFinder
+from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
 from ibeatles.utilities.get import Get
+from ibeatles.utilities.mplcanvas import MplCanvas
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class Initialization:
@@ -58,9 +55,7 @@ class Initialization:
     def data_format(self):
         # force all the bragg edges array to be float instead of string
         bragg_edges_array = self.grand_parent.selected_element_bragg_edges_array
-        self.grand_parent.selected_element_bragg_edges_array = [
-            float(_value) for _value in bragg_edges_array
-        ]
+        self.grand_parent.selected_element_bragg_edges_array = [float(_value) for _value in bragg_edges_array]
 
     def splitter(self):
         # march dollase vertical splitter
@@ -116,9 +111,7 @@ class Initialization:
         self.parent.eventProgress.setMaximumSize(540, 100)
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
-        self.parent.setStyleSheet(
-            "QStatusBar{padding-left:8px;color:red;font-weight:bold;}"
-        )
+        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
     def global_data(self):
         x_axis = self.grand_parent.normalized_lambda_bragg_edge_x_axis
@@ -159,9 +152,7 @@ class Initialization:
         o_kropff_low_tof.set_column_names(column_names=column_names)
         o_kropff_low_tof.set_column_sizes(column_sizes=column_sizes)
 
-        o_kropff_bragg_edge = TableHandler(
-            table_ui=self.parent.ui.bragg_edge_tableWidget
-        )
+        o_kropff_bragg_edge = TableHandler(table_ui=self.parent.ui.bragg_edge_tableWidget)
         column_names = [
             "row #",
             "column #",
@@ -179,9 +170,7 @@ class Initialization:
         o_kropff_bragg_edge.set_column_sizes(column_sizes=column_sizes)
 
         # kropff table summary
-        o_kropff_summary = TableHandler(
-            table_ui=self.parent.ui.kropff_summary_tableWidget
-        )
+        o_kropff_summary = TableHandler(table_ui=self.parent.ui.kropff_summary_tableWidget)
         for _col in np.arange(3):
             o_kropff_summary.insert_empty_column(column=0)
 
@@ -218,19 +207,11 @@ class Initialization:
         self.parent.hori_header_table = self.parent.ui.header_table.horizontalHeader()
         self.parent.hori_value_table = self.parent.ui.value_table.horizontalHeader()
 
-        self.parent.hori_header_table.sectionResized.connect(
-            self.parent.resizing_header_table
-        )
-        self.parent.hori_value_table.sectionResized.connect(
-            self.parent.resizing_value_table
-        )
+        self.parent.hori_header_table.sectionResized.connect(self.parent.resizing_header_table)
+        self.parent.hori_value_table.sectionResized.connect(self.parent.resizing_value_table)
 
-        self.parent.hori_header_table.sectionClicked.connect(
-            self.parent.column_header_table_clicked
-        )
-        self.parent.hori_value_table.sectionClicked.connect(
-            self.parent.column_value_table_clicked
-        )
+        self.parent.hori_header_table.sectionClicked.connect(self.parent.column_header_table_clicked)
+        self.parent.hori_value_table.sectionClicked.connect(self.parent.column_value_table_clicked)
 
     def pyqtgraph(self):
         # Kropff
@@ -280,9 +261,7 @@ class Initialization:
 
         self.grand_parent.fitting_image_view = image_view
         image_view.scene.sigMouseMoved.connect(self.parent.mouse_moved_in_image_view)
-        self.parent.image_view_scene.sigMouseClicked.connect(
-            self.parent.mouse_clicked_in_top_left_image_view
-        )
+        self.parent.image_view_scene.sigMouseClicked.connect(self.parent.mouse_clicked_in_top_left_image_view)
 
         # left_widget = QWidget()
         vertical = QVBoxLayout()
@@ -434,9 +413,7 @@ class Initialization:
         """
         such as material h,k,l list according to material selected in normalized tab
         """
-        kropff_session_dict = self.grand_parent.session_dict[DataType.fitting][
-            FittingTabSelected.kropff
-        ]
+        kropff_session_dict = self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff]
 
         def _retrieve_kropff_init_value(
             variable_key: KropffSessionSubKeys = KropffSessionSubKeys.lambda_hkl,
@@ -451,28 +428,20 @@ class Initialization:
             if not kropff_session_dict.get(KropffSessionSubKeys.bragg_peak, None):
                 return None
 
-            if not kropff_session_dict[KropffSessionSubKeys.bragg_peak].get(
-                variable_key, None
-            ):
+            if not kropff_session_dict[KropffSessionSubKeys.bragg_peak].get(variable_key, None):
                 return None
 
-            return kropff_session_dict[KropffSessionSubKeys.bragg_peak][
-                variable_key
-            ].get(key, None)
+            return kropff_session_dict[KropffSessionSubKeys.bragg_peak][variable_key].get(key, None)
 
         hkl_list = self.grand_parent.selected_element_hkl_array
 
-        str_hkl_list = [
-            "{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list
-        ]
+        str_hkl_list = ["{},{},{}".format(_hkl[0], _hkl[1], _hkl[2]) for _hkl in hkl_list]
         self.parent.ui.hkl_list_ui.addItems(str_hkl_list)
 
         # Kropff - initial fitting parameters
         a0 = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.a0]
         b0 = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.b0]
-        high_tof_graph = kropff_session_dict[KropffSessionSubKeys.high_tof][
-            KropffSessionSubKeys.graph
-        ]
+        high_tof_graph = kropff_session_dict[KropffSessionSubKeys.high_tof][KropffSessionSubKeys.graph]
         self.parent.ui.kropff_high_lda_a0_init.setText(a0)
         self.parent.ui.kropff_high_lda_b0_init.setText(b0)
         if high_tof_graph == "a0":
@@ -480,15 +449,9 @@ class Initialization:
         else:
             self.parent.ui.kropff_b0_radioButton.setChecked(True)
 
-        ahkl = kropff_session_dict[KropffSessionSubKeys.low_tof][
-            KropffSessionSubKeys.ahkl
-        ]
-        bhkl = kropff_session_dict[KropffSessionSubKeys.low_tof][
-            KropffSessionSubKeys.bhkl
-        ]
-        low_tof_graph = kropff_session_dict[KropffSessionSubKeys.low_tof][
-            KropffSessionSubKeys.graph
-        ]
+        ahkl = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.ahkl]
+        bhkl = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.bhkl]
+        low_tof_graph = kropff_session_dict[KropffSessionSubKeys.low_tof][KropffSessionSubKeys.graph]
         self.parent.ui.kropff_low_lda_ahkl_init.setText(ahkl)
         self.parent.ui.kropff_low_lda_bhkl_init.setText(bhkl)
         if low_tof_graph == "ahkl":
@@ -602,9 +565,7 @@ class Initialization:
         # lambda_hkl = kropff_session_dict[KropffSessionSubKeys.bragg_peak]['lambda_hkl']
         # tau = kropff_session_dict['bragg peak']['tau']
         # sigma = kropff_session_dict['bragg peak']['sigma']
-        bragg_peak_tof_graph = kropff_session_dict[KropffTabSelected.bragg_peak][
-            "graph"
-        ]
+        bragg_peak_tof_graph = kropff_session_dict[KropffTabSelected.bragg_peak]["graph"]
 
         # self.parent.ui.kropff_bragg_peak_tau_init.setText(tau)
         # index = self.parent.ui.kropff_bragg_peak_sigma_comboBox.findText(sigma)
@@ -618,11 +579,9 @@ class Initialization:
         else:
             self.parent.ui.kropff_sigma_radioButton.setChecked(True)
 
-        self.parent.kropff_automatic_threshold_finder_algorithm = (
-            kropff_session_dict.get(
-                KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm,
-                KropffThresholdFinder.sliding_average,
-            )
+        self.parent.kropff_automatic_threshold_finder_algorithm = kropff_session_dict.get(
+            KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm,
+            KropffThresholdFinder.sliding_average,
         )
 
         icon = QIcon(settings_image)
@@ -631,16 +590,10 @@ class Initialization:
         self.parent.ui.kropff_fitting_conditions_pushButton.setIcon(icon)
         self.parent.ui.kropff_fitting_conditions_pushButton_1.setIcon(icon)
 
-        self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(
-            interact_me_style
-        )
-        self.parent.ui.automatic_kropff_fitting_pushButton.setStyleSheet(
-            interact_me_style
-        )
+        self.parent.ui.automatic_bragg_peak_threshold_finder_pushButton.setStyleSheet(interact_me_style)
+        self.parent.ui.automatic_kropff_fitting_pushButton.setStyleSheet(interact_me_style)
 
-        self.parent.ui.fitting_kropff_bragg_peak_lambda_hkl_groupBox.setTitle(
-            "\u03bb\u2095\u2096\u2097"
-        )
+        self.parent.ui.fitting_kropff_bragg_peak_lambda_hkl_groupBox.setTitle("\u03bb\u2095\u2096\u2097")
         self.parent.ui.fitting_kropff_bragg_peak_tau_groupBox.setTitle("\u03c4")
         self.parent.ui.fitting_kropff_bragg_peak_sigma_groupBox.setTitle("\u03c3")
 
@@ -665,9 +618,7 @@ class Initialization:
             self.parent.ui.kropff_top_horizontal_splitter.setSizes(splitter_3_size)
 
         except TypeError:
-            logger.info(
-                "Splitters have not been set due to log file format error! This should only show up once."
-            )
+            logger.info("Splitters have not been set due to log file format error! This should only show up once.")
 
     def matplotlib(self):
         def _matplotlib(parent=None, widget=None):
@@ -680,12 +631,6 @@ class Initialization:
             widget.setLayout(layout)
             return sc
 
-        self.parent.kropff_high_plot = _matplotlib(
-            parent=self.parent, widget=self.parent.ui.high_widget
-        )
-        self.parent.kropff_low_plot = _matplotlib(
-            parent=self.parent, widget=self.parent.ui.low_widget
-        )
-        self.parent.kropff_bragg_peak_plot = _matplotlib(
-            parent=self.parent, widget=self.parent.ui.bragg_peak_widget
-        )
+        self.parent.kropff_high_plot = _matplotlib(parent=self.parent, widget=self.parent.ui.high_widget)
+        self.parent.kropff_low_plot = _matplotlib(parent=self.parent, widget=self.parent.ui.low_widget)
+        self.parent.kropff_bragg_peak_plot = _matplotlib(parent=self.parent, widget=self.parent.ui.bragg_peak_widget)

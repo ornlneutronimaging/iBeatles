@@ -1,5 +1,5 @@
-from unittest import TestCase
 from pathlib import Path
+from unittest import TestCase
 
 from ibeatles.utilities.file_handler import FileHandler
 
@@ -48,9 +48,7 @@ class TestDataHandler(TestCase):
             "file_not_to_keep_1.tiff",
             "file_not_to_keep_2.tiff",
         ]
-        returned_list = FileHandler.cleanup_list_of_files(
-            list_of_files=list_of_files, base_number=base_number
-        )
+        returned_list = FileHandler.cleanup_list_of_files(list_of_files=list_of_files, base_number=base_number)
         expected_list = [
             "file_to_keep_1.txt",
             "file_to_keep_2.txt",

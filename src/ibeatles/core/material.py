@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 """Materials model for fitting."""
 
-from typing import Union, Dict, Tuple, List
+from typing import Dict, List, Tuple, Union
+
 from neutronbraggedge.braggedge import BraggEdge
+
 from ibeatles.core.config import Material
 
 
@@ -58,9 +60,7 @@ def get_bragg_edges(
                 "bragg_edges": material.bragg_edges[material_config.element],
             }
         except Exception as e:
-            raise ValueError(
-                f"Error getting Bragg edges for {material_config.element}: {str(e)}"
-            )
+            raise ValueError(f"Error getting Bragg edges for {material_config.element}: {str(e)}")
 
     elif material_config.custom_material is not None:
         # Use custom material
@@ -96,9 +96,7 @@ def get_bragg_edges(
         raise ValueError("No material specified in configuration")
 
 
-def get_initial_bragg_edge_lambda(
-    material_config: Material, lambda_range: Tuple[float, float]
-) -> float:
+def get_initial_bragg_edge_lambda(material_config: Material, lambda_range: Tuple[float, float]) -> float:
     """
     Get initial guess for Bragg edge wavelength within specified range.
 
@@ -118,9 +116,7 @@ def get_initial_bragg_edge_lambda(
     bragg_edges = edges["bragg_edges"]
 
     # Find edges within range
-    valid_edges = [
-        edge for edge in bragg_edges if lambda_range[0] <= edge <= lambda_range[1]
-    ]
+    valid_edges = [edge for edge in bragg_edges if lambda_range[0] <= edge <= lambda_range[1]]
 
     if not valid_edges:
         raise ValueError(f"No Bragg edges found in range {lambda_range}")

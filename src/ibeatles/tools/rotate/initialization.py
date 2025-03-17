@@ -3,8 +3,8 @@
 Initialization
 """
 
-from qtpy.QtWidgets import QProgressBar, QVBoxLayout
 import pyqtgraph as pg
+from qtpy.QtWidgets import QProgressBar, QVBoxLayout
 
 from ibeatles import interact_me_style
 

@@ -4,11 +4,11 @@ KropffAutomaticThresholdAlgorithms class for handling the automatic threshold al
 """
 
 import numpy as np
-from scipy.special import erf
-from scipy.optimize import curve_fit
 from changepy import pelt
 from changepy.costs import normal_var
 from qtpy import QtGui
+from scipy.optimize import curve_fit
+from scipy.special import erf
 
 from ibeatles.fitting.kropff import KropffThresholdFinder
 

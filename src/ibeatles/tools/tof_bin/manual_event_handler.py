@@ -4,17 +4,17 @@ Manual event handler
 """
 
 import logging
-import pyqtgraph as pg
+
 import numpy as np
+import pyqtgraph as pg
 
-from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin import TO_ANGSTROMS_UNITS, TO_MICROS_UNITS
 from ibeatles.tools.tof_bin.plot import Plot
-
 from ibeatles.tools.tof_bin.utilities.get import Get
-from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from ibeatles.utilities.table_handler import TableHandler
+from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.utilities.math_tools import get_index_of_closest_match
 from ibeatles.utilities.string import format_str
+from ibeatles.utilities.table_handler import TableHandler
 
 FILE_INDEX_BIN_MARGIN = 0.5
 UNSELECTED_BIN = (0, 0, 200, 50)
@@ -112,19 +112,13 @@ class ManualEventHandler:
             manual_bins[TimeSpectraKeys.file_index_array] = [
                 self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]
             ]
-            manual_bins[TimeSpectraKeys.tof_array] = [
-                [self.parent.time_spectra[TimeSpectraKeys.tof_array][0]]
-            ]
-            manual_bins[TimeSpectraKeys.lambda_array] = [
-                [self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]]
-            ]
+            manual_bins[TimeSpectraKeys.tof_array] = [[self.parent.time_spectra[TimeSpectraKeys.tof_array][0]]]
+            manual_bins[TimeSpectraKeys.lambda_array] = [[self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]]]
         else:
             manual_bins[TimeSpectraKeys.file_index_array].append(
                 [self.parent.time_spectra[TimeSpectraKeys.file_index_array][0]]
             )
-            manual_bins[TimeSpectraKeys.tof_array].append(
-                [self.parent.time_spectra[TimeSpectraKeys.tof_array][0]]
-            )
+            manual_bins[TimeSpectraKeys.tof_array].append([self.parent.time_spectra[TimeSpectraKeys.tof_array][0]])
             manual_bins[TimeSpectraKeys.lambda_array].append(
                 [self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]]
             )
@@ -155,17 +149,10 @@ class ManualEventHandler:
         o_table.insert_item(row=last_row, column=1, value=_file_index, editable=False)
 
         _tof = self.parent.time_spectra[TimeSpectraKeys.tof_array][0] * TO_MICROS_UNITS
-        o_table.insert_item(
-            row=last_row, column=2, value=_tof, format_str="{:.2f}", editable=False
-        )
+        o_table.insert_item(row=last_row, column=2, value=_tof, format_str="{:.2f}", editable=False)
 
-        _lambda = (
-            self.parent.time_spectra[TimeSpectraKeys.lambda_array][0]
-            * TO_ANGSTROMS_UNITS
-        )
-        o_table.insert_item(
-            row=last_row, column=3, value=_lambda, format_str="{:.3f}", editable=False
-        )
+        _lambda = self.parent.time_spectra[TimeSpectraKeys.lambda_array][0] * TO_ANGSTROMS_UNITS
+        o_table.insert_item(row=last_row, column=3, value=_lambda, format_str="{:.3f}", editable=False)
 
     def clear_all_items(self):
         list_of_manually_bins_item = self.parent.list_of_manual_bins_item
@@ -208,9 +195,7 @@ class ManualEventHandler:
                 factor=1,
                 data_type=TimeSpectraKeys.file_index_array,
             )
-            o_table.insert_item(
-                row=_row, column=1, value=_file_index_formatted, editable=False
-            )
+            o_table.insert_item(row=_row, column=1, value=_file_index_formatted, editable=False)
 
             _tof = tof_array[_index]
             _tof_formatted = format_str(
@@ -219,9 +204,7 @@ class ManualEventHandler:
                 factor=TO_MICROS_UNITS,
                 data_type=TimeSpectraKeys.tof_array,
             )
-            o_table.insert_item(
-                row=_row, column=2, value=_tof_formatted, editable=False
-            )
+            o_table.insert_item(row=_row, column=2, value=_tof_formatted, editable=False)
 
             _lambda = lambda_array[_index]
             _lambda_formatted = format_str(
@@ -230,13 +213,9 @@ class ManualEventHandler:
                 factor=TO_ANGSTROMS_UNITS,
                 data_type=TimeSpectraKeys.lambda_array,
             )
-            o_table.insert_item(
-                row=_row, column=3, value=_lambda_formatted, editable=False
-            )
+            o_table.insert_item(row=_row, column=3, value=_lambda_formatted, editable=False)
 
-            item = self.add_bin_in_plot(
-                row=_row, file_index_bin=_bin, tof_bin=_tof, lambda_bin=_lambda
-            )
+            item = self.add_bin_in_plot(row=_row, file_index_bin=_bin, tof_bin=_tof, lambda_bin=_lambda)
 
             self.parent.list_of_manual_bins_item.append(item)
 
@@ -250,9 +229,7 @@ class ManualEventHandler:
         self.parent.manual_bins = bins
         self.populate_table_with_this_table(table=bins)
 
-    def add_bin_in_plot(
-        self, row=0, file_index_bin=None, tof_bin=None, lambda_bin=None
-    ):
+    def add_bin_in_plot(self, row=0, file_index_bin=None, tof_bin=None, lambda_bin=None):
         o_get = Get(parent=self.parent)
         current_x_axis = o_get.x_axis_selected()
         if current_x_axis == TimeSpectraKeys.file_index_array:
@@ -346,9 +323,7 @@ class ManualEventHandler:
                 factor=TO_ANGSTROMS_UNITS,
                 data_type=TimeSpectraKeys.lambda_array,
             )
-            o_table.set_item_with_str(
-                row=_row, column=3, cell_str=list_lambda_formatted
-            )
+            o_table.set_item_with_str(row=_row, column=3, cell_str=list_lambda_formatted)
 
         o_table.block_signals(False)
 
@@ -392,9 +367,7 @@ class ManualEventHandler:
             left_index, right_index = manual_snapping_indexes_bins[_bin]
 
             # tof_array
-            bins_file_index_array = list(
-                self.parent.time_spectra[TimeSpectraKeys.file_index_array]
-            )
+            bins_file_index_array = list(self.parent.time_spectra[TimeSpectraKeys.file_index_array])
             bins_file_index_range = bins_file_index_array[left_index : right_index + 1]
             file_index_array.append(bins_file_index_range)
 
@@ -476,9 +449,7 @@ class ManualEventHandler:
             [left, right] = _item.getRegion()
 
             # bring left and right to closest correct values
-            left_value_checked, right_value_checked = self.checked_range(
-                left=left, right=right
-            )
+            left_value_checked, right_value_checked = self.checked_range(left=left, right=right)
             manual_snapping_indexes_bins[_row] = [
                 left_value_checked,
                 right_value_checked,
@@ -519,12 +490,8 @@ class ManualEventHandler:
         if right >= x_axis[-1]:
             right = x_axis[-1]
 
-        index_clean_left_value = get_index_of_closest_match(
-            array_to_look_for=x_axis, value=left, left_margin=True
-        )
-        index_clean_right_value = get_index_of_closest_match(
-            array_to_look_for=x_axis, value=right, left_margin=False
-        )
+        index_clean_left_value = get_index_of_closest_match(array_to_look_for=x_axis, value=left, left_margin=True)
+        index_clean_right_value = get_index_of_closest_match(array_to_look_for=x_axis, value=right, left_margin=False)
 
         return (
             np.min([index_clean_left_value, index_clean_right_value]),

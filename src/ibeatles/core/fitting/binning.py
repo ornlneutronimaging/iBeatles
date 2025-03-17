@@ -1,7 +1,9 @@
 """Functions for generating bins and extracting bin data for fitting."""
 
-from typing import List, Tuple, Optional, Sequence
+from typing import List, Optional, Sequence, Tuple
+
 import numpy as np
+
 from ibeatles.core.config import BinCoordinates
 
 
@@ -117,12 +119,7 @@ def get_bin_transmission(
     # NOTE: some additional filtering might be helpful here is the data
     #       is extremely noisy
     transmission_values = np.array(
-        [
-            np.nanmean(
-                img[bin_coords.y0 : bin_coords.y1, bin_coords.x0 : bin_coords.x1]
-            )
-            for img in images
-        ]
+        [np.nanmean(img[bin_coords.y0 : bin_coords.y1, bin_coords.x0 : bin_coords.x1]) for img in images]
     )
 
     # Apply wavelength range selection if specified
@@ -135,9 +132,7 @@ def get_bin_transmission(
     return wavelengths, transmission_values
 
 
-def validate_transmission_data(
-    wavelengths: np.ndarray, transmission: np.ndarray, min_valid_points: int = 10
-) -> bool:
+def validate_transmission_data(wavelengths: np.ndarray, transmission: np.ndarray, min_valid_points: int = 10) -> bool:
     """
     Validate transmission data before fitting.
 

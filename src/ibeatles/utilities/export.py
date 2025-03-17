@@ -4,9 +4,9 @@ This module provides a class to export data.
 """
 
 from ibeatles.fitting import FittingKeys
+from ibeatles.fitting.kropff import SessionSubKeys
 from ibeatles.utilities.array_utilities import from_nparray_to_list
 from ibeatles.utilities.json_handler import make_value_json_friendly
-from ibeatles.fitting.kropff import SessionSubKeys
 
 
 @staticmethod
@@ -43,57 +43,37 @@ def format_kropff_dict(
         cleaned_table[_row][SessionSubKeys.fitted] = {}
 
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof] = {}
-        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][
-            FittingKeys.x_axis
-        ] = from_nparray_to_list(
-            table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][
-                FittingKeys.x_axis
-            ],
+        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.x_axis] = from_nparray_to_list(
+            table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.x_axis],
             json_friendly=json_friendly,
         )
-        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][
-            FittingKeys.y_axis
-        ] = from_nparray_to_list(
-            table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][
-                FittingKeys.y_axis
-            ],
+        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.y_axis] = from_nparray_to_list(
+            table[_row][SessionSubKeys.fitted][SessionSubKeys.high_tof][FittingKeys.y_axis],
             json_friendly=json_friendly,
         )
 
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof] = {}
-        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][
-            FittingKeys.x_axis
-        ] = from_nparray_to_list(
-            table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][
-                FittingKeys.x_axis
-            ],
+        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.x_axis] = from_nparray_to_list(
+            table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.x_axis],
             json_friendly=json_friendly,
         )
-        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][
-            FittingKeys.y_axis
-        ] = from_nparray_to_list(
-            table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][
-                FittingKeys.y_axis
-            ],
+        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.y_axis] = from_nparray_to_list(
+            table[_row][SessionSubKeys.fitted][SessionSubKeys.low_tof][FittingKeys.y_axis],
             json_friendly=json_friendly,
         )
 
         cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak] = {}
-        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][
-            FittingKeys.x_axis
-        ] = from_nparray_to_list(
-            table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][
-                FittingKeys.x_axis
-            ],
-            json_friendly=json_friendly,
+        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.x_axis] = (
+            from_nparray_to_list(
+                table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.x_axis],
+                json_friendly=json_friendly,
+            )
         )
-        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][
-            FittingKeys.y_axis
-        ] = from_nparray_to_list(
-            table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][
-                FittingKeys.y_axis
-            ],
-            json_friendly=json_friendly,
+        cleaned_table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis] = (
+            from_nparray_to_list(
+                table[_row][SessionSubKeys.fitted][SessionSubKeys.bragg_peak][FittingKeys.y_axis],
+                json_friendly=json_friendly,
+            )
         )
 
         def format_output(input=None, json_friendly=False):
@@ -120,16 +100,10 @@ def format_kropff_dict(
         cleaned_table[_row]["tau"] = format_output(table[_row]["tau"])
         cleaned_table[_row]["sigma"] = format_output(table[_row]["sigma"])
         cleaned_table[_row]["lambda_hkl"] = format_output(table[_row]["lambda_hkl"])
-        cleaned_table[_row][FittingKeys.row_index] = format_output(
-            table[_row][FittingKeys.row_index]
-        )
-        cleaned_table[_row][FittingKeys.column_index] = format_output(
-            table[_row][FittingKeys.column_index]
-        )
+        cleaned_table[_row][FittingKeys.row_index] = format_output(table[_row][FittingKeys.row_index])
+        cleaned_table[_row][FittingKeys.column_index] = format_output(table[_row][FittingKeys.column_index])
 
-        cleaned_table[_row]["bragg peak threshold"] = format_output(
-            table[_row]["bragg peak threshold"]
-        )
+        cleaned_table[_row]["bragg peak threshold"] = format_output(table[_row]["bragg peak threshold"])
 
         # else:
         #
@@ -159,9 +133,7 @@ def format_kropff_dict(
 
 
 @staticmethod
-def format_kropff_table(
-    table: dict = None, d_dict: dict = None, strain_dict: dict = None
-):
+def format_kropff_table(table: dict = None, d_dict: dict = None, strain_dict: dict = None):
     formatted_table = [
         "#index, "
         + "bin x0, bin y0, bin x1, bin y1, "

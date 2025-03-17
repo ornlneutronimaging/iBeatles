@@ -3,12 +3,8 @@
 Get module
 """
 
-from ibeatles.tools.tof_bin import BinAutoMode
-from ibeatles.tools.tof_bin import StatisticsName
-
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.tools.utilities import CombineAlgorithm
-from ibeatles.tools.tof_bin import BinMode
+from ibeatles.tools.tof_bin import BinAutoMode, BinMode, StatisticsName
+from ibeatles.tools.utilities import CombineAlgorithm, TimeSpectraKeys
 
 
 class Get:

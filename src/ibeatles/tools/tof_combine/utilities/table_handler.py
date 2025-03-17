@@ -4,9 +4,16 @@ Table handler
 """
 
 import numpy as np
-from qtpy import QtGui, QtCore
-from qtpy.QtWidgets import QTableWidgetItem, QTableWidgetSelectionRange
-from qtpy.QtWidgets import QApplication, QSpacerItem, QSizePolicy, QWidget, QHBoxLayout
+from qtpy import QtCore, QtGui
+from qtpy.QtWidgets import (
+    QApplication,
+    QHBoxLayout,
+    QSizePolicy,
+    QSpacerItem,
+    QTableWidgetItem,
+    QTableWidgetSelectionRange,
+    QWidget,
+)
 
 from ibeatles.tools.tof_combine.utilities.widgets_handler import WidgetsHandler
 
@@ -243,9 +250,7 @@ class TableHandler:
         for _col in np.arange(nbr_column):
             self.set_background_color(row=row, column=_col, qcolor=qcolor)
 
-    def fill_table_with(
-        self, list_items=None, editable_columns_boolean=None, block_signal=False
-    ):
+    def fill_table_with(self, list_items=None, editable_columns_boolean=None, block_signal=False):
         """
         :param:
         list_items: 2D array of text to put in the table

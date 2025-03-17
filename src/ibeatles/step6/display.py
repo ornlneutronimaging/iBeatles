@@ -7,8 +7,8 @@ import numpy as np
 from matplotlib.image import _resample
 from matplotlib.transforms import Affine2D
 
-from ibeatles.step6.get import Get
 from ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6.get import Get
 
 
 class Display:
@@ -95,9 +95,7 @@ class Display:
         interpolated = _resample(img, data_array, out_dimensions, transform=transform)
 
         self.parent.ui.matplotlib_interpolation_plot.axes.cla()
-        self.parent.ui.matplotlib_interpolation_plot.axes.imshow(
-            interpolated, cmap=cmap
-        )
+        self.parent.ui.matplotlib_interpolation_plot.axes.imshow(interpolated, cmap=cmap)
         self.parent.ui.matplotlib_interpolation_plot.draw()
 
         interpolated *= post_correction_coefficient
@@ -108,14 +106,10 @@ class Display:
 
         [y0, x0] = self.parent.top_left_corner_of_roi
         inter_height, inter_width = np.shape(interpolated)
-        interpolated_d_array_2d[y0 : y0 + inter_height, x0 : x0 + inter_width] = (
-            interpolated
-        )
+        interpolated_d_array_2d[y0 : y0 + inter_height, x0 : x0 + inter_width] = interpolated
 
         self.parent.ui.matplotlib_plot.axes.cla()
-        self.parent.ui.matplotlib_plot.axes.imshow(
-            integrated_image, cmap="gray", vmin=0, vmax=1
-        )
+        self.parent.ui.matplotlib_plot.axes.imshow(integrated_image, cmap="gray", vmin=0, vmax=1)
         self.parent.ui.matplotlib_plot.draw()
 
         min_value = self.parent.min_max[parameter_to_display]["min"]

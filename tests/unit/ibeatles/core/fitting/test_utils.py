@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Unit tests for fitting utility functions."""
 
-import pytest
-import numpy as np
 import logging
+
+import numpy as np
+import pytest
+
 from ibeatles.core.fitting.utils import (
-    remove_invalid_data_points,
     generate_synthetic_transmission,
+    remove_invalid_data_points,
 )
 
 
@@ -98,9 +100,7 @@ def test_generate_synthetic_transmission():
 
     # Test case 2: Noise level
     def test_noise_level():
-        _, noisy_transmission = generate_synthetic_transmission(
-            test_model, wavelengths, true_params, noise_level
-        )
+        _, noisy_transmission = generate_synthetic_transmission(test_model, wavelengths, true_params, noise_level)
 
         ideal_transmission = test_model(wavelengths, **true_params)
         actual_noise = noisy_transmission - ideal_transmission
@@ -108,9 +108,7 @@ def test_generate_synthetic_transmission():
 
     # Test case 3: Zero noise
     def test_zero_noise():
-        _, noisy_transmission = generate_synthetic_transmission(
-            test_model, wavelengths, true_params, 0
-        )
+        _, noisy_transmission = generate_synthetic_transmission(test_model, wavelengths, true_params, 0)
 
         ideal_transmission = test_model(wavelengths, **true_params)
         np.testing.assert_allclose(noisy_transmission, ideal_transmission)
@@ -118,9 +116,7 @@ def test_generate_synthetic_transmission():
     # Test case 4: Different noise levels
     @pytest.mark.parametrize("noise", [0.001, 0.1, 0.5])
     def test_different_noise_levels(noise):
-        _, noisy_transmission = generate_synthetic_transmission(
-            test_model, wavelengths, true_params, noise
-        )
+        _, noisy_transmission = generate_synthetic_transmission(test_model, wavelengths, true_params, noise)
 
         ideal_transmission = test_model(wavelengths, **true_params)
         actual_noise = noisy_transmission - ideal_transmission

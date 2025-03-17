@@ -3,20 +3,21 @@
 Value Table Handler
 """
 
-from qtpy.QtWidgets import QMenu
-from qtpy import QtGui
 import numpy as np
+from qtpy import QtGui
+from qtpy.QtWidgets import QMenu
 
-from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
-from ibeatles.fitting.march_dollase.export_fitting_handler import (
-    ExportFittingHandler,
-)
 from ibeatles.fitting.march_dollase.advanced_selection_launcher import (
     AdvancedSelectionLauncher,
 )
+from ibeatles.fitting.march_dollase.export_fitting_handler import (
+    ExportFittingHandler,
+)
+
+from ..table_dictionary.export import Export
+from ..table_dictionary.table_dictionary_handler import TableDictionaryHandler
 from .filling_table_handler import FillingTableHandler
 from .set_fitting_variables_launcher import SetFittingVariablesLauncher
-from ..table_dictionary.export import Export
 
 
 class ValueTableHandler(object):
@@ -37,9 +38,7 @@ class ValueTableHandler(object):
     def right_click(self, position):
         menu = QMenu(self.grand_parent)
 
-        if (len(self.grand_parent.fitting_ui.data) == 0) or (
-            self.grand_parent.binning_line_view["pos"] is None
-        ):
+        if (len(self.grand_parent.fitting_ui.data) == 0) or (self.grand_parent.binning_line_view["pos"] is None):
             status = False
         else:
             status = True
@@ -168,15 +167,11 @@ class ValueTableHandler(object):
         self.changed_fixed_variables_status(status=False)
 
     def select_all(self):
-        o_table = TableDictionaryHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_table = TableDictionaryHandler(grand_parent=self.grand_parent, parent=self.parent)
         o_table.select_full_table()
 
     def unselect_all(self):
-        o_table = TableDictionaryHandler(
-            grand_parent=self.grand_parent, parent=self.parent
-        )
+        o_table = TableDictionaryHandler(grand_parent=self.grand_parent, parent=self.parent)
         o_table.unselect_full_table()
 
     def advanced_selection(self):

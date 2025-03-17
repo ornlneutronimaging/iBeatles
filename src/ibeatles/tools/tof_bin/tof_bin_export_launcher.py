@@ -3,25 +3,22 @@
 TOF bin export launcher
 """
 
-from qtpy.QtWidgets import QDialog, QApplication, QFileDialog
+import json
 import logging
 import os
-import numpy as np
-import json
-
 import warnings
 
+import numpy as np
 from NeuNorm.normalization import Normalization
+from qtpy.QtWidgets import QApplication, QDialog, QFileDialog
 
-from ibeatles import load_ui
-from ibeatles import DataType
+from ibeatles import DataType, load_ui
 from ibeatles.session import SessionSubKeys
-from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.tools.utilities.reload.reload import Reload
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
-from ibeatles.tools.utilities import CombineAlgorithm
 from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
+from ibeatles.tools.utilities import CombineAlgorithm, TimeSpectraKeys
+from ibeatles.tools.utilities.reload.reload import Reload
+from ibeatles.utilities.file_handler import FileHandler
 
 warnings.filterwarnings("ignore")
 
@@ -114,9 +111,7 @@ class TofBinExportLauncher(QDialog):
             output_file_name = os.path.join(output_folder, short_file_name)
 
             # create array of that bin
-            _image = self.extract_data_for_this_bin(
-                list_runs=_bin, full_image=(data_type == ExportDataType.full_image)
-            )
+            _image = self.extract_data_for_this_bin(list_runs=_bin, full_image=(data_type == ExportDataType.full_image))
 
             # full image export
             counts_array.append(int(np.sum(_image)))
@@ -152,9 +147,7 @@ class TofBinExportLauncher(QDialog):
         )
 
     def ok_clicked(self):
-        working_dir = self.top_parent.session_dict[DataType.sample][
-            SessionSubKeys.current_folder
-        ]
+        working_dir = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
 
         _folder = str(
             QFileDialog.getExistingDirectory(
@@ -172,16 +165,12 @@ class TofBinExportLauncher(QDialog):
         self.close()
 
         # define output folder names
-        base_folder_name = os.path.basename(
-            os.path.dirname(self.parent.list_tif_files[0])
-        )
+        base_folder_name = os.path.basename(os.path.dirname(self.parent.list_tif_files[0]))
         time_stamp = FileHandler.get_current_timestamp()
 
         output_folder_full_image = ""
         if self.ui.full_image_checkBox.isChecked():
-            output_folder_full_image = os.path.join(
-                _folder, f"{base_folder_name}_full_image_binned_{time_stamp}"
-            )
+            output_folder_full_image = os.path.join(_folder, f"{base_folder_name}_full_image_binned_{time_stamp}")
             self.bin_and_export(
                 output_folder=output_folder_full_image,
                 data_type=ExportDataType.full_image,
@@ -189,12 +178,8 @@ class TofBinExportLauncher(QDialog):
 
         output_folder_roi = ""
         if self.ui.roi_checkBox.isChecked():
-            output_folder_roi = os.path.join(
-                _folder, f"{base_folder_name}_roi_binned_{time_stamp}"
-            )
-            self.bin_and_export(
-                output_folder=output_folder_roi, data_type=ExportDataType.roi
-            )
+            output_folder_roi = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}")
+            self.bin_and_export(output_folder=output_folder_roi, data_type=ExportDataType.roi)
 
         # reload if user requested it
         what_to_reload = self.ui.reload_comboBox.currentText()
@@ -234,9 +219,7 @@ class TofBinExportLauncher(QDialog):
             y0 = bin_roi["y0"]
             width = bin_roi["width"]
             height = bin_roi["height"]
-            region_to_work_with = [
-                _data[y0 : y0 + height, x0 : x0 + width] for _data in data_to_work_with
-            ]
+            region_to_work_with = [_data[y0 : y0 + height, x0 : x0 + width] for _data in data_to_work_with]
             data_to_work_with = region_to_work_with
 
         # how to add images
@@ -247,8 +230,6 @@ class TofBinExportLauncher(QDialog):
         elif bin_method == CombineAlgorithm.median:
             image_to_export = np.median(data_to_work_with, axis=0)
         else:
-            raise NotImplementedError(
-                "this method of adding the binned images is not supported!"
-            )
+            raise NotImplementedError("this method of adding the binned images is not supported!")
 
         return image_to_export

@@ -3,24 +3,24 @@
 TOF binning launcher
 """
 
-from qtpy.QtWidgets import QMainWindow
 import logging
 import warnings
-from ibeatles import load_ui
-from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
 
-from ibeatles.tools.tof_bin import session
-from ibeatles.tools.tof_bin import BinAutoMode, BinMode
-from ibeatles.tools.tof_bin.event_handler import EventHandler
-from ibeatles.tools.tof_bin.initialization import Initialization
-from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
+from qtpy.QtWidgets import QMainWindow
+
+from ibeatles import load_ui
+from ibeatles.tools.tof_bin import BinAutoMode, BinMode, session
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
+from ibeatles.tools.tof_bin.event_handler import EventHandler
+from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
+from ibeatles.tools.tof_bin.initialization import Initialization
 from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
 from ibeatles.tools.tof_bin.manual_right_click import ManualRightClick
-from ibeatles.tools.tof_bin.statistics import Statistics
 from ibeatles.tools.tof_bin.preview_full_bin_axis import PreviewFullBinAxis
+from ibeatles.tools.tof_bin.statistics import Statistics
 from ibeatles.tools.tof_bin.tof_bin_export_launcher import TofBinExportLauncher
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
 
 warnings.filterwarnings("ignore")
 
@@ -202,9 +202,7 @@ class TofBinning(QMainWindow):
     def bin_auto_log_file_index_changed(self):
         if self.images_array:
             o_event = AutoEventHandler(parent=self)
-            o_event.bin_auto_log_changed(
-                source_radio_button=TimeSpectraKeys.file_index_array
-            )
+            o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.file_index_array)
             self.update_statistics()
 
     def bin_auto_log_tof_changed(self):
@@ -216,18 +214,14 @@ class TofBinning(QMainWindow):
     def bin_auto_log_lambda_changed(self):
         if self.images_array:
             o_event = AutoEventHandler(parent=self)
-            o_event.bin_auto_log_changed(
-                source_radio_button=TimeSpectraKeys.lambda_array
-            )
+            o_event.bin_auto_log_changed(source_radio_button=TimeSpectraKeys.lambda_array)
             self.update_statistics()
 
     def bin_auto_linear_file_index_changed(self):
         if self.images_array:
             o_event = AutoEventHandler(parent=self)
             o_event.clear_selection(auto_mode=BinAutoMode.linear)
-            o_event.bin_auto_linear_changed(
-                source_radio_button=TimeSpectraKeys.file_index_array
-            )
+            o_event.bin_auto_linear_changed(source_radio_button=TimeSpectraKeys.file_index_array)
             self.update_statistics()
 
     def bin_auto_linear_tof_changed(self):
@@ -239,9 +233,7 @@ class TofBinning(QMainWindow):
     def bin_auto_linear_lambda_changed(self):
         o_event = AutoEventHandler(parent=self)
         o_event.clear_selection(auto_mode=BinAutoMode.linear)
-        o_event.bin_auto_linear_changed(
-            source_radio_button=TimeSpectraKeys.lambda_array
-        )
+        o_event.bin_auto_linear_changed(source_radio_button=TimeSpectraKeys.lambda_array)
         self.update_statistics()
 
     def auto_log_radioButton_changed(self):

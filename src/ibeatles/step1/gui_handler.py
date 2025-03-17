@@ -4,18 +4,17 @@ GUI Handler (step 1)
 """
 
 import pyqtgraph as pg
-
 from neutronbraggedge.braggedge import BraggEdge
 
-from ibeatles.step1.plot import Step1Plot
-from ibeatles.utilities.retrieve_data_infos import (
-    RetrieveGeneralFileInfos,
-    RetrieveGeneralDataInfos,
-)
-from ibeatles.step1.math_utilities import calculate_delta_lambda
-from ibeatles.utilities.gui_handler import GuiHandler
 from ibeatles import DataType, Material
+from ibeatles.step1.math_utilities import calculate_delta_lambda
+from ibeatles.step1.plot import Step1Plot
 from ibeatles.step1.roi import Roi
+from ibeatles.utilities.gui_handler import GuiHandler
+from ibeatles.utilities.retrieve_data_infos import (
+    RetrieveGeneralDataInfos,
+    RetrieveGeneralFileInfos,
+)
 
 
 class CustomAxis(pg.AxisItem):
@@ -55,9 +54,7 @@ class Step1GuiHandler(object):
 
         already_existing_list_roi = self.parent.list_roi_id[self.data_type]
         already_existing_list_label_roi = self.parent.list_label_roi_id[self.data_type]
-        for _roi_id, _label_id in zip(
-            already_existing_list_roi, already_existing_list_label_roi
-        ):
+        for _roi_id, _label_id in zip(already_existing_list_roi, already_existing_list_label_roi):
             image_view.removeItem(_roi_id)
             image_view.removeItem(_label_id)
 
@@ -73,9 +70,7 @@ class Step1GuiHandler(object):
 
             # label roi
             label_roi = pg.TextItem(
-                html='<div style="text-align: center"><span style="color: #ff0000;">'
-                + label
-                + "</span></div>",
+                html='<div style="text-align: center"><span style="color: #ff0000;">' + label + "</span></div>",
                 anchor=(-0.3, 1.3),
                 border="w",
                 fill=(0, 0, 255, 50),
@@ -121,20 +116,12 @@ class Step1GuiHandler(object):
 
         if tab_index == 0:
             # data_preview_box_label = "Sample Image Preview"
-            o_general_infos = RetrieveGeneralFileInfos(
-                parent=self.parent, data_type="sample"
-            )
-            o_selected_infos = RetrieveGeneralDataInfos(
-                parent=self.parent, data_type="sample"
-            )
+            o_general_infos = RetrieveGeneralFileInfos(parent=self.parent, data_type="sample")
+            o_selected_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type="sample")
         else:
             # data_preview_box_label = "Open Beam Image Preview"
-            o_general_infos = RetrieveGeneralFileInfos(
-                parent=self.parent, data_type="ob"
-            )
-            o_selected_infos = RetrieveGeneralDataInfos(
-                parent=self.parent, data_type="ob"
-            )
+            o_general_infos = RetrieveGeneralFileInfos(parent=self.parent, data_type="ob")
+            o_selected_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type="ob")
             data_type = "ob"
 
         o_general_infos.update()
@@ -182,9 +169,7 @@ class Step1GuiHandler(object):
             return None
 
         o_gui = GuiHandler(parent=self.parent)
-        _crystal_structure = o_gui.get_text_selected(
-            ui=self.parent.ui.crystal_structure
-        )
+        _crystal_structure = o_gui.get_text_selected(ui=self.parent.ui.crystal_structure)
         _lattice = o_gui.get_text(ui=self.parent.ui.lattice_parameter)
 
         self.parent.local_bragg_edge_list[material] = {
@@ -192,28 +177,19 @@ class Step1GuiHandler(object):
             "lattice": _lattice,
         }
 
-    def update_lattice_and_crystal_when_index_selected(
-        self, fill_lattice_flag=True, fill_crystal_structure_flag=True
-    ):
+    def update_lattice_and_crystal_when_index_selected(self, fill_lattice_flag=True, fill_crystal_structure_flag=True):
         self.parent.ui.list_of_elements.blockSignals(True)
 
         _element = self.get_element_selected()
 
         if _element in self.parent.user_defined_bragg_edge_list.keys():
-            if (
-                self.parent.user_defined_bragg_edge_list[_element][Material.method_used]
-                == Material.via_d0
-            ):
+            if self.parent.user_defined_bragg_edge_list[_element][Material.method_used] == Material.via_d0:
                 _lattice = ""
                 _crystal_structure = ""
 
             else:
-                _lattice = self.parent.user_defined_bragg_edge_list[_element][
-                    Material.lattice
-                ]
-                _crystal_structure = self.parent.user_defined_bragg_edge_list[_element][
-                    Material.crystal_structure
-                ]
+                _lattice = self.parent.user_defined_bragg_edge_list[_element][Material.lattice]
+                _crystal_structure = self.parent.user_defined_bragg_edge_list[_element][Material.crystal_structure]
 
         else:
             _handler = BraggEdge(material=_element)
@@ -239,14 +215,10 @@ class Step1GuiHandler(object):
             self.parent.ui.list_normalized.setCurrentRow(row)
 
     def update_delta_lambda(self):
-        distance_source_detector = float(
-            str(self.parent.ui.distance_source_detector.text())
-        )
+        distance_source_detector = float(str(self.parent.ui.distance_source_detector.text()))
         frequency = float(str(self.parent.ui.beam_rate.currentText()))
 
-        delta_lambda = calculate_delta_lambda(
-            distance_source_detector=distance_source_detector, frequency=frequency
-        )
+        delta_lambda = calculate_delta_lambda(distance_source_detector=distance_source_detector, frequency=frequency)
 
         self.parent.ui.delta_lambda_value.setText("{:.2f}".format(delta_lambda))
 

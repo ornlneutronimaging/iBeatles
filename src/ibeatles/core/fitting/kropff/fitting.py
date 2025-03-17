@@ -3,14 +3,15 @@
 
 import logging
 from typing import Dict, Optional, Tuple
+
 import numpy as np
 from lmfit import Model
 from lmfit.model import ModelResult
 
 from ibeatles.core.fitting.kropff.models import (
-    kropff_transmission_model,
     kropff_high_lambda_transmission,
     kropff_low_lambda_transmission,
+    kropff_transmission_model,
 )
 from ibeatles.core.fitting.utils import remove_invalid_data_points
 
@@ -47,9 +48,7 @@ def fit_bragg_edge_single_pass(
     """
     try:
         # Clean data
-        wavelengths, transmission = remove_invalid_data_points(
-            wavelengths, transmission
-        )
+        wavelengths, transmission = remove_invalid_data_points(wavelengths, transmission)
 
         # Create model
         model = Model(kropff_transmission_model)
@@ -130,14 +129,8 @@ def fit_bragg_edge_with_refinement(
     """
     # Check if required bounds are provided, missing bounds means numerical instability, therefore
     # we raise an error to force user to provide bounds
-    if (
-        parameter_bounds is None
-        or "sigma" not in parameter_bounds
-        or "tau" not in parameter_bounds
-    ):
-        raise ValueError(
-            "Bounds for 'sigma' and 'tau' must be provided to ensure numerical stability"
-        )
+    if parameter_bounds is None or "sigma" not in parameter_bounds or "tau" not in parameter_bounds:
+        raise ValueError("Bounds for 'sigma' and 'tau' must be provided to ensure numerical stability")
 
     def setup_parameters(model, prev_result, vary_params, bounds=None):
         """Helper function to set up parameters for each step."""
@@ -162,9 +155,7 @@ def fit_bragg_edge_with_refinement(
 
     try:
         # Clean data
-        wavelengths, transmission = remove_invalid_data_points(
-            wavelengths, transmission
-        )
+        wavelengths, transmission = remove_invalid_data_points(wavelengths, transmission)
 
         # Create model
         model = Model(kropff_transmission_model)
@@ -208,19 +199,13 @@ def fit_bragg_edge_with_refinement(
 
         current_result = initial_result
         for step in refinement_steps:
-            params = setup_parameters(
-                model, current_result, step["vary"], parameter_bounds
-            )
+            params = setup_parameters(model, current_result, step["vary"], parameter_bounds)
             current_result = model.fit(transmission, params, wavelength=wavelengths)
 
         if current_result.success:
-            logging.debug(
-                f"Multi-step refinement successful: {current_result.fit_report()}"
-            )
+            logging.debug(f"Multi-step refinement successful: {current_result.fit_report()}")
         else:
-            logging.warning(
-                f"Multi-step refinement completed but may not be optimal: {current_result.message}"
-            )
+            logging.warning(f"Multi-step refinement completed but may not be optimal: {current_result.message}")
 
         return current_result
 
@@ -266,20 +251,12 @@ def fit_bragg_edge_multi_step(
         Returns None if fitting fails.
     """
     # Validate bounds first
-    if (
-        parameter_bounds is None
-        or "sigma" not in parameter_bounds
-        or "tau" not in parameter_bounds
-    ):
-        raise ValueError(
-            "Bounds for 'sigma' and 'tau' must be provided to ensure numerical stability"
-        )
+    if parameter_bounds is None or "sigma" not in parameter_bounds or "tau" not in parameter_bounds:
+        raise ValueError("Bounds for 'sigma' and 'tau' must be provided to ensure numerical stability")
 
     try:
         # Clean data
-        wavelengths, transmission = remove_invalid_data_points(
-            wavelengths, transmission
-        )
+        wavelengths, transmission = remove_invalid_data_points(wavelengths, transmission)
 
         # Set up initial parameters if not provided
         if initial_parameters is None:
@@ -294,14 +271,10 @@ def fit_bragg_edge_multi_step(
             }
 
         # Step 1: Fit high lambda region
-        high_lambda_mask = (wavelengths >= high_lambda_range[0]) & (
-            wavelengths <= high_lambda_range[1]
-        )
+        high_lambda_mask = (wavelengths >= high_lambda_range[0]) & (wavelengths <= high_lambda_range[1])
         high_lambda_model = Model(kropff_high_lambda_transmission)
 
-        high_lambda_params = high_lambda_model.make_params(
-            a0=initial_parameters["a0"], b0=initial_parameters["b0"]
-        )
+        high_lambda_params = high_lambda_model.make_params(a0=initial_parameters["a0"], b0=initial_parameters["b0"])
 
         if parameter_bounds and "a0" in parameter_bounds:
             high_lambda_params["a0"].min = parameter_bounds["a0"].get("min")
@@ -321,9 +294,7 @@ def fit_bragg_edge_multi_step(
             return None
 
         # Step 2: Fit low lambda region using fixed high lambda parameters
-        low_lambda_mask = (wavelengths >= low_lambda_range[0]) & (
-            wavelengths <= low_lambda_range[1]
-        )
+        low_lambda_mask = (wavelengths >= low_lambda_range[0]) & (wavelengths <= low_lambda_range[1])
         low_lambda_model = Model(kropff_low_lambda_transmission)
 
         low_lambda_params = low_lambda_model.make_params(
@@ -381,16 +352,12 @@ def fit_bragg_edge_multi_step(
                 if "max" in parameter_bounds[param_name]:
                     final_params[param_name].max = parameter_bounds[param_name]["max"]
 
-        final_result = full_model.fit(
-            transmission, final_params, wavelength=wavelengths
-        )
+        final_result = full_model.fit(transmission, final_params, wavelength=wavelengths)
 
         if final_result.success:
             logging.debug(f"Multi-step fit successful: {final_result.fit_report()}")
         else:
-            logging.warning(
-                f"Multi-step fit completed but may not be optimal: {final_result.message}"
-            )
+            logging.warning(f"Multi-step fit completed but may not be optimal: {final_result.message}")
 
         return final_result
 

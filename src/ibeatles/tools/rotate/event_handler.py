@@ -3,24 +3,24 @@
 Event handler for the rotate images tool
 """
 
-from qtpy.QtWidgets import QFileDialog, QApplication
-from qtpy import QtCore
-from loguru import logger
-import numpy as np
-import scipy
-import pyqtgraph as pg
 import os
 import shutil
 
+import numpy as np
+import pyqtgraph as pg
+import scipy
+from loguru import logger
+from qtpy import QtCore
+from qtpy.QtWidgets import QApplication, QFileDialog
+
 from ibeatles import DataType, interact_me_style, normal_style
+from ibeatles.session import SessionSubKeys
+from ibeatles.utilities.file_handler import FileHandler, retrieve_timestamp_file_name
+from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
-from ibeatles.session import SessionSubKeys
-from ibeatles.utilities.file_handler import FileHandler
-from ibeatles.utilities.file_handler import retrieve_timestamp_file_name
-from ibeatles.utilities.load_files import LoadFiles
 
 
 class EventHandler:
@@ -29,9 +29,7 @@ class EventHandler:
         self.top_parent = top_parent
 
     def select_input_folder(self):
-        default_path = self.top_parent.session_dict[DataType.sample][
-            SessionSubKeys.current_folder
-        ]
+        default_path = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
         folder = str(
             QFileDialog.getExistingDirectory(
                 caption="Select folder containing images to load",
@@ -62,9 +60,7 @@ class EventHandler:
         if not self.parent.list_tif_files:
             return
 
-        dict = LoadFiles.load_interactive_data(
-            parent=self.parent, list_tif_files=self.parent.list_tif_files
-        )
+        dict = LoadFiles.load_interactive_data(parent=self.parent, list_tif_files=self.parent.list_tif_files)
         self.parent.image_size["height"] = dict["height"]
         self.parent.image_size["width"] = dict["width"]
         self.parent.images_array = dict["image_array"]
@@ -101,9 +97,7 @@ class EventHandler:
 
         _view_box.setState(_state)
         if not self.parent.first_update:
-            histogram_widget.setLevels(
-                self.parent.histogram_level[0], self.parent.histogram_level[1]
-            )
+            histogram_widget.setLevels(self.parent.histogram_level[0], self.parent.histogram_level[1])
 
         self.display_grid(data=rotated_data)
 
@@ -183,11 +177,7 @@ class EventHandler:
 
     def select_output_folder(self):
         folder = os.path.dirname(self.parent.ui.folder_selected_label.text())
-        output_folder = str(
-            QFileDialog.getExistingDirectory(
-                caption="Select output folder ...", directory=folder
-            )
-        )
+        output_folder = str(QFileDialog.getExistingDirectory(caption="Select output folder ...", directory=folder))
 
         if not output_folder:
             logger.info(" User cancel rotating the images")
@@ -229,9 +219,7 @@ class EventHandler:
             QApplication.processEvents()
 
         # export time stamp data
-        EventHandler.export_time_spectra_file(
-            output_folder=full_output_folder_name, input_folder=import_folder_name
-        )
+        EventHandler.export_time_spectra_file(output_folder=full_output_folder_name, input_folder=import_folder_name)
 
         self.parent.eventProgress.setVisible(False)
         return full_output_folder_name
@@ -251,9 +239,7 @@ class EventHandler:
         shutil.copy(time_spectra_filename, output_folder)
 
     @staticmethod
-    def _create_full_output_folder_name(
-        angle=0.0, import_folder=None, output_folder=None
-    ):
+    def _create_full_output_folder_name(angle=0.0, import_folder=None, output_folder=None):
         """use the angle value and the folder name of the input data to create the
         output folder name
 
@@ -275,9 +261,7 @@ class EventHandler:
         new_rotation_value = "_".join(str_rotation_value_parsed)
 
         input_folder_name = os.path.basename(import_folder)
-        full_output_folder_name = os.path.join(
-            output_folder, f"{input_folder_name}_{new_rotation_value}"
-        )
+        full_output_folder_name = os.path.join(output_folder, f"{input_folder_name}_{new_rotation_value}")
         FileHandler.make_or_reset_folder(folder_name=full_output_folder_name)
         logger.info(f" Created folder {full_output_folder_name}")
         return full_output_folder_name

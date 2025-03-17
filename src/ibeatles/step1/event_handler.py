@@ -4,18 +4,17 @@ Event Handler (step 1)
 """
 
 import os
+
 from loguru import logger
 
+from ibeatles import DataType, Material
 from ibeatles.all_steps.event_handler import EventHandler as TopEventHandler
 from ibeatles.step1.data_handler import DataHandler
+from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.step1.plot import Step1Plot
 from ibeatles.step2.initialization import Initialization as Step2Initialization
-from ibeatles.step1.gui_handler import Step1GuiHandler
 from ibeatles.utilities.bragg_edge_element_handler import BraggEdgeElementHandler
-
 from ibeatles.utilities.retrieve_data_infos import RetrieveGeneralDataInfos
-
-from ibeatles import DataType, Material
 
 
 class EventHandler(TopEventHandler):
@@ -62,9 +61,7 @@ class EventHandler(TopEventHandler):
 
     def sample_list_selection_changed(self):
         if not self.parent.loading_flag:
-            o_retrieve_data_infos = RetrieveGeneralDataInfos(
-                parent=self.parent, data_type=DataType.sample
-            )
+            o_retrieve_data_infos = RetrieveGeneralDataInfos(parent=self.parent, data_type=DataType.sample)
             o_retrieve_data_infos.update()
             self.parent.roi_image_view_changed(mouse_selection=False)
         else:

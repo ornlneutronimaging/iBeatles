@@ -2,16 +2,18 @@
 """Unit test for ibeatles.core.config module."""
 
 import logging
-import pytest
-from pathlib import Path
-import tempfile
 import os
+import tempfile
+from pathlib import Path
+
+import pytest
+
 from ibeatles.core.config import (
-    IBeatlesUserConfig,
     CustomMaterial,
+    IBeatlesUserConfig,
+    InterpolationMethod,
     StrainMapping,
     StrainVisualization,
-    InterpolationMethod,
 )
 
 
@@ -168,9 +170,7 @@ def test_custom_material(temp_dir):
 
 def test_invalid_config(temp_dir):
     invalid_config = {
-        "raw_data": {
-            "raw_data_dir": os.path.join(temp_dir, "non_existent_dir")
-        },  # Non-existent directory
+        "raw_data": {"raw_data_dir": os.path.join(temp_dir, "non_existent_dir")},  # Non-existent directory
         "output": {
             "normalized_data_dir": os.path.join(temp_dir, "normalized"),
             "analysis_results_dir": os.path.join(temp_dir, "analysis"),
@@ -285,9 +285,7 @@ def test_strain_default_values():
     assert minimal_strain.save_intermediate_results is False
 
     # Check visualization defaults
-    assert (
-        minimal_strain.visualization.interpolation_method == InterpolationMethod.NEAREST
-    )
+    assert minimal_strain.visualization.interpolation_method == InterpolationMethod.NEAREST
     assert minimal_strain.visualization.colormap == "viridis"
     assert minimal_strain.visualization.alpha == 0.5
     assert minimal_strain.visualization.display_fit_quality is True

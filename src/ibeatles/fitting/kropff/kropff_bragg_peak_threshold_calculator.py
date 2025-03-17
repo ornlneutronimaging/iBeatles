@@ -6,11 +6,11 @@ KropffBraggPeakThresholdCalculator class for handling the automatic Bragg peak t
 import numpy as np
 from loguru import logger
 
-from ibeatles.fitting.kropff.kropff_automatic_threshold_algorithms import Algorithms
-from ibeatles.utilities.table_handler import TableHandler
 from ibeatles import DataType
 from ibeatles.fitting import FittingTabSelected
 from ibeatles.fitting.kropff import SessionSubKeys as KropffSessionSubKeys
+from ibeatles.fitting.kropff.kropff_automatic_threshold_algorithms import Algorithms
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class KropffBraggPeakThresholdCalculator:
@@ -21,9 +21,9 @@ class KropffBraggPeakThresholdCalculator:
     def run_automatic_mode(self):
         logger.info("Automatic Bragg peak threshold calculator")
         kropff_table_dictionary = self.grand_parent.kropff_table_dictionary
-        algorithm_selected = self.grand_parent.session_dict[DataType.fitting][
-            FittingTabSelected.kropff
-        ][KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm]
+        algorithm_selected = self.grand_parent.session_dict[DataType.fitting][FittingTabSelected.kropff][
+            KropffSessionSubKeys.automatic_bragg_peak_threshold_algorithm
+        ]
         logger.info(f"-> algorithm selected: {algorithm_selected}")
         progress_bar_ui = self.parent.eventProgress
 
@@ -48,12 +48,8 @@ class KropffBraggPeakThresholdCalculator:
             right_index = list_of_threshold_calculated[_row_index] + threshold_width
             if right_index >= len(x_axis):
                 right_index = len(x_axis) - 1
-            kropff_table_dictionary[_row]["bragg peak threshold"]["left"] = x_axis[
-                left_index
-            ]
-            kropff_table_dictionary[_row]["bragg peak threshold"]["right"] = x_axis[
-                right_index
-            ]
+            kropff_table_dictionary[_row]["bragg peak threshold"]["left"] = x_axis[left_index]
+            kropff_table_dictionary[_row]["bragg peak threshold"]["right"] = x_axis[right_index]
 
         self.grand_parent.kropff_table_dictionary = kropff_table_dictionary
 
@@ -64,9 +60,7 @@ class KropffBraggPeakThresholdCalculator:
         data_2d = self.grand_parent.data_metadata["normalized"]["data"]
 
         # index of selection in bragg edge plot
-        [left_index, right_index] = (
-            self.grand_parent.fitting_bragg_edge_linear_selection
-        )
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         run_calculation = False
         for _row in np.arange(nbr_row):
@@ -94,9 +88,7 @@ class KropffBraggPeakThresholdCalculator:
                 self.grand_parent.kropff_table_dictionary[str(_row)] = _bin_entry
 
                 # index of selection in bragg edge plot
-                [left_index, right_index] = (
-                    self.grand_parent.fitting_bragg_edge_linear_selection
-                )
+                [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
                 full_x_axis = self.parent.bragg_edge_data["x_axis"]
                 xaxis = np.array(full_x_axis[left_index:right_index], dtype=float)
                 _bin_entry["xaxis"] = xaxis

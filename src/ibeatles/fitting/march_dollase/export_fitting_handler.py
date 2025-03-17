@@ -3,13 +3,14 @@
 ExportFittingHandler class for handling the export of the fitting parameters.
 """
 
-import numpy as np
-from qtpy.QtWidgets import QFileDialog, QApplication
-from qtpy import QtCore
 import os
 import shutil
 
-from ibeatles.fitting.fitting_functions import basic_fit, advanced_fit
+import numpy as np
+from qtpy import QtCore
+from qtpy.QtWidgets import QApplication, QFileDialog
+
+from ibeatles.fitting.fitting_functions import advanced_fit, basic_fit
 from ibeatles.utilities.file_handler import FileHandler
 
 
@@ -91,9 +92,7 @@ class ExportFittingHandler(object):
 
             data = list(zip(x_axis, exp_y_axis, fit_y_axis))
 
-            FileHandler.make_ascii_file(
-                metadata=metadata, data=data, output_file_name=full_entry_file_name
-            )
+            FileHandler.make_ascii_file(metadata=metadata, data=data, output_file_name=full_entry_file_name)
 
         QApplication.restoreOverrideCursor()
 
@@ -117,17 +116,13 @@ class ExportFittingHandler(object):
         inter1 = np.nanmean(_data, axis=1)
         bragg_edge = np.nanmean(inter1, axis=1)
 
-        [left_index, right_index] = (
-            self.grand_parent.fitting_bragg_edge_linear_selection
-        )
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         return bragg_edge[left_index:right_index]
 
     def retrieve_x_axis(self):
         # index of selection in bragg edge plot
-        [left_index, right_index] = (
-            self.grand_parent.fitting_bragg_edge_linear_selection
-        )
+        [left_index, right_index] = self.grand_parent.fitting_bragg_edge_linear_selection
 
         # retrieve image
         # data_2d = np.array(self.grand_parent.data_metadata['normalized']['data'])
@@ -151,9 +146,7 @@ class ExportFittingHandler(object):
         )
         if new_output_folder:
             # define name of output folder
-            default_folder_name = (
-                str(self.grand_parent.ui.normalized_folder.text()) + "_bins_fit"
-            )
+            default_folder_name = str(self.grand_parent.ui.normalized_folder.text()) + "_bins_fit"
             full_folder_name = os.path.join(new_output_folder, default_folder_name)
             if os.path.exists(full_folder_name):
                 shutil.rmtree(full_folder_name)

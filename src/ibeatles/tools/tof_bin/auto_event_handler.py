@@ -4,27 +4,26 @@ AutoEventHandler class
 """
 
 import logging
+
 import numpy as np
 import pyqtgraph as pg
-from qtpy.QtWidgets import QCheckBox, QMenu
 from qtpy import QtGui
+from qtpy.QtWidgets import QCheckBox, QMenu
 
-# from .log_bin import LogBin
-from ibeatles.utilities.table_handler import TableHandler
-from ibeatles.tools.tof_bin import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+# from . import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
+from ibeatles.tools.tof_bin import TO_ANGSTROMS_UNITS, TO_MICROS_UNITS, BinAutoMode
+from ibeatles.tools.tof_bin.linear_bin import LinearBin
+from ibeatles.tools.tof_bin.log_bin import LogBin
+from ibeatles.tools.tof_bin.plot import Plot
+from ibeatles.tools.tof_bin.utilities.get import Get
+from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
     show_status_message,
 )
 
-from ibeatles.tools.tof_bin.plot import Plot
-from ibeatles.tools.tof_bin.utilities.get import Get
-from ibeatles.tools.tof_bin.log_bin import LogBin
-from ibeatles.tools.tof_bin.linear_bin import LinearBin
-
-# from . import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from ibeatles.tools.tof_bin import BinAutoMode
-from ibeatles.tools.utilities import TimeSpectraKeys
+# from .log_bin import LogBin
+from ibeatles.utilities.table_handler import TableHandler
 
 # from .plot import Plot
 # from ..utilities.table_handler import TableHandler
@@ -163,12 +162,8 @@ class AutoEventHandler:
         else:
             self.auto_linear_radioButton_changed()
 
-    def bin_auto_log_changed(
-        self, source_radio_button=TimeSpectraKeys.file_index_array
-    ):
-        self.logger.info(
-            f"bin auto log changed: radio button changed -> {source_radio_button}"
-        )
+    def bin_auto_log_changed(self, source_radio_button=TimeSpectraKeys.file_index_array):
+        self.logger.info(f"bin auto log changed: radio button changed -> {source_radio_button}")
         o_bin = LogBin(parent=self.parent, source_radio_button=source_radio_button)
 
         self.parent.ui.auto_log_file_index_spinBox.blockSignals(True)
@@ -176,15 +171,11 @@ class AutoEventHandler:
         self.parent.ui.auto_log_lambda_doubleSpinBox.blockSignals(True)
 
         self.logger.info(
-            f"-> original raw_file_index_array_binned:"
-            f" {self.parent.time_spectra[TimeSpectraKeys.file_index_array]}"
+            f"-> original raw_file_index_array_binned: {self.parent.time_spectra[TimeSpectraKeys.file_index_array]}"
         )
+        self.logger.info(f"-> original raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}")
         self.logger.info(
-            f"-> original raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}"
-        )
-        self.logger.info(
-            f"-> original raw_lambda_array_binned:"
-            f" {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}"
+            f"-> original raw_lambda_array_binned: {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}"
         )
 
         o_get = Get(parent=self.parent)
@@ -205,15 +196,9 @@ class AutoEventHandler:
         else:
             raise NotImplementedError("bin auto log algorithm not implemented!")
 
-        self.logger.info(
-            f"-> file_index_array_binned: {o_bin.log_bins[TimeSpectraKeys.file_index_array]}"
-        )
-        self.logger.info(
-            f"-> tof_array_binned: {o_bin.log_bins[TimeSpectraKeys.tof_array]}"
-        )
-        self.logger.info(
-            f"-> lambda_array_binned: {o_bin.log_bins[TimeSpectraKeys.lambda_array]}"
-        )
+        self.logger.info(f"-> file_index_array_binned: {o_bin.log_bins[TimeSpectraKeys.file_index_array]}")
+        self.logger.info(f"-> tof_array_binned: {o_bin.log_bins[TimeSpectraKeys.tof_array]}")
+        self.logger.info(f"-> lambda_array_binned: {o_bin.log_bins[TimeSpectraKeys.lambda_array]}")
 
         self.parent.log_bins = {
             TimeSpectraKeys.file_index_array: o_bin.get_log_file_index(),
@@ -266,25 +251,13 @@ class AutoEventHandler:
 
             elif len(file_bin) == 2:
                 str_file_index = f"{file_bin[0]}, {file_bin[1]}"
-                str_tof = (
-                    f"{tof_bin[0] * TO_MICROS_UNITS:.2f}, "
-                    f"{tof_bin[1] * TO_MICROS_UNITS:.2f}"
-                )
-                str_lambda = (
-                    f"{lambda_bin[0] * TO_ANGSTROMS_UNITS:.3f}, "
-                    f"{lambda_bin[1] * TO_ANGSTROMS_UNITS:.3f}"
-                )
+                str_tof = f"{tof_bin[0] * TO_MICROS_UNITS:.2f}, {tof_bin[1] * TO_MICROS_UNITS:.2f}"
+                str_lambda = f"{lambda_bin[0] * TO_ANGSTROMS_UNITS:.3f}, {lambda_bin[1] * TO_ANGSTROMS_UNITS:.3f}"
 
             else:
                 str_file_index = f"{file_bin[0]} ... {file_bin[-1]}"
-                str_tof = (
-                    f"{tof_bin[0] * TO_MICROS_UNITS:.2f} ... "
-                    f"{tof_bin[-1] * TO_MICROS_UNITS:.2f}"
-                )
-                str_lambda = (
-                    f"{lambda_bin[0] * TO_ANGSTROMS_UNITS:.3f} ... "
-                    f"{lambda_bin[-1] * TO_ANGSTROMS_UNITS:.3f}"
-                )
+                str_tof = f"{tof_bin[0] * TO_MICROS_UNITS:.2f} ... {tof_bin[-1] * TO_MICROS_UNITS:.2f}"
+                str_lambda = f"{lambda_bin[0] * TO_ANGSTROMS_UNITS:.3f} ... {lambda_bin[-1] * TO_ANGSTROMS_UNITS:.3f}"
 
             o_table.insert_empty_row(row=_row)
 
@@ -293,26 +266,17 @@ class AutoEventHandler:
                 checkbox = QCheckBox()
                 checkbox.setChecked(True)
                 checkbox.stateChanged.connect(
-                    lambda state=0,
-                    row=_row: self.parent.auto_table_use_checkbox_changed(state, row)
+                    lambda state=0, row=_row: self.parent.auto_table_use_checkbox_changed(state, row)
                 )
-                o_table.insert_widget(
-                    row=_row, column=0, widget=checkbox, centered=True
-                )
+                o_table.insert_widget(row=_row, column=0, widget=checkbox, centered=True)
 
             o_table.insert_item(row=_row, column=1, value=_row, editable=False)
-            o_table.insert_item(
-                row=_row, column=2, value=str_file_index, editable=False
-            )
+            o_table.insert_item(row=_row, column=2, value=str_file_index, editable=False)
             o_table.insert_item(row=_row, column=3, value=str_tof, editable=False)
             o_table.insert_item(row=_row, column=4, value=str_lambda, editable=False)
 
-    def bin_auto_linear_changed(
-        self, source_radio_button=TimeSpectraKeys.file_index_array
-    ):
-        self.logger.info(
-            f"bin auto linear changed: radio button changed -> {source_radio_button}"
-        )
+    def bin_auto_linear_changed(self, source_radio_button=TimeSpectraKeys.file_index_array):
+        self.logger.info(f"bin auto linear changed: radio button changed -> {source_radio_button}")
         o_bin = LinearBin(parent=self.parent, source_array=source_radio_button)
         self.parent.ui.auto_linear_file_index_spinBox.blockSignals(True)
         self.parent.ui.auto_linear_tof_doubleSpinBox.blockSignals(True)
@@ -321,12 +285,8 @@ class AutoEventHandler:
         self.logger.info(
             f"-> raw_file_index_array_binned: {self.parent.time_spectra[TimeSpectraKeys.file_index_array]}"
         )
-        self.logger.info(
-            f"-> raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}"
-        )
-        self.logger.info(
-            f"-> raw_lambda_array_binned: {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}"
-        )
+        self.logger.info(f"-> raw_tof_array_binned: {self.parent.time_spectra[TimeSpectraKeys.tof_array]}")
+        self.logger.info(f"-> raw_lambda_array_binned: {self.parent.time_spectra[TimeSpectraKeys.lambda_array]}")
 
         if source_radio_button == TimeSpectraKeys.file_index_array:
             file_index_value = self.parent.ui.auto_linear_file_index_spinBox.value()
@@ -337,31 +297,21 @@ class AutoEventHandler:
         elif source_radio_button == TimeSpectraKeys.tof_array:
             tof_value = self.parent.ui.auto_linear_tof_doubleSpinBox.value()
             self.logger.info(f"--> bin requested: {tof_value}")
-            o_bin.create_linear_file_index_bin_array(
-                bin_value=tof_value * 1e-6
-            )  # to switch to seconds
+            o_bin.create_linear_file_index_bin_array(bin_value=tof_value * 1e-6)  # to switch to seconds
             o_bin.create_linear_bin_arrays()
 
         elif source_radio_button == TimeSpectraKeys.lambda_array:
             lambda_value = self.parent.ui.auto_linear_lambda_doubleSpinBox.value()
             self.logger.info(f"--> bin requested: {lambda_value}")
-            o_bin.create_linear_file_index_bin_array(
-                bin_value=lambda_value * 1e-10
-            )  # to switch to seconds
+            o_bin.create_linear_file_index_bin_array(bin_value=lambda_value * 1e-10)  # to switch to seconds
             o_bin.create_linear_bin_arrays()
 
         else:
             raise NotImplementedError("bin auto linear algorithm not implemented!")
 
-        self.logger.info(
-            f"-> file_index_array_binned: {o_bin.linear_bins[TimeSpectraKeys.file_index_array]}"
-        )
-        self.logger.info(
-            f"-> tof_array_binned: {o_bin.linear_bins[TimeSpectraKeys.tof_array]}"
-        )
-        self.logger.info(
-            f"-> lambda_array_binned: {o_bin.linear_bins[TimeSpectraKeys.lambda_array]}"
-        )
+        self.logger.info(f"-> file_index_array_binned: {o_bin.linear_bins[TimeSpectraKeys.file_index_array]}")
+        self.logger.info(f"-> tof_array_binned: {o_bin.linear_bins[TimeSpectraKeys.tof_array]}")
+        self.logger.info(f"-> lambda_array_binned: {o_bin.linear_bins[TimeSpectraKeys.lambda_array]}")
 
         self.parent.linear_bins = {
             TimeSpectraKeys.file_index_array: o_bin.get_linear_file_index(),
@@ -491,9 +441,7 @@ class AutoEventHandler:
                 self.parent.bin_profile_view.addItem(new_item)
                 clean_list_of_new_rows_to_highlight.append(_row)
 
-        self.parent.current_auto_bin_rows_highlighted = (
-            clean_list_of_new_rows_to_highlight
-        )
+        self.parent.current_auto_bin_rows_highlighted = clean_list_of_new_rows_to_highlight
 
         if o_get.bin_auto_mode() == BinAutoMode.linear:
             self.parent.linear_bins_selected = clean_list_of_new_rows_to_highlight

@@ -58,9 +58,7 @@ class SessionSubKeys:
     index = "index"
     name = "name"
     user_defined = "user_defined"
-    user_defined_fill_fields_with_element_index = (
-        "index of element used to fill the fields of method1"
-    )
+    user_defined_fill_fields_with_element_index = "index of element used to fill the fields of method1"
     material_hkl_table = "hkl, d0 or lambda0 table"
     column_names = "names of the columns"
 

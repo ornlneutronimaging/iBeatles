@@ -5,7 +5,7 @@ Get (step 2)
 
 import numpy as np
 
-from ibeatles.step2 import RegionType, KernelType
+from ibeatles.step2 import KernelType, RegionType
 
 
 class Get:

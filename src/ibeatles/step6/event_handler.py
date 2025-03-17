@@ -5,9 +5,9 @@ Event handler for the step6
 
 import numpy as np
 
-from ibeatles.step6.get import Get
-from ibeatles.step6.display import Display
 from ibeatles.fitting.kropff.get import Get as GetKropff
+from ibeatles.step6.display import Display
+from ibeatles.step6.get import Get
 
 
 class EventHandler:

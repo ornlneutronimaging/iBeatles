@@ -5,8 +5,7 @@ ROI (Region of Interest)
 
 import pyqtgraph as pg
 
-from ibeatles import DataType
-from ibeatles import DEFAULT_ROI
+from ibeatles import DEFAULT_ROI, DataType
 from ibeatles.utilities.colors import pen_color
 
 # DEFAULT_ROI = ['default', '0', '0', '20', '20', '0']
@@ -20,9 +19,7 @@ class Roi:
     @staticmethod
     def get_roi(roi=DEFAULT_ROI):
         """roi is formatted as DEFAULT_ROI"""
-        roi = pg.ROI(
-            [roi[1], roi[2]], [roi[3], roi[4]], pen=pen_color["0"], scaleSnap=True
-        )
+        roi = pg.ROI([roi[1], roi[2]], [roi[3], roi[4]], pen=pen_color["0"], scaleSnap=True)
         roi.addScaleHandle([1, 1], [0, 0])
         return roi
 

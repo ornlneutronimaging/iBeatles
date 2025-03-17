@@ -3,16 +3,14 @@
 Initialization module
 """
 
-from qtpy.QtWidgets import QProgressBar, QVBoxLayout, QHBoxLayout, QRadioButton
-from qtpy.QtWidgets import QSpacerItem, QSizePolicy, QWidget
-from qtpy.QtGui import QIcon
-from pyqtgraph.dockarea import DockArea, Dock
 import pyqtgraph as pg
+from pyqtgraph.dockarea import Dock, DockArea
+from qtpy.QtGui import QIcon
+from qtpy.QtWidgets import QHBoxLayout, QProgressBar, QRadioButton, QSizePolicy, QSpacerItem, QVBoxLayout, QWidget
 
 from ibeatles import interact_me_style
+from ibeatles.tools.tof_combine import ANGSTROMS, LAMBDA, MICRO, settings_image
 from ibeatles.tools.tof_combine.utilities.table_handler import TableHandler
-from ibeatles.tools.tof_combine import MICRO, LAMBDA, ANGSTROMS
-from ibeatles.tools.tof_combine import settings_image
 
 
 class Initialization:
@@ -37,9 +35,7 @@ class Initialization:
         self.parent.eventProgress.setMaximumSize(540, 100)
         self.parent.eventProgress.setVisible(False)
         self.parent.ui.statusbar.addPermanentWidget(self.parent.eventProgress)
-        self.parent.setStyleSheet(
-            "QStatusBar{padding-left:8px;color:red;font-weight:bold;}"
-        )
+        self.parent.setStyleSheet("QStatusBar{padding-left:8px;color:red;font-weight:bold;}")
 
     def splitter(self):
         self.parent.ui.combine_horizontal_splitter.setSizes([100, 0])
@@ -74,9 +70,7 @@ class Initialization:
         image_view.ui.roiBtn.hide()
         image_view.ui.menuBtn.hide()
         self.parent.combine_image_view = image_view
-        image_view.scene.sigMouseMoved.connect(
-            self.parent.mouse_moved_in_combine_image_preview
-        )
+        image_view.scene.sigMouseMoved.connect(self.parent.mouse_moved_in_combine_image_preview)
         d1.addWidget(image_view)
 
         # plot and x-axis radio buttons - bottom widgets
@@ -90,17 +84,13 @@ class Initialization:
         file_index_radio_button = QRadioButton("File Index")
         file_index_radio_button.setChecked(True)
         self.parent.combine_file_index_radio_button = file_index_radio_button
-        self.parent.combine_file_index_radio_button.clicked.connect(
-            self.parent.combine_xaxis_changed
-        )
+        self.parent.combine_file_index_radio_button.clicked.connect(self.parent.combine_xaxis_changed)
         tof_radio_button = QRadioButton("TOF (" + MICRO + "s)")
         self.parent.tof_radio_button = tof_radio_button
         self.parent.tof_radio_button.clicked.connect(self.parent.combine_xaxis_changed)
         lambda_radio_button = QRadioButton(LAMBDA + " (" + ANGSTROMS + ")")
         self.parent.lambda_radio_button = lambda_radio_button
-        self.parent.lambda_radio_button.clicked.connect(
-            self.parent.combine_xaxis_changed
-        )
+        self.parent.lambda_radio_button.clicked.connect(self.parent.combine_xaxis_changed)
         spacer_right = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         axis_layout = QHBoxLayout()
         axis_layout.addItem(spacer_left)
@@ -122,6 +112,4 @@ class Initialization:
 
     def widgets(self):
         self.parent.ui.combine_refresh_top_folder_pushButton.setEnabled(False)
-        self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(
-            interact_me_style
-        )
+        self.parent.ui.combine_select_top_folder_pushButton.setStyleSheet(interact_me_style)

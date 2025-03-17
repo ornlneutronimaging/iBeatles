@@ -4,38 +4,37 @@
 import argparse
 import json
 import logging
-import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
-from typing import Dict, Any, Optional, Union
+from typing import Any, Dict, Optional, Union
+
+import matplotlib.pyplot as plt
+import numpy as np
 from scipy.ndimage import gaussian_filter1d
 
 from ibeatles.core.config import IBeatlesUserConfig
+from ibeatles.core.fitting.binning import get_bin_coordinates, get_bin_transmission
+from ibeatles.core.fitting.kropff.fitting import fit_bragg_edge_single_pass
 from ibeatles.core.io.data_loading import (
+    get_time_spectra_filename,
     load_data_from_folder,
     load_time_spectra,
-    get_time_spectra_filename,
 )
-from ibeatles.core.processing.normalization import normalize_data
-from ibeatles.core.fitting.binning import get_bin_coordinates, get_bin_transmission
 from ibeatles.core.material import get_initial_bragg_edge_lambda
-from ibeatles.core.fitting.kropff.fitting import fit_bragg_edge_single_pass
-from ibeatles.core.strain.mapping import calculate_strain_mapping
-from ibeatles.core.strain.visualization import (
-    plot_strain_map_overlay,
-    plot_fitting_results_grid,
-)
+from ibeatles.core.processing.normalization import normalize_data
 from ibeatles.core.strain.export import (
     generate_output_filename,
-    save_strain_map,
-    save_fitting_grid,
     save_analysis_results,
+    save_fitting_grid,
+    save_strain_map,
+)
+from ibeatles.core.strain.mapping import calculate_strain_mapping
+from ibeatles.core.strain.visualization import (
+    plot_fitting_results_grid,
+    plot_strain_map_overlay,
 )
 
 
-def setup_logging(
-    log_file: Optional[Path] = None, log_level: int = logging.INFO
-) -> logging.Logger:
+def setup_logging(log_file: Optional[Path] = None, log_level: int = logging.INFO) -> logging.Logger:
     """
     Set up logging for the application.
 
@@ -68,9 +67,7 @@ def setup_logging(
         stream_handler.setLevel(log_level)
 
         # Define formatter and add it to handlers
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        )
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         file_handler.setFormatter(formatter)
         stream_handler.setFormatter(formatter)
 
@@ -154,9 +151,7 @@ def load_data(config: IBeatlesUserConfig) -> Dict[str, Any]:
     return {"raw_data": raw_data, "open_beam": open_beam, "spectra": spectra}
 
 
-def perform_binning(
-    data: Dict[str, Any], config: IBeatlesUserConfig, spectra_dict: dict
-) -> (Dict[str, Any], list):
+def perform_binning(data: Dict[str, Any], config: IBeatlesUserConfig, spectra_dict: dict) -> (Dict[str, Any], list):
     """
     Perform binning on the normalized data.
 
@@ -205,9 +200,7 @@ def perform_binning(
     return bin_transmission, bins
 
 
-def perform_fitting(
-    bin_transmission_dict: Dict[str, Any], config: IBeatlesUserConfig
-) -> Dict[str, Any]:
+def perform_fitting(bin_transmission_dict: Dict[str, Any], config: IBeatlesUserConfig) -> Dict[str, Any]:
     """
     Perform fitting on the normalized data.
 
@@ -260,9 +253,7 @@ def perform_fitting(
         wavelengths_angstrom = value["wavelengths"] * 1e10
         transmission = value["transmission"]
         # step_3.1: prepare the fitting range
-        mask = (wavelengths_angstrom > lambda_min_angstrom) & (
-            wavelengths_angstrom < lambda_max_angstrom
-        )
+        mask = (wavelengths_angstrom > lambda_min_angstrom) & (wavelengths_angstrom < lambda_max_angstrom)
         wavelengths_fitting_angstrom = wavelengths_angstrom[mask]
         transmission_fitting = transmission[mask]
         # step_3.2: fitting a smooth version first to get better initial guess
@@ -280,9 +271,7 @@ def perform_fitting(
                 parameter_bounds=parameter_bounds,
             )
             if fit_result_smoothed is None:
-                logger.info(
-                    f"Bin_{key}: Failed fitting with sigma = {sigma}, increase sigma and try again..."
-                )
+                logger.info(f"Bin_{key}: Failed fitting with sigma = {sigma}, increase sigma and try again...")
                 ratio += 0.02
                 continue
             else:
@@ -299,9 +288,7 @@ def perform_fitting(
     return fit_results
 
 
-def main(
-    config_path: Union[Path, IBeatlesUserConfig], log_file: Optional[Path] = None
-) -> None:
+def main(config_path: Union[Path, IBeatlesUserConfig], log_file: Optional[Path] = None) -> None:
     """
     Main function to run the iBeatles CLI application.
 

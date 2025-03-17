@@ -1,5 +1,5 @@
-from qtpy import QtCore
 import numpy as np
+from qtpy import QtCore
 
 roi_group_color = [
     QtCore.Qt.darkBlue,

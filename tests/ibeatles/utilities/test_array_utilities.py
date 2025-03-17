@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 import numpy as np
 
 from ibeatles.utilities.array_utilities import calculate_median

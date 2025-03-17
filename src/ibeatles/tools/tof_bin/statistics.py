@@ -6,15 +6,12 @@ Statistics module
 import numpy as np
 from qtpy.QtWidgets import QApplication
 
-from ibeatles.utilities import TO_MICROS_UNITS, TO_ANGSTROMS_UNITS
-from ibeatles.utilities.table_handler import TableHandler
-
-
-from ibeatles.tools.tof_bin import BinMode, BinAutoMode, BinAlgorithm
-from ibeatles.tools.tof_bin import StatisticsName, StatisticsRegion
-from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.tools.tof_bin import BinAlgorithm, BinAutoMode, BinMode, StatisticsName, StatisticsRegion
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.tof_bin.utilities.string import format_str
+from ibeatles.tools.utilities import TimeSpectraKeys
+from ibeatles.utilities import TO_ANGSTROMS_UNITS, TO_MICROS_UNITS
+from ibeatles.utilities.table_handler import TableHandler
 
 
 class Statistics:
@@ -155,17 +152,11 @@ class Statistics:
                 max_array_roi.append(roi_max)
                 str_max = f"{full_max:.3f} ({roi_max:.3f})"
 
-            o_table.insert_item(
-                row=_row, column=1, value=list_runs_formatted, editable=False
-            )
+            o_table.insert_item(row=_row, column=1, value=list_runs_formatted, editable=False)
 
-            o_table.insert_item(
-                row=_row, column=2, value=list_tof_formatted, editable=False
-            )
+            o_table.insert_item(row=_row, column=2, value=list_tof_formatted, editable=False)
 
-            o_table.insert_item(
-                row=_row, column=3, value=list_lambda_formatted, editable=False
-            )
+            o_table.insert_item(row=_row, column=3, value=list_lambda_formatted, editable=False)
 
             o_table.insert_item(row=_row, column=4, value=str_mean, editable=False)
 
@@ -221,9 +212,7 @@ class Statistics:
         for _run_index in list_runs:
             data_to_work_with.append(self.parent.images_array[_run_index])
 
-        region_to_work_with = [
-            _data[y0 : y0 + height, x0 : x0 + width] for _data in data_to_work_with
-        ]
+        region_to_work_with = [_data[y0 : y0 + height, x0 : x0 + width] for _data in data_to_work_with]
 
         # how to add images
         o_get = Get(parent=self.parent)
@@ -235,9 +224,7 @@ class Statistics:
             full_image_to_work_with = np.median(data_to_work_with, axis=0)
             roi_image_to_work_with = np.median(region_to_work_with, axis=0)
         else:
-            raise NotImplementedError(
-                "this method of adding the binned images is not supported!"
-            )
+            raise NotImplementedError("this method of adding the binned images is not supported!")
 
         return {
             "full_image": full_image_to_work_with,

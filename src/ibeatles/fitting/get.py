@@ -5,15 +5,16 @@ Get class for fitting
 
 import numpy as np
 
-from . import KropffTabSelected, FittingTabSelected
-from ..utilities.table_handler import TableHandler
-from ibeatles.utilities.array_utilities import find_nearest_index
 from ibeatles.fitting.kropff.fitting_functions import (
-    kropff_high_lambda,
     kropff_bragg_peak_tof,
+    kropff_high_lambda,
     kropff_low_lambda,
 )
 from ibeatles.fitting.kropff.get import Get as KropffGet
+from ibeatles.utilities.array_utilities import find_nearest_index
+
+from ..utilities.table_handler import TableHandler
+from . import FittingTabSelected, KropffTabSelected
 
 
 class Get:
@@ -59,35 +60,25 @@ class Get:
             _bin_entry = table_dictionary[_row]
 
             if _bin_entry["fitted"][kropff_tab_selected]["yaxis"] is None:
-                xaxis, _yaxis_fitted = (
-                    self.calculate_yaxis_fitted_using_fitted_parameters(
-                        kropff_tab_selected=kropff_tab_selected, row=_row
-                    )
+                xaxis, _yaxis_fitted = self.calculate_yaxis_fitted_using_fitted_parameters(
+                    kropff_tab_selected=kropff_tab_selected, row=_row
                 )
 
                 if _yaxis_fitted is None:
                     return [], []
 
                 else:
-                    table_dictionary[_row]["fitted"][kropff_tab_selected]["xaxis"] = (
-                        xaxis
-                    )
-                    table_dictionary[_row]["fitted"][kropff_tab_selected]["yaxis"] = (
-                        _yaxis_fitted
-                    )
+                    table_dictionary[_row]["fitted"][kropff_tab_selected]["xaxis"] = xaxis
+                    table_dictionary[_row]["fitted"][kropff_tab_selected]["yaxis"] = _yaxis_fitted
                     list_of_yaxis_fitted.append(_yaxis_fitted)
 
             else:
                 xaxis = _bin_entry["fitted"][kropff_tab_selected]["xaxis"]
-                list_of_yaxis_fitted.append(
-                    _bin_entry["fitted"][kropff_tab_selected]["yaxis"]
-                )
+                list_of_yaxis_fitted.append(_bin_entry["fitted"][kropff_tab_selected]["yaxis"])
 
         return xaxis, list_of_yaxis_fitted
 
-    def calculate_yaxis_fitted_using_fitted_parameters(
-        self, kropff_tab_selected=KropffTabSelected.high_tof, row="0"
-    ):
+    def calculate_yaxis_fitted_using_fitted_parameters(self, kropff_tab_selected=KropffTabSelected.high_tof, row="0"):
         table_dictionary = self.grand_parent.kropff_table_dictionary
         full_xaxis = table_dictionary[row]["xaxis"]
 
@@ -124,9 +115,7 @@ class Get:
                 sigma = table_dictionary[row]["sigma"]["val"]
 
                 xaxis = full_xaxis
-                yaxis_fitted = kropff_bragg_peak_tof(
-                    xaxis, a0, b0, ahkl, bhkl, lambda_hkl, sigma, tau
-                )
+                yaxis_fitted = kropff_bragg_peak_tof(xaxis, a0, b0, ahkl, bhkl, lambda_hkl, sigma, tau)
 
                 return xaxis, yaxis_fitted
 

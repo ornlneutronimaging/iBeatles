@@ -45,28 +45,29 @@ def __(mo):
 @app.cell
 def __():
     import logging
-    import numpy as np
-    import matplotlib.pyplot as plt
+
     import matplotlib.cm as cm
     import matplotlib.colors as mcolors
+    import matplotlib.pyplot as plt
+    import numpy as np
     from lmfit import fit_report
     from scipy.ndimage import gaussian_filter1d
-    from ibeatles.app.cli import load_data, load_config
+
+    from ibeatles.app.cli import load_config, load_data, perform_fitting
     from ibeatles.core.config import OutputFileConfig
-    from ibeatles.core.processing.normalization import normalize_data
     from ibeatles.core.fitting.binning import (
         get_bin_coordinates,
         get_bin_transmission,
     )
-    from ibeatles.core.material import get_initial_bragg_edge_lambda
     from ibeatles.core.fitting.kropff.fitting import fit_bragg_edge_single_pass
+    from ibeatles.core.material import get_initial_bragg_edge_lambda
+    from ibeatles.core.processing.normalization import normalize_data
+    from ibeatles.core.strain.export import save_analysis_results
     from ibeatles.core.strain.mapping import calculate_strain_mapping
     from ibeatles.core.strain.visualization import (
-        plot_strain_map_overlay,
         plot_fitting_results_grid,
+        plot_strain_map_overlay,
     )
-    from ibeatles.core.strain.export import save_analysis_results
-    from ibeatles.app.cli import perform_fitting
 
     # setup loggers and handlers
 
@@ -392,9 +393,7 @@ def __(bin_range_slider, bin_transmission, cm, mcolors, mo, plt):
     mo.vstack(
         [
             fig_bin_spectra,
-            mo.vstack(
-                [bin_range_slider, mo.md(f"Bin Range: {bin_range_slider.value}")]
-            ),
+            mo.vstack([bin_range_slider, mo.md(f"Bin Range: {bin_range_slider.value}")]),
         ]
     )
     return ax_bin_spectra, fig_bin_spectra
@@ -502,9 +501,7 @@ def __(
     fig_fitting_single_bin, ax_fitting_single_bin = plt.subplots(1, 3, figsize=(15, 5))
     # left: full range with highlighted fitting range
     ax_fitting_single_bin[0].plot(_lambda, _transmission, label="Data")
-    ax_fitting_single_bin[0].axvspan(
-        lambda_min_in_angstrom, lambda_max_in_angstrom, color="green", alpha=0.5
-    )
+    ax_fitting_single_bin[0].axvspan(lambda_min_in_angstrom, lambda_max_in_angstrom, color="green", alpha=0.5)
     ax_fitting_single_bin[0].axvline(
         x=lambda_0_angstrom,
         color="red",
@@ -516,15 +513,11 @@ def __(
     ax_fitting_single_bin[0].set_ylabel("Transmission")
     # middle: zoom-in, fitting of the smoothed curve
     _fit_results_smoothed.plot_fit(ax=ax_fitting_single_bin[1], datafmt=".", fitfmt="-")
-    ax_fitting_single_bin[1].scatter(
-        _lambda_fitting, _transmission_fitting, label="Data", color="black", s=1
-    )
+    ax_fitting_single_bin[1].scatter(_lambda_fitting, _transmission_fitting, label="Data", color="black", s=1)
     # right: zoom-in, actual fitting result
     if fit_results_manual is not None:
         # plot
-        fit_results_manual.plot_fit(
-            ax=ax_fitting_single_bin[2], datafmt=".", fitfmt="-"
-        )
+        fit_results_manual.plot_fit(ax=ax_fitting_single_bin[2], datafmt=".", fitfmt="-")
         ax_fitting_single_bin[2].set_title("Fitting Result")
         ax_fitting_single_bin[2].legend()
     else:
