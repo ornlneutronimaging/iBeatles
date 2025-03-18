@@ -406,6 +406,7 @@ def _(
             output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
             data['raw_data']['raw_data_dir'] = _raw_sample.path
             save_json(output_filename, json_dictionary=data)
+            os.chmod(output_filename, 0o755)
 
     def _make_ascii_file(filename, content):
         with open(filename, 'w') as file:
