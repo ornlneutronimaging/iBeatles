@@ -26,19 +26,24 @@ def _():
 @app.cell
 def _(initial_path, mo):
     config_file = mo.ui.file_browser(
-        initial_path=initial_path, filetypes=[".json"], multiple=False
+        initial_path=initial_path,
+        filetypes=[".json"],
+        multiple=False,
+        label="Select configuration file (created with iBeatles) ..."
     )
     config_file
     return (config_file,)
 
 
 @app.cell
-def _(config_file, mo):
-    if config_file.value:
-        _text = "Config file content"
-    else:
-        _text = ""
-    mo.md(_text)
+def _():
+    # mo.stop(config_file.value == ())
+
+    # if config_file.value:
+    #     _text = "Config file content"
+    # else:
+    #     _text = ""
+    # mo.md(_text)
     return
 
 
@@ -50,26 +55,36 @@ def _(config_file, json, os):
             with open(config_file.value[0].path) as json_file:
                 data = json.load(json_file)
 
-    data
+    # data
     return data, json_file
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
+    if data:
+        value_to_display = data["raw_data"]["raw_data_dir"]
+    else:
+        value_to_display = "N/A"
+
     mo.vstack(
         [
             mo.md("##raw data dir"),
             mo.ui.text(
-                        value=data["raw_data"]["raw_data_dir"],
+                        value=value_to_display,
                         full_width=True,
                     ),
-        ]
+        ],
+
     )
-    return
+    return (value_to_display,)
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     mo.vstack(
         [
             mo.md("##open beam dir"),
@@ -83,13 +98,23 @@ def _(data, mo):
 
 
 @app.cell
-def _(mo):
-    mo.md("""##normalization""")
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
+    mo.md(
+        """
+
+
+        ##normalization
+        """
+    )
     return
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     _stack = []
     mo.md("###sample background")
     for _index, _roi in enumerate(data["normalization"]["sample_background"]):
@@ -131,26 +156,34 @@ def _(data, mo):
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.md("""##Material""")
     return
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     _element = data["analysis"]["material"]["element"]
     mo.ui.text(_element, disabled=True)
     return
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.md("""##Pixel binning""")
     return
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     _bins = data["analysis"]["pixel_binning"]
     _x0 = str(_bins["x0"])
     _y0 = str(_bins["y0"])
@@ -170,13 +203,17 @@ def _(data, mo):
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.md("""##Fitting parameters""")
     return
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     _fitting = data["analysis"]["fitting"]
     _lambda_min = f"{_fitting['lambda_min']:.5e}"
     _lambda_max = f"{_fitting['lambda_max']:.5e}"
@@ -190,13 +227,17 @@ def _(data, mo):
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.md("""##Strain mapping settings""")
     return
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     _strain = data["analysis"]["strain_mapping"]
     _d0 = str(_strain["d0"])
     mo.ui.text(value=_d0, label=u"d\u2080" + f" (\u212b)")
@@ -204,13 +245,17 @@ def _(data, mo):
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.md("""##Instrument settings""")
     return
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     mo.vstack(
         [
             mo.ui.text(
@@ -227,13 +272,17 @@ def _(data, mo):
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.md("""##Output""")
     return
 
 
 @app.cell
-def _(data, mo):
+def _(config_file, data, mo):
+    mo.stop(config_file.value == ())
+
     mo.vstack(
         [
             mo.ui.text(
@@ -257,19 +306,25 @@ def _(data, mo):
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.Html("<hr>")
     return
 
 
 @app.cell
-def _(mo):
+def _(config_file, mo):
+    mo.stop(config_file.value == ())
+
     mo.md("""##Repeat analysis for each of the following folders""")
     return
 
 
 @app.cell
-def _(initial_path, mo):
+def _(config_file, initial_path, mo):
+    mo.stop(config_file.value == ())
+
     list_sample_folders_ui = mo.ui.file_browser(
         initial_path=initial_path, multiple=True, selection_mode='directory'
     )
@@ -278,7 +333,9 @@ def _(initial_path, mo):
 
 
 @app.cell
-def _(list_sample_folders_ui, mo):
+def _(config_file, list_sample_folders_ui, mo):
+    mo.stop(config_file.value == ())
+
     mo.vstack(
         [
             mo.Html(f"{len(list_sample_folders_ui.value)} folders (raw sample) have been selected!")
@@ -288,13 +345,17 @@ def _(list_sample_folders_ui, mo):
 
 
 @app.cell
-def _(mo):
-    mo.md("## Select where to create the config files & batch script")
+def _(list_sample_folders_ui, mo):
+    mo.stop(list_sample_folders_ui.value == ())
+
+    mo.md("""## Select where to create the config files & batch script""")
     return
 
 
 @app.cell
-def _(initial_path, mo):
+def _(initial_path, list_sample_folders_ui, mo):
+    mo.stop(list_sample_folders_ui.value == ())
+
     output_folder_ui = mo.ui.file_browser(
         initial_path=initial_path,
         label="",
@@ -311,7 +372,9 @@ def _(datetime):
         """format the current date and time into something like  04m_07d_2022y_08h_06mn"""
         current_time = datetime.datetime.now().strftime("%mm_%dd_%Yy_%Hh_%Mmn")
         return current_time
-    return (get_current_time_in_special_file_name_format,)
+
+    current_time = get_current_time_in_special_file_name_format()
+    return current_time, get_current_time_in_special_file_name_format
 
 
 @app.cell
@@ -324,43 +387,77 @@ def _(json):
 
 @app.cell
 def _(
+    current_time,
     data,
-    get_current_time_in_special_file_name_format,
     list_sample_folders_ui,
     os,
     output_folder_ui,
     save_json,
 ):
     def create_config_files(param):
-        output_folder = output_folder_ui.value
+
+        output_folder = output_folder_ui.value[0].path
         list_raw_sample_folders = list_sample_folders_ui.value
         config_file = data
-        timestamp = get_current_time_in_special_file_name_format()
+        timestamp = current_time
 
         for _raw_sample in list_raw_sample_folders:
-            output_filename = os.path.join(output_folder, os.path.basename(_raw_sample), f"_config_{timestamp}")
-            data['raw_data']['raw_data_dir'] = _raw_sample
+            raw_folder_base_name = os.path.basename(_raw_sample.path)
+            output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
+            data['raw_data']['raw_data_dir'] = _raw_sample.path
 
             save_json(output_filename, json_dictionary=data)
-
-
     return (create_config_files,)
 
 
 @app.cell
-def _(create_config_files, list_sample_folders_ui, mo):
+def _(
+    create_config_files,
+    current_time,
+    list_sample_folders_ui,
+    mo,
+    os,
+    output_folder_ui,
+):
+    mo.stop(output_folder_ui.value == ())
+
     create_config_button = mo.ui.button(label="Create config files and batch script",
                                         on_click=lambda x: create_config_files(x),
                                         disabled=len(list_sample_folders_ui.value) == 0,
-                            )
+                                        full_width=True,
+                                       )
+
+    _list_raw_sample_folders = list_sample_folders_ui.value
+    _list_config_file_created = []
+    for _raw_sample in _list_raw_sample_folders:
+        _name = f"{os.path.basename(_raw_sample.path)}_config_{current_time}.json"
+        _list_config_file_created.append(_name)
+
+    formatted_list_config_file = "\n".join(_list_config_file_created)
+    output_text = mo.ui.text_area(value=formatted_list_config_file)
+    label1 = mo.md("In output folder:")
+    output_folder_label = mo.md(output_folder_ui.value[0].path)
+
+
 
     mo.vstack(
         [
             mo.md("#Create config files and batch script"),
-            create_config_button
+            mo.md("List config files that will be created:"),
+            output_text,
+            label1,
+            output_folder_label,
+            mo.Html("<hr>"),
+            create_config_button,
         ]
     )
-    return (create_config_button,)
+    return (
+        create_config_button,
+        formatted_list_config_file,
+        label1,
+        output_folder_label,
+        output_text,
+    )
 
 
 @app.cell
