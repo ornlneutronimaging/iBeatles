@@ -15,11 +15,11 @@ def _():
 
     mo.Html("<font color=blue size=10>iBeatles config file editor</font>")
 
-    DEBUG = True
+    DEBUG = False
     if DEBUG:
         initial_path = "~/SNS/SNAP/IPTS-27829/"
     else:
-        initial_path = "/SNS/VENUS/"
+        initial_path = "~/"
     return DEBUG, TIMESTAMP_FORMAT, datetime, initial_path, json, mo, os
 
 
