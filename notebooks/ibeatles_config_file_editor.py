@@ -189,7 +189,7 @@ def _(config_file, data, mo):
     _y0 = str(_bins["y0"])
     _width = str(_bins["width"])
     _height = str(_bins["height"])
-    _size = str(_bins["bin_size"])
+    _size = str(_bins["bins_size"])
     mo.vstack(
         [
             mo.ui.text(value=_x0, label=r"x<sub>0</sub>"),
