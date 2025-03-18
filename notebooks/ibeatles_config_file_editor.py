@@ -382,6 +382,7 @@ def _(json):
     def save_json(json_file_name, json_dictionary=None):
         with open(json_file_name, "w") as outfile:
             json.dump(json_dictionary, outfile)
+        # change permission of file to 777
     return (save_json,)
 
 
@@ -394,8 +395,7 @@ def _(
     output_folder_ui,
     save_json,
 ):
-    def create_config_files(param):
-
+    def create_config_files():
         output_folder = output_folder_ui.value[0].path
         list_raw_sample_folders = list_sample_folders_ui.value
         config_file = data
@@ -405,14 +405,41 @@ def _(
             raw_folder_base_name = os.path.basename(_raw_sample.path)
             output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
             data['raw_data']['raw_data_dir'] = _raw_sample.path
-
             save_json(output_filename, json_dictionary=data)
-    return (create_config_files,)
+
+    def _make_ascii_file(filename, content):
+        with open(filename, 'w') as file:
+            for _line in content:
+                file.write(_line + "\n")
+        os.chmod(filename, 0o0777)
+
+    def create_batch_file():
+        output_folder = output_folder_ui.value[0].path
+        list_raw_sample_folders = list_sample_folders_ui.value
+        config_file = data
+        timestamp = current_time
+        _bash_file_name = os.path.join(output_folder, f"batch_of_{len(list_raw_sample_folders)}configs_{timestamp}.sh")
+
+        _batch_content = []
+        for _raw_sample in list_raw_sample_folders:
+            raw_folder_base_name = os.path.basename(_raw_sample.path)
+            output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
+
+            _cmd = f"pixi run cli {output_filename}"
+            _batch_content.append(_cmd)
+
+        _make_ascii_file(_bash_file_name, _batch_content)
+
+
+    def create_files(param):
+        create_config_files()
+        create_batch_file()
+    return create_batch_file, create_config_files, create_files
 
 
 @app.cell
 def _(
-    create_config_files,
+    create_files,
     current_time,
     list_sample_folders_ui,
     mo,
@@ -422,7 +449,7 @@ def _(
     mo.stop(output_folder_ui.value == ())
 
     create_config_button = mo.ui.button(label="Create config files and batch script",
-                                        on_click=lambda x: create_config_files(x),
+                                        on_click=lambda x: create_files(x),
                                         disabled=len(list_sample_folders_ui.value) == 0,
                                         full_width=True,
                                        )
@@ -438,13 +465,19 @@ def _(
     label1 = mo.md("In output folder:")
     output_folder_label = mo.md(output_folder_ui.value[0].path)
 
+    _output_folder_path = output_folder_ui.value[0].path
 
+    _batch_file = os.path.join(_output_folder_path, f"batch_of_{len(_list_raw_sample_folders)}configs_{current_time}.sh")
+    batch_text = mo.ui.text(value=_batch_file,
+                           full_width=True)
 
     mo.vstack(
         [
             mo.md("#Create config files and batch script"),
             mo.md("List config files that will be created:"),
             output_text,
+            mo.md("Batch file to execute to launch all the jobs!"),
+            batch_text,
             label1,
             output_folder_label,
             mo.Html("<hr>"),
@@ -452,6 +485,7 @@ def _(
         ]
     )
     return (
+        batch_text,
         create_config_button,
         formatted_list_config_file,
         label1,
