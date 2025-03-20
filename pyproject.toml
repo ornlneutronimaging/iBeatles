@@ -180,6 +180,7 @@ conda-build = "*"
 conda-verify = "*"
 python-build = "*"
 twine = ">=6.1.0,<7"
+anaconda-client = ">=1.13.0,<2"
 
 [tool.pixi.feature.developer.dependencies]
 pip = "*"
