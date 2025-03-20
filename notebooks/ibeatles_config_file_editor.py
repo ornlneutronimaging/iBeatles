@@ -15,12 +15,35 @@ def _():
 
     mo.Html("<font color=blue size=10>iBeatles config file editor</font>")
 
+    top_of_python_script = ["from concurrent.futures import ProcessPoolExecutor",
+                            "import os",
+                            "",
+                            "def worker(job):",
+                            "   os.system(job)",
+                            "",
+                            "if __name__ == '__main__':",
+                            "",
+                            "",
+                            "",
+                            "   with ProcessPoolExecutor() as executor:",
+                            "      executor.map(worker, list_jobs)",
+                            ]
+
     DEBUG = False
     if DEBUG:
         initial_path = "~/SNS/SNAP/IPTS-27829/"
     else:
         initial_path = "~/"
-    return DEBUG, TIMESTAMP_FORMAT, datetime, initial_path, json, mo, os
+    return (
+        DEBUG,
+        TIMESTAMP_FORMAT,
+        datetime,
+        initial_path,
+        json,
+        mo,
+        os,
+        top_of_python_script,
+    )
 
 
 @app.cell
@@ -386,32 +409,29 @@ def _(json):
     return (save_json,)
 
 
-@app.cell
-def _(
-    current_time,
-    data,
-    list_sample_folders_ui,
-    os,
-    output_folder_ui,
-    save_json,
-):
+app._unparsable_cell(
+    r"""
     def create_config_files():
         output_folder = output_folder_ui.value[0].path
         list_raw_sample_folders = list_sample_folders_ui.value
         config_file = data
         timestamp = current_time
 
+        message1 = [f\"Created {len(list_raw_sample_folders)} config files!\"]
         for _raw_sample in list_raw_sample_folders:
             raw_folder_base_name = os.path.basename(_raw_sample.path)
-            output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
+            output_filename = os.path.join(output_folder, f\"{raw_folder_base_name}_config_{timestamp}.json\")
             data['raw_data']['raw_data_dir'] = _raw_sample.path
             save_json(output_filename, json_dictionary=data)
             os.chmod(output_filename, 0o755)
+            message1.append(f\"\t- {output_filename}\")
+
+        output_message_config_files = message1
 
     def _make_ascii_file(filename, content):
         with open(filename, 'w') as file:
             for _line in content:
-                file.write(_line + "\n")
+                file.write(_line + \"\n\")
         os.chmod(filename, 0o0777)
 
     def create_batch_file():
@@ -419,23 +439,34 @@ def _(
         list_raw_sample_folders = list_sample_folders_ui.value
         config_file = data
         timestamp = current_time
-        _bash_file_name = os.path.join(output_folder, f"batch_of_{len(list_raw_sample_folders)}configs_{timestamp}.sh")
+        _python_file_name = os.path.join(output_folder, f\"script_of_{len(list_raw_sample_folders)}configs_{timestamp}.py\")
 
-        _batch_content = []
+        message2 = [f\"Created batch script to execute all jobs!\"]
+        _list_output_filename = []
         for _raw_sample in list_raw_sample_folders:
             raw_folder_base_name = os.path.basename(_raw_sample.path)
-            output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
+            output_filename = os.path.join(output_folder, f\"{raw_folder_base_name}_config_{timestamp}.json\")
+            _list_output_filename.append(f\"pixi run cli {output_filename}\")
 
-            _cmd = f"pixi run cli {output_filename}"
-            _batch_content.append(_cmd)
+        str_format = \"list_jobs = [\" + \", \".join([f'\"{_file}\"' for _file in _list_output_filename]) + \"]\"
 
-        _make_ascii_file(_bash_file_name, _batch_content)
+        _python_content = top_of_python_script.copy()
+        _python_content[7] = f\"   {str_format}\"
+        _make_ascii_file(_python_file_name, _python_content)
+
+        # create script to launch
+        _bash_file_name = os.path.join(output_folder, f\"launch_script_of_{len(list_raw_sample_folders)}configs_{timestamp}.sh\")
+        _bash_content = [f\"pixi run python {_python_file_name}\"]
+        _make_ascii_file(_bash_file_name, _bash_content)
+        message2.append(f\"\t- {_bash_file_name}\")
+
+        output_message_script = message2
 
 
-    def create_files(param):
-        create_config_files()
-        create_batch_file()
-    return create_batch_file, create_config_files, create_files
+    def create_files()
+    """,
+    name="_"
+)
 
 
 @app.cell
@@ -472,6 +503,15 @@ def _(
     batch_text = mo.ui.text(value=_batch_file,
                            full_width=True)
 
+    output_message_title = ""
+    mo.md(output_message_title)
+
+    output_message_config_files = ""
+    mo.md(output_message_config_files)
+
+    output_message_batch = ""
+    mo.md(output_message_batch)
+
     mo.vstack(
         [
             mo.md("#Create config files and batch script"),
@@ -483,6 +523,7 @@ def _(
             output_folder_label,
             mo.Html("<hr>"),
             create_config_button,
+
         ]
     )
     return (
@@ -491,6 +532,9 @@ def _(
         formatted_list_config_file,
         label1,
         output_folder_label,
+        output_message_batch,
+        output_message_config_files,
+        output_message_title,
         output_text,
     )
 
