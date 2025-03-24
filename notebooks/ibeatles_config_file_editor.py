@@ -10,6 +10,7 @@ def _():
     import datetime
     import json
     import os
+    import glob
 
     TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
 
@@ -30,15 +31,15 @@ def _():
                             ]
 
     DEBUG = False
-    if DEBUG:
-        initial_path = "~/SNS/SNAP/IPTS-27829/"
-    else:
-        initial_path = "~/"
+    # if DEBUG:
+    #     default_initial_path = "~/SNS/SNAP/IPTS-27829/"
+    # else:
+    #     default_initial_path = "/SNS/"
     return (
         DEBUG,
         TIMESTAMP_FORMAT,
         datetime,
-        initial_path,
+        glob,
         json,
         mo,
         os,
@@ -47,7 +48,33 @@ def _():
 
 
 @app.cell
-def _(initial_path, mo):
+def _(mo):
+    instrument_name_ui = mo.ui.dropdown(options=['VENUS', 'SNAP'],
+                                        value='VENUS',
+                                       label='Instrument')
+    instrument_name_ui
+    return (instrument_name_ui,)
+
+
+@app.cell
+def _(glob, instrument_name_ui, mo, os):
+    list_ipts = glob.glob(f"/SNS/{instrument_name_ui.value}/IPTS-*")
+    list_ipts.sort()
+
+    short_list_ipts = [os.path.basename(_folder) for _folder in list_ipts]
+
+    ipts_ui = mo.ui.dropdown(options=short_list_ipts,
+                            label='IPTS #')
+    ipts_ui
+    return ipts_ui, list_ipts, short_list_ipts
+
+
+@app.cell
+def _(instrument_name_ui, ipts_ui, mo):
+    mo.stop(not ipts_ui.value)
+
+    initial_path = f"/SNS/{instrument_name_ui.value}/{ipts_ui.value}/"
+
     config_file = mo.ui.file_browser(
         initial_path=initial_path,
         filetypes=[".json"],
@@ -55,7 +82,7 @@ def _(initial_path, mo):
         label="Select configuration file (created with iBeatles) ..."
     )
     config_file
-    return (config_file,)
+    return config_file, initial_path
 
 
 @app.cell
@@ -409,29 +436,37 @@ def _(json):
     return (save_json,)
 
 
-app._unparsable_cell(
-    r"""
+@app.cell
+def _(
+    current_time,
+    data,
+    list_sample_folders_ui,
+    os,
+    output_folder_ui,
+    save_json,
+    top_of_python_script,
+):
     def create_config_files():
         output_folder = output_folder_ui.value[0].path
         list_raw_sample_folders = list_sample_folders_ui.value
         config_file = data
         timestamp = current_time
 
-        message1 = [f\"Created {len(list_raw_sample_folders)} config files!\"]
+        message1 = [f"Created {len(list_raw_sample_folders)} config files!"]
         for _raw_sample in list_raw_sample_folders:
             raw_folder_base_name = os.path.basename(_raw_sample.path)
-            output_filename = os.path.join(output_folder, f\"{raw_folder_base_name}_config_{timestamp}.json\")
+            output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
             data['raw_data']['raw_data_dir'] = _raw_sample.path
             save_json(output_filename, json_dictionary=data)
             os.chmod(output_filename, 0o755)
-            message1.append(f\"\t- {output_filename}\")
+            message1.append(f"\t- {output_filename}")
 
         output_message_config_files = message1
 
     def _make_ascii_file(filename, content):
         with open(filename, 'w') as file:
             for _line in content:
-                file.write(_line + \"\n\")
+                file.write(_line + "\n")
         os.chmod(filename, 0o0777)
 
     def create_batch_file():
@@ -439,34 +474,34 @@ app._unparsable_cell(
         list_raw_sample_folders = list_sample_folders_ui.value
         config_file = data
         timestamp = current_time
-        _python_file_name = os.path.join(output_folder, f\"script_of_{len(list_raw_sample_folders)}configs_{timestamp}.py\")
+        _python_file_name = os.path.join(output_folder, f"script_of_{len(list_raw_sample_folders)}configs_{timestamp}.py")
 
-        message2 = [f\"Created batch script to execute all jobs!\"]
+        message2 = [f"Created batch script to execute all jobs!"]
         _list_output_filename = []
         for _raw_sample in list_raw_sample_folders:
             raw_folder_base_name = os.path.basename(_raw_sample.path)
-            output_filename = os.path.join(output_folder, f\"{raw_folder_base_name}_config_{timestamp}.json\")
-            _list_output_filename.append(f\"pixi run cli {output_filename}\")
+            output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
+            _list_output_filename.append(f"pixi run cli {output_filename}")
 
-        str_format = \"list_jobs = [\" + \", \".join([f'\"{_file}\"' for _file in _list_output_filename]) + \"]\"
+        str_format = "list_jobs = [" + ", ".join([f'"{_file}"' for _file in _list_output_filename]) + "]"
 
         _python_content = top_of_python_script.copy()
-        _python_content[7] = f\"   {str_format}\"
+        _python_content[7] = f"   {str_format}"
         _make_ascii_file(_python_file_name, _python_content)
 
         # create script to launch
-        _bash_file_name = os.path.join(output_folder, f\"launch_script_of_{len(list_raw_sample_folders)}configs_{timestamp}.sh\")
-        _bash_content = [f\"pixi run python {_python_file_name}\"]
+        _bash_file_name = os.path.join(output_folder, f"launch_script_of_{len(list_raw_sample_folders)}_configs_{timestamp}.sh")
+        _bash_content = [f"pixi run python {_python_file_name}"]
         _make_ascii_file(_bash_file_name, _bash_content)
-        message2.append(f\"\t- {_bash_file_name}\")
+        message2.append(f"\t- {_bash_file_name}")
 
         output_message_script = message2
 
 
-    def create_files()
-    """,
-    name="_"
-)
+    def create_files(param):
+        create_config_files()
+        create_batch_file()
+    return create_batch_file, create_config_files, create_files
 
 
 @app.cell
