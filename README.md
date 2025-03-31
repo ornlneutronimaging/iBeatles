@@ -33,7 +33,7 @@ python -m ibeatles --no-gui <CONFIG_FILE>
 To install the latest release from Conda, use the following command:
 
 ```bash
-micromamba install -c conda-forge -c ornlneutronimaging ibeatles
+micromamba install -c conda-forge -c neutronimaging ibeatles
 ```
 
 This should install the latest release of iBeatles and all its dependencies.
