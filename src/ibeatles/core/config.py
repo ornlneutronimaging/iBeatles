@@ -256,9 +256,7 @@ class AnalysisConfig(BaseModel):
     pixel_binning: PixelBinning
     fitting: FittingConfig
     strain_mapping: StrainMapping = Field(default_factory=StrainMapping)
-    distance_source_detector_in_m: float = Field(
-        default=25.0, description="Distance from source to detector in meters"
-    )
+    distance_source_detector_in_m: float = Field(default=25.0, description="Distance from source to detector in meters")
     detector_offset_in_us: float = Field(default=5000, description="Detector offset in microseconds")
 
 
