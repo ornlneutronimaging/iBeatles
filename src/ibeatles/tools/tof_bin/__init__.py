@@ -43,7 +43,7 @@ session = {
     SessionSubKeys.list_working_folders_status: None,  # list of working folders status [True, True, False..]
     SessionSubKeys.log_buffer_size: 500,  # max size of the log file
     SessionSubKeys.version: "0.0.1",  # version of that config
-    SessionSubKeys.distance_source_detector: 25,
+    SessionSubKeys.distance_source_detector: 25.0,
     SessionSubKeys.detector_offset: 9600,
     SessionSubKeys.sample_position: 0,  # in the combine tab
     SessionSubKeys.bin_mode: BinMode.auto,  # 'auto' or 'manual',
