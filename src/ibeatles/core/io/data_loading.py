@@ -5,6 +5,7 @@ import glob
 import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
+import logging
 
 import numpy as np
 from astropy.io import fits
@@ -281,10 +282,16 @@ def get_time_spectra_filename(folder: str, match_pattern: str = "*_Spectra.txt")
     str
         Full path to the time spectra file, or an empty string if not found.
     """
+    logging.info(f"Searching for time spectra file in folder: {folder} with pattern: {match_pattern}")
     search_path = Path(folder) / match_pattern
-    search_results = sorted(glob.glob(str(search_path)))
+    str_search_path = str(search_path)
+    str_search_path = str_search_path.strip()
+    logging.info(f"\tSearch path: {search_path}")
+    search_results = sorted(glob.glob(str_search_path))
+    logging.info(f"\tFound {len(search_results)} matching files.")
 
     if search_results and os.path.exists(search_results[0]):
+        logging.info(f"\tUsing time spectra file: {search_results[0]}")
         return search_results[0]
     else:
         return ""

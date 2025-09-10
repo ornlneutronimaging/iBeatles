@@ -138,9 +138,11 @@ class EventHandler:
         """
         load the time spectra file
         """
+        logging.info("Loading time spectra file ...")
         folder = self.parent.ui.folder_selected.text()
 
         time_spectra_file = get_time_spectra_filename(folder)
+        logging.info(f"in load_time_spectra_file, time_spectra_file: {time_spectra_file}")
         if not time_spectra_file:
             logging.info("Time spectra file not found!")
             show_status_message(
@@ -151,25 +153,33 @@ class EventHandler:
             )
             return
 
+        logging.info(f"#1")
         if self.time_spectra_presenter is None:
             self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
+            logging.info(f"#2")
+        
+        logging.info(f"#3")
 
-        distance_source_detector_m = float(self.parent.ui.distance_source_detector.text())
-        detector_offset = float(self.parent.ui.detector_offset.text())
+        distance_source_detector_m = float(self.top_parent.ui.distance_source_detector.text())
+        detector_offset = float(self.top_parent.ui.detector_offset.text())
 
-        try:
-            self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
-            self.update_time_spectra_data()
-        except Exception as e:
-            logging.error(f"Error loading time spectra: {str(e)}")
-            show_status_message(
-                parent=self.parent,
-                message=f"Error loading time spectra: {str(e)}",
-                status=StatusMessageStatus.error,
-                duration_s=5,
-            )
+        logging.info(f"distance_source_detector_m: {distance_source_detector_m}")
+        logging.info(f"detector_offset: {detector_offset}")
+
+        # try:
+        self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
+        self.update_time_spectra_data()
+        # except Exception as e:
+        #     logging.error(f"Error loading time spectra: {str(e)}")
+        #     show_status_message(
+        #         parent=self.parent,
+        #         message=f"Error loading time spectra: {str(e)}",
+        #         status=StatusMessageStatus.error,
+        #         duration_s=5,
+        #     )
 
     def update_time_spectra_data(self):
+        logging.info("Updating time spectra data ...")
         time_spectra_data = self.time_spectra_presenter.model.get_data()
 
         self.parent.time_spectra[TimeSpectraKeys.file_name] = time_spectra_data["filename"]
@@ -181,8 +191,10 @@ class EventHandler:
         # update time spectra tab
         self.parent.ui.time_spectra_name_label.setText(os.path.basename(time_spectra_data["filename"]))
         self.parent.ui.time_spectra_preview_pushButton.setEnabled(True)
+        logging.info("... done!")
 
     def display_integrated_image(self):
+        logging.info("Displaying integrated image ...")
         self.parent.integrated_view.clear()
 
         if self.parent.integrated_image is None:
@@ -200,8 +212,10 @@ class EventHandler:
         self.parent.integrated_view.addItem(roi_item)
         roi_item.sigRegionChanged.connect(self.parent.bin_roi_changed)
         self.parent.roi_item = roi_item
+        logging.info("... done!")
 
     def display_profile(self):
+        logging.info("Displaying profile ...")
         if self.parent.integrated_image is None:
             return
 
@@ -222,6 +236,7 @@ class EventHandler:
 
         o_plot = Plot(parent=self.parent)
         o_plot.refresh_profile_plot_and_clear_bins()
+        logging.info("... done!")
 
     def bin_xaxis_changed(self):
         o_get = Get(parent=self.parent)
