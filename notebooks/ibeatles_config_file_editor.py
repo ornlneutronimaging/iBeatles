@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.10.9"
+__generated_with = "0.14.15"
 app = marimo.App(width="medium")
 
 
@@ -19,8 +19,8 @@ def _():
     if DEBUG:
         initial_path = "~/SNS/SNAP/IPTS-27829/"
     else:
-        initial_path = "~/"
-    return DEBUG, TIMESTAMP_FORMAT, datetime, initial_path, json, mo, os
+        initial_path = "/SNS/VENUS/"
+    return datetime, initial_path, json, mo, os
 
 
 @app.cell
@@ -56,7 +56,7 @@ def _(config_file, json, os):
                 data = json.load(json_file)
 
     # data
-    return data, json_file
+    return (data,)
 
 
 @app.cell
@@ -78,7 +78,7 @@ def _(config_file, data, mo):
         ],
 
     )
-    return (value_to_display,)
+    return
 
 
 @app.cell
@@ -374,7 +374,7 @@ def _(datetime):
         return current_time
 
     current_time = get_current_time_in_special_file_name_format()
-    return current_time, get_current_time_in_special_file_name_format
+    return (current_time,)
 
 
 @app.cell
@@ -435,7 +435,7 @@ def _(
     def create_files(param):
         create_config_files()
         create_batch_file()
-    return create_batch_file, create_config_files, create_files
+    return (create_files,)
 
 
 @app.cell
@@ -485,14 +485,7 @@ def _(
             create_config_button,
         ]
     )
-    return (
-        batch_text,
-        create_config_button,
-        formatted_list_config_file,
-        label1,
-        output_folder_label,
-        output_text,
-    )
+    return
 
 
 @app.cell
