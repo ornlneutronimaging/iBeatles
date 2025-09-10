@@ -153,12 +153,12 @@ class EventHandler:
             )
             return
 
-        logging.info(f"#1")
+        logging.info("#1")
         if self.time_spectra_presenter is None:
             self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
-            logging.info(f"#2")
-        
-        logging.info(f"#3")
+            logging.info("#2")
+
+        logging.info("#3")
 
         distance_source_detector_m = float(self.top_parent.ui.distance_source_detector.text())
         detector_offset = float(self.top_parent.ui.detector_offset.text())
