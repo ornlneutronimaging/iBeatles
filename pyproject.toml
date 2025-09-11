@@ -17,8 +17,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Physics",
   "Intended Audience :: Science/Research"
 ]
-# dynamic = ["version"]
-version = "1.1.0"  # this will be overwritten by versioningit
+dynamic = ["version"]
 requires-python = ">=3.11,<3.13"
 license = { text = "MIT" }
 keywords = ["Bragg Edge", "neutron", "imaging", "strain mapping"]
