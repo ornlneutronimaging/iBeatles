@@ -316,8 +316,8 @@ class EventHandler:
         if self.time_spectra_presenter is None:
             self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
 
-        distance_source_detector_m = float(self.parent.ui.distance_source_detector.text())
-        detector_offset = float(self.parent.ui.detector_offset.text())
+        distance_source_detector_m = float(self.grand_parent.ui.distance_source_detector.text())
+        detector_offset = float(self.grand_parent.ui.detector_offset.text())
 
         try:
             self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
