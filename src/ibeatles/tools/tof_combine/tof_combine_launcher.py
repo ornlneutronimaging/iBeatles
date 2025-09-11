@@ -130,7 +130,7 @@ class TofCombine(QMainWindow):
         o_event.refresh_table_clicked()
 
     def radio_buttons_of_folder_changed(self):
-        o_event = CombineEventHandler(parent=self)
+        o_event = CombineEventHandler(parent=self, grand_parent=self.parent)
         if self.visualize_flag:
             self.ui.setEnabled(False)
             o_event.update_list_of_folders_to_use()
