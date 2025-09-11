@@ -6,7 +6,6 @@ import logging
 import os
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
-import logging
 
 import numpy as np
 from astropy.io import fits
