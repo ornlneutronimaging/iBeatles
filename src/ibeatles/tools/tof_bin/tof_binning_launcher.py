@@ -7,9 +7,8 @@ import logging
 import warnings
 
 from qtpy.QtWidgets import QMainWindow
-from qtpy.QtWidgets import QFileDialog
 
-from ibeatles import load_ui, DataType
+from ibeatles import load_ui
 from ibeatles.tools.tof_bin import BinAutoMode, BinMode, session
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
 from ibeatles.tools.tof_bin.event_handler import EventHandler
@@ -22,7 +21,6 @@ from ibeatles.tools.tof_bin.statistics import Statistics
 from ibeatles.tools.tof_bin.tof_bin_export_launcher import TofBinExportLauncher
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.tools.utilities.time_spectra import TimeSpectraLauncher
-from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
 
 warnings.filterwarnings("ignore")
 TIME_SPECTRA_NAME_FORMAT = "*_Spectra.txt"
@@ -125,7 +123,6 @@ class TofBinning(QMainWindow):
         self.o_event = TofBinEventHandler(parent=self, top_parent=self.top_parent)
         self.o_event.select_input_folder()
         if self.list_tif_files:
-
             self.o_event.load_data()
 
             is_time_spectra_found = self.o_event.load_time_spectra_file()
@@ -137,7 +134,6 @@ class TofBinning(QMainWindow):
             self.bin_auto_manual_tab_changed()
             self.o_event.check_widgets()
 
-    
     def bin_roi_changed(self):
         o_event = TofBinEventHandler(parent=self)
         o_event.display_profile()

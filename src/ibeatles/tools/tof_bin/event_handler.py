@@ -167,7 +167,7 @@ class EventHandler:
         self.update_time_spectra_data()
 
         logging.info(f"time_spectra_file loaded: {time_spectra_file}")
-        logging.info(f"time spectra data:")
+        logging.info("time spectra data:")
         logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.tof_array][0:5] =}")
         logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.counts_array][0:5] =}")
         return True
@@ -182,7 +182,7 @@ class EventHandler:
         #     )
 
     def browse_for_time_spectra_file(self):
-        """browse for time spectra then continue workflow (self.continue_import_workflow_after_time_spectra_loaded) """
+        """browse for time spectra then continue workflow (self.continue_import_workflow_after_time_spectra_loaded)"""
         [time_spectra_file, _] = QFileDialog.getOpenFileName(
             caption="Select the Time Spectra File",
             directory=self.top_parent.default_path[DataType.sample],
@@ -203,10 +203,9 @@ class EventHandler:
                 self.update_time_spectra_data()
 
                 logging.info(f"time_spectra_file loaded: {time_spectra_file}")
-                logging.info(f"time spectra data:")
+                logging.info("time spectra data:")
                 logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.tof_array][0:5] =}")
                 logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.counts_array][0:5] =}")
-
 
     def update_time_spectra_data(self):
         logging.info("Updating time spectra data ...")
@@ -243,7 +242,6 @@ class EventHandler:
         roi_item.sigRegionChanged.connect(self.parent.bin_roi_changed)
         self.parent.roi_item = roi_item
         logging.info("... done!")
-
 
     def display_profile(self):
         logging.info("Displaying profile ...")
