@@ -161,17 +161,17 @@ python -m ibeatles --no-gui <CONFIG>    # CLI via Python module
 - Precision and scientific accuracy are critical
 
 ### File Formats
-- Works with various image formats (via Pillow)
-- HDF5 files for structured data (h5py)
-- Configuration files in TOML format
-- Results and metadata handling
+- Works with various image formats (via Pillow) for data input
+- HDF5 files for structured data storage and retrieval (h5py)
+- Configuration files in TOML format for settings
+- JSON format for configuration and result storage
 
 ## Common Pitfalls
 
 1. **Qt Event Loop**: Be careful with blocking operations in GUI code
 2. **Large Data**: Consider memory usage when working with image arrays
 3. **Cross-platform**: Code should work on both Linux and macOS (see pyproject.toml platforms)
-4. **Dependencies**: Some dependencies come from `neutronimaging` conda channel
+4. **Dependencies**: Neutron-specific dependencies (neutronbraggedge, changepy, neunorm) come from the `neutronimaging` conda channel
 5. **Version Management**: Uses versioningit - don't manually edit version strings
 
 ## Documentation
