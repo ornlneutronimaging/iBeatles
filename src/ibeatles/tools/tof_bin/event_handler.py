@@ -24,7 +24,7 @@ from ibeatles.tools.tof_bin.manual_event_handler import ManualEventHandler
 from ibeatles.tools.tof_bin.plot import Plot
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.utilities import TimeSpectraKeys
-from ibeatles.utilities.file_handler import FileHandler
+from ibeatles.utilities.file_handler import TIME_SPECTRA_NAME_FORMAT, FileHandler
 from ibeatles.utilities.load_files import LoadFiles
 from ibeatles.utilities.status_message_config import (
     StatusMessageStatus,
@@ -165,6 +165,13 @@ class EventHandler:
         # try:
         self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
         self.update_time_spectra_data()
+
+        logging.info(f"time_spectra_file loaded: {time_spectra_file}")
+        logging.info("time spectra data:")
+        logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.tof_array][0:5] =}")
+        logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.counts_array][0:5] =}")
+        return True
+
         # except Exception as e:
         #     logging.error(f"Error loading time spectra: {str(e)}")
         #     show_status_message(
@@ -173,6 +180,32 @@ class EventHandler:
         #         status=StatusMessageStatus.error,
         #         duration_s=5,
         #     )
+
+    def browse_for_time_spectra_file(self):
+        """browse for time spectra then continue workflow (self.continue_import_workflow_after_time_spectra_loaded)"""
+        [time_spectra_file, _] = QFileDialog.getOpenFileName(
+            caption="Select the Time Spectra File",
+            directory=self.top_parent.default_path[DataType.sample],
+            filter="Txt ({});;All (*.*)".format(TIME_SPECTRA_NAME_FORMAT),
+        )
+        if time_spectra_file:
+            if self.time_spectra_presenter is None:
+                self.time_spectra_presenter = TimeSpectraPresenter(self.parent)
+
+                distance_source_detector_m = float(self.top_parent.ui.distance_source_detector.text())
+                detector_offset = float(self.top_parent.ui.detector_offset.text())
+
+                logging.info(f"distance_source_detector_m: {distance_source_detector_m}")
+                logging.info(f"detector_offset: {detector_offset}")
+
+                # try:
+                self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
+                self.update_time_spectra_data()
+
+                logging.info(f"time_spectra_file loaded: {time_spectra_file}")
+                logging.info("time spectra data:")
+                logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.tof_array][0:5] =}")
+                logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.counts_array][0:5] =}")
 
     def update_time_spectra_data(self):
         logging.info("Updating time spectra data ...")
