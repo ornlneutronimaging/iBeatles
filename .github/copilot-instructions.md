@@ -61,7 +61,8 @@ src/ibeatles/          # Main source code
   ├── utilities/       # Utility functions
   └── widgets/         # Custom widgets
 tests/                 # Test files
-  ├── ibeatles/        # Integration tests
+  ├── data/            # Test data files
+  ├── ibeatles/        # Integration and functional tests
   └── unit/            # Unit tests
 conda.recipe/          # Conda packaging
 designer/              # Qt Designer files
