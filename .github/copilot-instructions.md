@@ -6,7 +6,7 @@ iBeatles is a GUI application for automatically fitting Bragg Edges, calculating
 
 ## Technology Stack
 
-- **Language**: Python 3.11-3.12
+- **Language**: Python 3.11-3.13
 - **GUI Framework**: PyQt5, QtPy, pyqtgraph
 - **Scientific Libraries**: numpy, scipy, matplotlib, lmfit, astropy
 - **Data Handling**: h5py, Pillow
@@ -53,7 +53,10 @@ src/ibeatles/          # Main source code
   ├── core/            # Core functionality
   ├── fitting/         # Fitting algorithms
   ├── interfaces/      # Interface definitions
-  ├── step1-6/         # Processing steps
+  ├── step1/           # Processing step 1
+  ├── step2/           # Processing step 2
+  ├── step3/           # Processing step 3
+  ├── step6/           # Processing step 6
   ├── ui/              # UI definition files
   ├── utilities/       # Utility functions
   └── widgets/         # Custom widgets
