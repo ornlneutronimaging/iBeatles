@@ -121,7 +121,7 @@ disable = [
 ]
 
 # Pixi configuration
-[tool.pixi.project]
+[tool.pixi.workspace]
 channels = ["conda-forge", "neutronimaging"]
 platforms = ["osx-arm64", "linux-64"]
 
