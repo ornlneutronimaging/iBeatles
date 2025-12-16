@@ -268,6 +268,9 @@ def compute_counts_with_uncertainty(
 
     n_frames, height, width = tiff_stack.shape
 
+    if n_frames == 0:
+        raise ValueError("tiff_stack must contain at least one frame")
+
     if len(tof_array) != n_frames:
         raise ValueError(f"tof_array length ({len(tof_array)}) must match number of frames ({n_frames})")
 
@@ -280,6 +283,11 @@ def compute_counts_with_uncertainty(
     shutter_counts = int(shutter_df.loc[shutter_index, "shutter_counts"])
     shutter_n_ratio = float(shutter_df.loc[shutter_index, "shutter_n_ratio"])
 
+    if shutter_counts <= 0:
+        raise ValueError(f"shutter_counts must be positive, got {shutter_counts}")
+    if shutter_n_ratio <= 0:
+        raise ValueError(f"shutter_n_ratio must be positive, got {shutter_n_ratio}")
+
     logger.info(f"Using shutter period {shutter_index}: counts={shutter_counts}, ratio={shutter_n_ratio:.4f}")
 
     # Create ROI mask if not provided
@@ -291,6 +299,8 @@ def compute_counts_with_uncertainty(
         if roi_mask.shape != (height, width):
             raise ValueError(f"roi_mask shape {roi_mask.shape} must match image shape ({height}, {width})")
         n_pixels = np.sum(roi_mask)
+        if n_pixels == 0:
+            raise ValueError("roi_mask must contain at least one pixel")
         logger.info(f"ROI contains {n_pixels} pixels")
 
     # Recover raw counts and compute occupancy
