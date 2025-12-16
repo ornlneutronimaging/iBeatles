@@ -9,6 +9,7 @@ from ibeatles.core.detector.uncertainty import (
     OccupancyWarning,
     ZeroCountMethod,
     aggregate_roi_uncertainty,
+    calculate_relative_uncertainty,
     calculate_transmission_std,
     calculate_transmission_variance,
     check_occupancy_validity,
@@ -17,10 +18,11 @@ from ibeatles.core.detector.uncertainty import (
 
 __all__ = [
     "OccupancyWarning",
-    "calculate_transmission_variance",
-    "calculate_transmission_std",
-    "check_occupancy_validity",
-    "aggregate_roi_uncertainty",
-    "handle_zero_counts",
     "ZeroCountMethod",
+    "aggregate_roi_uncertainty",
+    "calculate_relative_uncertainty",
+    "calculate_transmission_std",
+    "calculate_transmission_variance",
+    "check_occupancy_validity",
+    "handle_zero_counts",
 ]
