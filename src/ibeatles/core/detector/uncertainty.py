@@ -140,9 +140,10 @@ def _recover_raw_counts(
         numerator = T_i * s_i * (N - cumsum_raw)
         denominator = N + T_i * s_i
 
-        # Avoid division by zero
+        # Avoid division by zero and negative counts
+        # (numerator can be negative if cumsum_raw exceeds N due to numerical issues)
         with np.errstate(divide="ignore", invalid="ignore"):
-            F_i = np.where(denominator > 0, numerator / denominator, 0.0)
+            F_i = np.where((denominator > 0) & (numerator >= 0), numerator / denominator, 0.0)
 
         raw[i] = F_i
 
@@ -273,10 +274,8 @@ def compute_counts_with_uncertainty(
     # Load shutter metadata
     shutter_df = load_shutter_counts(shutter_counts_file)
 
-    if shutter_index >= len(shutter_df):
-        raise ValueError(
-            f"shutter_index {shutter_index} out of range (only {len(shutter_df)} shutter periods available)"
-        )
+    if shutter_index < 0 or shutter_index >= len(shutter_df):
+        raise ValueError(f"shutter_index {shutter_index} out of range (must be 0 to {len(shutter_df) - 1})")
 
     shutter_counts = int(shutter_df.loc[shutter_index, "shutter_counts"])
     shutter_n_ratio = float(shutter_df.loc[shutter_index, "shutter_n_ratio"])
