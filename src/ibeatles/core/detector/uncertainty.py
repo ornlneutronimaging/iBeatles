@@ -26,15 +26,13 @@ References
 - Validation notebook: notebooks/uncertainty_validation.ipynb
 """
 
-import logging
 import warnings
 from dataclasses import dataclass
 from enum import Enum
 from typing import Optional, Tuple, Union
 
 import numpy as np
-
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 class ZeroCountMethod(Enum):
