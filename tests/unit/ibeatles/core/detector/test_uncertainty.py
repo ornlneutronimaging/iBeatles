@@ -303,13 +303,21 @@ class TestCalculateRelativeUncertainty:
         """Test that zero transmission doesn't cause division by zero."""
         transmission = np.array([0.0, 100.0])
         std = np.array([1.0, 10.0])
+        min_transmission = 1e-10  # default value
 
-        # Should not raise
         relative = calculate_relative_uncertainty(transmission, std)
 
-        # Zero transmission should give large but finite relative uncertainty
-        assert np.isfinite(relative[0])
-        assert np.isfinite(relative[1])
+        # Results should be finite
+        assert np.all(np.isfinite(relative))
+
+        # Zero transmission uses min_transmission as floor
+        # Expected: relative[0] = std[0] / min_transmission = 1.0 / 1e-10 = 1e10
+        expected_zero_case = std[0] / min_transmission
+        np.testing.assert_allclose(relative[0], expected_zero_case)
+
+        # Non-zero transmission should behave normally
+        expected_nonzero = std[1] / transmission[1]  # 10 / 100 = 0.1
+        np.testing.assert_allclose(relative[1], expected_nonzero)
 
 
 class TestIntegration:

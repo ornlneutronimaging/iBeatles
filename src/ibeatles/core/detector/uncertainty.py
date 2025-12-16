@@ -267,7 +267,7 @@ def handle_zero_counts(
         shutter_n_ratio = np.asarray(shutter_n_ratio, dtype=np.float64)
         T_min = 1.0 / ((1.0 - occupancy) * shutter_n_ratio)
         zero_mask = transmission <= 0
-        T_effective[zero_mask] = T_min[zero_mask] if hasattr(T_min, "__getitem__") else T_min
+        T_effective = np.where(zero_mask, T_min, T_effective)
         return T_effective
 
     else:
@@ -412,6 +412,11 @@ def aggregate_roi_uncertainty(
     For highly correlated pixels (e.g., within beam speckle size),
     correlation_factor can be estimated from the autocorrelation
     function of the image.
+
+    For 3D input (n_frames, height, width), this function returns a single
+    aggregated value by averaging over all frames AND all ROI pixels. If you
+    need per-frame ROI uncertainties, call this function separately for each
+    frame slice: ``aggregate_roi_uncertainty(variance[i], roi_mask)``.
 
     Examples
     --------
