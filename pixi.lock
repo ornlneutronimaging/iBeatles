@@ -4463,8 +4463,8 @@ packages:
   timestamp: 1737618427549
 - pypi: ./
   name: ibeatles
-  version: 1.2.0.dev21+d202512171858
-  sha256: 8fe2f6657d040c6e0b6355b7a1d2d1788dc27944ddc482f65eeba32abfcef419
+  version: 1.2.0.dev22
+  sha256: 470ba97b741a2d1e937c3d2f7b193baa4ec0e7e160cfbabfd9629f1c0f2d9b60
   requires_dist:
   - numpy
   - matplotlib
@@ -4486,7 +4486,6 @@ packages:
   - changepy>=0.4.0,<0.5
   - neunorm>=1.6.12,<2
   requires_python: '>=3.11,<3.13'
-  editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-75.1-he02047a_0.conda
   sha256: 71e750d509f5fa3421087ba88ef9a7b9be11c53174af3aa4d06aff4c18b38e8e
   md5: 8b189310083baabfb622af68fd9d3ae3
