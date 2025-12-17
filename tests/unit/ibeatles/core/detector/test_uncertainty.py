@@ -141,6 +141,38 @@ class TestComputeVariance:
 
         assert np.all(variance >= 0)
 
+    def test_high_occupancy_edge_case(self):
+        """Test that variance grows large when occupancy approaches 1.0.
+
+        This is an important edge case for detector physics where the
+        denominator (1 - P_i) approaches zero.
+        """
+        corrected = np.full((1, 2, 2), 100.0)
+        shutter_n_ratio = 1.0
+
+        # Test with increasing occupancy approaching 1.0
+        occupancy_values = [0.5, 0.9, 0.99, 0.999]
+        variances = []
+
+        for occ in occupancy_values:
+            occupancy = np.full((1, 2, 2), occ)
+            variance = _compute_variance(corrected, occupancy, shutter_n_ratio)
+            variances.append(variance[0, 0, 0])
+
+        # Variance should increase as occupancy approaches 1.0
+        for i in range(1, len(variances)):
+            assert variances[i] > variances[i - 1]
+
+        # At very high occupancy (0.999), variance should be very large
+        # Var = 100 / (1 - 0.999) = 100 / 0.001 = 100000
+        assert variances[-1] > 10000
+
+        # Test that occupancy = 1.0 is handled gracefully (returns 0, not inf/nan)
+        occupancy_full = np.full((1, 2, 2), 1.0)
+        variance_full = _compute_variance(corrected, occupancy_full, shutter_n_ratio)
+        assert np.all(np.isfinite(variance_full))
+        assert np.all(variance_full == 0.0)  # Code returns 0 when denominator <= 0
+
 
 class TestComputeCountsWithUncertainty:
     """Tests for compute_counts_with_uncertainty function."""
@@ -256,6 +288,7 @@ class TestComputeCountsWithUncertainty:
             )
 
 
+@pytest.mark.integration
 class TestIntegration:
     """Integration tests simulating real workflow."""
 
