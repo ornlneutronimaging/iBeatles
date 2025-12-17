@@ -311,16 +311,10 @@ def compute_counts_with_uncertainty(
     logger.info("Computing variance...")
     variance = _compute_variance(tiff_stack, occupancy, shutter_n_ratio)
 
-    # Aggregate over ROI
+    # Aggregate over ROI (vectorized for performance)
     logger.info("Aggregating over ROI...")
-    counts_per_frame = np.zeros(n_frames)
-    variance_per_frame = np.zeros(n_frames)
-
-    for i in range(n_frames):
-        # Sum counts in ROI
-        counts_per_frame[i] = np.sum(tiff_stack[i][roi_mask])
-        # Sum variances (pixels assumed independent)
-        variance_per_frame[i] = np.sum(variance[i][roi_mask])
+    counts_per_frame = np.sum(tiff_stack[:, roi_mask], axis=1)
+    variance_per_frame = np.sum(variance[:, roi_mask], axis=1)
 
     # Standard deviation = sqrt(variance)
     uncertainty_per_frame = np.sqrt(variance_per_frame)
