@@ -147,6 +147,7 @@ pyqtgraph = "*"
 qt = "*"
 qtpy = "*"
 pyqt = "*"
+pandas = ">=2.3.3,<3"
 
 [tool.pixi.tasks]
 # phony
