@@ -25,3 +25,6 @@ conda.recipe/osx-arm64/*
 coverage.xml
 
 _version.py
+
+# local tmp files
+tmp/
