@@ -148,6 +148,8 @@ qt = "*"
 qtpy = "*"
 pyqt = "*"
 pandas = ">=2.3.3,<3"
+jupyterlab = ">=4.5.1,<5"
+ipykernel = ">=7.1.0,<8"
 
 [tool.pixi.tasks]
 # phony
@@ -198,6 +200,7 @@ ruff = "*"
 jupyterlab = "*"
 ipympl = "*"
 ipywidgets = "*"
+ipykernel = "*"
 
 [tool.pixi.environments]
 default = {features = ["test", "package", "developer", "marimo"], solve-group = "default"}
