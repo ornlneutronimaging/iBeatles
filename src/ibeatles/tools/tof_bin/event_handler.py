@@ -5,8 +5,11 @@ Event handler
 
 import logging
 import os
+from pathlib import Path
+from typing import Union
 
 import numpy as np
+import pandas as pd
 import pyqtgraph as pg
 from qtpy.QtWidgets import QFileDialog
 
@@ -16,7 +19,7 @@ from ibeatles import DataType, interact_me_style, normal_style
 from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
 
 # backend function from core
-from ibeatles.core.io.data_loading import get_time_spectra_filename
+from ibeatles.core.io.data_loading import get_shutter_count_filename, get_time_spectra_filename
 from ibeatles.session import SessionSubKeys
 from ibeatles.tools.tof_bin import BinAutoMode, BinMode
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
@@ -134,6 +137,49 @@ class EventHandler:
         self.parent.images_array = dict["image_array"]
         self.parent.integrated_image = np.mean(dict["image_array"], axis=0)
 
+    def load_shutter_counts_file(self):
+        """
+        load the shutter counts file content if there, otherwise return None
+        """
+        logging.info("Loading shutter counts file if there ...")
+        folder = self.parent.ui.folder_selected.text()
+
+        shutter_counts_file = get_shutter_count_filename(folder)
+        logging.info(f"in load_shutter_counts_file, shutter_counts_file: {shutter_counts_file}")
+        if not shutter_counts_file:
+            logging.info("Shutter counts file not found!")
+            return None
+
+        # load it here
+
+        # shutter_counts_file = get_time_spectra_filename(folder, file_type="shutter_counts")
+        # logging.info(f"in load_shutter_counts_file, shutter_counts_file: {shutter_counts_file}")
+        # if not shutter_counts_file:
+        #     logging.info("Shutter counts file not found!")
+        #     show_status_message(
+        #         parent=self.parent,
+        #         message="Shutter counts file not found!",
+        #         status=StatusMessageStatus.error,
+        #         duration_s=5,
+        #     )
+        #     return
+
+        # try:
+        #     shutter_counts_data = FileHandler.load_shutter_counts_file(shutter_counts_file)
+        #     self.parent.shutter_counts = shutter_counts_data["shutter_counts"]
+        #     logging.info(f"shutter_counts_file loaded: {shutter_counts_file}")
+        #     logging.info(f"shutter counts data: {self.parent.shutter_counts[0:5]}")
+        #     return True
+
+        # except Exception as e:
+        #     logging.error(f"Error loading shutter counts: {str(e)}")
+        #     show_status_message(
+        #         parent=self.parent,
+        #         message=f"Error loading shutter counts: {str(e)}",
+        #         status=StatusMessageStatus.error,
+        #         duration_s=5,
+        #     )
+
     def load_time_spectra_file(self):
         """
         load the time spectra file
@@ -180,6 +226,79 @@ class EventHandler:
         #         status=StatusMessageStatus.error,
         #         duration_s=5,
         #     )
+
+    def load_shutter_counts(self, file_path: Union[str, Path]) -> pd.DataFrame:
+        """Load and parse shutter counts file.
+
+        Parameters
+        ----------
+        file_path : str or Path
+            Path to the shutter counts file (tab-separated, .txt extension).
+            Expected format: shutter_index<TAB>shutter_counts
+
+        Returns
+        -------
+        pd.DataFrame
+            DataFrame with columns:
+            - shutter_index: int
+            - shutter_counts: int (total neutron counts for this shutter period)
+            - shutter_n_ratio: float (shutter_counts / shutter_counts[0])
+
+        Notes
+        -----
+        Only rows with shutter_counts > 0 are included.
+        The shutter_n_ratio is derived as counts[i] / counts[0].
+        """
+        file_path = Path(file_path)
+        if not file_path.exists():
+            raise FileNotFoundError(f"Shutter counts file not found: {file_path}")
+
+        df = pd.read_csv(
+            file_path,
+            sep="\t",
+            names=["shutter_index", "shutter_counts"],
+        )
+        # Filter out zero-count entries
+        df = df[df["shutter_counts"] > 0].copy()
+
+        if len(df) == 0:
+            raise ValueError(f"No valid shutter counts found in {file_path}")
+
+        # Derive the normalization ratio
+        df["shutter_n_ratio"] = df["shutter_counts"] / df["shutter_counts"].values[0]
+
+        logging.info(
+            f"Loaded shutter counts: {len(df)} shutter periods, "
+            f"counts range [{df['shutter_counts'].min()}, {df['shutter_counts'].max()}]"
+        )
+
+        return df.reset_index(drop=True)
+
+    def browse_for_shutter_counts_file(self):
+        """
+        browse for shutter counts file then continue workflow
+        (self.continue_import_workflow_after_time_spectra_loaded)
+        """
+        [shutter_counts_file, _] = QFileDialog.getOpenFileName(
+            caption="Select the Shutter Counts File",
+            directory=self.top_parent.default_path[DataType.sample],
+            filter="Txt ({});;All (*.*)".format("ShutterCount.txt"),
+        )
+        if shutter_counts_file:
+            try:
+                shutter_counts_data = self.load_shutter_counts(shutter_counts_file)
+                # self.parent.shutter_counts = shutter_counts_data["shutter_counts"]
+                logging.info(f"shutter_counts_file loaded: {shutter_counts_file}")
+                logging.info(f"shutter counts data: {shutter_counts_data}")
+
+            except Exception as e:
+                logging.error(f"Error loading shutter counts: {str(e)}")
+                show_status_message(
+                    parent=self.parent,
+                    message=f"Error loading shutter counts: {str(e)}",
+                    status=StatusMessageStatus.error,
+                    duration_s=5,
+                )
 
     def browse_for_time_spectra_file(self):
         """browse for time spectra then continue workflow (self.continue_import_workflow_after_time_spectra_loaded)"""

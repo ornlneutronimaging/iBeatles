@@ -266,6 +266,22 @@ def load_data_from_folder(folder: str, file_extension: str = ".tif") -> Dict[str
     }
 
 
+def get_filename_with_pattern(folder: str, match_pattern: str) -> str:
+    logging.info(f"Searching for file in folder: {folder} with pattern: {match_pattern}")
+    search_path = Path(folder) / match_pattern
+    str_search_path = str(search_path)
+    str_search_path = str_search_path.strip()
+    logging.info(f"\tSearch path: {search_path}")
+    search_results = sorted(glob.glob(str_search_path))
+    logging.info(f"\tFound {len(search_results)} matching files.")
+
+    if search_results and os.path.exists(search_results[0]):
+        logging.info(f"\tUsing file: {search_results[0]}")
+        return search_results[0]
+    else:
+        return ""
+
+
 def get_time_spectra_filename(folder: str, match_pattern: str = "*_Spectra.txt") -> str:
     """
     Find the time spectra file in the folder.
@@ -283,18 +299,27 @@ def get_time_spectra_filename(folder: str, match_pattern: str = "*_Spectra.txt")
         Full path to the time spectra file, or an empty string if not found.
     """
     logging.info(f"Searching for time spectra file in folder: {folder} with pattern: {match_pattern}")
-    search_path = Path(folder) / match_pattern
-    str_search_path = str(search_path)
-    str_search_path = str_search_path.strip()
-    logging.info(f"\tSearch path: {search_path}")
-    search_results = sorted(glob.glob(str_search_path))
-    logging.info(f"\tFound {len(search_results)} matching files.")
+    return get_filename_with_pattern(folder, match_pattern)
 
-    if search_results and os.path.exists(search_results[0]):
-        logging.info(f"\tUsing time spectra file: {search_results[0]}")
-        return search_results[0]
-    else:
-        return ""
+
+def get_shutter_count_filename(folder: str, match_pattern: str = "*_ShutterCount.txt") -> str:
+    """
+    Find the shutter count file in the folder.
+
+    Parameters
+    ----------
+    folder : str
+        Folder to search for the shutter count file.
+    match_pattern : str, optional
+        Pattern to match the shutter count file, unix style (default is "*_ShutterCount.txt").
+
+    Returns
+    -------
+    str
+        Full path to the shutter count file, or an empty string if not found.
+    """
+    logging.info(f"Searching for shutter count file in folder: {folder} with pattern: {match_pattern}")
+    return get_filename_with_pattern(folder, match_pattern)
 
 
 def load_time_spectra(

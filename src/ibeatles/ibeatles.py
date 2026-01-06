@@ -372,7 +372,7 @@ class MainWindow(QMainWindow):
         self.log_file_name = log_file_name
         logging.basicConfig(
             filename=log_file_name,
-            filemode="a",
+            filemode="w",
             format="[%(levelname)s] - %(asctime)s - %(message)s",
             level=logging.INFO,
         )

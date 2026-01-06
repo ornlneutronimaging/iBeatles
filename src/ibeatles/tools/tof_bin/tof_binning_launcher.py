@@ -129,6 +129,11 @@ class TofBinning(QMainWindow):
             if not is_time_spectra_found:
                 self.o_event.browse_for_time_spectra_file()
 
+            if self.ui.use_experimental_errors_radioButton.isChecked():
+                is_shutter_counts_found = self.o_event.load_shutter_counts_file()
+                if not is_shutter_counts_found:
+                    self.o_event.browse_for_shutter_counts_file()
+
             self.o_event.display_integrated_image()
             self.o_event.display_profile()
             self.bin_auto_manual_tab_changed()
