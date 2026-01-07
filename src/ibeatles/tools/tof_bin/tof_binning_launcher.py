@@ -6,6 +6,7 @@ TOF binning launcher
 import logging
 import warnings
 
+from qtpy.QtCore import Qt
 from qtpy.QtWidgets import QMainWindow
 
 from ibeatles import load_ui
@@ -32,6 +33,9 @@ class TofBinningLauncher:
 
         if self.parent.binning_ui is None:
             tof_combining_binning_window = TofBinning(parent=parent)
+            tof_combining_binning_window.setWindowFlags(
+                tof_combining_binning_window.windowFlags() | Qt.WindowStaysOnTopHint
+            )
             tof_combining_binning_window.show()
             self.parent.tof_combining_binning_ui = tof_combining_binning_window
 

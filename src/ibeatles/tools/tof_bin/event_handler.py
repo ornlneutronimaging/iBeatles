@@ -137,9 +137,10 @@ class EventHandler:
         self.parent.images_array = dict["image_array"]
         self.parent.integrated_image = np.mean(dict["image_array"], axis=0)
 
-    def load_shutter_counts_file(self):
+    def load_shutter_counts_file(self) -> bool:
         """
-        load the shutter counts file content if there, otherwise return None
+        load the shutter counts file content if there is one and return True
+        otherwise return False
         """
         logging.info("Loading shutter counts file if there ...")
         folder = self.parent.ui.folder_selected.text()
@@ -148,7 +149,17 @@ class EventHandler:
         logging.info(f"in load_shutter_counts_file, shutter_counts_file: {shutter_counts_file}")
         if not shutter_counts_file:
             logging.info("Shutter counts file not found!")
-            return None
+            return False
+
+        # load file shutter count file
+        full_shutter_data = pd.read_csv(shutter_counts_file, delim_whitespace=True, names=["ShutterCount"])
+        # we keep only the counts > 0
+        non_zero_shutter_counts = full_shutter_data[full_shutter_data["ShutterCount"] > 0].reset_index(drop=True)
+        shutter_counts = non_zero_shutter_counts["ShutterCount"].tolist()
+        self.top_parent.shutter_counts = shutter_counts
+        self.parent.ui.shutter_counts_name_label.setText(os.path.basename(shutter_counts_file))
+
+        return True
 
         # load it here
 
@@ -285,20 +296,35 @@ class EventHandler:
             filter="Txt ({});;All (*.*)".format("ShutterCount.txt"),
         )
         if shutter_counts_file:
-            try:
-                shutter_counts_data = self.load_shutter_counts(shutter_counts_file)
-                # self.parent.shutter_counts = shutter_counts_data["shutter_counts"]
+            is_shutter_counts_found = self.load_shutter_counts_file()
+            if is_shutter_counts_found:
                 logging.info(f"shutter_counts_file loaded: {shutter_counts_file}")
-                logging.info(f"shutter counts data: {shutter_counts_data}")
-
-            except Exception as e:
-                logging.error(f"Error loading shutter counts: {str(e)}")
+                logging.info(f"shutter counts data: {self.parent.shutter_counts}")
+            else:
+                logging.error(f"shutter counts file not found: {shutter_counts_file}")
                 show_status_message(
                     parent=self.parent,
-                    message=f"Error loading shutter counts: {str(e)}",
+                    message=f"Shutter count file not found: {shutter_counts_file}",
                     status=StatusMessageStatus.error,
                     duration_s=5,
                 )
+                self.top_parent.shutter_counts = None
+                self.parent.ui.shutter_counts_name_label.setText("No file loaded")
+
+            # try:
+            #     shutter_counts_data = self.load_shutter_counts(shutter_counts_file)
+            #     # self.parent.shutter_counts = shutter_counts_data["shutter_counts"]
+            #     logging.info(f"shutter_counts_file loaded: {shutter_counts_file}")
+            #     logging.info(f"shutter counts data: {shutter_counts_data}")
+
+            # except Exception as e:
+            #     logging.error(f"Error loading shutter counts: {str(e)}")
+            #     show_status_message(
+            #         parent=self.parent,
+            #         message=f"Error loading shutter counts: {str(e)}",
+            #         status=StatusMessageStatus.error,
+            #         duration_s=5,
+            #     )
 
     def browse_for_time_spectra_file(self):
         """browse for time spectra then continue workflow (self.continue_import_workflow_after_time_spectra_loaded)"""

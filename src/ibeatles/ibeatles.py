@@ -366,6 +366,9 @@ class MainWindow(QMainWindow):
         self.time_spectra_presenter = None
         self.normalized_time_spectra_presenter = None
 
+        # list of shutter counts (loaded by tof_binning ui)
+        self.shutter_counts = None
+
         # configuration of config
         o_get = Get(parent=self)
         log_file_name = o_get.get_log_file_name()
