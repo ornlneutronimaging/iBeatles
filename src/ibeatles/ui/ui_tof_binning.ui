@@ -1595,6 +1595,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>image_tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>roi_selection_profile_tab_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1116</x>
+     <y>327</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>773</x>
+     <y>581</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>help_log_clicked()</slot>
@@ -1626,5 +1642,6 @@
   <slot>select_folder_clicked()</slot>
   <slot>combine_mean_median_changed()</slot>
   <slot>export_bin_images_clicked()</slot>
+  <slot>roi_selection_profile_tab_changed()</slot>
  </slots>
 </ui>

@@ -44,6 +44,25 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Include experimental errors</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QRadioButton" name="use_experimental_errors_radioButton">
+        <property name="text">
+         <string>include experimental errors</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="reload_groupBox">
      <property name="title">
       <string>Reload in normalization tab (optional)</string>

@@ -14,6 +14,7 @@ from qtpy.QtWidgets import QApplication, QDialog, QFileDialog
 
 from ibeatles import DataType, load_ui
 from ibeatles.session import SessionSubKeys
+from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
 from ibeatles.tools.utilities import CombineAlgorithm, TimeSpectraKeys
@@ -75,8 +76,10 @@ class TofBinExportLauncher(QDialog):
 
         return False
 
-    def bin_and_export(self, output_folder=None, data_type=ExportDataType.full_image):
+    def bin_and_export(self, output_folder=None, data_type=ExportDataType.full_image, add_uncertainties=False):
         logging.info(f"binning and exporting {data_type}:")
+        logging.info(f"\t{add_uncertainties = }")
+
         FileHandler.make_or_reset_folder(output_folder)
         logging.info(f" -> exported to {output_folder}")
 
@@ -111,7 +114,10 @@ class TofBinExportLauncher(QDialog):
             output_file_name = os.path.join(output_folder, short_file_name)
 
             # create array of that bin
-            _image = self.extract_data_for_this_bin(list_runs=_bin, full_image=(data_type == ExportDataType.full_image))
+            _image = self.extract_data_for_this_bin(
+                list_runs=_bin,
+                full_image=(data_type == ExportDataType.full_image),
+            )
 
             # full image export
             counts_array.append(int(np.sum(_image)))
@@ -147,6 +153,23 @@ class TofBinExportLauncher(QDialog):
         )
 
     def ok_clicked(self):
+        logging.info("User clicked OK to export binned images")
+
+        # check first if we want with experimental errors or not
+        if self.ui.use_experimental_errors_radioButton.isChecked():
+            logging.info("\tUser wants to use experimental errors")
+            shutter_counts_file = self.parent.shutter_counts_file
+            logging.info(f"\tShutter counts file used: {shutter_counts_file}")
+
+            if shutter_counts_file is None or not os.path.exists(shutter_counts_file):
+                logging.info(f"Shutter counts file not found: {shutter_counts_file}")
+                logging.info("User will browse for the shutter count file")
+                o_event = TofBinEventHandler(parent=self.parent, top_parent=self.top_parent)
+                o_event.browse_for_shutter_counts_file()
+
+        self.ok_clicked_step2()
+
+    def ok_clicked_step2(self):
         working_dir = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
 
         _folder = str(
@@ -174,12 +197,17 @@ class TofBinExportLauncher(QDialog):
             self.bin_and_export(
                 output_folder=output_folder_full_image,
                 data_type=ExportDataType.full_image,
+                add_uncertainties=self.ui.use_experimental_errors_radioButton.isChecked(),
             )
 
         output_folder_roi = ""
         if self.ui.roi_checkBox.isChecked():
             output_folder_roi = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}")
-            self.bin_and_export(output_folder=output_folder_roi, data_type=ExportDataType.roi)
+            self.bin_and_export(
+                output_folder=output_folder_roi,
+                data_type=ExportDataType.roi,
+                add_uncertainties=self.ui.use_experimental_errors_radioButton.isChecked(),
+            )
 
         # reload if user requested it
         what_to_reload = self.ui.reload_comboBox.currentText()

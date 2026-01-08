@@ -47,6 +47,9 @@ class TofBinningLauncher:
 class TofBinning(QMainWindow):
     session = session
 
+    data_array = None  # array of images
+    data_array_error = None  # array of images uncertainties
+
     list_tif_files = None
     images_array = None
     integrated_image = None
@@ -103,6 +106,8 @@ class TofBinning(QMainWindow):
     #  }
     current_stats = {BinMode.auto: None, BinMode.manual: None}
 
+    shutter_counts_file = None
+
     def __init__(self, parent=None):
         """
         Initialization
@@ -133,10 +138,9 @@ class TofBinning(QMainWindow):
             if not is_time_spectra_found:
                 self.o_event.browse_for_time_spectra_file()
 
-            if self.ui.use_experimental_errors_radioButton.isChecked():
-                is_shutter_counts_found = self.o_event.load_shutter_counts_file()
-                if not is_shutter_counts_found:
-                    self.o_event.browse_for_shutter_counts_file()
+            self.o_event.load_shutter_counts_file()
+            # if not is_shutter_counts_found:
+            #     self.o_event.browse_for_shutter_counts_file()
 
             self.o_event.display_integrated_image()
             self.o_event.display_profile()
@@ -204,6 +208,10 @@ class TofBinning(QMainWindow):
 
     def combine_mean_median_changed(self):
         self.update_statistics()
+
+    def roi_selection_profile_tab_changed(self, new_tab_index=-1):
+        if new_tab_index == 1:
+            self.bin_xaxis_changed()
 
     def bin_auto_manual_tab_changed(self, new_tab_index=-1):
         if self.images_array:
