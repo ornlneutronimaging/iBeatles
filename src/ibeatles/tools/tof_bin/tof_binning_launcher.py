@@ -107,6 +107,7 @@ class TofBinning(QMainWindow):
     current_stats = {BinMode.auto: None, BinMode.manual: None}
 
     shutter_counts_file = None
+    statistics_dict = None  # master statistics dict (preview of all bin stats)
 
     def __init__(self, parent=None):
         """

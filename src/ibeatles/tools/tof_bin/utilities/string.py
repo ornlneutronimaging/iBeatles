@@ -21,9 +21,9 @@ def format_str(input_list, format_str="{}", factor=1, data_type=TimeSpectraKeys.
         elif len(input_list) == 2:
             return format_str.format(input_list[0] * factor) + ", " + format_str.format(input_list[1] * factor)
         else:
-            return format_str.format(input_list[0] * factor) + " ... " + format_str.format(input_list[-1] * factor)
+            return format_str.format(input_list[0] * factor) + " - " + format_str.format(input_list[-1] * factor)
     else:
         if len(input_list) == 1:
             return format_str.format(input_list[0] * factor)
         else:
-            return format_str.format(input_list[0] * factor) + " ... " + format_str.format(input_list[-1] * factor)
+            return format_str.format(input_list[0] * factor) + " - " + format_str.format(input_list[-1] * factor)

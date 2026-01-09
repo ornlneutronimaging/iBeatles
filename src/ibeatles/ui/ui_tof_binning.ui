@@ -31,16 +31,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QRadioButton" name="use_experimental_errors_radioButton">
-         <property name="text">
-          <string>include experimental errors</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>

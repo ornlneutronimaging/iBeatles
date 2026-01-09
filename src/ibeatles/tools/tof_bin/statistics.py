@@ -20,6 +20,8 @@ class Statistics:
 
     def update(self):
         o_get = Get(parent=self.parent)
+        statistics_dict = {}
+        _info_statistics = {"list_file": None, "list_tof": None, "list_lambda": None}
 
         # check if we are looking for the auto or the manual bins
         bin_mode = o_get.bin_mode()
@@ -85,6 +87,9 @@ class Statistics:
                 str_min = "N/A"
                 str_max = "N/A"
 
+                # populate master statistics dict
+                statistics_dict[_bin_index] = _info_statistics
+
             else:
                 list_runs = file_index_bins[_bin_index]
 
@@ -110,6 +115,15 @@ class Statistics:
                     factor=TO_ANGSTROMS_UNITS,
                     data_type=TimeSpectraKeys.lambda_array,
                 )
+
+                list_tof_formatted_for_master_dict = [float(_tof * TO_MICROS_UNITS) for _tof in list_tof]
+                list_lambda_formatted_for_master_dict = [float(_lambda * TO_ANGSTROMS_UNITS) for _lambda in list_lambda]
+
+                statistics_dict[_bin_index] = {
+                    "list_file": list_runs,
+                    "list_tof": list_tof_formatted_for_master_dict,
+                    "list_lambda": list_lambda_formatted_for_master_dict,
+                }
 
                 # calculate statistics
                 _data_dict = self.extract_data_for_this_bin(list_runs=list_runs)
@@ -192,6 +206,8 @@ class Statistics:
                 StatisticsRegion.roi: max_array_roi,
             },
         }
+
+        self.parent.statistics_dict = statistics_dict
 
     def extract_data_for_this_bin(self, list_runs=None):
         """
