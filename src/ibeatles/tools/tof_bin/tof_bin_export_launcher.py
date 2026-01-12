@@ -18,6 +18,9 @@ from ibeatles.session import SessionSubKeys
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
+from ibeatles.tools.tof_bin.utilities.units import (
+    convert_from_wavelength_to_energy_ev,
+)
 from ibeatles.tools.utilities import CombineAlgorithm, TimeSpectraKeys
 from ibeatles.tools.utilities.reload.reload import Reload
 from ibeatles.utilities.file_handler import FileHandler
@@ -303,11 +306,11 @@ class TofBinExportLauncher(QDialog):
 
             logging.info(f"result_full: {result_full}")
             logging.info(f"result_full keys: {list(result_full.keys())}")
-            tof_array = list(result_full["tof"])
-            logging.info(f"{tof_array = }")  # REMOVEME
+            # tof_array = list(result_full["tof"])
+            # logging.info(f"{tof_array = }")  # REMOVEME
             counts_array = list(result_full["counts"])
             uncertainties_array = list(result_full["uncertainty"])
-            logging.info(f"{uncertainties_array}")  # REMOVE
+            # logging.info(f"{uncertainties_array}")  # REMOVE
 
         # format of the output ascii file
         # index, start tof, end tof, start lambda, end lambda, start energy, end energy, total counts, uncertainty
@@ -318,6 +321,10 @@ class TofBinExportLauncher(QDialog):
         statistics_dict = self.parent.statistics_dict
 
         logging.info(f"\t{statistics_dict = }")
+        metadata_lines = [
+            "# bin index\tmean_tof (micros)\tmean_lambda (Angstroms)\tmean_energy (meV)\ttotal_counts\tuncertainty"
+        ]
+        data_lines = []
 
         for _bin_index in statistics_dict.keys():
             list_file_index = statistics_dict[_bin_index]["list_file"]
@@ -332,11 +339,26 @@ class TofBinExportLauncher(QDialog):
             mean_counts = np.mean(list_total_counts)
             logging.info(f"\t{mean_counts = }")
 
-            # _uncertainties_array = [uncertainties_array[_file_index] for _file_index in list_file_index]
-            # uncertainty = self.calculate_uncertainty_of_mean(_uncertainties_array)
-            # list_lambda = statistics_dict[_bin_index]["list_lambda"]
-            # _list_energy = [convert_from_wavelength_to_energy_ev(_lambda) for _lambda in list_lambda]
-            # list_tof = statistics_dict[_bin_index]["list_tof"]
+            _uncertainties_array = [uncertainties_array[_file_index] for _file_index in list_file_index]
+            uncertainty = self.calculate_uncertainty_of_mean(_uncertainties_array)
+            list_lambda = statistics_dict[_bin_index]["list_lambda"]
+            average_lambda = np.mean(list_lambda)
+            averate_energy = convert_from_wavelength_to_energy_ev(average_lambda)
+
+            list_tof = statistics_dict[_bin_index]["list_tof"]
+            average_tof = np.mean(list_tof)
+
+            data_lines.append(
+                f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{averate_energy:.6f}\t{mean_counts:.2f}\t{uncertainty:.2f}"
+            )
+
+        # write the output ascii file
+        logging.info(f"Writing ASCII file to {output_file_name}")
+        with open(output_file_name, "w") as fout:
+            for _line in metadata_lines:
+                fout.write(f"{_line}\n")
+            for _line in data_lines:
+                fout.write(f"{_line}\n")
 
     def calculate_uncertainty_of_mean(self, list_uncertainties):
         """calculate the uncertainty of the mean of counts
