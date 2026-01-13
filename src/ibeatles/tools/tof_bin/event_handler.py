@@ -161,36 +161,6 @@ class EventHandler:
 
         return True
 
-        # load it here
-
-        # shutter_counts_file = get_time_spectra_filename(folder, file_type="shutter_counts")
-        # logging.info(f"in load_shutter_counts_file, shutter_counts_file: {shutter_counts_file}")
-        # if not shutter_counts_file:
-        #     logging.info("Shutter counts file not found!")
-        #     show_status_message(
-        #         parent=self.parent,
-        #         message="Shutter counts file not found!",
-        #         status=StatusMessageStatus.error,
-        #         duration_s=5,
-        #     )
-        #     return
-
-        # try:
-        #     shutter_counts_data = FileHandler.load_shutter_counts_file(shutter_counts_file)
-        #     self.parent.shutter_counts = shutter_counts_data["shutter_counts"]
-        #     logging.info(f"shutter_counts_file loaded: {shutter_counts_file}")
-        #     logging.info(f"shutter counts data: {self.parent.shutter_counts[0:5]}")
-        #     return True
-
-        # except Exception as e:
-        #     logging.error(f"Error loading shutter counts: {str(e)}")
-        #     show_status_message(
-        #         parent=self.parent,
-        #         message=f"Error loading shutter counts: {str(e)}",
-        #         status=StatusMessageStatus.error,
-        #         duration_s=5,
-        #     )
-
     def load_time_spectra_file(self):
         """
         load the time spectra file
@@ -219,7 +189,6 @@ class EventHandler:
         logging.info(f"distance_source_detector_m: {distance_source_detector_m}")
         logging.info(f"detector_offset: {detector_offset}")
 
-        # try:
         self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
         self.update_time_spectra_data()
 
@@ -228,62 +197,6 @@ class EventHandler:
         logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.tof_array][0:5] =}")
         logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.counts_array][0:5] =}")
         return True
-
-        # except Exception as e:
-        #     logging.error(f"Error loading time spectra: {str(e)}")
-        #     show_status_message(
-        #         parent=self.parent,
-        #         message=f"Error loading time spectra: {str(e)}",
-        #         status=StatusMessageStatus.error,
-        #         duration_s=5,
-        #     )
-
-    # def load_shutter_counts(self, file_path: Union[str, Path]) -> pd.DataFrame:
-    #     """Load and parse shutter counts file.
-
-    #     Parameters
-    #     ----------
-    #     file_path : str or Path
-    #         Path to the shutter counts file (tab-separated, .txt extension).
-    #         Expected format: shutter_index<TAB>shutter_counts
-
-    #     Returns
-    #     -------
-    #     pd.DataFrame
-    #         DataFrame with columns:
-    #         - shutter_index: int
-    #         - shutter_counts: int (total neutron counts for this shutter period)
-    #         - shutter_n_ratio: float (shutter_counts / shutter_counts[0])
-
-    #     Notes
-    #     -----
-    #     Only rows with shutter_counts > 0 are included.
-    #     The shutter_n_ratio is derived as counts[i] / counts[0].
-    #     """
-    #     file_path = Path(file_path)
-    #     if not file_path.exists():
-    #         raise FileNotFoundError(f"Shutter counts file not found: {file_path}")
-
-    #     df = pd.read_csv(
-    #         file_path,
-    #         sep="\t",
-    #         names=["shutter_index", "shutter_counts"],
-    #     )
-    #     # Filter out zero-count entries
-    #     df = df[df["shutter_counts"] > 0].copy()
-
-    #     if len(df) == 0:
-    #         raise ValueError(f"No valid shutter counts found in {file_path}")
-
-    #     # Derive the normalization ratio
-    #     df["shutter_n_ratio"] = df["shutter_counts"] / df["shutter_counts"].values[0]
-
-    #     logging.info(
-    #         f"Loaded shutter counts: {len(df)} shutter periods, "
-    #         f"counts range [{df['shutter_counts'].min()}, {df['shutter_counts'].max()}]"
-    #     )
-
-    #     return df.reset_index(drop=True)
 
     def browse_for_shutter_counts_file(self):
         """
@@ -311,21 +224,6 @@ class EventHandler:
                 self.top_parent.shutter_counts = None
                 self.parent.ui.shutter_counts_name_label.setText("No file loaded")
 
-            # try:
-            #     shutter_counts_data = self.load_shutter_counts(shutter_counts_file)
-            #     # self.parent.shutter_counts = shutter_counts_data["shutter_counts"]
-            #     logging.info(f"shutter_counts_file loaded: {shutter_counts_file}")
-            #     logging.info(f"shutter counts data: {shutter_counts_data}")
-
-            # except Exception as e:
-            #     logging.error(f"Error loading shutter counts: {str(e)}")
-            #     show_status_message(
-            #         parent=self.parent,
-            #         message=f"Error loading shutter counts: {str(e)}",
-            #         status=StatusMessageStatus.error,
-            #         duration_s=5,
-            #     )
-
     def browse_for_time_spectra_file(self):
         """browse for time spectra then continue workflow (self.continue_import_workflow_after_time_spectra_loaded)"""
         [time_spectra_file, _] = QFileDialog.getOpenFileName(
@@ -343,7 +241,6 @@ class EventHandler:
                 logging.info(f"distance_source_detector_m: {distance_source_detector_m}")
                 logging.info(f"detector_offset: {detector_offset}")
 
-                # try:
                 self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
                 self.update_time_spectra_data()
 
@@ -469,39 +366,3 @@ class EventHandler:
         elif o_get.bin_auto_mode() == BinAutoMode.log:
             o_auto_event.auto_log_radioButton_changed()
         o_auto_event.refresh_auto_tab()
-
-    # def calculate_uncertainties(self):
-    #     """This will calculate the uncertainties using the shutter counts and images loaded"""
-    #     if not self.parent.ui.use_experimental_errors_radioButton.isChecked():
-    #         logging.info(f"Uncertainties calculation skipped, not using experimental errors")
-    #         return
-
-    #     logging.info("Calculating uncertainties using experimental errors ...")
-    #     if self.parent.shutter_counts is None:
-    #         logging.error("Shutter counts data not available, cannot calculate uncertainties!")
-    #         show_status_message(
-    #             parent=self.parent,
-    #             message="Shutter counts data not available, cannot calculate uncertainties!",
-    #             status=StatusMessageStatus.error,
-    #             duration_s=5,
-    #         )
-    #         return
-
-    #     data_array = self.parent.images_array
-    #     shutter_counts = self.parent.shutter_counts
-    #     shutter_counts_file = self.parent.shutter_counts_file
-    #     tof_array = self.parent.time_spectra[TimeSpectraKeys.tof_array]
-
-    #     logging.info(f"\t data_array length: {len(data_array)}")
-    #     logging.info(f"\t shutter_counts length: {len(shutter_counts)}")
-    #     logging.info(f"\t tof_array length: {len(tof_array)}")
-
-    #     result_full = compute_counts_with_uncertainty(
-    #         tiff_stack=data_array,
-    #         shutter_counts_file=shutter_counts_file,
-    #         tof_array=tof_array,
-    #         roi_mask=None,
-    #     )
-
-    #     logging.info(f"\t {result_full =}")
-    #     logging.info("... done calculating uncertainties!")
