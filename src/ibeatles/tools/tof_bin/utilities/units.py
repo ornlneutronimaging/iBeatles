@@ -155,8 +155,8 @@ def convert_array_from_time_to_lambda(
     time_unit: TimeUnitOptions,
     distance_source_detector: float,
     distance_source_detector_unit: DistanceUnitOptions,
-    detector_offset_unit: DistanceUnitOptions,
     lambda_unit: DistanceUnitOptions,
+    detector_offset_unit: DistanceUnitOptions,
     detector_offset: float = 0.0,
 ) -> np.ndarray:
     """Convert an array of time values to wavelength values.
