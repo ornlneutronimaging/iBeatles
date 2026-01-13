@@ -105,7 +105,6 @@ def convert_to_energy(from_unit, to_unit):
         EnergyUnitOptions.keV: 1e3,
         EnergyUnitOptions.MeV: 1e6,
         EnergyUnitOptions.GeV: 1e9,
-        # EnergyUnitOptions.J: 6.242e12,
         EnergyUnitOptions.J: 1 / electron_volt,
     }
 
@@ -140,10 +139,10 @@ def convert_from_wavelength_to_energy_ev(wavelength, unit_from=DistanceUnitOptio
 
     Args:
         wavelength (float): Wavelength value.
-        unit_from (WavelengthUnitOptions): Unit of the input wavelength.
+        unit_from (DistanceUnitOptions): Unit of the input wavelength.
 
     Returns:
-        float: Energy in the new unit.
+        float: Energy in eV.
     """
     wavelength_m = wavelength * convert_distance_units(unit_from, DistanceUnitOptions.m)
     energy = h * c / wavelength_m
@@ -210,8 +209,7 @@ def convert_array_from_time_to_energy(
         detector_offset_unit (DistanceUnitOptions): Unit of the offset.
         energy_unit (EnergyUnitOptions): Unit of the output energy.
 
-    #This is using the formula: E = h/(m_n * distance_source_detector_m) * (time_array_s + detector_offset_s)
-    this is using the formula: E_ev = 1/2 m_n v^2
+    This is using the formula: E_ev = 1/2 m_n v^2
     with t_tof = L/v (L distance source to detector in m, v velocity of the neutron in m/s)
     so E_ev = 1/2 m_n (L/t_tof)^2
 
