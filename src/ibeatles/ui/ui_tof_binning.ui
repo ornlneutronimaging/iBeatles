@@ -1053,7 +1053,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>Bin Images ...</string>
+         <string>Export Binned Images &amp; ASCII Files ...</string>
         </property>
        </widget>
       </item>

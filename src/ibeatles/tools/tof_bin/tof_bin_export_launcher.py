@@ -248,6 +248,20 @@ class TofBinExportLauncher(QDialog):
             duration_s=15,
         )
 
+    def compute_counts_array_only(self, tiff_stack=None, roi_mask=None):
+        """Compute counts array for a given tiff stack and roi mask.
+
+        :param tiff_stack: The tiff stack to process.
+        :param roi_mask: The roi mask to apply.
+        """
+        if roi_mask is not None:
+            _tiff_stack = [tiff[roi_mask] for tiff in tiff_stack]
+        else:
+            _tiff_stack = tiff_stack
+
+        counts_array = np.sum(_tiff_stack, axis=1)
+        return counts_array
+
     def export_ascii(self, add_uncertainties=False, data_type=ExportDataType.full_image, output_file_name=None):
         """Export TOF binned data to an ASCII text file.
 
@@ -275,6 +289,7 @@ class TofBinExportLauncher(QDialog):
             roi_mask = None
             logging.info("Exporting ASCII for full image")
 
+        metadata_lines = ["# bin index\tmean_tof (micros)\tmean_lambda (Angstroms)\tmean_energy (meV)\ttotal_counts"]
         if add_uncertainties:
             logging.info("Adding experimental uncertainties to the exported ASCII file")
             # calculate uncertainties of all images
@@ -289,6 +304,10 @@ class TofBinExportLauncher(QDialog):
             logging.info(f"result_full keys: {list(result_full.keys())}")
             counts_array = list(result_full["counts"])
             uncertainties_array = list(result_full["uncertainty"])
+            metadata_lines[0] += "\tuncertainty"
+
+        else:
+            counts_array = self.compute_counts_array_only(tiff_stack=self.parent.images_array, roi_mask=roi_mask)
 
         # format of the output ascii file
         # index, start tof, end tof, start lambda, end lambda, start energy, end energy, total counts, uncertainty
@@ -299,9 +318,7 @@ class TofBinExportLauncher(QDialog):
         statistics_dict = self.parent.statistics_dict
 
         logging.info(f"\t{statistics_dict = }")
-        metadata_lines = [
-            "# bin index\tmean_tof (micros)\tmean_lambda (Angstroms)\tmean_energy (meV)\ttotal_counts\tuncertainty"
-        ]
+
         data_lines = []
 
         for _bin_index in statistics_dict.keys():
@@ -317,8 +334,10 @@ class TofBinExportLauncher(QDialog):
             mean_counts = np.mean(list_total_counts)
             logging.info(f"\t{mean_counts = }")
 
-            _uncertainties_array = [uncertainties_array[_file_index] for _file_index in list_file_index]
-            uncertainty = self.calculate_uncertainty_of_mean(_uncertainties_array)
+            if add_uncertainties:
+                _uncertainties_array = [uncertainties_array[_file_index] for _file_index in list_file_index]
+                uncertainty = self.calculate_uncertainty_of_mean(_uncertainties_array)
+
             list_lambda = statistics_dict[_bin_index]["list_lambda"]
             average_lambda = np.mean(list_lambda)
             average_energy = convert_from_wavelength_to_energy_ev(average_lambda)
@@ -326,9 +345,14 @@ class TofBinExportLauncher(QDialog):
             list_tof = statistics_dict[_bin_index]["list_tof"]
             average_tof = np.mean(list_tof)
 
-            data_lines.append(
-                f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy:.6f}\t{mean_counts:.2f}\t{uncertainty:.2f}"
-            )
+            if add_uncertainties:
+                data_lines.append(
+                    f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy:.6f}\t{mean_counts:.2f}\t{uncertainty:.2f}"
+                )
+            else:
+                data_lines.append(
+                    f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy:.6f}\t{mean_counts:.2f}"
+                )
 
         # write the output ascii file
         logging.info(f"Writing ASCII file to {output_file_name}")
