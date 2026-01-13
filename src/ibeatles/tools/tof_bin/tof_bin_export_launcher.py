@@ -54,26 +54,6 @@ class TofBinExportLauncher(QDialog):
 
     def bin_and_export_radio_button_clicked(self):
         pass
-        # self.check_buttons()
-
-    # def check_buttons(self):
-    #     """ok disabled if we don't have anything to export
-    #     reload group is also disable if nothing to export
-    #     """
-    #     if not self._at_least_one_image_checked():
-    #         self.ui.ok_pushButton.setEnabled(False)
-    #         self.ui.reload_groupBox.setEnabled(False)
-    #     else:
-    #         self.ui.ok_pushButton.setEnabled(True)
-    #         self.ui.reload_groupBox.setEnabled(True)
-
-    #     combobox_list = [NONE]
-    #     if self.ui.full_image_checkBox.isChecked():
-    #         combobox_list.append(FULL_IMAGE_LABEL)
-    #     if self.ui.roi_checkBox.isChecked():
-    #         combobox_list.append(ROI_LABEL)
-    #     self.ui.reload_comboBox.clear()
-    #     self.ui.reload_comboBox.addItems(combobox_list)
 
     def _at_least_one_image_checked(self):
         """we need to check if at least one bin/export option has been checked"""
@@ -269,15 +249,16 @@ class TofBinExportLauncher(QDialog):
         )
 
     def export_ascii(self, add_uncertainties=False, data_type=ExportDataType.full_image, output_file_name=None):
-        """
-        Docstring for export_ascii
+        """Export TOF binned data to an ASCII text file.
 
-        :param self: Description
-        :param add_uncertainties: Description
-        :param data_type: Description
-        :param output_file_name: Description
-        :return: Description
-        :rtype: Any
+        The exported file contains, for each active bin: bin index, mean time-of-flight,
+        mean wavelength, mean energy, total counts, and the associated uncertainty.
+
+        :param add_uncertainties: If True, compute and include experimental uncertainties
+            using shutter counts data. If False, uncertainties are set to NaN.
+        :param data_type: Type of data to export. Use ExportDataType.full_image for
+            full detector image or ExportDataType.roi for the selected ROI.
+        :param output_file_name: Path to the ASCII file to create.
         """
 
         if data_type == ExportDataType.roi:
@@ -306,11 +287,8 @@ class TofBinExportLauncher(QDialog):
 
             logging.info(f"result_full: {result_full}")
             logging.info(f"result_full keys: {list(result_full.keys())}")
-            # tof_array = list(result_full["tof"])
-            # logging.info(f"{tof_array = }")  # REMOVEME
             counts_array = list(result_full["counts"])
             uncertainties_array = list(result_full["uncertainty"])
-            # logging.info(f"{uncertainties_array}")  # REMOVE
 
         # format of the output ascii file
         # index, start tof, end tof, start lambda, end lambda, start energy, end energy, total counts, uncertainty
@@ -343,13 +321,13 @@ class TofBinExportLauncher(QDialog):
             uncertainty = self.calculate_uncertainty_of_mean(_uncertainties_array)
             list_lambda = statistics_dict[_bin_index]["list_lambda"]
             average_lambda = np.mean(list_lambda)
-            averate_energy = convert_from_wavelength_to_energy_ev(average_lambda)
+            average_energy = convert_from_wavelength_to_energy_ev(average_lambda)
 
             list_tof = statistics_dict[_bin_index]["list_tof"]
             average_tof = np.mean(list_tof)
 
             data_lines.append(
-                f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{averate_energy:.6f}\t{mean_counts:.2f}\t{uncertainty:.2f}"
+                f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy:.6f}\t{mean_counts:.2f}\t{uncertainty:.2f}"
             )
 
         # write the output ascii file
