@@ -53,3 +53,4 @@ class Plot:
 
         self.parent.bin_profile_view.plot(x_axis, profile_signal, pen="r", symbol="x")
         self.parent.bin_profile_view.setLabel("bottom", x_axis_label)
+        self.parent.bin_profile_view.setLabel("left", "mean counts of ROI")

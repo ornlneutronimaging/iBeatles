@@ -6,6 +6,7 @@ TOF binning launcher
 import logging
 import warnings
 
+from qtpy.QtCore import Qt
 from qtpy.QtWidgets import QMainWindow
 
 from ibeatles import load_ui
@@ -32,6 +33,9 @@ class TofBinningLauncher:
 
         if self.parent.binning_ui is None:
             tof_combining_binning_window = TofBinning(parent=parent)
+            tof_combining_binning_window.setWindowFlags(
+                tof_combining_binning_window.windowFlags() | Qt.WindowStaysOnTopHint
+            )
             tof_combining_binning_window.show()
             self.parent.tof_combining_binning_ui = tof_combining_binning_window
 
@@ -42,6 +46,9 @@ class TofBinningLauncher:
 
 class TofBinning(QMainWindow):
     session = session
+
+    data_array = None  # array of images
+    data_array_error = None  # array of images uncertainties
 
     list_tif_files = None
     images_array = None
@@ -99,6 +106,9 @@ class TofBinning(QMainWindow):
     #  }
     current_stats = {BinMode.auto: None, BinMode.manual: None}
 
+    shutter_counts_file = None
+    statistics_dict = None  # master statistics dict (preview of all bin stats)
+
     def __init__(self, parent=None):
         """
         Initialization
@@ -129,6 +139,8 @@ class TofBinning(QMainWindow):
             if not is_time_spectra_found:
                 self.o_event.browse_for_time_spectra_file()
 
+            self.o_event.load_shutter_counts_file()
+
             self.o_event.display_integrated_image()
             self.o_event.display_profile()
             self.bin_auto_manual_tab_changed()
@@ -138,50 +150,10 @@ class TofBinning(QMainWindow):
         o_event = TofBinEventHandler(parent=self)
         o_event.display_profile()
 
-    # def setup(self):
-    #     """
-    #     This is taking care of
-    #         - initializing the session dict
-    #         - setting up the logging
-    #         - retrieving the config file
-    #         - loading or not the previous session
-    #     """
-    #     o_config = ConfigHandler(parent=self)
-    #     o_config.load()
-    #
-    #     current_folder = None
-    #     if self.config['debugging']:
-    #         list_homepath = self.config['homepath']
-    #         for _path in list_homepath:
-    #             if os.path.exists(_path):
-    #                 current_folder = _path
-    #         if current_folder is None:
-    #             current_folder = os.path.expanduser('~')
-    #     else:
-    #         current_folder = os.path.expanduser('~')
-    #     self.session[SessionKeys.top_folder] = current_folder
-    #
-    #     o_get = Get(parent=self)
-    #     log_file_name = o_get.log_file_name()
-    #     version = Get.version()
-    #     self.version = version
-    #     self.log_file_name = log_file_name
-    #     logging.basicConfig(filename=log_file_name,
-    #                         filemode='a',
-    #                         format='[%(levelname)s] - %(asctime)s - %(message)s',
-    #                         level=logging.INFO)
-    #     logger = logging.getLogger("maverick")
-    #     logger.info("*** Starting a new session ***")
-    #     logger.info(f" Version: {version}")
-    #
-    #     o_event = EventHandler(parent=self)
-    #     o_event.automatically_load_previous_session()
-
     def bin_xaxis_changed(self):
         o_event = TofBinEventHandler(parent=self)
         o_event.display_profile()
         o_event.bin_xaxis_changed()
-        # self.bin_auto_manual_tab_changed()
         o_event.check_widgets()
 
     # - auto mode
@@ -195,6 +167,10 @@ class TofBinning(QMainWindow):
 
     def combine_mean_median_changed(self):
         self.update_statistics()
+
+    def roi_selection_profile_tab_changed(self, new_tab_index=-1):
+        if new_tab_index == 1:
+            self.bin_xaxis_changed()
 
     def bin_auto_manual_tab_changed(self, new_tab_index=-1):
         if self.images_array:

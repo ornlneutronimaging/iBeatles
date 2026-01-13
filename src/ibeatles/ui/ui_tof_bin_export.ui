@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>482</width>
-    <height>299</height>
+    <width>539</width>
+    <height>417</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,25 +18,70 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>Rebinned and export images</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QCheckBox" name="rebin_full_images_checkBox">
+        <property name="text">
+         <string>Full image (can be loaded back into the main UI)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="rebin_roi_selected_checkBox">
+        <property name="text">
+         <string>ROI selected</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Bin and export (select at least one)</string>
+      <string>Create ASCII (time, lambda, energy, counts ...)</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QCheckBox" name="full_image_checkBox">
+       <widget class="QCheckBox" name="ascii_full_image_checkBox">
         <property name="text">
          <string>Full image</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="ascii_roi_selected_checkBox">
+        <property name="text">
+         <string>ROI selected</string>
         </property>
         <property name="checked">
          <bool>true</bool>
         </property>
        </widget>
       </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Include experimental errors</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QCheckBox" name="roi_checkBox">
+       <widget class="QRadioButton" name="use_experimental_errors_radioButton">
         <property name="text">
-         <string>ROI selected</string>
+         <string>include experimental errors</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -136,7 +181,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>full_image_checkBox</sender>
+   <sender>ascii_full_image_checkBox</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>bin_and_export_radio_button_clicked()</slot>
@@ -152,7 +197,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>roi_checkBox</sender>
+   <sender>ascii_roi_selected_checkBox</sender>
    <signal>clicked()</signal>
    <receiver>Dialog</receiver>
    <slot>bin_and_export_radio_button_clicked()</slot>

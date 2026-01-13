@@ -7,6 +7,7 @@ import logging
 import os
 
 import numpy as np
+import pandas as pd
 import pyqtgraph as pg
 from qtpy.QtWidgets import QFileDialog
 
@@ -16,7 +17,7 @@ from ibeatles import DataType, interact_me_style, normal_style
 from ibeatles.app.presenters.time_spectra_presenter import TimeSpectraPresenter
 
 # backend function from core
-from ibeatles.core.io.data_loading import get_time_spectra_filename
+from ibeatles.core.io.data_loading import get_shutter_count_filename, get_time_spectra_filename
 from ibeatles.session import SessionSubKeys
 from ibeatles.tools.tof_bin import BinAutoMode, BinMode
 from ibeatles.tools.tof_bin.auto_event_handler import AutoEventHandler
@@ -134,6 +135,32 @@ class EventHandler:
         self.parent.images_array = dict["image_array"]
         self.parent.integrated_image = np.mean(dict["image_array"], axis=0)
 
+    def load_shutter_counts_file(self, shutter_counts_file=None) -> bool:
+        """
+        load the shutter counts file content if there is one and return True
+        otherwise return False
+        """
+        logging.info("Loading shutter counts file if there ...")
+        if shutter_counts_file is None:
+            folder = self.parent.ui.folder_selected.text()
+
+            shutter_counts_file = get_shutter_count_filename(folder)
+            logging.info(f"in load_shutter_counts_file, shutter_counts_file: {shutter_counts_file}")
+            if not shutter_counts_file:
+                logging.info("Shutter counts file not found!")
+                return False
+
+        # load file shutter count file
+        full_shutter_data = pd.read_csv(shutter_counts_file, delim_whitespace=True, names=["ShutterCount"])
+        # we keep only the counts > 0
+        non_zero_shutter_counts = full_shutter_data[full_shutter_data["ShutterCount"] > 0].reset_index(drop=True)
+        shutter_counts = non_zero_shutter_counts["ShutterCount"].tolist()
+        self.parent.shutter_counts = shutter_counts
+        self.parent.shutter_counts_file = shutter_counts_file
+        self.parent.ui.shutter_counts_name_label.setText(os.path.basename(shutter_counts_file))
+
+        return True
+
     def load_time_spectra_file(self):
         """
         load the time spectra file
@@ -162,7 +189,6 @@ class EventHandler:
         logging.info(f"distance_source_detector_m: {distance_source_detector_m}")
         logging.info(f"detector_offset: {detector_offset}")
 
-        # try:
         self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
         self.update_time_spectra_data()
 
@@ -172,14 +198,31 @@ class EventHandler:
         logging.info(f"\t {self.parent.time_spectra[TimeSpectraKeys.counts_array][0:5] =}")
         return True
 
-        # except Exception as e:
-        #     logging.error(f"Error loading time spectra: {str(e)}")
-        #     show_status_message(
-        #         parent=self.parent,
-        #         message=f"Error loading time spectra: {str(e)}",
-        #         status=StatusMessageStatus.error,
-        #         duration_s=5,
-        #     )
+    def browse_for_shutter_counts_file(self):
+        """
+        browse for shutter counts file then continue workflow
+        (self.continue_import_workflow_after_time_spectra_loaded)
+        """
+        [shutter_counts_file, _] = QFileDialog.getOpenFileName(
+            caption="Select the Shutter Counts File",
+            directory=self.top_parent.default_path[DataType.sample],
+            filter="Txt ({});;All (*.*)".format("*_ShutterCount.txt"),
+        )
+        if shutter_counts_file:
+            is_shutter_counts_found = self.load_shutter_counts_file(shutter_counts_file)
+            if is_shutter_counts_found:
+                logging.info(f"shutter_counts_file loaded: {shutter_counts_file}")
+                logging.info(f"shutter counts data: {self.parent.shutter_counts}")
+            else:
+                logging.error(f"shutter counts file not found: {shutter_counts_file}")
+                show_status_message(
+                    parent=self.parent,
+                    message=f"Shutter count file not found: {shutter_counts_file}",
+                    status=StatusMessageStatus.error,
+                    duration_s=5,
+                )
+                self.top_parent.shutter_counts = None
+                self.parent.ui.shutter_counts_name_label.setText("No file loaded")
 
     def browse_for_time_spectra_file(self):
         """browse for time spectra then continue workflow (self.continue_import_workflow_after_time_spectra_loaded)"""
@@ -198,7 +241,6 @@ class EventHandler:
                 logging.info(f"distance_source_detector_m: {distance_source_detector_m}")
                 logging.info(f"detector_offset: {detector_offset}")
 
-                # try:
                 self.time_spectra_presenter.load_data(time_spectra_file, distance_source_detector_m, detector_offset)
                 self.update_time_spectra_data()
 
