@@ -60,6 +60,9 @@ jobs:
         with:
           prefix: ibeatles
 
+      - name: Test secret
+        run: echo "Secret is ${{ secrets.GITLAB_DEPLOY_TOKEN }}"
+
       - name: Trigger Dev Deploy
         # use https://github.com/eic/trigger-gitlab-ci/pull/14 until merged
         uses: eic/trigger-gitlab-ci@d984d8d53d871d2fdc1325639d94322da6e8747f
