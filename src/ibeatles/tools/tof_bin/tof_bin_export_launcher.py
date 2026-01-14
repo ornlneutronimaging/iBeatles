@@ -204,7 +204,6 @@ class TofBinExportLauncher(QDialog):
             nbr_output_created_dict["images"] += 1
 
         if self.ui.rebin_roi_selected_checkBox.isChecked():
-            output_folder_roi = ""
             output_folder_roi = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}")
             self.bin_and_export(
                 output_folder=output_folder_roi,
