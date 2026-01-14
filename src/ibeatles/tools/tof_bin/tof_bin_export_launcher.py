@@ -112,10 +112,6 @@ class TofBinExportLauncher(QDialog):
                 list_runs=_bin,
                 full_image_flag=(data_type == ExportDataType.full_image),
             )
-            _image = self.extract_data_for_this_bin(
-                list_runs=_bin,
-                full_image_flag=(data_type == ExportDataType.full_image),
-            )
 
             # full image export
             counts_array.append(int(np.sum(_image)))
@@ -167,32 +163,8 @@ class TofBinExportLauncher(QDialog):
 
         self.ok_clicked_step2()
 
-    # def ok_clicked_step2(self):
-    #     logging.info("User clicked OK to export binned images")
-
-    #     # check first if we want with experimental errors or not
-    #     if self.ui.use_experimental_errors_radioButton.isChecked():
-    #         logging.info("\tUser wants to use experimental errors")
-    #         shutter_counts_file = self.parent.shutter_counts_file
-    #         logging.info(f"\tShutter counts file used: {shutter_counts_file}")
-
-    #         if shutter_counts_file is None or not os.path.exists(shutter_counts_file):
-    #             logging.info(f"Shutter counts file not found: {shutter_counts_file}")
-    #             logging.info("User will browse for the shutter count file")
-    #             o_event = TofBinEventHandler(parent=self.parent, top_parent=self.top_parent)
-    #             o_event.browse_for_shutter_counts_file()
-
-    #     self.ok_clicked_step2()
-
     def ok_clicked_step2(self):
         working_dir = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
-
-        message = "Working on exporting files ..."
-        show_status_message(
-            parent=self.parent,
-            message=message,
-            status=StatusMessageStatus.working,
-        )
 
         message = "Working on exporting files ..."
         show_status_message(
@@ -222,8 +194,6 @@ class TofBinExportLauncher(QDialog):
 
         nbr_output_created_dict = {"images": 0, "ascii": 0}
 
-        nbr_output_created_dict = {"images": 0, "ascii": 0}
-
         output_folder_full_image = ""
         if self.ui.rebin_full_images_checkBox.isChecked():
             output_folder_full_image = os.path.join(_folder, f"{base_folder_name}_full_image_binned_{time_stamp}")
@@ -232,36 +202,10 @@ class TofBinExportLauncher(QDialog):
                 data_type=ExportDataType.full_image,
             )
             nbr_output_created_dict["images"] += 1
-            nbr_output_created_dict["images"] += 1
 
-        if self.ui.rebin_roi_selected_checkBox.isChecked():
-            output_folder_roi = ""
         if self.ui.rebin_roi_selected_checkBox.isChecked():
             output_folder_roi = ""
             output_folder_roi = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}")
-            self.bin_and_export(
-                output_folder=output_folder_roi,
-                data_type=ExportDataType.roi,
-            )
-            nbr_output_created_dict["images"] += 1
-
-        if self.ui.ascii_full_image_checkBox.isChecked():
-            output_file_name = os.path.join(_folder, f"{base_folder_name}_full_image_binned_{time_stamp}.txt")
-            self.export_ascii(
-                add_uncertainties=self.ui.use_experimental_errors_radioButton.isChecked(),
-                data_type=ExportDataType.full_image,
-                output_file_name=output_file_name,
-            )
-            nbr_output_created_dict["ascii"] += 1
-
-        if self.ui.ascii_roi_selected_checkBox.isChecked():
-            output_file_name = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}.txt")
-            self.export_ascii(
-                add_uncertainties=self.ui.use_experimental_errors_radioButton.isChecked(),
-                data_type=ExportDataType.roi,
-                output_file_name=output_file_name,
-            )
-            nbr_output_created_dict["ascii"] += 1
             self.bin_and_export(
                 output_folder=output_folder_roi,
                 data_type=ExportDataType.roi,
@@ -445,9 +389,6 @@ class TofBinExportLauncher(QDialog):
         this method isolate the data of only the runs of the corresponding runs if full_image is True,
         otherwise will return the ROI selected
 
-        :param
-        list_runs: list of runs to extract
-        full_image_flag: True of False (False if we want only the ROI selected)
         :param
         list_runs: list of runs to extract
         full_image_flag: True of False (False if we want only the ROI selected)
