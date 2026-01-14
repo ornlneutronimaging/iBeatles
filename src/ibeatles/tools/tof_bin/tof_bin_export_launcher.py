@@ -61,16 +61,6 @@ class TofBinExportLauncher(QDialog):
     def bin_and_export_radio_button_clicked(self):
         pass
 
-    # def _at_least_one_image_checked(self):
-    #     """we need to check if at least one bin/export option has been checked"""
-    #     if self.ui.full_image_checkBox.isChecked():
-    #         return True
-
-    #     if self.ui.roi_checkBox.isChecked():
-    #         return True
-
-    #     return False
-
     def bin_and_export(self, output_folder=None, data_type=ExportDataType.full_image):
         logging.info(f"binning and exporting {data_type}:")
 
