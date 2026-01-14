@@ -20,7 +20,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
-      <string>Rebinned and export images</string>
+      <string>Rebin and export images</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
@@ -89,15 +89,10 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="reload_groupBox">
-     <property name="title">
-      <string>Reload in normalization tab (optional)</string>
+    <widget class="QCheckBox" name="reload_full_image_checkBox">
+     <property name="text">
+      <string>Reload rebinned full image in normalization tab</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QComboBox" name="reload_comboBox"/>
-      </item>
-     </layout>
     </widget>
    </item>
    <item>
@@ -212,9 +207,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>rebin_full_images_checkBox</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>rebin_full_image_checkBox_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>272</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ok_clicked()</slot>
   <slot>bin_and_export_radio_button_clicked()</slot>
+  <slot>rebin_full_image_checkBox_clicked()</slot>
  </slots>
 </ui>

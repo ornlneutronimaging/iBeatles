@@ -50,20 +50,26 @@ class TofBinExportLauncher(QDialog):
         self.top_parent = top_parent
         QDialog.__init__(self, parent=parent)
         self.ui = load_ui("ui_tof_bin_export.ui", baseinstance=self)
-        # self.check_buttons()
+        self.update_buttons()
+
+    def update_buttons(self):
+        self.ui.reload_full_image_checkBox.setEnabled(self.ui.rebin_full_images_checkBox.isChecked())
+
+    def rebin_full_image_checkBox_clicked(self):
+        self.update_buttons()
 
     def bin_and_export_radio_button_clicked(self):
         pass
 
-    def _at_least_one_image_checked(self):
-        """we need to check if at least one bin/export option has been checked"""
-        if self.ui.full_image_checkBox.isChecked():
-            return True
+    # def _at_least_one_image_checked(self):
+    #     """we need to check if at least one bin/export option has been checked"""
+    #     if self.ui.full_image_checkBox.isChecked():
+    #         return True
 
-        if self.ui.roi_checkBox.isChecked():
-            return True
+    #     if self.ui.roi_checkBox.isChecked():
+    #         return True
 
-        return False
+    #     return False
 
     def bin_and_export(self, output_folder=None, data_type=ExportDataType.full_image):
         logging.info(f"binning and exporting {data_type}:")
@@ -225,28 +231,27 @@ class TofBinExportLauncher(QDialog):
             nbr_output_created_dict["ascii"] += 1
 
         # reload if user requested it
-        what_to_reload = self.ui.reload_comboBox.currentText()
-        if what_to_reload == NONE:
+        want_to_reload = (
+            self.ui.reload_full_image_checkBox.isEnabled() and self.ui.reload_full_image_checkBox.isChecked()
+        )
+        if not want_to_reload:
             logging.info("Nothing to reload, we are done here!")
-            self.parent.close()
-            QApplication.processEvents()
-            return
+            message = (
+                f"{nbr_output_created_dict['images']} binned images and {nbr_output_created_dict['ascii']} "
+                + "ASCII files created successfully!"
+            )
+            show_status_message(
+                parent=self.parent,
+                message=message,
+                status=StatusMessageStatus.ready,
+                duration_s=15,
+            )
 
-        if os.path.exists(output_folder_full_image):
-            o_reload = Reload(parent=self.parent, top_parent=self.top_parent)
-            o_reload.run(data_type=DataType.normalized, output_folder=output_folder_full_image)
-            self.parent.close()
-
-        message = (
-            f"{nbr_output_created_dict['images']} binned images and {nbr_output_created_dict['ascii']} "
-            + "ASCII files created successfully!"
-        )
-        show_status_message(
-            parent=self.parent,
-            message=message,
-            status=StatusMessageStatus.ready,
-            duration_s=15,
-        )
+        else:
+            if os.path.exists(output_folder_full_image):
+                o_reload = Reload(parent=self.parent, top_parent=self.top_parent)
+                o_reload.run(data_type=DataType.normalized, output_folder=output_folder_full_image)
+                self.parent.close()
 
     def compute_counts_array_only(self, tiff_stack=None, roi_mask=None):
         """Compute counts array for a given tiff stack and roi mask.
