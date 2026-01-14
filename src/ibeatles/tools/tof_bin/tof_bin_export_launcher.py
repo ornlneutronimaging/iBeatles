@@ -445,7 +445,7 @@ class TofBinExportLauncher(QDialog):
         otherwise will return the ROI selected
 
         :param list_runs: list of runs to extract
-        :param full_image_flag: True of False (False if we want only the ROI selected)
+        :param full_image_flag: True or False (False if we want only the ROI selected)
         :return:
             image binned
         """
