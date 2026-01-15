@@ -165,7 +165,10 @@ class DataHandler:
         self.parent.data_metadata[self.data_type]["data"] = np.array(o_load_image.image_array)
 
     def get_time_spectra_file(self):
-        folder = self.parent.default_path["sample"]
+        if self.data_type == "normalized":
+            folder = self.parent.default_path["normalized"]
+        else:
+            folder = self.parent.default_path["sample"]
         return get_time_spectra_filename(folder)
 
     def browse_file_name(self):

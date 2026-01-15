@@ -50,20 +50,16 @@ class TofBinExportLauncher(QDialog):
         self.top_parent = top_parent
         QDialog.__init__(self, parent=parent)
         self.ui = load_ui("ui_tof_bin_export.ui", baseinstance=self)
-        # self.check_buttons()
+        self.update_buttons()
+
+    def update_buttons(self):
+        self.ui.reload_full_image_checkBox.setEnabled(self.ui.rebin_full_images_checkBox.isChecked())
+
+    def rebin_full_image_checkBox_clicked(self):
+        self.update_buttons()
 
     def bin_and_export_radio_button_clicked(self):
         pass
-
-    def _at_least_one_image_checked(self):
-        """we need to check if at least one bin/export option has been checked"""
-        if self.ui.full_image_checkBox.isChecked():
-            return True
-
-        if self.ui.roi_checkBox.isChecked():
-            return True
-
-        return False
 
     def bin_and_export(self, output_folder=None, data_type=ExportDataType.full_image):
         logging.info(f"binning and exporting {data_type}:")
@@ -197,8 +193,8 @@ class TofBinExportLauncher(QDialog):
             )
             nbr_output_created_dict["images"] += 1
 
+        output_folder_roi = ""
         if self.ui.rebin_roi_selected_checkBox.isChecked():
-            output_folder_roi = ""
             output_folder_roi = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}")
             self.bin_and_export(
                 output_folder=output_folder_roi,
@@ -225,28 +221,27 @@ class TofBinExportLauncher(QDialog):
             nbr_output_created_dict["ascii"] += 1
 
         # reload if user requested it
-        what_to_reload = self.ui.reload_comboBox.currentText()
-        if what_to_reload == NONE:
+        want_to_reload = (
+            self.ui.reload_full_image_checkBox.isEnabled() and self.ui.reload_full_image_checkBox.isChecked()
+        )
+        if not want_to_reload:
             logging.info("Nothing to reload, we are done here!")
-            self.parent.close()
-            QApplication.processEvents()
-            return
+            message = (
+                f"{nbr_output_created_dict['images']} binned images and {nbr_output_created_dict['ascii']} "
+                + "ASCII files created successfully!"
+            )
+            show_status_message(
+                parent=self.parent,
+                message=message,
+                status=StatusMessageStatus.ready,
+                duration_s=15,
+            )
 
-        if os.path.exists(output_folder_full_image):
-            o_reload = Reload(parent=self.parent, top_parent=self.top_parent)
-            o_reload.run(data_type=DataType.normalized, output_folder=output_folder_full_image)
-            self.parent.close()
-
-        message = (
-            f"{nbr_output_created_dict['images']} binned images and {nbr_output_created_dict['ascii']} "
-            + "ASCII files created successfully!"
-        )
-        show_status_message(
-            parent=self.parent,
-            message=message,
-            status=StatusMessageStatus.ready,
-            duration_s=15,
-        )
+        else:
+            if os.path.exists(output_folder_full_image):
+                o_reload = Reload(parent=self.parent, top_parent=self.top_parent)
+                o_reload.run(data_type=DataType.normalized, output_folder=output_folder_full_image)
+                self.parent.close()
 
     def compute_counts_array_only(self, tiff_stack=None, roi_mask=None):
         """Compute counts array for a given tiff stack and roi mask.
@@ -366,8 +361,7 @@ class TofBinExportLauncher(QDialog):
         """calculate the uncertainty of the mean of counts
         assuming the uncertainties are independent
 
-        :param
-        list_uncertainties: list of uncertainties to mean
+        :param list_uncertainties: list of uncertainties to mean
         :return:
             uncertainty of the mean
         """
@@ -384,9 +378,8 @@ class TofBinExportLauncher(QDialog):
         this method isolate the data of only the runs of the corresponding runs if full_image is True,
         otherwise will return the ROI selected
 
-        :param
-        list_runs: list of runs to extract
-        full_image_flag: True of False (False if we want only the ROI selected)
+        :param list_runs: list of runs to extract
+        :param full_image_flag: True or False (False if we want only the ROI selected)
         :return:
             image binned
         """
