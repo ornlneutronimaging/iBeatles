@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>539</width>
-    <height>417</height>
+    <width>552</width>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -89,6 +89,75 @@
     </widget>
    </item>
    <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Instrument settings</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="detector_offset_label">
+        <property name="text">
+         <string>Detector offset</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="detector_offset_value"/>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="detector_offset_units">
+        <property name="text">
+         <string>us</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>191</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="distance_source_detector_label">
+        <property name="text">
+         <string>d source_detector</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="distance_source_detector_value"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="distance_source_detector_units">
+        <property name="text">
+         <string>m</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="reload_full_image_checkBox">
      <property name="text">
       <string>Reload rebinned full image in normalization tab</string>
@@ -103,7 +172,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>74</height>
+       <height>40</height>
       </size>
      </property>
     </spacer>
