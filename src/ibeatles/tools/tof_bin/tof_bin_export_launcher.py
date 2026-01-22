@@ -435,8 +435,7 @@ class TofBinExportLauncher(QDialog):
         """calculate the uncertainty of the mean of counts
         assuming the uncertainties are independent
 
-        :param
-        list_uncertainties: list of uncertainties to mean
+        :param list_uncertainties: list of uncertainties to mean
         :return:
             uncertainty of the mean
         """
@@ -454,11 +453,8 @@ class TofBinExportLauncher(QDialog):
         otherwise will return the ROI selected
 
         :param
-        list_runs: list of runs to extract
-        full_image_flag: True of False (False if we want only the ROI selected)
-        :param
-        list_runs: list of runs to extract
-        full_image_flag: True of False (False if we want only the ROI selected)
+            list_runs: list of runs to extract
+            full_image_flag: True or False (False if we want only the ROI selected)
         :return:
             image binned
         """
