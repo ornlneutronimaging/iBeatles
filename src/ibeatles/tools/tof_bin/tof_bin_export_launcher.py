@@ -19,7 +19,10 @@ from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHand
 from ibeatles.tools.tof_bin.utilities.get import Get
 from ibeatles.tools.tof_bin.utilities.time_spectra import export_time_stamp_file
 from ibeatles.tools.tof_bin.utilities.units import (
-    convert_from_wavelength_to_energy_ev,
+    DistanceUnitOptions,
+    EnergyUnitOptions,
+    TimeUnitOptions,
+    convert_array_from_time_to_energy,
 )
 from ibeatles.tools.utilities import CombineAlgorithm, TimeSpectraKeys
 from ibeatles.tools.utilities.reload.reload import Reload
@@ -54,6 +57,10 @@ class TofBinExportLauncher(QDialog):
 
     def update_buttons(self):
         self.ui.reload_full_image_checkBox.setEnabled(self.ui.rebin_full_images_checkBox.isChecked())
+        self.ui.distance_source_detector_label.setText("d<sub> source-detector</sub>")
+        self.ui.distance_source_detector_value.setText(self.top_parent.ui.distance_source_detector.text())
+        self.ui.detector_offset_units.setText("\u00b5s")
+        self.ui.detector_offset_value.setText(self.top_parent.ui.detector_offset.text())
 
     def rebin_full_image_checkBox_clicked(self):
         self.update_buttons()
@@ -98,6 +105,10 @@ class TofBinExportLauncher(QDialog):
             output_file_name = os.path.join(output_folder, short_file_name)
 
             # create array of that bin
+            _image = self.extract_data_for_this_bin(
+                list_runs=_bin,
+                full_image_flag=(data_type == ExportDataType.full_image),
+            )
             _image = self.extract_data_for_this_bin(
                 list_runs=_bin,
                 full_image_flag=(data_type == ExportDataType.full_image),
@@ -153,8 +164,32 @@ class TofBinExportLauncher(QDialog):
 
         self.ok_clicked_step2()
 
+    # def ok_clicked_step2(self):
+    #     logging.info("User clicked OK to export binned images")
+
+    #     # check first if we want with experimental errors or not
+    #     if self.ui.use_experimental_errors_radioButton.isChecked():
+    #         logging.info("\tUser wants to use experimental errors")
+    #         shutter_counts_file = self.parent.shutter_counts_file
+    #         logging.info(f"\tShutter counts file used: {shutter_counts_file}")
+
+    #         if shutter_counts_file is None or not os.path.exists(shutter_counts_file):
+    #             logging.info(f"Shutter counts file not found: {shutter_counts_file}")
+    #             logging.info("User will browse for the shutter count file")
+    #             o_event = TofBinEventHandler(parent=self.parent, top_parent=self.top_parent)
+    #             o_event.browse_for_shutter_counts_file()
+
+    #     self.ok_clicked_step2()
+
     def ok_clicked_step2(self):
         working_dir = self.top_parent.session_dict[DataType.sample][SessionSubKeys.current_folder]
+
+        message = "Working on exporting files ..."
+        show_status_message(
+            parent=self.parent,
+            message=message,
+            status=StatusMessageStatus.working,
+        )
 
         message = "Working on exporting files ..."
         show_status_message(
@@ -184,6 +219,8 @@ class TofBinExportLauncher(QDialog):
 
         nbr_output_created_dict = {"images": 0, "ascii": 0}
 
+        nbr_output_created_dict = {"images": 0, "ascii": 0}
+
         output_folder_full_image = ""
         if self.ui.rebin_full_images_checkBox.isChecked():
             output_folder_full_image = os.path.join(_folder, f"{base_folder_name}_full_image_binned_{time_stamp}")
@@ -191,6 +228,7 @@ class TofBinExportLauncher(QDialog):
                 output_folder=output_folder_full_image,
                 data_type=ExportDataType.full_image,
             )
+            nbr_output_created_dict["images"] += 1
             nbr_output_created_dict["images"] += 1
 
         output_folder_roi = ""
@@ -201,6 +239,29 @@ class TofBinExportLauncher(QDialog):
                 data_type=ExportDataType.roi,
             )
             nbr_output_created_dict["images"] += 1
+
+        if self.ui.ascii_full_image_checkBox.isChecked():
+            output_file_name = os.path.join(_folder, f"{base_folder_name}_full_image_binned_{time_stamp}.txt")
+            self.export_ascii(
+                add_uncertainties=self.ui.use_experimental_errors_radioButton.isChecked(),
+                data_type=ExportDataType.full_image,
+                output_file_name=output_file_name,
+            )
+            nbr_output_created_dict["ascii"] += 1
+
+        if self.ui.ascii_roi_selected_checkBox.isChecked():
+            output_file_name = os.path.join(_folder, f"{base_folder_name}_roi_binned_{time_stamp}.txt")
+            self.export_ascii(
+                add_uncertainties=self.ui.use_experimental_errors_radioButton.isChecked(),
+                data_type=ExportDataType.roi,
+                output_file_name=output_file_name,
+            )
+            nbr_output_created_dict["ascii"] += 1
+            # self.bin_and_export(
+            #     output_folder=output_folder_roi,
+            #     data_type=ExportDataType.roi,
+            # )
+            # nbr_output_created_dict["images"] += 1
 
         if self.ui.ascii_full_image_checkBox.isChecked():
             output_file_name = os.path.join(_folder, f"{base_folder_name}_full_image_binned_{time_stamp}.txt")
@@ -284,7 +345,7 @@ class TofBinExportLauncher(QDialog):
             roi_mask = None
             logging.info("Exporting ASCII for full image")
 
-        metadata_lines = ["# bin index\tmean_tof (micros)\tmean_lambda (Angstroms)\tmean_energy (meV)\ttotal_counts"]
+        metadata_lines = ["# bin index\tmean_tof (micros)\tmean_lambda (Angstroms)\tmean_energy (eV)\ttotal_counts"]
         if add_uncertainties:
             logging.info("Adding experimental uncertainties to the exported ASCII file")
             # calculate uncertainties of all images
@@ -335,18 +396,31 @@ class TofBinExportLauncher(QDialog):
 
             list_lambda = statistics_dict[_bin_index]["list_lambda"]
             average_lambda = np.mean(list_lambda)
-            average_energy = convert_from_wavelength_to_energy_ev(average_lambda)
+            # average_energy_ev = convert_from_wavelength_to_energy_ev(average_lambda)
 
             list_tof = statistics_dict[_bin_index]["list_tof"]
             average_tof = np.mean(list_tof)
 
+            distance_source_detector_m = float(self.ui.distance_source_detector_value.text())
+            detector_offset = float(self.ui.detector_offset_value.text())
+
+            average_energy_ev = convert_array_from_time_to_energy(
+                time_array=np.array([average_tof]),
+                time_unit=TimeUnitOptions.us,
+                distance_source_detector=distance_source_detector_m,
+                distance_source_detector_unit=DistanceUnitOptions.m,
+                detector_offset=detector_offset,
+                detector_offset_unit=TimeUnitOptions.us,
+                energy_unit=EnergyUnitOptions.eV,
+            )[0]
+
             if add_uncertainties:
                 data_lines.append(
-                    f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy:.6f}\t{mean_counts:.2f}\t{uncertainty:.2f}"
+                    f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy_ev:.6f}\t{mean_counts:.2f}\t{uncertainty:.2f}"
                 )
             else:
                 data_lines.append(
-                    f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy:.6f}\t{mean_counts:.2f}"
+                    f"{_bin_index}\t{average_tof:.6f}\t{average_lambda:.6f}\t{average_energy_ev:.6f}\t{mean_counts:.2f}"
                 )
 
         # write the output ascii file
@@ -378,8 +452,9 @@ class TofBinExportLauncher(QDialog):
         this method isolate the data of only the runs of the corresponding runs if full_image is True,
         otherwise will return the ROI selected
 
-        :param list_runs: list of runs to extract
-        :param full_image_flag: True or False (False if we want only the ROI selected)
+        :param
+            list_runs: list of runs to extract
+            full_image_flag: True or False (False if we want only the ROI selected)
         :return:
             image binned
         """
