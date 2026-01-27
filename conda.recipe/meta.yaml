@@ -42,6 +42,7 @@ requirements:
     - pip
     - setuptools
     - numpy
+    - pandas <3
     - matplotlib
     - qt=5
     - qtpy
