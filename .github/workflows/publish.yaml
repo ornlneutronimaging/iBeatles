@@ -20,6 +20,7 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
       id-token: write
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +47,18 @@ jobs:
         run: |
           echo "Build and publish PyPI package"
           pixi run build
+      - name: upload conda artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@v4
+        with:
+          name: conda-package
+          path: conda.recipe/noarch/ibeatles*.tar.bz2
+      - name: upload PyPI artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@v4
+        with:
+          name: pypi-package
+          path: dist/*
       - name: publish PyPI package
         if: startsWith(github.ref, 'refs/tags/v')
         uses: pypa/gh-action-pypi-publish@release/v1
@@ -78,3 +91,43 @@ jobs:
         with:
           body: |
             GitLab pipeline for ${{ steps.env_name.outputs.name }} has been submitted for this commit: ${{ steps.trigger.outputs.web_url }}
+
+  # Create GitHub Release with auto-generated release notes
+  github-release:
+    name: Create GitHub Release
+    needs: linux
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download conda artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: conda-package
+          path: dist/conda
+
+      - name: Download PyPI artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pypi-package
+          path: dist/pypi
+
+      - name: List artifacts
+        run: |
+          echo "Conda packages:"
+          ls -la dist/conda/
+          echo "PyPI packages:"
+          ls -la dist/pypi/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/conda/*
+            dist/pypi/*
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref, 'rc') || contains(github.ref, 'alpha') || contains(github.ref, 'beta') }}
