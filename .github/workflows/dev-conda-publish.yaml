@@ -1,0 +1,88 @@
+name: dev conda build and publish
+
+on:
+  push:
+    branches: [next]
+
+# cancel previous job if new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dev-conda-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: prefix-dev/setup-pixi@v0.8.3
+        with:
+          pixi-version: v0.62.0
+          manifest-path: pyproject.toml
+      - name: build conda package
+        run: |
+          echo "Build conda package"
+          pixi run build-conda
+      - name: upload conda package to anaconda with dev label
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          echo "Uploading dev conda package"
+          pixi run anaconda upload --label dev --user neutronimaging conda.recipe/noarch/ibeatles*.tar.bz2
+      - name: cleanup old dev packages
+        env:
+          ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          # Get all files for the package, filter dev-labeled ones,
+          # group by version keeping newest upload_time per version, sort descending
+          DEV_VERSIONS=$(curl -s https://api.anaconda.org/package/neutronimaging/ibeatles \
+            | jq -r '
+              [.files[] | select(.labels | index("dev"))]
+              | group_by(.version)
+              | map({version: .[0].version, upload_time: (map(.upload_time) | max)})
+              | sort_by(.upload_time)
+              | reverse
+              | .[].version
+            ')
+
+          echo "Dev versions (newest first):"
+          echo "$DEV_VERSIONS"
+
+          # Keep the 5 most recent, remove the rest
+          COUNT=0
+          for VERSION in $DEV_VERSIONS; do
+            COUNT=$((COUNT + 1))
+            if [ $COUNT -le 5 ]; then
+              echo "Keeping version: $VERSION"
+            else
+              echo "Removing old dev version: $VERSION"
+              pixi run anaconda remove --force neutronimaging/ibeatles/$VERSION
+            fi
+          done
+
+  # Trigger GitLab dev deploy pipeline
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: dev-conda-build
+    steps:
+      - name: Get Environment Name
+        uses: neutrons/branch-mapper@main
+        id: env_name
+        with:
+          prefix: ibeatles
+
+      - name: Trigger Dev Deploy
+        uses: eic/trigger-gitlab-ci@d984d8d53d871d2fdc1325639d94322da6e8747f
+        id: trigger
+        with:
+          url: https://code.ornl.gov
+          project_id: 18010
+          ref_name: main
+          token: ${{ secrets.GITLAB_DEPLOY_TOKEN }}
+
+      - name: Annotate commit
+        uses: peter-evans/commit-comment@v4
+        with:
+          body: |
+            GitLab pipeline for ${{ steps.env_name.outputs.name }} has been submitted for this commit: ${{ steps.trigger.outputs.web_url }}
