@@ -29,37 +29,38 @@ jobs:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           echo "Uploading dev conda package"
-          pixi run anaconda upload --label dev --user neutronimaging conda.recipe/noarch/ibeatles*.tar.bz2
+          pixi run anaconda upload --force --label dev --user neutronimaging conda.recipe/noarch/ibeatles*.tar.bz2
       - name: cleanup old dev packages
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          # Get all files for the package, filter dev-labeled ones,
-          # group by version keeping newest upload_time per version, sort descending
-          DEV_VERSIONS=$(curl -s https://api.anaconda.org/package/neutronimaging/ibeatles \
+          # Get all dev-labeled files, group by version, sort by newest upload time descending.
+          # Output format: one line per file as "version full_name" for versions beyond the 5 newest.
+          FILES_TO_REMOVE=$(curl -s https://api.anaconda.org/package/neutronimaging/ibeatles \
             | jq -r '
               [.files[] | select(.labels | index("dev"))]
               | group_by(.version)
-              | map({version: .[0].version, upload_time: (map(.upload_time) | max)})
+              | map({
+                  version: .[0].version,
+                  upload_time: (map(.upload_time) | max),
+                  files: [.[].full_name]
+                })
               | sort_by(.upload_time)
               | reverse
-              | .[].version
+              | .[5:]
+              | .[].files[]
             ')
 
-          echo "Dev versions (newest first):"
-          echo "$DEV_VERSIONS"
-
-          # Keep the 5 most recent, remove the rest
-          COUNT=0
-          for VERSION in $DEV_VERSIONS; do
-            COUNT=$((COUNT + 1))
-            if [ $COUNT -le 5 ]; then
-              echo "Keeping version: $VERSION"
-            else
-              echo "Removing old dev version: $VERSION"
-              pixi run anaconda remove --force neutronimaging/ibeatles/$VERSION
-            fi
-          done
+          if [ -z "$FILES_TO_REMOVE" ]; then
+            echo "No old dev packages to clean up"
+          else
+            echo "Removing old dev files:"
+            echo "$FILES_TO_REMOVE"
+            for FILE in $FILES_TO_REMOVE; do
+              echo "Removing: $FILE"
+              pixi run anaconda remove --force "$FILE"
+            done
+          fi
 
   # Trigger GitLab dev deploy pipeline
   deploy-dev:
