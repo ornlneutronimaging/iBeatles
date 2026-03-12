@@ -65,16 +65,13 @@ jobs:
   # Trigger GitLab dev deploy pipeline
   deploy-dev:
     runs-on: ubuntu-latest
-    # if: github.ref == 'refs/heads/next'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/next'
     steps:
       - name: Get Environment Name
-        uses: neutrons/branch-mapper@main
+        uses: neutrons/branch-mapper@010ccbc2818a0c720a62d29cae8b85c54a49375e  # pin to main
         id: env_name
         with:
           prefix: ibeatles
-
-      - name: Test secret
-        run: echo "Secret is ${{ secrets.GITLAB_DEPLOY_TOKEN }}"
 
       - name: Trigger Dev Deploy
         # use https://github.com/eic/trigger-gitlab-ci/pull/14 until merged

@@ -68,7 +68,7 @@ jobs:
     needs: dev-conda-build
     steps:
       - name: Get Environment Name
-        uses: neutrons/branch-mapper@main
+        uses: neutrons/branch-mapper@010ccbc2818a0c720a62d29cae8b85c54a49375e  # pin to main
         id: env_name
         with:
           prefix: ibeatles
