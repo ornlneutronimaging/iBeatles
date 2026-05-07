@@ -1,1 +1,0 @@
-"""Kropff fitting module."""
