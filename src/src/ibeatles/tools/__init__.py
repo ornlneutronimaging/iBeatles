@@ -1,0 +1,5 @@
+ANGSTROMS = "\u212b"
+LAMBDA = "\u03bb"
+MICRO = "\u00b5"
+SUB_0 = "\u2080"
+DELTA = "\u0394"

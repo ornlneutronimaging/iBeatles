@@ -1,0 +1,19 @@
+<RCC>
+  <qresource prefix="MPL Toolbar">
+    <file>right_blue_arrow.png</file>
+    <file>check_icon.png</file>
+    <file>horizontal_splitter_handle.png</file>
+    <file>vertical_splitter_handle.png</file>
+    <file>down_arrow.png</file>
+    <file>up_arrow.png</file>
+    <file>reset_icon.png</file>
+    <file>go-home.png</file>
+    <file>zoom-previous.png</file>
+    <file>zoom-next.png</file>
+    <file>transform-move.png</file>
+    <file>zoom-select.png</file>
+    <file>edit-guides.png</file>
+    <file>document-save.png</file>
+    <file>document-print.png</file>
+  </qresource>
+</RCC>

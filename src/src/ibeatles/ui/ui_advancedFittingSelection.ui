@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>946</width>
+    <height>766</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>300</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Active</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>All Bins selected in this table will be used to display the Counts vs Lambda plot</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="selection_table">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Lock</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>All Bins selected in this table will be locked (their fitting parameters can not be modified).</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="lock_table">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::MultiSelection</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Cells Size</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="advanced_selection_cell_size_slider">
+        <property name="minimum">
+         <number>10</number>
+        </property>
+        <property name="maximum">
+         <number>50</number>
+        </property>
+        <property name="value">
+         <number>20</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::TicksAbove</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="apply_button">
+        <property name="text">
+         <string>Apply</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../icons/icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>advanced_selection_cell_size_slider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>selection_cell_size_changed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>714</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>566</x>
+     <y>710</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>apply_button</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>apply_button_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>891</x>
+     <y>709</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>816</x>
+     <y>708</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>signal1()</signal>
+  <slot>sample_import_button_clicked()</slot>
+  <slot>time_spectra_import_button_clicked()</slot>
+  <slot>open_beam_import_button_clicked()</slot>
+  <slot>sample_list_selection_changed()</slot>
+  <slot>open_beam_list_selection_changed()</slot>
+  <slot>sample_list_right_click()</slot>
+  <slot>time_spectra_selection_changed()</slot>
+  <slot>load_data_tab_changed()</slot>
+  <slot>time_spectra_preview_button_clicked()</slot>
+  <slot>normalized_import_button_clicked()</slot>
+  <slot>normalized_list_selection_changed()</slot>
+  <slot>update_delta_lambda()</slot>
+  <slot>crystal_structure_index_changed()</slot>
+  <slot>crystal_structure_2_index_changed()</slot>
+  <slot>list_of_element_index_changed()</slot>
+  <slot>list_of_element_2_index_changed()</slot>
+  <slot>lattice_text_changed()</slot>
+  <slot>lattice_2_text_changed()</slot>
+  <slot>material_display_clicked()</slot>
+  <slot>material_display_2_clicked()</slot>
+  <slot>normalization_add_roi_button_clicked()</slot>
+  <slot>normalization_remove_roi_button_clicked()</slot>
+  <slot>normalization_use_coefficient_checked()</slot>
+  <slot>normalization_button_clicked()</slot>
+  <slot>normalization_coefficient_value_changed()</slot>
+  <slot>tab_widget_changed()</slot>
+  <slot>normalization_tableWidget_cell_changed()</slot>
+  <slot>beam_rate_changed()</slot>
+  <slot>distance_source_detector_changed()</slot>
+  <slot>detector_offset_changed()</slot>
+  <slot>distance_source_detector_2_changed()</slot>
+  <slot>detector_offset_2_changed()</slot>
+  <slot>beam_rate_2_changed()</slot>
+  <slot>list_of_elements_current_text_changed()</slot>
+  <slot>add_element_clicked()</slot>
+  <slot>reset_lattice_button_clicked()</slot>
+  <slot>reset_crystal_structure_button_clicked()</slot>
+  <slot>reset_lattice_button_2_clicked()</slot>
+  <slot>reset_crystal_structure_button_2_clicked()</slot>
+  <slot>normalized_time_spectra_import_button_clicked()</slot>
+  <slot>normalized_time_spectra_preview_button_clicked()</slot>
+  <slot>test_me_clicked()</slot>
+  <slot>menu_view_load_data_clicked()</slot>
+  <slot>menu_view_normalization_clicked()</slot>
+  <slot>menu_view_normalized_clicked()</slot>
+  <slot>menu_view_binning_clicked()</slot>
+  <slot>menu_view_fitting_clicked()</slot>
+  <slot>menu_view_strain_mapping_clicked()</slot>
+  <slot>roi_selection_widgets_modified()</slot>
+  <slot>hkl_list_changed()</slot>
+  <slot>table_width_changed()</slot>
+  <slot>value_table_right_click()</slot>
+  <slot>selection_in_value_table_of_rows_cell_clicked()</slot>
+  <slot>selection_in_value_table_changed()</slot>
+  <slot>selection_cell_size_changed()</slot>
+  <slot>selection_table_selection_changed()</slot>
+  <slot>lock_table_selection_changed()</slot>
+  <slot>selection_table_clicked()</slot>
+  <slot>apply_button_clicked()</slot>
+ </slots>
+</ui>

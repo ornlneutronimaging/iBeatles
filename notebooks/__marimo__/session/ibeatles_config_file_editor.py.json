@@ -7,181 +7,430 @@
     {
       "id": "Hbol",
       "code_hash": "75572576d74a0cd10133870fedd50717",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "MJUe",
       "code_hash": "05289c24b740bcbf08614abb0ab9daba",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='MJUe-0' random-id='2c52a940-c1a6-0bf8-cf7b-ddf6ba7e1688'><marimo-file-browser data-initial-value='[]' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Select configuration file (created with iBeatles) ...&lt;/span&gt;&lt;/span&gt;&quot;' data-initial-path='&quot;/SNS/VENUS&quot;' data-selection-mode='&quot;file&quot;' data-filetypes='[&quot;.json&quot;]' data-multiple='false' data-restrict-navigation='false'></marimo-file-browser></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "vblA",
       "code_hash": "c43bcc67f9826245dcbfddc611320986",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "bkHC",
       "code_hash": "3c40a763715b74a8f87edac879422ef8",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "lEQa",
-      "code_hash": "c6ac6e54ae44cbb7ad684b6cd8aa09c8",
-      "outputs": [],
+      "code_hash": "581f2da32c2d10d2b74787083162996b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "PKri",
-      "code_hash": "ef3de5d3f943b032705158123b7e1040",
-      "outputs": [],
+      "code_hash": "c6ac6e54ae44cbb7ad684b6cd8aa09c8",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"raw-data-dir\">raw data dir</h2></span><marimo-ui-element object-id='PKri-0' random-id='2d0e6f39-4d83-6a59-233a-d73961d31ed4'><marimo-text data-initial-value='&quot;/SNS/VENUS/IPTS-33699/shared/autoreduce/mcp/September6_2024_Ni_5_0_C_2_9Angsmin/Run_2613/&quot;' data-label='null' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='true' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "Xref",
-      "code_hash": "4b79dd510de94185c3aec10e279b1973",
-      "outputs": [],
+      "code_hash": "ef3de5d3f943b032705158123b7e1040",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"open-beam-dir\">open beam dir</h2></span><marimo-ui-element object-id='Xref-0' random-id='4d83d2ce-cad3-43e2-d48e-37bbd367e0b0'><marimo-text data-initial-value='&quot;/SNS/VENUS/IPTS-33699/shared/autoreduce/mcp/November1_2024_OB_5_0C_2_9Angs_min/Run_4650/&quot;' data-label='null' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='true' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "SFPL",
-      "code_hash": "fa34ffdb877066a194fb04f08d48d43c",
-      "outputs": [],
+      "code_hash": "4b79dd510de94185c3aec10e279b1973",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"normalization\">normalization</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "BYtC",
-      "code_hash": "dfc94f020bd6bb9fa56450da5bc3fbb2",
-      "outputs": [],
+      "code_hash": "fa34ffdb877066a194fb04f08d48d43c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "application/json": "[\"text/html:<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\\\"markdown prose dark:prose-invert contents\\\"><span class=\\\"paragraph\\\">ROI #0</span></span><div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><marimo-ui-element object-id='BYtC-0' random-id='dc9d07fe-55dd-92eb-0cda-1c9e03c5b17f'><marimo-text data-initial-value='&quot;8&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='BYtC-1' random-id='9932a262-ee50-d28b-acf8-f09c1c9dec90'><marimo-text data-initial-value='&quot;64&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='BYtC-2' random-id='e5c6409a-fd11-182f-743f-fb990340e06d'><marimo-text data-initial-value='&quot;21&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;width&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='BYtC-3' random-id='84ee38f5-af53-be93-0a77-5b1a5db113d8'><marimo-text data-initial-value='&quot;159&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;height&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div></div>\"]"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "RGSE",
-      "code_hash": "e35a950b487489efc9d4c7debdc2fc8a",
-      "outputs": [],
+      "code_hash": "dfc94f020bd6bb9fa56450da5bc3fbb2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"material\">Material</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "Kclp",
-      "code_hash": "dbe719b1e91158708a2618265053a98c",
-      "outputs": [],
+      "code_hash": "e35a950b487489efc9d4c7debdc2fc8a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Kclp-0' random-id='78eb1520-4163-23bd-6cd6-58d0cfcaca47'><marimo-text data-initial-value='&quot;Ni&quot;' data-label='null' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='true' data-debounce='true'></marimo-text></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "emfo",
-      "code_hash": "cfa656fd96dca1d71d4e275a808ca6b6",
-      "outputs": [],
+      "code_hash": "dbe719b1e91158708a2618265053a98c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"pixel-binning\">Pixel binning</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "Hstk",
-      "code_hash": "8f5b53e915b6e37f6d42d4f7ba79022a",
-      "outputs": [],
+      "code_hash": "cfa656fd96dca1d71d4e275a808ca6b6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><marimo-ui-element object-id='Hstk-0' random-id='5eaa5a51-ddb5-9d06-740e-8c1195f793de'><marimo-text data-initial-value='&quot;77&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='Hstk-1' random-id='5b2ff610-0250-cb7b-e2ee-656445ec2cd9'><marimo-text data-initial-value='&quot;273&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='Hstk-2' random-id='5c0155da-1010-05fe-886f-80727bfacca1'><marimo-text data-initial-value='&quot;153&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;width&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='Hstk-3' random-id='389533fc-c049-2968-2efe-05d706a04dfa'><marimo-text data-initial-value='&quot;178&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;height&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='Hstk-4' random-id='a22bd488-3a9d-7179-5d31-c312272a1034'><marimo-text data-initial-value='&quot;22&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Bin size&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "nWHF",
-      "code_hash": "2ef7bbfd77eae2d0cc98360cf2ca74ce",
-      "outputs": [],
+      "code_hash": "8f5b53e915b6e37f6d42d4f7ba79022a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"fitting-parameters\">Fitting parameters</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "iLit",
-      "code_hash": "a1f23ce00e8202bcc6986d77f9f5e0fa",
-      "outputs": [],
+      "code_hash": "2ef7bbfd77eae2d0cc98360cf2ca74ce",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><marimo-ui-element object-id='iLit-0' random-id='2b0ec555-da03-da32-2582-5cd8a40f8689'><marimo-text data-initial-value='&quot; 3.5879&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;\u03bb&lt;sub&gt;min&lt;/sub&gt; (\u212b)&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='iLit-1' random-id='b3e5cb97-5def-0104-3657-f4b269ea6dbb'><marimo-text data-initial-value='&quot; 4.7157&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;\u03bb&lt;sub&gt;max&lt;/sub&gt; (\u212b)&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "ZHCJ",
-      "code_hash": "8a25faa1db4cabff2d815e9bbe57fbb2",
-      "outputs": [],
+      "code_hash": "a1f23ce00e8202bcc6986d77f9f5e0fa",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"strain-mapping-settings\">Strain mapping settings</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "ROlb",
-      "code_hash": "d09895cf2c7fece47c051fa1ebf24a27",
-      "outputs": [],
+      "code_hash": "8a25faa1db4cabff2d815e9bbe57fbb2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='ROlb-0' random-id='498727be-6802-7093-0802-9554fd341c05'><marimo-text data-initial-value='&quot;2.0345&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;d\u2080 (\u212b)&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "qnkX",
-      "code_hash": "2e6c04e00c821c0d737e4288a9277cb3",
-      "outputs": [],
+      "code_hash": "d09895cf2c7fece47c051fa1ebf24a27",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"instrument-settings\">Instrument settings</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "TqIu",
-      "code_hash": "4953b2b7795f1ab9a45d2d0796e24a76",
-      "outputs": [],
+      "code_hash": "2e6c04e00c821c0d737e4288a9277cb3",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><marimo-ui-element object-id='TqIu-0' random-id='405ceec0-4765-c02f-e887-5e410458c9fa'><marimo-text data-initial-value='&quot;25.0&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;distance source_detector (m)&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='TqIu-1' random-id='78d89baa-b71d-057f-51f1-fb0657475f8d'><marimo-text data-initial-value='&quot;18331&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;detector offset (\u03bcs)&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='false' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "Vxnm",
-      "code_hash": "1605d840d0df1d08ba7dbff04d6a43f1",
-      "outputs": [],
+      "code_hash": "4953b2b7795f1ab9a45d2d0796e24a76",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"output\">Output</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "DnEU",
-      "code_hash": "e5c3bdde1dca68df3610443b7904b0b1",
-      "outputs": [],
+      "code_hash": "1605d840d0df1d08ba7dbff04d6a43f1",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><marimo-ui-element object-id='DnEU-0' random-id='e10d6222-6c40-e562-a5f1-e40e2faa9b4a'><marimo-text data-initial-value='&quot;/SNS/VENUS/IPTS-33699/shared/Jean/normalized_05m_07d_2026y_14h_44mn&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;normalized data dir&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='true' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='DnEU-1' random-id='aa0f55ec-38f7-de7f-4412-07971f7c9f4f'><marimo-text data-initial-value='&quot;/SNS/VENUS/IPTS-33699/shared/Jean/analysis_05m_07d_2026y_14h_44mn&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;analysis results dir&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='true' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><marimo-ui-element object-id='DnEU-2' random-id='89e19e82-ddfc-7023-af91-f13db74d7bec'><marimo-text data-initial-value='&quot;/SNS/VENUS/IPTS-33699/shared/Jean/strain_05m_07d_2026y_14h_44mn&quot;' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;strain_results_dir&lt;/span&gt;&lt;/span&gt;&quot;' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='true' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element></div>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "ulZA",
-      "code_hash": "32ec4bcf2eb4cec9ee08c4bacfc8f5ae",
-      "outputs": [],
+      "code_hash": "e5c3bdde1dca68df3610443b7904b0b1",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<hr>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "ecfG",
-      "code_hash": "ebf6b147cbef882ac010b89c13e908ae",
-      "outputs": [],
+      "code_hash": "32ec4bcf2eb4cec9ee08c4bacfc8f5ae",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"repeat-analysis-for-each-of-the-following-folders\">Repeat analysis for each of the following folders</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "Pvdt",
-      "code_hash": "ac2f5d03ea91cb6c45982ed383afb4c0",
-      "outputs": [],
+      "code_hash": "4eccf06579a1315f4684c791e415f83a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='Pvdt-0' random-id='b838dc84-3955-aae9-eba5-d0149d995ee6'><marimo-file-browser data-initial-value='[]' data-label='null' data-initial-path='&quot;/SNS/VENUS/IPTS-33699/shared/autoreduce/mcp/September6_2024_Ni_5_0_C_2_9Angsmin/Run_2613&quot;' data-selection-mode='&quot;directory&quot;' data-filetypes='[]' data-multiple='true' data-restrict-navigation='false'></marimo-file-browser></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "ZBYS",
-      "code_hash": "45ed22dbec5de074dbd36817607c6bc4",
-      "outputs": [],
+      "code_hash": "ac2f5d03ea91cb6c45982ed383afb4c0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'>2 folders (raw sample) have been selected!</div>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "aLJB",
-      "code_hash": "be095d656ba4b06dfeed0c644170b6d5",
-      "outputs": [],
+      "code_hash": "45ed22dbec5de074dbd36817607c6bc4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"select-where-to-create-the-config-files-batch-script\">Select where to create the config files &amp; batch script</h2></span>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "nHfw",
-      "code_hash": "e0f88575befcce5a99244b3c65ec8111",
-      "outputs": [],
+      "code_hash": "a5e0dc9a5332257cee6c9280d0a2d6cf",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='nHfw-0' random-id='127a2bd3-3a77-0eae-67a7-33366b591f0b'><marimo-file-browser data-initial-value='[]' data-label='null' data-initial-path='&quot;/SNS/VENUS/IPTS-33699&quot;' data-selection-mode='&quot;directory&quot;' data-filetypes='[]' data-multiple='false' data-restrict-navigation='false'></marimo-file-browser></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "xXTn",
-      "code_hash": "4905c8066eb8a9bfbcf52f6c688ac014",
-      "outputs": [],
+      "code_hash": "e0f88575befcce5a99244b3c65ec8111",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "AjVT",
-      "code_hash": "486eac7643c5262671fb98ba39b09792",
-      "outputs": [],
+      "code_hash": "4905c8066eb8a9bfbcf52f6c688ac014",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "pHFh",
-      "code_hash": "df322bcd2f832e7216d5402810150fa5",
-      "outputs": [],
+      "code_hash": "138eb65827444d914078eef8207f5153",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "NCOB",
+      "code_hash": "21d0b0fa25e1c8af1e7bc59f0bebfa60",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: column;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"create-config-files-and-batch-script\">Create config files and batch script</h1></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">List config files that will be created:</span></span><marimo-ui-element object-id='NCOB-0' random-id='f6ff5309-d126-04fe-87a8-6dc306adc543'><marimo-text-area data-initial-value='&quot;Run_2613_config_05m_07d_2026y_16h_25mn.json&#92;nRun_2612_config_05m_07d_2026y_16h_25mn.json&quot;' data-label='null' data-placeholder='&quot;&quot;' data-disabled='false' data-debounce='true' data-full-width='false'></marimo-text-area></marimo-ui-element><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Batch file:</span></span><marimo-ui-element object-id='NCOB-1' random-id='07212593-6508-f4ea-b378-0428a4796ec6'><marimo-text data-initial-value='&quot;/SNS/VENUS/IPTS-33699/shared/Jean/remove_me/batch_of_2configs_05m_07d_2026y_16h_25mn.sh&quot;' data-label='null' data-placeholder='&quot;&quot;' data-kind='&quot;text&quot;' data-full-width='true' data-disabled='false' data-debounce='true'></marimo-text></marimo-ui-element><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">In output folder:</span></span><span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">/SNS/VENUS/IPTS-33699/shared/Jean/remove_me</span></span><hr><marimo-ui-element object-id='NCOB-2' random-id='f1c94bfe-d177-4446-9b5a-01e29394bbc4'><marimo-button data-initial-value='0' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Create config files and batch script&lt;/span&gt;&lt;/span&gt;&quot;' data-kind='&quot;neutral&quot;' data-disabled='false' data-full-width='true'></marimo-button></marimo-ui-element></div>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "aqbW",
+      "code_hash": "3f009056c39c3e886bdf0d7bd0adf485",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-callout-output data-html='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;&lt;strong&gt;Done!&lt;/strong&gt; Created 2 config file(s) and batch script in:&lt;/span&gt;&#92;n&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;&lt;code&gt;/SNS/VENUS/IPTS-33699/shared/Jean/remove_me&lt;/code&gt;&lt;/span&gt;&lt;/span&gt;&quot;' data-kind='&quot;success&quot;'></marimo-callout-output>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TRpd",
+      "code_hash": null,
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     }
   ]
