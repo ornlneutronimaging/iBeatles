@@ -18,15 +18,21 @@ fi
 cd "${REPO_DIR}"
 
 LOG="$(mktemp -t marimo-XXXXXX.log)"
-trap 'rm -f "${LOG}"' EXIT
+MARIMO_PID=""
+cleanup() {
+    rm -f "${LOG}"
+    if [[ -n "${MARIMO_PID}" ]]; then
+        kill "${MARIMO_PID}" 2>/dev/null || true
+    fi
+}
+trap cleanup EXIT
 
 pixi run marimo run --headless "${NOTEBOOK}" >"${LOG}" 2>&1 &
 MARIMO_PID=$!
-trap 'rm -f "${LOG}"; kill "${MARIMO_PID}" 2>/dev/null || true' EXIT
 
 URL=""
 for _ in $(seq 1 60); do
-    URL="$(grep -Eo 'http://[^[:space:]]+' "${LOG}" | head -n1 || true)"
+    URL="$(grep -Eo 'https?://[^[:space:]]+' "${LOG}" | head -n1 || true)"
     [[ -n "${URL}" ]] && break
     if ! kill -0 "${MARIMO_PID}" 2>/dev/null; then
         echo "marimo exited before printing a URL:" >&2

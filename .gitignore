@@ -28,3 +28,12 @@ _version.py
 
 # local tmp files
 tmp/
+
+# Jupyter checkpoint folders
+.ipynb_checkpoints/
+
+# marimo runtime session artifacts (machine-specific)
+notebooks/__marimo__/session/
+
+# iBeatles CLI runtime log
+ibeatles_cli.log

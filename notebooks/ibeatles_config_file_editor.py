@@ -10,6 +10,7 @@ def _():
     import datetime
     import json
     import os
+    import shlex
 
     TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
 
@@ -20,7 +21,7 @@ def _():
         initial_path = "~/SNS/SNAP/IPTS-27829/"
     else:
         initial_path = "/SNS/VENUS/"
-    return datetime, initial_path, json, mo, os
+    return datetime, initial_path, json, mo, os, shlex
 
 
 @app.cell
@@ -423,6 +424,7 @@ def _(
     os,
     output_folder_ui,
     save_json,
+    shlex,
 ):
     def create_config_files():
         output_folder = output_folder_ui.value[0].path
@@ -452,11 +454,12 @@ def _(
 
         _batch_content = []
         top_project_folder = os.path.dirname(os.path.dirname(__file__))
+        manifest_path = os.path.join(top_project_folder, "pyproject.toml")
         for _raw_sample in list_raw_sample_folders:
             raw_folder_base_name = os.path.basename(_raw_sample.path)
             output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
 
-            _cmd = f"pixi run --manifest-path {top_project_folder} cli {output_filename}"
+            _cmd = f"pixi run --manifest-path {shlex.quote(manifest_path)} cli {shlex.quote(output_filename)}"
             _batch_content.append(_cmd)
 
         _make_ascii_file(_bash_file_name, _batch_content)
