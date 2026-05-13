@@ -10,6 +10,7 @@ def _():
     import datetime
     import json
     import os
+    import shlex
 
     TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
 
@@ -20,7 +21,7 @@ def _():
         initial_path = "~/SNS/SNAP/IPTS-27829/"
     else:
         initial_path = "/SNS/VENUS/"
-    return datetime, initial_path, json, mo, os
+    return datetime, initial_path, json, mo, os, shlex
 
 
 @app.cell
@@ -57,6 +58,27 @@ def _(config_file, json, os):
 
     # data
     return (data,)
+
+
+@app.cell
+def _(config_file, initial_path, os):
+    ipts_default_path = initial_path
+
+    if len(config_file.value) > 0:
+        selected_config_path = config_file.value[0].path
+        selected_folder = os.path.dirname(selected_config_path)
+
+        # Prefer the IPTS-* folder in the selected path hierarchy.
+        path_cursor = selected_folder
+        while path_cursor and path_cursor != os.path.dirname(path_cursor):
+            if os.path.basename(path_cursor).startswith("IPTS-"):
+                ipts_default_path = str(path_cursor)
+                break
+            path_cursor = os.path.dirname(path_cursor)
+        else:
+            ipts_default_path = str(selected_folder)
+
+    return (ipts_default_path,)
 
 
 @app.cell
@@ -322,11 +344,19 @@ def _(config_file, mo):
 
 
 @app.cell
-def _(config_file, initial_path, mo):
+def _(config_file, data, ipts_default_path, mo, os):
     mo.stop(config_file.value == ())
 
+    _raw_data_dir = data["raw_data"]["raw_data_dir"] if data else None
+    _raw_data_parent = str(os.path.dirname(_raw_data_dir)) if _raw_data_dir else None
+    _sample_initial_path = (
+        _raw_data_parent
+        if _raw_data_parent and os.path.isdir(_raw_data_parent)
+        else str(ipts_default_path)
+    )
+
     list_sample_folders_ui = mo.ui.file_browser(
-        initial_path=initial_path, multiple=True, selection_mode='directory'
+        initial_path=_sample_initial_path, multiple=True, selection_mode='directory'
     )
     list_sample_folders_ui
     return (list_sample_folders_ui,)
@@ -353,11 +383,11 @@ def _(list_sample_folders_ui, mo):
 
 
 @app.cell
-def _(initial_path, list_sample_folders_ui, mo):
+def _(ipts_default_path, list_sample_folders_ui, mo):
     mo.stop(list_sample_folders_ui.value == ())
 
     output_folder_ui = mo.ui.file_browser(
-        initial_path=initial_path,
+        initial_path=str(ipts_default_path),
         label="",
         multiple=False,
         selection_mode='directory'
@@ -394,6 +424,7 @@ def _(
     os,
     output_folder_ui,
     save_json,
+    shlex,
 ):
     def create_config_files():
         output_folder = output_folder_ui.value[0].path
@@ -404,7 +435,7 @@ def _(
         for _raw_sample in list_raw_sample_folders:
             raw_folder_base_name = os.path.basename(_raw_sample.path)
             output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
-            data['raw_data']['raw_data_dir'] = _raw_sample.path
+            data['raw_data']['raw_data_dir'] = str(_raw_sample.path)
             save_json(output_filename, json_dictionary=data)
             os.chmod(output_filename, 0o755)
 
@@ -422,11 +453,13 @@ def _(
         _bash_file_name = os.path.join(output_folder, f"batch_of_{len(list_raw_sample_folders)}configs_{timestamp}.sh")
 
         _batch_content = []
+        top_project_folder = os.path.dirname(os.path.dirname(__file__))
+        manifest_path = os.path.join(top_project_folder, "pyproject.toml")
         for _raw_sample in list_raw_sample_folders:
             raw_folder_base_name = os.path.basename(_raw_sample.path)
             output_filename = os.path.join(output_folder, f"{raw_folder_base_name}_config_{timestamp}.json")
 
-            _cmd = f"pixi run cli {output_filename}"
+            _cmd = f"pixi run --manifest-path {shlex.quote(manifest_path)} cli {shlex.quote(output_filename)}"
             _batch_content.append(_cmd)
 
         _make_ascii_file(_bash_file_name, _batch_content)
@@ -449,12 +482,6 @@ def _(
 ):
     mo.stop(output_folder_ui.value == ())
 
-    create_config_button = mo.ui.button(label="Create config files and batch script",
-                                        on_click=lambda x: create_files(x),
-                                        disabled=len(list_sample_folders_ui.value) == 0,
-                                        full_width=True,
-                                       )
-
     _list_raw_sample_folders = list_sample_folders_ui.value
     _list_config_file_created = []
     for _raw_sample in _list_raw_sample_folders:
@@ -464,26 +491,51 @@ def _(
     formatted_list_config_file = "\n".join(_list_config_file_created)
     output_text = mo.ui.text_area(value=formatted_list_config_file)
     label1 = mo.md("In output folder:")
-    output_folder_label = mo.md(output_folder_ui.value[0].path)
+    output_folder_label = mo.md(str(output_folder_ui.value[0].path))
 
-    _output_folder_path = output_folder_ui.value[0].path
+    _output_folder_path = str(output_folder_ui.value[0].path)
 
     _batch_file = os.path.join(_output_folder_path, f"batch_of_{len(_list_raw_sample_folders)}configs_{current_time}.sh")
-    batch_text = mo.ui.text(value=_batch_file,
-                           full_width=True)
+    batch_text = mo.ui.text(value=_batch_file, full_width=True)
+
+    def _on_click(x):
+        create_files(x)
+        return True
+
+    create_config_button = mo.ui.button(
+        label="Create config files and batch script",
+        on_click=_on_click,
+        disabled=len(_list_raw_sample_folders) == 0,
+        full_width=True,
+    )
 
     mo.vstack(
         [
             mo.md("#Create config files and batch script"),
             mo.md("List config files that will be created:"),
             output_text,
-            mo.md("Batch file to execute to launch all the jobs!"),
+            mo.md("Batch file:"),
             batch_text,
             label1,
             output_folder_label,
             mo.Html("<hr>"),
             create_config_button,
         ]
+    )
+    return (create_config_button,)
+
+
+@app.cell
+def _(create_config_button, list_sample_folders_ui, mo, output_folder_ui):
+    mo.stop(output_folder_ui.value == ())
+
+    mo.stop(not create_config_button.value)
+
+    _n = len(list_sample_folders_ui.value)
+    _path = str(output_folder_ui.value[0].path)
+    mo.callout(
+        mo.md(f"**Done!** Created {_n} config file(s) and batch script in:\n\n`{_path}`"),
+        kind="success",
     )
     return
 

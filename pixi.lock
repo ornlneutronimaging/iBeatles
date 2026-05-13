@@ -505,13 +505,13 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/9f/75/bb79c8b89a93ae23cd33c0d802373f16feaf9633f05d8af77091350dda0a/msgspec-0.21.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/ea/e0/d22c19d7474492992e5fda4ae4c66f3e8680e09d2f66bdc7f2b9d0d50d00/neunorm-1.6.12-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7d/32/37734d769bc8b42e4938785313cc05aade6cb0fa72479d3220a0d61a4e78/openai-2.33.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/9d/1c/5d43735b2553baae2a5e899dcbcd0670a86930d993184d72ca909bf11c9b/openai-2.36.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/78/f9/690a8600b93c332de3ab4a344a4ac34f00c8f104917061f779db6a918ed6/pathlib-1.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ea/91/74fc60d94488685a92ac9d49d7ec55f3e91fe9b77942a6235a5fa7f249c3/polars-1.40.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/15/ef/7d57ceb0651af74194e97ed6583e148d352f03d696090221b8059cdfc90b/polars_runtime_32-1.40.1-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/f7/27/a2fc51a4a122dfd1015e921ae9d22fee3d20b0b8080d9a704578bf9deece/pymdown_extensions-10.21.2-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/dc/e7/64fe971cbca33a0446b06f4a5ff8e3fa4a1dbd0a039ceabcc3e6cf4087a9/sqlglot-30.6.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/83/f8/a006293758188482e1cbe45db73fa34017de8e3af1ba54948532a33a8c6a/sqlglotc-30.6.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/1f/08/bdc2fbd41b61173dade9ebb96b56e072a1cd7bdac24d8195e6dc5005186e/sqlglot-30.7.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/6b/c8/7f0457664efcd82e49f00c71f946cfeb4a25ef2a6c125cce38b463cf2406/sqlglotc-30.7.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/66/51/df8564d8e78c6a0ebf81b752397f64bf94ab1c1f6ed50502bd5bf3da1c0d/sqlglotrs-0.13.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0b/c9/584bc9651441b4ba60cc4d557d8a547b5aff901af35bda3a4ee30c819b82/starlette-1.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/a3/5b1562db76a5a488274b2332a97199b32d0442aca0ed193697fd47786316/uvicorn-0.46.0-py3-none-any.whl
@@ -978,13 +978,13 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/c1/60/504886af1aaf854112663b842d5eea9a15d9588f9bf7d0d2df736424b84d/msgspec-0.21.1-cp311-cp311-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/ea/e0/d22c19d7474492992e5fda4ae4c66f3e8680e09d2f66bdc7f2b9d0d50d00/neunorm-1.6.12-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7d/32/37734d769bc8b42e4938785313cc05aade6cb0fa72479d3220a0d61a4e78/openai-2.33.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/9d/1c/5d43735b2553baae2a5e899dcbcd0670a86930d993184d72ca909bf11c9b/openai-2.36.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/78/f9/690a8600b93c332de3ab4a344a4ac34f00c8f104917061f779db6a918ed6/pathlib-1.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ea/91/74fc60d94488685a92ac9d49d7ec55f3e91fe9b77942a6235a5fa7f249c3/polars-1.40.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c6/3e/48599a38009ca60ff82a6f38c8a621ce3c0286aa7397c7d79e741bd9060e/polars_runtime_32-1.40.1-cp310-abi3-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/f7/27/a2fc51a4a122dfd1015e921ae9d22fee3d20b0b8080d9a704578bf9deece/pymdown_extensions-10.21.2-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/dc/e7/64fe971cbca33a0446b06f4a5ff8e3fa4a1dbd0a039ceabcc3e6cf4087a9/sqlglot-30.6.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/d1/a0/6dfe5d09066d6614a3e48faca02115aff24e638845c1ed2501163c42c042/sqlglotc-30.6.0-cp311-cp311-macosx_10_9_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/1f/08/bdc2fbd41b61173dade9ebb96b56e072a1cd7bdac24d8195e6dc5005186e/sqlglot-30.7.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/56/d7/606f397b1d48a9bb19617fef224b8ec83cb6b7a5610d4ff599baa0c67ec8/sqlglotc-30.7.0-cp311-cp311-macosx_10_9_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/66/51/df8564d8e78c6a0ebf81b752397f64bf94ab1c1f6ed50502bd5bf3da1c0d/sqlglotrs-0.13.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0b/c9/584bc9651441b4ba60cc4d557d8a547b5aff901af35bda3a4ee30c819b82/starlette-1.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/a3/5b1562db76a5a488274b2332a97199b32d0442aca0ed193697fd47786316/uvicorn-0.46.0-py3-none-any.whl
@@ -4735,7 +4735,7 @@ packages:
   timestamp: 1737618427549
 - pypi: ./
   name: ibeatles
-  version: 1.0.0
+  version: 1.2.0.dev41
   sha256: 07f60935877b7444bd4e70179adccc4386717fb53a82179765d6fb47ad66d9b3
   requires_dist:
   - numpy
@@ -4758,6 +4758,7 @@ packages:
   - changepy>=0.4.0,<0.5
   - neunorm>=1.6.12,<2
   requires_python: '>=3.11,<3.13'
+  editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/icu-78.3-h33c6efd_0.conda
   sha256: fbf86c4a59c2ed05bbffb2ba25c7ed94f6185ec30ecb691615d42342baa1a16a
   md5: c80d8a3b84358cb967fa81e7075fbc8a
@@ -8626,10 +8627,10 @@ packages:
   - pkg:pypi/numpy?source=hash-mapping
   size: 7454579
   timestamp: 1773839133621
-- pypi: https://files.pythonhosted.org/packages/7d/32/37734d769bc8b42e4938785313cc05aade6cb0fa72479d3220a0d61a4e78/openai-2.33.0-py3-none-any.whl
+- pypi: https://files.pythonhosted.org/packages/9d/1c/5d43735b2553baae2a5e899dcbcd0670a86930d993184d72ca909bf11c9b/openai-2.36.0-py3-none-any.whl
   name: openai
-  version: 2.33.0
-  sha256: 03ac37d70e8c9e3a8124214e3afa785e2cbc12e627fbd98177a086ef2fd87ad5
+  version: 2.36.0
+  sha256: 143f6194b548dbc2c921af1f1b03b9f14c85fed8a75b5b516f5bcc11a2a50c63
   requires_dist:
   - anyio>=3.5.0,<5
   - distro>=1.7.0,<2
@@ -11077,13 +11078,14 @@ packages:
   - pkg:pypi/soupsieve?source=hash-mapping
   size: 38187
   timestamp: 1769034509657
-- pypi: https://files.pythonhosted.org/packages/dc/e7/64fe971cbca33a0446b06f4a5ff8e3fa4a1dbd0a039ceabcc3e6cf4087a9/sqlglot-30.6.0-py3-none-any.whl
+- pypi: https://files.pythonhosted.org/packages/1f/08/bdc2fbd41b61173dade9ebb96b56e072a1cd7bdac24d8195e6dc5005186e/sqlglot-30.7.0-py3-none-any.whl
   name: sqlglot
-  version: 30.6.0
-  sha256: e005fc2f47994f90d7d8df341f1cbe937518497b0b7b1507d4c03c4c9dfd2778
+  version: 30.7.0
+  sha256: 30421efcf3d57f95e57deaa755f65976c8b10735923f79986595dea912dc8206
   requires_dist:
   - duckdb>=0.6 ; extra == 'dev'
-  - sqlglot-mypy ; extra == 'dev'
+  - sqlglot-mypy>=1.20.0.post6 ; python_full_version >= '3.10' and extra == 'dev'
+  - mypy ; python_full_version < '3.10' and extra == 'dev'
   - setuptools-scm ; extra == 'dev'
   - pandas ; extra == 'dev'
   - pandas-stubs ; extra == 'dev'
@@ -11096,28 +11098,28 @@ packages:
   - types-pytz ; extra == 'dev'
   - typing-extensions ; extra == 'dev'
   - pyperf ; extra == 'dev'
-  - sqlglotc==30.6.0 ; extra == 'c'
+  - sqlglotc==30.7.0 ; python_full_version >= '3.10' and extra == 'c'
   - sqlglotrs==0.13.0 ; extra == 'rs'
-  - sqlglotc==30.6.0 ; extra == 'rs'
+  - sqlglotc==30.7.0 ; python_full_version >= '3.10' and extra == 'rs'
   requires_python: '>=3.9'
-- pypi: https://files.pythonhosted.org/packages/83/f8/a006293758188482e1cbe45db73fa34017de8e3af1ba54948532a33a8c6a/sqlglotc-30.6.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+- pypi: https://files.pythonhosted.org/packages/56/d7/606f397b1d48a9bb19617fef224b8ec83cb6b7a5610d4ff599baa0c67ec8/sqlglotc-30.7.0-cp311-cp311-macosx_10_9_universal2.whl
   name: sqlglotc
-  version: 30.6.0
-  sha256: cb4b5a532fb35ce415aea6d360fe202278b46cc59c07318b97401930a1584e35
+  version: 30.7.0
+  sha256: 79048a57aa9affc467c38451d5d7e1c0d6d0ecd7e983843cd612364add5a9e12
   requires_dist:
   - setuptools>=61.0 ; extra == 'dev'
   - setuptools-scm ; extra == 'dev'
-  - sqlglot-mypy ; extra == 'dev'
-  requires_python: '>=3.9'
-- pypi: https://files.pythonhosted.org/packages/d1/a0/6dfe5d09066d6614a3e48faca02115aff24e638845c1ed2501163c42c042/sqlglotc-30.6.0-cp311-cp311-macosx_10_9_universal2.whl
+  - sqlglot-mypy>=1.20.0.post6 ; extra == 'dev'
+  requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/6b/c8/7f0457664efcd82e49f00c71f946cfeb4a25ef2a6c125cce38b463cf2406/sqlglotc-30.7.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
   name: sqlglotc
-  version: 30.6.0
-  sha256: 6e8dab3b9f84c9b591ecd1fb0920b800c08dd6c38eda3be91176fc239d3c94bc
+  version: 30.7.0
+  sha256: ea029a92f87341defd293f28e169932eff3ef347c1266a1f58495cc93c7388a5
   requires_dist:
   - setuptools>=61.0 ; extra == 'dev'
   - setuptools-scm ; extra == 'dev'
-  - sqlglot-mypy ; extra == 'dev'
-  requires_python: '>=3.9'
+  - sqlglot-mypy>=1.20.0.post6 ; extra == 'dev'
+  requires_python: '>=3.10'
 - pypi: https://files.pythonhosted.org/packages/66/51/df8564d8e78c6a0ebf81b752397f64bf94ab1c1f6ed50502bd5bf3da1c0d/sqlglotrs-0.13.0-py3-none-any.whl
   name: sqlglotrs
   version: 0.13.0
