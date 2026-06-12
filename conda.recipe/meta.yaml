@@ -23,7 +23,6 @@ build:
     - {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
     - {{ PYTHON }} -m pip install git+https://github.com/ornlneutronimaging/BraggEdge.git@2.0.6 --no-deps --no-build-isolation -vvv
     - {{ PYTHON }} -m pip install git+https://github.com/ruipgil/changepy.git@bf53e3a4af182b38b9c08fc56a0c6e68c2d33bda --no-deps --no-build-isolation -vvv
-    - {{ PYTHON }} -m pip install git+https://github.com/ornlneutronimaging/NeuNorm.git@v1.6.12 --no-deps --no-build-isolation -vvv
 
 requirements:
 
@@ -57,7 +56,10 @@ requirements:
     - tqdm
     - tomli
     - pydantic
-    # - neutronimaging::neunorm  # switch to pip install until we sorted out NeuNorm conda package version issue
+    - scipp
+    # 2.0 publishes a clean conda package to the neutronimaging channel,
+    # so the pip-vendoring workaround used for 1.x is gone (#412)
+    - neunorm >=2.0.0,<3
 
 about:
   home: {{ url }}

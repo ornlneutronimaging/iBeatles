@@ -42,10 +42,12 @@ dependencies = [
   "QtPy",
   "PyQt5",
   "pyqtgraph",
+  # scipp carries the DataArrays the NeuNorm 2.0 normalization runs on
+  "scipp",
   # These are the dependencies from our neutron imaging team
   "neutronbraggedge>=2.0.6,<3",
   "changepy>=0.4.0,<0.5",
-  "neunorm>=1.6.12,<2",
+  "neunorm>=2.0.0,<3",
 ]
 
 [project.urls]
@@ -136,6 +138,7 @@ loguru = "*"
 tqdm = "*"
 tomli = "*"
 pydantic = "*"
+scipp = "*"
 pyqtgraph = "*"
 qt = "*"
 qtpy = "*"

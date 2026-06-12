@@ -7,10 +7,10 @@ import logging
 import os
 
 import h5py
-from NeuNorm.normalization import Normalization
 from qtpy.QtWidgets import QFileDialog
 
 from ibeatles import DataType, FileType
+from ibeatles.core.io.tiff import write_float32_tiff
 from ibeatles.fitting import FittingKeys
 from ibeatles.session import SessionKeys, SessionSubKeys
 from ibeatles.step6 import ParametersToDisplay
@@ -38,6 +38,12 @@ class Export:
         base_file_name = os.path.basename(normalized_folder) + "_" + parameters + f".{ext}"
         return base_file_name
 
+    @staticmethod
+    def _tiff_output_path(output_folder, file_name):
+        # NeuNorm 1.x rewrote the extension to ".tif" on export regardless
+        # of the base name's ".tiff" — keep the on-disk names identical
+        return os.path.join(output_folder, os.path.splitext(file_name)[0] + ".tif")
+
     def select_output_folder(self):
         output_folder = str(
             QFileDialog.getExistingDirectory(self.parent, "Select where to export ...", self.working_dir)
@@ -62,40 +68,25 @@ class Export:
 
             if d_spacing_image:
                 d_spacing_file_name = Export._make_image_base_name(self.working_dir)
-                full_d_output_file_name = os.path.join(output_folder, d_spacing_file_name)
-                d_array = o_get.d_array()
-
-                o_norm = Normalization()
-                o_norm.load(data=d_array, notebook=False)
-                o_norm.data["sample"]["file_name"][0] = d_spacing_file_name
-                o_norm.export(data_type="sample", folder=output_folder)
+                full_d_output_file_name = Export._tiff_output_path(output_folder, d_spacing_file_name)
+                write_float32_tiff(o_get.d_array(), full_d_output_file_name)
                 logging.info(f"Export d_spacing: {full_d_output_file_name}")
 
             if strain_mapping_image:
                 strain_mapping_file_name = Export._make_image_base_name(
                     self.working_dir, parameters=ParametersToDisplay.strain_mapping
                 )
-                full_strain_output_file_name = os.path.join(output_folder, strain_mapping_file_name)
-                strain_mapping_array = o_get.strain_mapping()
-
-                o_norm = Normalization()
-                o_norm.load(data=strain_mapping_array, notebook=False)
-                o_norm.data["sample"]["file_name"][0] = strain_mapping_file_name
-                o_norm.export(data_type="sample", folder=output_folder)
+                full_strain_output_file_name = Export._tiff_output_path(output_folder, strain_mapping_file_name)
+                write_float32_tiff(o_get.strain_mapping(), full_strain_output_file_name)
                 logging.info(f"Export strain mapping: {full_strain_output_file_name}")
 
             if integrated_image:
                 integrated_image_file_name = Export._make_image_base_name(
                     self.working_dir, parameters=ParametersToDisplay.integrated_image
                 )
-                full_image_output_file_name = os.path.join(output_folder, integrated_image_file_name)
-                integrated_image = o_get.integrated_image()
-
-                o_norm = Normalization()
-                o_norm.load(data=integrated_image, notebook=False)
-                o_norm.data["sample"]["file_name"][0] = integrated_image_file_name
-                o_norm.export(data_type="sample", folder=output_folder)
-                logging.info(f"Export strain mapping: {full_image_output_file_name}")
+                full_image_output_file_name = Export._tiff_output_path(output_folder, integrated_image_file_name)
+                write_float32_tiff(o_get.integrated_image(), full_image_output_file_name)
+                logging.info(f"Export integrated image: {full_image_output_file_name}")
 
     def table(self, file_type=FileType.ascii, output_folder=None):
         if output_folder is None:

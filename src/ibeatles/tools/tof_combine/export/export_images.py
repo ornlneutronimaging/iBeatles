@@ -7,9 +7,9 @@ import logging
 import os
 import shutil
 
-from NeuNorm.normalization import Normalization
 from qtpy.QtWidgets import QFileDialog
 
+from ibeatles.core.io.tiff import write_float32_tiff
 from ibeatles.tools.tof_combine.utilities.get import Get
 from ibeatles.tools.utilities import TimeSpectraKeys
 from ibeatles.utilities.file_handler import FileHandler
@@ -55,10 +55,7 @@ class ExportImages:
         combine_arrays = self.parent.combine_data
         for _index, _array in enumerate(combine_arrays):
             short_file_name = f"image_{_index:04d}"
-            o_norm = Normalization()
-            o_norm.load(data=_array)
-            o_norm.data["sample"]["file_name"][0] = short_file_name
-            o_norm.export(folder=output_folder, data_type="sample", file_type="tiff")
+            write_float32_tiff(_array, os.path.join(output_folder, short_file_name + ".tiff"))
             self.parent.eventProgress.setValue(_index + 1)
 
         # export time spectra file

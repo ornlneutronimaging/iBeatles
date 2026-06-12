@@ -43,25 +43,11 @@ class AboutLauncher(QDialog):
             list_version.append(f"pandas: {pandas.__version__}")
 
         try:
-            import NeuNorm
+            import neunorm
         except ImportError:
-            list_version.append("NeuNorm: unknown")
+            list_version.append("neunorm: unknown")
         else:
-            list_version.append(f"NeuNorm: {NeuNorm.__version__}")
-
-        try:
-            import qtpy
-        except ImportError:
-            list_version.append("qtpy: unknown")
-        else:
-            list_version.append(f"qtpy: {qtpy.__version__}")
-
-        try:
-            import NeuNorm
-        except ImportError:
-            list_version.append("NeuNorm: unknown")
-        else:
-            list_version.append(f"NeuNorm: {NeuNorm.__version__}")
+            list_version.append(f"neunorm: {neunorm.__version__}")
 
         try:
             import qtpy
