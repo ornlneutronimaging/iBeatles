@@ -171,7 +171,7 @@ python -m ibeatles --no-gui <CONFIG>    # CLI via Python module
 1. **Qt Event Loop**: Be careful with blocking operations in GUI code
 2. **Large Data**: Consider memory usage when working with image arrays
 3. **Cross-platform**: Code should work on both Linux and macOS (see pyproject.toml platforms)
-4. **Dependencies**: Neutron-specific dependencies (neutronbraggedge, changepy, neunorm) come from the `neutronimaging` conda channel
+4. **Dependencies**: Neutron-specific dependencies resolve from PyPI for pip/pixi installs (neutronbraggedge, changepy, neunorm — see pyproject.toml pins); the conda recipe git-vendors BraggEdge@2.0.6 and changepy@bf53e3a at build time (pinned in #416)
 5. **Version Management**: Uses versioningit - don't manually edit version strings
 
 ## Documentation

@@ -147,14 +147,10 @@ sqlite = ">=3.53.2"   # CVE-2026-11822, CVE-2026-11824 (newest conda-forge build
 
 [tool.pixi.tasks]
 # phony
-clean = {depends-on = ["rm_pypi_build", "rm_docs", "rm_conda_build", "rm_test"]}
+clean = {depends-on = ["rm_pypi_build", "rm_conda_build", "rm_test"]}
 # unit test
 test = "pytest tests --cov-branch --cov=src/ibeatles --cov-report=term --cov-report=xml"
 rm_test = "rm -rf .coverage .pytest_cache coverage.xml"
-# documentation
-docs = "sphinx-build docs/source docs/build/html"
-rm_docs = "rm -rf docs/build"
-# serve-docs = "python -m http.server --directory docs/build/html"]
 # PYPI packaging
 build = "python -m build"
 rm_pypi_build = "rm -rf dist/ src/ibeatles.egg-info/"
@@ -190,10 +186,6 @@ versioningit = "*"
 pre-commit = "*"
 conda-tree = "*"
 ruff = "*"
-
-# [tool.pixi.feature.docs.dependencies]
-# sphinx = "*"
-# sphinx-rtd-theme = "*"
 
 [tool.pixi.feature.jupyter.dependencies]
 jupyterlab = ">=4.5.1,<5"
