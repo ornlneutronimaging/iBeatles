@@ -48,9 +48,13 @@ from ibeatles.utilities.status_message_config import (
 class Normalization:
     def __init__(self, parent=None):
         self.parent = parent
+        # specific failure reason surfaced in the status bar by
+        # run_and_export when a step returns None
+        self._failure_message = None
 
     def run_and_export(self):
         logger.info("Running and exporting normalization:")
+        self._failure_message = None
 
         # ask for output folder location
         sample_folder = self.parent.data_metadata["sample"]["folder"]
@@ -107,7 +111,7 @@ class Normalization:
             logger.info("Normalization failed!")
             show_status_message(
                 parent=self.parent,
-                message="Normalization Failed (check logbook)!",
+                message=self._failure_message or "Normalization Failed (check logbook)!",
                 status=StatusMessageStatus.error,
             )
             return False
@@ -276,6 +280,7 @@ class Normalization:
             list_roi_to_use = o_roi_handler.get_list_of_background_roi_to_use()
         except ValueError:
             logger.info(" Error raised when retrieving the background ROI!")
+            self._failure_message = "Normalization failed: check the background ROI table entries!"
             return None
 
         logger.info(f" Background list of ROI: {list_roi_to_use}")
@@ -297,6 +302,7 @@ class Normalization:
             # e.g. no OB and no background ROI — fail through the status
             # bar instead of letting the exception escape the Qt slot
             logger.info(f" Normalization error: {error}")
+            self._failure_message = f"Normalization failed: {error}"
             return None
 
         show_status_message(
