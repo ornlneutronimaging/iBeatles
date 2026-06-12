@@ -67,3 +67,14 @@ ignore:
       name: qt
   - package:
       name: gstreamer
+
+  # sqlite 3.53.2 is the newest conda-forge build today (2026-06-12); if
+  # these advisories are fixed only in a newer upstream sqlite, no packaged
+  # fix is installable yet (entries are inert if 3.53.2 already fixed them).
+  # Remove when conda-forge ships newer sqlite.
+  - vulnerability: CVE-2026-11822
+    package:
+      name: sqlite
+  - vulnerability: CVE-2026-11824
+    package:
+      name: sqlite

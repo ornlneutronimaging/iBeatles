@@ -136,13 +136,14 @@ loguru = "*"
 tqdm = "*"
 tomli = "*"
 pydantic = "*"
-sqlite = "*"
 pyqtgraph = "*"
 qt = "*"
 qtpy = "*"
 pyqt = "*"
 pandas = ">=2.3.3,<3"
 openssl = ">=3.6.3"   # CVE-2026-34182 (critical) + 8 high fixed in 3.6.3
+h11 = ">=0.16"        # GHSA-vqfr-h8mv-ghfj (critical, request smuggling) fixed in 0.16
+sqlite = ">=3.53.2"   # CVE-2026-11822, CVE-2026-11824 (newest conda-forge build)
 
 [tool.pixi.tasks]
 # phony
