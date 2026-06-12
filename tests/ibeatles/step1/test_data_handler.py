@@ -84,19 +84,3 @@ class TestDataHandler(TestCase):
         o_data = DataHandler(parent=self.mock_parent, data_type="sample")
         ext_returned = o_data.get_image_type(list_image_test1)
         self.assertEqual(ext_returned, ".tiff")
-
-
-class TestGetTimeSpectraFilename(TestCase):
-    def setUp(self):
-        self.mock_parent = MockParent()
-        _file_path = os.path.dirname(__file__)
-        self.data_path = os.path.abspath(os.path.join(_file_path, "../../data/test_data_with_time_spectra/"))
-        self.mock_parent.default_path["sample"] = self.data_path
-
-    # def test_time_spectra_file_name_correctly_retrieved(self):
-    #     """assert the time spectra file is correctly defined"""
-    #
-    #     o_time_spectra = GetTimeSpectraFilename(parent=self.mock_parent,
-    #                                             data_type='sample')
-    #     time_spectra = o_time_spectra.retrieve_file_name()
-    #     print(time_spectra)
