@@ -13,7 +13,6 @@ dependencies:
   - boa
   - build
   - conda-build
-  - conda-verify
   - python-build
   # test
   - pytest
