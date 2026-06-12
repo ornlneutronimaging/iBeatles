@@ -4,17 +4,15 @@ channels:
   - conda-forge
 dependencies:
   # base
-  - python>=3.10
+  - python>=3.12,<3.13
   - pip
   - versioningit
-  - ipython
   - pydantic
   - loguru
   # packaging
   - boa
   - build
   - conda-build
-  - conda-verify
   - python-build
   # test
   - pytest

@@ -21,8 +21,8 @@ build:
   string: py{{ python }}
   script:
     - {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
-    - {{ PYTHON }} -m pip install git+https://github.com/ornlneutronimaging/BraggEdge.git --no-deps --no-build-isolation -vvv
-    - {{ PYTHON }} -m pip install git+https://github.com/ruipgil/changepy.git --no-deps --no-build-isolation -vvv
+    - {{ PYTHON }} -m pip install git+https://github.com/ornlneutronimaging/BraggEdge.git@2.0.6 --no-deps --no-build-isolation -vvv
+    - {{ PYTHON }} -m pip install git+https://github.com/ruipgil/changepy.git@bf53e3a4af182b38b9c08fc56a0c6e68c2d33bda --no-deps --no-build-isolation -vvv
     - {{ PYTHON }} -m pip install git+https://github.com/ornlneutronimaging/NeuNorm.git@v1.6.12 --no-deps --no-build-isolation -vvv
 
 requirements:
@@ -49,7 +49,6 @@ requirements:
     - pyqt
     - loguru
     - h5py
-    - args
     - pillow
     - astropy
     - pyqtgraph
@@ -58,13 +57,12 @@ requirements:
     - tqdm
     - tomli
     - pydantic
-    - ipython
     # - neutronimaging::neunorm  # switch to pip install until we sorted out NeuNorm conda package version issue
 
 about:
   home: {{ url }}
   license: {{ license }}
-  license_family: GPL
+  license_family: MIT
   license_file: ../LICENSE
   summary: {{ description }}
 
