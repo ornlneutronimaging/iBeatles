@@ -4,6 +4,9 @@ on:
   push:
     branches: [next]
 
+permissions:
+  contents: read
+
 # cancel previous job if new commit is pushed
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,23 +16,23 @@ jobs:
   dev-conda-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: prefix-dev/setup-pixi@v0.8.3
+      - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11 # v0.9.6
         with:
-          pixi-version: v0.62.0
           manifest-path: pyproject.toml
+          environments: package
       - name: build conda package
         run: |
           echo "Build conda package"
-          pixi run build-conda
+          pixi run -e package build-conda
       - name: upload conda package to anaconda with dev label
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
           echo "Uploading dev conda package"
-          pixi run anaconda upload --force --label dev --user neutronimaging conda.recipe/noarch/ibeatles*.tar.bz2
+          pixi run -e package anaconda upload --force --label dev --user neutronimaging conda.recipe/noarch/ibeatles*.tar.bz2
       - name: cleanup old dev packages
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
@@ -58,7 +61,7 @@ jobs:
             echo "$FILES_TO_REMOVE"
             for FILE in $FILES_TO_REMOVE; do
               echo "Removing: $FILE"
-              pixi run anaconda remove --force "$FILE"
+              pixi run -e package anaconda remove --force "$FILE"
             done
           fi
 
@@ -83,7 +86,7 @@ jobs:
           token: ${{ secrets.GITLAB_DEPLOY_TOKEN }}
 
       - name: Annotate commit
-        uses: peter-evans/commit-comment@v4
+        uses: peter-evans/commit-comment@f6d60c65d05bb59f750fa51ad3de1d443ba0eb52 # v4
         with:
           body: |
             GitLab pipeline for ${{ steps.env_name.outputs.name }} has been submitted for this commit: ${{ steps.trigger.outputs.web_url }}

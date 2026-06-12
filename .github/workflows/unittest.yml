@@ -11,34 +11,62 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: read
+
+# cancel previous job if new commit is pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  ubuntu-latest:
-    runs-on: ubuntu-latest
+  tests:
+    name: Unit tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        # real per-version pixi environments (SPEC 0 window); the default
+        # env was previously held back by the packaging stack's caps
+        environment: [py312]
     steps:
-      - uses: actions/checkout@v4
-      - uses: prefix-dev/setup-pixi@v0.8.3
+      - uses: actions/checkout@v6
+      - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11 # v0.9.6
         with:
-          pixi-version: v0.62.0
           manifest-path: pyproject.toml
+          environments: ${{ matrix.environment }}
       - name: run unit tests
         run: |
           echo "running unit tests"
-          pixi run test
+          pixi run -e ${{ matrix.environment }} pytest tests --cov-branch --cov=src/ibeatles --cov-report=term --cov-report=xml
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
+        if: matrix.os == 'ubuntu-latest' && matrix.environment == 'py312'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: ornlneutronimaging/iBeatles
 
-  macos-latest:
-    runs-on: macos-latest
+  # grype scans the installed pixi env (pip + conda packages), gates only on
+  # fixable findings, and uploads SARIF to the Security tab (org decision
+  # 2026-06-10: grype, not pip-audit)
+  dependency-scan:
+    name: Scan dependencies with Grype
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write # required for upload-sarif
+      actions: read # upload-sarif on private repos
     steps:
-      - uses: actions/checkout@v4
-      - uses: prefix-dev/setup-pixi@v0.8.3
+      - uses: actions/checkout@v6
+      - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11 # v0.9.6
         with:
-          pixi-version: v0.62.0
           manifest-path: pyproject.toml
-      - name: run unit tests
-        run: |
-          echo "running unit tests"
-          pixi run test
+          environments: default
+      - name: Scan pixi environment with Grype
+        uses: neutrons/conda-actions/grype@bba9ca89d48d9ae846db9650cc63fde736340b3d # v2
+        with:
+          path: ${{ github.workspace }}/.pixi/envs/default
+          # only-fixed defaults to true in the v2 wrapper, so unfixable
+          # advisories never fail the build
+          fail-build: true

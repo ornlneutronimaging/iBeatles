@@ -1,0 +1,20 @@
+# Dependabot keeps the SHA-pinned third-party actions fresh (one grouped
+# weekly PR), per the org convention
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"

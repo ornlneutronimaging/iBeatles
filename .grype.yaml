@@ -1,0 +1,69 @@
+# Grype ignore rules for the CI dependency gate (see the org decision memo
+# audits/grype_vs_pip-audit_decision_memo_2026-06-10.md). Every entry needs a
+# reason and a revisit condition — this file is the reviewable record of
+# accepted risk.
+
+ignore:
+  # CPython 3.12.13 is the newest conda-forge 3.12 build today (2026-06-11);
+  # these advisories are fixed upstream but no packaged fix is installable in
+  # the 3.12 line. Remove entries as conda-forge ships newer patch releases
+  # (the monthly lockfile-update workflow will pick them up).
+  - vulnerability: CVE-2024-3220
+    package:
+      name: python
+  - vulnerability: CVE-2025-12781
+    package:
+      name: python
+  - vulnerability: CVE-2025-13462
+    package:
+      name: python
+  - vulnerability: CVE-2025-13837
+    package:
+      name: python
+  - vulnerability: CVE-2025-15366
+    package:
+      name: python
+  - vulnerability: CVE-2025-15367
+    package:
+      name: python
+  - vulnerability: CVE-2026-2297
+    package:
+      name: python
+  - vulnerability: CVE-2026-3276
+    package:
+      name: python
+  - vulnerability: CVE-2026-3446
+    package:
+      name: python
+  - vulnerability: CVE-2026-3479
+    package:
+      name: python
+  - vulnerability: CVE-2026-3644
+    package:
+      name: python
+  - vulnerability: CVE-2026-4224
+    package:
+      name: python
+  - vulnerability: CVE-2026-4519
+    package:
+      name: python
+  - vulnerability: CVE-2026-7210
+    package:
+      name: python
+  - vulnerability: CVE-2026-7774
+    package:
+      name: python
+  - vulnerability: CVE-2026-8328
+    package:
+      name: python
+
+  # Qt 5.15 open-source receives no upstream fixes (patches land in Qt 6
+  # only), so every qt 5.15.x advisory counts as "fixable" while no fix is
+  # installable for a PyQt5 application. The qt 5.15 build also pins
+  # gstreamer to the 1.26 line, so the gstreamer fixes shipped in 1.28 are
+  # equally uninstallable here. Revisit both when the GUI migrates to
+  # Qt 6 / PyQt6.
+  - package:
+      name: qt
+  - package:
+      name: gstreamer
