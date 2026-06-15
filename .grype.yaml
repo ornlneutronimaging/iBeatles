@@ -78,3 +78,17 @@ ignore:
   - vulnerability: CVE-2026-11824
     package:
       name: sqlite
+
+  # pyo3 0.28.3 is statically linked into the rpds-py wheel (transitive:
+  # jupyter/jsonschema -> referencing -> rpds-py). grype catalogs it from the
+  # compiled binary, but it is not fixable from this repo — it needs an upstream
+  # conda-forge rebuild of rpds-py against pyo3 >= 0.29.0 (the first patched
+  # version). Remove both once that lands (the lockfile-update workflow will pick
+  # it up). The same advisories were fixed directly in the group's own Rust repos
+  # (NEREIDS/bm3dornl).
+  - vulnerability: GHSA-36hh-v3qg-5jq4 # HIGH: pyo3 OOB read in nth/nth_back for PyList/PyTuple
+    package:
+      name: pyo3
+  - vulnerability: GHSA-chgr-c6px-7xpp # MEDIUM: pyo3 missing Sync bound on PyCFunction::new_closure
+    package:
+      name: pyo3
