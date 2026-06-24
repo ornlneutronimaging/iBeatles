@@ -47,6 +47,9 @@ ignore:
   - vulnerability: CVE-2026-4519
     package:
       name: python
+  - vulnerability: CVE-2026-6019 # MEDIUM: http.cookies.Morsel.js_output; fixed in 3.13.14+, no 3.12 backport
+    package:
+      name: python
   - vulnerability: CVE-2026-7210
     package:
       name: python
@@ -54,6 +57,9 @@ ignore:
     package:
       name: python
   - vulnerability: CVE-2026-8328
+    package:
+      name: python
+  - vulnerability: CVE-2026-9669 # HIGH: bz2.BZ2Decompressor OOB write on reuse; fixed in 3.13.14+, no 3.12 backport
     package:
       name: python
 
