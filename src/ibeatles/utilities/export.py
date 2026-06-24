@@ -138,7 +138,7 @@ def format_kropff_table(table: dict = None, d_dict: dict = None, strain_dict: di
         "#index, "
         + "bin x0, bin y0, bin x1, bin y1, "
         + "lambda hkl val, lambda hkl err, "
-        + "d value, d err, strain, strain error"
+        + "d value, d err, micro strain, micro strain error"
     ]
     for _row in table.keys():
         _entry = table[_row]

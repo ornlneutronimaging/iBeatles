@@ -4,6 +4,11 @@ class ParametersToDisplay:
     integrated_image = "integrated_image"
 
 
+# strain is dimensionless (delta_d / d0); the step6 GUI and its exports
+# report it as micro-strain (strain x 1e6)
+MICRO_STRAIN_FACTOR = 1.0e6
+
+
 INTERPOLATION_METHODS = [
     "none",
     "nearest",

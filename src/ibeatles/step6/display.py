@@ -132,6 +132,11 @@ class Display:
                 im, ax=self.parent.ui.matplotlib_plot.axes
             )
 
+        if parameter_to_display == ParametersToDisplay.strain_mapping:
+            self.parent.colorbar.set_label(r"micro strain ($\mu\varepsilon$)")
+        else:
+            self.parent.colorbar.set_label("")
+
         self.parent.ui.matplotlib_plot.draw()
 
         #

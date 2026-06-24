@@ -5,7 +5,7 @@ Get values from the GUI
 
 import numpy as np
 
-from ibeatles.step6 import ParametersToDisplay
+from ibeatles.step6 import MICRO_STRAIN_FACTOR, ParametersToDisplay
 
 
 class Get:
@@ -29,7 +29,7 @@ class Get:
     def strain_mapping(self):
         d_array = self.parent.d_array
         d0 = self.active_d0()
-        strain_mapping = (d_array - d0) / d0
+        strain_mapping = (d_array - d0) / d0 * MICRO_STRAIN_FACTOR
 
         if self.parent.min_max["strain_mapping"] is None:
             self.parent.min_max["strain_mapping"] = {
@@ -46,7 +46,7 @@ class Get:
     def compact_strain_mapping(self):
         d_array = self.parent.compact_d_array
         d0 = self.active_d0()
-        strain_mapping = (d_array - d0) / d0
+        strain_mapping = (d_array - d0) / d0 * MICRO_STRAIN_FACTOR
 
         if self.parent.min_max["strain_mapping"] is None:
             self.parent.min_max["strain_mapping"] = {
@@ -73,8 +73,8 @@ class Get:
             d0 = self.active_d0()
             d = d_dict[_row]["val"]
             d_error = d_dict[_row]["err"]
-            strain_mapping = (d - d0) / d0
-            strain_mapping_err = d_error + np.sqrt(d0)
+            strain_mapping = (d - d0) / d0 * MICRO_STRAIN_FACTOR
+            strain_mapping_err = (d_error + np.sqrt(d0)) * MICRO_STRAIN_FACTOR
 
             strain_mapping_dict[_row] = {
                 "val": strain_mapping,
