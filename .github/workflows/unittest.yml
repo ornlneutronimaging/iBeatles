@@ -31,7 +31,7 @@ jobs:
         # env was previously held back by the packaging stack's caps
         environment: [py312]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11 # v0.9.6
         with:
           manifest-path: pyproject.toml
@@ -58,7 +58,7 @@ jobs:
       security-events: write # required for upload-sarif
       actions: read # upload-sarif on private repos
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11 # v0.9.6
         with:
           manifest-path: pyproject.toml

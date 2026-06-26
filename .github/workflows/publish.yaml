@@ -22,13 +22,13 @@ concurrency:
 jobs:
   linux:
     runs-on: ubuntu-latest
+    # Build + PR smoke-test job. Runs on every trigger, including fork PRs,
+    # so it must NOT hold id-token:write — see the dedicated pypi-publish job
+    # below for trusted publishing (it only runs on tags).
     permissions:
-      # job-level permissions replace the workflow block; contents:read is
-      # what checkout needs, id-token:write is for PyPI trusted publishing
       contents: read
-      id-token: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: prefix-dev/setup-pixi@5185adfbffb4bd703da3010310260805d89ebb11 # v0.9.6
         with:
           manifest-path: pyproject.toml
@@ -64,9 +64,26 @@ jobs:
         with:
           name: pypi-package
           path: dist/*
+
+  # Trusted publishing to PyPI. Isolated in its own tag-only job so that
+  # id-token:write is never present while fork-PR-controlled build code runs.
+  pypi-publish:
+    name: Publish to PyPI (trusted publishing)
+    needs: linux
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Download PyPI artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: pypi-package
+          path: dist
       - name: publish PyPI package
-        if: startsWith(github.ref, 'refs/tags/v')
         uses: pypa/gh-action-pypi-publish@cef221092ed1bacb1cc03d23a2d87d1d172e277b # v1.14.0
+
   # Create GitHub Release with auto-generated release notes
   github-release:
     name: Create GitHub Release
@@ -76,7 +93,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Download conda artifact
         uses: actions/download-artifact@v8
@@ -98,7 +115,7 @@ jobs:
           ls -la dist/pypi/
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3.0.1
         with:
           files: |
             dist/conda/*
