@@ -8,11 +8,10 @@ import logging
 import os
 from pathlib import Path
 
-import inflect
 import numpy as np
-from NeuNorm.normalization import Normalization
 from qtpy.QtWidgets import QFileDialog
 
+from ibeatles.core.io.tiff import write_float32_tiff
 from ibeatles.session import SessionKeys, SessionSubKeys
 from ibeatles.tools.tof_bin.statistics import Statistics
 from ibeatles.tools.utilities import TimeSpectraKeys
@@ -98,10 +97,8 @@ class ExportImages:
             _data_dict = o_statistics.extract_data_for_this_bin(list_runs=_bin)
             full_image = _data_dict["full_image"]
             counts_array.append(int(np.sum(full_image)))
-            o_norm = Normalization()
-            o_norm.load(data=full_image)
-            o_norm.data["sample"]["file_name"][0] = os.path.basename(output_file_name)
-            o_norm.export(folder=_folder, data_type="sample", file_type="tiff")
+            base_name = os.path.splitext(os.path.basename(output_file_name))[0]
+            write_float32_tiff(full_image, os.path.join(_folder, base_name + ".tiff"))
 
             self.parent.eventProgress.setValue(_index + 1)
 
@@ -119,8 +116,8 @@ class ExportImages:
         )
 
         self.parent.eventProgress.setVisible(False)
-        p = inflect.engine()
-        self.logger.info(f"Done exporting {number_of_file_created} " + p.plural("file", number_of_file_created) + "!")
+        plural = "file" if number_of_file_created == 1 else "files"
+        self.logger.info(f"Done exporting {number_of_file_created} {plural}!")
         show_status_message(
             parent=self.parent,
             message=f"ExportImages to folder {_folder} ... Done!",

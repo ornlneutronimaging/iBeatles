@@ -22,8 +22,9 @@ dependencies:
   # compute
   - astropy
   - lmfit
-  # NeuNorm 2.0 (on the neutronimaging channel) is a breaking rewrite — see #412
-  - neunorm>=1.6.12,<2
+  # NeuNorm 2.0 port landed with #412 — scipp comes with it
+  - neunorm>=2.0.0,<3
+  - scipp
   # storage
   - h5py
   - sqlite

@@ -9,11 +9,11 @@ import os
 import warnings
 
 import numpy as np
-from NeuNorm.normalization import Normalization
 from qtpy.QtWidgets import QApplication, QDialog, QFileDialog
 
 from ibeatles import DataType, load_ui
 from ibeatles.core.detector import compute_counts_with_uncertainty
+from ibeatles.core.io.tiff import write_float32_tiff
 from ibeatles.session import SessionSubKeys
 from ibeatles.tools.tof_bin.event_handler import EventHandler as TofBinEventHandler
 from ibeatles.tools.tof_bin.utilities.get import Get
@@ -116,10 +116,8 @@ class TofBinExportLauncher(QDialog):
 
             # full image export
             counts_array.append(int(np.sum(_image)))
-            o_norm = Normalization()
-            o_norm.load(data=_image)
-            o_norm.data["sample"]["file_name"][0] = os.path.basename(output_file_name)
-            o_norm.export(folder=output_folder, data_type="sample", file_type="tiff")
+            base_name = os.path.splitext(os.path.basename(output_file_name))[0]
+            write_float32_tiff(_image, os.path.join(output_folder, base_name + ".tiff"))
             logging.info(f" -> exported {output_file_name}")
 
             file_info_dict[short_file_name] = {
