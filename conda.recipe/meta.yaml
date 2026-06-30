@@ -57,9 +57,11 @@ requirements:
     - tomli
     - pydantic
     - scipp
-    # 2.0 publishes a clean conda package to the neutronimaging channel,
-    # so the pip-vendoring workaround used for 1.x is gone (#412)
-    - neunorm >=2.0.0,<3
+    # 2.0+ publishes a clean conda package to the neutronimaging channel,
+    # so the pip-vendoring workaround used for 1.x is gone (#412). 2.2.0
+    # adds the background_roi flux proxy (NeuNorm #159); iBeatles keeps its
+    # local pooled multi-ROI path for now (see normalization.py note).
+    - neunorm >=2.2.0,<3
 
 about:
   home: {{ url }}

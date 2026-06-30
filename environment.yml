@@ -23,7 +23,7 @@ dependencies:
   - astropy
   - lmfit
   # NeuNorm 2.0 port landed with #412 — scipp comes with it
-  - neunorm>=2.0.0,<3
+  - neunorm>=2.2.0,<3
   - scipp
   # storage
   - h5py

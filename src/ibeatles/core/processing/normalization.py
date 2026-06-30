@@ -20,6 +20,19 @@ pinned by tests/unit/ibeatles/core/processing/test_normalization_contract.py:
 No variances are attached to the DataArrays: iBeatles stacks may be
 pre-smoothed (moving average) or contain negative pixels, so Poisson
 (counts == variance) statistics would be wrong.
+
+NeuNorm 2.2.0 ``background_roi`` evaluation (NeuNorm #159): 2.2.0 added a
+``background_roi`` flux proxy to ``normalize_transmission`` that computes
+the same ``T = (S / mean(S[B])) / (O / mean(O[B]))`` ratio applied here.
+It is deliberately NOT adopted: ``background_roi`` takes a SINGLE,
+EXCLUSIVE-extent ROI and requires an open beam, whereas iBeatles pools
+over MULTIPLE background ROIs with INCLUSIVE extents (``_pooled_roi_means``)
+and also normalizes by ROI when no OB is present. The local path is the
+authoritative superset and is pinned bit-for-bit by
+tests/unit/ibeatles/core/processing/test_normalization_contract.py. Revisit
+a full migration once NeuNorm gains pooled multi-ROI + an inclusive-extent
+option (NeuNorm enhancement #172). The pin is held at ``neunorm>=2.2.0,<3``
+so the API is available for that future work.
 """
 
 import logging
