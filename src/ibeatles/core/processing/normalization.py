@@ -12,7 +12,7 @@ tests/unit/ibeatles/core/processing/test_normalization_contract.py:
   covers (w+1) x (h+1) pixels. As of NeuNorm 2.2.1 this is native:
   ``background_roi=[ROI(..., inclusive=True), ...]`` (pooled) and
   ``apply_background_roi`` (sample-only), so no local re-implementation
-  remains (NeuNorm #159/#172).
+  remains (ornlneutronimaging/NeuNorm#159, ornlneutronimaging/NeuNorm#172).
 - per-frame 1:1 OB pairing when stack counts match, nanmedian(OB)
   fallback when they don't
 - zero-OB pixels (NaN/inf after division) zeroed in the output; the
