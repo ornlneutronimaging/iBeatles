@@ -62,6 +62,24 @@ ignore:
   - vulnerability: CVE-2026-9669 # HIGH: bz2.BZ2Decompressor OOB write on reuse; fixed in 3.13.14+, no 3.12 backport
     package:
       name: python
+  # 2026-07-02 grype-DB batch: all fixed in 3.13.14+ / 3.14.5rc1+ / 3.15
+  # betas only; CPython 3.12.13 is still the newest conda-forge 3.12 build,
+  # so no packaged fix is installable in the 3.12 line.
+  - vulnerability: CVE-2026-1502 # medium
+    package:
+      name: python
+  - vulnerability: CVE-2026-3298 # high
+    package:
+      name: python
+  - vulnerability: CVE-2026-4786 # high
+    package:
+      name: python
+  - vulnerability: CVE-2026-6100 # high
+    package:
+      name: python
+  - vulnerability: CVE-2026-12003 # medium; fixed in 3.15.0b3 only
+    package:
+      name: python
 
   # Qt 5.15 open-source receives no upstream fixes (patches land in Qt 6
   # only), so every qt 5.15.x advisory counts as "fixable" while no fix is
