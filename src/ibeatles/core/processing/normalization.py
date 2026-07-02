@@ -3,13 +3,16 @@
 
 NeuNorm 2.0 port (route (a), issue #412): the transmission division runs
 through ``neunorm.processing.normalizer.normalize_transmission`` on scipp
-DataArrays. The 1.x behaviors that 2.0 dropped are bridged locally and
-pinned by tests/unit/ibeatles/core/processing/test_normalization_contract.py:
+DataArrays. The 1.x behaviors that 2.0 dropped are pinned by
+tests/unit/ibeatles/core/processing/test_normalization_contract.py:
 
 - in-memory stacks (2.0 loaders are path-based), float32 working dtype
 - pooled multi-ROI background ("air") correction in the 1.x
   ratio-of-means form, with INCLUSIVE extents — ROI (x0, y0, w, h)
-  covers (w+1) x (h+1) pixels
+  covers (w+1) x (h+1) pixels. As of NeuNorm 2.2.1 this is native:
+  ``background_roi=[ROI(..., inclusive=True), ...]`` (pooled) and
+  ``apply_background_roi`` (sample-only), so no local re-implementation
+  remains (NeuNorm #159/#172).
 - per-frame 1:1 OB pairing when stack counts match, nanmedian(OB)
   fallback when they don't
 - zero-OB pixels (NaN/inf after division) zeroed in the output; the
@@ -29,7 +32,8 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import scipp as sc
-from neunorm.processing.normalizer import normalize_transmission
+from neunorm.data_models.roi import ROI
+from neunorm.processing.normalizer import apply_background_roi, normalize_transmission
 
 from ibeatles.core.config import IBeatlesUserConfig
 from ibeatles.core.io.tiff import write_float32_tiff
@@ -148,13 +152,17 @@ def normalize_stacks(
     sample_stack = _as_float32_stack(sample_stack)
     rois = [tuple(int(value) for value in roi) for roi in (background_rois or [])]
     _validate_rois(rois, frame_shape=sample_stack.shape[1:])
+    # NeuNorm pools a sequence of ROIs as sum(counts)/sum(pixels) per frame — the 1.x
+    # ratio-of-means form — and inclusive=True keeps the 1.x (w+1) x (h+1) extents.
+    background_roi = [ROI(x0=x0, y0=y0, width=width, height=height, inclusive=True) for x0, y0, width, height in rois]
 
     sample = _make_data_array(sample_stack)
 
     if ob_stack is None:
-        if not rois:
+        if not background_roi:
             raise ValueError("You need to provide at least 1 background ROI to normalize without open beam data!")
-        corrected = sample / _pooled_roi_means(sample, rois)
+        # strict=False: 1.x lets a zero-count ROI propagate inf here (pinned by tests)
+        corrected = apply_background_roi(sample, background_roi, strict=False)
         # 1.x does not zero NaN/inf in the sample-only path
         return corrected.values.astype(np.float32)
 
@@ -163,16 +171,22 @@ def normalize_stacks(
         raise ValueError("Sample and open beam frames do not have the same shape!")
 
     ob = _make_data_array(ob_stack)
-    if rois:
-        sample = sample / _pooled_roi_means(sample, rois)
-        ob = ob / _pooled_roi_means(ob, rois)
 
     if ob_stack.shape[0] != sample_stack.shape[0]:
-        # 1.x fallback: collapse the (ROI-corrected) OB stack to its
-        # per-pixel nanmedian and divide every sample frame by it
+        # 1.x fallback: flux-flatten each stack by its pooled ROI mean, then collapse
+        # the (ROI-corrected) OB to its per-pixel nanmedian and divide every sample
+        # frame by it
+        if background_roi:
+            sample = apply_background_roi(sample, background_roi, strict=False)
+            ob = apply_background_roi(ob, background_roi, strict=False)
         ob = _collapse_to_nanmedian(ob)
-
-    transmission = normalize_transmission(sample, ob)
+        transmission = normalize_transmission(sample, ob)
+    else:
+        # 1:1 pairing: NeuNorm applies the pooled flux proxy on both sides natively,
+        # T = (S / pool(S[B])) / (O / pool(O[B]))
+        transmission = normalize_transmission(
+            sample, ob, background_roi=background_roi or None, background_roi_strict=False
+        )
 
     # 1.x zeroes the NaN/inf that zero-OB pixels produce
     normalized = np.nan_to_num(transmission.values, nan=0.0, posinf=0.0, neginf=0.0)
@@ -216,22 +230,6 @@ def _make_data_array(stack: np.ndarray) -> sc.DataArray:
             "x": sc.arange("x", n_x, unit=None),
         },
     )
-
-
-def _pooled_roi_means(images: sc.DataArray, rois: Sequence[BackgroundROI]) -> sc.Variable:
-    """Per-frame pooled background mean, in the 1.x form.
-
-    Total counts over ALL ROIs divided by total ROI pixels, per frame,
-    with inclusive extents (hence the +1 on both slice stops).
-    """
-    total_counts = None
-    total_pixels = 0
-    for x0, y0, width, height in rois:
-        region = images["y", y0 : y0 + height + 1]["x", x0 : x0 + width + 1]
-        roi_counts = sc.sum(region.data, dim=["y", "x"])
-        total_counts = roi_counts if total_counts is None else total_counts + roi_counts
-        total_pixels += (height + 1) * (width + 1)
-    return total_counts / total_pixels
 
 
 def _collapse_to_nanmedian(images: sc.DataArray) -> sc.DataArray:

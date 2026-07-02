@@ -444,10 +444,10 @@ environments:
       - pypi: ./
       - pypi: https://files.pythonhosted.org/packages/08/f6/af32e23e563971ffb0fb86be52bc5be5c2c118858ffc119bf6a9039b173d/lxml-6.1.1-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/9f/47/72fd8b2e60a957c9dc1c9a6171a9b016a45120e7f258851f16b940c731a5/scitiff-26.1.0-py3-none-any.whl
@@ -834,10 +834,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: ./
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6a/6e/c4add832b6fc1e887125b96f880d7b9b70aae5248718e046b1704bcac4b9/lxml-6.1.1-cp312-cp312-macosx_10_13_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
@@ -1257,8 +1257,8 @@ environments:
       - pypi: ./
       - pypi: https://files.pythonhosted.org/packages/08/f6/af32e23e563971ffb0fb86be52bc5be5c2c118858ffc119bf6a9039b173d/lxml-6.1.1-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/9f/47/72fd8b2e60a957c9dc1c9a6171a9b016a45120e7f258851f16b940c731a5/scitiff-26.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
@@ -1626,8 +1626,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: ./
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6a/6e/c4add832b6fc1e887125b96f880d7b9b70aae5248718e046b1704bcac4b9/lxml-6.1.1-cp312-cp312-macosx_10_13_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/9f/47/72fd8b2e60a957c9dc1c9a6171a9b016a45120e7f258851f16b940c731a5/scitiff-26.1.0-py3-none-any.whl
@@ -2087,8 +2087,8 @@ environments:
       - pypi: ./
       - pypi: https://files.pythonhosted.org/packages/08/f6/af32e23e563971ffb0fb86be52bc5be5c2c118858ffc119bf6a9039b173d/lxml-6.1.1-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/9f/47/72fd8b2e60a957c9dc1c9a6171a9b016a45120e7f258851f16b940c731a5/scitiff-26.1.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
@@ -2459,10 +2459,10 @@ environments:
       - pypi: ./
       - pypi: https://files.pythonhosted.org/packages/08/f6/af32e23e563971ffb0fb86be52bc5be5c2c118858ffc119bf6a9039b173d/lxml-6.1.1-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/9f/47/72fd8b2e60a957c9dc1c9a6171a9b016a45120e7f258851f16b940c731a5/scitiff-26.1.0-py3-none-any.whl
@@ -2784,10 +2784,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-hbf9d68e_6.conda
       - pypi: ./
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6a/6e/c4add832b6fc1e887125b96f880d7b9b70aae5248718e046b1704bcac4b9/lxml-6.1.1-cp312-cp312-macosx_10_13_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
@@ -3354,7 +3354,7 @@ packages:
   - python_abi 3.12.* *_cp312
   license: BSD-3-Clause AND MIT AND EPL-2.0
   purls:
-  - pkg:pypi/backports-zstd?source=compressed-mapping
+  - pkg:pypi/backports-zstd?source=hash-mapping
   size: 239928
   timestamp: 1778594049826
 - conda: https://conda.anaconda.org/conda-forge/linux-64/bottleneck-1.6.0-np2py312hfb8c2c5_3.conda
@@ -8849,7 +8849,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/ipython?source=compressed-mapping
+  - pkg:pypi/ipython?source=hash-mapping
   size: 652893
   timestamp: 1780654403616
 - conda: https://conda.anaconda.org/conda-forge/noarch/ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0.conda
@@ -14291,7 +14291,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/scipy?source=compressed-mapping
+  - pkg:pypi/scipy?source=hash-mapping
   size: 13936510
   timestamp: 1779874824714
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/simdjson-4.6.4-h4ddebb9_0.conda
@@ -14598,7 +14598,7 @@ packages:
   - scipp
   - neutronbraggedge>=2.0.6,<3
   - changepy>=0.4.0,<0.5
-  - neunorm>=2.0.0,<3
+  - neunorm>=2.2.2,<3
   requires_python: '>=3.12,<3.13'
 - pypi: https://files.pythonhosted.org/packages/08/f6/af32e23e563971ffb0fb86be52bc5be5c2c118858ffc119bf6a9039b173d/lxml-6.1.1-cp312-cp312-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
   name: lxml
@@ -14629,30 +14629,6 @@ packages:
   - pytest-enabler>=2.2 ; extra == 'enabler'
   - pytest-mypy ; extra == 'type'
   requires_python: '>=3.9'
-- pypi: https://files.pythonhosted.org/packages/29/47/23b3ea13967dd512f3c0da27257df5e18e9ecdfeae4d14e1f3900ea2ce20/neunorm-2.0.0-py3-none-any.whl
-  name: neunorm
-  version: 2.0.0
-  sha256: 30e4c5c2549067e92815c6ce456974ea8911c35fe39f2db60d528154b3919bf0
-  requires_dist:
-  - astropy
-  - h5py>=3.0
-  - loguru>=0.7
-  - numpy>=2.0,<3
-  - pillow
-  - pydantic>=2.0
-  - scipp>=25.8.0
-  - scipy>=1.11
-  - scitiff>=26.1
-  - tqdm
-  - myst-parser ; extra == 'docs'
-  - nbsphinx ; extra == 'docs'
-  - sphinx ; extra == 'docs'
-  - sphinx-rtd-theme ; extra == 'docs'
-  - versioningit ; extra == 'docs'
-  - numba>=0.60 ; extra == 'performance'
-  - matplotlib ; extra == 'viz'
-  - plopp>=25.10.0 ; extra == 'viz'
-  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl
   name: referencing
   version: 0.37.0
@@ -14680,6 +14656,30 @@ packages:
   - lxml
   - html5lib
   - beautifulsoup4
+- pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
+  name: neunorm
+  version: 2.2.2
+  sha256: e319e65216a912a1262d59dc09bccac3d71b0cd246ce57494d6e7d0e2649f7c8
+  requires_dist:
+  - astropy
+  - h5py>=3.0
+  - loguru>=0.7
+  - numpy>=2.0,<3
+  - pillow
+  - pydantic>=2.0
+  - scipp>=25.8.0
+  - scipy>=1.11
+  - scitiff>=26.1
+  - tqdm
+  - myst-parser ; extra == 'docs'
+  - nbsphinx ; extra == 'docs'
+  - sphinx ; extra == 'docs'
+  - sphinx-rtd-theme ; extra == 'docs'
+  - versioningit ; extra == 'docs'
+  - numba>=0.60 ; extra == 'performance'
+  - matplotlib ; extra == 'viz'
+  - plopp>=25.10.0 ; extra == 'viz'
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl
   name: jsonschema
   version: 4.26.0
