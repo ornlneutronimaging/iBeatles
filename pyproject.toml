@@ -47,7 +47,7 @@ dependencies = [
   # These are the dependencies from our neutron imaging team
   "neutronbraggedge>=2.0.6,<3",
   "changepy>=0.4.0,<0.5",
-  "neunorm>=2.0.0,<3",
+  "neunorm>=2.2.2,<3",
 ]
 
 [project.urls]
