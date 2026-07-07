@@ -62,22 +62,22 @@ ignore:
   - vulnerability: CVE-2026-9669 # HIGH: bz2.BZ2Decompressor OOB write on reuse; fixed in 3.13.14+, no 3.12 backport
     package:
       name: python
-  # 2026-07-02 grype-DB batch: all fixed in 3.13.14+ / 3.14.5rc1+ / 3.15
-  # betas only; CPython 3.12.13 is still the newest conda-forge 3.12 build,
-  # so no packaged fix is installable in the 3.12 line.
-  - vulnerability: CVE-2026-1502 # medium
+  # Added 2026-07: the Grype vuln DB (v6.1.7) began flagging these CPython 3.12
+  # advisories; all are fixed only in 3.13+/prerelease with no installable 3.12
+  # backport. Remove as conda-forge ships newer 3.12 patch builds.
+  - vulnerability: CVE-2026-1502
     package:
       name: python
-  - vulnerability: CVE-2026-3298 # high
+  - vulnerability: CVE-2026-3298
     package:
       name: python
-  - vulnerability: CVE-2026-4786 # high
+  - vulnerability: CVE-2026-4786
     package:
       name: python
-  - vulnerability: CVE-2026-6100 # high
+  - vulnerability: CVE-2026-6100
     package:
       name: python
-  - vulnerability: CVE-2026-12003 # medium; fixed in 3.15.0b3 only
+  - vulnerability: CVE-2026-12003
     package:
       name: python
 
