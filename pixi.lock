@@ -454,7 +454,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/6b/eb86e899a58ac6357891aef7d548451dc46f1ea53e6a51f97a194d14df7d/scitiff-26.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/bb/4d/e5aa499ce4e01134fd2182b0348d661a09601d6711f945f9641c71684bfc/neunorm-2.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_python_abi3_support-1.0-hd8ed1ab_2.conda
@@ -850,7 +849,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/80/6b/eb86e899a58ac6357891aef7d548451dc46f1ea53e6a51f97a194d14df7d/scitiff-26.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a4/73/319dfa745dd668efe89309141ded489126461fcecd2b8f3a3cda185129b6/rpds_py-2026.6.3-cp312-cp312-macosx_11_0_arm64.whl
-      - pypi: https://files.pythonhosted.org/packages/bb/4d/e5aa499ce4e01134fd2182b0348d661a09601d6711f945f9641c71684bfc/neunorm-2.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
   jupyter:
     channels:
@@ -1270,6 +1268,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/80/6b/eb86e899a58ac6357891aef7d548451dc46f1ea53e6a51f97a194d14df7d/scitiff-26.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
       osx-arm64:
@@ -1646,7 +1645,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/6a/6e/c4add832b6fc1e887125b96f880d7b9b70aae5248718e046b1704bcac4b9/lxml-6.1.1-cp312-cp312-macosx_10_13_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/80/6b/eb86e899a58ac6357891aef7d548451dc46f1ea53e6a51f97a194d14df7d/scitiff-26.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/bb/4d/e5aa499ce4e01134fd2182b0348d661a09601d6711f945f9641c71684bfc/neunorm-2.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
   package:
     channels:
@@ -2107,6 +2105,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/09/fe/f61e7129e9e689d9e40bbf8a36fb90f04eceb477f4617c02c6a18463e81f/configparser-7.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/48/1b/86cddfc25214090fa0c07f0c1716bcd201c40dbfaf79bc9a184a238206d9/neutronbraggedge-2.0.6-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/61/d4/d418e9bb010c4cf0df3a90489fbbea2e722763fa343028745dfe0df9cdbe/neunorm-2.2.2-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/80/6b/eb86e899a58ac6357891aef7d548451dc46f1ea53e6a51f97a194d14df7d/scitiff-26.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
   py312:
@@ -2486,7 +2485,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/80/6b/eb86e899a58ac6357891aef7d548451dc46f1ea53e6a51f97a194d14df7d/scitiff-26.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/bb/4d/e5aa499ce4e01134fd2182b0348d661a09601d6711f945f9641c71684bfc/neunorm-2.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_python_abi3_support-1.0-hd8ed1ab_2.conda
@@ -2817,7 +2815,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/80/6b/eb86e899a58ac6357891aef7d548451dc46f1ea53e6a51f97a194d14df7d/scitiff-26.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/59/208f71d70ddc6184f79b8c6d87d46eb7d7b12c19186a817dec9c9c3f3693/tifffile-2026.6.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a4/73/319dfa745dd668efe89309141ded489126461fcecd2b8f3a3cda185129b6/rpds_py-2026.6.3-cp312-cp312-macosx_11_0_arm64.whl
-      - pypi: https://files.pythonhosted.org/packages/bb/4d/e5aa499ce4e01134fd2182b0348d661a09601d6711f945f9641c71684bfc/neunorm-2.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
 packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -3241,7 +3238,7 @@ packages:
   - zstd >=1.5.7,<1.6.0a0
   license: BSD-3-Clause AND MIT AND EPL-2.0
   purls:
-  - pkg:pypi/backports-zstd?source=hash-mapping
+  - pkg:pypi/backports-zstd?source=compressed-mapping
   size: 239928
   timestamp: 1778594049826
 - conda: https://conda.anaconda.org/conda-forge/linux-64/bottleneck-1.6.0-np2py312hfb8c2c5_3.conda
@@ -3716,7 +3713,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/fonttools?source=compressed-mapping
+  - pkg:pypi/fonttools?source=hash-mapping
   run_exports: {}
   size: 3007892
   timestamp: 1778770568019
@@ -8533,7 +8530,7 @@ packages:
   license: LGPL-3.0-only
   license_family: LGPL
   purls:
-  - pkg:pypi/docutils?source=compressed-mapping
+  - pkg:pypi/docutils?source=hash-mapping
   run_exports: {}
   size: 459540
   timestamp: 1779967837277
@@ -8965,7 +8962,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/ipykernel?source=hash-mapping
+  - pkg:pypi/ipykernel?source=compressed-mapping
   run_exports: {}
   size: 137725
   timestamp: 1781101860049
@@ -9037,33 +9034,9 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/ipython?source=hash-mapping
+  - pkg:pypi/ipython?source=compressed-mapping
   size: 651516
   timestamp: 1780068620454
-- conda: https://conda.anaconda.org/conda-forge/noarch/ipython-9.14.1-pyh53cf698_0.conda
-  sha256: a3f76e06c31bcf1bda0f633d5c9f1c834286b4f6decc6626067a6cffee283318
-  md5: fbd58549b374103c1a80577f09a328ef
-  depends:
-  - __unix
-  - decorator >=5.1.0
-  - ipython_pygments_lexers >=1.0.0
-  - jedi >=0.18.2
-  - matplotlib-inline >=0.1.6
-  - prompt-toolkit >=3.0.41,<3.1.0
-  - psutil >=7
-  - pygments >=2.14.0
-  - python >=3.11
-  - stack_data >=0.6.0
-  - traitlets >=5.13.0
-  - typing_extensions >=4.6
-  - pexpect >4.6
-  - python
-  license: BSD-3-Clause
-  license_family: BSD
-  purls:
-  - pkg:pypi/ipython?source=hash-mapping
-  size: 652893
-  timestamp: 1780654403616
 - conda: https://conda.anaconda.org/conda-forge/noarch/ipython_pygments_lexers-1.1.1-pyhd8ed1ab_0.conda
   sha256: 894682a42a7d659ae12878dbcb274516a7031bbea9104e92f8e88c1f2765a104
   md5: bd80ba060603cc228d9d81c257093119
@@ -9651,7 +9624,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/matplotlib-inline?source=compressed-mapping
+  - pkg:pypi/matplotlib-inline?source=hash-mapping
   run_exports: {}
   size: 15725
   timestamp: 1778264403247
@@ -10681,7 +10654,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/s3fs?source=compressed-mapping
+  - pkg:pypi/s3fs?source=hash-mapping
   run_exports: {}
   size: 36232
   timestamp: 1781621673975
@@ -10923,7 +10896,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/tomlkit?source=hash-mapping
+  - pkg:pypi/tomlkit?source=compressed-mapping
   run_exports: {}
   size: 41169
   timestamp: 1778423744478
@@ -11224,7 +11197,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/virtualenv?source=hash-mapping
+  - pkg:pypi/virtualenv?source=compressed-mapping
   run_exports: {}
   size: 3111990
   timestamp: 1781651033074
@@ -11709,7 +11682,7 @@ packages:
   - python_abi 3.12.* *_cp312
   license: BSD-3-Clause AND MIT AND EPL-2.0
   purls:
-  - pkg:pypi/backports-zstd?source=hash-mapping
+  - pkg:pypi/backports-zstd?source=compressed-mapping
   run_exports: {}
   size: 240925
   timestamp: 1781450816363
@@ -11982,7 +11955,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/debugpy?source=hash-mapping
+  - pkg:pypi/debugpy?source=compressed-mapping
   run_exports: {}
   size: 2742535
   timestamp: 1780390215643
@@ -12033,7 +12006,7 @@ packages:
   license: MIT
   license_family: MIT
   purls:
-  - pkg:pypi/fonttools?source=hash-mapping
+  - pkg:pypi/fonttools?source=compressed-mapping
   run_exports: {}
   size: 2904377
   timestamp: 1778771054844
@@ -13916,7 +13889,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/numpy?source=compressed-mapping
+  - pkg:pypi/numpy?source=hash-mapping
   run_exports:
     weak:
     - numpy >=1.25,<3
@@ -14413,7 +14386,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/pyzmq?source=hash-mapping
+  - pkg:pypi/pyzmq?source=compressed-mapping
   run_exports: {}
   size: 191432
   timestamp: 1779484184540
@@ -14659,7 +14632,7 @@ packages:
   license: BSD-3-Clause
   license_family: BSD
   purls:
-  - pkg:pypi/scipy?source=hash-mapping
+  - pkg:pypi/scipy?source=compressed-mapping
   size: 13936510
   timestamp: 1779874824714
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/simdjson-4.6.4-h4ddebb9_0.conda
@@ -15204,30 +15177,6 @@ packages:
   name: rpds-py
   version: 2026.6.3
   sha256: 538949e262e46caa31ac01bdb3c1e8f642622922cacbabbae6a8445d9dc33eaf
-  requires_python: '>=3.11'
-- pypi: https://files.pythonhosted.org/packages/bb/4d/e5aa499ce4e01134fd2182b0348d661a09601d6711f945f9641c71684bfc/neunorm-2.2.0-py3-none-any.whl
-  name: neunorm
-  version: 2.2.0
-  sha256: 013bd773efdcb5ca9bbd21444eb48911929f7a3ada2d7dd569b0df48d4f29f3a
-  requires_dist:
-  - astropy
-  - h5py>=3.0
-  - loguru>=0.7
-  - numpy>=2.0,<3
-  - pillow
-  - pydantic>=2.0
-  - scipp>=25.8.0
-  - scipy>=1.11
-  - scitiff>=26.1
-  - tqdm
-  - myst-parser ; extra == 'docs'
-  - nbsphinx ; extra == 'docs'
-  - sphinx ; extra == 'docs'
-  - sphinx-rtd-theme ; extra == 'docs'
-  - versioningit ; extra == 'docs'
-  - numba>=0.60 ; extra == 'performance'
-  - matplotlib ; extra == 'viz'
-  - plopp>=25.10.0 ; extra == 'viz'
   requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/cb/a7/dede35a22f31785ef06be5384c3597bce3be086f03ce263c2d08f2c5d5cd/changepy-0.4.0-py3-none-any.whl
   name: changepy
