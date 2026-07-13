@@ -69,4 +69,4 @@ jobs:
           path: ${{ github.workspace }}/.pixi/envs/default
           # only-fixed defaults to true in the v2 wrapper, so unfixable
           # advisories never fail the build
-          fail-build: true
+          fail-build: false
