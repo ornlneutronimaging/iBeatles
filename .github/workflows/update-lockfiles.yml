@@ -13,6 +13,17 @@ jobs:
   pixi-update:
     runs-on: ubuntu-latest
     steps:
+      # Mint an App installation token so the PR is created by the App identity,
+      # not GITHUB_TOKEN. PRs opened with GITHUB_TOKEN cannot trigger other
+      # workflows (GitHub recursion guard), which left the lockfile PR CI held
+      # on "Approve and run"; an App token opens the PR as a first-class PR.
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.LOCKFILE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.LOCKFILE_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Set up pixi
         uses: prefix-dev/setup-pixi@a09b6247153796b190642a2b53fac4241043cf6f # v0.10.0
@@ -25,7 +36,7 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           commit-message: Update pixi lockfile
           title: Update pixi lockfile
           body-path: diff.md
