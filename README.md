@@ -4,6 +4,10 @@
 
 GUI to automatically fit Bragg Edges, calculate and display strain mapping factors.
 
+For a stage-by-stage description of what the application does (inputs,
+controls, processing, outputs and file formats), see
+[docs/WORKFLOW.md](docs/WORKFLOW.md).
+
 ## Installation
 
 ### From PyPI (recommended)
